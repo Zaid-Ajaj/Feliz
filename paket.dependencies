@@ -1,0 +1,13 @@
+group Main
+    source https://api.nuget.org/v3/index.json
+    storage:none
+    
+    nuget FSharp.Core
+    nuget Fable.Core  
+    nuget Fable.Elmish.React
+
+group Build
+  framework >= net45
+  source https://api.nuget.org/v3/index.json
+
+  nuget FAKE ~> 4.64.6
