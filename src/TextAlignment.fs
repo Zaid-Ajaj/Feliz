@@ -1,5 +1,7 @@
 namespace Feliz
 
+open Feliz.Styles
+
 type textAlign() =
     /// Aligns the text to the left.
     ///

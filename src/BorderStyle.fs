@@ -1,6 +1,7 @@
 namespace Feliz
 
 open Fable.Core
+open Feliz.Styles
 
 [<Erase>]
 type borderStyle =
