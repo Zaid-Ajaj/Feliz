@@ -47,19 +47,14 @@ let render state dispatch =
 
             Html.button [
                 attr.className "btn btn-success"
-                attr.styleList [
-                    true, [ style.marginRight 5 ]
-                    state.Count >= 5, [ style.color colors.crimson; style.fontSize 16 ]
-                    state.Count >= 10, [ style.color colors.white; style.fontSize 20 ]
-                ]
-
+                attr.style [ style.marginLeft 5 ]
                 attr.onClick (fun _ -> dispatch Increment)
                 attr.content "Increment"
             ]
 
             Html.button [
                 attr.className "btn btn-danger"
-                attr.style [ style.marginLeft 5 ]
+                attr.style [ style.marginRight 5 ]
                 attr.onClick (fun _ -> dispatch Decrement)
                 attr.content "Decrement"
             ]
