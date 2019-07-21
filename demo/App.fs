@@ -29,7 +29,7 @@ let render state dispatch =
             Html.button [
                 attr.style [ style.marginRight 5 ]
                 attr.onClick (fun _ -> dispatch Decrement)
-                attr.content "Increment"
+                attr.content "Decrement"
             ]
 
             Html.h1 state.Count
