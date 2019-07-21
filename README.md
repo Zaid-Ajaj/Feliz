@@ -1,6 +1,6 @@
-# Feliz [![Build Status](https://travis-ci.org/Zaid-Ajaj/Feliz.svg?branch=master)](https://travis-ci.org/Zaid-Ajaj/Feliz) [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz)
+# Feliz (WIP) [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz)
 
-A fresh re-implementations of the base React DSL used within Elmish applications, optimized for maximum happpiness!
+A fresh retake of the base React DSL used within Elmish applications, optimized for maximum happpiness.
 
 Here is how it looks like:
 ```fsharp
@@ -9,7 +9,7 @@ let render state dispatch =
         attr.id "main"
         attr.style [ style.padding 20 ]
         attr.children [
-            
+
             Html.button [
                 attr.style [ style.marginRight 5 ]
                 attr.onClick (fun _ -> dispatch Increment)
@@ -34,7 +34,7 @@ This implementation puts emphasis on:
  - Fully **Type-safe**: no more `Margin of obj` but instead utilizing a plethora of overloaded functions to account for the overloaded nature of `CSS` attributes
  - Included **color list** of most commonly used `Html` colors.
  - **Compatible**: with the current DSL used in applications
- 
+
  Using the styles looks like this:
  ```fsharp
 let customStyles =

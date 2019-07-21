@@ -18,7 +18,8 @@ module Interop =
         let propsObj = obj()
         let propsList = unbox<(string * obj) list> properties
         for (key, value) in propsList do
-            setProperty key value propsObj
+            if key <> "children" then
+                setProperty key value propsObj
         propsObj
 
     let extract (pred: 't -> bool) (xs: 't list) : 't option * 't list  =
