@@ -36,8 +36,6 @@ let render state dispatch =
  - Included **color list** of most commonly used `Html` colors.
  - **Compatible** with the current DSL used in applications
 
- Using the styles looks like this:
-
 ### Overloaded elements
 
 When you want to display a single string or number simply use:
@@ -53,7 +51,7 @@ Html.h1 [
     attr.content "Hello there!"
 ]
 ```
-Here `attr.content` is simply `attr.children [ Html.text "Hello there!" ]` so you could expand it even futher:
+Here `attr.content` is simply `attr.children [ Html.text "Hello there!" ]` so you could expand it even further:
 ```fs
 Html.h1 [
     attr.className "title"

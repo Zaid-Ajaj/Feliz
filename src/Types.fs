@@ -25,3 +25,21 @@ type IAlignItemStyle = interface end
 type IAlignSelfStyle = interface end
 
 type IDisplayStyle = interface end
+
+type IFontStyle = interface end
+
+type IFontVariantStyle = interface end
+
+type IFontWeight = interface end
+
+type IFontStretchStyle = interface end
+
+type IFontKerningStyle = interface end
+
+type IOverflowStyle = interface end
+
+type IWordWrapStyle = interface end
+
+type IBackgroundRepeat = interface end
+
+type IBackgroundClip = interface end

@@ -18,7 +18,144 @@ type visibility =
     static member inline inheritFromParent : IVisibilityStyle = unbox "inherit"
 
 [<Erase>]
+/// The font-weight property sets how thick or thin characters in text should be displayed.
+type fontWeight =
+    /// Defines normal characters. This is default.
+    static member inline normal : IFontWeight = unbox "normal"
+    /// Defines thick characters.
+    static member inline bold : IFontWeight = unbox "bold"
+    /// Defines thicker characters
+    static member inline bolder : IFontWeight = unbox "bolder"
+    /// Defines lighter characters.
+    static member inline lighter : IFontWeight = unbox "lighter"
+    /// Sets this property to its default value.
+    static member inline initial : IFontWeight = unbox "initial"
+    /// Inherits this property from its parent element.
+    static member inline inheritFromParent : IFontWeight = unbox "inherit"
+
+[<Erase>]
+type fontStyle =
+    /// The browser displays a normal font style. This is defaut.
+    static member inline normal : IFontStyle = unbox "normal"
+    /// The browser displays an italic font style.
+    static member inline italic : IFontStyle = unbox "italic"
+    /// The browser displays an oblique font style.
+    static member inline oblique : IFontStyle = unbox "oblique"
+    /// Sets this property to its default value.
+    static member inline initial : IFontStyle = unbox "initial"
+    /// Inherits this property from its parent element.
+    static member inline inheritFromParent : IFontStyle = unbox "inherit"
+
+[<Erase>]
+type fontVariant =
+    /// The browser displays a normal font. This is default
+    static member inline normal : IFontVariantStyle = unbox "normal"
+    /// The browser displays a small-caps font
+    static member inline smallCaps : IFontVariantStyle = unbox "small-caps"
+    /// Sets this property to its default value.
+    static member inline initial : IFontVariantStyle = unbox "initial"
+    /// Inherits this property from its parent element.
+    static member inline inheritFromParent : IFontVariantStyle = unbox "inherit"
+
+[<Erase>]
+type fontStretch =
+    /// Makes the text as narrow as it gets.
+    static member inline ultraCondensed : IFontStretchStyle = unbox "ultra-condensed"
+    /// Makes the text narrower than condensed, but not as narrow as ultra-condensed
+    static member inline extraCondensed : IFontStretchStyle = unbox "extra-condensed"
+    /// Makes the text narrower than semi-condensed, but not as narrow as extra-condensed.
+    static member inline condensed : IFontStretchStyle = unbox "condensed"
+    /// Makes the text narrower than normal, but not as narrow as condensed.
+    static member inline semiCondensed : IFontStretchStyle = unbox "semi-condensed"
+    /// Default value. No font stretching
+    static member inline normal : IFontStretchStyle = unbox "normal"
+    /// Makes the text wider than normal, but not as wide as expanded
+    static member inline semiExpanded : IFontStretchStyle = unbox "semi-expanded"
+    /// Makes the text wider than semi-expanded, but not as wide as extra-expanded
+    static member inline expanded : IFontStretchStyle = unbox "expanded"
+    /// Makes the text wider than expanded, but not as wide as ultra-expanded
+    static member inline extraExpanded : IFontStretchStyle = unbox "extra-expanded"
+    /// Makes the text as wide as it gets.
+    static member inline ultraExpanded : IFontStretchStyle = unbox "ultra-expanded"
+    /// Sets this property to its default value.
+    static member inline initial : IFontStretchStyle = unbox "initial"
+    /// Inherits this property from its parent element.
+    static member inline inheritFromParent : IFontStretchStyle = unbox "inherit"
+
+[<Erase>]
+type fontKerning =
+    /// Default. The browser determines whether font kerning should be applied or not
+    static member inline auto : IFontKerningStyle = unbox "auto"
+    /// Specifies that font kerning is applied
+    static member inline normal : IFontKerningStyle = unbox "normal"
+    /// Specifies that font kerning is not applied
+    static member inline none : IFontKerningStyle = unbox "none"
+
+[<Erase>]
+type overflow =
+    /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
+    static member inline visible : IOverflowStyle = unbox "visibile"
+    /// The content is clipped - and no scrolling mechanism is provided.
+    static member inline hidden : IOverflowStyle = unbox "hidden"
+    /// The content is clipped and a scrolling mechanism is provided.
+    static member inline scroll : IOverflowStyle = unbox "scroll"
+    /// Should cause a scrolling mechanism to be provided for overflowing boxes
+    static member inline auto : IOverflowStyle = unbox "auto"
+    /// Sets this property to its default value.
+    static member inline initial : IOverflowStyle = unbox "initial"
+    /// Inherits this property from its parent element.
+    static member inline inheritFromParent : IOverflowStyle = unbox "inherit"
+
+[<Erase>]
+type wordWrap =
+    /// Break words only at allowed break points
+    static member inline normal : IWordWrapStyle = unbox "normal"
+    /// Allows unbreakable words to be broken
+    static member inline breakWord : IWordWrapStyle = unbox "break-word"
+    /// Sets this property to its default value.
+    static member inline initial : IWordWrapStyle = unbox "initial"
+    /// Inherits this property from its parent element.
+    static member inline inheritFromParent : IWordWrapStyle = unbox "inherit"
+
+[<Erase>]
+type backgroundRepeat =
+    /// The background image is repeated both vertically and horizontally. This is default.
+    static member inline repeat : IBackgroundRepeat = unbox "repeat"
+    /// The background image is only repeated horizontally.
+    static member inline repeatX : IBackgroundRepeat = unbox "repeat-x"
+    /// The background image is only repeated vertically.
+    static member inline repeatY : IBackgroundRepeat = unbox "repeat-y"
+    /// The background-image is not repeated.
+    static member inline noRepeat : IBackgroundRepeat = unbox "no-repeat"
+    /// Sets this property to its default value.
+    static member inline initial : IBackgroundRepeat = unbox "initial"
+    /// Inherits this property from its parent element.
+    static member inline inheritFromParent : IBackgroundRepeat = unbox "inherit"
+
+[<Erase>]
+type backgroundClip =
+    /// Default value. The background is clipped to the border box.
+    static member inline borderBox : IBackgroundClip = unbox "border-box"
+    /// The background is clipped to the padding box.
+    static member inline paddingBox : IBackgroundClip = unbox "padding-box"
+    /// The background is clipped to the content box
+    static member inline contentBox : IBackgroundClip = unbox "content-box"
+    /// Sets this property to its default value.
+    static member inline initial : IBackgroundClip = unbox "initial"
+    /// Inherits this property from its parent element.
+    static member inline inheritFromParent : IBackgroundClip = unbox "inherit"
+
+
+[<Erase>]
 type style =
+    /// The zIndex property sets or returns the stack order of a positioned element.
+    ///
+    /// An element with greater stack order (1) is always in front of another element with lower stack order (0).
+    ///
+    /// **Tip**: A positioned element is an element with the position property set to: relative, absolute, or fixed.
+    ///
+    /// **Tip**: This property is useful if you want to create overlapping elements.
+    static member inline zIndex(value: int) = Interop.mkStyle "zIndex" value
     static member inline margin(value: int) = Interop.mkStyle "margin" value
     static member inline margin(top: int, right: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx" top right)
     static member inline margin(top: int, right: int, bottom: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx %dpx" top right bottom)
@@ -45,6 +182,7 @@ type style =
     static member inline display(options: IDisplayStyle) = Interop.mkStyle "display" options
     static member inline fontSize(size: int) = Interop.mkStyle "fontSize" size
     static member inline fontSize(size: string) = Interop.mkStyle "fontSize" size
+    static member inline wordWrap (style: IWordWrapStyle) = Interop.mkStyle "wordWrap" style
     static member inline alignContent(option: IAlignContentStyle) = Interop.mkStyle "alignContent" option
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
     static member inline color (color: string) = Interop.mkStyle "color" color
@@ -56,6 +194,9 @@ type style =
     static member inline left(value: string) = Interop.mkStyle "left" value
     static member inline right(value: int) = Interop.mkStyle "right" value
     static member inline right(value: string) = Interop.mkStyle "right" value
+    static member inline overflow(value: IOverflowStyle) = Interop.mkStyle "overflow" value
+    static member inline overflowX(value: IOverflowStyle) = Interop.mkStyle "overflowX" value
+    static member inline overflowY(value: IOverflowStyle) = Interop.mkStyle "overflowY" value
     static member inline custom(key: string, value: 't) = Interop.mkStyle key value
     static member inline border(width: int, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%dpx %s %s" width (unbox style) color)
     static member inline border(width: string, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%s %s %s" width (unbox style) color)
@@ -63,6 +204,23 @@ type style =
     static member inline borderStyle (style: IBorderStyle) = Interop.mkStyle "borderWidth" style
     static member inline borderColor (color: string) = Interop.mkStyle "borderColor" color
     static member inline borderRadius (radius: int) = Interop.mkStyle "borderRadius" radius
+    static member inline fontStyle (style: IFontStyle) = Interop.mkStyle "fontStyle" style
+    /// The `font-kerning` property controls the usage of the kerning information stored in a font.
+    ///
+    /// **Tip**: Kerning defines how letters are spaced.
+    ///
+    /// **Note**: For fonts that do not include kerning data, this property will have no visible effect.
+    static member inline fontKerning (kerning: IFontKerningStyle) = Interop.mkStyle "fontKerning" kerning
+    static member inline fontFamily (family: string) = Interop.mkStyle "fontFamily" family
+    static member inline fontVariant (variant: IFontVariantStyle) = Interop.mkStyle "fontVariant" variant
+    static member inline fontWeight (weight: IFontWeight) = Interop.mkStyle "fontWeight" weight
+    /// Defines from thin to thick characters. 400 is the same as normal, and 700 is the same as bold.
+    /// Possible values are [100, 200, 300, 400, 500, 600, 700, 800, 900]
+    static member inline fontWeight (weight: int) = Interop.mkStyle "fontWeight" weight
+    /// The `font-stretch` property allows you to make text wider or narrower.
+    ///
+    /// Note: The `font-stretch` property will not work on just any font! It will only work if the font family has width-variant faces. The font-stretch property itself does not stretch a font.
+    static member inline fontStretch (stretch: IFontStretchStyle) = Interop.mkStyle "fontStretch" stretch
     static member inline borderRadius (radius: string) = Interop.mkStyle "borderRadius" radius
     static member inline borderWidth (top: int, right: int) =
         let value = sprintf "%dpx %dpx" top right
@@ -92,6 +250,8 @@ type style =
     static member inline position(value: IPositionStyle) = Interop.mkStyle "position" value
     static member inline opacity(value: double) = Interop.mkStyle "opacity" value
     static member inline minWidth (value: int) = Interop.mkStyle "minWidth" value
+    static member inline backgroundPosition  (position: string) = Interop.mkStyle "backgroundPosition" position
+    static member inline cursor (value: string) = Interop.mkStyle "cursor" value
     static member inline minWidth (value: string) = Interop.mkStyle "minWidth" value
     static member inline minHeight (value: int) = Interop.mkStyle "minHeight" value
     static member inline minHeight (value: string) = Interop.mkStyle "minHeight" value
@@ -103,5 +263,9 @@ type style =
     static member inline height (value: string) = Interop.mkStyle "height" value
     static member inline width (value: int) = Interop.mkStyle "width" value
     static member inline width (value: string) = Interop.mkStyle "width" value
+    static member inline backgroundSize (value: string) = Interop.mkStyle "backgroundSize" value
+    static member inline backgroundImage (value: string) = Interop.mkStyle "backgroundImage" value
+    static member inline backgroundRepeat (repeat: IBackgroundRepeat) = Interop.mkStyle "backgroundRepeat" repeat
+    static member inline backgroundClip (clip: IBackgroundClip) = Interop.mkStyle "backgroundClip" clip
     static member inline alignItems(alignment: IAlignItemStyle) = Interop.mkStyle "alignItems" alignment
     static member inline alignSelf(alignment: IAlignSelfStyle) = Interop.mkStyle "alignSelf" alignment
