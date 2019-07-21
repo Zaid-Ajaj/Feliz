@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <Description>A sane rendering API for built-in react elements</Description>
-        <RepositoryUrl>https://github.com/Zaid-Ajaj/Frantic</RepositoryUrl>
-        <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Frantic/blob/master/LICENSE</PackageLicenseUrl>
+        <Description>A fresh re-implementations of the base React DSL used within Elmish applications, optimized for maximum happpiness</Description>
+        <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>

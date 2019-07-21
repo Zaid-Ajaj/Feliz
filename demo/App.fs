@@ -35,6 +35,11 @@ let customStyles =
         style.textDecorationColor colors.red
         style.visibility visibility.hidden
         style.textDecoration textDecorationLine.lineThrough
+        style.textDecoration (textDecorationLine.lineThrough, textDecorationLine.underline)
+        style.textDecoration
+           (textDecorationLine.lineThrough,
+            textDecorationLine.underline,
+            textDecorationStyle.wavy)
         style.position position.sticky
         style.display display.flex
     ]
@@ -53,12 +58,13 @@ let render state dispatch =
             Html.button [
                 attr.style [ style.marginRight 5 ]
                 attr.onClick (fun _ -> dispatch Decrement)
-                attr.content "Decrement"
+                attr.content "Increment"
             ]
 
             Html.h1 state.Count
         ]
     ]
+
 
 Program.mkSimple init update render
 |> Program.withReactSynchronous "root"

@@ -7,6 +7,13 @@ type attr() =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
+    static member inline classList (classes: (bool * string) list) = 
+        classes 
+        |> List.filter fst
+        |> List.map snd 
+        |> String.concat " "
+        |> attr.className
+        
     static member inline key(value: string) = Interop.mkAttr "key" value
     static member inline key(value: int) = Interop.mkAttr "key" value
     static member inline defaultChecked(value: bool) = Interop.mkAttr "defaultChecked" value
@@ -51,6 +58,8 @@ type attr() =
     static member inline content(value: string) = attr.children [ unbox value ]
     /// Alias for inline `attr.children [ Html.content value ]`
     static member inline content(value: int) = attr.children [ unbox value ]
+    /// Alias for inline `attr.children [ Html.content value ]`
+    static member inline content(value: ReactElement) = attr.children [ value ]
     static member inline rows(value: int) = Interop.mkAttr "rows" value
     static member inline rowSpan(value: int) = Interop.mkAttr "rowSpan" value
     static member inline inputType(value: string) = Interop.mkAttr "type" value

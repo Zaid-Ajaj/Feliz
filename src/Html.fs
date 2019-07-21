@@ -1,4 +1,5 @@
 namespace Feliz
+open Fable.React
 
 
 type Html() =
@@ -16,6 +17,7 @@ type Html() =
     static member inline figure xs = Interop.createElement "figure" xs
     static member inline figcaption xs = Interop.createElement "figcaption" xs
     static member inline select xs = Interop.createElement "select" xs
+    static member inline option xs = Interop.createElement "select" xs
     static member inline strong xs = Interop.createElement "strong" xs
     static member inline table xs = Interop.createElement "table" xs
     static member inline tbody xs = Interop.createElement "tbody" xs
@@ -23,6 +25,8 @@ type Html() =
     static member inline tableRow xs = Interop.createElement "tr" xs
     static member inline tr xs = Interop.createElement "tr" xs
     static member inline tableCell xs = Interop.createElement "td" xs
+    static member inline details xs = Interop.createElement "details" xs
+    static member inline summary xs = Interop.createElement "summary" xs
     static member inline td xs = Interop.createElement "td" xs
     static member inline th xs = Interop.createElement "th" xs
     static member inline tableHeader xs = Interop.createElement "th" xs
@@ -53,10 +57,10 @@ type Html() =
     static member inline listItem xs = Interop.createElement "li" xs
     static member inline unorderedList xs = Interop.createElement "ul" xs
     static member inline orderedList xs = Interop.createElement "ul" xs
-    static member content (value: string)  = unbox value
-    static member content (value: int)  = unbox value
-    static member text (value: string)  = unbox value
-    static member text (value: int) = unbox value
+    static member content (value: string) : ReactElement = unbox value
+    static member content (value: int) : ReactElement = unbox value
+    static member text (value: string) : ReactElement = unbox value
+    static member text (value: int) : ReactElement = unbox value
     static member inline div (value: string) = Interop.reactElement "div" (obj()) value
     static member inline div (value: int)  = Interop.reactElement "div" (obj()) value
     static member inline span (value: string) = Interop.reactElement "span" (obj()) value
