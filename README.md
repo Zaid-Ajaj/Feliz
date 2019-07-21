@@ -88,7 +88,7 @@ let customStyles =
         style.position position.sticky
         style.display display.flex
     ]
- ```
+```
 
 ### Conditional classes and styles
 
