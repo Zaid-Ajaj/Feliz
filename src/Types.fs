@@ -20,4 +20,8 @@ type IPositionStyle = interface end
 
 type IAlignContentStyle = interface end
 
+type IAlignItemStyle = interface end
+
+type IAlignSelfStyle = interface end
+
 type IDisplayStyle = interface end

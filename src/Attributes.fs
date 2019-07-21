@@ -7,13 +7,13 @@ type attr() =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
-    static member inline classList (classes: (bool * string) list) = 
-        classes 
+    static member inline classList (classes: (bool * string) list) =
+        classes
         |> List.filter fst
-        |> List.map snd 
+        |> List.map snd
         |> String.concat " "
-        |> attr.className
-        
+        |> Interop.mkAttr "className"
+
     static member inline key(value: string) = Interop.mkAttr "key" value
     static member inline key(value: int) = Interop.mkAttr "key" value
     static member inline defaultChecked(value: bool) = Interop.mkAttr "defaultChecked" value
@@ -137,3 +137,9 @@ type attr() =
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
     static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (Interop.createObj (unbox properties))
+    static member styleList (properties: (bool * IStyleAttribute list) list) =
+        properties
+        |> List.filter fst
+        |> List.collect snd
+        |> (unbox >> Interop.createObj)
+        |> Interop.mkAttr "style"

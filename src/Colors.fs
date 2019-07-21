@@ -143,3 +143,4 @@ module colors =
     let [<Literal>] slateGray = "#708090"
     let [<Literal>] darkSlateGray = "#2F4F4F"
     let [<Literal>] black = "#000000"
+    let [<Literal>] transparent = "transparent"

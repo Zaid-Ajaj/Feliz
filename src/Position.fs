@@ -1,6 +1,9 @@
 namespace Feliz
 
-type position() =
+open Fable.Core
+
+[<Erase>]
+type position =
 
     /// Default value. Elements render in order, as they appear in the document flow.
     static member inline defaultStatic : IPositionStyle = unbox "static"

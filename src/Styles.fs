@@ -1,6 +1,9 @@
 namespace Feliz
 
-type visibility() =
+open Fable.Core
+
+[<Erase>]
+type visibility =
     /// The element is hidden (but still takes up space).
     static member inline hidden : IVisibilityStyle = unbox "hidden"
     /// Default value. The element is visible.
@@ -14,7 +17,8 @@ type visibility() =
     /// Inherits this property from its parent element.
     static member inline inheritFromParent : IVisibilityStyle = unbox "inherit"
 
-type style() =
+[<Erase>]
+type style =
     static member inline margin(value: int) = Interop.mkStyle "margin" value
     static member inline margin(top: int, right: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx" top right)
     static member inline margin(top: int, right: int, bottom: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx %dpx" top right bottom)
@@ -44,6 +48,14 @@ type style() =
     static member inline alignContent(option: IAlignContentStyle) = Interop.mkStyle "alignContent" option
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
     static member inline color (color: string) = Interop.mkStyle "color" color
+    static member inline top(value: int) = Interop.mkStyle "top" value
+    static member inline top(value: string) = Interop.mkStyle "top" value
+    static member inline bottom(value: int) = Interop.mkStyle "bottom" value
+    static member inline bottom(value: string) = Interop.mkStyle "bottom" value
+    static member inline left(value: int) = Interop.mkStyle "left" value
+    static member inline left(value: string) = Interop.mkStyle "left" value
+    static member inline right(value: int) = Interop.mkStyle "right" value
+    static member inline right(value: string) = Interop.mkStyle "right" value
     static member inline custom(key: string, value: 't) = Interop.mkStyle key value
     static member inline border(width: int, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%dpx %s %s" width (unbox style) color)
     static member inline border(width: string, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%s %s %s" width (unbox style) color)
@@ -91,5 +103,5 @@ type style() =
     static member inline height (value: string) = Interop.mkStyle "height" value
     static member inline width (value: int) = Interop.mkStyle "width" value
     static member inline width (value: string) = Interop.mkStyle "width" value
-
-
+    static member inline alignItems(alignment: IAlignItemStyle) = Interop.mkStyle "alignItems" alignment
+    static member inline alignSelf(alignment: IAlignSelfStyle) = Interop.mkStyle "alignSelf" alignment

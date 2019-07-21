@@ -1,6 +1,9 @@
 namespace Feliz
 
-type display() =
+open Fable.Core
+
+[<Erase>]
+type display =
     /// Displays an element as an inline element (like `<span>`). Any height and width properties will have no effect.
     static member inline inlineElement : IDisplayStyle = unbox "inline"
     /// Displays an element as a block element (like `<p>`). It starts on a new line, and takes up the whole width.

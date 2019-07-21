@@ -1,9 +1,10 @@
 namespace Feliz
+
 open Fable.React
+open Fable.Core
 
-
-type Html() =
-
+[<Erase>]
+type Html =
     /// The `<div>` tag defines a division or a section in an HTML document
     static member inline div xs = Interop.createElement "div" xs
     static member inline article xs = Interop.createElement "article" xs

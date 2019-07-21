@@ -1,6 +1,9 @@
 namespace Feliz
 
-type alignContent() =
+open Fable.Core
+
+[<Erase>]
+type alignContent =
     /// Default value. Lines stretch to take up the remaining space.
     static member inline stretch : IAlignContentStyle = unbox "stretch"
     /// Lines are packed toward the center of the flex container.

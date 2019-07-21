@@ -1,6 +1,9 @@
 namespace Feliz
 
-type borderStyle() =
+open Fable.Core
+
+[<Erase>]
+type borderStyle =
     /// Specifies a dotted border.
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted

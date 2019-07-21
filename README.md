@@ -1,6 +1,6 @@
 # Feliz (WIP) [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz)
 
-A fresh retake of the base React DSL used within Elmish applications, optimized for maximum happpiness.
+A fresh retake of the base React DSL used within Elmish applications, optimized for maximum happiness.
 
 Here is how it looks like:
 ```fsharp
@@ -27,16 +27,45 @@ let render state dispatch =
     ]
 ```
 
-This implementation puts emphasis on:
+### Features
+
  - Consistent **formatting**: no more awkward indentation using two lists for every element
- - Discoverable **attributes**: no more functions, `Html` attributes or css properties globally available.
- - Proper **documentation**: for each attribute and css property
+ - Discoverable **attributes** with no more functions, `Html` attributes or css properties globally available.
+ - Proper **documentation**: each attribute and css property
  - Fully **Type-safe**: no more `Margin of obj` but instead utilizing a plethora of overloaded functions to account for the overloaded nature of `CSS` attributes
  - Included **color list** of most commonly used `Html` colors.
- - **Compatible**: with the current DSL used in applications
+ - **Compatible** with the current DSL used in applications
 
  Using the styles looks like this:
- ```fsharp
+
+### Overloaded elements
+
+When you want to display a single string or number simply use:
+```fs
+Html.h1 state.Count
+
+Html.div "Hello there!"
+```
+but you could also expand the attribute:
+```fs
+Html.h1 [
+    attr.className "title"
+    attr.content "Hello there!"
+]
+```
+Here `attr.content` is simply `attr.children [ Html.text "Hello there!" ]` so you could expand it even futher:
+```fs
+Html.h1 [
+    attr.className "title"
+    attr.children [
+        Html.text "Hello there"
+    ]
+]
+```
+
+### Type-safe style attributes
+
+```fs
 let customStyles =
     attr.style [
         style.fontSize 20
@@ -60,3 +89,23 @@ let customStyles =
         style.display display.flex
     ]
  ```
+
+### Conditional classes and styles
+
+The library includes two convenient functions to apply classes or styles conditionally on elements:
+```fsharp
+Html.div [
+    attr.classList [ true, "shiny"; state.Count < 0, "danger" ]
+    attr.styleList [
+        true, [ style.margin 10 ]
+        state.Count >= 10, [
+            style.backgroundColor colors.red
+            style.fontSize 20
+        ]
+        state.Count >= 20, [
+            style.backgroundColor colors.green
+            style.fontSize 30
+        ]
+    ]
+]
+```
