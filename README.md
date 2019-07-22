@@ -10,18 +10,15 @@ let render state dispatch =
         prop.id "main"
         prop.style [ style.padding 20 ]
         prop.children [
-            Html.span [ customStyles ]
 
             Html.button [
-                prop.className "btn btn-success"
                 prop.style [ style.marginRight 5 ]
                 prop.onClick (fun _ -> dispatch Increment)
                 prop.content "Increment"
             ]
 
             Html.button [
-                prop.className "btn btn-danger"
-                prop.styleList [ true, [ style.marginLeft 5 ] ]
+                prop.styleList [ style.marginLeft 5 ]
                 prop.onClick (fun _ -> dispatch Decrement)
                 prop.content "Decrement"
             ]
