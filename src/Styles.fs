@@ -235,16 +235,125 @@ type style =
     static member inline margin(value: int) = Interop.mkStyle "margin" value
     static member inline margin(top: int, right: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx" top right)
     static member inline margin(top: ICssUnit, right: int) =
-        Interop.mkStyle "margin" ((unbox<string> top) + " " + (unbox<string>right) + "px")
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string>right) + "px"
+        )
+
+    static member inline padding(top: ICssUnit, right: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string>right) + "px"
+        )
+
     static member inline margin(top: ICssUnit, right: int, bottom: int) =
-        Interop.mkStyle "margin" ((unbox<string> top) + " " + (unbox<string>right) + "px " + (unbox<string>bottom) + "px")
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string>right) + "px " +
+            (unbox<string>bottom) + "px"
+        )
+
+    static member inline padding(top: ICssUnit, right: int, bottom: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px"
+        )
+
+    static member inline margin(top: ICssUnit, right: ICssUnit, bottom: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string>bottom) + "px"
+        )
+
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string>bottom) + "px"
+        )
+
+    static member inline margin(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom)
+        )
+
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom)
+        )
+
+    static member inline margin(top: ICssUnit, right: int, bottom: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom)
+        )
+
+    static member inline padding(top: ICssUnit, right: int, bottom: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom)
+        )
+
+    static member inline margin(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
+
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
+
     static member inline margin(top: ICssUnit, right: int, bottom: int, left: int) =
-        Interop.mkStyle "margin" ((unbox<string> top) + " " + (unbox<string>right) + "px " + (unbox<string>bottom) + "px " + (unbox<string>left) + "px")
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string>right) + "px " +
+            (unbox<string>bottom) + "px " +
+            (unbox<string>left) + "px"
+        )
+
+    static member inline padding(top: ICssUnit, right: int, bottom: int, left: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string>right) + "px " +
+            (unbox<string>bottom) + "px " +
+            (unbox<string>left) + "px"
+        )
+
     static member inline margin(top: int, right: ICssUnit) =
-        Interop.mkStyle "margin" ((unbox<string> right) + " " + (unbox<string>top) + "px")
+        Interop.mkStyle "margin" (
+            (unbox<string> right) + " " +
+            (unbox<string>top) + "px"
+        )
+
+    static member inline padding(top: int, right: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> right) + " " +
+            (unbox<string>top) + "px"
+        )
     static member inline margin(top: int, right: int, bottom: int) =
         Interop.mkStyle "margin" ((unbox<string> top) + "px " + (unbox<string> right) + "px " + (unbox<string> bottom) + "px")
-    static member inline margin(top: int, right: int, bottom: int, left: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx %dpx %dpx" top right bottom left)
+    static member inline margin(top: int, right: int, bottom: int, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px")
+
     static member inline margin(value: ICssUnit) = Interop.mkStyle "margin" value
     static member inline marginLeft(value: int) = Interop.mkStyle "marginLeft" value
     static member inline marginLeft(value: ICssUnit) = Interop.mkStyle "marginLeft" value

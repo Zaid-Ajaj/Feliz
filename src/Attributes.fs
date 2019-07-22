@@ -1,9 +1,9 @@
 namespace Feliz
 
-open Fable.React
 open Browser.Types
 open Fable.Core.JsInterop
 open Fable.Core
+open Feliz.Styles
 
 [<Erase>]
 type attr =
@@ -20,6 +20,53 @@ type attr =
     static member inline value(value: string) = Interop.mkAttr "value" value
     static member inline value(value: int) = Interop.mkAttr "value" value
     static member inline value(value: bool) = Interop.mkAttr "value" value
+    static member inline x(value: int) = Interop.mkAttr "x" value
+    static member inline x(value: ICssUnit) = Interop.mkAttr "x" value
+    static member inline y(value: int) = Interop.mkAttr "y" value
+    static member inline y(value: ICssUnit) = Interop.mkAttr "y" value
+    static member inline r(value: int) = Interop.mkAttr "r" value
+    static member inline r(value: ICssUnit) = Interop.mkAttr "r" value
+    static member inline viewPort(x: int, y: int, height: int, width: int) =
+        (unbox<string> x) + " " +
+        (unbox<string> y) + " " +
+        (unbox<string> height) + " " +
+        (unbox<string> width)
+    static member inline fill(color: string) = Interop.mkAttr "fill" color
+    static member inline x1(value: int) = Interop.mkAttr "x1" value
+    static member inline x1(value: ICssUnit) = Interop.mkAttr "x1" value
+    static member inline x1(value: float) = Interop.mkAttr "y1" value
+    static member inline x2(value: int) = Interop.mkAttr "x2" value
+    static member inline x2(value: ICssUnit) = Interop.mkAttr "x1" value
+    static member inline x2(value: float) = Interop.mkAttr "x1" value
+    static member inline y1(value: int) = Interop.mkAttr "y1" value
+    static member inline y1(value: float) = Interop.mkAttr "y1" value
+    static member inline y1(value: ICssUnit) = Interop.mkAttr "y1" value
+    static member inline y2(value: int) = Interop.mkAttr "y2" value
+    static member inline y2(value: ICssUnit) = Interop.mkAttr "y2" value
+    static member inline y2(value: float) = Interop.mkAttr "y2" value
+    static member inline cx(value: int) = Interop.mkAttr "cx" value
+    static member inline cx(value: ICssUnit) = Interop.mkAttr "cx" value
+    static member inline cx(value: float) = Interop.mkAttr "cx" value
+    static member inline rx(value: int) = Interop.mkAttr "rx" value
+    static member inline rx(value: ICssUnit) = Interop.mkAttr "rx" value
+    static member inline rx(value: float) = Interop.mkAttr "rx" value
+    static member inline ry(value: int) = Interop.mkAttr "ry" value
+    static member inline ry(value: ICssUnit) = Interop.mkAttr "ry" value
+    static member inline ry(value: float) = Interop.mkAttr "ry" value
+    static member inline cy(value: float) = Interop.mkAttr "cy" value
+    static member inline cy(value: int) = Interop.mkAttr "cy" value
+    static member inline cy(value: ICssUnit) = Interop.mkAttr "cy" value
+    static member inline fillOpacity(value: float) = Interop.mkAttr "fillOpacity" value
+    static member inline stroke(color: string) = Interop.mkAttr "stroke" color
+    static member inline strokeWidth(value: int) = Interop.mkAttr "strokeWidth" value
+    static member inline strokeWidth(value: float) = Interop.mkAttr "strokeWidth" value
+    static member inline strokeWidth(value: ICssUnit) = Interop.mkAttr "strokeWidth" value
+    static member inline offset(value: int) = Interop.mkAttr "offset" value
+    static member inline offset(value: float) = Interop.mkAttr "offset" value
+    static member inline offset(value: ICssUnit) = Interop.mkAttr "offset" value
+    static member inline points(value: string) = Interop.mkAttr "points" value
+    static member inline stopColor(value: string) = Interop.mkAttr "stopColor" value
+    static member inline stopOpacity(value: float) = Interop.mkAttr "stopOpacity" value
     static member inline accept(value: string) = Interop.mkAttr "accept" value
     static member inline acceptCharset(value: string) = Interop.mkAttr "acceptCharset" value
     static member inline accessKey(value: string) = Interop.mkAttr "accessKey" value
@@ -55,7 +102,7 @@ type attr =
     /// Alias for inline `attr.children [ Html.content value ]`
     static member inline content(value: int) = Interop.mkAttr "children" [| value |]
     /// Alias for inline `attr.children [ Html.content value ]`
-    static member inline content(value: ReactElement) = Interop.mkAttr "children" [| value |]
+    static member inline content(value: Fable.React.ReactElement) = Interop.mkAttr "children" [| value |]
     static member inline rows(value: int) = Interop.mkAttr "rows" value
     static member inline rowSpan(value: int) = Interop.mkAttr "rowSpan" value
     static member inline inputType(value: string) = Interop.mkAttr "type" value
@@ -63,7 +110,7 @@ type attr =
     static member inline start(value: string) = Interop.mkAttr "start" value
     static member inline readOnly (value: bool) = Interop.mkAttr "readOnly" value
     static member inline custom(key: string, value: 't) = Interop.mkAttr key value
-    static member inline children (elems: ReactElement list) = Interop.mkAttr "children" (Array.ofList elems)
+    static member inline children (elems: Fable.React.ReactElement list) = Interop.mkAttr "children" (Array.ofList elems)
     static member inline onCut (handler: ClipboardEvent -> unit) = Interop.mkAttr "onCut" handler
     static member inline onPaste (handler: ClipboardEvent -> unit) = Interop.mkAttr "onPaste" handler
     static member inline onCompositionEnd (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionEnd" handler
@@ -148,3 +195,9 @@ module attr =
         |> List.map snd
         |> String.concat " "
         |> Interop.mkAttr "className"
+
+    let points (points: (int * int) list) =
+        points
+        |> List.map (fun (a, b) -> (unbox<string> a) + "," + (unbox<string> b))
+        |> String.concat " "
+        |> Interop.mkAttr "points"

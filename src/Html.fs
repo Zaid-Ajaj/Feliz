@@ -59,10 +59,25 @@ type Html =
     static member inline listItem xs = Interop.createElement "li" xs
     static member inline unorderedList xs = Interop.createElement "ul" xs
     static member inline orderedList xs = Interop.createElement "ul" xs
-    static member content (value: string) : ReactElement = unbox value
-    static member content (value: int) : ReactElement = unbox value
-    static member text (value: string) : ReactElement = unbox value
-    static member text (value: int) : ReactElement = unbox value
+    static member inline svg xs = Interop.createElement "svg" xs
+    static member inline circle xs = Interop.createElement "circle" xs
+    static member inline text xs = Interop.createElement "text" xs
+    static member inline g xs = Interop.createElement "g" xs
+    static member inline line xs = Interop.createElement "line" xs
+    static member inline rect xs = Interop.createElement "rect" xs
+    static member inline polygon xs = Interop.createElement "polygon" xs
+    static member inline ellipse xs = Interop.createElement "ellipse" xs
+    static member inline defs xs = Interop.createElement "defs" xs
+    static member inline radialGradient xs = Interop.createElement "radialGradient" xs
+    static member inline polyline xs = Interop.createElement "polyline" xs
+    static member inline path xs = Interop.createElement "path" xs
+    static member inline clipPath xs = Interop.createElement "clipPath" xs
+    static member inline linearGradient xs = Interop.createElement "linearGradient" xs
+    static member inline content (value: string) : ReactElement = unbox value
+    static member inline content (value: int) : ReactElement = unbox value
+    static member inline text (value: string) : ReactElement = unbox value
+    static member inline text (value: int) : ReactElement = unbox value
+    static member inline stop xs = Interop.createElement "stop" xs
     static member inline div (value: string) = Interop.reactElement "div" (createObj [ "children" ==> [| value |] ])
     static member inline div (value: int)  = Interop.reactElement "div" (createObj [ "children" ==> [| value |] ])
     static member inline span (value: string) = Interop.reactElement "span" (createObj [ "children" ==> [| value |] ])
