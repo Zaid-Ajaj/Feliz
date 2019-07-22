@@ -38,6 +38,8 @@ let customStyles =
         style.position position.sticky
     ]
 
+Browser.Dom.console.log(customStyles)
+
 let render state dispatch =
     Html.div [
         attr.id "main"
@@ -46,15 +48,17 @@ let render state dispatch =
             Html.span [ customStyles ]
 
             Html.button [
+                attr.id "incr"
                 attr.className "btn btn-success"
-                attr.style [ style.marginLeft 5 ]
+                attr.style [ style.marginRight 5 ]
                 attr.onClick (fun _ -> dispatch Increment)
                 attr.content "Increment"
             ]
 
             Html.button [
+                attr.id "decr"
                 attr.className "btn btn-danger"
-                attr.style [ style.marginRight 5 ]
+                attr.styleList [ true, [style.marginLeft 5]; true, [style.color colors.blueViolet] ]
                 attr.onClick (fun _ -> dispatch Decrement)
                 attr.content "Decrement"
             ]

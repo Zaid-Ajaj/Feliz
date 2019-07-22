@@ -2,6 +2,7 @@ namespace Feliz
 
 open Fable.React
 open Fable.Core
+open Fable.Core.JsInterop
 
 [<Erase>]
 type Html =
@@ -47,10 +48,10 @@ type Html =
     static member inline ol xs = Interop.createElement "ol" xs
     static member inline a xs = Interop.createElement "a" xs
     static member inline anchor xs = Interop.createElement "anchor" xs
-    static member inline img xs = Interop.createVoid "img" xs
-    static member inline br xs = Interop.createVoid "br" xs
-    static member inline hr xs = Interop.createVoid "hr" xs
-    static member inline input xs = Interop.createVoid "input" xs
+    static member inline img xs = Interop.createElement "img" xs
+    static member inline br xs = Interop.createElement "br" xs
+    static member inline hr xs = Interop.createElement "hr" xs
+    static member inline input xs = Interop.createElement "input" xs
     static member inline form xs = Interop.createElement "form" xs
     static member inline i xs = Interop.createElement "i" xs
     static member inline p xs = Interop.createElement "p" xs
@@ -62,29 +63,29 @@ type Html =
     static member content (value: int) : ReactElement = unbox value
     static member text (value: string) : ReactElement = unbox value
     static member text (value: int) : ReactElement = unbox value
-    static member inline div (value: string) = Interop.reactElement "div" (obj()) value
-    static member inline div (value: int)  = Interop.reactElement "div" (obj()) value
-    static member inline span (value: string) = Interop.reactElement "span" (obj()) value
-    static member inline span (value: int)  = Interop.reactElement "span" (obj()) value
-    static member inline h1 (value: string)  = Interop.reactElement "h1" (obj()) value
-    static member inline h1 (value: int)  = Interop.reactElement "h1" (obj()) value
-    static member inline h2 (value: string)  = Interop.reactElement "h2" (obj()) value
-    static member inline h2 (value: int)  = Interop.reactElement "h2" (obj()) value
-    static member inline h3 (value: string)  = Interop.reactElement "h3" (obj()) value
-    static member inline h3 (value: int)  = Interop.reactElement "h3" (obj()) value
-    static member inline h4 (value: string)  = Interop.reactElement "h4" (obj()) value
-    static member inline h4 (value: int)  = Interop.reactElement "h4" (obj()) value
-    static member inline h5 (value: string)  = Interop.reactElement "h5" (obj()) value
-    static member inline h5 (value: int)  = Interop.reactElement "h5" (obj()) value
-    static member inline h6 (value: string)  = Interop.reactElement "h6" (obj()) value
-    static member inline h6 (value: int) = Interop.reactElement "h6" (obj()) value
-    static member inline strong(value: string)  = Interop.reactElement "strong" (obj()) value
-    static member inline strong(value: int) = Interop.reactElement "strong" (obj()) value
-    static member inline p(value: string) = Interop.reactElement "p" (obj()) value
-    static member inline p(value: int) = Interop.reactElement "p" (obj()) value
-    static member inline paragraph(value: string)  = Interop.reactElement "p" (obj()) value
-    static member inline paragraph(value: int)  = Interop.reactElement "p" (obj()) value
-    static member inline td(value: string) = Interop.reactElement "td" (obj()) value
-    static member inline td(value: int)  = Interop.reactElement "td" (obj()) value
-    static member inline th(value: string)  = Interop.reactElement "th" (obj()) value
-    static member inline th(value: int)  = Interop.reactElement "th" (obj()) value
+    static member inline div (value: string) = Interop.reactElement "div" (createObj [ "children" ==> [| value |] ])
+    static member inline div (value: int)  = Interop.reactElement "div" (createObj [ "children" ==> [| value |] ])
+    static member inline span (value: string) = Interop.reactElement "span" (createObj [ "children" ==> [| value |] ])
+    static member inline span (value: int)  = Interop.reactElement "span" (createObj [ "children" ==> [| value |] ])
+    static member inline h1 (value: string)  = Interop.reactElement "h1" (createObj [ "children" ==> [| value |] ])
+    static member inline h1 (value: int)  = Interop.reactElement "h1" (createObj [ "children" ==> [| value |] ])
+    static member inline h2 (value: string)  =  Interop.reactElement "h2" (createObj [ "children" ==> [| value |] ])
+    static member inline h2 (value: int)  =  Interop.reactElement "h2" (createObj [ "children" ==> [| value |] ])
+    static member inline h3 (value: string)  =  Interop.reactElement "h3" (createObj [ "children" ==> [| value |] ])
+    static member inline h3 (value: int)  =  Interop.reactElement "h3" (createObj [ "children" ==> [| value |] ])
+    static member inline h4 (value: string)  = Interop.reactElement "h4" (createObj [ "children" ==> [| value |] ])
+    static member inline h4 (value: int)  = Interop.reactElement "h4" (createObj [ "children" ==> [| value |] ])
+    static member inline h5 (value: string)  = Interop.reactElement "h5" (createObj [ "children" ==> [| value |] ])
+    static member inline h5 (value: int)  = Interop.reactElement "h5" (createObj [ "children" ==> [| value |] ])
+    static member inline h6 (value: string)  = Interop.reactElement "h6" (createObj [ "children" ==> [| value |] ])
+    static member inline h6 (value: int) = Interop.reactElement "h6" (createObj [ "children" ==> [| value |] ])
+    static member inline strong(value: string)  = Interop.reactElement "strong" (createObj [ "children" ==> [| value |] ])
+    static member inline strong(value: int) = Interop.reactElement "strong" (createObj [ "children" ==> [| value |] ])
+    static member inline p(value: string) = Interop.reactElement "p" (createObj [ "children" ==> [| value |] ])
+    static member inline p(value: int) = Interop.reactElement "p" (createObj [ "children" ==> [| value |] ])
+    static member inline paragraph(value: string)  = Interop.reactElement "p" (createObj [ "children" ==> [| value |] ])
+    static member inline paragraph(value: int)  = Interop.reactElement "p" (createObj [ "children" ==> [| value |] ])
+    static member inline td(value: string) = Interop.reactElement "td" (createObj [ "children" ==> [| value |] ])
+    static member inline td(value: int)  = Interop.reactElement "td" (createObj [ "children" ==> [| value |] ])
+    static member inline th(value: string)  = Interop.reactElement "th" (createObj [ "children" ==> [| value |] ])
+    static member inline th(value: int)  = Interop.reactElement "th" (createObj [ "children" ==> [| value |] ])

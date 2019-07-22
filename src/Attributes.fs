@@ -2,6 +2,8 @@ namespace Feliz
 
 open Fable.React
 open Browser.Types
+open Fable.Core.JsInterop
+open Fable.Core
 
 type attr() =
     static member inline id(value: string) = Interop.mkAttr "id" value
@@ -59,7 +61,7 @@ type attr() =
     /// Alias for inline `attr.children [ Html.content value ]`
     static member inline content(value: int) = attr.children [ unbox value ]
     /// Alias for inline `attr.children [ Html.content value ]`
-    static member inline content(value: ReactElement) = attr.children [ value ]
+    static member inline content(value: ReactElement) = attr.children [ unbox value ]
     static member inline rows(value: int) = Interop.mkAttr "rows" value
     static member inline rowSpan(value: int) = Interop.mkAttr "rowSpan" value
     static member inline inputType(value: string) = Interop.mkAttr "type" value
@@ -136,10 +138,10 @@ type attr() =
     static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationEnd" handler
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
-    static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (Interop.createObj (unbox properties))
+    static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (keyValueList CaseRules.LowerFirst properties)
     static member styleList (properties: (bool * IStyleAttribute list) list) =
         properties
         |> List.filter fst
         |> List.collect snd
-        |> (unbox >> Interop.createObj)
+        |> keyValueList CaseRules.LowerFirst
         |> Interop.mkAttr "style"
