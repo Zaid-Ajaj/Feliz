@@ -5,17 +5,11 @@ open Browser.Types
 open Fable.Core.JsInterop
 open Fable.Core
 
-type attr() =
+[<Erase>]
+type attr =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
-    static member inline classList (classes: (bool * string) list) =
-        classes
-        |> List.filter fst
-        |> List.map snd
-        |> String.concat " "
-        |> Interop.mkAttr "className"
-
     static member inline key(value: string) = Interop.mkAttr "key" value
     static member inline key(value: int) = Interop.mkAttr "key" value
     static member inline defaultChecked(value: bool) = Interop.mkAttr "defaultChecked" value
@@ -69,7 +63,7 @@ type attr() =
     static member inline start(value: string) = Interop.mkAttr "start" value
     static member inline readOnly (value: bool) = Interop.mkAttr "readOnly" value
     static member inline custom(key: string, value: 't) = Interop.mkAttr key value
-    static member children (elems: ReactElement list) = Interop.mkAttr "children" (Array.ofList elems)
+    static member inline children (elems: ReactElement list) = Interop.mkAttr "children" (Array.ofList elems)
     static member inline onCut (handler: ClipboardEvent -> unit) = Interop.mkAttr "onCut" handler
     static member inline onPaste (handler: ClipboardEvent -> unit) = Interop.mkAttr "onPaste" handler
     static member inline onCompositionEnd (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionEnd" handler
@@ -139,9 +133,18 @@ type attr() =
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
     static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (keyValueList CaseRules.LowerFirst properties)
-    static member styleList (properties: (bool * IStyleAttribute list) list) =
+
+module attr =
+    let styleList (properties: (bool * IStyleAttribute list) list) =
         properties
         |> List.filter fst
         |> List.collect snd
         |> keyValueList CaseRules.LowerFirst
         |> Interop.mkAttr "style"
+
+    let classList (classes: (bool * string) list) =
+        classes
+        |> List.filter fst
+        |> List.map snd
+        |> String.concat " "
+        |> Interop.mkAttr "className"

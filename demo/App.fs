@@ -55,7 +55,7 @@ let render state dispatch =
 
             Html.button [
                 attr.className "btn btn-danger"
-                attr.style [ style.marginLeft 5 ]
+                attr.styleList [ true, [ style.marginLeft 5 ] ]
                 attr.onClick (fun _ -> dispatch Decrement)
                 attr.content "Decrement"
             ]

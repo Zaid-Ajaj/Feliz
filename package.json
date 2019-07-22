@@ -1,32 +1,33 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Zaid-Ajaj/Elmish.Toastr.git"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "babel-loader": "^8.0.0",
-    "css-loader": "^0.28.8",
-    "fable-compiler": "^2.3.3",
-    "fable-loader": "^2.1.6",
-    "gh-pages": "^1.1.0",
-    "loglevel": "^1.6.0",
-    "qunitjs": "^2.4.1",
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5",
-    "remotedev": "^0.2.7",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "toastr": "^2.1.2",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
-  }
+    "private": true,
+    "scripts": {
+        "build": "webpack --mode production",
+        "start": "webpack-dev-server",
+        "compile-demo-raw": "fable-splitter demo -o ./dist"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Zaid-Ajaj/Elmish.Toastr.git"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.0.0",
+        "@babel/polyfill": "^7.0.0",
+        "@babel/preset-env": "^7.0.0",
+        "babel-loader": "^8.0.0",
+        "css-loader": "^0.28.8",
+        "fable-compiler": "^2.3.3",
+        "fable-loader": "^2.1.6",
+        "gh-pages": "^1.1.0",
+        "loglevel": "^1.6.0",
+        "qunitjs": "^2.4.1",
+        "react": "^16.8.5",
+        "react-dom": "^16.8.5",
+        "remotedev": "^0.2.7",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.23.1",
+        "toastr": "^2.1.2",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.3.0",
+        "webpack-dev-server": "^3.2.1"
+    }
 }

@@ -197,3 +197,4 @@ project.lock.json
 bundle.js
 bundle.js.map
 .ionide
+dist
