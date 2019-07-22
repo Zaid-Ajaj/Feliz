@@ -16,7 +16,7 @@ let update msg state =
     | Decrement -> { state with Count = state.Count - 1  }
 
 let customStyles =
-    attr.style [
+    prop.style [
         style.display display.none
         style.fontSize 20
         style.borderRadius 15
@@ -41,23 +41,20 @@ let customStyles =
 
 let render state dispatch =
     Html.div [
-        attr.id "main"
-        attr.style [ style.padding 20 ]
-        attr.children [
-            Html.span [ customStyles ]
+        prop.id "main"
+        prop.style [ style.padding 20 ]
+        prop.children [
 
             Html.button [
-                attr.className "btn btn-success"
-                attr.style [ style.marginRight 5 ]
-                attr.onClick (fun _ -> dispatch Increment)
-                attr.content "Increment"
+                prop.style [ style.marginRight 5 ]
+                prop.onClick (fun _ -> dispatch Increment)
+                prop.content "Increment"
             ]
 
             Html.button [
-                attr.className "btn btn-danger"
-                attr.styleList [ true, [ style.marginLeft 5 ] ]
-                attr.onClick (fun _ -> dispatch Decrement)
-                attr.content "Decrement"
+                prop.style [ style.marginLeft 5 ]
+                prop.onClick (fun _ -> dispatch Decrement)
+                prop.content "Decrement"
             ]
 
             Html.h1 state.Count

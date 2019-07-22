@@ -1,33 +1,37 @@
-# Feliz (WIP) [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz)
+# Feliz [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz)
 
 A fresh retake of the base React DSL used within Elmish applications, optimized for maximum happiness.
 
 Here is how it looks like:
-```fsharp
-open Feliz
 
+```fs
 let render state dispatch =
     Html.div [
-        attr.id "main"
-        attr.style [ style.padding 20 ]
-        attr.children [
+        prop.id "main"
+        prop.style [ style.padding 20 ]
+        prop.children [
+            Html.span [ customStyles ]
 
             Html.button [
-                attr.style [ style.marginRight 5 ]
-                attr.onClick (fun _ -> dispatch Increment)
-                attr.content "Increment"
+                prop.className "btn btn-success"
+                prop.style [ style.marginRight 5 ]
+                prop.onClick (fun _ -> dispatch Increment)
+                prop.content "Increment"
             ]
 
             Html.button [
-                attr.style [ style.marginRight 5 ]
-                attr.onClick (fun _ -> dispatch Decrement)
-                attr.content "Decrement"
+                prop.className "btn btn-danger"
+                prop.styleList [ true, [ style.marginLeft 5 ] ]
+                prop.onClick (fun _ -> dispatch Decrement)
+                prop.content "Decrement"
             ]
 
             Html.h1 state.Count
         ]
     ]
 ```
+
+> `attr` is an alias for `prop`
 
 ### Features
 
@@ -50,15 +54,15 @@ Html.div "Hello there!"
 but you could also expand the attribute:
 ```fs
 Html.h1 [
-    attr.className "title"
-    attr.content "Hello there!"
+    prop.className "title"
+    prop.content "Hello there!"
 ]
 ```
 Here `attr.content` is simply `attr.children [ Html.text "Hello there!" ]` so you could expand it even further:
 ```fs
 Html.h1 [
-    attr.className "title"
-    attr.children [
+    prop.className "title"
+    prop.children [
         Html.text "Hello there"
     ]
 ]
@@ -68,7 +72,7 @@ Html.h1 [
 
 ```fs
 let customStyles =
-    attr.style [
+    prop.style [
         style.display display.none
         style.fontSize 20
         style.borderRadius 15
@@ -97,8 +101,8 @@ let customStyles =
 The library includes two convenient functions to apply classes or styles conditionally on elements:
 ```fsharp
 Html.div [
-    attr.classList [ true, "shiny"; state.Count < 0, "danger" ]
-    attr.styleList [
+    prop.classList [ true, "shiny"; state.Count < 0, "danger" ]
+    prop.styleList [
         true, [ style.margin 10 ]
         state.Count >= 10, [
             style.backgroundColor colors.red

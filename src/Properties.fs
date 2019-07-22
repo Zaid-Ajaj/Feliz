@@ -6,7 +6,7 @@ open Fable.Core
 open Feliz.Styles
 
 [<Erase>]
-type attr =
+type prop =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
@@ -181,7 +181,7 @@ type attr =
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
     static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (keyValueList CaseRules.LowerFirst properties)
 
-module attr =
+module prop =
     let styleList (properties: (bool * IStyleAttribute list) list) =
         properties
         |> List.filter fst
