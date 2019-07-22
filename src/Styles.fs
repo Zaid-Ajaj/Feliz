@@ -165,6 +165,7 @@ type length =
     static member inline percent(value: int) : ICssUnit = unbox ((unbox<string>value) + "%")
     /// Relative to the parent element
     static member inline percent(value: double) : ICssUnit = unbox ((unbox<string>value) + "%")
+    static member inline auto : ICssUnit = unbox "auto"
 
 [<Erase>]
 type overflow =
