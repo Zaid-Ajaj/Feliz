@@ -31,8 +31,6 @@ let render state dispatch =
     ]
 ```
 
-> `attr` is an alias for `prop`
-
 ### Features
 
  - Consistent **formatting**: no more awkward indentation using two lists for every element
