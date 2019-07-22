@@ -20,13 +20,14 @@ let customStyles =
         style.display display.none
         style.fontSize 20
         style.borderRadius 15
-        style.borderRadius "20px"
+        style.borderRadius (length.px 10)
         style.margin 10
-        style.margin "20px"
+        style.margin (length.px 10)
         style.margin(10, 10, 10, 20)
         style.width 10
         style.height 100
-        style.height "100%"
+        style.height (length.vh 50)
+        style.height (length.percent 100)
         style.backgroundColor colors.fuchsia
         style.border(3, borderStyle.dashed, colors.crimson)
         style.borderColor colors.yellowGreen

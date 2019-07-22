@@ -4,6 +4,8 @@ A fresh retake of the base React DSL used within Elmish applications, optimized 
 
 Here is how it looks like:
 ```fsharp
+open Feliz
+
 let render state dispatch =
     Html.div [
         attr.id "main"
@@ -66,15 +68,17 @@ Html.h1 [
 ```fs
 let customStyles =
     attr.style [
+        style.display display.none
         style.fontSize 20
         style.borderRadius 15
-        style.borderRadius "20px"
+        style.borderRadius (length.px 10)
         style.margin 10
-        style.margin "20px"
+        style.margin (length.px 10)
         style.margin(10, 10, 10, 20)
         style.width 10
         style.height 100
-        style.height "100%"
+        style.height (length.vh 50)
+        style.height (length.percent 100)
         style.backgroundColor colors.fuchsia
         style.border(3, borderStyle.dashed, colors.crimson)
         style.borderColor colors.yellowGreen
@@ -84,7 +88,6 @@ let customStyles =
         style.visibility visibility.hidden
         style.textDecoration textDecorationLine.lineThrough
         style.position position.sticky
-        style.display display.flex
     ]
 ```
 

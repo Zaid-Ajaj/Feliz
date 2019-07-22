@@ -37,3 +37,5 @@ type IWordWrap = interface end
 type IBackgroundRepeat = interface end
 
 type IBackgroundClip = interface end
+
+type ICssUnit = interface end

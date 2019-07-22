@@ -93,6 +93,80 @@ type fontKerning =
     static member inline none : IFontKerning = unbox "none"
 
 [<Erase>]
+/// Specifies a number of specialized CSS units
+type length =
+    /// Pixels are (1px = 1/96th of 1in).
+    ///
+    /// **Note**: Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display. For printers and high resolution screens 1px implies multiple device pixels.
+    static member inline px(value: int) : ICssUnit = unbox ((unbox<string>value) + "px")
+    static member inline px(value: double) : ICssUnit = unbox ((unbox<string>value) + "px")
+    /// Centimeters
+    static member inline cm(value: int) : ICssUnit = unbox ((unbox<string>value) + "cm")
+    /// Centimeters
+    static member inline cm(value: double) : ICssUnit = unbox ((unbox<string>value) + "cm")
+    /// Millimeters
+    static member inline mm(value: int) : ICssUnit = unbox ((unbox<string>value) + "mm")
+    /// Millimeters
+    static member inline mm(value: double) : ICssUnit = unbox ((unbox<string>value) + "mm")
+    /// Inches (1in = 96px = 2.54cm)
+    static member inline inch(value: int) : ICssUnit = unbox ((unbox<string>value) + "in")
+    /// Inches (1in = 96px = 2.54cm)
+    static member inline inch(value: double) : ICssUnit = unbox ((unbox<string>value) + "in")
+    /// Points (1pt = 1/72 of 1in)
+    static member inline pt(value: int) : ICssUnit = unbox ((unbox<string>value) + "pt")
+    /// Points (1pt = 1/72 of 1in)
+    static member inline pt(value: double) : ICssUnit = unbox ((unbox<string>value) + "pt")
+    /// Picas (1pc = 12 pt)
+    static member inline pc(value: int) : ICssUnit = unbox ((unbox<string>value) + "pc")
+    /// Picas (1pc = 12 pt)
+    static member inline pc(value: double) : ICssUnit = unbox ((unbox<string>value) + "pc")
+    /// Relative to the font-size of the element (2em means 2 times the size of the current font
+    static member inline em(value: int) : ICssUnit = unbox ((unbox<string>value) + "em")
+    /// Relative to the font-size of the element (2em means 2 times the size of the current font
+    static member inline em(value: double) : ICssUnit = unbox ((unbox<string>value) + "em")
+    /// Relative to the x-height of the current font (rarely used)
+    static member inline ex(value: int) : ICssUnit = unbox ((unbox<string>value) + "ex")
+    /// Relative to the x-height of the current font (rarely used)
+    static member inline ex(value: double) : ICssUnit = unbox ((unbox<string>value) + "ex")
+    static member inline ch(value: int) : ICssUnit = unbox ((unbox<string>value) + "ch")
+    /// Relative to font-size of the root element
+    static member inline rem(value: double) : ICssUnit = unbox ((unbox<string>value) + "rem")
+    /// Relative to font-size of the root element
+    static member inline rem(value: int) : ICssUnit = unbox ((unbox<string>value) + "rem")
+    /// Relative to 1% of the height of the viewport*
+    ///
+    /// **Viewport** = the browser window size. If the viewport is 50cm wide, 1vw = 0.5cm.
+    static member inline vh(value: int) : ICssUnit = unbox ((unbox<string>value) + "vh")
+    /// Relative to 1% of the height of the viewport*
+    ///
+    /// **Viewport** = the browser window size. If the viewport is 50cm wide, 1vw = 0.5cm.
+    static member inline vh(value: double) : ICssUnit = unbox ((unbox<string>value) + "vh")
+    /// Relative to 1% of the width of the viewport*
+    ///
+    /// **Viewport** = the browser window size. If the viewport is 50cm wide, 1vw = 0.5cm.
+    static member inline vw(value: int) : ICssUnit = unbox ((unbox<string>value) + "vw")
+    /// Relative to 1% of the width of the viewport*
+    ///
+    /// **Viewport** = the browser window size. If the viewport is 50cm wide, 1vw = 0.5cm.
+    static member inline vw(value: double) : ICssUnit = unbox ((unbox<string>value) + "vw")
+    /// Relative to 1% of viewport's smaller dimension
+    static member inline vmin(value: double) : ICssUnit = unbox ((unbox<string>value) + "vmin")
+    /// Relative to 1% of viewport's smaller dimension
+    static member inline vmin(value: int) : ICssUnit = unbox ((unbox<string>value) + "vmin")
+    /// Relative to 1% of viewport's larger dimension
+    static member inline vmax(value: double) : ICssUnit = unbox ((unbox<string>value) + "vmax")
+    /// Relative to 1% of viewport's* larger dimension
+    static member inline vmax(value: int) : ICssUnit = unbox ((unbox<string>value) + "vmax")
+    /// Relative to the parent element
+    static member inline perc(value: int) : ICssUnit = unbox ((unbox<string>value) + "%")
+    /// Relative to the parent element
+    static member inline perc(value: double) : ICssUnit = unbox ((unbox<string>value) + "%")
+    /// Relative to the parent element
+    static member inline percent(value: int) : ICssUnit = unbox ((unbox<string>value) + "%")
+    /// Relative to the parent element
+    static member inline percent(value: double) : ICssUnit = unbox ((unbox<string>value) + "%")
+
+[<Erase>]
 type overflow =
     /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
     static member inline visible : IOverflow = unbox "visibile"
@@ -161,45 +235,46 @@ type style =
     static member inline margin(top: int, right: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx" top right)
     static member inline margin(top: int, right: int, bottom: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx %dpx" top right bottom)
     static member inline margin(top: int, right: int, bottom: int, left: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx %dpx %dpx" top right bottom left)
-    static member inline margin(value: string) = Interop.mkStyle "margin" value
+    static member inline margin(value: ICssUnit) = Interop.mkStyle "margin" value
     static member inline marginLeft(value: int) = Interop.mkStyle "marginLeft" value
-    static member inline marginLeft(value: string) = Interop.mkStyle "marginLeft" value
+    static member inline marginLeft(value: ICssUnit) = Interop.mkStyle "marginLeft" value
     static member inline marginRight(value: int) = Interop.mkStyle "marginRight" value
-    static member inline marginRight(value: string) = Interop.mkStyle "marginRight" value
+    static member inline marginRight(value: ICssUnit) = Interop.mkStyle "marginRight" value
     static member inline marginTop(value: int) = Interop.mkStyle "marginTop" value
-    static member inline marginTop(value: string) = Interop.mkStyle "marginTop" value
+    static member inline marginTop(value: ICssUnit) = Interop.mkStyle "marginTop" value
     static member inline marginBottom(value: int) = Interop.mkStyle "marginBottom" value
-    static member inline marginBottom(value: string) = Interop.mkStyle "marginBottom" value
+    static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
     static member inline padding(value: int) = Interop.mkStyle "padding" value
-    static member inline padding(value: string) = Interop.mkStyle "padding" value
-    static member inline paddingLeft(value: string) = Interop.mkStyle "paddingLeft" value
-    static member inline paddingRight(value: string) = Interop.mkStyle "paddingRight" value
-    static member inline paddingTop(value: string) = Interop.mkStyle "paddingTop" value
-    static member inline paddingBottom(value: string) = Interop.mkStyle "paddingBottom" value
-    static member inline paddingLeft(value: int) = Interop.mkStyle "paddingLeft" value
-    static member inline paddingRight(value: int) = Interop.mkStyle "paddingRight" value
-    static member inline paddingTop(value: int) = Interop.mkStyle "paddingTop" value
+    static member inline padding(value: ICssUnit) = Interop.mkStyle "padding" value
     static member inline paddingBottom(value: int) = Interop.mkStyle "paddingBottom" value
+    static member inline paddingBottom(value: ICssUnit) = Interop.mkStyle "paddingBottom" value
+    static member inline paddingLeft(value: int) = Interop.mkStyle "paddingLeft" value
+    static member inline paddingLeft(value: ICssUnit) = Interop.mkStyle "paddingLeft" value
+    static member inline paddingRight(value: int) = Interop.mkStyle "paddingRight" value
+    static member inline paddingRight(value: ICssUnit) = Interop.mkStyle "paddingRight" value
+    static member inline paddingTop(value: int) = Interop.mkStyle "paddingTop" value
+    static member inline paddingTop(value: ICssUnit) = Interop.mkStyle "paddingTop" value
     static member inline display(options: IDisplay) = Interop.mkStyle "display" options
     static member inline fontSize(size: int) = Interop.mkStyle "fontSize" size
-    static member inline fontSize(size: string) = Interop.mkStyle "fontSize" size
+    static member inline fontSize(size: ICssUnit) = Interop.mkStyle "fontSize" size
     static member inline wordWrap (style: IWordWrap) = Interop.mkStyle "wordWrap" style
     static member inline alignContent(option: IAlignContent) = Interop.mkStyle "alignContent" option
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
     static member inline color (color: string) = Interop.mkStyle "color" color
     static member inline top(value: int) = Interop.mkStyle "top" value
-    static member inline top(value: string) = Interop.mkStyle "top" value
+    static member inline top(value: ICssUnit) = Interop.mkStyle "top" value
     static member inline bottom(value: int) = Interop.mkStyle "bottom" value
-    static member inline bottom(value: string) = Interop.mkStyle "bottom" value
+    static member inline bottom(value: ICssUnit) = Interop.mkStyle "bottom" value
     static member inline left(value: int) = Interop.mkStyle "left" value
-    static member inline left(value: string) = Interop.mkStyle "left" value
+    static member inline left(value: ICssUnit) = Interop.mkStyle "left" value
     static member inline right(value: int) = Interop.mkStyle "right" value
-    static member inline right(value: string) = Interop.mkStyle "right" value
+    static member inline right(value: ICssUnit) = Interop.mkStyle "right" value
     static member inline overflow(value: IOverflow) = Interop.mkStyle "overflow" value
     static member inline overflowX(value: IOverflow) = Interop.mkStyle "overflowX" value
     static member inline overflowY(value: IOverflow) = Interop.mkStyle "overflowY" value
     static member inline custom(key: string, value: 't) = Interop.mkStyle key value
     static member inline border(width: int, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%dpx %s %s" width (unbox style) color)
+    static member inline border(width: ICssUnit, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%dpx %s %s" (unbox width) (unbox style) color)
     static member inline border(width: string, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%s %s %s" width (unbox style) color)
     static member inline borderWidth (width: int) = Interop.mkStyle "borderWidth" width
     static member inline borderStyle (style: IBorderStyle) = Interop.mkStyle "borderWidth" style
@@ -222,7 +297,7 @@ type style =
     ///
     /// Note: The `font-stretch` property will not work on just any font! It will only work if the font family has width-variant faces. The font-stretch property itself does not stretch a font.
     static member inline fontStretch (stretch: IFontStretch) = Interop.mkStyle "fontStretch" stretch
-    static member inline borderRadius (radius: string) = Interop.mkStyle "borderRadius" radius
+    static member inline borderRadius (radius: ICssUnit) = Interop.mkStyle "borderRadius" radius
     static member inline borderWidth (top: int, right: int) =
         let value = sprintf "%dpx %dpx" top right
         Interop.mkStyle "borderWidth" value
@@ -251,21 +326,23 @@ type style =
     static member inline position(value: IPosition) = Interop.mkStyle "position" value
     static member inline opacity(value: double) = Interop.mkStyle "opacity" value
     static member inline minWidth (value: int) = Interop.mkStyle "minWidth" value
+    static member inline minWidth (value: ICssUnit) = Interop.mkStyle "minWidth" value
     static member inline backgroundPosition  (position: string) = Interop.mkStyle "backgroundPosition" position
     static member inline cursor (value: string) = Interop.mkStyle "cursor" value
     static member inline minWidth (value: string) = Interop.mkStyle "minWidth" value
     static member inline minHeight (value: int) = Interop.mkStyle "minHeight" value
-    static member inline minHeight (value: string) = Interop.mkStyle "minHeight" value
+    static member inline minHeight (value: ICssUnit) = Interop.mkStyle "minHeight" value
     static member inline maxWidth (value: int) = Interop.mkStyle "maxWidth" value
-    static member inline maxWidth (value: string) = Interop.mkStyle "maxWidth" value
+    static member inline maxWidth (value: ICssUnit) = Interop.mkStyle "maxWidth" value
     static member inline maxHeight (value: int) = Interop.mkStyle "maxHeight" value
-    static member inline maxHeight (value: string) = Interop.mkStyle "maxHeight" value
+    static member inline maxHeight (value: ICssUnit) = Interop.mkStyle "maxHeight" value
     static member inline height (value: int) = Interop.mkStyle "height" value
-    static member inline height (value: string) = Interop.mkStyle "height" value
+    static member inline height (value: ICssUnit) = Interop.mkStyle "height" value
     static member inline width (value: int) = Interop.mkStyle "width" value
-    static member inline width (value: string) = Interop.mkStyle "width" value
+    static member inline width (value: ICssUnit) = Interop.mkStyle "width" value
     static member inline backgroundSize (value: string) = Interop.mkStyle "backgroundSize" value
     static member inline backgroundImage (value: string) = Interop.mkStyle "backgroundImage" value
+    static member inline backgroundImageUrl (value: string) = Interop.mkStyle "backgroundImage" ("url(" + value + ")")
     static member inline backgroundRepeat (repeat: IBackgroundRepeat) = Interop.mkStyle "backgroundRepeat" repeat
     static member inline backgroundClip (clip: IBackgroundClip) = Interop.mkStyle "backgroundClip" clip
     static member inline alignItems(alignment: IAlignItems) = Interop.mkStyle "alignItems" alignment
