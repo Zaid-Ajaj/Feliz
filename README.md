@@ -36,7 +36,8 @@ let render state dispatch =
  - Proper **documentation**: each attribute and css property
  - Fully **Type-safe**: no more `Margin of obj` but instead utilizing a plethora of overloaded functions to account for the overloaded nature of `CSS` attributes
  - Included **color list** of most commonly used `Html` colors.
- - **Compatible** with the current DSL used in applications
+ - **Compatible** with the current DSL used in applications.
+ - **Compatible** with [Femto](https://github.com/Zaid-Ajaj/Femto).
 
 ### Overloaded elements
 

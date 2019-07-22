@@ -234,7 +234,16 @@ type style =
     static member inline zIndex(value: int) = Interop.mkStyle "zIndex" value
     static member inline margin(value: int) = Interop.mkStyle "margin" value
     static member inline margin(top: int, right: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx" top right)
-    static member inline margin(top: int, right: int, bottom: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx %dpx" top right bottom)
+    static member inline margin(top: ICssUnit, right: int) =
+        Interop.mkStyle "margin" ((unbox<string> top) + " " + (unbox<string>right) + "px")
+    static member inline margin(top: ICssUnit, right: int, bottom: int) =
+        Interop.mkStyle "margin" ((unbox<string> top) + " " + (unbox<string>right) + "px " + (unbox<string>bottom) + "px")
+    static member inline margin(top: ICssUnit, right: int, bottom: int, left: int) =
+        Interop.mkStyle "margin" ((unbox<string> top) + " " + (unbox<string>right) + "px " + (unbox<string>bottom) + "px " + (unbox<string>left) + "px")
+    static member inline margin(top: int, right: ICssUnit) =
+        Interop.mkStyle "margin" ((unbox<string> right) + " " + (unbox<string>top) + "px")
+    static member inline margin(top: int, right: int, bottom: int) =
+        Interop.mkStyle "margin" ((unbox<string> top) + "px " + (unbox<string> right) + "px " + (unbox<string> bottom) + "px")
     static member inline margin(top: int, right: int, bottom: int, left: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx %dpx %dpx" top right bottom left)
     static member inline margin(value: ICssUnit) = Interop.mkStyle "margin" value
     static member inline marginLeft(value: int) = Interop.mkStyle "marginLeft" value
