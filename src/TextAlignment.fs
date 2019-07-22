@@ -1,8 +1,10 @@
 namespace Feliz
 
 open Feliz.Styles
+open Fable.Core
 
-type textAlign() =
+[<Erase>]
+type textAlign =
     /// Aligns the text to the left.
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align

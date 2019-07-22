@@ -1,8 +1,10 @@
 namespace Feliz
 
 open Feliz.Styles
+open Fable.Core
 
-type textDecorationLine() =
+[<Erase>]
+type textDecorationLine =
     static member inline none : ITextDecorationLine = unbox "none"
     static member inline underline : ITextDecorationLine = unbox "underline"
     static member inline overline : ITextDecorationLine = unbox "overline"

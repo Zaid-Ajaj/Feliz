@@ -1,8 +1,10 @@
 namespace Feliz
 
 open Feliz.Styles
+open Fable.Core
 
-type textDecorationStyle() =
+[<Erase>]
+type textDecorationStyle =
     /// Default value. The line will display as a single line.
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-decoration-style&preval=solid
