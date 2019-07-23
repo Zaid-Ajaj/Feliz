@@ -23,7 +23,6 @@
         <Compile Include="Colors.fs" />
         <Compile Include="Properties.fs" />
         <Compile Include="BorderStyle.fs" />
-        <Compile Include="TextAlignment.fs" />
         <Compile Include="TextDecorationStyle.fs" />
         <Compile Include="TextDecorationLine.fs" />
         <Compile Include="Styles.fs" />
