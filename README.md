@@ -18,7 +18,7 @@ let render state dispatch =
             ]
 
             Html.button [
-                prop.styleList [ style.marginLeft 5 ]
+                prop.style [ style.marginLeft 5 ]
                 prop.onClick (fun _ -> dispatch Decrement)
                 prop.content "Decrement"
             ]
@@ -37,7 +37,7 @@ let render state dispatch =
  - Included **color list** of most commonly used `Html` colors.
  - **Compatible** with the current DSL used in applications.
  - **Compatible** with [Femto](https://github.com/Zaid-Ajaj/Femto).
-
+ - Approximately **Zero`** bundle size increase where almost everything is erased to strings in the generated javascript.
 ### Overloaded elements
 
 When you want to display a single string or number simply use:
