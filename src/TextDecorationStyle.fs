@@ -1,7 +1,7 @@
 namespace Feliz
 
-open Feliz.Styles
 open Fable.Core
+open Feliz.Styles
 
 [<Erase>]
 type textDecorationStyle =

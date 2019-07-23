@@ -37,7 +37,8 @@ let render state dispatch =
  - Included **color list** of most commonly used `Html` colors.
  - **Compatible** with the current DSL used in applications.
  - **Compatible** with [Femto](https://github.com/Zaid-Ajaj/Femto).
- - Approximately **Zero`** bundle size increase where almost everything is erased to strings in the generated javascript.
+ - Approximately **Zero** bundle size increase where almost everything is erased to strings in the generated javascript.
+
 ### Overloaded elements
 
 When you want to display a single string or number simply use:
@@ -68,26 +69,31 @@ Html.h1 [
 ```fs
 let customStyles =
     prop.style [
-        style.display display.none
+        style.display.flex
+        style.display.none
         style.fontSize 20
         style.borderRadius 15
+        style.alignContent.flexStart
+        style.textDecorationColor.blue
+        style.visibility.hidden
+        style.textDecoration.lineThrough
+        style.position.sticky
         style.borderRadius (length.px 10)
         style.margin 10
         style.margin (length.px 10)
         style.margin(10, 10, 10, 20)
+        style.margin(10, 10, 10)
+        style.margin(10, 10)
         style.width 10
         style.height 100
         style.height (length.vh 50)
         style.height (length.percent 100)
-        style.backgroundColor colors.fuchsia
+        style.backgroundColor.fuchsia
+        style.backgroundColor "#FFFFFF"
         style.border(3, borderStyle.dashed, colors.crimson)
-        style.borderColor colors.yellowGreen
-        style.color colors.lightGoldenRodYellow
-        style.alignContent alignContent.flexStart
-        style.textDecorationColor colors.red
-        style.visibility visibility.hidden
-        style.textDecoration textDecorationLine.lineThrough
-        style.position position.sticky
+        style.borderColor.blue
+        style.color.red
+        style.color "#000000"
     ]
 ```
 
@@ -100,11 +106,11 @@ Html.div [
     prop.styleList [
         true, [ style.margin 10 ]
         state.Count >= 10, [
-            style.backgroundColor colors.red
+            style.backgroundColor.red
             style.fontSize 20
         ]
         state.Count >= 20, [
-            style.backgroundColor colors.green
+            style.backgroundColor.green
             style.fontSize 30
         ]
     ]

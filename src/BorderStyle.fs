@@ -57,14 +57,3 @@ type borderStyle =
     ///
     /// Read about inherit https://www.w3schools.com/cssref/css_inherit.asp
     static member inline inheritFromParent : IBorderStyle = unbox "inherit"
-
-    static member inline multiple(top: IBorderStyle, right: IBorderStyle) : IBorderStyle =
-        sprintf "%s %s" (unbox top) (unbox right)
-        |> unbox
-    static member inline multiple(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle) : IBorderStyle =
-        sprintf "%s %s %s" (unbox top) (unbox right) (unbox bottom)
-        |> unbox
-
-    static member inline multiple(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle, left: IBorderStyle) : IBorderStyle =
-        sprintf "%s %s %s %s" (unbox top) (unbox right) (unbox bottom) (unbox left)
-        |> unbox

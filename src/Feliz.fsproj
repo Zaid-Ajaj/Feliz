@@ -6,7 +6,7 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>0.15.0</Version>
+        <Version>0.16.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
@@ -26,11 +26,6 @@
         <Compile Include="TextAlignment.fs" />
         <Compile Include="TextDecorationStyle.fs" />
         <Compile Include="TextDecorationLine.fs" />
-        <Compile Include="Position.fs" />
-        <Compile Include="AlignContent.fs" />
-        <Compile Include="AlignItems.fs" />
-        <Compile Include="AlignSelf.fs" />
-        <Compile Include="Display.fs" />
         <Compile Include="Styles.fs" />
         <Compile Include="Html.fs" />
     </ItemGroup>
