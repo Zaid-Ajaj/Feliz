@@ -30,22 +30,22 @@ let run fileName args workingDir =
             info.Arguments <- args) TimeSpan.MaxValue
     if not ok then failwith (sprintf "'%s> %s %s' task failed" workingDir fileName args)
 
-let delete file = 
-    if File.Exists(file) 
+let delete file =
+    if File.Exists(file)
     then DeleteFile file
-    else () 
+    else ()
 
-let cleanBundles() = 
-    Path.Combine("public", "bundle.js") 
-        |> Path.GetFullPath 
-        |> delete
-    Path.Combine("public", "bundle.js.map") 
+let cleanBundles() =
+    Path.Combine("public", "bundle.js")
         |> Path.GetFullPath
-        |> delete 
+        |> delete
+    Path.Combine("public", "bundle.js.map")
+        |> Path.GetFullPath
+        |> delete
 
-let cleanCacheDirs() = 
-    [ testsPath </> "bin" 
-      testsPath </> "obj" 
+let cleanCacheDirs() =
+    [ testsPath </> "bin"
+      testsPath </> "obj"
       libPath </> "bin"
       libPath </> "obj" ]
     |> CleanDirs
@@ -58,7 +58,7 @@ Target "InstallNpmPackages" (fun _ ->
   printfn "Node version:"
   run nodeTool "--version" __SOURCE_DIRECTORY__
   run "npm" "--version" __SOURCE_DIRECTORY__
-  run "yarn" "install" __SOURCE_DIRECTORY__
+  run "npm" "install" __SOURCE_DIRECTORY__
 )
 
 Target "RestoreFableTestProject" <| fun _ ->
@@ -76,9 +76,9 @@ let publish projectPath = fun () ->
         match environVarOrNone "NUGET_KEY" with
         | Some nugetKey -> nugetKey
         | None -> failwith "The Nuget API key must be set in a NUGET_KEY environmental variable"
-    let nupkg = 
-        Directory.GetFiles(projectPath </> "bin" </> "Release") 
-        |> Seq.head 
+    let nupkg =
+        Directory.GetFiles(projectPath </> "bin" </> "Release")
+        |> Seq.head
         |> Path.GetFullPath
 
     let pushCmd = sprintf "nuget push %s -s nuget.org -k %s" nupkg nugetKey
