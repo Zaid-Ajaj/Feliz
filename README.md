@@ -63,6 +63,10 @@ Html.h1 [
     ]
 ]
 ```
+Single children work too as input:
+```fs
+Html.h1 (Html.strong "I am bold")
+```
 
 ### Type-safe style attributes
 

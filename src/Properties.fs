@@ -10,6 +10,18 @@ type prop =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline ref(handler: Element -> unit) = Interop.mkAttr "ref" handler
     static member inline dangerouslySetInnerHTML(content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
+    /// `prop.ref` callback that sets the value of an input after DOM element is created.
+    /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input box value.
+    static member inline valueOrDefault(value: string) =
+        prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
+    /// `prop.ref` callback that sets the value of an input after DOM element is created.
+    /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input value.
+    static member inline valueOrDefault(value: int) =
+        prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
+    /// `prop.ref` callback that sets the value of an input after DOM element is created.
+    /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input value.
+    static member inline valueOrDefault(value: bool) =
+        prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
     static member inline key(value: string) = Interop.mkAttr "key" value
@@ -197,3 +209,49 @@ module prop =
         |> List.map snd
         |> String.concat " "
         |> Interop.mkAttr "className"
+
+    type inputType =
+        /// Defines a password field
+        static member inline password = Interop.mkAttr "type" "password"
+        /// Default. Defines a single-line text field
+        static member inline text = Interop.mkAttr "type" "text"
+        /// Defines a clickable button (mostly used with a JavaScript code to activate a script)
+        static member inline button = Interop.mkAttr "type" "button"
+        /// Defines a checkbox
+        static member inline checkbox = Interop.mkAttr "type" "checkbox"
+        /// Defines a color picker
+        static member inline color = Interop.mkAttr "type" "color"
+        /// Defines a date control with year, month and day (no time)
+        static member inline date = Interop.mkAttr "type" "date"
+        /// Defines a date and time control (year, month, day, time (no timezone)
+        static member inline dateTimeLocal = Interop.mkAttr "type" "datetime-local"
+        /// Defines a field for an e-mail address
+        static member inline email = Interop.mkAttr "type" "email"
+        /// Defines a file-select field and a "Browse" button (for file uploads)
+        static member inline file = Interop.mkAttr "type" "file"
+        /// Defines a hidden input field
+        static member inline hidden = Interop.mkAttr "type" "hidden"
+        /// Defines an image as the submit button
+        static member inline image = Interop.mkAttr "type" "image"
+        /// Defines a month and year control (no timezone)
+        static member inline month = Interop.mkAttr "type" "month"
+        /// Defines a field for entering a number
+        static member inline number = Interop.mkAttr "type" "number"
+        /// Defines a radio button
+        static member inline radio = Interop.mkAttr "type" "radio"
+        /// Defines a range control (like a slider control)
+        static member inline range = Interop.mkAttr "type" "range"
+        /// Defines a reset button
+        static member inline reset = Interop.mkAttr "type" "reset"
+        /// Defines a text field for entering a search string
+        static member inline search = Interop.mkAttr "type" "search"
+        /// Defines a submit button
+        static member inline submit = Interop.mkAttr "type" "submit"
+        /// Defines a field for entering a telephone number
+        static member inline tel = Interop.mkAttr "type" "tel"
+        /// Defines a control for entering a time (no timezone)
+        static member inline time = Interop.mkAttr "type" "time"
+        /// Defines a field for entering a URL
+        static member inline url = Interop.mkAttr "type" "url"
+        /// Defines a week and year control (no timezone)
+        static member inline week = Interop.mkAttr "type" "week"
