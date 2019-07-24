@@ -8,6 +8,8 @@ open Feliz.Styles
 [<Erase>]
 type prop =
     static member inline id(value: string) = Interop.mkAttr "id" value
+    static member inline ref(handler: Element -> unit) = Interop.mkAttr "ref" handler
+    static member inline dangerouslySetInnerHTML(content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
     static member inline key(value: string) = Interop.mkAttr "key" value
@@ -195,9 +197,3 @@ module prop =
         |> List.map snd
         |> String.concat " "
         |> Interop.mkAttr "className"
-
-    let points (points: (int * int) list) =
-        points
-        |> List.map (fun (a, b) -> (unbox<string> a) + "," + (unbox<string> b))
-        |> String.concat " "
-        |> Interop.mkAttr "points"
