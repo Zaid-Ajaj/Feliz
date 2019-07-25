@@ -203,12 +203,16 @@ module prop =
         |> keyValueList CaseRules.LowerFirst
         |> Interop.mkAttr "style"
 
+    let styleWhen properties = styleList properties
+
     let classList (classes: (bool * string) list) =
         classes
         |> List.filter fst
         |> List.map snd
         |> String.concat " "
         |> Interop.mkAttr "className"
+
+    let classWhen xs = classList xs
 
     type inputType =
         /// Defines a password field
