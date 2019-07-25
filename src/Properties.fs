@@ -134,6 +134,9 @@ type prop =
     static member inline onFocus (handler: FocusEvent -> unit) = Interop.mkAttr "onFocus" handler
     static member inline onBlur (handler: FocusEvent -> unit) = Interop.mkAttr "onBlur" handler
     static member inline onChange (handler: Event -> unit) = Interop.mkAttr "onChange" handler
+    /// Same as `onChange` but let's you deal with the text changed from the `input` element directly
+    /// instead of extracting it from the event arguments.
+    static member inline onTextChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
     static member inline onInput (handler: Event -> unit) = Interop.mkAttr "onClick" handler
     static member inline onSubmit (handler: Event -> unit) = Interop.mkAttr "onSubmit" handler
     static member inline onReset (handler: Event -> unit) = Interop.mkAttr "onReset" handler
