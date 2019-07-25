@@ -19,6 +19,7 @@
     <ItemGroup>
         <Compile Include="Types.fs" />
         <Compile Include="StyleTypes.fs" />
+        <Compile Include="ReactTypes.fs" />
         <Compile Include="Interop.fs" />
         <Compile Include="Colors.fs" />
         <Compile Include="Properties.fs" />
