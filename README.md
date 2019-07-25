@@ -14,13 +14,13 @@ let render state dispatch =
             Html.button [
                 prop.style [ style.marginRight 5 ]
                 prop.onClick (fun _ -> dispatch Increment)
-                prop.content "Increment"
+                prop.children "Increment"
             ]
 
             Html.button [
                 prop.style [ style.marginLeft 5 ]
                 prop.onClick (fun _ -> dispatch Decrement)
-                prop.content "Decrement"
+                prop.children "Decrement"
             ]
 
             Html.h1 state.Count
@@ -51,10 +51,10 @@ but you could also expand the attribute:
 ```fs
 Html.h1 [
     prop.className "title"
-    prop.content "Hello there!"
+    prop.children "Hello there!"
 ]
 ```
-Here `attr.content` is simply `attr.children [ Html.text "Hello there!" ]` so you could expand it even further:
+You could expand it even further:
 ```fs
 Html.h1 [
     prop.className "title"
@@ -63,9 +63,15 @@ Html.h1 [
     ]
 ]
 ```
-Single children work too as input:
+Single element child works too as input:
 ```fs
 Html.h1 (Html.strong "I am bold")
+
+// same as
+
+Html.h1 [
+    prop.children (Html.strong "I am bold")
+]
 ```
 
 ### Type-safe style attributes

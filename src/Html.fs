@@ -77,6 +77,11 @@ type Html =
     static member inline radialGradient xs = Interop.createElement "radialGradient" xs
     static member inline polyline xs = Interop.createElement "polyline" xs
     static member inline path xs = Interop.createElement "path" xs
+    static member inline pre xs = Interop.createElement "pre" xs
+    static member inline code xs = Interop.createElement "code" xs
+    static member inline meta xs = Interop.createElement "meta" xs
+    static member inline head xs = Interop.createElement "head" xs
+    static member inline body xs = Interop.createElement "body" xs
     static member inline clipPath xs = Interop.createElement "clipPath" xs
     static member inline linearGradient xs = Interop.createElement "linearGradient" xs
     static member inline content (value: string) : ReactElement = unbox value
@@ -97,6 +102,15 @@ type Html =
     static member inline paragraph(value: ReactElement)  = Interop.reactElement "p" (createObj [ "children" ==> [| value |] ])
     static member inline td(value: ReactElement) = Interop.reactElement "td" (createObj [ "children" ==> [| value |] ])
     static member inline th(value: ReactElement)  = Interop.reactElement "th" (createObj [ "children" ==> [| value |] ])
+    static member inline pre(value: ReactElement)  = Interop.reactElement "pre" (createObj [ "children" ==> [| value |] ])
+    static member inline pre(value: string)  = Interop.reactElement "pre" (createObj [ "children" ==> [| value |] ])
+    static member inline pre(value: int)  = Interop.reactElement "pre" (createObj [ "children" ==> [| value |] ])
+    static member inline pre(value: bool)  = Interop.reactElement "pre" (createObj [ "children" ==> [| value |] ])
+    static member inline pre(value: float)  = Interop.reactElement "pre" (createObj [ "children" ==> [| value |] ])
+    static member inline code(value: ReactElement)  = Interop.reactElement "code" (createObj [ "children" ==> [| value |] ])
+    static member inline code(value: string)  = Interop.reactElement "code" (createObj [ "children" ==> [| value |] ])
+    static member inline code(value: int)  = Interop.reactElement "code" (createObj [ "children" ==> [| value |] ])
+    static member inline code(value: bool)  = Interop.reactElement "code" (createObj [ "children" ==> [| value |] ])
     static member inline li(value: ReactElement) = Interop.reactElement "li" (createObj [ "children" ==> [| value |] ])
     static member inline listItem(value: ReactElement) = Interop.reactElement "li" (createObj [ "children" ==> [| value |] ])
     static member inline div (value: string) = Interop.reactElement "div" (createObj [ "children" ==> [| value |] ])
