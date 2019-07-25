@@ -111,12 +111,9 @@ type prop =
     static member inline placeholder(value: string) = Interop.mkAttr "placeholder" value
     static member inline isOpen(value: bool) = Interop.mkAttr "open" value
     static member inline required(value: bool) = Interop.mkAttr "required" value
-    /// Alias for inline `attr.children [ Html.content value ]`
-    static member inline content(value: string) = Interop.mkAttr "children" [| value |]
-    /// Alias for inline `attr.children [ Html.content value ]`
-    static member inline content(value: int) = Interop.mkAttr "children" [| value |]
-    /// Alias for inline `attr.children [ Html.content value ]`
-    static member inline content(value: Fable.React.ReactElement) = Interop.mkAttr "children" [| value |]
+    static member inline content(value: string) = Interop.mkAttr "children" (unbox value)
+    static member inline content(value: int) = Interop.mkAttr "children" (unbox value)
+    static member inline content(value: Fable.React.ReactElement) = Interop.mkAttr "children" value
     static member inline rows(value: int) = Interop.mkAttr "rows" value
     static member inline rowSpan(value: int) = Interop.mkAttr "rowSpan" value
     static member inline inputType(value: string) = Interop.mkAttr "type" value
