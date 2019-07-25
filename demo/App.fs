@@ -47,7 +47,7 @@ let update msg state =
 ]
 |> List.iter (fun x -> Browser.Dom.console.log(keyValueList CaseRules.LowerFirst [x]))
 
-let render state dispatch =
+let counterApp state dispatch =
     Html.div [
         prop.id "main"
         prop.style [ style.padding 20 ]
@@ -69,6 +69,39 @@ let render state dispatch =
         ]
     ]
 
+let keyWarnings state dispatch =
+    Html.div [
+        prop.id "id"
+        prop.className "class"
+        prop.children [
+            Html.div "text"
+            Html.div [
+                prop.id "id"
+                prop.className "class"
+                prop.children [
+                    Html.text "text"
+                    Html.div [
+                        prop.id "id"
+                        prop.className "class"
+                        prop.children [
+                            Html.text "text"
+                            Html.div [
+                                prop.id "id"
+                                prop.className "class"
+                                prop.children [
+                                    Html.text "text"
+                                    Html.div []
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]
+
+let render state dispatch =
+    counterApp state dispatch
 
 Program.mkSimple init update render
 |> Program.withReactSynchronous "root"
