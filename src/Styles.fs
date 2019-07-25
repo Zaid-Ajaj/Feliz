@@ -89,7 +89,12 @@ type style =
     /// **Tip**: This property is useful if you want to create overlapping elements.
     static member inline zIndex(value: int) = Interop.mkStyle "zIndex" value
     static member inline margin(value: int) = Interop.mkStyle "margin" value
-    static member inline margin(top: int, right: int) = Interop.mkStyle "margin" (sprintf "%dpx %dpx" top right)
+    static member inline margin(top: int, right: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px"
+        )
+
     static member inline margin(top: ICssUnit, right: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
@@ -202,7 +207,12 @@ type style =
             (unbox<string>top) + "px"
         )
     static member inline margin(top: int, right: int, bottom: int) =
-        Interop.mkStyle "margin" ((unbox<string> top) + "px " + (unbox<string> right) + "px " + (unbox<string> bottom) + "px")
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px"
+        )
+
     static member inline margin(top: int, right: int, bottom: int, left: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + "px " +
@@ -220,9 +230,27 @@ type style =
     static member inline marginBottom(value: int) = Interop.mkStyle "marginBottom" value
     static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
     static member inline padding(value: int) = Interop.mkStyle "padding" value
-    static member inline padding(top: int, right: int) = Interop.mkStyle "padding" (sprintf "%dpx %dpx" top right)
-    static member inline padding(top: int, right: int, bottom: int) = Interop.mkStyle "padding" (sprintf "%dpx %dpx %dpx" top right bottom)
-    static member inline padding(top: int, right: int, bottom: int, left: int) = Interop.mkStyle "padding" (sprintf "%dpx %dpx %dpx %dpx" top right bottom left)
+    static member inline padding(top: int, right: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px"
+        )
+
+    static member inline padding(top: int, right: int, bottom: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px"
+        )
+
+    static member inline padding(top: int, right: int, bottom: int, left: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
+        )
+
     static member inline padding(value: ICssUnit) = Interop.mkStyle "padding" value
     static member inline paddingBottom(value: int) = Interop.mkStyle "paddingBottom" value
     static member inline paddingBottom(value: ICssUnit) = Interop.mkStyle "paddingBottom" value
@@ -245,17 +273,35 @@ type style =
     static member inline right(value: int) = Interop.mkStyle "right" value
     static member inline right(value: ICssUnit) = Interop.mkStyle "right" value
     static member inline custom(key: string, value: 't) = Interop.mkStyle key value
-    static member inline border(width: int, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%dpx %s %s" width (unbox style) color)
-    static member inline border(width: ICssUnit, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%dpx %s %s" (unbox width) (unbox style) color)
-    static member inline border(width: string, style: IBorderStyle, color: string) = Interop.mkStyle "border" (sprintf "%s %s %s" width (unbox style) color)
+    static member inline border(width: int, style: IBorderStyle, color: string) =
+        Interop.mkStyle "border" (
+            (unbox<string> width) + "px " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline border(width: ICssUnit, style: IBorderStyle, color: string) =
+        Interop.mkStyle "border" (
+            (unbox<string> width) + " " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline border(width: string, style: IBorderStyle, color: string) =
+        Interop.mkStyle "border" (
+            (unbox<string> width) + " " +
+            (unbox<string> style) + " " +
+            color
+        )
+
     static member inline borderWidth (width: int) = Interop.mkStyle "borderWidth" width
     static member inline borderStyle (style: IBorderStyle) = Interop.mkStyle "borderStyle" style
     static member inline borderStyle(top: IBorderStyle, right: IBorderStyle)  =
-        Interop.mkStyle "borderStyle" (sprintf "%s %s" (unbox top) (unbox right))
+        Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right))
     static member inline borderStyle(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle) =
-        Interop.mkStyle "borderStyle" (sprintf "%s %s %s" (unbox top) (unbox right) (unbox bottom))
+        Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right) + " " +  (unbox<string> bottom))
     static member inline multiple(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle, left: IBorderStyle) =
-        Interop.mkStyle "borderStyle" (sprintf "%s %s %s %s" (unbox top) (unbox right) (unbox bottom) (unbox left))
+        Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right) + " " + (unbox<string> bottom) + " " +  (unbox<string> left))
     static member inline borderColor (color: string) = Interop.mkStyle "borderColor" color
     static member inline borderRadius (radius: int) = Interop.mkStyle "borderRadius" radius
     static member inline fontFamily (family: string) = Interop.mkStyle "fontFamily" family
@@ -264,24 +310,36 @@ type style =
     static member inline fontWeight (weight: int) = Interop.mkStyle "fontWeight" weight
     static member inline borderRadius (radius: ICssUnit) = Interop.mkStyle "borderRadius" radius
     static member inline borderWidth (top: int, right: int) =
-        let value = sprintf "%dpx %dpx" top right
-        Interop.mkStyle "borderWidth" value
+        Interop.mkStyle "borderWidth" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px"
+        )
+
     static member inline borderWidth (top: int, right: int, bottom: int) =
-        let value = sprintf "%dpx %dpx %dpx" top right bottom
-        Interop.mkStyle "borderWidth" value
+        Interop.mkStyle "borderWidth" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px"
+        )
+
     static member inline borderWidth (top: int, right: int, bottom: int, left: int) =
-        let value = sprintf "%dpx %dpx %dpx %dpx" top right bottom left
-        Interop.mkStyle "borderWidth" value
+        Interop.mkStyle "borderWidth" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
+        )
+
     static member inline textDecorationColor(color: string) = Interop.mkStyle "textDecorationColor" color
     static member inline textDecorationLine(line: ITextDecorationLine) = Interop.mkStyle "textDecorationLine" line
     static member inline textDecoration(line: ITextDecorationLine) = Interop.mkStyle "textDecoration" line
-    static member inline textDecoration(bottom: ITextDecorationLine, top: ITextDecorationLine) = Interop.mkStyle "textDecoration" (sprintf "%s %s" (unbox bottom) (unbox top))
+    static member inline textDecoration(bottom: ITextDecorationLine, top: ITextDecorationLine) =
+        Interop.mkStyle "textDecoration" ((unbox<string> bottom) + " " + (unbox<string> top))
     static member inline textDecoration(bottom: ITextDecorationLine, top: ITextDecorationLine, style: ITextDecoration) =
-        let value = sprintf "%s %s %s" (unbox bottom) (unbox top) (unbox style)
-        Interop.mkStyle "textDecoration" value
+        Interop.mkStyle "textDecoration" ((unbox<string> bottom) + " " + (unbox<string> top) + " " + (unbox<string> style))
     static member inline textDecoration(bottom: ITextDecorationLine, top: ITextDecorationLine, style: ITextDecoration, color: string) =
-        let value = sprintf "%s %s %s %s" (unbox bottom) (unbox top) (unbox style) color
-        Interop.mkStyle "textDecoration" value
+        Interop.mkStyle "textDecoration" ((unbox<string> bottom) + " " + (unbox<string> top) + " " + (unbox<string> style) + " " + color)
+
     static member inline textIndent(value: int) = Interop.mkStyle "textIndent" value
     static member inline textIndent(value: string) = Interop.mkStyle "textIndent" value
     static member inline opacity(value: double) = Interop.mkStyle "opacity" value
