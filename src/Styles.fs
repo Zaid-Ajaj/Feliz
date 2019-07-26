@@ -609,6 +609,7 @@ module style =
         static member inline initial = Interop.mkStyle "textTransform" "initial"
         static member inline inheritFromParent = Interop.mkStyle "textTransform" "inherit"
 
+    [<Erase>]
     type textOverflow =
         /// Default value. The text is clipped and not accessible.
         static member inline clip = Interop.mkStyle "textOverflow" "clip"
