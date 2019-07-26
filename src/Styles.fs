@@ -363,7 +363,28 @@ type style =
     static member inline backgroundImage (value: string) = Interop.mkStyle "backgroundImage" value
     static member inline backgroundImageUrl (value: string) = Interop.mkStyle "backgroundImage" ("url(" + value + ")")
     static member inline backgroundRepeat (repeat: IBackgroundRepeat) = Interop.mkStyle "backgroundRepeat" repeat
+    static member inline boxShadow(horizontalOffset: int, verticalOffset: int, color: string) =
+        Interop.mkStyle "boxShadow" (
+            (unbox<string> horizontalOffset) + "px " +
+            (unbox<string> verticalOffset) + "px " +
+            color
+        )
+    static member inline boxShadow(horizontalOffset: int, verticalOffset: int, blur: int, color: string) =
+        Interop.mkStyle "boxShadow" (
+            (unbox<string> horizontalOffset) + "px " +
+            (unbox<string> verticalOffset) + "px " +
+            (unbox<string> blur) + "px " +
+            color
+        )
 
+    static member inline boxShadow(horizontalOffset: int, verticalOffset: int, blur: int, spread: int, color: string) =
+        Interop.mkStyle "boxShadow" (
+            (unbox<string> horizontalOffset) + "px " +
+            (unbox<string> verticalOffset) + "px " +
+            (unbox<string> blur) + "px " +
+            (unbox<string> spread) + "px " +
+            color
+        )
 
 [<Erase>]
 module style =
@@ -779,6 +800,118 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "display" "inherit"
 
     [<Erase>]
+    type backgroundPosition =
+        /// The background image will scroll with the page. This is default.
+        static member inline scroll = Interop.mkStyle "backgroundPosition" "scroll"
+        /// The background image will not scroll with the page.
+        static member inline fixedNoScroll = Interop.mkStyle "backgroundPosition" "fixed"
+        /// The background image will scroll with the element's contents.
+        static member inline local = Interop.mkStyle "backgroundPosition" "local"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "backgroundPosition" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "backgroundPosition" "inherit"
+
+    /// This property defines the blending mode of each background layer (color and/or image).
+    type backgroundBlendMode =
+        /// This is default. Sets the blending mode to normal.
+        static member inline normal = Interop.mkStyle "backgroundBlendMode" "normal"
+        /// Sets the blending mode to screen
+        static member inline screen = Interop.mkStyle "backgroundBlendMode" "screen"
+        /// Sets the blending mode to overlay
+        static member inline overlay = Interop.mkStyle "backgroundBlendMode" "overlay"
+        /// Sets the blending mode to darken
+        static member inline darken = Interop.mkStyle "backgroundBlendMode" "darken"
+        /// Sets the blending mode to multiply
+        static member inline lighten = Interop.mkStyle "backgroundBlendMode" "lighten"
+        /// Sets the blending mode to color-dodge
+        static member inline collorDodge = Interop.mkStyle "backgroundBlendMode" "color-dodge"
+        /// Sets the blending mode to saturation
+        static member inline saturation = Interop.mkStyle "backgroundBlendMode" "saturation"
+        /// Sets the blending mode to color
+        static member inline color = Interop.mkStyle "backgroundBlendMode" "color"
+        /// Sets the blending mode to luminosity
+        static member inline luminosity = Interop.mkStyle "backgroundBlendMode" "luminosity"
+
+    [<Erase>]
+    /// Defines how far the background (color or image) should extend within an element.
+    type backgroundClip =
+        /// Default value. The background extends behind the border.
+        static member inline borderBox = Interop.mkStyle "backgroundClip" "border-box"
+        /// The background extends to the inside edge of the border.
+        static member inline paddingBox = Interop.mkStyle "backgroundClip" "padding-box"
+        /// The background extends to the edge of the content box.
+        static member inline contentBox = Interop.mkStyle "backgroundClip" "content-box"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "backgroundClip" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "backgroundClip" "inherit"
+
+    [<Erase>]
+    type transform =
+        /// Defines that there should be no transformation.
+        static member inline none = Interop.mkStyle "transform" "none"
+        /// Defines a 2D transformation, using a matrix of six values.
+        static member inline matrix(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int) =
+            Interop.mkStyle "transform" (
+                "matrix(" +
+                (unbox<string> x1) + "," +
+                (unbox<string> y1) + "," +
+                (unbox<string> z1) + "," +
+                (unbox<string> x2) + "," +
+                (unbox<string> y2) + "," +
+                (unbox<string> z2) + ")"
+            )
+
+        /// Defines a 2D translation.
+        static member inline translate(x: int, y: int) =
+            Interop.mkStyle "transform" (
+                "translate(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
+            )
+
+
+        /// Defines that there should be no transformation.
+        static member inline translate3D(x: int, y: int, z: int) =
+            Interop.mkStyle "transform" (
+                "translate3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
+            )
+
+        /// Defines a translation, using only the value for the X-axis.
+        static member inline translateX(x: int) =
+            Interop.mkStyle "transform" ("translateX(" + (unbox<string> x) + ")")
+        /// Defines a translation, using only the value for the Y-axis
+        static member inline translateY(y: int) =
+            Interop.mkStyle "transform" ("translateY(" + (unbox<string> y) + ")")
+        /// Defines a 3D translation, using only the value for the Z-axis
+        static member inline translateZ(z: int) =
+            Interop.mkStyle "transform" ("translateZ(" + (unbox<string> z) + ")")
+
+        /// Defines a 2D scale transformation.
+        static member inline scale(x: int, y: int) =
+            Interop.mkStyle "transform" (
+                "scale(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
+            )
+
+        /// Defines a 3D scale transformation
+        static member inline scale3D(x: int, y: int, z: int) =
+            Interop.mkStyle "transform" (
+                "scale3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
+            )
+
+        /// Defines a scale transformation by giving a value for the X-axis.
+        static member inline scaleX(x: int) =
+            Interop.mkStyle "transform" ("scaleX(" + (unbox<string> x) + ")")
+
+        /// Defines a scale transformation by giving a value for the Y-axis.
+        static member inline scaleY(y: int) =
+            Interop.mkStyle "transform" ("scaleY(" + (unbox<string> y) + ")")
+        /// Defines a 3D translation, using only the value for the Z-axis
+        static member inline scaleZ(z: int) =
+            Interop.mkStyle "transform" ("scaleZ(" + (unbox<string> z) + ")")
+
+        // TODO matrix3d, rotate, skew, perspective
+
+    [<Erase>]
     type backgroundRepeat =
         /// The background image is repeated both vertically and horizontally. This is default.
         static member inline repeat = Interop.mkStyle "backgroundRepeat" "repeat"
@@ -792,19 +925,6 @@ module style =
         static member inline initial = Interop.mkStyle "backgroundRepeat" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "backgroundRepeat" "inherit"
-
-    [<Erase>]
-    type backgroundClip =
-        /// Default value. The background is clipped to the border box.
-        static member inline borderBox = Interop.mkStyle "backgroundClip" "border-box"
-        /// The background is clipped to the padding box.
-        static member inline paddingBox = Interop.mkStyle "backgroundClip" "padding-box"
-        /// The background is clipped to the content box
-        static member inline contentBox = Interop.mkStyle "backgroundClip" "content-box"
-        /// Sets this property to its default value.
-        static member inline initial = Interop.mkStyle "backgroundClip" "initial"
-        /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "backgroundClip" "inherit"
 
     [<Erase>]
     type position =
