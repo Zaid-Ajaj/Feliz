@@ -26,6 +26,7 @@ type prop =
     static member inline className(value: string) = Interop.mkAttr "className" value
     static member inline key(value: string) = Interop.mkAttr "key" value
     static member inline key(value: int) = Interop.mkAttr "key" value
+    static member inline key(value: System.Guid) = Interop.mkAttr "value" (string value)
     static member inline defaultChecked(value: bool) = Interop.mkAttr "defaultChecked" value
     static member inline defaultValue(value: string) = Interop.mkAttr "defaultValue" value
     static member inline defaultValue(value: int) = Interop.mkAttr "defaultValue" value
