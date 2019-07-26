@@ -34,6 +34,8 @@ let update msg state =
     style.boxShadow(0, 0, 10, 10, colors.darkGray)
     style.borderRadius (length.px 10)
     style.margin 10
+    style.backgroundRepeat.repeatX
+    style.backgroundPosition.fixedNoScroll
     style.margin (length.px 10)
     style.margin(10, 10, 10, 20)
     style.margin(10, 10, 10)
@@ -46,6 +48,10 @@ let update msg state =
     style.backgroundColor "#FFFFFF"
     style.border(3, borderStyle.dashed, colors.crimson)
     style.borderColor.blue
+    style.transform.scale3D(20, 20, 20)
+    style.transform.translateX(100)
+    style.transform.translateY(100)
+    style.transform.translateZ(100)
     style.color.red
     style.color "#000000"
 ]

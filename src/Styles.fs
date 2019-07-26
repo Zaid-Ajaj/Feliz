@@ -390,6 +390,51 @@ type style =
 module style =
 
     [<Erase>]
+    type textJustify =
+        /// The browser determines the justification algorithm
+        static member inline auto = Interop.mkStyle "textJustify" "auto"
+        /// Increases/Decreases the space between words
+        static member inline interWord = Interop.mkStyle "textJustify" "inter-word"
+        /// Increases/Decreases the space between characters
+        static member inline interCharacter = Interop.mkStyle "textJustify" "inter-character"
+        /// Disables justification methods
+        static member inline none = Interop.mkStyle "textJustify" "none"
+        static member inline initial = Interop.mkStyle "textJustify" "initial"
+        static member inline inheritFromParent = Interop.mkStyle "textJustify" "inherit"
+
+    [<Erase>]
+    type whitespace =
+        /// Sequences of whitespace will collapse into a single whitespace. Text will wrap when necessary. This is default.
+        static member inline normal = Interop.mkStyle "whiteSpace" "normal"
+        /// Sequences of whitespace will collapse into a single whitespace. Text will never wrap to the next line. The text continues on the same line until a `<br>` tag is encountered.
+        static member inline nowrap = Interop.mkStyle "whiteSpace" "nowrap"
+        /// Whitespace is preserved by the browser. Text will only wrap on line breaks. Acts like the <pre> tag in HTML.
+        static member inline pre = Interop.mkStyle "whiteSpace" "pre"
+        /// Sequences of whitespace will collapse into a single whitespace. Text will wrap when necessary, and on line breaks
+        static member inline preline = Interop.mkStyle "whiteSpace" "pre-line"
+        /// Whitespace is preserved by the browser. Text will wrap when necessary, and on line breaks
+        static member inline prewrap = Interop.mkStyle "whiteSpace" "pre-wrap"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "whiteSpace" "initial"
+        /// Inherits this property from its parent element
+        static member inline inheritFromParent = Interop.mkStyle "whiteSpace" "inheritFromParent"
+
+    [<Erase>]
+    type wordBreak =
+        /// Default value. Uses default line break rules.
+        static member inline normal = Interop.mkStyle "wordBreak" "normal"
+        /// To prevent overflow, word may be broken at any character
+        static member inline breakAll = Interop.mkStyle "wordBreak" "break-all"
+        /// Word breaks should not be used for Chinese/Japanese/Korean (CJK) text. Non-CJK text behavior is the same as value "normal"
+        static member inline keepAll = Interop.mkStyle "wordBreak" "keep-all"
+        /// To prevent overflow, word may be broken at arbitrary points.
+        static member inline breakWord = Interop.mkStyle "wordBreak" "break-word"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "wordBreak" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "wordBreak" "inherit"
+
+    [<Erase>]
     type overflow =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
         static member inline visible = Interop.mkStyle "overflow" "visibile"
