@@ -587,6 +587,39 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "textDecoration" "inherit"
 
     [<Erase>]
+    /// The `transform-style` property specifies how nested elements are rendered in 3D space.
+    type transformStyle =
+        /// Specifies that child elements will NOT preserve its 3D position. This is default.
+        static member inline flat = Interop.mkStyle "transformStyle" "flat"
+        /// Specifies that child elements will preserve its 3D position
+        static member inline preserve3D = Interop.mkStyle "transformStyle" "preserve-3d"
+        static member inline initial = Interop.mkStyle "transformStyle" "initial"
+        static member inline inheritFromParent = Interop.mkStyle "transformStyle" "inherit"
+
+    [<Erase>]
+    type textTransform =
+        /// No capitalization. The text renders as it is. This is default.
+        static member inline none = Interop.mkStyle "textTransform" "none"
+        /// Transforms the first character of each word to uppercase.
+        static member inline capitalize = Interop.mkStyle "textTransform" "capitalize"
+        /// Transforms all characters to uppercase.
+        static member inline uppercase = Interop.mkStyle "textTransform" "uppercase"
+        /// Transforms all characters to lowercase.
+        static member inline lowercase = Interop.mkStyle "textTransform" "lowercase"
+        static member inline initial = Interop.mkStyle "textTransform" "initial"
+        static member inline inheritFromParent = Interop.mkStyle "textTransform" "inherit"
+
+    type textOverflow =
+        /// Default value. The text is clipped and not accessible.
+        static member inline clip = Interop.mkStyle "textOverflow" "clip"
+        /// Render an ellipsis ("...") to represent the clipped text.
+        static member inline ellipsis = Interop.mkStyle "textOverflow" "ellipsis"
+        /// Render the given string to represent the clipped text.
+        static member inline custom(value: string) = Interop.mkStyle "textOverflow" value
+        static member inline initial = Interop.mkStyle "textOverflow" "initial"
+        static member inline inheritFromParent = Interop.mkStyle "textOverflow" "inherit"
+
+    [<Erase>]
     type textDecorationStyle =
         /// Default value. The line will display as a single line.
         ///
