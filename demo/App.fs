@@ -110,8 +110,44 @@ let keyWarnings state dispatch =
         ]
     ]
 
+let styleComponent title =
+    // Re-use state internally using React hooks
+    let animationsOnHover =
+        Fable.React.FunctionComponent.Of <| fun (props: {| title: string |}) ->
+            let hovered = Hooks.useState(false)
+            Html.div [
+                prop.style [
+                    yield! [
+                        style.padding 10
+                        style.transitionProperty("background-color", "color")
+                        style.transitionDurationMilliseconds 500
+                    ]
+
+                    if hovered.current then
+                       yield style.backgroundColor.lightBlue
+                       yield style.color.black
+                    else
+                       yield style.backgroundColor.limeGreen
+                       yield style.color.white
+                ]
+
+                prop.onMouseEnter (fun _ -> hovered.update(fun current -> true))
+                prop.onMouseLeave (fun _ -> hovered.update(fun current -> false))
+                prop.children [
+                    Html.h2 props.title
+                ]
+            ]
+
+    Interop.reactApi.createElement(animationsOnHover, {| title = title |})
+
 let render state dispatch =
-    counterApp state dispatch
+    Html.div [
+        prop.children [
+            styleComponent "Hello"
+            styleComponent "From"
+            styleComponent "Fable"
+        ]
+    ]
 
 Program.mkSimple init update render
 |> Program.withReactSynchronous "root"

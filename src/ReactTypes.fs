@@ -1,8 +1,7 @@
-namespace Feliz.React
+module Feliz.React
 
 open Fable.React
 open Fable.Core
-open Fable.Core.JsInterop
 
 type ReactChildren =
     abstract toArray: ReactElement -> ReactElement seq

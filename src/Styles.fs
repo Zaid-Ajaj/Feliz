@@ -1,5 +1,6 @@
 namespace Feliz
 
+open System
 open Fable.Core
 open Feliz.Styles
 
@@ -237,6 +238,22 @@ type style =
             (unbox<string> right) + "px"
         )
 
+    static member inline transitionDurationSeconds(n: float) =
+        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "s")
+    static member inline transitionDurationMilliseconds(n: float) =
+        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "ms")
+    static member inline transitionDurationSeconds(n: int) =
+        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "s")
+    static member inline transitionDurationMilliseconds(n: int) =
+        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "ms")
+    static member inline transitionDelaySeconds(n: int) =
+        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "s")
+    static member inline transitionDelayMilliseconds(n: int) =
+        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "ms")
+    static member inline transitionProperty (property: string) =
+        Interop.mkStyle "transitionProperty" property
+    static member inline transitionProperty ([<ParamArray>] properties: string[]) =
+        Interop.mkStyle "transitionProperty" (String.concat "," properties)
     static member inline padding(top: int, right: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
@@ -741,6 +758,91 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "fontStretch" "inherit"
 
     [<Erase>]
+    type verticalAlign =
+        /// The element is aligned with the baseline of the parent. This is default.
+        static member inline baseline = Interop.mkStyle "verticalAlign" "baseline"
+        /// The element is aligned with the subscript baseline of the parent
+        static member inline sub = Interop.mkStyle "verticalAlign" "sup"
+        /// The element is aligned with the superscript baseline of the parent.
+        static member inline super = Interop.mkStyle "verticalAlign" "super"
+        /// The element is aligned with the top of the tallest element on the line.
+        static member inline top = Interop.mkStyle "verticalAlign" "top"
+        /// The element is aligned with the top of the parent element's font.
+        static member inline textTop = Interop.mkStyle "verticalAlign" "text-top"
+        /// The element is placed in the middle of the parent element.
+        static member inline middle = Interop.mkStyle "verticalAlign" "middle"
+        /// The element is aligned with the lowest element on the line.
+        static member inline bottom = Interop.mkStyle "verticalAlign" "bottom"
+        /// The element is aligned with the bottom of the parent element's font
+        static member inline textBottom = Interop.mkStyle "verticalAlign" "text-bottom"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "verticalAlign" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "verticalAlign" "inheritFromParent"
+
+    [<Erase>]
+    /// Specifies whether lines of text are laid out horizontally or vertically.
+    type writingMode =
+        /// Let the content flow horizontally from left to right, vertically from top to bottom
+        static member inline horizontalTopBottom = Interop.mkStyle "writingMode" "horizontal-tb"
+        /// Let the content flow vertically from top to bottom, horizontally from right to left
+        static member inline verticalRightLeft = Interop.mkStyle "writingMode" "vertical-rl"
+        /// Let the content flow vertically from top to bottom, horizontally from left to right
+        static member inline verticalLeftRight = Interop.mkStyle "writingMode" "vertical-lr"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "writingMode" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "writingMode" "inherit"
+
+    [<Erase>]
+    type transitionTimingFunction =
+        /// Default value. Specifies a transition effect with a slow start, then fast, then end slowly (equivalent to cubic-bezier(0.25,0.1,0.25,1)).
+        static member inline ease = Interop.mkStyle "transitionTimingFunction" "ease"
+        /// Specifies a transition effect with the same speed from start to end (equivalent to cubic-bezier(0,0,1,1))
+        static member inline linear = Interop.mkStyle "transitionTimingFunction" "linear"
+        /// Specifies a transition effect with a slow start (equivalent to cubic-bezier(0.42,0,1,1)).
+        static member inline easeIn = Interop.mkStyle "transitionTimingFunction" "ease-in"
+        /// Specifies a transition effect with a slow end (equivalent to cubic-bezier(0,0,0.58,1)).
+        static member inline easeOut = Interop.mkStyle "transitionTimingFunction" "ease-out"
+        /// Specifies a transition effect with a slow start and end (equivalent to cubic-bezier(0.42,0,0.58,1))
+        static member inline easeInOut = Interop.mkStyle "transitionTimingFunction" "ease-in-out"
+        /// Equivalent to steps(1, start)
+        static member inline stepStart = Interop.mkStyle "transitionTimingFunction" "step-start"
+        /// Equivalent to steps(1, end)
+        static member inline stepEnd = Interop.mkStyle "transitionTimingFunction" "step-end"
+        static member inline stepsToEnd(steps: int) =
+            Interop.mkStyle "transitionTimingFunction" ("steps(" + (unbox<string> steps) + ", end)")
+        static member inline stepsToStart(steps: int) =
+            Interop.mkStyle "transitionTimingFunction" ("steps(" + (unbox<string> steps) + ", start)")
+        /// Define your own values in the cubic-bezier function. Possible values are numeric values from 0 to 1
+        static member inline cubicBezier(n1: float, n2: float, n3: float, n4: float) =
+            Interop.mkStyle "transitionTimingFunction" (
+                "cubic-bezier(" + (unbox<string> n1) + "," +
+                (unbox<string> n2) + "," +
+                (unbox<string> n3) + "," +
+                (unbox<string> n4) + ")"
+            )
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "transitionTimingFunction" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "transitionTimingFunction" "inherit"
+
+    [<Erase>]
+    type userSelect =
+        /// Default. Text can be selected if the browser allows it.
+        static member inline auto = Interop.mkStyle "userSelect" "auto"
+        /// Prevents text selection.
+        static member inline none = Interop.mkStyle "userSelect" "none"
+        /// The text can be selected by the user.
+        static member inline text = Interop.mkStyle "userSelect" "text"
+        /// Text selection is made with one click instead of a double-click.
+        static member inline all = Interop.mkStyle "userSelect" "all"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "userSelect" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "userSelect" "inherit"
+
+    [<Erase>]
     type borderStyle =
         /// Specifies a dotted border.
         ///
@@ -953,8 +1055,55 @@ module style =
         /// Defines a 3D translation, using only the value for the Z-axis
         static member inline scaleZ(z: int) =
             Interop.mkStyle "transform" ("scaleZ(" + (unbox<string> z) + ")")
-
-        // TODO matrix3d, rotate, skew, perspective
+        /// Defines a 2D rotation, the angle is specified in the parameter.
+        static member inline rotate(deg: int) =
+            Interop.mkStyle "transform" ("rotate(" + (unbox<string> deg) + "deg)")
+        /// Defines a 2D rotation, the angle is specified in the parameter.
+        static member inline rotate(deg: float) =
+            Interop.mkStyle "transform" ("rotate(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the X-axis.
+        static member inline rotateX(deg: float) =
+            Interop.mkStyle "transform" ("rotateX(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the X-axis.
+        static member inline rotateX(deg: int) =
+            Interop.mkStyle "transform" ("rotateX(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the Y-axis
+        static member inline rotateY(deg: float) =
+            Interop.mkStyle "transform" ("rotateY(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the Y-axis
+        static member inline rotateY(deg: int) =
+            Interop.mkStyle "transform" ("rotateY(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the Z-axis
+        static member inline rotateZ(deg: float) =
+            Interop.mkStyle "transform" ("rotateZ(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the Z-axis
+        static member inline rotateZ(deg: int) =
+            Interop.mkStyle "transform" ("rotateZ(" + (unbox<string> deg) + "deg)")
+        /// Defines a 2D skew transformation along the X- and the Y-axis.
+        static member inline skew(xAngle: int, yAngle: int) =
+            Interop.mkStyle "transform" ("skew(" + (unbox<string> xAngle) + "deg," + (unbox<string> yAngle) + "deg)")
+        /// Defines a 2D skew transformation along the X- and the Y-axis.
+        static member inline skew(xAngle: float, yAngle: float) =
+            Interop.mkStyle "transform" ("skew(" + (unbox<string> xAngle) + "deg," + (unbox<string> yAngle) + "deg)")
+        /// Defines a 2D skew transformation along the X-axis
+        static member inline skewX(xAngle: int) =
+            Interop.mkStyle "transform" ("skewX(" + (unbox<string> xAngle) + "deg)")
+        /// Defines a 2D skew transformation along the X-axis
+        static member inline skewX(xAngle: float) =
+            Interop.mkStyle "transform" ("skewX(" + (unbox<string> xAngle) + "deg)")
+        /// Defines a 2D skew transformation along the Y-axis
+        static member inline skewY(xAngle: int) =
+            Interop.mkStyle "transform" ("skewY(" + (unbox<string> xAngle) + "deg)")
+        /// Defines a 2D skew transformation along the Y-axis
+        static member inline skewY(xAngle: float) =
+            Interop.mkStyle "transform" ("skewY(" + (unbox<string> xAngle) + "deg)")
+        /// Defines a perspective view for a 3D transformed element
+        static member inline perspective(n: int) =
+            Interop.mkStyle "transform" ("perspective(" + (unbox<string> n) + ")")
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "transform" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "transform" "inherit"
 
     [<Erase>]
     type backgroundRepeat =
