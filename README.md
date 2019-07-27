@@ -74,6 +74,16 @@ Html.h1 [
 ]
 ```
 
+Input elements are also easy to work with:
+```fs
+Html.input [
+    prop.className "input"
+    prop.valueOrDefault state.Crendentials.Password
+    prop.onTextChange (SetPassword >> dispatch)
+    prop.inputType.password
+]
+```
+
 ### Type-safe style attributes
 
 ```fs
@@ -98,6 +108,8 @@ let customStyles =
         style.height 100
         style.height (length.vh 50)
         style.height (length.percent 100)
+        style.boxShadow(0, 0, 10, colors.gray)
+        style.boxShadow(10, 10, 0, 5, colors.black)
         style.backgroundColor.fuchsia
         style.backgroundColor "#FFFFFF"
         style.border(3, borderStyle.dashed, colors.crimson)
@@ -106,6 +118,10 @@ let customStyles =
         style.color "#000000"
     ]
 ```
+
+### Missing an element, an attributes or a style?
+
+Please file an issue, because it should be there!
 
 ### Conditional classes and styles
 
