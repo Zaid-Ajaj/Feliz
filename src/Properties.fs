@@ -24,14 +24,26 @@ type prop =
         prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
-    /// Alias for `children [ Html.text value ]`
-    static member inline innerText (value: string) = Interop.mkAttr "children" value
-    /// Alias for `children [ Html.text value ]`
-    static member inline innerText (value: int) = Interop.mkAttr "children" value
-    /// Alias for `children [ Html.text value ]`
-    static member inline innerText (value: float) = Interop.mkAttr "children" value
-    /// Alias for `children [ Html.text value ]`
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline text (value: string) = Interop.mkAttr "children" value
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline text (value: int) = Interop.mkAttr "children" value
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline text (value: bool) = Interop.mkAttr "children" value
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline text (value: float) = Interop.mkAttr "children" (string value)
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline text (value: System.Guid) = Interop.mkAttr "children" (string value)
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline innerText (value: System.Guid) = Interop.mkAttr "children" (string value)
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline innerText (value: string) = Interop.mkAttr "children" value
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline innerText (value: int) = Interop.mkAttr "children" value
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline innerText (value: bool) = Interop.mkAttr "children" value
+    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
+    static member inline innerText (value: float) = Interop.mkAttr "children" (string value)
     static member inline key(value: string) = Interop.mkAttr "key" value
     static member inline key(value: int) = Interop.mkAttr "key" value
     static member inline key(value: System.Guid) = Interop.mkAttr "value" (string value)
