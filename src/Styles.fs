@@ -315,6 +315,12 @@ type style =
             (unbox<string> style) + " " +
             color
         )
+    static member inline animationName(keyframeName: string) = Interop.mkStyle "animationName" keyframeName
+    static member inline animationDuration(timespan: TimeSpan) = Interop.mkStyle "animationDuration" ((unbox<string> timespan.Milliseconds) + "ms")
+    static member inline animationDuration(seconds: int) = Interop.mkStyle "animationDuration" ((unbox<string> seconds) + "s")
+
+    static member inline animationDelay(timespan: TimeSpan) = Interop.mkStyle "animationDelay" ((unbox<string> timespan.Milliseconds) + "ms")
+    static member inline animationDelay(seconds: int) = Interop.mkStyle "animationDelay" ((unbox<string> seconds) + "s")
 
     static member inline borderWidth (width: int) = Interop.mkStyle "borderWidth" width
     static member inline borderStyle (style: IBorderStyle) = Interop.mkStyle "borderStyle" style
@@ -361,7 +367,7 @@ type style =
         Interop.mkStyle "textDecoration" ((unbox<string> bottom) + " " + (unbox<string> top) + " " + (unbox<string> style))
     static member inline textDecoration(bottom: ITextDecorationLine, top: ITextDecorationLine, style: ITextDecoration, color: string) =
         Interop.mkStyle "textDecoration" ((unbox<string> bottom) + " " + (unbox<string> top) + " " + (unbox<string> style) + " " + color)
-
+    static member inline animationDurationCount(count: int) = Interop.mkStyle "animationDurationCount" count
     static member inline textIndent(value: int) = Interop.mkStyle "textIndent" value
     static member inline textIndent(value: string) = Interop.mkStyle "textIndent" value
     static member inline opacity(value: double) = Interop.mkStyle "opacity" value
@@ -851,6 +857,31 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "writingMode" "inherit"
 
     [<Erase>]
+    type animationTimingFunction =
+        /// Default value. Specifies a animation effect with a slow start, then fast, then end slowly (equivalent to cubic-bezier(0.25,0.1,0.25,1)).
+        static member inline ease = Interop.mkStyle "animationTimingFunction" "ease"
+        /// Specifies a animation effect with the same speed from start to end (equivalent to cubic-bezier(0,0,1,1))
+        static member inline linear = Interop.mkStyle "animationTimingFunction" "linear"
+        /// Specifies a animation effect with a slow start (equivalent to cubic-bezier(0.42,0,1,1)).
+        static member inline easeIn = Interop.mkStyle "animationTimingFunction" "ease-in"
+        /// Specifies a animation effect with a slow end (equivalent to cubic-bezier(0,0,0.58,1)).
+        static member inline easeOut = Interop.mkStyle "animationTimingFunction" "ease-out"
+        /// Specifies a animation effect with a slow start and end (equivalent to cubic-bezier(0.42,0,0.58,1))
+        static member inline easeInOut = Interop.mkStyle "animationTimingFunction" "ease-in-out"
+        /// Define your own values in the cubic-bezier function. Possible values are numeric values from 0 to 1
+        static member inline cubicBezier(n1: float, n2: float, n3: float, n4: float) =
+            Interop.mkStyle "animationTimingFunction" (
+                "cubic-bezier(" + (unbox<string> n1) + "," +
+                (unbox<string> n2) + "," +
+                (unbox<string> n3) + "," +
+                (unbox<string> n4) + ")"
+            )
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "animationTimingFunction" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "animationTimingFunction" "inherit"
+
+    [<Erase>]
     type transitionTimingFunction =
         /// Default value. Specifies a transition effect with a slow start, then fast, then end slowly (equivalent to cubic-bezier(0.25,0.1,0.25,1)).
         static member inline ease = Interop.mkStyle "transitionTimingFunction" "ease"
@@ -1160,6 +1191,58 @@ module style =
         static member inline initial = Interop.mkStyle "transform" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "transform" "inherit"
+
+    [<Erase>]
+    /// Sets whether or not the animation should play in reverse on alternate cycles.
+    type animationDirection =
+        /// Default value. The animation should be played as normal
+        static member inline normal = Interop.mkStyle "animationDirection" "normal"
+        /// The animation should play in reverse direction
+        static member inline reverse = Interop.mkStyle "animationDirection" "reverse"
+        /// The animation will be played as normal every odd time (1, 3, 5, etc..) and in reverse direction every even time (2, 4, 6, etc...).
+        static member inline alternate = Interop.mkStyle "animationDirection" "alternate"
+        /// The animation will be played in reverse direction every odd time (1, 3, 5, etc..) and in a normal direction every even time (2,4,6,etc...)
+        static member inline alternateReverse = Interop.mkStyle "animationDirection" "alternate-reverse"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "animationDirection" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "animationDirection" "inherit"
+
+    [<Erase>]
+    type animationPlayState =
+        /// Default value. Specifies that the animation is running.
+        static member inline running = Interop.mkStyle "animationPlayState" "running"
+        /// Specifies that the animation is paused
+        static member inline paused = Interop.mkStyle "animationPlayState" "paused"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "animationPlayState" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "animationPlayState" "inherit"
+
+    [<Erase>]
+    type animationIterationCount =
+        /// Specifies that the animation should be played infinite times (forever)
+        static member inline infinite = Interop.mkStyle "animationIterationCount" "infinite"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "animationIterationCount" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "animationIterationCount" "inherit"
+
+    [<Erase>]
+    /// Specifies a style for the element when the animation is not playing (before it starts, after it ends, or both).
+    type animationFillMode =
+        /// Default value. Animation will not apply any styles to the element before or after it is executing
+        static member inline none = Interop.mkStyle "animationFillMode" "none"
+        /// The element will retain the style values that is set by the last keyframe (depends on animation-direction and animation-iteration-count).
+        static member inline forwards = Interop.mkStyle "animationFillMode" "forwards"
+        /// The element will get the style values that is set by the first keyframe (depends on animation-direction), and retain this during the animation-delay period
+        static member inline backwards = Interop.mkStyle "animationFillMode" "backwards"
+        /// The animation will follow the rules for both forwards and backwards, extending the animation properties in both directions
+        static member inline both = Interop.mkStyle "animationFillMode" "both"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "animationFillMode" "initial"
+        /// Inherits this property from its parent element
+        static member inline inheritFromParent = Interop.mkStyle "animationFillMode" "inherit"
 
     [<Erase>]
     type backgroundRepeat =
