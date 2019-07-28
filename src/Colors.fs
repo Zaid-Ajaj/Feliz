@@ -2,6 +2,10 @@ namespace Feliz
 
 /// Contains a list of HTML5 colors from https://htmlcolorcodes.com/color-names/
 module colors =
+    let rgb (r: int, g: int, b: int) =
+        "rgb(" + (unbox<string> r) + "," + (unbox<string> g) + "," + (unbox<string> b) + ")"
+    let rgba (r: int, g: int, b: int, a) =
+        "rgba(" + (unbox<string> r) + "," + (unbox<string> g) + "," + (unbox<string> b) + "," + (unbox<string> a) + ")"
     let [<Literal>] indianRed = "#CD5C5C"
     let [<Literal>] lightCoral = "#F08080"
     let [<Literal>] salmon = "#FA8072"

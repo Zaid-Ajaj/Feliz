@@ -214,7 +214,7 @@ type style =
             (unbox<string> right) + "px " +
             (unbox<string> bottom) + "px"
         )
-
+    static member inline flexShrink(value: int) = Interop.mkStyle "flexShrink" value
     static member inline margin(top: int, right: int, bottom: int, left: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + "px " +
@@ -222,6 +222,10 @@ type style =
             (unbox<string> bottom) + "px " +
             (unbox<string> left) + "px")
 
+    static member inline flexBasis (value: int) = Interop.mkStyle "flexBasis" value
+    static member inline flexBasis (value: float) = Interop.mkStyle "flexBasis" value
+    static member inline flexBasis (value: ICssUnit) = Interop.mkStyle "flexBasis" value
+    static member inline flexGrow (value: int) = Interop.mkStyle "flexGrow" value
     static member inline margin(value: ICssUnit) = Interop.mkStyle "margin" value
     static member inline marginLeft(value: int) = Interop.mkStyle "marginLeft" value
     static member inline marginLeft(value: ICssUnit) = Interop.mkStyle "marginLeft" value
@@ -497,6 +501,44 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "visibility" "inherit"
 
     [<Erase>]
+    type flexBasis =
+        /// Default value. The length is equal to the length of the flexible item. If the item has no length specified, the length will be according to its content.
+        static member inline auto = Interop.mkStyle "flexBasis" "auto"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "flexBasis" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "flexBasis" "inherit"
+
+    [<Erase>]
+    type flexDirection =
+        /// Default value. The flexible items are displayed horizontally, as a row
+        static member inline row = Interop.mkStyle "flexDirection" "row"
+        /// Same as row, but in reverse order.
+        static member inline rowReverse = Interop.mkStyle "flexDirection" "row-reverse"
+        /// The flexible items are displayed vertically, as a column
+        static member inline column = Interop.mkStyle "flexDirection" "column"
+        /// Same as column, but in reverse order
+        static member inline columnReverse = Interop.mkStyle "flexDirection" "column-reverse"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "flexBasis" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "flexBasis" "inherit"
+
+    [<Erase>]
+    type flexWrap =
+        /// Default value. Specifies that the flexible items will not wrap.
+        static member inline nowrap = Interop.mkStyle "flexWrap" "nowrap"
+        /// Specifies that the flexible items will wrap if necessary
+        static member inline wrap = Interop.mkStyle "flexWrap" "wrap"
+        /// Specifies that the flexible items will wrap, if necessary, in reverse order
+        static member inline wrapReverse = Interop.mkStyle "flexWrap" "wrap-reverse"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "flexWrap" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "flexWrap" "inherit"
+
+
+    [<Erase>]
     type fontKerning =
         /// Default. The browser determines whether font kerning should be applied or not
         static member inline auto = Interop.mkStyle "fontKerning" "auto"
@@ -756,6 +798,20 @@ module style =
         static member inline initial = Interop.mkStyle "fontStretch" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "fontStretch" "inherit"
+
+    [<Erase>]
+    /// Specifies how an element should float.
+    ///
+    /// **Note**: Absolutely positioned elements ignores the float property!
+    type floatStyle =
+        /// The element does not float, (will be displayed just where it occurs in the text). This is default
+        static member inline none = Interop.mkStyle "float" "none"
+        static member inline left = Interop.mkStyle "float" "left"
+        static member inline right = Interop.mkStyle "float" "right"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "float" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "float" "inherit"
 
     [<Erase>]
     type verticalAlign =
