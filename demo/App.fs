@@ -66,13 +66,13 @@ let counterApp state dispatch =
             Html.button [
                 prop.style [ style.marginRight 5 ]
                 prop.onClick (fun _ -> dispatch Increment)
-                prop.children "Increment"
+                prop.innerText "Increment"
             ]
 
             Html.button [
                 prop.style [ style.marginLeft 5 ]
                 prop.onClick (fun _ -> dispatch Decrement)
-                prop.children "Decrement"
+                prop.innerText "Decrement"
             ]
 
             Html.h1 state.Count

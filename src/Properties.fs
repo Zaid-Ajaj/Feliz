@@ -24,6 +24,14 @@ type prop =
         prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
+    /// Alias for `children [ Html.text value ]`
+    static member inline innerText (value: string) = Interop.mkAttr "children" value
+    /// Alias for `children [ Html.text value ]`
+    static member inline innerText (value: int) = Interop.mkAttr "children" value
+    /// Alias for `children [ Html.text value ]`
+    static member inline innerText (value: float) = Interop.mkAttr "children" value
+    /// Alias for `children [ Html.text value ]`
+    static member inline innerText (value: System.Guid) = Interop.mkAttr "children" (string value)
     static member inline key(value: string) = Interop.mkAttr "key" value
     static member inline key(value: int) = Interop.mkAttr "key" value
     static member inline key(value: System.Guid) = Interop.mkAttr "value" (string value)
@@ -113,10 +121,6 @@ type prop =
     static member inline isOpen(value: bool) = Interop.mkAttr "open" value
     static member inline required(value: bool) = Interop.mkAttr "required" value
     static member inline content(value: string) = Interop.mkAttr "content" value
-    static member inline children(value: string) = Interop.mkAttr "children" (unbox value)
-    static member inline children(value: int) = Interop.mkAttr "children" (unbox value)
-    static member inline children(value: bool) = Interop.mkAttr "children" (unbox value)
-    static member inline children(value: float) = Interop.mkAttr "children" (unbox value)
     static member inline children(value: Fable.React.ReactElement) = Interop.mkAttr "children" value
     static member inline rows(value: int) = Interop.mkAttr "rows" value
     static member inline rowSpan(value: int) = Interop.mkAttr "rowSpan" value

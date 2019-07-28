@@ -14,13 +14,13 @@ let render state dispatch =
             Html.button [
                 prop.style [ style.marginRight 5 ]
                 prop.onClick (fun _ -> dispatch Increment)
-                prop.children "Increment"
+                prop.innerText "Increment"
             ]
 
             Html.button [
                 prop.style [ style.marginLeft 5 ]
                 prop.onClick (fun _ -> dispatch Decrement)
-                prop.children "Decrement"
+                prop.innerText "Decrement"
             ]
 
             Html.h1 state.Count
@@ -47,14 +47,7 @@ Html.h1 state.Count
 
 Html.div "Hello there!"
 ```
-but you could also expand the attribute:
-```fs
-Html.h1 [
-    prop.className "title"
-    prop.children "Hello there!"
-]
-```
-You could expand it even further:
+You could also expand the attribute:
 ```fs
 Html.h1 [
     prop.className "title"
@@ -75,6 +68,7 @@ Html.h1 [
 ```
 
 Input elements are also easy to work with:
+
 ```fs
 Html.input [
     prop.className "input"
