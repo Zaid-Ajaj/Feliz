@@ -35,6 +35,7 @@ type Html =
     static member inline tableCell xs = Interop.createElement "td" xs
     static member inline details xs = Interop.createElement "details" xs
     static member inline summary xs = Interop.createElement "summary" xs
+    static member inline canvas xs = Interop.createElement "canvas" xs
     static member inline td xs = Interop.createElement "td" xs
     static member inline th xs = Interop.createElement "th" xs
     static member inline tableHeader xs = Interop.createElement "th" xs

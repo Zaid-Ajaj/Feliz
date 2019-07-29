@@ -9,7 +9,11 @@ open Feliz.Styles
 type prop =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline ref(handler: Element -> unit) = Interop.mkAttr "ref" handler
+    static member inline ref(name: string) = Interop.mkAttr "ref" name
+    /// Sets the inner Html content of the element.
     static member inline dangerouslySetInnerHTML(content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
+    /// Alias for `dangerouslySetInnerHTML`, sets the inner Html content of the element.
+    static member inline innerHtml (content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
     /// `prop.ref` callback that sets the value of an input after DOM element is created.
     /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input box value.
     static member inline valueOrDefault(value: string) =
@@ -24,6 +28,10 @@ type prop =
         prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
     static member inline className(value: string) = Interop.mkAttr "className" value
+    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
+    ///
+    /// `prop.classes [ "one"; "two" ]` => `prop.className "one two"`
+    static member inline classes(names: seq<string>) = Interop.mkAttr "className" (String.concat " " names)
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: string) = Interop.mkAttr "children" value
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
@@ -154,7 +162,7 @@ type prop =
     /// Same as `onChange` but let's you deal with the text changed from the `input` element directly
     /// instead of extracting it from the event arguments.
     static member inline onTextChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
-    static member inline onInput (handler: Event -> unit) = Interop.mkAttr "onClick" handler
+    static member inline onInput (handler: Event -> unit) = Interop.mkAttr "onInput" handler
     static member inline onSubmit (handler: Event -> unit) = Interop.mkAttr "onSubmit" handler
     static member inline onReset (handler: Event -> unit) = Interop.mkAttr "onReset" handler
     static member inline onLoad (handler: Event -> unit) = Interop.mkAttr "onLoad" handler
@@ -225,6 +233,19 @@ module prop =
 
     let styleWhen properties = styleList properties
 
+    /// Conditionally combines a list of classes based on a predicate.
+    ///
+    ///```fs
+    ///    prop.classList [
+    ///        true, "button"
+    ///        false, "is-primary"
+    ///    ]
+    ///```
+    ///Becomes
+    /// ```fs
+    ///     prop.className "button"
+    /// ```
+    ///
     let classList (classes: (bool * string) list) =
         classes
         |> List.filter fst
