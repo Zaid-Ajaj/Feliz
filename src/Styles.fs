@@ -752,6 +752,123 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "textOverflow" "inherit"
 
     [<Erase>]
+    /// Defines visual effects like blur and saturation to an element.
+    type filter =
+        /// Default value. Specifies no effects.
+        static member inline none = Interop.mkStyle "filter" "none"
+        /// Applies a blur effect to the elemeen. A larger value will create more blur.
+        ///
+        /// This overload takes an integer that represents a percentage from 0 to 100.
+        static member inline blur(value: int) = Interop.mkStyle "filter" ("blur(" + (unbox<string> value) + "%)")
+        /// Applies a blur effect to the elemeen. A larger value will create more blur.
+        ///
+        /// This overload takes a floating number that goes from 0 to 1,
+        static member inline blur(value: double) = Interop.mkStyle "filter" ("blur(" + (unbox<string> value) + ")")
+        /// Adjusts the brightness of the elemeen
+        ///
+        /// This overload takes an integer that represents a percentage from 0 to 100.
+        ///
+        /// Values over 100% will provide brighter results.
+        static member inline brightness(value: int) = Interop.mkStyle "filter" ("brightness(" + (unbox<string> value) + "%)")
+        /// Adjusts the brightness of the elemeen. A larger value will create more blur.
+        ///
+        /// This overload takes a floating number that goes from 0 to 1,
+        static member inline brightness(value: double) = Interop.mkStyle "filter" ("brightness(" + (unbox<string> value) + ")")
+        /// Adjusts the contrast of the element.
+        ///
+        /// This overload takes an integer that represents a percentage from 0 to 100.
+        static member inline contrast(value: int) = Interop.mkStyle "filter" ("contrast(" + (unbox<string> value) + "%)")
+        /// Adjusts the contrast of the element. A larger value will create more contrast.
+        ///
+        /// This overload takes a floating number that goes from 0 to 1
+        static member inline contrast(value: double) = Interop.mkStyle "filter" ("contrast(" + (unbox<string> value) + ")")
+        /// Applies a drop shadow effect.
+        static member inline dropShadow(horizontalOffset: int, verticalOffset: int, blur: int, spread: int,  color: string) =
+            Interop.mkStyle "filter" (
+                "drop-shadow(" +
+                (unbox<string> horizontalOffset) + "px " +
+                (unbox<string> verticalOffset) + "px " +
+                (unbox<string> blur) + "px " +
+                (unbox<string> spread) + "px " +
+                color +
+                ")"
+            )
+
+        /// Applies a drop shadow effect.
+        static member inline dropShadow(horizontalOffset: int, verticalOffset: int, blur: int, color: string) =
+            Interop.mkStyle "filter" (
+                "drop-shadow(" +
+                (unbox<string> horizontalOffset) + "px " +
+                (unbox<string> verticalOffset) + "px " +
+                (unbox<string> blur) + "px " +
+                color +
+                ")"
+            )
+
+        /// Applies a drop shadow effect.
+        static member inline dropShadow(horizontalOffset: int, verticalOffset: int, color: string) =
+            Interop.mkStyle "filter" (
+                "drop-shadow(" +
+                (unbox<string> horizontalOffset) + "px " +
+                (unbox<string> verticalOffset) + "px " +
+                color +
+                ")"
+            )
+
+        /// Converts the image to grayscale
+        ///
+        /// This overload takes an integer that represents a percentage from 0 to 100.
+        static member inline grayscale(value: int) = Interop.mkStyle "filter" ("grayscale(" + (unbox<string> value) + "%)")
+        /// Converts the image to grayscale
+        ///
+        /// This overload takes a floating number that goes from 0 to 1
+        static member inline grayscale(value: double) = Interop.mkStyle "filter" ("grayscale(" + (unbox<string> value) + ")")
+        /// Applies a hue rotation on the image. The value defines the number of degrees around the color circle the image samples will be adjusted. 0deg is default, and represents the original image.
+        ///
+        /// **Note**: Maximum value is 360
+        static member inline hueRotate(degrees: int) = Interop.mkStyle "filter" ("hue-rotate(" + (unbox<string> degrees) + "deg)")
+        /// Inverts the element.
+        ///
+        /// This overload takes an integer that represents a percentage from 0 to 100.
+        static member inline invert(value: int) = Interop.mkStyle "filter" ("invert(" + (unbox<string> value) + "%)")
+        /// Inverts the element.
+        ///
+        /// This overload takes a floating number that goes from 0 to 1
+        static member inline invert(value: double) = Interop.mkStyle "filter" ("invert(" + (unbox<string> value) + ")")
+        /// Sets the opacity of the element.
+        ///
+        /// This overload takes an integer that represents a percentage from 0 to 100.
+        static member inline opacity(value: int) = Interop.mkStyle "filter" ("opacity(" + (unbox<string> value) + "%)")
+        /// Sets the opacity of the element.
+        ///
+        /// This overload takes a floating number that goes from 0 to 1
+        static member inline opacity(value: double) = Interop.mkStyle "filter" ("opacity(" + (unbox<string> value) + ")")
+        /// Sets the saturation of the element.
+        ///
+        /// This overload takes an integer that represents a percentage from 0 to 100.
+        static member inline saturate(value: int) = Interop.mkStyle "filter" ("saturate(" + (unbox<string> value) + "%)")
+        /// Sets the saturation of the element.
+        ///
+        /// This overload takes a floating number that goes from 0 to 1
+        static member inline saturate(value: double) = Interop.mkStyle "filter" ("saturate(" + (unbox<string> value) + ")")
+        /// Applies Sepia filter to the element.
+        ///
+        /// This overload takes an integer that represents a percentage from 0 to 100.
+        static member inline sepia(value: int) = Interop.mkStyle "filter" ("sepia(" + (unbox<string> value) + "%)")
+        /// Applies Sepia filter to the element.
+        ///
+        /// This overload takes a floating number that goes from 0 to 1
+        static member inline sepia(value: double) = Interop.mkStyle "filter" ("sepia(" + (unbox<string> value) + ")")
+        /// The url() function takes the location of an XML file that specifies an SVG filter, and may include an anchor to a specific filter element.
+        ///
+        /// Example: `filter: url(svg-url#element-id)`
+        static member inline url(value: string) = Interop.mkStyle "filter" ("url(" + value + ")")
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "filter" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "filter" "inherit"
+
+    [<Erase>]
     type textDecorationStyle =
         /// Default value. The line will display as a single line.
         ///

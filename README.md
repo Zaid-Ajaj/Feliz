@@ -124,6 +124,19 @@ let customStyles =
 
 Please file an issue, because it should be there!
 
+### Using multiple `classes` for a single element
+
+```fs
+Html.button [
+    prop.classes [ "btn"; "btn-success" ]
+    prop.children [
+        Html.i [ prop.classes [ "fa"; "fa-plus" ] ]
+    ]
+]
+```
+
+The property `classes` combines a list of classes into a single class, convenient when your classes are bound to values so that you do not need to concatenate them yourself.
+
 ### Conditional classes and styles
 
 The library includes two convenient functions to apply classes or styles conditionally on elements:
