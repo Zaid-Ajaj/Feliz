@@ -82,12 +82,12 @@ let counterApp state dispatch =
 let keyWarnings state dispatch =
     Html.div [
         prop.id "id"
-        prop.className "class"
+        prop.className ["class"]
         prop.children [
             Html.div "text"
             Html.div [
                 prop.id "id"
-                prop.className "class"
+                prop.className [ true,"class"; false, "other"; true, "conditional" ]
                 prop.children [
                     Html.text "text"
                     Html.div [

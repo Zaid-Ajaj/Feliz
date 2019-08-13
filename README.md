@@ -83,6 +83,13 @@ Html.input [
     prop.onTextChange (SetPassword >> dispatch)
     prop.inputType.password
 ]
+
+Html.input [
+    prop.className "input checkbox"
+    prop.valueOrDefault state.RememberMe // boolean
+    prop.onCheckedChange (SetRememberMe >> dispatch) // (bool -> unit)
+    prop.inputType.checkbox
+]
 ```
 
 ### Type-safe style attributes
@@ -124,25 +131,21 @@ let customStyles =
 
 Please file an issue, because it should be there!
 
-### Using multiple `classes` for a single element
+### Different ways of specifying the classes of elements
 
 ```fs
-Html.button [
-    prop.classes [ "btn"; "btn-success" ]
-    prop.children [
-        Html.i [ prop.classes [ "fa"; "fa-plus" ] ]
-    ]
-]
+prop.className "button" // => "button"
+prop.className [ "btn"; "btn-primary" ] // => "btn btn-primary"
+prop.className [ true, "conditional"; false, "falsy"; true, "class" ] // => "conditional class"
 ```
 
-The property `classes` combines a list of classes into a single class, convenient when your classes are bound to values so that you do not need to concatenate them yourself.
+The property `className` has overloads to combine a list of classes into a single class, convenient when your classes are bound to values so that you do not need to concatenate them yourself.
 
-### Conditional classes and styles
+### Conditional and styles
 
 The library includes two convenient functions to apply classes or styles conditionally on elements:
 ```fsharp
 Html.div [
-    prop.classList [ true, "shiny"; state.Count < 0, "danger" ]
     prop.styleList [
         true, [ style.margin 10 ]
         state.Count >= 10, [

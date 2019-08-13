@@ -35,6 +35,7 @@ type Html =
     static member inline tableCell xs = Interop.createElement "td" xs
     static member inline details xs = Interop.createElement "details" xs
     static member inline summary xs = Interop.createElement "summary" xs
+    static member inline main xs = Interop.createElement "main" xs
     static member inline canvas xs = Interop.createElement "canvas" xs
     static member inline td xs = Interop.createElement "td" xs
     static member inline th xs = Interop.createElement "th" xs
@@ -82,6 +83,7 @@ type Html =
     static member inline code xs = Interop.createElement "code" xs
     static member inline meta xs = Interop.createElement "meta" xs
     static member inline head xs = Interop.createElement "head" xs
+    static member inline header xs = Interop.createElement "header" xs
     static member inline body xs = Interop.createElement "body" xs
     static member inline clipPath xs = Interop.createElement "clipPath" xs
     static member inline linearGradient xs = Interop.createElement "linearGradient" xs
@@ -89,6 +91,7 @@ type Html =
     static member inline content (value: int) : ReactElement = unbox value
     static member inline text (value: string) : ReactElement = unbox value
     static member inline text (value: int) : ReactElement = unbox value
+    static member inline text (value: System.Guid) : ReactElement = unbox (string value)
     static member inline stop xs = Interop.createElement "stop" xs
     static member inline div (value: ReactElement) = Interop.reactElement "div" (createObj [ "children" ==> [| value |] ])
     static member inline span (value: ReactElement)  = Interop.reactElement "span" (createObj [ "children" ==> [| value |] ])

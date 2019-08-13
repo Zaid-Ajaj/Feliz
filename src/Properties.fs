@@ -27,11 +27,35 @@ type prop =
     static member inline valueOrDefault(value: bool) =
         prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
     static member inline id(value: int) = Interop.mkAttr "id" (string value)
+    /// Specifies a CSS class for this element.
     static member inline className(value: string) = Interop.mkAttr "className" value
+    /// Takes a list of conditional classes (`predicate:bool` * `className:string`), filters out the ones where the `predicate` is false and joins the rest of them using a space to combine the classses into a single class property.
+    ///
+    ///`prop.className [ true, "one";  false, "two" ]`
+    ///
+    /// is the same as
+    ///
+    ///`prop.className "one"`
+    ///
+    static member inline className (classes: #seq<bool * string>) =
+        classes
+        |> Seq.filter fst
+        |> Seq.map snd
+        |> String.concat " "
+        |> Interop.mkAttr "className"
+
     /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
     ///
     /// `prop.classes [ "one"; "two" ]` => `prop.className "one two"`
     static member inline classes(names: seq<string>) = Interop.mkAttr "className" (String.concat " " names)
+    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
+    ///
+    /// `prop.className [ "one"; "two" ]`
+    ///
+    /// is the same as
+    ///
+    /// `prop.className "one two"`
+    static member inline className(names: seq<string>) = Interop.mkAttr "className" (String.concat " " names)
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: string) = Interop.mkAttr "children" value
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
@@ -234,28 +258,6 @@ module prop =
         |> Interop.mkAttr "style"
 
     let styleWhen properties = styleList properties
-
-    /// Conditionally combines a list of classes based on a predicate.
-    ///
-    ///```fs
-    ///    prop.classList [
-    ///        true, "button"
-    ///        false, "is-primary"
-    ///    ]
-    ///```
-    ///Becomes
-    /// ```fs
-    ///     prop.className "button"
-    /// ```
-    ///
-    let classList (classes: (bool * string) list) =
-        classes
-        |> List.filter fst
-        |> List.map snd
-        |> String.concat " "
-        |> Interop.mkAttr "className"
-
-    let classWhen xs = classList xs
 
     type inputType =
         /// Defines a password field
