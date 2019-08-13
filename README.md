@@ -80,16 +80,25 @@ Input elements are also easy to work with:
 Html.input [
     prop.className "input"
     prop.valueOrDefault state.Crendentials.Password
-    prop.onTextChange (SetPassword >> dispatch)
+    prop.onChange (SetPassword >> dispatch)
     prop.inputType.password
 ]
 
 Html.input [
     prop.className "input checkbox"
     prop.valueOrDefault state.RememberMe // boolean
-    prop.onCheckedChange (SetRememberMe >> dispatch) // (bool -> unit)
+    prop.onChange (SetRememberMe >> dispatch) // (bool -> unit)
     prop.inputType.checkbox
 ]
+```
+Here the `onChange` property is overloaded with the following types
+```fs
+// generic onChange event
+type onChange = Event -> unit
+// onChange for textual input boxes
+type onChange = string -> unit
+// onChange for boolean input boxes, i.e. checkbox
+type onChange = bool -> unit
 ```
 
 ### Type-safe style attributes

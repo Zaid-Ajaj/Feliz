@@ -186,6 +186,11 @@ type prop =
     /// Same as `onChange` but let's you deal with the text changed from the `input` element directly
     /// instead of extracting it from the event arguments.
     static member inline onTextChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
+    /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element directly
+    /// instead of extracting it from the event arguments.
+    static member inline onChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
+    /// Same as `onChange` that takes an event as input but instead let's you deal with the `checked` value changed from the `input` element directly when it is defined as a checkbox with `prop.inputType.checkbox`.
+    static member inline onChange (handler: bool -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?``checked``))
     /// Same as `onChange` but let's you deal with the `checked` value that has changed from the `input` element directly instead of extracting it from the event arguments.
     static member inline onCheckedChange (handler: bool -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?``checked``))
     static member inline onInput (handler: Event -> unit) = Interop.mkAttr "onInput" handler
