@@ -65,8 +65,6 @@ type prop =
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: float) = Interop.mkAttr "children" (string value)
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
-    static member inline text (value: System.Guid) = Interop.mkAttr "children" (string value)
-    /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline innerText (value: System.Guid) = Interop.mkAttr "children" (string value)
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline innerText (value: string) = Interop.mkAttr "children" value
