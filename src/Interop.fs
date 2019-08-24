@@ -13,4 +13,4 @@ module Interop =
     let inline mkAttr (key: string) (value: obj) : IReactProperty = unbox (key, value)
     let inline mkStyle (key: string) (value: obj) : IStyleAttribute = unbox (key, value)
     let inline createElement name (properties: IReactProperty list) : ReactElement =
-        reactElement name (keyValueList CaseRules.LowerFirst properties)
+        reactElement name (createObj !!properties)

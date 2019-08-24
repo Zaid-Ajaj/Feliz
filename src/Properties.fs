@@ -240,14 +240,15 @@ type prop =
     static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationEnd" handler
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
-    static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (keyValueList CaseRules.LowerFirst properties)
+    static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
 
 module prop =
     let styleList (properties: (bool * IStyleAttribute list) list) =
         properties
         |> List.filter fst
         |> List.collect snd
-        |> keyValueList CaseRules.LowerFirst
+        |> unbox
+        |> createObj
         |> Interop.mkAttr "style"
 
     let styleWhen properties = styleList properties

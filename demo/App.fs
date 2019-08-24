@@ -55,7 +55,7 @@ let update msg state =
     style.color.red
     style.color "#000000"
 ]
-|> List.iter (fun x -> Browser.Dom.console.log(keyValueList CaseRules.LowerFirst [x]))
+|> List.iter (fun x -> Browser.Dom.console.log(createObj [!!x]))
 
 let counterApp state dispatch =
     Html.div [
