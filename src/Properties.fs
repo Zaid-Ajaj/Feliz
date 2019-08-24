@@ -241,6 +241,8 @@ type prop =
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
     static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (keyValueList CaseRules.LowerFirst properties)
+    static member inline sizes (value: string) = Interop.mkAttr "sizes" value
+    static member inline srcset (value: string) = Interop.mkAttr "srcset" value
 
 module prop =
     let styleList (properties: (bool * IStyleAttribute list) list) =
