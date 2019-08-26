@@ -8,6 +8,8 @@ open Fable.Core.JsInterop
 type Html =
     /// The `<div>` tag defines a division or a section in an HTML document
     static member inline div xs = Interop.createElement "div" xs
+    static member inline fragment xs = Fable.React.Helpers.fragment [] xs
+    static member inline fragment (xs: IReactProperty list) = ReactBindings.React.createElement(ReactBindings.React.Fragment, createObj !!xs,[| |])
     static member inline em xs = Interop.createElement "em" xs
     static member inline iframe xs = Interop.createElement "iframe" xs
     static member inline article xs = Interop.createElement "article" xs
@@ -150,7 +152,6 @@ type Html =
     static member inline del(value: string) = Interop.reactElement "del" (createObj [ "children" ==> [| value |] ])
     static member inline del(value: int) = Interop.reactElement "del" (createObj [ "children" ==> [| value |] ])
     static member inline del(value: ReactElement) = Interop.reactElement "del" (createObj [ "children" ==> [| value |] ])
-
     static member inline ins(value: int) = Interop.reactElement "ins" (createObj [ "children" ==> [| value |] ])
     static member inline ins(value: string) = Interop.reactElement "ins" (createObj [ "children" ==> [| value |] ])
     static member inline ins(value: ReactElement) = Interop.reactElement "ins" (createObj [ "children" ==> [| value |] ])

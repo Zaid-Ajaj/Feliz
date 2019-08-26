@@ -110,6 +110,16 @@ let keyWarnings state dispatch =
         ]
     ]
 
+let fragmentTests =
+    Html.div [
+        prop.children [
+            Html.fragment [
+                Html.h1 "One"
+                Html.h2 "Two"
+            ]
+        ]
+    ]
+
 let styleComponent title =
     // Re-use state internally using React hooks
     let animationsOnHover =
@@ -140,7 +150,8 @@ let styleComponent title =
 
     Interop.reactApi.createElement(animationsOnHover, {| title = title |})
 
-let render state dispatch =
+
+let styledComponentsTests =
     Html.div [
         prop.children [
             styleComponent "Hello"
@@ -148,6 +159,9 @@ let render state dispatch =
             styleComponent "Fable"
         ]
     ]
+
+let render state dispatch =
+    keyWarnings state dispatch
 
 Program.mkSimple init update render
 |> Program.withReactSynchronous "root"

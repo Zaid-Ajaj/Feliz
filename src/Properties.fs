@@ -9,7 +9,7 @@ open Feliz.Styles
 type prop =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline ref(handler: Element -> unit) = Interop.mkAttr "ref" handler
-    static member inline ref(name: string) = Interop.mkAttr "ref" name
+    static member inline ref(handler: Fable.React.IRefValue<HTMLElement option>) = Interop.mkAttr "ref" handler
     /// Sets the inner Html content of the element.
     static member inline dangerouslySetInnerHTML(content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
     /// Alias for `dangerouslySetInnerHTML`, sets the inner Html content of the element.
@@ -151,6 +151,8 @@ type prop =
     static member inline name(value: string) = Interop.mkAttr "name" value
     static member inline placeholder(value: string) = Interop.mkAttr "placeholder" value
     static member inline isOpen(value: bool) = Interop.mkAttr "open" value
+    static member inline sizes (value: string) = Interop.mkAttr "sizes" value
+    static member inline srcset (value: string) = Interop.mkAttr "srcset" value
     static member inline required(value: bool) = Interop.mkAttr "required" value
     static member inline content(value: string) = Interop.mkAttr "content" value
     static member inline children(value: Fable.React.ReactElement) = Interop.mkAttr "children" value
