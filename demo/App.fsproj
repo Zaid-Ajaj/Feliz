@@ -8,8 +8,5 @@
     <ItemGroup>
         <Compile Include="App.fs" />
     </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="Fable.React" Version="5.2.6" />
-    </ItemGroup>
     <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
