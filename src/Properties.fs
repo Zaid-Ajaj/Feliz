@@ -243,9 +243,7 @@ type prop =
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
     static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
-
-module prop =
-    let styleList (properties: (bool * IStyleAttribute list) list) =
+    static member style (properties: (bool * IStyleAttribute list) list) =
         properties
         |> List.filter fst
         |> List.collect snd
@@ -253,8 +251,8 @@ module prop =
         |> createObj
         |> Interop.mkAttr "style"
 
-    let styleWhen properties = styleList properties
-
+module prop =
+    
     type inputType =
         /// Defines a password field
         static member inline password = Interop.mkAttr "type" "password"
