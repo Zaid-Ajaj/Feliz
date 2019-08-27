@@ -57,6 +57,33 @@ let update msg state =
 ]
 |> List.iter (fun x -> Browser.Dom.console.log(createObj [!!x]))
 
+let emptyStyles state dispatch =
+    Html.div [
+        prop.style [ true, [ style.color.red ] ]
+        prop.children [
+            Html.h1 [
+                prop.style [ style.color.red ]
+                prop.children [
+                    Html.span [
+                        prop.style [ ]
+                        prop.text "Hello"
+                    ]
+                ]
+            ]
+        ]
+    ]
+
+let keyedFragments state dispatch =
+    Html.keyedFragment(1, [
+        Html.div [
+            prop.children [
+                Html.keyedFragment("hello", [
+                    Html.h1 "Hello"
+                ])
+            ]
+        ]
+    ])
+
 let counterApp state dispatch =
     Html.div [
         prop.id "main"
@@ -161,7 +188,7 @@ let styledComponentsTests =
     ]
 
 let render state dispatch =
-    keyWarnings state dispatch
+    keyedFragments state dispatch
 
 Program.mkSimple init update render
 |> Program.withReactSynchronous "root"

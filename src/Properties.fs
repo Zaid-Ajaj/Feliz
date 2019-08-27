@@ -5,11 +5,10 @@ open Fable.Core.JsInterop
 open Fable.Core
 open Feliz.Styles
 
-[<Erase>]
 type prop =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline ref(handler: Element -> unit) = Interop.mkAttr "ref" handler
-    static member inline ref(handler: Fable.React.IRefValue<HTMLElement option>) = Interop.mkAttr "ref" handler
+    static member inline ref(ref: Fable.React.IRefValue<HTMLElement option>) = Interop.mkAttr "ref" ref
     /// Sets the inner Html content of the element.
     static member inline dangerouslySetInnerHTML(content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
     /// Alias for `dangerouslySetInnerHTML`, sets the inner Html content of the element.
@@ -74,6 +73,7 @@ type prop =
     static member inline value(value: int) = Interop.mkAttr "value" value
     static member inline value(value: float) = Interop.mkAttr "value" value
     static member inline value(value: bool) = Interop.mkAttr "value" value
+    static member inline value(value: System.Guid) = Interop.mkAttr "value" (string value)
     static member inline selected(value: bool) = Interop.mkAttr "selected" value
     static member inline x(value: int) = Interop.mkAttr "x" value
     static member inline x(value: ICssUnit) = Interop.mkAttr "x" value
@@ -242,7 +242,7 @@ type prop =
     static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationEnd" handler
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
-    static member inline style (properties: IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
+    static member inline style (properties: #IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
     static member style (properties: (bool * IStyleAttribute list) list) =
         properties
         |> List.filter fst
@@ -252,7 +252,7 @@ type prop =
         |> Interop.mkAttr "style"
 
 module prop =
-    
+
     type inputType =
         /// Defines a password field
         static member inline password = Interop.mkAttr "type" "password"

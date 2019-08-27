@@ -9,7 +9,9 @@ type Html =
     /// The `<div>` tag defines a division or a section in an HTML document
     static member inline div xs = Interop.createElement "div" xs
     static member inline fragment xs = Fable.React.Helpers.fragment [] xs
-    static member inline fragment (xs: IReactProperty list) = ReactBindings.React.createElement(ReactBindings.React.Fragment, createObj !!xs,[| |])
+    static member inline keyedFragment(key: int, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    static member inline keyedFragment(key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    static member inline keyedFragment(key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
     static member inline em xs = Interop.createElement "em" xs
     static member inline iframe xs = Interop.createElement "iframe" xs
     static member inline article xs = Interop.createElement "article" xs
