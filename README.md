@@ -115,6 +115,13 @@ type onChange = string -> unit
 type onChange = bool -> unit
 ```
 
+To render the empty element, i.e. instructing React to render nothing, use `Html.none`
+```fs
+match state with
+| None -> Html.none
+| Some data -> render data
+```
+
 ### Type-safe style attributes
 
 ```fs

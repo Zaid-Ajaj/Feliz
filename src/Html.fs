@@ -6,6 +6,8 @@ open Fable.Core.JsInterop
 
 [<Erase>]
 type Html =
+    /// The empty element, renders nothing on screen
+    static member inline none : ReactElement = unbox null
     /// The `<div>` tag defines a division or a section in an HTML document
     static member inline div xs = Interop.createElement "div" xs
     static member inline fragment xs = Fable.React.Helpers.fragment [] xs

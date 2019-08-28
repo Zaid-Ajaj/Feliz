@@ -88,6 +88,7 @@ let keyedFragments state dispatch =
                     Html.ol [
                         Html.li [ Html.strong "More" ]
                         Html.li [ ]
+                        Html.li [ Html.none ]
                     ]
                 ]
             ])
