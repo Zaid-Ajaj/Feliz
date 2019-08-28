@@ -30,7 +30,7 @@ let render state dispatch =
 
 ### Features
 
- - Consistent **formatting**: no more awkward indentation using two lists for every element.
+ - Consistent, lightweight **formatting**: no more awkward indentation using two lists for every element.
  - Discoverable **attributes** with no more functions, `Html` attributes or css properties globally available so they are easy to find.
  - Proper **documentation**: each attribute and CSS property
  - Fully **Type-safe**: no more `Margin of obj` but instead utilizing a plethora of overloaded functions to account for the overloaded nature of `CSS` attributes, covering 90%+ of the CSS styles, values and properties.
@@ -46,6 +46,16 @@ When you want to display a single string or number simply use:
 Html.h1 state.Count
 
 Html.div "Hello there!"
+
+Html.div [
+    Html.h1 "So lightweight"
+]
+
+Html.ul [
+    Html.li "One"
+    Html.li [ Html.strong "Two" ]
+    Html.li [ Html.em "Three" ]
+]
 ```
 You could also expand the attribute:
 ```fs
@@ -66,6 +76,10 @@ Html.h1 [
 Single element child works too as input:
 ```fs
 Html.h1 (Html.strong "I am bold")
+
+// same as
+
+Html.h1 [ Html.strong "I am bold" ]
 
 // same as
 
@@ -155,7 +169,7 @@ The property `className` has overloads to combine a list of classes into a singl
 The library includes two convenient functions to apply classes or styles conditionally on elements:
 ```fsharp
 Html.div [
-    prop.styleList [
+    prop.style [
         true, [ style.margin 10 ]
         state.Count >= 10, [
             style.backgroundColor.red

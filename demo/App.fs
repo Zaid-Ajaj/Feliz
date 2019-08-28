@@ -76,11 +76,21 @@ let emptyStyles state dispatch =
 let keyedFragments state dispatch =
     Html.keyedFragment(1, [
         Html.div [
-            prop.children [
-                Html.keyedFragment("hello", [
-                    Html.h1 "Hello"
-                ])
-            ]
+            Html.keyedFragment("hello", [
+                Html.h1 "Hello"
+                Html.div [ ]
+                Html.div [ Html.h1 "More stuff" ]
+                Html.div [ Html.h2 [ Html.strong "Bold" ] ]
+                Html.ul [
+                    Html.li [ Html.strong "Wow" ]
+                    Html.li "So"
+                    Html.li (Html.em "Lightweight")
+                    Html.ol [
+                        Html.li [ Html.strong "More" ]
+                        Html.li [ ]
+                    ]
+                ]
+            ])
         ]
     ])
 
