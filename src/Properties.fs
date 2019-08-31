@@ -271,6 +271,8 @@ type prop =
     static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationEnd" handler
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
+    /// https://www.w3.org/WAI/PF/aria-1.1/roles
+    static member inline role ([<System.ParamArray>] roles: string []) = Interop.mkAttr "role" (String.concat " " roles)
     /// Indicates whether assistive technologies will present all, or only parts of,
     /// the changed region based on the change notifications defined by the
     /// `aria-relevant` attribute.
@@ -372,6 +374,310 @@ type prop =
         |> Interop.mkAttr "style"
 
 module prop =
+
+    /// https://www.w3.org/WAI/PF/aria-1.1/roles
+    [<Erase>]
+    type role =
+        /// A message with important, and usually time-sensitive, information.
+        /// See related `alertdialog` and `status`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#alert
+        static member inline alert = Interop.mkAttr "role" "alert"
+        /// A type of dialog that contains an alert message, where initial focus
+        /// goes to an element within the dialog. See related `alert` and
+        /// `dialog`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#alertdialog
+        static member inline alertDialog = Interop.mkAttr "role" "alertdialog"
+        /// An input that allows for user-triggered actions when clicked or
+        /// pressed. See related `link`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#button
+        static member inline button = Interop.mkAttr "role" "button"
+        /// A checkable input that has three possible values: `true`, `false`,
+        /// or `mixed`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#checkbox
+        static member inline checkbox = Interop.mkAttr "role" "checkbox"
+        /// A dialog is an application window that is designed to interrupt the
+        /// current processing of an application in order to prompt the user to
+        /// enter information or require a response. See related `alertdialog`.
+        /// 
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#dialog
+        static member inline dialog = Interop.mkAttr "role" "dialog"
+        /// A cell in a grid or treegrid.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#gridcell
+        static member inline gridCell = Interop.mkAttr "role" "gridcell"
+        /// An interactive reference to an internal or external resource that,
+        /// when activated, causes the user agent to navigate to that resource.
+        /// See related `button`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#link
+        static member inline link = Interop.mkAttr "role" "link"
+        /// A type of live region where new information is added in meaningful
+        /// order and old information may disappear. See related `marquee`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#log
+        static member inline log = Interop.mkAttr "role" "log"
+        /// A type of live region where non-essential information changes
+        /// frequently. See related `log`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#marquee
+        static member inline marquee = Interop.mkAttr "role" "marquee"
+        /// An option in a set of choices contained by a `menu` or `menubar`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#menuitem
+        static member inline menuItem = Interop.mkAttr "role" "menuitem"
+        /// A `menuitem` with a checkable state whose possible values are
+        /// `true`, `false`, or `mixed`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#menuitemcheckbox
+        static member inline menuItemCheckbox = Interop.mkAttr "role" "menuitemcheckbox"
+        /// A checkable menuitem in a set of elements with role `menuitemradio`,
+        /// only one of which can be checked at a time.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#menuitemradio
+        static member inline menuItemRadio = Interop.mkAttr "role" "menuitemradio"
+        /// A selectable item in a `select` list.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#option
+        static member inline option = Interop.mkAttr "role" "option"
+        /// An element that displays the progress status for tasks that take a
+        /// long time.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#progressbar
+        static member inline progressBar = Interop.mkAttr "role" "progressbar"
+        /// A checkable input in a group of elements with role radio, only one
+        /// of which can be checked at a time.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#radio
+        static member inline radio = Interop.mkAttr "role" "radio"
+        /// A graphical object that controls the scrolling of content within a
+        /// viewing area, regardless of whether the content is fully displayed
+        /// within the viewing area.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#scrollbar
+        static member inline scrollBar = Interop.mkAttr "role" "scrollbar"
+        /// A user input where the user selects a value from within a given
+        /// range.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#slider
+        static member inline slider = Interop.mkAttr "role" "slider"
+        /// A form of `range` that expects the user to select from among
+        /// discrete choices.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#spinbutton
+        static member inline spinButton = Interop.mkAttr "role" "spinbutton"
+        /// A container whose content is advisory information for the user but
+        /// is not important enough to justify an alert, often but not
+        /// necessarily presented as a status bar. See related `alert`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#status
+        static member inline status = Interop.mkAttr "role" "status"
+        /// A grouping label providing a mechanism for selecting the tab content
+        /// that is to be rendered to the user.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#tab
+        static member inline tab = Interop.mkAttr "role" "tab"
+        /// A container for the resources associated with a `tab`, where each
+        /// `tab` is contained in a `tablist`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#tabpanel
+        static member inline tabPanel = Interop.mkAttr "role" "tabpanel"
+        /// Input that allows free-form text as its value.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#textbox
+        static member inline textBox = Interop.mkAttr "role" "textbox"
+        /// A type of live region containing a numerical counter which indicates
+        /// an amount of elapsed time from a start point, or the time remaining
+        /// until an end point.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#timer
+        static member inline timer = Interop.mkAttr "role" "timer"
+        /// A contextual popup that displays a description for an element.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#tooltip
+        static member inline tooltip = Interop.mkAttr "role" "tooltip"
+        /// An option item of a `tree`. This is an element within a tree that
+        /// may be expanded or collapsed if it contains a sub-level group of
+        /// `treeitem` elements.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#treeitem
+        static member inline treeItem = Interop.mkAttr "role" "treeitem"
+        /// A presentation of a `select`; usually similar to a `textbox` where
+        /// users can type ahead to select an option, or type to enter arbitrary
+        /// text as a new item in the list. See related `listbox`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#combobox
+        static member inline comboBox = Interop.mkAttr "role" "combobox"
+        /// A grid is an interactive control which contains cells of tabular
+        /// data arranged in rows and columns, like a table.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#grid
+        static member inline grid = Interop.mkAttr "role" "grid"
+        /// A widget that allows the user to select one or more items from a
+        /// list of choices. See related `combobox` and `list`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#listbox
+        static member inline listBox = Interop.mkAttr "role" "listbox"
+        /// A type of widget that offers a list of choices to the user.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#menu
+        static member inline menu = Interop.mkAttr "role" "menu"
+        /// A presentation of `menu` that usually remains visible and is usually
+        /// presented horizontally.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#menubar
+        static member inline menuBar = Interop.mkAttr "role" "menubar"
+        /// A group of radio buttons.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#radiogroup
+        static member inline radioGroup = Interop.mkAttr "role" "radiogroup"
+        /// A list of `tab` elements, which are references to `tabpanel`
+        /// elements.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#tablist
+        static member inline tabList = Interop.mkAttr "role" "tablist"
+        /// A type of `list` that may contain sub-level nested groups that can
+        /// be collapsed and expanded.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#tree
+        static member inline tree = Interop.mkAttr "role" "tree"
+        /// A `grid` whose rows can be expanded and collapsed in the same manner
+        /// as for a `tree`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#treegrid
+        static member inline treeGrid = Interop.mkAttr "role" "treegrid"
+        /// A section of a page that consists of a composition that forms an
+        /// independent part of a document, page, or site.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#article
+        static member inline article = Interop.mkAttr "role" "article"
+        /// A cell containing header information for a column.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#columnheader
+        static member inline columnHeader = Interop.mkAttr "role" "columnheader"
+        /// A definition of a term or concept.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#definition
+        static member inline definition = Interop.mkAttr "role" "definition"
+        /// A list of references to members of a group, such as a static table
+        /// of contents.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#directory
+        static member inline directory = Interop.mkAttr "role" "directory"
+        /// A region containing related information that is declared as document
+        /// content, as opposed to a web application.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#document
+        static member inline document = Interop.mkAttr "role" "document"
+        /// A set of user interface objects which are not intended to be
+        /// included in a page summary or table of contents by assistive
+        /// technologies.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#group
+        static member inline group = Interop.mkAttr "role" "group"
+        /// A heading for a section of the page.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#heading
+        static member inline heading = Interop.mkAttr "role" "heading"
+        /// A container for a collection of elements that form an image.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#img
+        static member inline img = Interop.mkAttr "role" "img"
+        /// A group of non-interactive list items. See related `listbox`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#list
+        static member inline list = Interop.mkAttr "role" "list"
+        /// A single item in a list or directory.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#listitem
+        static member inline listItem = Interop.mkAttr "role" "listitem"
+        /// Content that represents a mathematical expression. 
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#math
+        static member inline math = Interop.mkAttr "role" "math"
+        /// A section whose content is parenthetic or ancillary to the main
+        /// content of the resource.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#note
+        static member inline note = Interop.mkAttr "role" "note"
+        /// An element whose implicit native role semantics will not be mapped
+        /// to the accessibility API.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#presentation
+        static member inline presentation = Interop.mkAttr "role" "presentation"
+        /// A large perceivable section of a web page or document, that is
+        /// important enough to be included in a page summary or table of
+        /// contents, for example, an area of the page containing live sporting
+        /// event statistics.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#region
+        static member inline region = Interop.mkAttr "role" "region"
+        /// A row of cells in a grid.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#row
+        static member inline row = Interop.mkAttr "role" "row"
+        /// A group containing one or more row elements in a grid.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#rowgroup
+        static member inline rowGroup = Interop.mkAttr "role" "rowgroup"
+        /// A cell containing header information for a row in a grid.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#rowheader
+        static member inline rowHeader = Interop.mkAttr "role" "rowheader"
+        /// A divider that separates and distinguishes sections of content or
+        /// groups of menuitems.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#separator
+        static member inline separator = Interop.mkAttr "role" "separator"
+        /// A collection of commonly used function buttons or controls
+        /// represented in compact visual form.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#toolbar
+        static member inline toolbar = Interop.mkAttr "role" "toolbar"
+        /// A region declared as a web application, as opposed to a web
+        /// `document`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#application
+        static member inline application = Interop.mkAttr "role" "application"
+        /// A region that contains mostly site-oriented content, rather than
+        /// page-specific content.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#banner
+        static member inline banner = Interop.mkAttr "role" "banner"
+        /// A supporting section of the document, designed to be complementary
+        /// to the main content at a similar level in the DOM hierarchy, but
+        /// remains meaningful when separated from the main content.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#complementary
+        static member inline complementary = Interop.mkAttr "role" "complementary"
+        /// A large perceivable region that contains information about the
+        /// parent document.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#contentinfo
+        static member inline contentInfo = Interop.mkAttr "role" "contentinfo"
+        /// A `landmark` region that contains a collection of items and objects
+        /// that, as a whole, combine to create a form. See related search.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#form
+        static member inline form = Interop.mkAttr "role" "form"
+        /// The main content of a document.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#main
+        static member inline main = Interop.mkAttr "role" "main"
+        /// A collection of navigational elements (usually links) for navigating
+        /// the document or related documents.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#navigation
+        static member inline navigation = Interop.mkAttr "role" "navigation"
+        /// A `landmark` region that contains a collection of items and objects
+        /// that, as a whole, combine to create a search facility. See related
+        /// `form`.
+        ///
+        /// https://www.w3.org/WAI/PF/aria-1.1/roles#search
+        static member inline search = Interop.mkAttr "role" "search"
 
     /// Indicates an element's "grabbed" state in a drag-and-drop operation.
     ///
