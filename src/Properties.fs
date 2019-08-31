@@ -377,6 +377,103 @@ type prop =
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-relevant
     static member inline ariaRelevant ([<System.ParamArray>] values: AriaRelevant []) = Interop.mkAttr "aria-relevant" (values |> unbox<string []> |> String.concat " ")
+    /// Indicates the current "checked" state of checkboxes, radio buttons, and
+    /// other widgets. See related `aria-pressed` and `aria-selected`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-checked
+    static member inline ariaChecked (value: bool) = Interop.mkAttr "aria-checked" value
+    /// Indicates whether the element, or another grouping element it controls,
+    /// is currently expanded or collapsed.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-expanded
+    static member inline ariaExpanded (value: bool) = Interop.mkAttr "aria-expanded" value
+    /// Defines the hierarchical level of an element within a structure.
+    ///
+    /// This can be applied inside trees to tree items, to headings inside a
+    /// document, to nested grids, nested tablists and to other structural items
+    /// that may appear inside a container or participate in an ownership
+    /// hierarchy. The value for `aria-level` is an integer greater than or
+    /// equal to 1.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-level
+    static member inline ariaLevel (value: int) = Interop.mkAttr "aria-level" value
+    /// Indicates whether a text box accepts multiple lines of input or only a
+    /// single line.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-multiline
+    static member inline ariaMultiLine (value: bool) = Interop.mkAttr "aria-multiline" value
+    /// Indicates that the user may select more than one item from the current
+    /// selectable descendants.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-multiselectable
+    static member inline ariaMultiSelectable (value: bool) = Interop.mkAttr "aria-multiselectable" value
+    /// Indicates the current "pressed" state of toggle buttons. See related
+    /// `aria-checked` and `aria-selected`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-pressed
+    static member inline ariaPressed (value: bool) = Interop.mkAttr "aria-pressed" value
+    /// Indicates that the element is not editable, but is otherwise operable.
+    /// See related `aria-disabled`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-readonly
+    static member inline ariaReadOnly (value: bool) = Interop.mkAttr "aria-readonly" value
+    /// Indicates that user input is required on the element before a form may
+    /// be submitted.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-required
+    static member inline ariaRequired (value: bool) = Interop.mkAttr "aria-required" value
+    /// Indicates the current "selected" state of various widgets. See related
+    /// `aria-checked` and `aria-pressed`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-selected
+    static member inline ariaSelected (value: bool) = Interop.mkAttr "aria-selected" value
+    /// Defines the maximum allowed value for a range widget.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuemax
+    static member inline ariaValueMax (value: int) = Interop.mkAttr "aria-valuemax" value
+    /// Defines the maximum allowed value for a range widget.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuemax
+    static member inline ariaValueMax (value: float) = Interop.mkAttr "aria-valuemax" value
+    /// Defines the minimum allowed value for a range widget.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuemin
+    static member inline ariaValueMin (value: int) = Interop.mkAttr "aria-valuemin" value
+    /// Defines the minimum allowed value for a range widget.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuemin
+    static member inline ariaValueMin (value: float) = Interop.mkAttr "aria-valuemin" value
+    /// Defines the current value for a range widget. See related
+    /// `aria-valuetext`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuenow
+    static member inline ariaValueNow (value: int) = Interop.mkAttr "aria-valuenow" value
+    /// Defines the current value for a range widget. See related
+    /// `aria-valuetext`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuenow
+    static member inline ariaValueNow (value: float) = Interop.mkAttr "aria-valuenow" value
+    /// Defines the human readable text alternative of `aria-valuenow` for a
+    /// range widget.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuetext
+    static member inline ariaValueText (value: string) = Interop.mkAttr "aria-valuetext" value
+    /// Identifies the currently active descendant of a `composite` widget.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-activedescendant
+    static member inline ariaActiveDescendant (id: string) = Interop.mkAttr "aria-activedescendant" id
+    /// Defines an element's number or position in the current set of listitems
+    /// or treeitems. Not required if all elements in the set are present in the
+    /// DOM. See related `aria-setsize`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-posinset
+    static member inline ariaPosInSet (value: int) = Interop.mkAttr "aria-posinset" value
+    /// Defines the number of items in the current set of listitems or
+    /// treeitems. Not required if all elements in the set are present in the
+    /// DOM. See related `aria-posinset`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-setsize
+    static member inline ariaSetSize (value: int) = Interop.mkAttr "aria-setsize" value
     static member inline style (properties: #IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
     static member style (properties: (bool * IStyleAttribute list) list) =
         properties
@@ -692,18 +789,6 @@ module prop =
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#search
         static member inline search = Interop.mkAttr "role" "search"
 
-    /// Indicates an element's "grabbed" state in a drag-and-drop operation.
-    ///
-    /// When it is set to true it has been selected for dragging, false
-    /// indicates that the element can be grabbed for a drag-and-drop operation,
-    /// but is not currently grabbed, and undefined (or no value) indicates the
-    /// element cannot be grabbed (default).
-    ///
-    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-grabbed
-    [<Erase>]
-    type ariaGrabbed =
-        static member inline undefined = Interop.mkAttr "aria-grabbed" "undefined"
-
     /// Indicates the entered value does not conform to the format expected by
     /// the application.
     ///
@@ -732,6 +817,67 @@ module prop =
         /// graceful opportunity, such as at the end of speaking the current
         /// sentence or when the user pauses typing.
         static member inline polite = Interop.mkAttr "aria-live" "polite"
+
+    /// Indicates whether user input completion suggestions are provided.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-autocomplete
+    [<Erase>]
+    type ariaAutocomplete =
+        /// A list of choices appears and the currently selected suggestion also
+        /// appears inline.
+        static member inline both = Interop.mkAttr "aria-autocomplete" "both"
+        /// The system provides text after the caret as a suggestion for how to
+        /// complete the field.
+        static member inline inline' = Interop.mkAttr "aria-autocomplete" "inline"
+        /// A list of choices appears from which the user can choose.
+        static member inline list = Interop.mkAttr "aria-autocomplete" "list"
+        /// No input completion suggestions are provided.
+        static member inline none = Interop.mkAttr "aria-autocomplete" "none"
+
+    /// Indicates the current "checked" state of checkboxes, radio buttons, and
+    /// other widgets. See related `aria-pressed` and `aria-selected`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-checked
+    [<Erase>]
+    type ariaChecked =
+        /// Indicates a mixed mode value for a tri-state checkbox or
+        /// `menuitemcheckbox`.
+        static member inline mixed = Interop.mkAttr "aria-checked" "mixed"
+
+    /// Indicates whether the element and orientation is horizontal or vertical.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-orientation
+    [<Erase>]
+    type ariaOrientation =
+        /// The element is oriented horizontally.
+        static member inline horizontal = Interop.mkAttr "aria-orientation" "horizontal"
+        /// The element is oriented vertically.
+        static member inline vertical = Interop.mkAttr "aria-orientation" "vertical"
+
+    /// Indicates the current "pressed" state of toggle buttons. See related
+    /// `aria-checked` and `aria-selected`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-pressed
+    [<Erase>]
+    type ariaPressed =
+        /// Indicates a mixed mode value for a tri-state toggle button.
+        static member inline mixed = Interop.mkAttr "aria-pressed" "mixed"
+
+    /// Indicates if items in a table or grid are sorted in ascending or
+    /// descending order.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-sort
+    [<Erase>]
+    type ariaSort =
+        /// Items are sorted in ascending order by this column.
+        static member inline ascending = Interop.mkAttr "aria-sort" "ascending"
+        /// Items are sorted in descending order by this column.
+        static member inline descending = Interop.mkAttr "aria-sort" "descending"
+        /// There is no defined sort applied to the column.
+        static member inline none = Interop.mkAttr "aria-sort" "none"
+        /// A sort algorithm other than ascending or descending has been
+        /// applied.
+        static member inline other = Interop.mkAttr "aria-sort" "other"
 
     type inputType =
         /// Defines a password field
