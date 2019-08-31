@@ -5,6 +5,35 @@ open Fable.Core.JsInterop
 open Fable.Core
 open Feliz.Styles
 
+[<StringEnum; RequireQualifiedAccess>]
+type AriaDropEffect =
+    /// A duplicate of the source object will be dropped into the target.
+    | Copy
+    /// A function supported by the drop target is executed, using the drag source as an input.
+    | Execute
+    /// A reference or shortcut to the dragged object will be created in the target object.
+    | Link
+    /// The source object will be removed from its current location and dropped into the target.
+    | Move
+    /// No operation can be performed; effectively cancels the drag operation if an attempt is made
+    /// to drop on this object. Ignored if combined with any other token value. e.g. 'none copy'
+    /// is equivalent to a 'copy' value.
+    | None
+    /// There is a popup menu or dialog that allows the user to choose one of the drag operations
+    /// (copy, move, link, execute) and any other drag functionality, such as cancel.
+    | Popup
+
+[<StringEnum; RequireQualifiedAccess>]
+type AriaRelevant =
+    /// Element nodes are added to the DOM within the live region.
+    | Additions
+    /// Equivalent to the combination of all values, "additions removals text".
+    | All
+    /// Text or element nodes within the live region are removed from the DOM.
+    | Removals
+    /// Text is added to any DOM descendant nodes of the live region.
+    | Text
+
 type prop =
     static member inline id(value: string) = Interop.mkAttr "id" value
     static member inline ref(handler: Element -> unit) = Interop.mkAttr "ref" handler
@@ -242,6 +271,97 @@ type prop =
     static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationEnd" handler
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
     static member inline onTransitionEnd (handler: TransitionEvent -> unit) = Interop.mkAttr "onTransitionEnd" handler
+    /// Indicates whether assistive technologies will present all, or only parts of,
+    /// the changed region based on the change notifications defined by the
+    /// `aria-relevant` attribute.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-atomic
+    static member inline ariaAtomic (value: bool) = Interop.mkAttr "aria-atomic" value
+    /// Indicates whether an element, and its subtree, are currently being updated.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-busy
+    static member inline ariaBusy (value: bool) = Interop.mkAttr "aria-busy" value
+    /// Identifies the element (or elements) whose contents or presence are
+    /// controlled by the current element. See related `aria-owns`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-controls
+    static member inline ariaControls ([<System.ParamArray>] ids: string []) = Interop.mkAttr "aria-controls" (String.concat " " ids)
+    /// Specifies a URI referencing content that describes the object.
+    /// See related `aria-describedby`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-describedat
+    static member inline ariaDescribedAt (uri: string) = Interop.mkAttr "aria-describedat" uri
+    /// Identifies the element (or elements) that describes the object. See related
+    /// `aria-describedat` and `aria-labelledby`.
+    ///
+    /// The `aria-labelledby` attribute is similar to `aria-describedby` in that both
+    /// reference other elements to calculate a text alternative, but a label should
+    /// be concise, where a description is intended to provide more verbose information.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-describedby
+    static member inline ariaDescribedBy ([<System.ParamArray>] ids: string []) = Interop.mkAttr "aria-describedby" (String.concat " " ids)
+    /// Indicates that the element is perceivable but disabled, so it is not editable
+    /// or otherwise operable. See related `aria-hidden` and `aria-readonly`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-disabled
+    static member inline ariaDisabled (value: bool) = Interop.mkAttr "aria-disabled" value
+    /// Indicates what functions can be performed when the dragged object is released
+    /// on the drop target. This allows assistive technologies to convey the possible
+    /// drag options available to users, including whether a pop-up menu of choices
+    /// is provided by the application. Typically, drop effect functions can only
+    /// be provided once an object has been grabbed for a drag operation as the
+    /// drop effect functions available are dependent on the object being dragged.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-dropeffect
+    static member inline ariaDropEffect ([<System.ParamArray>] values: AriaDropEffect []) = Interop.mkAttr "aria-dropeffect" (values |> unbox<string []> |> String.concat " ")
+    /// Identifies the next element (or elements) in an alternate reading order of content which,
+    /// at the user's discretion, allows assistive technology to override the general default of
+    /// reading in document source order.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-flowto
+    static member inline ariaFlowTo ([<System.ParamArray>] ids: string []) = Interop.mkAttr "aria-flowto" (String.concat " " ids)
+    /// Indicates an element's "grabbed" state in a drag-and-drop operation.
+    ///
+    /// When it is set to true it has been selected for dragging, false indicates
+    /// that the element can be grabbed for a drag-and-drop operation, but is not
+    /// currently grabbed, and undefined (or no value) indicates the element cannot
+    /// be grabbed (default).
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-grabbed
+    static member inline ariaGrabbed (value: bool) = Interop.mkAttr "aria-grabbed" value
+    /// Indicates that the element has a popup context menu or sub-level menu.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-haspopup
+    static member inline ariaHasPopup (value: bool) = Interop.mkAttr "aria-haspopup" value
+    /// Indicates that the element and all of its descendants are not visible or perceivable
+    /// to any user as implemented by the author. See related `aria-disabled`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-hidden
+    static member inline ariaHidden (value: bool) = Interop.mkAttr "aria-hidden" value
+    /// Indicates the entered value does not conform to the format expected by the application.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-invalid
+    static member inline ariaInvalid (value: bool) = Interop.mkAttr "aria-invalid" value
+    /// Defines a string value that labels the current element. See related `aria-labelledby`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-label
+    static member inline ariaLabel (value: string) = Interop.mkAttr "aria-label" value
+    /// Identifies the element (or elements) that labels the current element.
+    /// See related `aria-label` and `aria-describedby`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-labelledby
+    static member inline ariaLabelledBy ([<System.ParamArray>] ids: string []) = Interop.mkAttr "aria-labelledby" (String.concat " " ids)
+    /// Identifies an element (or elements) in order to define a visual, functional, or
+    /// contextual parent/child relationship between DOM elements where the DOM hierarchy
+    /// cannot be used to represent the relationship. See related `aria-controls`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-owns
+    static member inline ariaOwns ([<System.ParamArray>] ids: string []) = Interop.mkAttr "aria-owns" (String.concat " " ids)
+    /// Indicates what user agent change notifications (additions, removals, etc.)
+    /// assistive technologies will receive within a live region. See related `aria-atomic`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-relevant
+    static member inline ariaRelevant ([<System.ParamArray>] values: AriaRelevant []) = Interop.mkAttr "aria-relevant" (values |> unbox<string []> |> String.concat " ")
     static member inline style (properties: #IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
     static member style (properties: (bool * IStyleAttribute list) list) =
         properties
@@ -252,6 +372,45 @@ type prop =
         |> Interop.mkAttr "style"
 
 module prop =
+
+    /// Indicates an element's "grabbed" state in a drag-and-drop operation.
+    ///
+    /// When it is set to true it has been selected for dragging, false indicates
+    /// that the element can be grabbed for a drag-and-drop operation, but is not
+    /// currently grabbed, and undefined (or no value) indicates the element cannot
+    /// be grabbed (default).
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-grabbed
+    [<Erase>]
+    type ariaGrabbed =
+        static member inline undefined = Interop.mkAttr "aria-grabbed" "undefined"
+
+    /// Indicates the entered value does not conform to the format expected by the application.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-invalid
+    [<Erase>]
+    type ariaInvalid =
+        /// A grammatical error was detected.
+        static member inline grammar = Interop.mkAttr "aria-invalid" "grammar"
+        /// A spelling error was detected.
+        static member inline spelling = Interop.mkAttr "aria-invalid" "spelling"
+
+    /// Indicates that an element will be updated, and describes the types of updates
+    /// the user agents, assistive technologies, and user can expect from the live region.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-live
+    [<Erase>]
+    type ariaLive =
+        /// Indicates that updates to the region have the highest priority and
+        /// should be presented the user immediately.
+        static member inline assertive = Interop.mkAttr "aria-live" "assertive"
+        /// Indicates that updates to the region should not be presented to the user
+        /// unless the used is currently focused on that region.
+        static member inline off = Interop.mkAttr "aria-live" "off"
+        /// Indicates that updates to the region should be presented at the next graceful
+        /// opportunity, such as at the end of speaking the current sentence or when the user
+        /// pauses typing.
+        static member inline polite = Interop.mkAttr "aria-live" "polite"
 
     type inputType =
         /// Defines a password field
