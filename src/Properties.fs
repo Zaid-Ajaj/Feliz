@@ -789,6 +789,38 @@ module prop =
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#search
         static member inline search = Interop.mkAttr "role" "search"
 
+    /// Indicates what functions can be performed when the dragged object is
+    /// released on the drop target. This allows assistive technologies to
+    /// convey the possible drag options available to users, including whether a
+    /// pop-up menu of choices is provided by the application. Typically, drop
+    /// effect functions can only be provided once an object has been grabbed
+    /// for a drag operation as the drop effect functions available are
+    /// dependent on the object being dragged.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-dropeffect
+    [<Erase>]
+    type ariaDropEffect =
+        /// A duplicate of the source object will be dropped into the target.
+        static member inline copy = Interop.mkAttr "aria-dropeffect" "copy"
+        /// A function supported by the drop target is executed, using the drag
+        /// source as an input.
+        static member inline execute = Interop.mkAttr "aria-dropeffect" "execute"
+        /// A reference or shortcut to the dragged object will be created in the
+        /// target object.
+        static member inline link = Interop.mkAttr "aria-dropeffect" "link"
+        /// The source object will be removed from its current location and
+        /// dropped into the target.
+        static member inline move = Interop.mkAttr "aria-dropeffect" "move"
+        /// No operation can be performed; effectively cancels the drag
+        /// operation if an attempt is made to drop on this object. Ignored if
+        /// combined with any other token value. e.g. 'none copy' is equivalent
+        /// to a 'copy' value.
+        static member inline none = Interop.mkAttr "aria-dropeffect" "none"
+        /// There is a popup menu or dialog that allows the user to choose one
+        /// of the drag operations (copy, move, link, execute) and any other
+        /// drag functionality, such as cancel.
+        static member inline popup = Interop.mkAttr "aria-dropeffect" "popup"
+
     /// Indicates the entered value does not conform to the format expected by
     /// the application.
     ///
@@ -799,6 +831,24 @@ module prop =
         static member inline grammar = Interop.mkAttr "aria-invalid" "grammar"
         /// A spelling error was detected.
         static member inline spelling = Interop.mkAttr "aria-invalid" "spelling"
+
+    /// Indicates what user agent change notifications (additions, removals,
+    /// etc.) assistive technologies will receive within a live region. See
+    /// related `aria-atomic`.
+    ///
+    /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-relevant
+    [<Erase>]
+    type ariaRelevant =
+        /// Element nodes are added to the DOM within the live region.
+        static member inline additions = Interop.mkAttr "aria-relevant" "additions"
+        /// Equivalent to the combination of all values, "additions removals
+        /// text".
+        static member inline all = Interop.mkAttr "aria-relevant" "all"
+        /// Text or element nodes within the live region are removed from the
+        /// DOM.
+        static member inline removals = Interop.mkAttr "aria-relevant" "removals"
+        /// Text is added to any DOM descendant nodes of the live region.
+        static member inline text = Interop.mkAttr "aria-relevant" "text"
 
     /// Indicates that an element will be updated, and describes the types of
     /// updates the user agents, assistive technologies, and user can expect
