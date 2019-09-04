@@ -6,26 +6,21 @@ Here is how it looks like:
 
 ```fs
 let render state dispatch =
-    Html.div [
-        prop.id "main"
-        prop.style [ style.padding 20 ]
-        prop.children [
-
-            Html.button [
-                prop.style [ style.marginRight 5 ]
-                prop.onClick (fun _ -> dispatch Increment)
-                prop.text "Increment"
-            ]
-
-            Html.button [
-                prop.style [ style.marginLeft 5 ]
-                prop.onClick (fun _ -> dispatch Decrement)
-                prop.text "Decrement"
-            ]
-
-            Html.h1 state.Count
-        ]
+  Html.div [
+    Html.button [
+        prop.style [ style.marginRight 5 ]
+        prop.onClick (fun _ -> dispatch Increment)
+        prop.text "Increment"
     ]
+
+    Html.button [
+        prop.style [ style.marginLeft 5 ]
+        prop.onClick (fun _ -> dispatch Decrement)
+        prop.text "Decrement"
+    ]
+
+    Html.h1 state.Count
+  ]
 ```
 
 ### Features
@@ -41,20 +36,19 @@ let render state dispatch =
 
 ### Overloaded elements
 
-When you want to display a single string or number simply use:
+Elements can take simple values as their only input such a string, a number, a single child element or a list of child elements.
+
 ```fs
 Html.h1 state.Count
 
 Html.div "Hello there!"
 
-Html.div [
-    Html.h1 "So lightweight"
-]
+Html.div [ Html.h1 "So lightweight" ]
 
 Html.ul [
-    Html.li "One"
-    Html.li [ Html.strong "Two" ]
-    Html.li [ Html.em "Three" ]
+  Html.li "One"
+  Html.li [ Html.strong "Two" ]
+  Html.li [ Html.em "Three" ]
 ]
 ```
 You could also expand the attribute:
@@ -93,8 +87,8 @@ Input elements are also easy to work with:
 ```fs
 Html.input [
     prop.className "input"
-    prop.valueOrDefault state.Crendentials.Password
-    prop.onChange (SetPassword >> dispatch)
+    prop.valueOrDefault state.Crendentials.Password // string
+    prop.onChange (SetPassword >> dispatch) // (string -> unit)
     prop.inputType.password
 ]
 
