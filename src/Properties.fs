@@ -122,10 +122,10 @@ type prop =
     static member inline fill(color: string) = Interop.mkAttr "fill" color
     static member inline x1(value: int) = Interop.mkAttr "x1" value
     static member inline x1(value: ICssUnit) = Interop.mkAttr "x1" value
-    static member inline x1(value: float) = Interop.mkAttr "y1" value
+    static member inline x1(value: float) = Interop.mkAttr "x1" value
     static member inline x2(value: int) = Interop.mkAttr "x2" value
-    static member inline x2(value: ICssUnit) = Interop.mkAttr "x1" value
-    static member inline x2(value: float) = Interop.mkAttr "x1" value
+    static member inline x2(value: ICssUnit) = Interop.mkAttr "x2" value
+    static member inline x2(value: float) = Interop.mkAttr "x2" value
     static member inline y1(value: int) = Interop.mkAttr "y1" value
     static member inline y1(value: float) = Interop.mkAttr "y1" value
     static member inline y1(value: ICssUnit) = Interop.mkAttr "y1" value
@@ -512,7 +512,7 @@ module prop =
         /// A dialog is an application window that is designed to interrupt the
         /// current processing of an application in order to prompt the user to
         /// enter information or require a response. See related `alertdialog`.
-        /// 
+        ///
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#dialog
         static member inline dialog = Interop.mkAttr "role" "dialog"
         /// A cell in a grid or treegrid.
@@ -704,7 +704,7 @@ module prop =
         ///
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#listitem
         static member inline listItem = Interop.mkAttr "role" "listitem"
-        /// Content that represents a mathematical expression. 
+        /// Content that represents a mathematical expression.
         ///
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#math
         static member inline math = Interop.mkAttr "role" "math"
