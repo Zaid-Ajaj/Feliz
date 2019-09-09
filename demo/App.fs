@@ -158,10 +158,10 @@ let fragmentTests =
         ]
     ]
 
-let styleComponent title =
+let styledComponent title =
     // Re-use state internally using React hooks
     let animationsOnHover =
-        Fable.React.FunctionComponent.Of <| fun (props: {| title: string |}) ->
+        Fable.React.FunctionComponent.Of((fun (props: {| title: string |}) ->
             let hovered = Hooks.useState(false)
             Html.div [
                 prop.style [
@@ -185,21 +185,19 @@ let styleComponent title =
                     Html.h2 props.title
                 ]
             ]
+        ), "Styled")
 
-    Interop.reactApi.createElement(animationsOnHover, {| title = title |})
-
+    animationsOnHover {| title = title |}
 
 let styledComponentsTests =
     Html.div [
-        prop.children [
-            styleComponent "Hello"
-            styleComponent "From"
-            styleComponent "Fable"
-        ]
+       styledComponent "Hello"
+       styledComponent "From"
+       styledComponent "Fable"
     ]
 
 let render state dispatch =
-    keyedFragments state dispatch
+    styledComponentsTests
 
 Program.mkSimple init update render
 |> Program.withReactSynchronous "root"
