@@ -878,7 +878,7 @@ module prop =
         static member inline both = Interop.mkAttr "aria-autocomplete" "both"
         /// The system provides text after the caret as a suggestion for how to
         /// complete the field.
-        static member inline inline' = Interop.mkAttr "aria-autocomplete" "inline"
+        static member inline inlinedAfterCaret = Interop.mkAttr "aria-autocomplete" "inline"
         /// A list of choices appears from which the user can choose.
         static member inline list = Interop.mkAttr "aria-autocomplete" "list"
         /// No input completion suggestions are provided.
