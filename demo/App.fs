@@ -95,6 +95,12 @@ let keyedFragments state dispatch =
         ]
     ])
 
+let inputs state dispatch =
+    Html.form [
+        Html.input [ prop.withType.checkbox ]
+        Html.input [ prop.withType "password" ]
+    ]
+
 let counterApp state dispatch =
     Html.div [
         prop.id "main"

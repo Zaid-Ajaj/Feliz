@@ -76,6 +76,9 @@ type prop =
         |> String.concat " "
         |> Interop.mkAttr "className"
 
+    /// Sets the `type` attribute for the element.
+    static member inline withType (value: string) = Interop.mkAttr "type" value
+
     /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
     ///
     /// `prop.classes [ "one"; "two" ]` => `prop.className "one two"`
@@ -191,7 +194,6 @@ type prop =
     static member inline children(value: Fable.React.ReactElement) = Interop.mkAttr "children" value
     static member inline rows(value: int) = Interop.mkAttr "rows" value
     static member inline rowSpan(value: int) = Interop.mkAttr "rowSpan" value
-    static member inline inputType(value: string) = Interop.mkAttr "type" value
     static member inline src(value: string) = Interop.mkAttr "src" value
     static member inline start(value: string) = Interop.mkAttr "start" value
     static member inline readOnly (value: bool) = Interop.mkAttr "readOnly" value
@@ -929,7 +931,7 @@ module prop =
         /// applied.
         static member inline other = Interop.mkAttr "aria-sort" "other"
 
-    type inputType =
+    type withType =
         /// Defines a password field
         static member inline password = Interop.mkAttr "type" "password"
         /// Default. Defines a single-line text field

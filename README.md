@@ -89,14 +89,14 @@ Html.input [
     prop.className "input"
     prop.valueOrDefault state.Crendentials.Password // string
     prop.onChange (SetPassword >> dispatch) // (string -> unit)
-    prop.inputType.password
+    prop.withType.password
 ]
 
 Html.input [
     prop.className "input checkbox"
     prop.valueOrDefault state.RememberMe // boolean
     prop.onChange (SetRememberMe >> dispatch) // (bool -> unit)
-    prop.inputType.checkbox
+    prop.withType.checkbox
 ]
 ```
 Here the `onChange` property is overloaded with the following types
