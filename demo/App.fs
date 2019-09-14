@@ -3,7 +3,7 @@ module App
 open Elmish
 open Elmish.React
 open Feliz
-
+open System
 open Fable.Core
 open Fable.Core.JsInterop
 
@@ -164,11 +164,12 @@ let fragmentTests =
         ]
     ]
 
+type AnimationProps = { title: string }
 let styledComponent title =
     // Re-use state internally using React hooks
     let animationsOnHover =
-        Fable.React.FunctionComponent.Of((fun (props: {| title: string |}) ->
-            let hovered = Hooks.useState(false)
+        React.functionComponent (fun (props: AnimationProps) ->
+            let (hovered, setHovered) = React.useState(false)
             Html.div [
                 prop.style [
                     yield! [
@@ -177,7 +178,7 @@ let styledComponent title =
                         style.transitionDurationMilliseconds 500
                     ]
 
-                    if hovered.current then
+                    if hovered then
                        yield style.backgroundColor.lightBlue
                        yield style.color.black
                     else
@@ -185,15 +186,52 @@ let styledComponent title =
                        yield style.color.white
                 ]
 
-                prop.onMouseEnter (fun _ -> hovered.update(fun current -> true))
-                prop.onMouseLeave (fun _ -> hovered.update(fun current -> false))
+                prop.onMouseEnter (fun _ -> setHovered(true))
+                prop.onMouseLeave (fun _ -> setHovered(false))
                 prop.children [
                     Html.h2 props.title
                 ]
             ]
-        ), "Styled")
+        )
 
-    animationsOnHover {| title = title |}
+    animationsOnHover { title = title }
+
+
+let counter =
+    React.functionComponent(fun () ->
+        let (count, setCount) = React.useState 0
+        React.useEffect(fun () ->
+            Browser.Dom.window.document.title <- string count
+        )
+
+        Html.div [
+            Html.h1 count
+            Html.button [
+                prop.text "Increment"
+                prop.onClick (fun _ -> setCount(count + 1))
+            ]
+        ]
+    )
+
+[<Emit("setInterval($0, $1)")>]
+let setInterval (f: unit -> unit) (n: int) : int = jsNative
+
+[<Emit("clearInterval($0)")>]
+let clearInterval (n: int) : unit = jsNative
+
+let ticker =
+    React.functionComponent("Ticker", fun (props: {| start: int |}) ->
+        let (tick, setTick) = React.useState props.start
+        React.useEffect(fun () ->
+            let interval = setInterval (fun () ->
+                printfn "Tick"
+                setTick(tick + 1)) 1000
+
+            React.createDisposable(fun () -> clearInterval(interval))
+        ,prop.start)
+
+        Html.h1 tick
+    )
 
 let styledComponentsTests =
     Html.div [
@@ -202,8 +240,36 @@ let styledComponentsTests =
        styledComponent "Fable"
     ]
 
+let hooksAreAwesome =
+    Html.fragment [
+        counter()
+        Html.hr [ ]
+        ticker {| start = 0 |}
+        Html.hr [ ]
+        ticker {| start = 10 |}
+    ]
+
+module Reducers =
+    type State = { Count : int }
+    type Msg = Increment | Decrement
+
+    let initialState = { Count = 0 }
+
+    let update (state: State) = function
+        | Increment -> { state with Count = state.Count + 1 }
+        | Decrement -> { state with Count = state.Count - 1 }
+
+    let counter = React.functionComponent("Counter", fun () ->
+        let (state, dispatch) = React.useReducer(update, initialState)
+        Html.div [
+            Html.h3 state.Count
+            Html.button [ prop.onClick (fun _ -> dispatch Increment); prop.text "Increment" ]
+            Html.button [ prop.onClick (fun _ -> dispatch Decrement); prop.text "Decrement" ]
+        ]
+    )
+
 let render state dispatch =
-    styledComponentsTests
+    Reducers.counter()
 
 Program.mkSimple init update render
 |> Program.withReactSynchronous "root"

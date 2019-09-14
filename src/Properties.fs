@@ -118,10 +118,11 @@ type prop =
     static member inline r(value: int) = Interop.mkAttr "r" value
     static member inline r(value: ICssUnit) = Interop.mkAttr "r" value
     static member inline viewPort(x: int, y: int, height: int, width: int) =
-        (unbox<string> x) + " " +
-        (unbox<string> y) + " " +
-        (unbox<string> height) + " " +
-        (unbox<string> width)
+        Interop.mkAttr "viewport"
+          ((unbox<string> x) + " " +
+           (unbox<string> y) + " " +
+           (unbox<string> height) + " " +
+           (unbox<string> width))
     static member inline fill(color: string) = Interop.mkAttr "fill" color
     static member inline x1(value: int) = Interop.mkAttr "x1" value
     static member inline x1(value: ICssUnit) = Interop.mkAttr "x1" value

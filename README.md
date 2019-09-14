@@ -1,6 +1,6 @@
 # Feliz (beta) [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz)
 
-A fresh retake of the base React DSL used within Elmish applications, optimized for happiness.
+A fresh retake of the base React DSL to build React applications, optimized for happiness.
 
 Here is how it looks like:
 
@@ -114,6 +114,80 @@ To render the empty element, i.e. instructing React to render nothing, use `Html
 match state with
 | None -> Html.none
 | Some data -> render data
+```
+
+### React [hooks](https://reactjs.org/docs/hooks-intro.html) and function components
+
+Using Feliz, you can make use of React's specific functionality such as hooks and function component as they core to modern React applications, for example this how it looks in plain javascript:
+```js
+function Counter() {
+  // Declare a new state variable, which we'll call "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
+In F# it looks like this:
+```fs
+open Feliz
+
+let counter =
+    React.functionComponent(fun () ->
+        let (count, setCount) = React.useState(0)
+        Html.div [
+            Html.h1 count
+            Html.button [
+                prop.text "Increment"
+                prop.onClick (fun _ -> setCount(count + 1))
+            ]
+        ]
+    )
+```
+
+These function components can also be named such that you could inspect them using React profiling tools
+```fs
+let counter =
+    React.functionComponent("Counter", fun () ->
+        let (count, setCount) = React.useState(0)
+        Html.div [
+            Html.h1 count
+            Html.button [
+                prop.text "Increment"
+                prop.onClick (fun _ -> setCount(count + 1))
+            ]
+        ]
+    )
+```
+
+### Replace MVU with built-in React hook: [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer)
+
+No need for Elmish (but you need to build effects by yourself without commands)
+```fs
+module Reducers =
+    type State = { Count : int }
+    type Msg = Increment | Decrement
+
+    let initialState = { Count = 0 }
+
+    let update (state: State) = function
+        | Increment -> { state with Count = state.Count + 1 }
+        | Decrement -> { state with Count = state.Count - 1 }
+
+    let counter = React.functionComponent("Counter", fun () ->
+        let (state, dispatch) = React.useReducer(update, initialState)
+        Html.div [
+            Html.h3 state.Count
+            Html.button [ prop.onClick (fun _ -> dispatch Increment); prop.text "Increment" ]
+            Html.button [ prop.onClick (fun _ -> dispatch Decrement); prop.text "Decrement" ]
+        ]
+    )
 ```
 
 ### Type-safe style attributes

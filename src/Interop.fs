@@ -3,8 +3,7 @@ namespace Feliz
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.React
-open Feliz.React
-
+open Feliz.ReactApi
 
 [<RequireQualifiedAccess>]
 module Interop =
