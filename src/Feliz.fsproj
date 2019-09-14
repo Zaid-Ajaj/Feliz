@@ -6,7 +6,7 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>0.51.0</Version>
+        <Version>0.52.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
@@ -29,6 +29,7 @@
         <Compile Include="Styles.fs" />
         <Compile Include="Html.fs" />
         <Compile Include="React.fs" />
+        <Compile Include="ReactDOM.fs" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
