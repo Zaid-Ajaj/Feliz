@@ -4,7 +4,7 @@ open System
 open System.IO
 open Fake
 
-let libPath = "./src"
+let libPath = "./Feliz"
 let testsPath = "./demo"
 
 let platformTool tool winTool =
@@ -61,10 +61,7 @@ Target "InstallNpmPackages" (fun _ ->
   run "npm" "install" __SOURCE_DIRECTORY__
 )
 
-Target "RestoreFableTestProject" <| fun _ ->
-  run dotnetCli "restore" testsPath
-
-Target "RunLiveTests" <| fun _ ->
+Target "Start" <| fun _ ->
     run npmTool "start" "."
 
 let publish projectPath = fun () ->
@@ -86,20 +83,18 @@ let publish projectPath = fun () ->
 
 Target "PublishNuget" (publish libPath)
 
-Target "CompileFableTestProject" <| fun _ ->
+Target "Compile" <| fun _ ->
     run npmTool "run build" "."
 
 Target "Build" DoNothing
 
 "Clean"
   ==> "InstallNpmPackages"
-  ==> "RestoreFableTestProject"
-  ==> "RunLiveTests"
+  ==> "Start"
 
 "Clean"
   ==> "InstallNpmPackages"
-  ==> "RestoreFableTestProject"
-  ==> "CompileFableTestProject"
+  ==> "Compile"
   ==> "Build"
 
 RunTargetOrDefault "Build"

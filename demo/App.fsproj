@@ -3,7 +3,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\src\Feliz.fsproj" />
+        <ProjectReference Include="..\Feliz\Feliz.fsproj" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="App.fs" />
