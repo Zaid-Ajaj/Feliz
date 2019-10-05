@@ -9,6 +9,11 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Urls.fs" />
+        <Compile Include="Recharts/AreaCharts/Main.fs" />
+        <Compile Include="Recharts/AreaCharts/SimpleAreaChart.fs" />
+        <Compile Include="Recharts/AreaCharts/StackedAreaChart.fs" />
+        <Compile Include="Recharts/AreaCharts/TinyAreaChart.fs" />
+        <Compile Include="Recharts/LineCharts/SimpleLineChart.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <PropertyGroup>

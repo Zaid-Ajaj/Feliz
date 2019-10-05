@@ -1,8 +1,6 @@
-# Feliz.Recharts (beta)
+[<RequireQualifiedAccess>]
+module Samples.Recharts.AreaCharts.Main
 
-Feliz-style bindings for [recharts](http://recharts.org/en-US/), a composable charting library built on React components. The binding translates the original API of recharts in a one-to-one fashion but makes it type-safe and easily discoverable. The following sample is the equivalent of [this sample](http://recharts.org/en-US/api) from the recharts docs.
-
-```fsharp:recharts-main
 open Feliz
 open Feliz.Recharts
 open Fable.Core.Experimental
@@ -19,7 +17,8 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300 }
 ]
 
-let createGradient (id: string) (color: string) =
+
+let createGradient (id: string) color =
     Html.linearGradient [
         prop.id id
         prop.x1 0; prop.x2 0
@@ -38,7 +37,7 @@ let createGradient (id: string) (color: string) =
         ]
     ]
 
-let sampleChart = React.functionComponent <| fun () ->
+let chart = React.functionComponent <| fun () ->
     Recharts.areaChart [
         areaChart.width 730
         areaChart.height 250
@@ -49,30 +48,23 @@ let sampleChart = React.functionComponent <| fun () ->
                 createGradient "colorUv" "#8884d8"
                 createGradient "colorPv" "#82ca9d"
             ]
-            Recharts.xAxis [ xAxis.dataKey (fun point -> nameof point.name) ]
+            Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
             Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-
             Recharts.area [
                 area.monotone
-                area.dataKey (fun point -> nameof point.uv)
+                area.dataKey (fun p -> nameof p.uv)
                 area.stroke "#8884d8"
                 area.fillOpacity 1
                 area.fill "url(#colorUv)"
             ]
-
             Recharts.area [
                 area.monotone
-                area.dataKey (fun point -> nameof point.pv)
+                area.dataKey (fun p -> nameof p.pv)
                 area.stroke "#82ca9d"
                 area.fillOpacity 1
                 area.fill "url(#colorPv)"
             ]
         ]
     ]
-
-open Browser.Dom
-
-ReactDOM.render(sampleChart, document.getElementById "root")
-```
