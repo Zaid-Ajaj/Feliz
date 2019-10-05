@@ -29,7 +29,12 @@ type React =
     static member createDisposable(dispose: unit -> unit) =
         { new IDisposable with member this.Dispose() = dispose() }
     /// The `useEffect` hook that creates an effect for React function components.
-    static member useEffect(effect: unit -> unit) = Interop.reactApi.useEffect(effect)
+    static member useEffect(effect: unit -> unit) =
+        ReactInterop.useEffectWithDeps
+            (fun _ ->
+                effect()
+                React.createDisposable(ignore))
+            [| |]
     /// The `useEffect` hook that creates an effect for React function components which re-evaluates the hook once the dependencies change.
     static member useEffect(effect: unit -> unit, a: 'a) =
         ReactInterop.useEffectWithDeps effect [| a |]

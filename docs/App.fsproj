@@ -4,9 +4,17 @@
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+        <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
+        <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Urls.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
+    <PropertyGroup>
+        <NpmDependencies>
+            <NpmPackage Name="react-highlight" Version="&gt;= 0.11.1" />
+        </NpmDependencies>
+    </PropertyGroup>
     <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

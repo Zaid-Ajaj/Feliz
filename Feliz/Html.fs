@@ -97,7 +97,7 @@ type Html =
     static member inline ol (children: #seq<ReactElement>) = Interop.reactElement "ol" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
     static member inline a xs = Interop.createElement "a" xs
     static member inline a (children: #seq<ReactElement>) = Interop.reactElement "a" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
-    static member inline anchor xs = Interop.createElement "anchor" xs
+    static member inline anchor xs = Interop.createElement "a" xs
     static member inline anchor (children: #seq<ReactElement>) = Interop.reactElement "a" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
     static member inline img xs = Interop.createElement "img" xs
     static member inline br xs = Interop.createElement "br" xs

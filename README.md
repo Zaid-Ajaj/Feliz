@@ -5,6 +5,8 @@ A fresh retake of the base React DSL to build React applications, optimized for 
 Here is how it looks like:
 
 ```fs
+open Feliz
+
 let render state dispatch =
   Html.div [
     Html.button [
@@ -166,28 +168,26 @@ let counter =
     )
 ```
 
-### Replace MVU with built-in React hook: [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer)
+### MVU with built-in React hook: [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer)
 
-No need for Elmish (but you need to build effects by yourself without commands)
 ```fs
-module Reducers =
-    type State = { Count : int }
-    type Msg = Increment | Decrement
+type State = { Count : int }
+type Msg = Increment | Decrement
 
-    let initialState = { Count = 0 }
+let initialState = { Count = 0 }
 
-    let update (state: State) = function
-        | Increment -> { state with Count = state.Count + 1 }
-        | Decrement -> { state with Count = state.Count - 1 }
+let update (state: State) = function
+    | Increment -> { state with Count = state.Count + 1 }
+    | Decrement -> { state with Count = state.Count - 1 }
 
-    let counter = React.functionComponent("Counter", fun () ->
-        let (state, dispatch) = React.useReducer(update, initialState)
-        Html.div [
-            Html.h3 state.Count
-            Html.button [ prop.onClick (fun _ -> dispatch Increment); prop.text "Increment" ]
-            Html.button [ prop.onClick (fun _ -> dispatch Decrement); prop.text "Decrement" ]
-        ]
-    )
+let counter = React.functionComponent("Counter", fun () ->
+    let (state, dispatch) = React.useReducer(update, initialState)
+    Html.div [
+        Html.h3 state.Count
+        Html.button [ prop.onClick (fun _ -> dispatch Increment); prop.text "Increment" ]
+        Html.button [ prop.onClick (fun _ -> dispatch Decrement); prop.text "Decrement" ]
+    ]
+)
 ```
 
 ### Type-safe style attributes

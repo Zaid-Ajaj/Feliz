@@ -5,7 +5,7 @@ open System.IO
 open Fake
 
 let libPath = "./Feliz"
-let testsPath = "./demo"
+let testsPath = "./docs"
 
 let platformTool tool winTool =
   let tool = if isUnix then tool else winTool
@@ -81,7 +81,9 @@ let publish projectPath = fun () ->
     let pushCmd = sprintf "nuget push %s -s nuget.org -k %s" nupkg nugetKey
     run dotnetCli pushCmd projectPath
 
-Target "PublishNuget" (publish libPath)
+Target "PublishFeliz" (publish libPath)
+
+Target "PublishRecharts" (publish "./Feliz.Recharts")
 
 Target "Compile" <| fun _ ->
     run npmTool "run build" "."
