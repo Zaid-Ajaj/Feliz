@@ -2,9 +2,10 @@
 
 Feliz-style bindings for [recharts](http://recharts.org/en-US/), a composable charting library built on React components. The binding translates the original API of recharts in a one-to-one fashion but makes it type-safe and easily discoverable. The following sample is the equivalent of [this sample](http://recharts.org/en-US/api) from the recharts docs.
 
-```fsharp:recharts-areachart
+```fsharp:recharts-main
 open Feliz
 open Feliz.Recharts
+open Fable.Core.Experimental
 
 type Point = { name: string; uv: int; pv: int }
 
