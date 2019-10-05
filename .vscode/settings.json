@@ -1,6 +1,0 @@
-{
-    "FSharp.showExplorerOnStartup": false,
-    "FSharp.simplifyNameAnalyzer": false,
-    "FSharp.linter": false,
-    "FSharp.lineLens.enabled": "never"
-}
