@@ -1,4 +1,4 @@
-# Installation
+# Feliz - Installation
 
 To install Feliz into your project, you need to install the nuget package into your F# project
 ```bash
