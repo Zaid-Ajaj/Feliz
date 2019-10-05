@@ -4,6 +4,7 @@ open Fable.Core
 open Fable.Core.JsInterop
 open Feliz
 
+[<Erase>]
 type Recharts =
     static member inline areaChart (properties: IReactProperty list) =
         Interop.reactApi.createElement(import "AreaChart" "recharts", createObj !!properties)
@@ -23,3 +24,5 @@ type Recharts =
         Interop.reactApi.createElement(import "Line" "recharts", createObj !!properties)
     static member inline cartesianGrid (properties: IReactProperty list) =
         Interop.reactApi.createElement(import "CartesianGrid" "recharts", createObj !!properties)
+    static member inline responsiveContainer (properties: IReactProperty list) =
+        Interop.reactApi.createElement(import "ResponsiveContainer" "recharts", createObj !!properties)

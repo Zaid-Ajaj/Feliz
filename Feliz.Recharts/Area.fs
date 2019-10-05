@@ -5,6 +5,7 @@ open Feliz
 open Fable.Core
 open Fable.Core.JsInterop
 
+[<Erase>]
 type area =
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
@@ -44,6 +45,7 @@ type area =
     static member inline stackId(value: string) = Interop.mkAttr "stackId" value
 
 module area =
+    [<Erase>]
     type legendType =
         static member inline line = Interop.mkAttr "legendType" "line"
         static member inline square = Interop.mkAttr "legendType" "square"
@@ -57,11 +59,13 @@ module area =
         static member inline none = Interop.mkAttr "legendType" "none"
 
     /// The layout of area in the chart.
+    [<Erase>]
     type layout =
         static member inline horizontal = Interop.mkAttr "layout" "horizontal"
         static member inline vertical = Interop.mkAttr "layout" "vertical"
 
     /// The type of easing function. Default is `ease`.
+    [<Erase>]
     type animationEasing =
         static member inline ease = Interop.mkAttr "animationEasing" "ease"
         static member inline easeIn = Interop.mkAttr "animationEasing" "ease-in"

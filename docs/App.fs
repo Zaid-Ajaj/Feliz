@@ -336,6 +336,8 @@ let apps = [
     "recharts-area-stackedareachart", Samples.Recharts.AreaCharts.StackedAreaChart.chart()
     "recharts-area-tinyareachart", Samples.Recharts.AreaCharts.TinyAreaChart.chart()
     "recharts-line-simplelinechart", Samples.Recharts.LineCharts.SimpleLineChart.chart()
+    "recharts-line-responsivefullwidth", Samples.Recharts.LineCharts.ResponsiveFullWidth.chart()
+    "recharts-area-responsefullwidth", Samples.Recharts.AreaCharts.ResponsiveFullWidth.chart()
 ]
 
 let githubPath (rawPath: string) =
@@ -511,11 +513,13 @@ let sidebar (state: State) dispatch =
                 menuItem "Installation" [ Urls.Recharts; Urls.Installation ]
                 nestedMenuList "Line Charts" [
                     menuItem "Simple Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ]
+                    menuItem "Responsive Full Width" [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ]
                 ]
                 nestedMenuList "Area Charts" [
                     menuItem "Simple Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ]
                     menuItem "Stacked Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.StackedAreaChart ]
                     menuItem "Tiny Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.TinyAreaChart ]
+                    menuItem "Responsive Full Width" [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ]
                 ]
             ]
         ]
@@ -544,6 +548,8 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.AreaCharts; Urls.StackedAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "StackedAreaChart.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.TinyAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "TinyAreaChart.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "SimpleLineChart.md" ]
+    | [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "LineCharts"; "ResponsiveFullWidth.md" ]
+    | [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "ResponsiveFullWidth.md" ]
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =

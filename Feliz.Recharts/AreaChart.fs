@@ -38,19 +38,22 @@ type areaChart =
 
 module areaChart =
     /// The type of offset function used to generate the lower and upper values in the series array. The four types are built-in offsets in d3-shape. Default is `none`.
+    [<Erase>]
     type stackOffset =
         static member inline expand = Interop.mkAttr "stackOffset" "expand"
         static member inline none = Interop.mkAttr "stackOffset" "none"
         static member inline wiggle = Interop.mkAttr "stackOffset" "wiggle"
         static member inline silhouette = Interop.mkAttr "stackOffset" "silhouette"
+
     /// The base value of area. Default is `auto`.
+    [<Erase>]
     type baseValue =
         static member inline dataMin = Interop.mkAttr "baseValue" "dataMin"
         static member inline dataMax = Interop.mkAttr "baseValue" "dataMax"
         static member inline auto = Interop.mkAttr "baseValue" "auto"
 
     /// The layout of area in the chart.
+    [<Erase>]
     type layout =
         static member inline horizontal = Interop.mkAttr "layout" "horizontal"
         static member inline vertical = Interop.mkAttr "layout" "vertical"
-

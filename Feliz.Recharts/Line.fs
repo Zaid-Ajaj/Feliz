@@ -5,6 +5,7 @@ open Feliz
 open Fable.Core
 open Fable.Core.JsInterop
 
+[<Erase>]
 type line =
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))

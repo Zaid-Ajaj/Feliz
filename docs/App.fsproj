@@ -13,7 +13,9 @@
         <Compile Include="Recharts/AreaCharts/SimpleAreaChart.fs" />
         <Compile Include="Recharts/AreaCharts/StackedAreaChart.fs" />
         <Compile Include="Recharts/AreaCharts/TinyAreaChart.fs" />
+        <Compile Include="Recharts/AreaCharts/ResponsiveFullWidth.fs" />
         <Compile Include="Recharts/LineCharts/SimpleLineChart.fs" />
+        <Compile Include="Recharts/LineCharts/ResponsiveFullWidth.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <PropertyGroup>
