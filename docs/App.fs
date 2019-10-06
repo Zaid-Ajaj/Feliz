@@ -45,6 +45,9 @@ let update msg state =
     style.textDecoration.lineThrough
     style.position.sticky
     style.borderStyle.dotted
+    style.margin(length.em 1, length.em 0)
+    style.marginBottom 10
+    style.marginBottom (length.em 1)
     style.boxShadow(10, 10, colors.black)
     style.boxShadow(10, 10, 10, colors.black)
     style.boxShadow(0, 0, 10, colors.black)

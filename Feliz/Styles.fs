@@ -102,6 +102,12 @@ type style =
             (unbox<string>right) + "px"
         )
 
+    static member inline margin(top: ICssUnit, right: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string>right)
+        )
+
     static member inline padding(top: ICssUnit, right: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
