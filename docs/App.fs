@@ -338,6 +338,7 @@ let apps = [
     "recharts-line-simplelinechart", Samples.Recharts.LineCharts.SimpleLineChart.chart()
     "recharts-line-responsivefullwidth", Samples.Recharts.LineCharts.ResponsiveFullWidth.chart()
     "recharts-area-responsefullwidth", Samples.Recharts.AreaCharts.ResponsiveFullWidth.chart()
+    "recharts-bar-simplebarchart", Samples.Recharts.BarCharts.SimpleBarChart.chart()
 ]
 
 let githubPath (rawPath: string) =
@@ -436,7 +437,7 @@ let nestedMenuList (name: string) (items: Fable.React.ReactElement list) =
             Html.li [
                 Html.anchor [
                     prop.style [ style.width (length.percent 100) ]
-                    prop.onClick (fun  _ -> setCollapsed(not collapsed))
+                    prop.onClick (fun _ -> setCollapsed(not collapsed))
                     prop.children [
                         Html.i [
                             prop.style [ style.marginRight 10 ]
@@ -515,6 +516,9 @@ let sidebar (state: State) dispatch =
                     menuItem "Simple Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ]
                     menuItem "Responsive Full Width" [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ]
                 ]
+                nestedMenuList "Bar Charts" [
+                    menuItem "Simple Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ]
+                ]
                 nestedMenuList "Area Charts" [
                     menuItem "Simple Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ]
                     menuItem "Stacked Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.StackedAreaChart ]
@@ -550,6 +554,7 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "SimpleLineChart.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "LineCharts"; "ResponsiveFullWidth.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "ResponsiveFullWidth.md" ]
+    | [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "SimpleBarChart.md" ]
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =

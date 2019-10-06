@@ -27,8 +27,6 @@ type line =
     static member inline stepBefore = Interop.mkAttr "type" "stepBefore"
     static member inline stepAfter = Interop.mkAttr "type" "stepAfter"
     static member inline monotoneY = Interop.mkAttr "type" "monotoneY"
-
-
-
-
-
+    /// When set to false, the line doesn't show dots on data points. Default is `true`.
+    static member inline dot(value: bool) = Interop.mkAttr "dot" value
+    static member inline dot(render: IDotProperties<'a> -> Fable.React.ReactElement) = Interop.mkAttr "dot" render
