@@ -44,10 +44,13 @@ let update msg state =
     style.visibility.hidden
     style.textDecoration.lineThrough
     style.position.sticky
+    style.borderStyle.dotted
     style.boxShadow(10, 10, colors.black)
     style.boxShadow(10, 10, 10, colors.black)
     style.boxShadow(0, 0, 10, colors.black)
     style.boxShadow(0, 0, 10, 10, colors.darkGray)
+    style.boxShadow.none
+    style.height length.auto
     style.borderRadius (length.px 10)
     style.margin 10
     style.backgroundRepeat.repeatX

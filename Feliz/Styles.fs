@@ -328,7 +328,7 @@ type style =
         Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right))
     static member inline borderStyle(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle) =
         Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right) + " " +  (unbox<string> bottom))
-    static member inline multiple(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle, left: IBorderStyle) =
+    static member inline borderStyle(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle, left: IBorderStyle) =
         Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right) + " " + (unbox<string> bottom) + " " +  (unbox<string> left))
     static member inline borderColor (color: string) = Interop.mkStyle "borderColor" color
     static member inline borderRadius (radius: int) = Interop.mkStyle "borderRadius" radius
@@ -415,6 +415,11 @@ type style =
 
 [<Erase>]
 module style =
+
+    [<Erase>]
+    type boxShadow =
+        static member inline none = Interop.mkStyle "boxShadow" "none"
+        static member inline inheritFromParent = Interop.mkStyle "boxShadow" "inheritFromParent"
 
     [<Erase>]
     type textJustify =
