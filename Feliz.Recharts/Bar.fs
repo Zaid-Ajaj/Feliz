@@ -11,6 +11,7 @@ type bar =
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
     static member inline stroke (value: string) = Interop.mkAttr "stroke" value
     static member inline fill (value: string) = Interop.mkAttr "fill" value
+    static member inline stackId (value: string) = Interop.mkAttr "stackId" value
     static member inline xAxisId (value: string) = Interop.mkAttr "xAxisId" value
     static member inline yAxisId (value: string) = Interop.mkAttr "yAxisId" value
     static member inline xAxisId (value: int) = Interop.mkAttr "xAxisId" value

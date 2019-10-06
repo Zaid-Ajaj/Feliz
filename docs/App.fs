@@ -349,6 +349,9 @@ let apps = [
     "recharts-line-responsivefullwidth", Samples.Recharts.LineCharts.ResponsiveFullWidth.chart()
     "recharts-area-responsefullwidth", Samples.Recharts.AreaCharts.ResponsiveFullWidth.chart()
     "recharts-bar-simplebarchart", Samples.Recharts.BarCharts.SimpleBarChart.chart()
+    "recharts-bar-stackedbarchart", Samples.Recharts.BarCharts.StackedBarChart.chart()
+    "recharts-bar-mixbarchart", Samples.Recharts.BarCharts.MixBarChart.chart()
+    "recharts-bar-tinybarchart", Samples.Recharts.BarCharts.TinyBarChart.chart()
 ]
 
 let githubPath (rawPath: string) =
@@ -528,6 +531,9 @@ let sidebar (state: State) dispatch =
                 ]
                 nestedMenuList "Bar Charts" [
                     menuItem "Simple Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ]
+                    menuItem "Tiny Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.TinyBarChart ]
+                    menuItem "Stacked Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.StackedBarChart ]
+                    menuItem "Mix Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.MixBarChart ]
                 ]
                 nestedMenuList "Area Charts" [
                     menuItem "Simple Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ]
@@ -565,6 +571,9 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "LineCharts"; "ResponsiveFullWidth.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "ResponsiveFullWidth.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "SimpleBarChart.md" ]
+    | [ Urls.Recharts; Urls.BarCharts; Urls.StackedBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "StackedBarChart.md" ]
+    | [ Urls.Recharts; Urls.BarCharts; Urls.MixBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "MixBarChart.md" ]
+    | [ Urls.Recharts; Urls.BarCharts; Urls.TinyBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "TinyBarChart.md" ]
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =
