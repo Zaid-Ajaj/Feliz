@@ -44,6 +44,10 @@ let update msg state =
     style.visibility.hidden
     style.textDecoration.lineThrough
     style.position.sticky
+    style.borderBottomWidth 20
+    style.borderBottomWidth (length.em 10)
+    style.borderBottomColor colors.red
+    style.borderBottomStyle borderStyle.dashed
     style.borderStyle.dotted
     style.margin(length.em 1, length.em 0)
     style.marginBottom 10

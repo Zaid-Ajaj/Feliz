@@ -301,6 +301,78 @@ type style =
     static member inline right(value: int) = Interop.mkStyle "right" value
     static member inline right(value: ICssUnit) = Interop.mkStyle "right" value
     static member inline custom(key: string, value: 't) = Interop.mkStyle key value
+    static member inline borderBottom(width: int, style: IBorderStyle, color: string) =
+        Interop.mkStyle "borderBottom" (
+            (unbox<string> width) + "px " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline borderBottom(width: ICssUnit, style: IBorderStyle, color: string) =
+        Interop.mkStyle "borderBottom" (
+            (unbox<string> width) + " " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline borderLeft(width: int, style: IBorderStyle, color: string) =
+        Interop.mkStyle "borderLeft" (
+            (unbox<string> width) + "px " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline borderLeft(width: ICssUnit, style: IBorderStyle, color: string) =
+        Interop.mkStyle "borderBottom" (
+            (unbox<string> width) + " " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline borderRight(width: int, style: IBorderStyle, color: string) =
+        Interop.mkStyle "borderRight" (
+            (unbox<string> width) + "px " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline borderRight(width: ICssUnit, style: IBorderStyle, color: string) =
+        Interop.mkStyle "borderRight" (
+            (unbox<string> width) + " " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline borderTop(width: int, style: IBorderStyle, color: string) =
+        Interop.mkStyle "borderTop" (
+            (unbox<string> width) + "px " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline borderTop(width: ICssUnit, style: IBorderStyle, color: string) =
+        Interop.mkStyle "borderTop" (
+            (unbox<string> width) + " " +
+            (unbox<string> style) + " " +
+            color
+        )
+
+    static member inline borderBottomStyle(style: IBorderStyle) = Interop.mkStyle "borderBottomStyle" (unbox<string> style)
+    static member inline borderBottomWidth (width: int) = Interop.mkStyle "borderBottomWidth" (unbox<string> width + "px")
+    static member inline borderBottomWidth (width: ICssUnit) = Interop.mkStyle "borderBottomWidth" (unbox<string> width)
+    static member inline borderBottomColor (color: string) = Interop.mkStyle "borderBottomColor" color
+    static member inline borderTopStyle(style: IBorderStyle) = Interop.mkStyle "borderTopStyle" (unbox<string> style)
+    static member inline borderTopWidth (width: int) = Interop.mkStyle "borderTopWidth" (unbox<string> width + "px")
+    static member inline borderTopWidth (width: ICssUnit) = Interop.mkStyle "borderTopWidth" (unbox<string> width)
+    static member inline borderTopColor (color: string) = Interop.mkStyle "borderTopColor" color
+    static member inline borderRightStyle(style: IBorderStyle) = Interop.mkStyle "borderRightStyle" (unbox<string> style)
+    static member inline borderRightWidth (width: int) = Interop.mkStyle "borderRightWidth" (unbox<string> width + "px")
+    static member inline borderRightWidth (width: ICssUnit) = Interop.mkStyle "borderRightWidth" (unbox<string> width)
+    static member inline borderRightColor (color: string) = Interop.mkStyle "borderRightColor" color
+    static member inline borderLeftStyle(style: IBorderStyle) = Interop.mkStyle "borderLeftStyle" (unbox<string> style)
+    static member inline borderLeftWidth (width: int) = Interop.mkStyle "borderLeftWidth" (unbox<string> width + "px")
+    static member inline borderLeftWidth (width: ICssUnit) = Interop.mkStyle "borderLeftWidth" (unbox<string> width)
+    static member inline borderLeftColor (color: string) = Interop.mkStyle "borderLeftColor" color
     static member inline border(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "border" (
             (unbox<string> width) + "px " +
