@@ -30,3 +30,5 @@ type Recharts =
         Interop.reactApi.createElement(import "CartesianGrid" "recharts", createObj !!properties)
     static member inline responsiveContainer (properties: IReactProperty list) =
         Interop.reactApi.createElement(import "ResponsiveContainer" "recharts", createObj !!properties)
+    static member inline composedChart (properties: IReactProperty list) =
+        Interop.reactApi.createElement(import "ComposedChart" "recharts", createObj !!properties)
