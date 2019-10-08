@@ -7,6 +7,7 @@ open Fable.Core.JsInterop
 
 [<Erase>]
 type line =
+    static member inline name(value: string) = Interop.mkAttr "name" value
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
     static member inline stroke (value: string) = Interop.mkAttr "stroke" value
@@ -27,6 +28,12 @@ type line =
     static member inline stepBefore = Interop.mkAttr "type" "stepBefore"
     static member inline stepAfter = Interop.mkAttr "type" "stepAfter"
     static member inline monotoneY = Interop.mkAttr "type" "monotoneY"
-    /// When set to false, the line doesn't show dots on data points. Default is `true`.
     static member inline dot(value: bool) = Interop.mkAttr "dot" value
     static member inline dot(render: IDotProperties<'a> -> Fable.React.ReactElement) = Interop.mkAttr "dot" render
+    static member inline activeDot(value: bool) = Interop.mkAttr "activeDot" value
+    static member inline activeDot(render: IDotProperties<'a> -> Fable.React.ReactElement) = Interop.mkAttr "activeDot" render
+    static member inline label(value: string) = Interop.mkAttr "label" value
+    static member inline label(value: int) = Interop.mkAttr "label" value
+    static member inline label(value: float) = Interop.mkAttr "label" value
+    static member inline label(value: Fable.React.ReactElement) = Interop.mkAttr "label" value
+    static member inline label(value: ILabelProperties -> Fable.React.ReactElement) = Interop.mkAttr "label" value

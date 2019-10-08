@@ -16,6 +16,7 @@
         <Compile Include="Recharts/AreaCharts/ResponsiveFullWidth.fs" />
         <Compile Include="Recharts/LineCharts/SimpleLineChart.fs" />
         <Compile Include="Recharts/LineCharts/ResponsiveFullWidth.fs" />
+        <Compile Include="Recharts/LineCharts/CustomizedLabelLineChart.fs" />
         <Compile Include="Recharts/BarCharts/SimpleBarChart.fs" />
         <Compile Include="Recharts/BarCharts/StackedBarChart.fs" />
         <Compile Include="Recharts/BarCharts/MixBarChart.fs" />

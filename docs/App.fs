@@ -352,6 +352,7 @@ let apps = [
     "recharts-bar-stackedbarchart", Samples.Recharts.BarCharts.StackedBarChart.chart()
     "recharts-bar-mixbarchart", Samples.Recharts.BarCharts.MixBarChart.chart()
     "recharts-bar-tinybarchart", Samples.Recharts.BarCharts.TinyBarChart.chart()
+    "recharts-line-customizedlabellinechart", Samples.Recharts.LineCharts.CustomizedLabelLineChart.chart()
 ]
 
 let githubPath (rawPath: string) =
@@ -528,6 +529,7 @@ let sidebar (state: State) dispatch =
                 nestedMenuList "Line Charts" [
                     menuItem "Simple Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ]
                     menuItem "Responsive Full Width" [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ]
+                    menuItem "Customized Label" [ Urls.Recharts; Urls.LineCharts; Urls.CustomizedLabelLineChart ]
                 ]
                 nestedMenuList "Bar Charts" [
                     menuItem "Simple Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ]
@@ -569,6 +571,7 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.AreaCharts; Urls.TinyAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "TinyAreaChart.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "SimpleLineChart.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "LineCharts"; "ResponsiveFullWidth.md" ]
+    | [ Urls.Recharts; Urls.LineCharts; Urls.CustomizedLabelLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts" ; "CustomizedLabelLineChart.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "ResponsiveFullWidth.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "SimpleBarChart.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.StackedBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "StackedBarChart.md" ]

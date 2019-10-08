@@ -7,6 +7,7 @@ open Fable.Core.JsInterop
 
 [<Erase>]
 type bar =
+    static member inline name(value: string) = Interop.mkAttr "name" value
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
     static member inline stroke (value: string) = Interop.mkAttr "stroke" value

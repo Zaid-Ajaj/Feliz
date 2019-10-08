@@ -25,3 +25,9 @@ type domain =
     static member inline calculate (f: int -> float) : IAxisDomain = unbox f
     static member inline calculate (f: float -> int) : IAxisDomain = unbox f
 
+type ILabelProperties =
+    abstract index : int
+    abstract offset : int
+    abstract x : float
+    abstract y : float
+    abstract value : float

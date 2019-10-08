@@ -112,11 +112,17 @@ type prop =
     static member inline value(value: System.Guid) = Interop.mkAttr "value" (string value)
     static member inline selected(value: bool) = Interop.mkAttr "selected" value
     static member inline x(value: int) = Interop.mkAttr "x" value
+    static member inline x(value: float) = Interop.mkAttr "x" value
     static member inline x(value: ICssUnit) = Interop.mkAttr "x" value
     static member inline y(value: int) = Interop.mkAttr "y" value
+    static member inline y(value: float) = Interop.mkAttr "y" value
+    static member inline dy(value: int) = Interop.mkAttr "dy" value
+    static member inline dy(value: float) = Interop.mkAttr "dy" value
     static member inline y(value: ICssUnit) = Interop.mkAttr "y" value
     static member inline r(value: int) = Interop.mkAttr "r" value
     static member inline r(value: ICssUnit) = Interop.mkAttr "r" value
+    static member inline fontSize(value: int) = Interop.mkAttr "fontSize" value
+    static member inline fontSize(value: float) = Interop.mkAttr "fontSize" value
     static member inline viewPort(x: int, y: int, height: int, width: int) =
         Interop.mkAttr "viewport"
           ((unbox<string> x) + " " +
@@ -488,6 +494,15 @@ type prop =
 
 module prop =
 
+    [<Erase>]
+    /// The text-anchor attribute is used to align (start-, middle- or end-alignment) a string of pre-formatted text or auto-wrapped text where the wrapping area is determined from the inline-size property relative to a given point. It is not applicable to other types of auto-wrapped text. For those cases you should use text-align. For multi-line text, the alignment takes place for each line.
+    ///
+    /// The text-anchor attribute is applied to each individual text chunk within a given <text> element. Each text chunk has an initial current text position, which represents the point in the user coordinate system resulting from (depending on context) application of the x and y attributes on the <text> element, any x or y attribute values on a <tspan>, <tref> or <altGlyph> element assigned explicitly to the first rendered character in a text chunk, or determination of the initial current text position for a <textPath> element.
+    type textAnchor =
+        static member inline startOfText = Interop.mkAttr "textAnchor" "start"
+        static member inline middle = Interop.mkAttr "textAnchor" "start"
+        static member inline endOfText = Interop.mkAttr "textAnchor" "end"
+
     /// https://www.w3.org/WAI/PF/aria-1.1/roles
     [<Erase>]
     type role =
@@ -791,6 +806,116 @@ module prop =
         ///
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#search
         static member inline search = Interop.mkAttr "role" "search"
+
+    [<Erase>]
+    type transform =
+        /// Defines that there should be no transformation.
+        static member inline none = Interop.mkAttr "transform" "none"
+        /// Defines a 2D transformation, using a matrix of six values.
+        static member inline matrix(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int) =
+            Interop.mkAttr "transform" (
+                "matrix(" +
+                (unbox<string> x1) + "," +
+                (unbox<string> y1) + "," +
+                (unbox<string> z1) + "," +
+                (unbox<string> x2) + "," +
+                (unbox<string> y2) + "," +
+                (unbox<string> z2) + ")"
+            )
+
+        /// Defines a 2D translation.
+        static member inline translate(x: int, y: int) =
+            Interop.mkAttr "transform" (
+                "translate(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
+            )
+
+        static member inline translate(x: float, y: float) =
+            Interop.mkAttr "transform" (
+                "translate(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
+            )
+        /// Defines that there should be no transformation.
+        static member inline translate3D(x: int, y: int, z: int) =
+            Interop.mkAttr "transform" (
+                "translate3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
+            )
+
+        /// Defines a translation, using only the value for the X-axis.
+        static member inline translateX(x: int) =
+            Interop.mkAttr "transform" ("translateX(" + (unbox<string> x) + ")")
+        /// Defines a translation, using only the value for the Y-axis
+        static member inline translateY(y: int) =
+            Interop.mkAttr "transform" ("translateY(" + (unbox<string> y) + ")")
+        /// Defines a 3D translation, using only the value for the Z-axis
+        static member inline translateZ(z: int) =
+            Interop.mkAttr "transform" ("translateZ(" + (unbox<string> z) + ")")
+
+        /// Defines a 2D scale transformation.
+        static member inline scale(x: int, y: int) =
+            Interop.mkAttr "transform" (
+                "scale(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
+            )
+
+        /// Defines a 3D scale transformation
+        static member inline scale3D(x: int, y: int, z: int) =
+            Interop.mkAttr "transform" (
+                "scale3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
+            )
+
+        /// Defines a scale transformation by giving a value for the X-axis.
+        static member inline scaleX(x: int) =
+            Interop.mkAttr "transform" ("scaleX(" + (unbox<string> x) + ")")
+
+        /// Defines a scale transformation by giving a value for the Y-axis.
+        static member inline scaleY(y: int) =
+            Interop.mkAttr "transform" ("scaleY(" + (unbox<string> y) + ")")
+        /// Defines a 3D translation, using only the value for the Z-axis
+        static member inline scaleZ(z: int) =
+            Interop.mkAttr "transform" ("scaleZ(" + (unbox<string> z) + ")")
+        /// Defines a 2D rotation, the angle is specified in the parameter.
+        static member inline rotate(deg: int) =
+            Interop.mkAttr "transform" ("rotate(" + (unbox<string> deg) + "deg)")
+        /// Defines a 2D rotation, the angle is specified in the parameter.
+        static member inline rotate(deg: float) =
+            Interop.mkAttr "transform" ("rotate(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the X-axis.
+        static member inline rotateX(deg: float) =
+            Interop.mkAttr "transform" ("rotateX(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the X-axis.
+        static member inline rotateX(deg: int) =
+            Interop.mkAttr "transform" ("rotateX(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the Y-axis
+        static member inline rotateY(deg: float) =
+            Interop.mkAttr "transform" ("rotateY(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the Y-axis
+        static member inline rotateY(deg: int) =
+            Interop.mkAttr "transform" ("rotateY(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the Z-axis
+        static member inline rotateZ(deg: float) =
+            Interop.mkAttr "transform" ("rotateZ(" + (unbox<string> deg) + "deg)")
+        /// Defines a 3D rotation along the Z-axis
+        static member inline rotateZ(deg: int) =
+            Interop.mkAttr "transform" ("rotateZ(" + (unbox<string> deg) + "deg)")
+        /// Defines a 2D skew transformation along the X- and the Y-axis.
+        static member inline skew(xAngle: int, yAngle: int) =
+            Interop.mkAttr "transform" ("skew(" + (unbox<string> xAngle) + "deg," + (unbox<string> yAngle) + "deg)")
+        /// Defines a 2D skew transformation along the X- and the Y-axis.
+        static member inline skew(xAngle: float, yAngle: float) =
+            Interop.mkAttr "transform" ("skew(" + (unbox<string> xAngle) + "deg," + (unbox<string> yAngle) + "deg)")
+        /// Defines a 2D skew transformation along the X-axis
+        static member inline skewX(xAngle: int) =
+            Interop.mkAttr "transform" ("skewX(" + (unbox<string> xAngle) + "deg)")
+        /// Defines a 2D skew transformation along the X-axis
+        static member inline skewX(xAngle: float) =
+            Interop.mkAttr "transform" ("skewX(" + (unbox<string> xAngle) + "deg)")
+        /// Defines a 2D skew transformation along the Y-axis
+        static member inline skewY(xAngle: int) =
+            Interop.mkAttr "transform" ("skewY(" + (unbox<string> xAngle) + "deg)")
+        /// Defines a 2D skew transformation along the Y-axis
+        static member inline skewY(xAngle: float) =
+            Interop.mkAttr "transform" ("skewY(" + (unbox<string> xAngle) + "deg)")
+        /// Defines a perspective view for a 3D transformed element
+        static member inline perspective(n: int) =
+            Interop.mkAttr "transform" ("perspective(" + (unbox<string> n) + ")")
 
     /// Indicates what functions can be performed when the dragged object is
     /// released on the drop target. This allows assistive technologies to
