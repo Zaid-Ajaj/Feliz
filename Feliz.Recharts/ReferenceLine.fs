@@ -12,6 +12,7 @@ type referenceLine =
     static member inline xAxisId (value: int) = Interop.mkAttr "xAxisId" value
     /// The id of y-axis which is corresponding to the data.
     static member inline yAxisId (value: string) = Interop.mkAttr "xAxisId" value
+    static member inline stroke (value: string) = Interop.mkAttr "stroke" value
     /// The id of y-axis which is corresponding to the data.
     static member inline yAxisId (value: int) = Interop.mkAttr "xAxisId" value
     /// If set a string or a number, a vertical line perpendicular to the x-axis specified by xAxisId will be drawn. If the specified x-axis is a number axis, the type of x must be Number. If the specified x-axis is a category axis, the value of x must be one of the categorys, otherwise no line will be drawn.
@@ -41,4 +42,3 @@ type referenceLine =
     static member inline label(value: float) = Interop.mkAttr "label" value
     static member inline label(value: Fable.React.ReactElement) = Interop.mkAttr "label" value
     static member inline label(value: ILabelProperties -> Fable.React.ReactElement) = Interop.mkAttr "label" value
-

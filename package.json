@@ -25,6 +25,6 @@
         "react-dom": "^16.8.6",
         "react-highlight": "^0.11.1",
         "react-markdown": "^4.2.2",
-        "recharts": "^1.7.1"
+        "recharts": "^1.6.2"
     }
 }

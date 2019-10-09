@@ -353,6 +353,8 @@ let apps = [
     "recharts-bar-mixbarchart", Samples.Recharts.BarCharts.MixBarChart.chart()
     "recharts-bar-tinybarchart", Samples.Recharts.BarCharts.TinyBarChart.chart()
     "recharts-line-customizedlabellinechart", Samples.Recharts.LineCharts.CustomizedLabelLineChart.chart()
+    "recharts-bar-positiveandnagative", Samples.Recharts.BarCharts.PostiveAndNegative.chart()
+    "recharts-line-biaxial", Samples.Recharts.LineCharts.BiaxialLineChart.chart()
 ]
 
 let githubPath (rawPath: string) =
@@ -530,12 +532,14 @@ let sidebar (state: State) dispatch =
                     menuItem "Simple Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ]
                     menuItem "Responsive Full Width" [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ]
                     menuItem "Customized Label" [ Urls.Recharts; Urls.LineCharts; Urls.CustomizedLabelLineChart ]
+                    menuItem "Biaxial Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ]
                 ]
                 nestedMenuList "Bar Charts" [
                     menuItem "Simple Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ]
                     menuItem "Tiny Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.TinyBarChart ]
                     menuItem "Stacked Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.StackedBarChart ]
                     menuItem "Mix Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.MixBarChart ]
+                    menuItem "Positive And Negative" [ Urls.Recharts; Urls.BarCharts; Urls.PositiveAndNegative ]
                 ]
                 nestedMenuList "Area Charts" [
                     menuItem "Simple Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ]
@@ -577,6 +581,8 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.BarCharts; Urls.StackedBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "StackedBarChart.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.MixBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "MixBarChart.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.TinyBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "TinyBarChart.md" ]
+    | [ Urls.Recharts; Urls.BarCharts; Urls.PositiveAndNegative ] -> loadMarkdown [ "Recharts" ; "BarCharts"; "PositiveAndNegative.md" ]
+    | [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "BiaxialLineChart.md" ]
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =

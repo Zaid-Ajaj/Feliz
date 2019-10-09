@@ -13,9 +13,9 @@ type yAxis =
     /// If set true, the axis do not display in the chart.
     static member inline hide (value: bool) = Interop.mkAttr "hide" value
     /// The unique id of y-axis.
-    static member inline yAxisId (value: int) = Interop.mkAttr "xAxisId" value
+    static member inline yAxisId (value: int) = Interop.mkAttr "yAxisId" value
     /// The unique id of y-axis.
-    static member inline yAxisId (value: string) = Interop.mkAttr "xAxisId" value
+    static member inline yAxisId (value: string) = Interop.mkAttr "yAxisId" value
     /// Sets the type of the axis to `number`
     static member inline number = Interop.mkAttr "type" "number"
     /// Sets the type of the axis to `category`
@@ -28,25 +28,25 @@ type yAxis =
     static member inline allowDuplicatedCategory (value: bool) = Interop.mkAttr "allowDuplicatedCategory" value
     /// The count of axis ticks. Not used if 'type' is 'category'. Default is `5`.
     static member inline tickCount (value: int) = Interop.mkAttr "tickCount" value
-    static member inline domain (min : IAxisDomain, max: IAxisDomain) = Interop.mkAttr "domain" [| min; max |]
+    static member inline domain (min: IAxisDomain, max: IAxisDomain) = Interop.mkAttr "domain" [| min; max |]
     static member inline interval (value: int) = Interop.mkAttr "interval" value
-    /// Specify the padding of x-axis. Default is `xAxis.padding(left=0, right=0)`.
-    static member inline padding(?top: int, ?right: int, ?left: int, ?bottom: int) =
-        let padding = createObj [
-            "top" ==> Option.defaultValue 0 top
-            "right" ==> Option.defaultValue 0 right
-            "left" ==> Option.defaultValue 0 left
-            "bottom" ==> Option.defaultValue 0 bottom
-        ]
+    /// Specify the padding of y-axis. Default is `yAxis.padding(top=0, bottom=0)`.
+    static member inline padding (?top: int, ?right: int, ?left: int, ?bottom: int) =
+        let padding =
+            createObj
+                [ "top" ==> Option.defaultValue 0 top
+                  "right" ==> Option.defaultValue 0 right
+                  "left" ==> Option.defaultValue 0 left
+                  "bottom" ==> Option.defaultValue 0 bottom ]
 
         Interop.mkAttr "padding" padding
 
 module yAxis =
-    [<Erase>]
     /// The orientation of axis. Default is `left`.
+    [<Erase>]
     type orientation =
         static member inline left = Interop.mkAttr "orientation" "left"
-        static member inline right = Interop.mkAttr "orientation" "left"
+        static member inline right = Interop.mkAttr "orientation" "right"
 
     [<Erase>]
     type interval =

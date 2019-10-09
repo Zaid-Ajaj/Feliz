@@ -1,6 +1,8 @@
-# Feliz.Recharts (beta)
+# Feliz.Recharts (beta) [![Nuget](https://img.shields.io/nuget/v/Feliz.Recharts.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.Recharts)
 
-Feliz-style bindings for [recharts](http://recharts.org/en-US/), a composable charting library built on React components. The binding translates the original API of recharts in a one-to-one fashion but makes it type-safe and easily discoverable. The following sample is the equivalent of [this sample](http://recharts.org/en-US/api) from the recharts docs.
+Feliz-style bindings for [recharts](http://recharts.org/en-US/), a composable charting library built on React components. The binding translates the original API of recharts in a one-to-one fashion but makes it type-safe and easily discoverable.
+
+The following sample is the equivalent of [this sample](http://recharts.org/en-US/api) from the recharts docs.
 
 ```fsharp:recharts-main
 open Feliz
