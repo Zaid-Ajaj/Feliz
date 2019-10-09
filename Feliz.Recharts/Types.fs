@@ -31,3 +31,12 @@ type ILabelProperties =
     abstract x : float
     abstract y : float
     abstract value : float
+
+type IPieLabelProperties =
+    abstract cy : float
+    abstract cx : float
+    abstract midAngle : float
+    abstract innerRadius : float
+    abstract outerRadius : float
+    abstract percent : float
+    abstract index : int
