@@ -10,6 +10,13 @@ type pie =
     static member inline name(value: string) = Interop.mkAttr "name" value
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
+    static member inline fill (value: string) = Interop.mkAttr "fill" value
+    /// The source data, in which each element is an object.
+    static member inline data (values: seq<'a>) = Interop.mkAttr "data" (Seq.toArray values)
+    /// The source data, in which each element is an object.
+    static member inline data (values: 'a list) = Interop.mkAttr "data" (List.toArray values)
+    /// The source data, in which each element is an object.
+    static member inline data (values: 'a array) = Interop.mkAttr "data" values
     /// The y-coordinate of center. If set a percentage, the final value is obtained by multiplying the percentage of container height.
     static member inline cy(value: float) = Interop.mkAttr "cy" value
     /// The y-coordinate of center. If set a percentage, the final value is obtained by multiplying the percentage of container height.

@@ -23,6 +23,7 @@
         <Compile Include="Recharts/BarCharts/MixBarChart.fs" />
         <Compile Include="Recharts/BarCharts/TinyBarChart.fs" />
         <Compile Include="Recharts/BarCharts/PositiveAndNegative.fs" />
+        <Compile Include="Recharts/PieCharts/TwoLevelPieChart.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <PropertyGroup>
