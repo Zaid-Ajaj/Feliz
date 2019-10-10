@@ -511,8 +511,34 @@ module prop =
     /// first rendered character in a text chunk, or determination of the
     /// initial current text position for a `<textPath>` element.
     type textAnchor =
+        /// The rendered characters are aligned such that the start of the text
+        /// string is at the initial current text position. For an element with
+        /// a `direction` property value of `ltr` (typical for most European
+        /// languages), the left side of the text is rendered at the initial
+        /// text position. For an element with a `direction` property value of
+        /// `rtl` (typical for Arabic and Hebrew), the right side of the text is
+        /// rendered at the initial text position. For an element with a
+        /// vertical primary text direction (often typical for Asian text), the
+        /// top side of the text is rendered at the initial text position.
         static member inline startOfText = Interop.mkAttr "textAnchor" "start"
+        /// The rendered characters are aligned such that the middle of the text
+        /// string is at the current text position. (For text on a path,
+        /// conceptually the text string is first laid out in a straight line.
+        /// The midpoint between the start of the text string and the end of the
+        /// text string is determined. Then, the text string is mapped onto the
+        /// path with this midpoint placed at the current text position.)
         static member inline middle = Interop.mkAttr "textAnchor" "start"
+        /// The rendered characters are shifted such that the end of the
+        /// resulting rendered text (final current text position before applying
+        /// the `text-anchor` property) is at the initial current text position.
+        /// For an element with a `direction` property value of `ltr` (typical
+        /// for most European languages), the right side of the text is rendered
+        /// at the initial text position. For an element with a `direction`
+        /// property value of `rtl` (typical for Arabic and Hebrew), the left
+        /// side of the text is rendered at the initial text position. For an
+        /// element with a vertical primary text direction (often typical for
+        /// Asian text), the bottom of the text is rendered at the initial text
+        /// position.
         static member inline endOfText = Interop.mkAttr "textAnchor" "end"
 
     /// https://www.w3.org/WAI/PF/aria-1.1/roles
