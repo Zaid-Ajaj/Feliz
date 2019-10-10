@@ -527,7 +527,7 @@ module prop =
         /// The midpoint between the start of the text string and the end of the
         /// text string is determined. Then, the text string is mapped onto the
         /// path with this midpoint placed at the current text position.)
-        static member inline middle = Interop.mkAttr "textAnchor" "start"
+        static member inline middle = Interop.mkAttr "textAnchor" "middle"
         /// The rendered characters are shifted such that the end of the
         /// resulting rendered text (final current text position before applying
         /// the `text-anchor` property) is at the initial current text position.
