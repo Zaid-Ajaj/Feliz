@@ -495,9 +495,21 @@ type prop =
 module prop =
 
     [<Erase>]
-    /// The text-anchor attribute is used to align (start-, middle- or end-alignment) a string of pre-formatted text or auto-wrapped text where the wrapping area is determined from the inline-size property relative to a given point. It is not applicable to other types of auto-wrapped text. For those cases you should use text-align. For multi-line text, the alignment takes place for each line.
+    /// The `text-anchor` attribute is used to align (start-, middle- or
+    /// end-alignment) a string of pre-formatted text or auto-wrapped text where
+    /// the wrapping area is determined from the `inline-size` property relative
+    /// to a given point. It is not applicable to other types of auto-wrapped
+    /// text. For those cases you should use `text-align`. For multi-line text,
+    /// the alignment takes place for each line.
     ///
-    /// The text-anchor attribute is applied to each individual text chunk within a given <text> element. Each text chunk has an initial current text position, which represents the point in the user coordinate system resulting from (depending on context) application of the x and y attributes on the <text> element, any x or y attribute values on a <tspan>, <tref> or <altGlyph> element assigned explicitly to the first rendered character in a text chunk, or determination of the initial current text position for a <textPath> element.
+    /// The `text-anchor` attribute is applied to each individual text chunk
+    /// within a given `<text>` element. Each text chunk has an initial current
+    /// text position, which represents the point in the user coordinate system
+    /// resulting from (depending on context) application of the `x` and `y`
+    /// attributes on the `<text>` element, any `x` or `y` attribute values on a
+    /// `<tspan>`, `<tref>` or `<altGlyph>` element assigned explicitly to the
+    /// first rendered character in a text chunk, or determination of the
+    /// initial current text position for a `<textPath>` element.
     type textAnchor =
         static member inline startOfText = Interop.mkAttr "textAnchor" "start"
         static member inline middle = Interop.mkAttr "textAnchor" "start"
