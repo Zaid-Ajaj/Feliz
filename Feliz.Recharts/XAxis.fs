@@ -20,6 +20,9 @@ type xAxis =
     static member inline number = Interop.mkAttr "type" "number"
     /// Sets the type of the axis to `category`
     static member inline category = Interop.mkAttr "type" "category"
+    /// If set true, flips ticks around the axis line, displaying the labels inside the chart instead of outside.
+    /// Default is `false`.
+    static member inline mirror (value: bool) = Interop.mkAttr "mirror" value
     /// Allow the ticks of XAxis to be decimals or not. Default is `true`.
     static member inline allowDecimals (value: bool) = Interop.mkAttr "allowDecimals" value
     /// When domain of the axis is specified and the type of the axis is 'number', if allowDataOverflow is set to be false, the domain will be adjusted when the minimum value of data is smaller than domain[0] or the maximum value of data is greater than domain[1] so that the axis displays all data values. If set to true, graphic elements (line, area, bars) will be clipped to conform to the specified domain. Default is `false`.
@@ -40,7 +43,10 @@ type xAxis =
         ]
 
         Interop.mkAttr "padding" padding
-
+    static member inline tickMargin (value: int) = Interop.mkAttr "tickMargin" value
+    static member inline tickMargin (value: float) = Interop.mkAttr "tickMargin" value
+    static member inline unit (value: string) = Interop.mkAttr "unit" value
+    static member inline name (value: string) = Interop.mkAttr "name" value
 
 module xAxis =
     [<Erase>]

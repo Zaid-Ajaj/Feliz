@@ -40,7 +40,8 @@ type yAxis =
                   "bottom" ==> Option.defaultValue 0 bottom ]
 
         Interop.mkAttr "padding" padding
-
+    static member inline unit (value: string) = Interop.mkAttr "unit" value
+    static member inline name (value: string) = Interop.mkAttr "name" value
 module yAxis =
     /// The orientation of axis. Default is `left`.
     [<Erase>]

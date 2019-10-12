@@ -3,7 +3,6 @@ namespace Feliz.Recharts
 open System
 open Feliz
 open Fable.Core
-open Fable.Core.JsInterop
 
 [<Erase>]
 type line =
@@ -46,6 +45,7 @@ type line =
     /// Specifies the duration of animation. Default is `1500ms`.
     static member inline animationDuration (value: TimeSpan) = Interop.mkAttr "animationDuration" value.TotalMilliseconds
 
+[<Erase>]
 module line =
     [<Erase>]
     type legendType =

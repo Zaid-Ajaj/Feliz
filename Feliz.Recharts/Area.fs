@@ -44,6 +44,7 @@ type area =
     static member inline monotoneY = Interop.mkAttr "type" "monotoneY"
     static member inline stackId(value: string) = Interop.mkAttr "stackId" value
 
+[<Erase>]
 module area =
     [<Erase>]
     type legendType =

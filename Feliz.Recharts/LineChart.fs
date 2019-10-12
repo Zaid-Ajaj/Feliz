@@ -32,6 +32,42 @@ type lineChart =
 
         Interop.mkAttr "margin" margin
 
+    static member inline onClick (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkAttr "onClick" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
+    static member inline onMouseEnter (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkAttr "onMouseEnter" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
+    static member inline onMouseMove (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkAttr "onMouseMove" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
+    static member inline onMouseLeave (handler: unit -> unit) = Interop.mkAttr "onMouseLeave" handler
+    static member inline onMouseUp (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkAttr "onMouseUp" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
+    static member inline onMouseDown (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkAttr "onMouseDown" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
 module lineChart =
 
     /// The layout of area in the chart.
