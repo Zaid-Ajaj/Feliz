@@ -11,10 +11,10 @@ type referenceLine =
     /// The id of x-axis which is corresponding to the data.
     static member inline xAxisId (value: int) = Interop.mkAttr "xAxisId" value
     /// The id of y-axis which is corresponding to the data.
-    static member inline yAxisId (value: string) = Interop.mkAttr "xAxisId" value
+    static member inline yAxisId (value: string) = Interop.mkAttr "yAxisId" value
     static member inline stroke (value: string) = Interop.mkAttr "stroke" value
     /// The id of y-axis which is corresponding to the data.
-    static member inline yAxisId (value: int) = Interop.mkAttr "xAxisId" value
+    static member inline yAxisId (value: int) = Interop.mkAttr "yAxisId" value
     /// If set a string or a number, a vertical line perpendicular to the x-axis specified by xAxisId will be drawn. If the specified x-axis is a number axis, the type of x must be Number. If the specified x-axis is a category axis, the value of x must be one of the categorys, otherwise no line will be drawn.
     static member inline x(value: string) = Interop.mkAttr "x" value
     /// If set a string or a number, a vertical line perpendicular to the x-axis specified by xAxisId will be drawn. If the specified x-axis is a number axis, the type of x must be Number. If the specified x-axis is a category axis, the value of x must be one of the categorys, otherwise no line will be drawn.
