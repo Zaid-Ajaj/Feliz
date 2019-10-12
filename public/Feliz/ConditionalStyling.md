@@ -1,6 +1,6 @@
 # Conditional Styling
 
-The library includes two convenient functions to apply classes or styles conditionally on elements:
+The `prop.style` has an overload that takes conditional lists for applying a bunch of style properties based on some predicates.
 ```fsharp
 Html.div [
     prop.style [

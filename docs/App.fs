@@ -39,6 +39,7 @@ let update msg state =
     style.display.none
     style.fontSize 20
     style.borderRadius 15
+    style.textAlign.center
     style.alignContent.flexStart
     style.textDecorationColor.blue
     style.visibility.hidden
@@ -58,7 +59,8 @@ let update msg state =
     style.boxShadow(0, 0, 10, 10, colors.darkGray)
     style.boxShadow.none
     style.height length.auto
-    style.borderRadius (length.px 10)
+    style.borderRadius 20
+    style.borderRadius (length.rem 10)
     style.margin 10
     style.backgroundRepeat.repeatX
     style.backgroundPosition.fixedNoScroll
@@ -78,7 +80,14 @@ let update msg state =
     style.transform.translateX(100)
     style.transform.translateY(100)
     style.transform.translateZ(100)
-    style.color.red
+    style.textTransform.capitalize
+    style.textTransform.lowercase
+    style.fontStretch.extraCondensed
+    style.fontVariant.smallCaps
+    style.fontStyle.italic
+    style.fontSize 20
+    style.fontSize (length.em 2)
+    style.color.crimson
     style.color "#000000"
 ]
 |> List.iter (fun x -> Browser.Dom.console.log(createObj [!!x]))
@@ -389,7 +398,13 @@ let loadMarkdown (path: string list) =
 
         if isLoading then
             Html.div [
-                prop.style [ style.textAlign.center; style.marginTop 20 ]
+                prop.style [
+                    style.textAlign.center;
+                    style.marginLeft length.auto
+                    style.marginRight length.auto
+                    style.marginTop 50
+                ]
+
                 prop.children [
                     Html.li [ prop.className [ FA.Fa; FA.FaRefresh; FA.FaSpin; FA.Fa3X ] ]
                 ]
@@ -453,7 +468,6 @@ let nestedMenuList (name: string) (items: Fable.React.ReactElement list) =
             let (collapsed, setCollapsed) = React.useState(false)
             Html.li [
                 Html.anchor [
-                    prop.style [ style.width (length.percent 100) ]
                     prop.onClick (fun _ -> setCollapsed(not collapsed))
                     prop.children [
                         Html.i [
@@ -471,7 +485,8 @@ let nestedMenuList (name: string) (items: Fable.React.ReactElement list) =
 
                 Html.ul [
                     prop.className Bulma.MenuList
-                    prop.children (if not collapsed then items else [ ])
+                    prop.style [ collapsed, [ style.display.none ] ]
+                    prop.children items
                 ]
             ]
         )
@@ -517,6 +532,7 @@ let sidebar (state: State) dispatch =
                 menuItem "Type-Safe CSS" [ Urls.Feliz; Urls.TypeSafeCss ]
                 menuItem "Conditional Styling" [ Urls.Feliz; Urls.ConditionalStyling ]
                 menuItem "Elmish Counter" [ Urls.Feliz; Urls.ElmishCounter ]
+                menuItem "Contributing" [ Urls.Feliz; Urls.Contributing ]
                 nestedMenuList "React" [
                     menuItem "Components" [ Urls.Feliz; Urls.React; Urls.Components ]
                     menuItem "Standalone" [ Urls.Feliz; Urls.React; Urls.Standalone ]
@@ -562,7 +578,6 @@ let sidebar (state: State) dispatch =
         ]
     ]
 
-
 let readme = sprintf "https://raw.githubusercontent.com/%s/%s/master/README.md"
 
 let content state dispatch =
@@ -571,6 +586,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.Overview; ] -> loadMarkdown [ "Feliz"; "README.md" ]
     | [ Urls.Feliz; Urls.Installation ] -> loadMarkdown [ "Feliz"; "Installation.md" ]
     | [ Urls.Feliz; Urls.ElmishCounter ] -> loadMarkdown [ "Feliz"; "ElmishCounter.md" ]
+    | [ Urls.Feliz; Urls.Contributing ] -> loadMarkdown [ "Feliz"; "Contributing.md" ]
     | [ Urls.Feliz; Urls.Syntax ] -> loadMarkdown [ "Feliz" ; "Syntax.md" ]
     | [ Urls.Feliz; Urls.TypeSafeCss ] -> loadMarkdown [ "Feliz"; "TypeSafeCss.md" ]
     | [ Urls.Feliz; Urls.ConditionalStyling ] -> loadMarkdown [ "Feliz"; "ConditionalStyling.md" ]
@@ -602,7 +618,7 @@ let main state dispatch =
         prop.className [ Bulma.Tile; Bulma.IsAncestor ]
         prop.children [
             Html.div [
-                prop.className [ Bulma.Tile; Bulma.Is2 ]
+                prop.className [ Bulma.Tile; Bulma.Is3 ]
                 prop.children [ sidebar state dispatch ]
             ]
 
@@ -613,16 +629,16 @@ let main state dispatch =
         ]
     ]
 
-let application state dispatch =
-    Html.div [
-        prop.style [ style.padding 50 ]
-        prop.children [ main state dispatch ]
-    ]
-
 let render (state: State) dispatch =
+    let application =
+        Html.div [
+            prop.style [ style.padding 50 ]
+            prop.children [ main state dispatch ]
+        ]
+
     Router.router [
         Router.onUrlChanged (UrlChanged >> dispatch)
-        Router.application (application state dispatch)
+        Router.application application
     ]
 
 Program.mkSimple init update render

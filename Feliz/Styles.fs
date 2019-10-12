@@ -668,13 +668,13 @@ module style =
     [<Erase>]
     type fontVariant =
         /// The browser displays a normal font. This is default
-        static member inline normal : IFontVariant = unbox "normal"
+        static member inline normal = Interop.mkStyle "fontVariant" "normal"
         /// The browser displays a small-caps font
-        static member inline smallCaps : IFontVariant = unbox "small-caps"
+        static member inline smallCaps = Interop.mkStyle "fontVariant" "small-caps"
         /// Sets this property to its default value.
-        static member inline initial : IFontVariant = unbox "initial"
+        static member inline initial = Interop.mkStyle "fontVariant" "initial"
         /// Inherits this property from its parent element.
-        static member inline inheritFromParent : IFontVariant = unbox "inherit"
+        static member inline inheritFromParent = Interop.mkStyle "fontVariant" "inherit"
 
     [<Erase>]
     type overflowY =
