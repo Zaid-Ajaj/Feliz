@@ -213,11 +213,11 @@ let animationsOnHover' = React.functionComponent <| fun (props: {| title: string
                 style.transitionDurationMilliseconds 500
             ]
             if hovered then
-               yield style.backgroundColor.lightBlue
-               yield style.color.black
+               style.backgroundColor.lightBlue
+               style.color.black
             else
-               yield style.backgroundColor.limeGreen
-               yield style.color.white
+               style.backgroundColor.limeGreen
+               style.color.white
         ]
         prop.onMouseEnter (fun _ -> setHovered(true))
         prop.onMouseLeave (fun _ -> setHovered(false))
@@ -334,11 +334,7 @@ module ElmishCounter =
         ]
     )
 
-type ICodeProperties =
-    abstract language : string
-    abstract value : string
-
-let apps = [
+let samples = [
     "feliz-elmish-counter", ElmishCounter.app()
     "simple-components", ReactComponents.simple
     "stateful-counter", ReactComponents.counter()
@@ -365,6 +361,78 @@ let githubPath (rawPath: string) =
     then sprintf "http://www.github.com/%s/%s" parts.[3] parts.[4]
     else rawPath
 
+let centeredSpinner =
+    Html.div [
+        prop.style [
+            style.textAlign.center
+            style.marginLeft length.auto
+            style.marginRight length.auto
+            style.marginTop 50
+        ]
+        prop.children [
+            Html.li [
+                prop.className [
+                    FA.Fa
+                    FA.FaRefresh
+                    FA.FaSpin
+                    FA.Fa3X
+                ]
+            ]
+        ]
+    ]
+
+/// Renders a code block from markdown using react-highlight.
+/// Injects sample React components when the code block has language of the format <language>:<sample-name>
+let codeBlockRenderer (codeProps: Markdown.ICodeProperties) =
+    if codeProps.language <> null && codeProps.language.Contains ":" then
+        let languageParts = codeProps.language.Split(':')
+        let sampleName = languageParts.[1]
+        let sampleApp =
+            samples
+            |> List.tryFind (fun (name, _) -> name = sampleName)
+            |> Option.map snd
+            |> Option.defaultValue (Html.h1 [
+                prop.style [ style.color.crimson ];
+                prop.text (sprintf "Could not find sample app '%s'" sampleName)
+            ])
+        Html.div [
+            sampleApp
+            Highlight.highlight [
+                prop.className "fsharp"
+                prop.text(codeProps.value)
+            ]
+        ]
+    else
+        Highlight.highlight [
+            prop.className "fsharp"
+            prop.text(codeProps.value)
+        ]
+
+let renderMarkdown (path: string) (content: string) =
+    Html.div [
+        prop.className Bulma.Content
+        prop.style [ style.width (length.percent 100); style.padding 20 ]
+        prop.children [
+            if path.StartsWith "https://raw.githubusercontent.com" then
+                Html.h2 [
+                    Html.i [ prop.className [ FA.Fa; FA.FaGithub ] ]
+                    Html.anchor [
+                        prop.style [ style.marginLeft 10; style.color.lightGreen ]
+                        prop.href (githubPath path)
+                        prop.text "View on Github"
+                    ]
+                ]
+
+            Markdown.markdown [
+                markdown.source content
+                markdown.escapeHtml false
+                markdown.renderers [
+                    markdown.renderers.code codeBlockRenderer
+                ]
+            ]
+        ]
+    ]
+
 let loadMarkdown' = React.functionComponent <| fun (input: {| path: string list |}) ->
     let isLoading, setLoading = React.useState false
     let error, setError = React.useState<Option<string>> None
@@ -390,69 +458,18 @@ let loadMarkdown' = React.functionComponent <| fun (input: {| path: string list 
         React.createDisposable(ignore)
     ,path)
 
-    if isLoading then
-        Html.div [
-            prop.style [
-                style.textAlign.center;
-                style.marginLeft length.auto
-                style.marginRight length.auto
-                style.marginTop 50
-            ]
-            prop.children [
-                Html.li [ prop.className [ FA.Fa; FA.FaRefresh; FA.FaSpin; FA.Fa3X ] ]
-            ]
+    match isLoading, error with
+    | true, _ -> centeredSpinner
+    | false, None -> renderMarkdown path content
+    | _, Some error ->
+        Html.h1 [
+            prop.style [ style.color.crimson ]
+            prop.text error
         ]
-    else
-        match error with
-        | Some error -> Html.h1 [ prop.style [ style.color.crimson ]; prop.text error ]
-        | None ->
-            Html.div [
-                prop.className "content"
-                prop.style [ style.width (length.percent 100); style.padding 20 ]
-                prop.children [
-                    if path.StartsWith "https://raw.githubusercontent.com" then
-                        yield Html.h1 [
-                            Html.i [ prop.className [ FA.Fa; FA.FaGithub ] ]
-                            Html.anchor [
-                                prop.style [ style.marginLeft 10; style.color.lightGreen ]
-                                prop.href (githubPath path)
-                                prop.text "View on Github"
-                            ]
-                        ]
-                    yield Markdown.markdown [
-                        prop.custom("source", content)
-                        prop.custom("escapeHtml", false)
-                        prop.custom("renderers", createObj [
-                            "code" ==> fun (props: ICodeProperties) ->
-                                if props.language <> null && props.language.Contains ":" then
-                                    let languageParts = props.language.Split(':')
-                                    let sampleName = languageParts.[1]
-                                    let sampleApp =
-                                        apps
-                                        |> List.tryFind (fun (name, _) -> name = sampleName)
-                                        |> Option.map snd
-                                        |> Option.defaultValue (Html.h1 [
-                                            prop.style [ style.color.crimson ];
-                                            prop.text (sprintf "Could not find sample app '%s'" sampleName)
-                                        ])
-                                    Html.div [
-                                        sampleApp
-                                        Highlight.highlight [
-                                            prop.className "fsharp"
-                                            prop.text(props.value)
-                                        ]
-                                    ]
-                                else
-                                    Highlight.highlight [
-                                        prop.className "fsharp"
-                                        prop.text(props.value)
-                                    ]
-                        ])
-                    ]
-                ]
-            ]
 
 let loadMarkdown (path: string list) = loadMarkdown' {| path = path |}
+
+
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
 let nestedMenuList' = React.functionComponent <| fun (input: {| name: string; items: Fable.React.ReactElement list |}) ->
