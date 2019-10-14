@@ -35,18 +35,6 @@ type React =
                 effect()
                 React.createDisposable(ignore))
             [| |]
-    /// The `useEffect` hook that creates an effect for React function components which re-evaluates the hook once the dependencies change.
-    static member useEffect(effect: unit -> unit, a: 'a) =
-        ReactInterop.useEffectWithDeps effect [| a |]
-    /// The `useEffect` hook that creates an effect for React function components which re-evaluates the hook once the dependencies change.
-    static member useEffect(effect: unit -> unit, a: 'a, b: 'b) =
-        ReactInterop.useEffectWithDeps effect [| unbox a; unbox b |]
-    /// The `useEffect` hook that creates an effect for React function components which re-evaluates the hook once the dependencies change.
-    static member useEffect(effect: unit -> unit, a: 'a, b: 'b, c: 'c) =
-        ReactInterop.useEffectWithDeps effect [| unbox a; unbox b; unbox c |]
-    /// The `useEffect` hook that creates an effect for React function components which re-evaluates the hook once the dependencies change.
-    static member useEffect(effect: unit -> unit, a: 'a, b: 'b, c: 'c, d: 'd) =
-        ReactInterop.useEffectWithDeps effect [| unbox a; unbox b; unbox c; unbox d |]
     static member functionComponent(render: 'props -> Fable.React.ReactElement) =
         Fable.React.FunctionComponent.Of(render=render, memoizeWith=Fable.React.Helpers.memoEqualsButFunctions)
     static member functionComponent(name: string, render: 'props -> Fable.React.ReactElement) =

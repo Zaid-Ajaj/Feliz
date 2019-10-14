@@ -25,14 +25,17 @@ type State = {
     CurrentPath : string list
 }
 
-let init() = { CurrentPath = [ ] }
+let init() = { CurrentPath = [ ] }, Cmd.none
 
-type Msg = Increment | Decrement | UrlChanged of string list
+type Msg =
+    | Increment
+    | Decrement
+    | UrlChanged of string list
 
 let update msg state =
     match msg with
-    | UrlChanged segments -> { state with CurrentPath = segments }
-    | _ -> state
+    | UrlChanged segments -> { state with CurrentPath = segments }, Cmd.none
+    | _ -> state, Cmd.none
 
 [
     style.display.flex
@@ -199,38 +202,31 @@ let fragmentTests =
         ]
     ]
 
-type AnimationProps = { title: string }
-let styledComponent title =
-    // Re-use state internally using React hooks
-    let animationsOnHover =
-        React.functionComponent (fun (props: AnimationProps) ->
-            let (hovered, setHovered) = React.useState(false)
-            Html.div [
-                prop.style [
-                    yield! [
-                        style.padding 10
-                        style.transitionProperty("background-color", "color")
-                        style.transitionDurationMilliseconds 500
-                    ]
-
-                    if hovered then
-                       yield style.backgroundColor.lightBlue
-                       yield style.color.black
-                    else
-                       yield style.backgroundColor.limeGreen
-                       yield style.color.white
-                ]
-
-                prop.onMouseEnter (fun _ -> setHovered(true))
-                prop.onMouseLeave (fun _ -> setHovered(false))
-                prop.children [
-                    Html.h2 props.title
-                ]
+// Re-use state internally using React hooks
+let animationsOnHover' = React.functionComponent <| fun (props: {| title: string |}) ->
+    let (hovered, setHovered) = React.useState(false)
+    Html.div [
+        prop.style [
+            yield! [
+                style.padding 10
+                style.transitionProperty("background-color", "color")
+                style.transitionDurationMilliseconds 500
             ]
-        )
+            if hovered then
+               yield style.backgroundColor.lightBlue
+               yield style.color.black
+            else
+               yield style.backgroundColor.limeGreen
+               yield style.color.white
+        ]
+        prop.onMouseEnter (fun _ -> setHovered(true))
+        prop.onMouseLeave (fun _ -> setHovered(false))
+        prop.children [
+            Html.h2 props.title
+        ]
+    ]
 
-    animationsOnHover { title = title }
-
+let animationsOnHover title = animationsOnHover' {| title = title |}
 
 module ReactComponents =
     type Greeting = { Name: string option }
@@ -258,8 +254,6 @@ module ReactComponents =
             ]
         ]
     )
-
-
 
 let counter =
     React.functionComponent(fun () ->
@@ -299,9 +293,9 @@ let ticker =
 
 let styledComponentsTests =
     Html.div [
-       styledComponent "Hello"
-       styledComponent "From"
-       styledComponent "Fable"
+       animationsOnHover "Hello"
+       animationsOnHover "From"
+       animationsOnHover "Fable"
     ]
 
 let hooksAreAwesome =
@@ -340,8 +334,6 @@ module ElmishCounter =
         ]
     )
 
-
-
 type ICodeProperties =
     abstract language : string
     abstract value : string
@@ -373,125 +365,123 @@ let githubPath (rawPath: string) =
     then sprintf "http://www.github.com/%s/%s" parts.[3] parts.[4]
     else rawPath
 
-let loadMarkdown (path: string list) =
-    let markdown = React.functionComponent <| fun _ ->
-        let isLoading, setLoading = React.useState false
-        let error, setError = React.useState<Option<string>> None
-        let content, setContent = React.useState ""
-        let path =
-            match path with
-            | [ one ] when one.StartsWith "http" -> one
-            | segments -> String.concat "/" segments
-        React.useEffect(fun _ ->
-            setLoading(true)
-            async {
-                let! (statusCode, responseText) = Http.get path
-                setLoading(false)
-                if statusCode = 200 then
-                  setContent(responseText)
-                  setError(None)
-                else
-                  setError(Some (sprintf "Status %d: could not load %s" statusCode path))
-            }
-            |> Async.StartImmediate
-        )
+let loadMarkdown' = React.functionComponent <| fun (input: {| path: string list |}) ->
+    let isLoading, setLoading = React.useState false
+    let error, setError = React.useState<Option<string>> None
+    let content, setContent = React.useState ""
+    let path =
+        match input.path with
+        | [ one ] when one.StartsWith "http" -> one
+        | segments -> String.concat "/" segments
 
-        if isLoading then
-            Html.div [
-                prop.style [
-                    style.textAlign.center;
-                    style.marginLeft length.auto
-                    style.marginRight length.auto
-                    style.marginTop 50
-                ]
+    React.useEffect(fun _ ->
+        setLoading(true)
+        async {
+            let! (statusCode, responseText) = Http.get path
+            setLoading(false)
+            if statusCode = 200 then
+              setContent(responseText)
+              setError(None)
+            else
+              setError(Some (sprintf "Status %d: could not load %s" statusCode path))
+        }
+        |> Async.StartImmediate
 
-                prop.children [
-                    Html.li [ prop.className [ FA.Fa; FA.FaRefresh; FA.FaSpin; FA.Fa3X ] ]
-                ]
+        React.createDisposable(ignore)
+    ,path)
+
+    if isLoading then
+        Html.div [
+            prop.style [
+                style.textAlign.center;
+                style.marginLeft length.auto
+                style.marginRight length.auto
+                style.marginTop 50
             ]
-        else
-            match error with
-            | Some error -> Html.h1 [ prop.style [ style.color.crimson ]; prop.text error ]
-            | None ->
-                Html.div [
-                    prop.className "content"
-                    prop.style [ style.width (length.percent 100); style.padding 20 ]
-                    prop.children [
-                        if path.StartsWith "https://raw.githubusercontent.com" then
-                            yield Html.h1 [
-                                Html.i [ prop.className [ FA.Fa; FA.FaGithub ] ]
-                                Html.anchor [
-                                    prop.style [ style.marginLeft 10; style.color.lightGreen ]
-                                    prop.href (githubPath path)
-                                    prop.text "View on Github"
-                                ]
+            prop.children [
+                Html.li [ prop.className [ FA.Fa; FA.FaRefresh; FA.FaSpin; FA.Fa3X ] ]
+            ]
+        ]
+    else
+        match error with
+        | Some error -> Html.h1 [ prop.style [ style.color.crimson ]; prop.text error ]
+        | None ->
+            Html.div [
+                prop.className "content"
+                prop.style [ style.width (length.percent 100); style.padding 20 ]
+                prop.children [
+                    if path.StartsWith "https://raw.githubusercontent.com" then
+                        yield Html.h1 [
+                            Html.i [ prop.className [ FA.Fa; FA.FaGithub ] ]
+                            Html.anchor [
+                                prop.style [ style.marginLeft 10; style.color.lightGreen ]
+                                prop.href (githubPath path)
+                                prop.text "View on Github"
                             ]
-                        yield Markdown.markdown [
-                            prop.custom("source", content)
-                            prop.custom("renderers", createObj [
-                                "code" ==> fun (props: ICodeProperties) ->
-                                    if props.language <> null && props.language.Contains ":" then
-                                        let languageParts = props.language.Split(':')
-                                        let sampleName = languageParts.[1]
-                                        let sampleApp =
-                                            apps
-                                            |> List.tryFind (fun (name, _) -> name = sampleName)
-                                            |> Option.map snd
-                                            |> Option.defaultValue (Html.h1 [
-                                                prop.style [ style.color.crimson ];
-                                                prop.text (sprintf "Could not find sample app '%s'" sampleName)
-                                            ])
-
-                                        Html.div [
-                                            sampleApp
-                                            Highlight.highlight [
-                                                prop.className "fsharp"
-                                                prop.text(props.value)
-                                            ]
-                                        ]
-                                    else
+                        ]
+                    yield Markdown.markdown [
+                        prop.custom("source", content)
+                        prop.custom("escapeHtml", false)
+                        prop.custom("renderers", createObj [
+                            "code" ==> fun (props: ICodeProperties) ->
+                                if props.language <> null && props.language.Contains ":" then
+                                    let languageParts = props.language.Split(':')
+                                    let sampleName = languageParts.[1]
+                                    let sampleApp =
+                                        apps
+                                        |> List.tryFind (fun (name, _) -> name = sampleName)
+                                        |> Option.map snd
+                                        |> Option.defaultValue (Html.h1 [
+                                            prop.style [ style.color.crimson ];
+                                            prop.text (sprintf "Could not find sample app '%s'" sampleName)
+                                        ])
+                                    Html.div [
+                                        sampleApp
                                         Highlight.highlight [
                                             prop.className "fsharp"
                                             prop.text(props.value)
                                         ]
-                            ])
-                        ]
+                                    ]
+                                else
+                                    Highlight.highlight [
+                                        prop.className "fsharp"
+                                        prop.text(props.value)
+                                    ]
+                        ])
                     ]
-                ]
-    markdown()
-
-// A collapsable nested menu for the sidebar
-// keeps internal state on whether the items should be visible or not based on the collapsed state
-let nestedMenuList (name: string) (items: Fable.React.ReactElement list) =
-    let statefulComponent =
-        React.functionComponent("NestedMenuList", fun () ->
-            let (collapsed, setCollapsed) = React.useState(false)
-            Html.li [
-                Html.anchor [
-                    prop.onClick (fun _ -> setCollapsed(not collapsed))
-                    prop.children [
-                        Html.i [
-                            prop.style [ style.marginRight 10 ]
-                            prop.className [
-                                true, FA.Fa;
-                                not collapsed, FA.FaAngleUp;
-                                collapsed, FA.FaAngleDown;
-                            ]
-                        ]
-
-                        Html.span name
-                    ]
-                ]
-
-                Html.ul [
-                    prop.className Bulma.MenuList
-                    prop.style [ collapsed, [ style.display.none ] ]
-                    prop.children items
                 ]
             ]
-        )
 
-    statefulComponent()
+let loadMarkdown (path: string list) = loadMarkdown' {| path = path |}
+// A collapsable nested menu for the sidebar
+// keeps internal state on whether the items should be visible or not based on the collapsed state
+let nestedMenuList' = React.functionComponent <| fun (input: {| name: string; items: Fable.React.ReactElement list |}) ->
+    let (collapsed, setCollapsed) = React.useState(false)
+    Html.li [
+        Html.anchor [
+            prop.onClick (fun _ -> setCollapsed(not collapsed))
+            prop.children [
+                Html.i [
+                    prop.style [ style.marginRight 10 ]
+                    prop.className [
+                        true, FA.Fa;
+                        not collapsed, FA.FaAngleUp;
+                        collapsed, FA.FaAngleDown;
+                    ]
+                ]
+                Html.span input.name
+            ]
+        ]
+
+        Html.ul [
+            prop.className Bulma.MenuList
+            prop.style [ collapsed, [ style.display.none ] ]
+            prop.children input.items
+        ]
+    ]
+
+let nestedMenuList (name: string) (items: Fable.React.ReactElement list) =
+    nestedMenuList' {| name = name; items = items |}
 
 let sidebar (state: State) dispatch =
     // top level label
@@ -536,6 +526,7 @@ let sidebar (state: State) dispatch =
                 nestedMenuList "React" [
                     menuItem "Components" [ Urls.Feliz; Urls.React; Urls.Components ]
                     menuItem "Standalone" [ Urls.Feliz; Urls.React; Urls.Standalone ]
+                    menuItem "Common Pitfalls" [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ]
                 ]
 
                 nestedMenuList "Ecosystem" [
@@ -592,6 +583,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.ConditionalStyling ] -> loadMarkdown [ "Feliz"; "ConditionalStyling.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Standalone ] -> loadMarkdown [ "Feliz"; "React"; "Standalone.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Components ] -> loadMarkdown [ "Feliz"; "React"; "Components.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ] -> loadMarkdown [ "Feliz"; "React"; "CommonPitfalls.md" ]
     | [ Urls.Ecosystem; Urls.Router ] -> loadMarkdown [ readme "Zaid-Ajaj" "Feliz.Router" ]
     | [ Urls.Ecosystem; Urls.Mui ] -> loadMarkdown [ readme "cmeeren" "Feliz.MaterialUI" ]
     | [ Urls.Ecosystem; Urls.Recharts ] -> loadMarkdown [ "Recharts"; "README.md" ]
@@ -618,7 +610,7 @@ let main state dispatch =
         prop.className [ Bulma.Tile; Bulma.IsAncestor ]
         prop.children [
             Html.div [
-                prop.className [ Bulma.Tile; Bulma.Is3 ]
+                prop.className [ Bulma.Tile; Bulma.Is2 ]
                 prop.children [ sidebar state dispatch ]
             ]
 
@@ -632,7 +624,7 @@ let main state dispatch =
 let render (state: State) dispatch =
     let application =
         Html.div [
-            prop.style [ style.padding 50 ]
+            prop.style [ style.padding 30 ]
             prop.children [ main state dispatch ]
         ]
 
@@ -641,7 +633,7 @@ let render (state: State) dispatch =
         Router.application application
     ]
 
-Program.mkSimple init update render
+Program.mkProgram init update render
 |> Program.withReactSynchronous "root"
 |> Program.withConsoleTrace
 |> Program.run
