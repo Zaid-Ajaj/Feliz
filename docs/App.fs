@@ -550,6 +550,7 @@ let sidebar (state: State) dispatch =
                     menuItem "Feliz.Router" [ Urls.Ecosystem; Urls.Router ]
                     menuItem "Feliz.Recharts" [ Urls.Ecosystem; Urls.Recharts ]
                     menuItem "Feliz.MaterialUI" [ Urls.Ecosystem; Urls.Mui ]
+                    menuItem "Feliz.Plotly" [ Urls.Ecosystem; Urls.Plotly ]
                 ]
             ]
             menuLabel "Feliz.Recharts"
@@ -603,6 +604,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ] -> loadMarkdown [ "Feliz"; "React"; "CommonPitfalls.md" ]
     | [ Urls.Ecosystem; Urls.Router ] -> loadMarkdown [ readme "Zaid-Ajaj" "Feliz.Router" ]
     | [ Urls.Ecosystem; Urls.Mui ] -> loadMarkdown [ readme "cmeeren" "Feliz.MaterialUI" ]
+    | [ Urls.Ecosystem; Urls.Plotly ] -> loadMarkdown [ readme "Shmew" "Feliz.Plotly" ]
     | [ Urls.Ecosystem; Urls.Recharts ] -> loadMarkdown [ "Recharts"; "README.md" ]
     | [ Urls.Recharts; Urls.Overview ] -> loadMarkdown [ "Recharts"; "README.md" ]
     | [ Urls.Recharts; Urls.Installation ] -> loadMarkdown [ "Recharts"; "Installation.md" ]
