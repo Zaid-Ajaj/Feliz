@@ -6,6 +6,7 @@
         <ProjectReference Include="..\Feliz\Feliz.fsproj" />
         <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
         <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
+        <ProjectReference Include="..\Feliz.PigeonMaps\Feliz.PigeonMaps.fsproj" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Urls.fs" />
@@ -24,6 +25,7 @@
         <Compile Include="Recharts/BarCharts/TinyBarChart.fs" />
         <Compile Include="Recharts/BarCharts/PositiveAndNegative.fs" />
         <Compile Include="Recharts/PieCharts/TwoLevelPieChart.fs" />
+        <Compile Include="PigeonMaps.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <PropertyGroup>

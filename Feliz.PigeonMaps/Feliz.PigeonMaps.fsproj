@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Description>pigeon-maps bindings based on the Feliz API</Description>
+        <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageIconUrl></PackageIconUrl>
+        <PackageTags>fsharp;fable;react;html</PackageTags>
+        <Authors>Zaid Ajaj</Authors>
+        <Version>0.1.0</Version>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup>
+        <NpmDependencies>
+            <NpmPackage Name="pigeon-maps" Version="&gt;= 0.14.0 &lt; 1.0.0" ResolutionStrategy="max" />
+        </NpmDependencies>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Map.fs" />
+        <Compile Include="Marker.fs" />
+        <Compile Include="PigeonMaps.fs" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
+    </ItemGroup>
+</Project>

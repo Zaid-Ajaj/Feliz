@@ -5,10 +5,11 @@ open Elmish.React
 open Feliz
 open Feliz.Recharts
 open Feliz.Markdown
-open Fable.SimpleHttp
+open Feliz.PigeonMaps
 open Feliz.Router
 open Fable.Core
 open Fable.Core.JsInterop
+open Fable.SimpleHttp
 open Fable.Core.Experimental
 open Zanaptak.TypedCssClasses
 open System.Collections.Generic
@@ -334,6 +335,9 @@ module ElmishCounter =
         ]
     )
 
+
+
+
 let samples = [
     "feliz-elmish-counter", ElmishCounter.app()
     "simple-components", ReactComponents.simple
@@ -353,6 +357,7 @@ let samples = [
     "recharts-bar-positiveandnagative", Samples.Recharts.BarCharts.PostiveAndNegative.chart()
     "recharts-line-biaxial", Samples.Recharts.LineCharts.BiaxialLineChart.chart()
     "recharts-pie-twolevel", Samples.Recharts.PieCharts.TwoLevelPieChart.chart()
+    "pigeonmaps-map-basic", Samples.PigeonMaps.pigeonMap
 ]
 
 let githubPath (rawPath: string) =
@@ -481,9 +486,9 @@ let nestedMenuList' = React.functionComponent <| fun (input: {| name: string; it
                 Html.i [
                     prop.style [ style.marginRight 10 ]
                     prop.className [
-                        true, FA.Fa;
-                        not collapsed, FA.FaAngleUp;
-                        collapsed, FA.FaAngleDown;
+                        FA.Fa
+                        if not collapsed then FA.FaAngleUp
+                        if collapsed then FA.FaAngleDown
                     ]
                 ]
                 Html.span input.name
@@ -492,7 +497,7 @@ let nestedMenuList' = React.functionComponent <| fun (input: {| name: string; it
 
         Html.ul [
             prop.className Bulma.MenuList
-            prop.style [ collapsed, [ style.display.none ] ]
+            prop.style [ if collapsed then style.display.none ]
             prop.children input.items
         ]
     ]
@@ -549,9 +554,15 @@ let sidebar (state: State) dispatch =
                 nestedMenuList "Ecosystem" [
                     menuItem "Feliz.Router" [ Urls.Ecosystem; Urls.Router ]
                     menuItem "Feliz.Recharts" [ Urls.Ecosystem; Urls.Recharts ]
+                    menuItem "Feliz.PigeonMaps" [ Urls.Ecosystem; Urls.PigeonMaps ]
                     menuItem "Feliz.MaterialUI" [ Urls.Ecosystem; Urls.Mui ]
                     menuItem "Feliz.Plotly" [ Urls.Ecosystem; Urls.Plotly ]
                 ]
+            ]
+            menuLabel "Feliz.PigeonMaps"
+            menuList [
+                menuItem "Overview" [ Urls.PigeonMaps; Urls.Overview ]
+                menuItem "Installation" [ Urls.PigeonMaps; Urls.Installation ]
             ]
             menuLabel "Feliz.Recharts"
             menuList [
@@ -596,7 +607,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.Installation ] -> loadMarkdown [ "Feliz"; "Installation.md" ]
     | [ Urls.Feliz; Urls.ElmishCounter ] -> loadMarkdown [ "Feliz"; "ElmishCounter.md" ]
     | [ Urls.Feliz; Urls.Contributing ] -> loadMarkdown [ "Feliz"; "Contributing.md" ]
-    | [ Urls.Feliz; Urls.Syntax ] -> loadMarkdown [ "Feliz" ; "Syntax.md" ]
+    | [ Urls.Feliz; Urls.Syntax ] -> loadMarkdown [ "Feliz"; "Syntax.md" ]
     | [ Urls.Feliz; Urls.TypeSafeCss ] -> loadMarkdown [ "Feliz"; "TypeSafeCss.md" ]
     | [ Urls.Feliz; Urls.ConditionalStyling ] -> loadMarkdown [ "Feliz"; "ConditionalStyling.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Standalone ] -> loadMarkdown [ "Feliz"; "React"; "Standalone.md" ]
@@ -606,6 +617,7 @@ let content state dispatch =
     | [ Urls.Ecosystem; Urls.Mui ] -> loadMarkdown [ readme "cmeeren" "Feliz.MaterialUI" ]
     | [ Urls.Ecosystem; Urls.Plotly ] -> loadMarkdown [ readme "Shmew" "Feliz.Plotly" ]
     | [ Urls.Ecosystem; Urls.Recharts ] -> loadMarkdown [ "Recharts"; "README.md" ]
+    | [ Urls.Ecosystem; Urls.PigeonMaps ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
     | [ Urls.Recharts; Urls.Overview ] -> loadMarkdown [ "Recharts"; "README.md" ]
     | [ Urls.Recharts; Urls.Installation ] -> loadMarkdown [ "Recharts"; "Installation.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "SimpleAreaChart.md" ]
@@ -622,6 +634,8 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.BarCharts; Urls.PositiveAndNegative ] -> loadMarkdown [ "Recharts" ; "BarCharts"; "PositiveAndNegative.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "BiaxialLineChart.md" ]
     | [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "TwoLevelPieChart.md" ]
+    | [ Urls.PigeonMaps; Urls.Overview ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
+    | [ Urls.PigeonMaps; Urls.Installation ] -> loadMarkdown [ "PigeonMaps"; "Installation.md" ]
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =

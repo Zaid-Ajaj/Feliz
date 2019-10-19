@@ -84,6 +84,7 @@ let publish projectPath = fun () ->
 Target "PublishFeliz" (publish libPath)
 
 Target "PublishRecharts" (publish "./Feliz.Recharts")
+Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")
 
 Target "Compile" <| fun _ ->
     run npmTool "run build" "."
