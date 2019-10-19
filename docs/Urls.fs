@@ -2,6 +2,7 @@ module Urls
 
 let [<Literal>] Feliz = "Feliz"
 let [<Literal>] General = "General"
+let [<Literal>] Aliasing = "Aliasing"
 let [<Literal>] Installation = "Installation"
 let [<Literal>] Recharts = "Recharts"
 let [<Literal>] AreaCharts = "AreaCharts"
@@ -36,3 +37,5 @@ let [<Literal>] Contributing = "Contributing"
 let [<Literal>] CommonPitfalls = "CommonPitfalls"
 let [<Literal>] Plotly = "Plotly"
 let [<Literal>] PigeonMaps = "PigeonMaps"
+let [<Literal>] SynchronizedAreaChart = "SynchronizedAreaChart"
+let [<Literal>] AreaChartFillByValue = "AreaChartFillByValue"

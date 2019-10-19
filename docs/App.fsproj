@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
@@ -10,6 +10,8 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Urls.fs" />
+        <Compile Include="Recharts\AreaCharts\AreaChartFillByValue.fs" />
+        <Compile Include="Recharts/AreaCharts/SynchronizedAreaChart.fs" />
         <Compile Include="Recharts/AreaCharts/Main.fs" />
         <Compile Include="Recharts/AreaCharts/SimpleAreaChart.fs" />
         <Compile Include="Recharts/AreaCharts/StackedAreaChart.fs" />

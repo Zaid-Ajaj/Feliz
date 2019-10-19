@@ -321,17 +321,17 @@ module ElmishCounter =
     let app = React.functionComponent("Counter", fun () ->
         let (state, dispatch) = React.useReducer(update, initialState)
         Html.div [
-          Html.button [
-            prop.onClick (fun _ -> dispatch Increment)
-            prop.text "Increment"
-          ]
-
-          Html.button [
-            prop.onClick (fun _ -> dispatch Decrement)
-            prop.text "Decrement"
-          ]
-
-          Html.h1 state.Count
+            Html.button [
+                prop.onClick (fun _ -> dispatch Increment)
+                prop.text "Increment"
+            ]
+            
+            Html.button [
+                prop.onClick (fun _ -> dispatch Decrement)
+                prop.text "Decrement"
+            ]
+            
+            Html.h1 state.Count
         ]
     )
 
@@ -346,6 +346,8 @@ let samples = [
     "recharts-area-simpleareachart", Samples.Recharts.AreaCharts.SimpleAreaChart.chart()
     "recharts-area-stackedareachart", Samples.Recharts.AreaCharts.StackedAreaChart.chart()
     "recharts-area-tinyareachart", Samples.Recharts.AreaCharts.TinyAreaChart.chart()
+    "recharts-area-synchronized", Samples.Recharts.AreaCharts.SynchronizedAreaChart.chart()
+    "recharts-area-fillbyvalue", Samples.Recharts.AreaCharts.AreaChartFillByValue.chart()
     "recharts-line-simplelinechart", Samples.Recharts.LineCharts.SimpleLineChart.chart()
     "recharts-line-responsivefullwidth", Samples.Recharts.LineCharts.ResponsiveFullWidth.chart()
     "recharts-area-responsefullwidth", Samples.Recharts.AreaCharts.ResponsiveFullWidth.chart()
@@ -545,6 +547,7 @@ let sidebar (state: State) dispatch =
                 menuItem "Conditional Styling" [ Urls.Feliz; Urls.ConditionalStyling ]
                 menuItem "Elmish Counter" [ Urls.Feliz; Urls.ElmishCounter ]
                 menuItem "Contributing" [ Urls.Feliz; Urls.Contributing ]
+                menuItem "Aliasing props" [ Urls.Feliz; Urls.Aliasing ]
                 nestedMenuList "React" [
                     menuItem "Components" [ Urls.Feliz; Urls.React; Urls.Components ]
                     menuItem "Standalone" [ Urls.Feliz; Urls.React; Urls.Standalone ]
@@ -589,6 +592,8 @@ let sidebar (state: State) dispatch =
                     menuItem "Stacked Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.StackedAreaChart ]
                     menuItem "Tiny Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.TinyAreaChart ]
                     menuItem "Responsive Full Width" [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ]
+                    menuItem "Synchronized Charts" [ Urls.Recharts; Urls.AreaCharts; Urls.SynchronizedAreaChart ]
+                    menuItem "AreaChartFillByValue" [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartFillByValue ]
                 ]
 
                 nestedMenuList "Pie Charts" [
@@ -609,6 +614,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.Contributing ] -> loadMarkdown [ "Feliz"; "Contributing.md" ]
     | [ Urls.Feliz; Urls.Syntax ] -> loadMarkdown [ "Feliz"; "Syntax.md" ]
     | [ Urls.Feliz; Urls.TypeSafeCss ] -> loadMarkdown [ "Feliz"; "TypeSafeCss.md" ]
+    | [ Urls.Feliz; Urls.Aliasing ] -> loadMarkdown [ "Feliz"; "AliasingProp.md" ]
     | [ Urls.Feliz; Urls.ConditionalStyling ] -> loadMarkdown [ "Feliz"; "ConditionalStyling.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Standalone ] -> loadMarkdown [ "Feliz"; "React"; "Standalone.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Components ] -> loadMarkdown [ "Feliz"; "React"; "Components.md" ]
@@ -627,6 +633,8 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "LineCharts"; "ResponsiveFullWidth.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.CustomizedLabelLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts" ; "CustomizedLabelLineChart.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "ResponsiveFullWidth.md" ]
+    | [ Urls.Recharts; Urls.AreaCharts; Urls.SynchronizedAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "SynchronizedAreaChart.md" ]
+    | [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartFillByValue ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "AreaChartFillByValue.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "SimpleBarChart.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.StackedBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "StackedBarChart.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.MixBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "MixBarChart.md" ]
