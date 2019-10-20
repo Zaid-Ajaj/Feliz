@@ -289,6 +289,7 @@ type style =
     static member inline paddingTop(value: int) = Interop.mkStyle "paddingTop" value
     static member inline paddingTop(value: ICssUnit) = Interop.mkStyle "paddingTop" value
     static member inline fontSize(size: int) = Interop.mkStyle "fontSize" size
+    static member inline fontSize(size: float) = Interop.mkStyle "fontSize" size
     static member inline fontSize(size: ICssUnit) = Interop.mkStyle "fontSize" size
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
     static member inline color (color: string) = Interop.mkStyle "color" color
@@ -394,12 +395,10 @@ type style =
             color
         )
     static member inline animationName(keyframeName: string) = Interop.mkStyle "animationName" keyframeName
-    static member inline animationDuration(timespan: TimeSpan) = Interop.mkStyle "animationDuration" ((unbox<string> timespan.Milliseconds) + "ms")
+    static member inline animationDuration(timespan: TimeSpan) = Interop.mkStyle "animationDuration" ((unbox<string> timespan.TotalMilliseconds) + "ms")
     static member inline animationDuration(seconds: int) = Interop.mkStyle "animationDuration" ((unbox<string> seconds) + "s")
-
-    static member inline animationDelay(timespan: TimeSpan) = Interop.mkStyle "animationDelay" ((unbox<string> timespan.Milliseconds) + "ms")
+    static member inline animationDelay(timespan: TimeSpan) = Interop.mkStyle "animationDelay" ((unbox<string> timespan.TotalMilliseconds) + "ms")
     static member inline animationDelay(seconds: int) = Interop.mkStyle "animationDelay" ((unbox<string> seconds) + "s")
-
     static member inline borderWidth (width: int) = Interop.mkStyle "borderWidth" width
     static member inline borderStyle (style: IBorderStyle) = Interop.mkStyle "borderStyle" style
     static member inline borderStyle(top: IBorderStyle, right: IBorderStyle)  =
@@ -1461,7 +1460,6 @@ module style =
 
     [<Erase>]
     type position =
-
         /// Default value. Elements render in order, as they appear in the document flow.
         static member inline defaultStatic = Interop.mkStyle "position" "static"
         /// The element is positioned relative to its first positioned (not static) ancestor element.

@@ -120,6 +120,7 @@ type prop =
     static member inline dy(value: float) = Interop.mkAttr "dy" value
     static member inline y(value: ICssUnit) = Interop.mkAttr "y" value
     static member inline r(value: int) = Interop.mkAttr "r" value
+    static member inline r(value: float) = Interop.mkAttr "r" value
     static member inline r(value: ICssUnit) = Interop.mkAttr "r" value
     static member inline fontSize(value: int) = Interop.mkAttr "fontSize" value
     static member inline fontSize(value: float) = Interop.mkAttr "fontSize" value
@@ -138,6 +139,10 @@ type prop =
     static member inline x2(value: float) = Interop.mkAttr "x2" value
     static member inline y1(value: int) = Interop.mkAttr "y1" value
     static member inline y1(value: float) = Interop.mkAttr "y1" value
+    /// The title global attribute contains text representing advisory information related to the element it belongs to.
+    static member inline title(value: string) = Interop.mkAttr "title" value
+    /// The `tabindex` global attribute indicates that its element can be focused, and where it participates in sequential keyboard navigation (usually with the Tab key, hence the name).
+    static member inline tabIndex(index: int) = Interop.mkAttr "tabindex" index
     static member inline y1(value: ICssUnit) = Interop.mkAttr "y1" value
     static member inline y2(value: int) = Interop.mkAttr "y2" value
     static member inline y2(value: ICssUnit) = Interop.mkAttr "y2" value
