@@ -52,7 +52,8 @@ type pie =
     static member inline animationDuration (value: int) = Interop.mkAttr "animationDuration" value
     /// Specifies the duration of animation. Default is `1500ms`.
     static member inline animationDuration (value: TimeSpan) = Interop.mkAttr "animationDuration" value.TotalMilliseconds
-
+    static member inline children (children: ICellElement list) = prop.children (unbox<Fable.React.ReactElement list> children)
+    static member inline children (children: ICellElement seq) = prop.children (unbox<Fable.React.ReactElement seq> children)
 module pie =
 
     [<Erase>]

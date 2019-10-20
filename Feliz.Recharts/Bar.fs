@@ -17,6 +17,9 @@ type bar =
     static member inline yAxisId (value: string) = Interop.mkAttr "yAxisId" value
     static member inline xAxisId (value: int) = Interop.mkAttr "xAxisId" value
     static member inline yAxisId (value: int) = Interop.mkAttr "yAxisId" value
+    static member inline children (children: ICellElement list) = prop.children (unbox<Fable.React.ReactElement list> children)
+    static member inline children (children: ICellElement seq) = prop.children (unbox<Fable.React.ReactElement seq> children)
+
 
 module bar =
     [<Erase>]

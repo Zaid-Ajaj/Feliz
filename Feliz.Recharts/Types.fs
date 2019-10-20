@@ -17,6 +17,8 @@ type IDotProperties<'a> =
 
 type IAxisDomain = interface end
 
+type ICellElement = interface end
+
 [<Fable.Core.Erase>]
 type domain =
     static member inline min : IAxisDomain = unbox "dataMin"

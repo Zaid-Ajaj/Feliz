@@ -28,6 +28,11 @@ type Recharts =
         Interop.reactApi.createElement(import "Legend" "recharts", createObj !!properties)
     static member inline area (properties: IReactProperty list) =
         Interop.reactApi.createElement(import "Area" "recharts", createObj !!properties)
+    /// Cell can be wrapped by Pie, Bar, or RadialBar to specify attributes of each child. In Pie , for example, we can specify the attributes of each child node through data, but the props of Cell have higher priority
+    static member inline cell (properties: IReactProperty list) =
+        Interop.reactApi.createElement(import "Cell" "recharts", createObj !!properties)
+        |> unbox<ICellElement>
+
     static member inline line (properties: IReactProperty list) =
         Interop.reactApi.createElement(import "Line" "recharts", createObj !!properties)
     static member inline cartesianGrid (properties: IReactProperty list) =
