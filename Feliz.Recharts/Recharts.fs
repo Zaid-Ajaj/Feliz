@@ -14,6 +14,8 @@ type Recharts =
         Interop.reactApi.createElement(import "BarChart" "recharts", createObj !!properties)
     static member inline bar (properties: IReactProperty list) =
         Interop.reactApi.createElement(import "Bar" "recharts", createObj !!properties)
+    static member inline brush (properties: IReactProperty list) =
+        Interop.reactApi.createElement(import "Brush" "recharts", createObj !!properties)
     static member inline xAxis (properties: IReactProperty list) =
         Interop.reactApi.createElement(import "XAxis" "recharts", createObj !!properties)
     static member inline yAxis (properties: IReactProperty list) =

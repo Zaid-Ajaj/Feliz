@@ -32,6 +32,6 @@ let render state dispatch =
  - Proper **documentation**: each attribute and CSS property
  - Fully **Type-safe**: no more `Margin of obj` but instead utilizing a plethora of overloaded functions to account for the overloaded nature of `CSS` attributes, covering 90%+ of the CSS styles, values and properties.
  - Included **color list** of most commonly used `Html` colors in the `colors` module.
- - **Compatible** with the current DSL used in applications.
+ - **Compatible** with the current DSL used in applications (Feliz and it's ecosystem of libraries can be used in your current applications).
  - **Compatible** with [Femto](https://github.com/Zaid-Ajaj/Femto).
  - Approximately **Zero** bundle size increase where everything function body is erased from the generated javascript unless you actually use said function.

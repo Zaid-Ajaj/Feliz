@@ -17,7 +17,6 @@ open System.Collections.Generic
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
 type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
 
-
 type Highlight =
     static member inline highlight (properties: IReactProperty list) =
         Interop.reactApi.createElement(importDefault "react-highlight", createObj !!properties)
@@ -208,11 +207,10 @@ let animationsOnHover' = React.functionComponent <| fun (props: {| title: string
     let (hovered, setHovered) = React.useState(false)
     Html.div [
         prop.style [
-            yield! [
-                style.padding 10
-                style.transitionProperty("background-color", "color")
-                style.transitionDurationMilliseconds 500
-            ]
+            style.padding 10
+            style.transitionProperty("background-color", "color")
+            style.transitionDurationMilliseconds 500
+
             if hovered then
                style.backgroundColor.lightBlue
                style.color.black
@@ -325,12 +323,12 @@ module ElmishCounter =
                 prop.onClick (fun _ -> dispatch Increment)
                 prop.text "Increment"
             ]
-            
+
             Html.button [
                 prop.onClick (fun _ -> dispatch Decrement)
                 prop.text "Decrement"
             ]
-            
+
             Html.h1 state.Count
         ]
     )
@@ -359,6 +357,7 @@ let samples = [
     "recharts-bar-positiveandnagative", Samples.Recharts.BarCharts.PostiveAndNegative.chart()
     "recharts-line-biaxial", Samples.Recharts.LineCharts.BiaxialLineChart.chart()
     "recharts-pie-twolevel", Samples.Recharts.PieCharts.TwoLevelPieChart.chart()
+    "recharts-pie-singleangle", Samples.Recharts.PieCharts.SingleAngle.chart()
     "pigeonmaps-map-basic", Samples.PigeonMaps.pigeonMap
 ]
 
@@ -598,6 +597,7 @@ let sidebar (state: State) dispatch =
 
                 nestedMenuList "Pie Charts" [
                     menuItem "Two Level Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ]
+                    menuItem "Single Angle Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.SingleAngle ]
                 ]
             ]
         ]
@@ -642,6 +642,7 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.BarCharts; Urls.PositiveAndNegative ] -> loadMarkdown [ "Recharts" ; "BarCharts"; "PositiveAndNegative.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "BiaxialLineChart.md" ]
     | [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "TwoLevelPieChart.md" ]
+    | [ Urls.Recharts; Urls.PieCharts; Urls.SingleAngle ] -> loadMarkdown [ "Recharts"; "PieCharts"; "SingleAngle.md" ]
     | [ Urls.PigeonMaps; Urls.Overview ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
     | [ Urls.PigeonMaps; Urls.Installation ] -> loadMarkdown [ "PigeonMaps"; "Installation.md" ]
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
