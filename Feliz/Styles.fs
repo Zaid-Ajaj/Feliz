@@ -1233,6 +1233,83 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "display" "inherit"
 
     [<Erase>]
+    /// The cursor CSS property sets the type of cursor, if any, to show when the mouse pointer is over an element. 
+    /// See documentation at https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
+    type cursor = 
+        /// The User Agent will determine the cursor to display based on the current context. E.g., equivalent to text when hovering text.
+        static member inline auto = Interop.mkStyle "cursor" "auto"
+        /// The cursor indicates an alias of something is to be created
+        static member inline alias = Interop.mkStyle "cursor" "alias"
+        /// The platform-dependent default cursor. Typically an arrow.
+        static member inline defaultCursor = Interop.mkStyle "cursor" "default"
+        /// No cursor is rendered.
+        static member inline none = Interop.mkStyle "cursor" "none"
+        /// A context menu is available.
+        static member inline contextMenu = Interop.mkStyle "cursor" "context-menu"
+        /// Help information is available.
+        static member inline help = Interop.mkStyle "cursor" "help"
+        /// The cursor is a pointer that indicates a link. Typically an image of a pointing hand.
+        static member inline pointer = Interop.mkStyle "cursor" "pointer"
+        /// The program is busy in the background, but the user can still interact with the interface (in contrast to `wait`). 
+        static member inline progress = Interop.mkStyle "cursor" "progress"
+        /// The program is busy, and the user can't interact with the interface (in contrast to progress). Sometimes an image of an hourglass or a watch.
+        static member inline wait = Interop.mkStyle "cursor" "wait"
+        /// The table cell or set of cells can be selected.
+        static member inline cell = Interop.mkStyle "cursor" "cell"
+        /// Cross cursor, often used to indicate selection in a bitmap.
+        static member inline crosshair = Interop.mkStyle "cursor" "crosshair"
+        /// The text can be selected. Typically the shape of an I-beam.
+        static member inline text = Interop.mkStyle "cursor" "text"
+        /// The vertical text can be selected. Typically the shape of a sideways I-beam.
+        static member inline verticalText = Interop.mkStyle "cursor" "vertical-text"
+        /// Something is to be copied.
+        static member inline copy = Interop.mkStyle "cursor" "copy"
+        /// Something is to be moved.
+        static member inline move = Interop.mkStyle "cursor" "move"
+        /// An item may not be dropped at the current location. On Windows and Mac OS X, `no-drop` is the same as `not-allowed`.
+        static member inline noDrop = Interop.mkStyle "cursor" "no-drop"
+        /// The requested action will not be carried out.
+        static member inline notAllowed = Interop.mkStyle "cursor" "not-allowed"
+        /// Something can be grabbed (dragged to be moved).
+        static member inline grab = Interop.mkStyle "cursor" "grab"
+        /// Something is being grabbed (dragged to be moved).
+        static member inline grabbing = Interop.mkStyle "cursor" "grabbing"
+        /// Something can be scrolled in any direction (panned).
+        static member inline allScroll = Interop.mkStyle "cursor" "all-scroll"
+        /// The item/column can be resized horizontally. Often rendered as arrows pointing left and right with a vertical bar separating them.
+        static member inline columnResize = Interop.mkStyle "cursor" "col-resize"
+        /// The item/row can be resized vertically. Often rendered as arrows pointing up and down with a horizontal bar separating them.
+        static member inline rowResize = Interop.mkStyle "cursor" "row-resize"
+        /// Directional resize arrow
+        static member inline northResize = Interop.mkStyle "cursor" "n-resize"
+        /// Directional resize arrow
+        static member inline eastResize = Interop.mkStyle "cursor" "e-resize"
+        /// Directional resize arrow
+        static member inline southResize = Interop.mkStyle "cursor" "s-resize"
+        /// Directional resize arrow
+        static member inline westResize = Interop.mkStyle "cursor" "w-resize"
+        /// Directional resize arrow
+        static member inline northEastResize = Interop.mkStyle "cursor" "ne-resize"
+        /// Directional resize arrow
+        static member inline northWestResize = Interop.mkStyle "cursor" "nw-resize"
+        /// Directional resize arrow
+        static member inline southEastResie = Interop.mkStyle "cursor" "se-resize"
+        /// Directional resize arrow
+        static member inline southWestResize = Interop.mkStyle "cursor" "sw-resize"
+        /// Directional resize arrow
+        static member inline eastWestResize = Interop.mkStyle "cursor" "ew-resize"
+        /// Directional resize arrow
+        static member inline northSouthResize = Interop.mkStyle "cursor" "ns-resize"
+        /// Directional resize arrow
+        static member inline northEastSouthWestResize = Interop.mkStyle "cursor" "nesw-resize"
+        /// Directional resize arrow
+        static member inline northWestSouthEastResize = Interop.mkStyle "cursor" "nwse-resize"
+        /// Something can be zoomed (magnified) in
+        static member inline zoomIn = Interop.mkStyle "cursor" "zoom-in"
+        /// Something can be zoomed out
+        static member inline zoomOut = Interop.mkStyle "cursor" "zoom-out"
+
+    [<Erase>]
     type backgroundPosition =
         /// The background image will scroll with the page. This is default.
         static member inline scroll = Interop.mkStyle "backgroundPosition" "scroll"
