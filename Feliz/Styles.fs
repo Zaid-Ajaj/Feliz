@@ -1233,9 +1233,9 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "display" "inherit"
 
     [<Erase>]
-    /// The cursor CSS property sets the type of cursor, if any, to show when the mouse pointer is over an element. 
+    /// The cursor CSS property sets the type of cursor, if any, to show when the mouse pointer is over an element.
     /// See documentation at https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
-    type cursor = 
+    type cursor =
         /// The User Agent will determine the cursor to display based on the current context. E.g., equivalent to text when hovering text.
         static member inline auto = Interop.mkStyle "cursor" "auto"
         /// The cursor indicates an alias of something is to be created
@@ -1250,7 +1250,7 @@ module style =
         static member inline help = Interop.mkStyle "cursor" "help"
         /// The cursor is a pointer that indicates a link. Typically an image of a pointing hand.
         static member inline pointer = Interop.mkStyle "cursor" "pointer"
-        /// The program is busy in the background, but the user can still interact with the interface (in contrast to `wait`). 
+        /// The program is busy in the background, but the user can still interact with the interface (in contrast to `wait`).
         static member inline progress = Interop.mkStyle "cursor" "progress"
         /// The program is busy, and the user can't interact with the interface (in contrast to progress). Sometimes an image of an hourglass or a watch.
         static member inline wait = Interop.mkStyle "cursor" "wait"
@@ -1293,7 +1293,7 @@ module style =
         /// Directional resize arrow
         static member inline northWestResize = Interop.mkStyle "cursor" "nw-resize"
         /// Directional resize arrow
-        static member inline southEastResie = Interop.mkStyle "cursor" "se-resize"
+        static member inline southEastResize = Interop.mkStyle "cursor" "se-resize"
         /// Directional resize arrow
         static member inline southWestResize = Interop.mkStyle "cursor" "sw-resize"
         /// Directional resize arrow
