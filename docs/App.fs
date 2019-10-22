@@ -13,6 +13,7 @@ open Fable.SimpleHttp
 open Fable.Core.Experimental
 open Zanaptak.TypedCssClasses
 open System.Collections.Generic
+open System
 
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
 type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
@@ -203,13 +204,16 @@ let fragmentTests =
     ]
 
 // Re-use state internally using React hooks
-let animationsOnHover' = React.functionComponent <| fun (props: {| title: string |}) ->
+let animationsOnHover' = React.functionComponent <| fun (props: {| content: ReactElement |}) ->
     let (hovered, setHovered) = React.useState(false)
     Html.div [
         prop.style [
             style.padding 10
-            style.transitionProperty("background-color", "color")
-            style.transitionDurationMilliseconds 500
+            style.transitionDuration (TimeSpan.FromMilliseconds 1000.0)
+            style.transitionProperty [
+                transitionProperty.backgroundColor
+                transitionProperty.color
+            ]
 
             if hovered then
                style.backgroundColor.lightBlue
@@ -220,12 +224,15 @@ let animationsOnHover' = React.functionComponent <| fun (props: {| title: string
         ]
         prop.onMouseEnter (fun _ -> setHovered(true))
         prop.onMouseLeave (fun _ -> setHovered(false))
-        prop.children [
-            Html.h2 props.title
-        ]
+        prop.children [ props.content ]
     ]
 
-let animationsOnHover title = animationsOnHover' {| title = title |}
+let animationsOnHover content = animationsOnHover' {| content = Html.fragment content |}
+let animationSample =
+    Html.div [
+        animationsOnHover [ Html.span "Hover me!" ]
+        animationsOnHover [ Html.p "So smooth" ]
+    ]
 
 module ReactComponents =
     type Greeting = { Name: string option }
@@ -290,13 +297,6 @@ let ticker =
         Html.h1 tick
     )
 
-let styledComponentsTests =
-    Html.div [
-       animationsOnHover "Hello"
-       animationsOnHover "From"
-       animationsOnHover "Fable"
-    ]
-
 let hooksAreAwesome =
     Html.fragment [
         counter()
@@ -339,6 +339,7 @@ module ElmishCounter =
 let samples = [
     "feliz-elmish-counter", ElmishCounter.app()
     "simple-components", ReactComponents.simple
+    "hover-animations", animationSample
     "stateful-counter", ReactComponents.counter()
     "recharts-main", Samples.Recharts.AreaCharts.Main.chart()
     "recharts-area-simpleareachart", Samples.Recharts.AreaCharts.SimpleAreaChart.chart()
@@ -550,6 +551,7 @@ let sidebar (state: State) dispatch =
                 nestedMenuList "React" [
                     menuItem "Components" [ Urls.Feliz; Urls.React; Urls.Components ]
                     menuItem "Standalone" [ Urls.Feliz; Urls.React; Urls.Standalone ]
+                    menuItem "Hover Animations" [ Urls.Feliz; Urls.React; Urls.HoverAnimations ]
                     menuItem "Common Pitfalls" [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ]
                 ]
 
@@ -617,6 +619,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.Aliasing ] -> loadMarkdown [ "Feliz"; "AliasingProp.md" ]
     | [ Urls.Feliz; Urls.ConditionalStyling ] -> loadMarkdown [ "Feliz"; "ConditionalStyling.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Standalone ] -> loadMarkdown [ "Feliz"; "React"; "Standalone.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.HoverAnimations ] -> loadMarkdown [ "Feliz"; "React"; "HoverAnimations.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Components ] -> loadMarkdown [ "Feliz"; "React"; "Components.md" ]
     | [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ] -> loadMarkdown [ "Feliz"; "React"; "CommonPitfalls.md" ]
     | [ Urls.Ecosystem; Urls.Router ] -> loadMarkdown [ readme "Zaid-Ajaj" "Feliz.Router" ]

@@ -39,3 +39,5 @@ type IBackgroundRepeat = interface end
 type IBackgroundClip = interface end
 
 type ICssUnit = interface end
+
+type ITransitionProperty = interface end

@@ -14,7 +14,8 @@ let pigeonMap = PigeonMaps.map [
             marker.offsetTop 30
             marker.render (fun marker -> [
                 Html.i [
-                    if marker.hovered then prop.style [ style.color.red; style.cursor "pointer" ]
+                    if marker.hovered 
+                    then prop.style [ style.color.red; style.cursor.pointer ]
                     prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
                 ]
             ])

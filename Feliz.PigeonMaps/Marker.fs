@@ -53,3 +53,11 @@ type marker<'t> =
         Interop.mkAttr "onMouseOut" handler
     static member inline onContextMenu (handler: MarkerClickEventArgs<'t> -> unit) =
         Interop.mkAttr "onContextMenu" handler
+    static member inline render (handler: IMarkerRenderProperties -> Fable.React.ReactElement) =
+        Interop.mkAttr "render" handler
+    static member inline render (handler: IMarkerRenderProperties -> Fable.React.ReactElement list) =
+        Interop.mkAttr "render" (handler >> Html.fragment)
+    static member inline offsetLeft (offset: int) =
+        Interop.mkAttr "offsetLeft" offset
+    static member inline offsetTop (offset: int) =
+        Interop.mkAttr "offsetTop" offset

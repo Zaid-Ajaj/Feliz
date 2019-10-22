@@ -1,5 +1,4 @@
-import React from 'react'
-import { Component } from 'react'
+import { Component, createElement } from 'react'
 
 class Marker extends Component {
 
@@ -59,7 +58,7 @@ class Marker extends Component {
         }
 
         return (
-            React.createElement('div', {
+            createElement('div', {
                 style: style,
                 onClick: this.handleClick.bind(this),
                 onContextMenu: this.handleContextMenu.bind(this),
@@ -73,5 +72,5 @@ class Marker extends Component {
 
 
 export const createMarker = function (extraProps) {
-    return React.createElement(Marker, { ...extraProps })
+    return createElement(Marker, { ...extraProps })
 }

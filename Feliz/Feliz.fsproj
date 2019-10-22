@@ -6,7 +6,7 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>0.62.0</Version>
+        <Version>0.63.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
@@ -26,6 +26,7 @@
         <Compile Include="BorderStyle.fs" />
         <Compile Include="TextDecorationStyle.fs" />
         <Compile Include="TextDecorationLine.fs" />
+        <Compile Include="TransitionProperty.fs" />
         <Compile Include="Styles.fs" />
         <Compile Include="Html.fs" />
         <Compile Include="React.fs" />

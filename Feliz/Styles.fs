@@ -248,6 +248,8 @@ type style =
             (unbox<string> right) + "px"
         )
 
+    static member inline transitionDuration(timespan: TimeSpan) =
+        Interop.mkStyle "transitionDuration" (unbox<string> timespan.TotalMilliseconds + "ms")
     static member inline transitionDurationSeconds(n: float) =
         Interop.mkStyle "transitionDuration" ((unbox<string> n) + "s")
     static member inline transitionDurationMilliseconds(n: float) =
@@ -260,10 +262,14 @@ type style =
         Interop.mkStyle "transitionDelay" ((unbox<string> n) + "s")
     static member inline transitionDelayMilliseconds(n: int) =
         Interop.mkStyle "transitionDelay" ((unbox<string> n) + "ms")
+    static member inline transitionProperty ([<ParamArray>] properties: ITransitionProperty[]) =
+        Interop.mkStyle "transitionProperty" (String.concat "," (unbox<string[]> properties))
+    static member inline transitionProperty (properties: ITransitionProperty list) =
+        Interop.mkStyle "transitionProperty" (String.concat "," (unbox<string list> properties))
+    static member inline transitionProperty (property: ITransitionProperty) =
+        Interop.mkStyle "transitionProperty" property
     static member inline transitionProperty (property: string) =
         Interop.mkStyle "transitionProperty" property
-    static member inline transitionProperty ([<ParamArray>] properties: string[]) =
-        Interop.mkStyle "transitionProperty" (String.concat "," properties)
     static member inline padding(top: int, right: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
@@ -624,7 +630,6 @@ module style =
         static member inline initial = Interop.mkStyle "flexWrap" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "flexWrap" "inherit"
-
 
     [<Erase>]
     type fontKerning =
