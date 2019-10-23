@@ -10,15 +10,20 @@ type bar =
     static member inline name(value: string) = Interop.mkAttr "name" value
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
-    static member inline stroke (value: string) = Interop.mkAttr "stroke" value
-    static member inline fill (value: string) = Interop.mkAttr "fill" value
+    static member inline stroke (color: string) = Interop.mkAttr "stroke" color
+    static member inline strokeWidth (width: int) = Interop.mkAttr "strokeWidth" width
+    static member inline strokeOpacity (opacity: int) = Interop.mkAttr "strokeOpacity" opacity
+    static member inline strokeOpacity (opacity: float) = Interop.mkAttr "strokeOpacity" opacity
+    static member inline fill (color: string) = Interop.mkAttr "fill" color
+    static member inline fillOpacity (value: int) = Interop.mkAttr "fillOpacity" value
+    static member inline fillOpacity (value: float) = Interop.mkAttr "fillOpacity" value
     static member inline stackId (value: string) = Interop.mkAttr "stackId" value
     static member inline xAxisId (value: string) = Interop.mkAttr "xAxisId" value
     static member inline yAxisId (value: string) = Interop.mkAttr "yAxisId" value
     static member inline xAxisId (value: int) = Interop.mkAttr "xAxisId" value
     static member inline yAxisId (value: int) = Interop.mkAttr "yAxisId" value
-    static member inline children (children: ICellElement list) = prop.children (unbox<Fable.React.ReactElement list> children)
-    static member inline children (children: ICellElement seq) = prop.children (unbox<Fable.React.ReactElement seq> children)
+    static member inline children (children: ReactElement list) = prop.children children
+    static member inline children (children: ReactElement seq) = prop.children children
 
 
 module bar =

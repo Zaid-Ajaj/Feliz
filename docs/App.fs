@@ -68,6 +68,8 @@ let update msg state =
     style.margin 10
     style.backgroundRepeat.repeatX
     style.backgroundPosition.fixedNoScroll
+    style.color.blue
+    style.cursor.pointer
     style.margin (length.px 10)
     style.margin(10, 10, 10, 20)
     style.margin(10, 10, 10)

@@ -10,10 +10,13 @@ type brush =
     static member inline dataKey (key: string) = Interop.mkAttr "dataKey" key
     static member inline dataKey (key: int) = Interop.mkAttr "dataKey" key
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
-    /// The stroke color of the brush
     static member inline stroke (color: string) = Interop.mkAttr "stroke" color
-    /// The fill color of the brush
+    static member inline strokeWidth (width: int) = Interop.mkAttr "strokeWidth" width
+    static member inline strokeOpacity (opacity: int) = Interop.mkAttr "strokeOpacity" opacity
+    static member inline strokeOpacity (opacity: float) = Interop.mkAttr "strokeOpacity" opacity
     static member inline fill (color: string) = Interop.mkAttr "fill" color
+    static member inline fillOpacity (value: int) = Interop.mkAttr "fillOpacity" value
+    static member inline fillOpacity (value: float) = Interop.mkAttr "fillOpacity" value
     /// The height of brush. Default is 40.
     static member inline height (value: int) = Interop.mkAttr "height" value
     /// The width of brush.

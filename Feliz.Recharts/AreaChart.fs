@@ -22,7 +22,7 @@ type areaChart =
     static member inline baseValue (value: int) = Interop.mkAttr "baseValue" value
     /// The base value of area.
     static member inline baseValue (value: float) = Interop.mkAttr "baseValue" value
-    static member inline children (elements: Fable.React.ReactElement list) = prop.children elements
+    static member inline children (elements: ReactElement list) = prop.children elements
     /// The sizes of whitespace around the container.
     ///
     /// Default value `{ top: 5, right: 5, bottom: 5, left: 5 }`

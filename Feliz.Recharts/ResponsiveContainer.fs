@@ -1,9 +1,7 @@
 namespace Feliz.Recharts
 
-open System
-open Feliz
 open Fable.Core
-open Fable.Core.JsInterop
+open Feliz
 open Feliz.Styles
 
 [<Erase>]
@@ -25,22 +23,22 @@ type responsiveContainer =
     /// width / height. If specified, the height will be calculated by width / aspect.
     static member inline aspect (value: int) = Interop.mkAttr "aspect" value
     /// The chart that should become responsive
-    static member inline chart (chart: Fable.React.ReactElement) : IReactProperty = unbox ("children", chart)
+    static member inline chart (chart: ReactElement) : IReactProperty = unbox ("children", chart)
     /// The minimum width of the container
-    static member inline minWidth (value: int) = Interop.mkStyle "minWidth" value
+    static member inline minWidth (value: int) = Interop.mkAttr "minWidth" value
     /// The minimum width of the container
-    static member inline minWidth (value: float) = Interop.mkStyle "minWidth" value
+    static member inline minWidth (value: float) = Interop.mkAttr "minWidth" value
     /// The minimum width of the container
-    static member inline minWidth (value: ICssUnit) = Interop.mkStyle "minWidth" value
+    static member inline minWidth (value: ICssUnit) = Interop.mkAttr "minWidth" value
     /// The minimum height of the container.
-    static member inline minHeight (value: int) = Interop.mkStyle "minHeight" value
+    static member inline minHeight (value: int) = Interop.mkAttr "minHeight" value
     /// The minimum height of the container.
-    static member inline minHeight (value: float) = Interop.mkStyle "minHeight" value
+    static member inline minHeight (value: float) = Interop.mkAttr "minHeight" value
     /// The minimum height of the container.
-    static member inline minHeight (value: ICssUnit) = Interop.mkStyle "minHeight" value
+    static member inline minHeight (value: ICssUnit) = Interop.mkAttr "minHeight" value
     /// If specified a positive number, debounced function will be used to handle the resize event.
-    static member inline debounce (value: int) = Interop.mkStyle "debounce" value
+    static member inline debounce (value: int) = Interop.mkAttr "debounce" value
     /// If specified a positive number, debounced function will be used to handle the resize event.
-    static member inline debounce (value: float) = Interop.mkStyle "debounce" value
+    static member inline debounce (value: float) = Interop.mkAttr "debounce" value
     /// If specified a positive number, debounced function will be used to handle the resize event.
-    static member inline debounce (value: ICssUnit) = Interop.mkStyle "debounce" value
+    static member inline debounce (value: ICssUnit) = Interop.mkAttr "debounce" value

@@ -9,10 +9,13 @@ open Fable.Core.JsInterop
 type area =
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
-    static member inline stroke (value: string) = Interop.mkAttr "stroke" value
-    static member inline fill (value: string) = Interop.mkAttr "fill" value
-    static member inline fillOpacity (value: float) = Interop.mkAttr "fillOpacity" value
+    static member inline stroke (color: string) = Interop.mkAttr "stroke" color
+    static member inline strokeWidth (width: int) = Interop.mkAttr "strokeWidth" width
+    static member inline strokeOpacity (opacity: int) = Interop.mkAttr "strokeOpacity" opacity
+    static member inline strokeOpacity (opacity: float) = Interop.mkAttr "strokeOpacity" opacity
+    static member inline fill (color: string) = Interop.mkAttr "fill" color
     static member inline fillOpacity (value: int) = Interop.mkAttr "fillOpacity" value
+    static member inline fillOpacity (value: float) = Interop.mkAttr "fillOpacity" value
     /// Whether to connect a graph area across null points. Default is `false`.
     static member inline connectNulls (value: bool) = Interop.mkAttr "connectNulls" value
     /// The unit of data. This option will be used in tooltip.

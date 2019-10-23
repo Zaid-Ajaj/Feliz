@@ -28,14 +28,14 @@ type line =
     static member inline stepAfter = Interop.mkAttr "type" "stepAfter"
     static member inline monotoneY = Interop.mkAttr "type" "monotoneY"
     static member inline dot(value: bool) = Interop.mkAttr "dot" value
-    static member inline dot(render: IDotProperties<'a> -> Fable.React.ReactElement) = Interop.mkAttr "dot" render
+    static member inline dot(render: IDotProperties<'a> -> ReactElement) = Interop.mkAttr "dot" render
     static member inline activeDot(value: bool) = Interop.mkAttr "activeDot" value
-    static member inline activeDot(render: IDotProperties<'a> -> Fable.React.ReactElement) = Interop.mkAttr "activeDot" render
+    static member inline activeDot(render: IDotProperties<'a> -> ReactElement) = Interop.mkAttr "activeDot" render
     static member inline label(value: string) = Interop.mkAttr "label" value
     static member inline label(value: int) = Interop.mkAttr "label" value
     static member inline label(value: float) = Interop.mkAttr "label" value
-    static member inline label(value: Fable.React.ReactElement) = Interop.mkAttr "label" value
-    static member inline label(value: ILabelProperties -> Fable.React.ReactElement) = Interop.mkAttr "label" value
+    static member inline label(value: ReactElement) = Interop.mkAttr "label" value
+    static member inline label(value: ILabelProperties -> ReactElement) = Interop.mkAttr "label" value
     /// If set false, animation of area will be disabled.
     static member inline isAnimationActive (value: bool) = Interop.mkAttr "isAnimationActive" value
     /// Specifies when the animation should begin, the unit of this option is ms.

@@ -10,7 +10,13 @@ type pie =
     static member inline name(value: string) = Interop.mkAttr "name" value
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
-    static member inline fill (value: string) = Interop.mkAttr "fill" value
+    static member inline stroke (color: string) = Interop.mkAttr "stroke" color
+    static member inline strokeWidth (width: int) = Interop.mkAttr "strokeWidth" width
+    static member inline strokeOpacity (opacity: int) = Interop.mkAttr "strokeOpacity" opacity
+    static member inline strokeOpacity (opacity: float) = Interop.mkAttr "strokeOpacity" opacity
+    static member inline fill (color: string) = Interop.mkAttr "fill" color
+    static member inline fillOpacity (value: int) = Interop.mkAttr "fillOpacity" value
+    static member inline fillOpacity (value: float) = Interop.mkAttr "fillOpacity" value
     /// The source data, in which each element is an object.
     static member inline data (values: seq<'a>) = Interop.mkAttr "data" (Seq.toArray values)
     /// The source data, in which each element is an object.
@@ -38,9 +44,9 @@ type pie =
     /// The key of each sector's name. Default is `name`.
     static member inline nameKey (value: string) = Interop.mkAttr "nameKey" value
     static member inline label(value: bool) = Interop.mkAttr "label" value
-    static member inline label(value: IPieLabelProperties -> Fable.React.ReactElement) = Interop.mkAttr "label" value
+    static member inline label(value: IPieLabelProperties -> ReactElement) = Interop.mkAttr "label" value
     static member inline labelLine(value: bool) = Interop.mkAttr "labelLine" value
-    static member inline labelLine(value: IPieLabelProperties -> Fable.React.ReactElement) = Interop.mkAttr "labelLine" value
+    static member inline labelLine(value: IPieLabelProperties -> ReactElement) = Interop.mkAttr "labelLine" value
     static member inline activeIndex (value: int) = Interop.mkAttr "activeIndex" value
     static member inline activeIndex (value: int list) = Interop.mkAttr "activeIndex" (List.toArray value)
     static member inline activeIndex (value: int []) = Interop.mkAttr "activeIndex" value
@@ -52,8 +58,9 @@ type pie =
     static member inline animationDuration (value: int) = Interop.mkAttr "animationDuration" value
     /// Specifies the duration of animation. Default is `1500ms`.
     static member inline animationDuration (value: TimeSpan) = Interop.mkAttr "animationDuration" value.TotalMilliseconds
-    static member inline children (children: ICellElement list) = prop.children (unbox<Fable.React.ReactElement list> children)
-    static member inline children (children: ICellElement seq) = prop.children (unbox<Fable.React.ReactElement seq> children)
+    static member inline children (children: ReactElement list) = prop.children children
+    static member inline children (children: ReactElement seq) = prop.children children
+
 module pie =
 
     [<Erase>]

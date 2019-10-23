@@ -1,8 +1,9 @@
 namespace Feliz.Recharts
 
 open Feliz
+open Fable.Core 
 
-[<Fable.Core.Erase>]
+[<Erase>]
 type IDotProperties<'a> =
     abstract cy : float
     abstract cx : float
@@ -17,19 +18,18 @@ type IDotProperties<'a> =
 
 type IAxisDomain = interface end
 
-type ICellElement = interface end
-
-[<Fable.Core.Erase>]
+[<Erase>]
 type domain =
     static member inline min : IAxisDomain = unbox "dataMin"
     static member inline max : IAxisDomain = unbox "dataMax"
     static member inline auto : IAxisDomain = unbox "auto"
     static member inline constant (value: int) : IAxisDomain = unbox value
     static member inline calculate (f: float -> float) : IAxisDomain = unbox f
+    static member inline calculate (f: int -> int) : IAxisDomain = unbox f
     static member inline calculate (f: int -> float) : IAxisDomain = unbox f
     static member inline calculate (f: float -> int) : IAxisDomain = unbox f
 
-[<Fable.Core.Erase>]
+[<Erase>]
 type ILabelProperties =
     abstract index : int
     abstract offset : int
@@ -37,7 +37,7 @@ type ILabelProperties =
     abstract y : float
     abstract value : float
 
-[<Fable.Core.Erase>]
+[<Erase>]
 type IPieLabelProperties =
     abstract cy : float
     abstract cx : float
@@ -47,12 +47,12 @@ type IPieLabelProperties =
     abstract percent : float
     abstract index : int
 
-[<Fable.Core.Erase>]
+[<Erase>]
 type ChartCoordinate =
     abstract x : float
     abstract y : float
 
-[<Fable.Core.Erase>]
+[<Erase>]
 type ChartDataPoint<'payload> =
     abstract payload: 'payload
     abstract color : string
@@ -62,7 +62,7 @@ type ChartDataPoint<'payload> =
     abstract dataKey : string
     abstract name : string
 
-[<Fable.Core.Erase>]
+[<Erase>]
 type ChartMouseEvent<'label, 'payload> =
     abstract activeCoordinate : ChartCoordinate
     abstract activeLabel : 'label

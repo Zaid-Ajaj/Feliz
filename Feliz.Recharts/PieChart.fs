@@ -18,7 +18,7 @@ type pieChart =
     static member inline data (values: 'a list) = Interop.mkAttr "data" (List.toArray values)
     /// The source data, in which each element is an object.
     static member inline data (values: 'a array) = Interop.mkAttr "data" values
-    static member inline children (elements: Fable.React.ReactElement list) = prop.children elements
+    static member inline children (elements: ReactElement list) = prop.children elements
     /// The sizes of whitespace around the container.
     ///
     /// Default value `{ top: 5, right: 5, bottom: 5, left: 5 }`
