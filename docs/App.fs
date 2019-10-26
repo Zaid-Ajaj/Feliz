@@ -361,7 +361,8 @@ let samples = [
     "recharts-line-biaxial", Samples.Recharts.LineCharts.BiaxialLineChart.chart()
     "recharts-pie-twolevel", Samples.Recharts.PieCharts.TwoLevelPieChart.chart()
     "recharts-pie-singleangle", Samples.Recharts.PieCharts.SingleAngle.chart()
-    "pigeonmaps-map-basic", Samples.PigeonMaps.pigeonMap
+    "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
+    "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
 ]
 
 let githubPath (rawPath: string) =

@@ -3,22 +3,67 @@ module Samples.PigeonMaps
 open Feliz
 open Feliz.PigeonMaps
 
-let pigeonMap = PigeonMaps.map [
-    map.center(50.879, 4.6997)
-    map.zoom 12
-    map.height 350
-    map.children [
-        PigeonMaps.marker [
-            marker.anchor(50.879, 4.6997)
-            marker.offsetLeft 15
-            marker.offsetTop 30
-            marker.render (fun marker -> [
-                Html.i [
-                    if marker.hovered 
-                    then prop.style [ style.color.red; style.cursor.pointer ]
-                    prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
-                ]
-            ])
+module Main =
+    let pigeonMap = PigeonMaps.map [
+        map.center(50.879, 4.6997)
+        map.zoom 12
+        map.height 350
+        map.children [
+            PigeonMaps.marker [
+                marker.anchor(50.879, 4.6997)
+                marker.offsetLeft 15
+                marker.offsetTop 30
+                marker.render (fun marker -> [
+                    Html.i [
+                        if marker.hovered
+                        then prop.style [ style.color.red; style.cursor.pointer ]
+                        prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
+                    ]
+                ])
+            ]
         ]
     ]
-]
+
+module DynamicMarkers =
+    type City = {
+        Name: string
+        Latitude: float
+        Longitude: float
+    }
+
+    let cities = [
+        { Name = "Utrecht"; Latitude = 52.090736; Longitude = 5.121420 }
+        { Name = "Nijmegen"; Latitude = 51.812565; Longitude = 5.837226 }
+        { Name = "Amsterdam"; Latitude = 52.370216; Longitude = 4.895168 }
+        { Name = "Rotterdam"; Latitude = 51.924419; Longitude = 4.477733 }
+    ]
+
+    let renderMarker (city: City) clicked =
+        PigeonMaps.marker [
+            marker.anchor(city.Latitude, city.Longitude)
+            marker.offsetLeft 15
+            marker.offsetTop 30
+            marker.render (fun marker -> Html.i [
+                if marker.hovered
+                then prop.style [ style.color.red; style.cursor.pointer ]
+                prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
+                prop.onClick (fun _ -> clicked (city.Latitude, city.Longitude))
+            ])
+        ]
+
+    let initialCenter =
+        cities
+        |> List.tryHead
+        |> Option.map (fun city -> city.Latitude, city.Longitude)
+        |> Option.defaultValue (51.812565, 5.837226)
+
+    let citiesMap = React.functionComponent <| fun () ->
+        let (center, setCenter) = React.useState initialCenter
+        let (zoom, setZoom) = React.useState 8
+        PigeonMaps.map [
+            map.center center
+            map.zoom zoom
+            map.height 350
+            map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter (args.center))
+            map.children [ for city in cities -> renderMarker city setCenter ]
+        ]
