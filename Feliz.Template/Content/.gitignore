@@ -200,3 +200,5 @@ obj
 bin
 out
 .fable
+.vs
+.ionide
