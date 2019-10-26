@@ -66,7 +66,8 @@ Target "Start" <| fun _ ->
 
 let publish projectPath = fun () ->
     [ projectPath </> "bin"
-      projectPath </> "obj" ] |> CleanDirs
+      projectPath </> "obj"
+      projectPath </> "Content" </> "node_modules" ] |> CleanDirs
     run dotnetCli "restore --no-cache" projectPath
     run dotnetCli "pack -c Release" projectPath
     let nugetKey =
