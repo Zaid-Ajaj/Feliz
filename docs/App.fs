@@ -544,6 +544,7 @@ let sidebar (state: State) dispatch =
             menuList [
                 menuItem "Overview" [ ]
                 menuItem "Installation" [ Urls.Feliz; Urls.Installation ]
+                menuItem "Project Template" [ Urls.Feliz; Urls.ProjectTemplate ]
                 menuItem "Syntax" [ Urls.Feliz; Urls.Syntax ]
                 menuItem "Type-Safe CSS" [ Urls.Feliz; Urls.TypeSafeCss ]
                 menuItem "Conditional Styling" [ Urls.Feliz; Urls.ConditionalStyling ]
@@ -613,6 +614,7 @@ let content state dispatch =
     match state.CurrentPath with
     | [ ] -> loadMarkdown [ "Feliz"; "README.md" ]
     | [ Urls.Feliz; Urls.Overview; ] -> loadMarkdown [ "Feliz"; "README.md" ]
+    | [ Urls.Feliz; Urls.ProjectTemplate ] -> loadMarkdown [ "Feliz"; "ProjectTemplate.md" ]
     | [ Urls.Feliz; Urls.Installation ] -> loadMarkdown [ "Feliz"; "Installation.md" ]
     | [ Urls.Feliz; Urls.ElmishCounter ] -> loadMarkdown [ "Feliz"; "ElmishCounter.md" ]
     | [ Urls.Feliz; Urls.Contributing ] -> loadMarkdown [ "Feliz"; "Contributing.md" ]

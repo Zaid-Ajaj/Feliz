@@ -1,0 +1,18 @@
+{
+    "author": "Zaid Ajaj",
+    "classifications": [
+        "Fable",
+        "Elmish",
+        "React"
+    ],
+    "name": "Feliz template",
+    "tags": {
+        "language": "F#",
+        "type": "project"
+    },
+    "identity": "Fable.Template",
+    "groupIdentity": "Feliz",
+    "shortName": "feliz",
+    "sourceName": "Fable.Template",
+    "preferNameDirectory": true
+}
