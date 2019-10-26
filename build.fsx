@@ -85,6 +85,7 @@ Target "PublishFeliz" (publish libPath)
 
 Target "PublishRecharts" (publish "./Feliz.Recharts")
 Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")
+Target "PublishTemplate" (publish "./Feliz.Template")
 
 Target "Compile" <| fun _ ->
     run npmTool "run build" "."

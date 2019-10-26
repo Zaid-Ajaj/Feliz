@@ -15,7 +15,8 @@ node_modules/
 *.userprefs
 *.dll.mdb
 *.exe.mdb
-
+tests-js
+deploy
 # Build results
 
 [Dd]ebug/
@@ -174,6 +175,7 @@ packages/
 docs/output/
 
 # Temp folder used for publishing docs
+temp*/
 
 # Test results produced by build
 TestResults.xml
@@ -193,7 +195,8 @@ docs/tools/FSharp.Formatting.svclog
 .ionide.debug
 *.bak
 project.lock.json
-bundle.js
-bundle.js.map
-.ionide
-dist
+deploy/
+obj
+bin
+out
+.fable
