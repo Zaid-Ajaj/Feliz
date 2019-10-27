@@ -30,11 +30,10 @@ type React =
         { new IDisposable with member this.Dispose() = dispose() }
     /// The `useEffect` hook that creates an effect for React function components.
     static member useEffect(effect: unit -> unit) =
-        ReactInterop.useEffectWithDeps
+        ReactInterop.useEffect
             (fun _ ->
                 effect()
                 React.createDisposable(ignore))
-            [| |]
     static member functionComponent(render: 'props -> Fable.React.ReactElement) =
         Fable.React.FunctionComponent.Of(render=render)
     static member functionComponent(name: string, render: 'props -> Fable.React.ReactElement) =
