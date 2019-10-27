@@ -1,10 +1,12 @@
 namespace Feliz.Popover
 
 open Feliz
+open Fable.Core
 open Fable.Core.JsInterop
 
 type IPopoverProperty = interface end
 
+[<Erase>]
 type popover =
     /// The popover content.
     static member inline body (content: ReactElement list) =
@@ -39,12 +41,14 @@ type popover =
     static member inline children (content: ReactElement) =
         unbox<IPopoverProperty> ("children", content)
 
+[<Erase>]
 type Popover =
     static member inline popover (properties: IPopoverProperty list) =
         Interop.reactApi.createElement(importDefault "react-popover", createObj !!properties)
 
 module popover =
     /// Sets a preference of where to position the Popover. Only useful to specify placement in case of multiple available fits. Defaults to `auto`.
+    [<Erase>]
     type preferPlace =
         /// Prefer an explicit side.
         static member inline above = unbox<IPopoverProperty> ("preferPlace", "above")
@@ -66,6 +70,7 @@ module popover =
         static member inline auto = unbox<IPopoverProperty> ("preferPlace", null)
 
     /// Like `preferPlace` except that the given place is a requirement. The resolver becomes scoped or disabled. It is scoped if the place is an orientation or order but disabled if it is a side. For example place: "row" scopes the resolver to above or below placement but place: "above" removes any need for the resolver.
+    [<Erase>]
     type place =
         /// Prefer an explicit side.
         static member inline above = unbox<IPopoverProperty> ("place", "above")

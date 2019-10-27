@@ -36,6 +36,6 @@ type React =
                 React.createDisposable(ignore))
             [| |]
     static member functionComponent(render: 'props -> Fable.React.ReactElement) =
-        Fable.React.FunctionComponent.Of(render=render, memoizeWith=Fable.React.Helpers.memoEqualsButFunctions)
+        Fable.React.FunctionComponent.Of(render=render)
     static member functionComponent(name: string, render: 'props -> Fable.React.ReactElement) =
-        Fable.React.FunctionComponent.Of(displayName=name, render=render, memoizeWith=Fable.React.Helpers.memoEqualsButFunctions)
+        Fable.React.FunctionComponent.Of(displayName=name, render=render)

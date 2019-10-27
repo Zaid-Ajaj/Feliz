@@ -142,10 +142,11 @@ module MarkerOverlays =
 
     let citiesMap = React.functionComponent <| fun () ->
         let (zoom, setZoom) = React.useState 8
+        let (center, setCenter) = React.useState initialCenter
         PigeonMaps.map [
-            map.center initialCenter
+            map.center center
             map.zoom zoom
             map.height 350
-            map.onBoundsChanged (fun args -> setZoom (int args.zoom))
+            map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter args.center)
             map.children [ for city in cities -> renderMarker city ]
         ]
