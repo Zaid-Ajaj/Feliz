@@ -363,6 +363,8 @@ let samples = [
     "recharts-pie-singleangle", Samples.Recharts.PieCharts.SingleAngle.chart()
     "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
+    "pigeonmaps-map-popover", Samples.PigeonMaps.MarkerOverlays.citiesMap()
+    "popover-basic-sample", Samples.Popover.Basic.sample
 ]
 
 let githubPath (rawPath: string) =
@@ -565,8 +567,10 @@ let sidebar (state: State) dispatch =
                     menuItem "Feliz.PigeonMaps" [ Urls.Ecosystem; Urls.PigeonMaps ]
                     menuItem "Feliz.MaterialUI" [ Urls.Ecosystem; Urls.Mui ]
                     menuItem "Feliz.Plotly" [ Urls.Ecosystem; Urls.Plotly ]
+                    menuItem "Feliz.Popover" [ Urls.Ecosystem; Urls.Popover ]
                 ]
             ]
+
             menuLabel "Feliz.PigeonMaps"
             menuList [
                 menuItem "Overview" [ Urls.PigeonMaps; Urls.Overview ]
@@ -632,6 +636,7 @@ let content state dispatch =
     | [ Urls.Ecosystem; Urls.Plotly ] -> loadMarkdown [ readme "Shmew" "Feliz.Plotly" ]
     | [ Urls.Ecosystem; Urls.Recharts ] -> loadMarkdown [ "Recharts"; "README.md" ]
     | [ Urls.Ecosystem; Urls.PigeonMaps ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
+    | [ Urls.Ecosystem; Urls.Popover ] -> loadMarkdown [ "Popover"; "README.md" ]
     | [ Urls.Recharts; Urls.Overview ] -> loadMarkdown [ "Recharts"; "README.md" ]
     | [ Urls.Recharts; Urls.Installation ] -> loadMarkdown [ "Recharts"; "Installation.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "SimpleAreaChart.md" ]

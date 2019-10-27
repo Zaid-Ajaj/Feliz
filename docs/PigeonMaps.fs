@@ -67,3 +67,85 @@ module DynamicMarkers =
             map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter (args.center))
             map.children [ for city in cities -> renderMarker city setCenter ]
         ]
+
+module MarkerOverlays =
+
+    open Feliz.Popover
+
+    type City = {
+        Name: string
+        Latitude: float
+        Longitude: float
+    }
+
+    let cities = [
+        { Name = "Utrecht"; Latitude = 52.090736; Longitude = 5.121420 }
+        { Name = "Nijmegen"; Latitude = 51.812565; Longitude = 5.837226 }
+        { Name = "Amsterdam"; Latitude = 52.370216; Longitude = 4.895168 }
+        { Name = "Rotterdam"; Latitude = 51.924419; Longitude = 4.477733 }
+    ]
+
+    type MarkerProps = {
+        City: City
+        Hovered: bool
+    }
+
+    let markerWithPopover = React.functionComponent <| fun (marker: MarkerProps) ->
+        let (popoverOpen, toggleOpen) = React.useState false
+        Popover.popover [
+            popover.body [
+                Html.div [
+                    prop.text marker.City.Name
+                    prop.style [
+                        style.backgroundColor.white
+                        style.padding 20
+                        style.borderRadius 10
+                        style.boxShadow(0, 0, 10, colors.black)
+                    ]
+                ]
+            ]
+
+            popover.isOpen popoverOpen
+            popover.disableTip
+            popover.onOuterAction (fun _ -> toggleOpen(false))
+            popover.children [
+                Html.i [
+                    prop.key marker.City.Name
+                    prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
+                    prop.onClick (fun _ -> toggleOpen(not popoverOpen))
+                    prop.style [
+                        if marker.Hovered then style.cursor.pointer
+                        if popoverOpen then style.color.red
+                    ]
+                ]
+            ]
+        ]
+
+    let renderMarker city =
+        PigeonMaps.marker [
+            marker.anchor(city.Latitude, city.Longitude)
+            marker.offsetLeft 15
+            marker.offsetTop 30
+            marker.render (fun marker -> [
+                markerWithPopover {
+                    City = city
+                    Hovered = marker.hovered
+                }
+            ])
+        ]
+
+    let initialCenter =
+        cities
+        |> List.tryHead
+        |> Option.map (fun city -> city.Latitude, city.Longitude)
+        |> Option.defaultValue (51.812565, 5.837226)
+
+    let citiesMap = React.functionComponent <| fun () ->
+        let (zoom, setZoom) = React.useState 8
+        PigeonMaps.map [
+            map.center initialCenter
+            map.zoom zoom
+            map.height 350
+            map.onBoundsChanged (fun args -> setZoom (int args.zoom))
+            map.children [ for city in cities -> renderMarker city ]
+        ]

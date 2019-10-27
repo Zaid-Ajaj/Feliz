@@ -5,20 +5,6 @@ open Fable.Core
 open Fable.Core.JsInterop
 
 [<Erase>]
-type MarkerClickEventArgs =
-    abstract anchor : float * float
-
-[<Erase>]
-type MarkerClickEventArgs<'t> =
-    abstract anchor : float * float
-    abstract payload: 't
-
-[<Erase>]
-type IMarkerRenderProperties =
-    abstract anchor : float * float
-    abstract hovered : bool
-
-[<Erase>]
 type marker =
     static member inline anchor(latitude: float, longitude: float) =
         Interop.mkAttr "anchor" [| latitude; longitude |]

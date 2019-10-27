@@ -47,7 +47,15 @@ let cleanCacheDirs() =
     [ testsPath </> "bin"
       testsPath </> "obj"
       libPath </> "bin"
-      libPath </> "obj" ]
+      libPath </> "obj"
+      "Feliz.Popover" </> "bin"
+      "Feliz.Popover" </> "obj"
+      "Feliz.Markdown" </> "bin"
+      "Feliz.Markdown" </> "obj"
+      "Feliz.PigeonMaps" </> "bin"
+      "Feliz.PigeonMaps" </> "obj"
+      "Feliz.Template" </> "bin"
+      "Feliz.Template" </> "obj" ]
     |> CleanDirs
 
 Target "Clean" <| fun _ ->
@@ -83,11 +91,11 @@ let publish projectPath = fun () ->
     run dotnetCli pushCmd projectPath
 
 Target "PublishFeliz" (publish libPath)
-
 Target "PublishRecharts" (publish "./Feliz.Recharts")
 Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")
 Target "PublishTemplate" (publish "./Feliz.Template")
 Target "PublishMarkdown" (publish "./Feliz.Markdown")
+Target "PublishPopover" (publish "./Feliz.Popover")
 
 Target "Compile" <| fun _ ->
     run npmTool "run build" "."

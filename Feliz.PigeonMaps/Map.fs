@@ -5,26 +5,6 @@ open Fable.Core
 open Fable.Core.JsInterop
 
 [<Erase>]
-type IMapMouseEvent =
-    abstract latLng : (float * float)
-    abstract pixel : (float * float)
-    abstract event : Browser.Types.MouseEvent
-
-[<Erase>]
-type IMapBounds =
-    /// North-East Bounds
-    abstract ne : (float * float)
-    /// South-West bounds
-    abstract sw : (float * float)
-
-[<Erase>]
-type IMapBoundsChangedArgs =
-    abstract zoom : float
-    abstract initial : bool
-    abstract center : (float * float)
-    abstract bounds : IMapBounds
-
-[<Erase>]
 type map =
     /// Coordinates of the map center in the format [lat, lng]. Use if the component is controlled, e.g. you'll be listening to onBoundsChanged and passing a new center when the bounds change.
     static member inline center(latitude: float, longitude: float) =
@@ -61,7 +41,7 @@ type map =
     /// An array of devicePixelRatios that your tile provider supports. Defaults to []. Pass an array like [1, 2] and the numbers here will be sent to provider as the 4th argument. The responses will be combined into an <img srcset> attribute, which modern browsers use to select tiles with the [right resolution](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#Resolution_switching_Same_size_different_resolutions).
     static member inline devicePixelRatios([<System.ParamArray>]values: int []) = Interop.mkAttr "dprs" values
     /// Defines the children of the component.
-    static member inline children (children: Fable.React.ReactElement list) = prop.children children
+    static member inline children (children: IMapMarker list) = prop.children (unbox<ReactElement list> children)
     /// Can the user interact with the map with the mouse? Defaults to true.
     static member inline mouseEvents (value: bool) = Interop.mkAttr "mouseEvents" value
     /// Can the user interact with the map by touching it? Defaults to true.
