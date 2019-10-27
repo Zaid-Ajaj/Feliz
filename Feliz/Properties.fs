@@ -502,6 +502,36 @@ type prop =
 module prop =
 
     [<Erase>]
+    /// The `dominantBaseline` attribute specifies the dominant baseline, which is the baseline used to align the box’s text and inline-level contents. It also indicates the default alignment baseline of any boxes participating in baseline alignment in the box’s alignment context.
+    /// It is used to determine or re-determine a scaled-baseline-table. A scaled-baseline-table is a compound value with three components: a baseline-identifier for the dominant-baseline, a baseline-table and a baseline-table font-size. Some values of the property re-determine all three values; other only re-establish the baseline-table font-size. When the initial value, auto, would give an undesired result, this property can be used to explicitly set the desired scaled-baseline-table.
+    /// If there is no baseline table in the nominal font or if the baseline table lacks an entry for the desired baseline, then the browser may use heuristics to determine the position of the desired baseline.
+    type dominantBaseline =
+        /// If this property occurs on a <text> element, then the computed value depends on the value of the writing-mode attribute.
+        /// If the writing-mode is horizontal, then the value of the dominant-baseline component is alphabetic, else if the writing-mode is vertical, then the value of the dominant-baseline component is central.
+        /// If this property occurs on a <tspan>, <tref>, <altGlyph> or <textPath> element, then the dominant-baseline and the baseline-table components remain the same as those of the parent text content element.
+        /// If the computed baseline-shift value actually shifts the baseline, then the baseline-table font-size component is set to the value of the font-size attribute on the element on which the dominant-baseline attribute occurs, otherwise the baseline-table font-size remains the same as that of the element.
+        /// If there is no parent text content element, the scaled-baseline-table value is constructed as above for <text> elements.
+        static member inline auto = Interop.mkAttr "dominantBaseline" "auto"
+        /// The baseline-identifier for the dominant-baseline is set to be ideographic, the derived baseline-table is constructed using the ideographic baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size attribute on this element.
+        static member inline ideographic = Interop.mkAttr "dominantBaseline" "ideographic"
+        /// The baseline-identifier for the dominant-baseline is set to be alphabetic, the derived baseline-table is constructed using the alphabetic baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size attribute on this element.
+        static member inline alphabetic = Interop.mkAttr "dominantBaseline" "alphabetic"
+        /// The baseline-identifier for the dominant-baseline is set to be hanging, the derived baseline-table is constructed using the hanging baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size attribute on this element.
+        static member inline hanging = Interop.mkAttr "dominantBaseline" "hanging"
+        /// The baseline-identifier for the dominant-baseline is set to be mathematical, the derived baseline-table is constructed using the mathematical baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size attribute on this element.
+        static member inline mathematical = Interop.mkAttr "dominantBaseline" "mathematical"
+        /// The baseline-identifier for the dominant-baseline is set to be central. The derived baseline-table is constructed from the defined baselines in a baseline-table in the font. That font baseline-table is chosen using the following priority order of baseline-table names: ideographic, alphabetic, hanging, mathematical. The baseline-table font-size is changed to the value of the font-size attribute on this element.
+        static member inline central = Interop.mkAttr "dominantBaseline" "central"
+        /// The baseline-identifier for the dominant-baseline is set to be middle. The derived baseline-table is constructed from the defined baselines in a baseline-table in the font. That font baseline-table is chosen using the following priority order of baseline-table names: alphabetic, ideographic, hanging, mathematical. The baseline-table font-size is changed to the value of the font-size attribute on this element.
+        static member inline middle = Interop.mkAttr "dominantBaseline" "middle"
+        /// The baseline-identifier for the dominant-baseline is set to be text-after-edge. The derived baseline-table is constructed from the defined baselines in a baseline-table in the font. The choice of which font baseline-table to use from the baseline-tables in the font is browser dependent. The baseline-table font-size is changed to the value of the font-size attribute on this element.
+        static member inline textAfterEdge = Interop.mkAttr "dominantBaseline" "text-after-edge"
+        /// The baseline-identifier for the dominant-baseline is set to be text-before-edge. The derived baseline-table is constructed from the defined baselines in a baseline-table in the font. The choice of which baseline-table to use from the baseline-tables in the font is browser dependent. The baseline-table font-size is changed to the value of the font-size attribute on this element.
+        static member inline textBeforeEdge = Interop.mkAttr "dominantBaseline" "text-before-edge"
+        /// This value uses the top of the em box as the baseline.
+        static member inline textTop = Interop.mkAttr "dominantBaseline" "text-top"
+
+    [<Erase>]
     /// The `text-anchor` attribute is used to align (start-, middle- or
     /// end-alignment) a string of pre-formatted text or auto-wrapped text where
     /// the wrapping area is determined from the `inline-size` property relative
