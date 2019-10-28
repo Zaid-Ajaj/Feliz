@@ -361,6 +361,7 @@ let samples = [
     "recharts-line-biaxial", Samples.Recharts.LineCharts.BiaxialLineChart.chart()
     "recharts-pie-twolevel", Samples.Recharts.PieCharts.TwoLevelPieChart.chart()
     "recharts-pie-singleangle", Samples.Recharts.PieCharts.SingleAngle.chart()
+    "recharts-pie-customizedlabelpiechart", Samples.Recharts.PieCharts.CustomizedLabelPieChart.chart()
     "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
     "pigeonmaps-map-popover", Samples.PigeonMaps.MarkerOverlays.citiesMap()
@@ -623,6 +624,7 @@ let sidebar (state: State) dispatch =
                 ]
 
                 nestedMenuList "Pie Charts" [
+                    menuItem "Customized Label Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ]
                     menuItem "Two Level Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ]
                     menuItem "Single Angle Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.SingleAngle ]
                 ]
@@ -672,6 +674,7 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.BarCharts; Urls.PositiveAndNegative ] -> loadMarkdown [ "Recharts" ; "BarCharts"; "PositiveAndNegative.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "BiaxialLineChart.md" ]
     | [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "TwoLevelPieChart.md" ]
+    | [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "CustomizedLabelPieChart.md" ]
     | [ Urls.Recharts; Urls.PieCharts; Urls.SingleAngle ] -> loadMarkdown [ "Recharts"; "PieCharts"; "SingleAngle.md" ]
     | [ Urls.PigeonMaps; Urls.Overview ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
     | [ Urls.PigeonMaps; Urls.Installation ] -> loadMarkdown [ "PigeonMaps"; "Installation.md" ]
