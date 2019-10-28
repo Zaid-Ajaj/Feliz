@@ -22,6 +22,13 @@ type ElmishComponent<'State, 'Msg>(props: ElmishComponentProps<'State, 'Msg>) as
         for subscriber in initialEffect
             do subscriber(this.dispatch)
 
+    override this.componentDidUpdate(prevProps, prevState) =
+        // if props changed reference, re-execute `init` from the program definition
+        if not (System.Object.ReferenceEquals(prevProps, this.props)) then
+            let initialEffect = snd this.props.Initial
+            for subscriber in initialEffect
+                do subscriber(this.dispatch)
+
     member this.dispatch(msg: 'Msg) =
         let (nextState, nextEffect) = this.props.Update msg this.state
         this.setState(fun _ _ -> nextState)

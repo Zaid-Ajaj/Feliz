@@ -6,10 +6,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>0.1.0</Version>
+        <Version>0.1.1</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+        <PackageReleaseNotes>Update Feliz dependency, re-execute init when props change reference</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Components.fs" />
@@ -21,6 +21,6 @@
         <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Fable.Elmish" Version="3.0.6" />
+        <PackageReference Include="Fable.Elmish" Version="3.0.6" />
     </ItemGroup>
 </Project>
