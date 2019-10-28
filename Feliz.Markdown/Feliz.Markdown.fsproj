@@ -24,5 +24,4 @@
     <ItemGroup>
         <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
     </ItemGroup>
-    <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
