@@ -32,16 +32,16 @@ let renderCustomLabel (input: IPieLabelProperties) =
         prop.x x
         prop.y y
         prop.fill colors.white
+        prop.dominantBaseline.central
         if x > input.cx then prop.textAnchor.startOfText else prop.textAnchor.endOfText
         prop.text (sprintf "%.0f%%" (100. * input.percent))
-        prop.custom ("dominantBaseline", "central")
     ]
 
 let chart = React.functionComponent <| fun () ->
-    let cells =
-        data
+    let cells = 
+        data 
         |> List.mapi (fun index _ ->
-            Recharts.cell [
+            Recharts.cell [ 
                 cell.fill bgColors.[ index % bgColors.Length ]
             ])
 
