@@ -365,6 +365,7 @@ let samples = [
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
     "pigeonmaps-map-popover", Samples.PigeonMaps.MarkerOverlays.citiesMap()
     "popover-basic-sample", Samples.Popover.Basic.sample
+    "elmish-components-counter", Samples.ElmishComponents.application
 ]
 
 let githubPath (rawPath: string) =
@@ -550,18 +551,19 @@ let sidebar (state: State) dispatch =
                 menuItem "Project Template" [ Urls.Feliz; Urls.ProjectTemplate ]
                 menuItem "Syntax" [ Urls.Feliz; Urls.Syntax ]
                 menuItem "Type-Safe CSS" [ Urls.Feliz; Urls.TypeSafeCss ]
+                menuItem "Elmish Components" [ Urls.Feliz; Urls.ElmishComponents ]
                 menuItem "Conditional Styling" [ Urls.Feliz; Urls.ConditionalStyling ]
-                menuItem "Elmish Counter" [ Urls.Feliz; Urls.ElmishCounter ]
                 menuItem "Contributing" [ Urls.Feliz; Urls.Contributing ]
                 menuItem "Aliasing props" [ Urls.Feliz; Urls.Aliasing ]
                 nestedMenuList "React" [
                     menuItem "Components" [ Urls.Feliz; Urls.React; Urls.Components ]
-                    menuItem "Standalone" [ Urls.Feliz; Urls.React; Urls.Standalone ]
+                    menuItem "Standalone Application" [ Urls.Feliz; Urls.React; Urls.Standalone ]
                     menuItem "Hover Animations" [ Urls.Feliz; Urls.React; Urls.HoverAnimations ]
                     menuItem "Common Pitfalls" [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ]
                 ]
 
                 nestedMenuList "Ecosystem" [
+                    menuItem "Feliz.ElmishComponents" [ Urls.Feliz; Urls.ElmishComponents ]
                     menuItem "Feliz.Router" [ Urls.Ecosystem; Urls.Router ]
                     menuItem "Feliz.Recharts" [ Urls.Ecosystem; Urls.Recharts ]
                     menuItem "Feliz.PigeonMaps" [ Urls.Ecosystem; Urls.PigeonMaps ]
@@ -621,7 +623,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.Overview; ] -> loadMarkdown [ "Feliz"; "README.md" ]
     | [ Urls.Feliz; Urls.ProjectTemplate ] -> loadMarkdown [ "Feliz"; "ProjectTemplate.md" ]
     | [ Urls.Feliz; Urls.Installation ] -> loadMarkdown [ "Feliz"; "Installation.md" ]
-    | [ Urls.Feliz; Urls.ElmishCounter ] -> loadMarkdown [ "Feliz"; "ElmishCounter.md" ]
+    | [ Urls.Feliz; Urls.ElmishComponents ] -> loadMarkdown [ "Feliz"; "ElmishComponents.md" ]
     | [ Urls.Feliz; Urls.Contributing ] -> loadMarkdown [ "Feliz"; "Contributing.md" ]
     | [ Urls.Feliz; Urls.Syntax ] -> loadMarkdown [ "Feliz"; "Syntax.md" ]
     | [ Urls.Feliz; Urls.TypeSafeCss ] -> loadMarkdown [ "Feliz"; "TypeSafeCss.md" ]
