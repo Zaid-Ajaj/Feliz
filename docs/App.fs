@@ -624,9 +624,9 @@ let sidebar (state: State) dispatch =
                 ]
 
                 nestedMenuList "Pie Charts" [
-                    menuItem "Customized Label Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ]
                     menuItem "Two Level Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ]
                     menuItem "Single Angle Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.SingleAngle ]
+                    menuItem "Customized Label Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ]
                 ]
             ]
         ]
@@ -674,8 +674,8 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.BarCharts; Urls.PositiveAndNegative ] -> loadMarkdown [ "Recharts" ; "BarCharts"; "PositiveAndNegative.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "BiaxialLineChart.md" ]
     | [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "TwoLevelPieChart.md" ]
-    | [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "CustomizedLabelPieChart.md" ]
     | [ Urls.Recharts; Urls.PieCharts; Urls.SingleAngle ] -> loadMarkdown [ "Recharts"; "PieCharts"; "SingleAngle.md" ]
+    | [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "CustomizedLabelPieChart.md" ]
     | [ Urls.PigeonMaps; Urls.Overview ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
     | [ Urls.PigeonMaps; Urls.Installation ] -> loadMarkdown [ "PigeonMaps"; "Installation.md" ]
     | segments -> Html.div [ for segment in segments -> Html.p segment ]

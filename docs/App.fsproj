@@ -28,7 +28,7 @@
         <Compile Include="Recharts/BarCharts/MixBarChart.fs" />
         <Compile Include="Recharts/BarCharts/TinyBarChart.fs" />
         <Compile Include="Recharts/BarCharts/PositiveAndNegative.fs" />
-        <Compile Include="Recharts\PieCharts\CustomizedLabelPieChart.fs" />
+        <Compile Include="Recharts/PieCharts/CustomizedLabelPieChart.fs" />
         <Compile Include="Recharts/PieCharts/TwoLevelPieChart.fs" />
         <Compile Include="Recharts/PieCharts/SingleAngle.fs" />
         <Compile Include="PigeonMaps.fs" />
