@@ -97,6 +97,14 @@ Target "PublishTemplate" (publish "./Feliz.Template")
 Target "PublishMarkdown" (publish "./Feliz.Markdown")
 Target "PublishPopover" (publish "./Feliz.Popover")
 
+Target "PatchFeliz" <| fun _ ->
+    [ publish libPath
+      publish "./Feliz.Recharts"
+      publish "./Feliz.PigeonMaps"
+      publish "./Feliz.Popover"
+      publish "./Feliz.Template" ]
+   |> List.iter (fun target -> target())
+
 Target "Compile" <| fun _ ->
     run npmTool "run build" "."
 

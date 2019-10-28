@@ -8,7 +8,7 @@ environment:
   nodejs_version: "10.10.0"
 
 cache:
- - "%LOCALAPPDATA%\\Yarn"
+  - "%LOCALAPPDATA%\\Yarn"
 
 # Install scripts. (runs after repo cloning)
 install:
