@@ -55,7 +55,9 @@ let cleanCacheDirs() =
       "Feliz.PigeonMaps" </> "bin"
       "Feliz.PigeonMaps" </> "obj"
       "Feliz.Template" </> "bin"
-      "Feliz.Template" </> "obj" ]
+      "Feliz.Template" </> "obj"
+      "Feliz.ElmishComponents" </> "bin"
+      "Feliz.ElmishComponents" </> "obj" ]
     |> CleanDirs
 
 Target "Clean" <| fun _ ->
@@ -96,13 +98,15 @@ Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")
 Target "PublishTemplate" (publish "./Feliz.Template")
 Target "PublishMarkdown" (publish "./Feliz.Markdown")
 Target "PublishPopover" (publish "./Feliz.Popover")
+Target "PublishElmishComponents" (publish "./Feliz.ElmishComponents")
 
 Target "PatchFeliz" <| fun _ ->
     [ publish libPath
       publish "./Feliz.Recharts"
       publish "./Feliz.PigeonMaps"
       publish "./Feliz.Popover"
-      publish "./Feliz.Template" ]
+      publish "./Feliz.Template"
+      publish "./Feliz.ElmishComponents" ]
    |> List.iter (fun target -> target())
 
 Target "Compile" <| fun _ ->

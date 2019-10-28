@@ -8,6 +8,7 @@
         <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
         <ProjectReference Include="..\Feliz.PigeonMaps\Feliz.PigeonMaps.fsproj" />
         <ProjectReference Include="..\Feliz.Popover\Feliz.Popover.fsproj" />
+        <ProjectReference Include="..\Feliz.ElmishComponents\Feliz.ElmishComponents.fsproj" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Urls.fs" />
@@ -31,6 +32,7 @@
         <Compile Include="Recharts/PieCharts/SingleAngle.fs" />
         <Compile Include="PigeonMaps.fs" />
         <Compile Include="Popover.fs" />
+        <Compile Include="ElmishComponents.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <PropertyGroup>
