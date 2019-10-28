@@ -11,6 +11,9 @@ type length =
     ///
     /// **Note**: Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display. For printers and high resolution screens 1px implies multiple device pixels.
     static member inline px(value: int) : ICssUnit = unbox ((unbox<string>value) + "px")
+    /// Pixels are (1px = 1/96th of 1in).
+    ///
+    /// **Note**: Pixels (px) are relative to the viewing device. For low-dpi devices, 1px is one device pixel (dot) of the display. For printers and high resolution screens 1px implies multiple device pixels.
     static member inline px(value: double) : ICssUnit = unbox ((unbox<string>value) + "px")
     /// Centimeters
     static member inline cm(value: int) : ICssUnit = unbox ((unbox<string>value) + "cm")
@@ -40,6 +43,7 @@ type length =
     static member inline ex(value: int) : ICssUnit = unbox ((unbox<string>value) + "ex")
     /// Relative to the x-height of the current font (rarely used)
     static member inline ex(value: double) : ICssUnit = unbox ((unbox<string>value) + "ex")
+    /// Relative to width of the "0" (zero)
     static member inline ch(value: int) : ICssUnit = unbox ((unbox<string>value) + "ch")
     /// Relative to font-size of the root element
     static member inline rem(value: double) : ICssUnit = unbox ((unbox<string>value) + "rem")
@@ -77,6 +81,7 @@ type length =
     static member inline percent(value: int) : ICssUnit = unbox ((unbox<string>value) + "%")
     /// Relative to the parent element
     static member inline percent(value: double) : ICssUnit = unbox ((unbox<string>value) + "%")
+    /// The browser calculates the width.
     static member inline auto : ICssUnit = unbox "auto"
 
 [<Erase>]
@@ -89,87 +94,64 @@ type style =
     ///
     /// **Tip**: This property is useful if you want to create overlapping elements.
     static member inline zIndex(value: int) = Interop.mkStyle "zIndex" value
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(value: int) = Interop.mkStyle "margin" value
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: int, right: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + "px " +
             (unbox<string> right) + "px"
         )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: ICssUnit, right: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string>right) + "px"
         )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: ICssUnit, right: ICssUnit) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string>right)
         )
-
-    static member inline padding(top: ICssUnit, right: int) =
-        Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string>right) + "px"
-        )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: ICssUnit, right: int, bottom: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string>right) + "px " +
             (unbox<string>bottom) + "px"
         )
-
-    static member inline padding(top: ICssUnit, right: int, bottom: int) =
-        Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string> right) + "px " +
-            (unbox<string> bottom) + "px"
-        )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: ICssUnit, right: ICssUnit, bottom: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string> right) + " " +
             (unbox<string>bottom) + "px"
         )
-
-    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: int) =
-        Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
-            (unbox<string>bottom) + "px"
-        )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string> right) + " " +
             (unbox<string> bottom)
         )
-
-    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
-        Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
-            (unbox<string> bottom)
-        )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: ICssUnit, right: int, bottom: ICssUnit) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string> right) + "px " +
             (unbox<string> bottom)
         )
-
-    static member inline padding(top: ICssUnit, right: int, bottom: ICssUnit) =
-        Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string> right) + "px " +
-            (unbox<string> bottom)
-        )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
@@ -177,15 +159,8 @@ type style =
             (unbox<string> bottom) + " " +
             (unbox<string> left)
         )
-
-    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
-        Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
-            (unbox<string> bottom) + " " +
-            (unbox<string> left)
-        )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
     static member inline margin(top: ICssUnit, right: int, bottom: int, left: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
@@ -193,7 +168,106 @@ type style =
             (unbox<string>bottom) + "px " +
             (unbox<string>left) + "px"
         )
-
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: int, bottom: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: int, bottom: int, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px")
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
+    /// margin-bottom, and margin-left.
+    static member inline margin(value: ICssUnit) = Interop.mkStyle "margin" value
+    /// Sets the margin area on the left side of an element. A positive value places it farther from its 
+    /// neighbors, while a negative value places it closer.
+    static member inline marginLeft(value: int) = Interop.mkStyle "marginLeft" value
+    /// Sets the margin area on the left side of an element. A positive value places it farther from its 
+    /// neighbors, while a negative value places it closer.
+    static member inline marginLeft(value: ICssUnit) = Interop.mkStyle "marginLeft" value
+    /// sets the margin area on the right side of an element. A positive value places it farther from its 
+    /// neighbors, while a negative value places it closer.
+    static member inline marginRight(value: int) = Interop.mkStyle "marginRight" value
+    /// sets the margin area on the right side of an element. A positive value places it farther from its 
+    /// neighbors, while a negative value places it closer.
+    static member inline marginRight(value: ICssUnit) = Interop.mkStyle "marginRight" value
+    /// Sets the margin area on the top of an element. A positive value places it farther from its 
+    /// neighbors, while a negative value places it closer.
+    static member inline marginTop(value: int) = Interop.mkStyle "marginTop" value
+    /// Sets the margin area on the top of an element. A positive value places it farther from its 
+    /// neighbors, while a negative value places it closer.
+    static member inline marginTop(value: ICssUnit) = Interop.mkStyle "marginTop" value
+    /// Sets the margin area on the bottom of an element. A positive value places it farther from its 
+    /// neighbors, while a negative value places it closer.
+    static member inline marginBottom(value: int) = Interop.mkStyle "marginBottom" value
+    /// Sets the margin area on the bottom of an element. A positive value places it farther from its 
+    /// neighbors, while a negative value places it closer.
+    static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string>right) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: int, bottom: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string>bottom) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: int, bottom: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
     static member inline padding(top: ICssUnit, right: int, bottom: int, left: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
@@ -201,88 +275,33 @@ type style =
             (unbox<string>bottom) + "px " +
             (unbox<string>left) + "px"
         )
-
-    static member inline margin(top: int, right: ICssUnit) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right)
-        )
-
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
     static member inline padding(top: int, right: ICssUnit) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
             (unbox<string> right)
         )
-
-    static member inline margin(top: int, right: int, bottom: int) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right) + "px " +
-            (unbox<string> bottom) + "px"
-        )
-    static member inline flexShrink(value: int) = Interop.mkStyle "flexShrink" value
-    static member inline margin(top: int, right: int, bottom: int, left: int) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right) + "px " +
-            (unbox<string> bottom) + "px " +
-            (unbox<string> left) + "px")
-
-    static member inline flexBasis (value: int) = Interop.mkStyle "flexBasis" value
-    static member inline flexBasis (value: float) = Interop.mkStyle "flexBasis" value
-    static member inline flexBasis (value: ICssUnit) = Interop.mkStyle "flexBasis" value
-    static member inline flexGrow (value: int) = Interop.mkStyle "flexGrow" value
-    static member inline margin(value: ICssUnit) = Interop.mkStyle "margin" value
-    static member inline marginLeft(value: int) = Interop.mkStyle "marginLeft" value
-    static member inline marginLeft(value: ICssUnit) = Interop.mkStyle "marginLeft" value
-    static member inline marginRight(value: int) = Interop.mkStyle "marginRight" value
-    static member inline marginRight(value: ICssUnit) = Interop.mkStyle "marginRight" value
-    static member inline marginTop(value: int) = Interop.mkStyle "marginTop" value
-    static member inline marginTop(value: ICssUnit) = Interop.mkStyle "marginTop" value
-    static member inline marginBottom(value: int) = Interop.mkStyle "marginBottom" value
-    static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
     static member inline padding(value: int) = Interop.mkStyle "padding" value
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
     static member inline padding(top: int, right: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
             (unbox<string> right) + "px"
         )
-
-    static member inline transitionDuration(timespan: TimeSpan) =
-        Interop.mkStyle "transitionDuration" (unbox<string> timespan.TotalMilliseconds + "ms")
-    static member inline transitionDurationSeconds(n: float) =
-        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "s")
-    static member inline transitionDurationMilliseconds(n: float) =
-        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "ms")
-    static member inline transitionDurationSeconds(n: int) =
-        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "s")
-    static member inline transitionDurationMilliseconds(n: int) =
-        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "ms")
-    static member inline transitionDelay(timespan: TimeSpan) =
-        Interop.mkStyle "transitionDelay" (unbox<string> timespan.TotalMilliseconds + "ms")
-    static member inline transitionDelaySeconds(n: float) =
-        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "s")
-    static member inline transitionDelayMilliseconds(n: float) =
-        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "ms")
-    static member inline transitionDelaySeconds(n: int) =
-        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "s")
-    static member inline transitionDelayMilliseconds(n: int) =
-        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "ms")
-    static member inline transitionProperty ([<ParamArray>] properties: ITransitionProperty[]) =
-        Interop.mkStyle "transitionProperty" (String.concat "," (unbox<string[]> properties))
-    static member inline transitionProperty (properties: ITransitionProperty list) =
-        Interop.mkStyle "transitionProperty" (String.concat "," (unbox<string list> properties))
-    static member inline transitionProperty (property: ITransitionProperty) =
-        Interop.mkStyle "transitionProperty" property
-    static member inline transitionProperty (property: string) =
-        Interop.mkStyle "transitionProperty" property
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
     static member inline padding(top: int, right: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
             (unbox<string> right) + "px " +
             (unbox<string> bottom) + "px"
         )
-
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
     static member inline padding(top: int, right: int, bottom: int, left: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
@@ -290,155 +309,283 @@ type style =
             (unbox<string> bottom) + "px " +
             (unbox<string> left) + "px"
         )
-
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, padding-bottom, and padding-left.
     static member inline padding(value: ICssUnit) = Interop.mkStyle "padding" value
+    /// Sets the height of the padding area on the bottom of an element.
     static member inline paddingBottom(value: int) = Interop.mkStyle "paddingBottom" value
+    /// Sets the height of the padding area on the bottom of an element.
     static member inline paddingBottom(value: ICssUnit) = Interop.mkStyle "paddingBottom" value
+    /// Sets the width of the padding area to the left of an element.
     static member inline paddingLeft(value: int) = Interop.mkStyle "paddingLeft" value
+    /// Sets the width of the padding area to the left of an element.
     static member inline paddingLeft(value: ICssUnit) = Interop.mkStyle "paddingLeft" value
+    /// Sets the width of the padding area on the right of an element.
     static member inline paddingRight(value: int) = Interop.mkStyle "paddingRight" value
+    /// Sets the width of the padding area on the right of an element.
     static member inline paddingRight(value: ICssUnit) = Interop.mkStyle "paddingRight" value
+    /// Sets the height of the padding area on the top of an element.
     static member inline paddingTop(value: int) = Interop.mkStyle "paddingTop" value
+    /// Sets the height of the padding area on the top of an element.
     static member inline paddingTop(value: ICssUnit) = Interop.mkStyle "paddingTop" value
+    /// Sets the flex shrink factor of a flex item. If the size of all flex items is larger than
+    /// the flex container, items shrink to fit according to flex-shrink.
+    static member inline flexShrink(value: int) = Interop.mkStyle "flexShrink" value
+    /// Sets the initial main size of a flex item. It sets the size of the content box unless 
+    /// otherwise set with box-sizing.
+    static member inline flexBasis (value: int) = Interop.mkStyle "flexBasis" value
+    /// Sets the initial main size of a flex item. It sets the size of the content box unless 
+    /// otherwise set with box-sizing.
+    static member inline flexBasis (value: float) = Interop.mkStyle "flexBasis" value
+    /// Sets the initial main size of a flex item. It sets the size of the content box unless 
+    /// otherwise set with box-sizing.
+    static member inline flexBasis (value: ICssUnit) = Interop.mkStyle "flexBasis" value
+    /// Sets the flex grow factor of a flex item main size. It specifies how much of the remaining
+    /// space in the flex container should be assigned to the item (the flex grow factor).
+    static member inline flexGrow (value: int) = Interop.mkStyle "flexGrow" value
+    /// Sets the length of time a transition animation should take to complete. By default, the 
+    /// value is 0s, meaning that no animation will occur.
+    static member inline transitionDuration(timespan: TimeSpan) =
+        Interop.mkStyle "transitionDuration" (unbox<string> timespan.TotalMilliseconds + "ms")
+    /// Sets the length of time a transition animation should take to complete. By default, the 
+    /// value is 0s, meaning that no animation will occur.
+    static member inline transitionDurationSeconds(n: float) =
+        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "s")
+    /// Sets the length of time a transition animation should take to complete. By default, the 
+    /// value is 0s, meaning that no animation will occur.
+    static member inline transitionDurationMilliseconds(n: float) =
+        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "ms")
+    /// Sets the length of time a transition animation should take to complete. By default, the 
+    /// value is 0s, meaning that no animation will occur.
+    static member inline transitionDurationSeconds(n: int) =
+        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "s")
+    /// Sets the length of time a transition animation should take to complete. By default, the 
+    /// value is 0s, meaning that no animation will occur.
+    static member inline transitionDurationMilliseconds(n: int) =
+        Interop.mkStyle "transitionDuration" ((unbox<string> n) + "ms")
+    /// Specifies the duration to wait before starting a property's transition effect when its value changes.
+    static member inline transitionDelay(timespan: TimeSpan) =
+        Interop.mkStyle "transitionDelay" (unbox<string> timespan.TotalMilliseconds + "ms")
+    /// Specifies the duration to wait before starting a property's transition effect when its value changes.
+    static member inline transitionDelaySeconds(n: float) =
+        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "s")
+    /// Specifies the duration to wait before starting a property's transition effect when its value changes.
+    static member inline transitionDelayMilliseconds(n: float) =
+        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "ms")
+    /// Specifies the duration to wait before starting a property's transition effect when its value changes.
+    static member inline transitionDelaySeconds(n: int) =
+        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "s")
+    /// Specifies the duration to wait before starting a property's transition effect when its value changes.
+    static member inline transitionDelayMilliseconds(n: int) =
+        Interop.mkStyle "transitionDelay" ((unbox<string> n) + "ms")
+    /// Sets the CSS properties to which a transition effect should be applied.
+    static member inline transitionProperty ([<ParamArray>] properties: ITransitionProperty[]) =
+        Interop.mkStyle "transitionProperty" (String.concat "," (unbox<string[]> properties))
+    /// Sets the CSS properties to which a transition effect should be applied.
+    static member inline transitionProperty (properties: ITransitionProperty list) =
+        Interop.mkStyle "transitionProperty" (String.concat "," (unbox<string list> properties))
+    /// Sets the CSS properties to which a transition effect should be applied.
+    static member inline transitionProperty (property: ITransitionProperty) =
+        Interop.mkStyle "transitionProperty" property
+    /// Sets the CSS properties to which a transition effect should be applied.
+    static member inline transitionProperty (property: string) =
+        Interop.mkStyle "transitionProperty" property
+    /// Sets the size of the font. 
+    ///
+    /// This property is also used to compute the size of em, ex, and other relative <length> units.
     static member inline fontSize(size: int) = Interop.mkStyle "fontSize" size
+    /// Sets the size of the font. 
+    ///
+    /// This property is also used to compute the size of em, ex, and other relative <length> units.
     static member inline fontSize(size: float) = Interop.mkStyle "fontSize" size
+    /// Sets the size of the font. 
+    ///
+    /// This property is also used to compute the size of em, ex, and other relative <length> units.
     static member inline fontSize(size: ICssUnit) = Interop.mkStyle "fontSize" size
+    /// Sets the background color of an element.
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
+    /// Sets the foreground color value of an element's text and text decorations, and sets the 
+    /// `currentcolor` value. `currentcolor` may be used as an indirect value on other properties 
+    /// and is the default for other color properties, such as border-color.
     static member inline color (color: string) = Interop.mkStyle "color" color
+    /// Specifies the vertical position of a positioned element. It has no effect on non-positioned elements.
     static member inline top(value: int) = Interop.mkStyle "top" value
+    /// Specifies the vertical position of a positioned element. It has no effect on non-positioned elements.
     static member inline top(value: ICssUnit) = Interop.mkStyle "top" value
+    /// Specifies the vertical position of a positioned element. It has no effect on non-positioned elements.
     static member inline bottom(value: int) = Interop.mkStyle "bottom" value
+    /// Specifies the vertical position of a positioned element. It has no effect on non-positioned elements.
     static member inline bottom(value: ICssUnit) = Interop.mkStyle "bottom" value
+    /// Specifies the horizontal position of a positioned element. It has no effect on non-positioned elements.
     static member inline left(value: int) = Interop.mkStyle "left" value
+    /// Specifies the horizontal position of a positioned element. It has no effect on non-positioned elements.
     static member inline left(value: ICssUnit) = Interop.mkStyle "left" value
+    /// Specifies the horizontal position of a positioned element. It has no effect on non-positioned elements.
     static member inline right(value: int) = Interop.mkStyle "right" value
+    /// Specifies the horizontal position of a positioned element. It has no effect on non-positioned elements.
     static member inline right(value: ICssUnit) = Interop.mkStyle "right" value
+    /// Define a custom attribute of via key value pair
     static member inline custom(key: string, value: 't) = Interop.mkStyle key value
+    /// Sets an element's bottom border. It sets the values of border-bottom-width, 
+    /// border-bottom-style and border-bottom-color.
     static member inline borderBottom(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderBottom" (
             (unbox<string> width) + "px " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Sets an element's bottom border. It sets the values of border-bottom-width, 
+    /// border-bottom-style and border-bottom-color.
     static member inline borderBottom(width: ICssUnit, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderBottom" (
             (unbox<string> width) + " " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Set an element's left border.
     static member inline borderLeft(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderLeft" (
             (unbox<string> width) + "px " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Set an element's left border.
     static member inline borderLeft(width: ICssUnit, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderBottom" (
             (unbox<string> width) + " " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Set an element's right border.
     static member inline borderRight(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderRight" (
             (unbox<string> width) + "px " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Set an element's right border.
     static member inline borderRight(width: ICssUnit, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderRight" (
             (unbox<string> width) + " " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Set an element's top border.
     static member inline borderTop(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderTop" (
             (unbox<string> width) + "px " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Set an element's top border.
     static member inline borderTop(width: ICssUnit, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderTop" (
             (unbox<string> width) + " " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Sets the line style of an element's bottom border.
     static member inline borderBottomStyle(style: IBorderStyle) = Interop.mkStyle "borderBottomStyle" (unbox<string> style)
+    /// Sets the width of the bottom border of an element.
     static member inline borderBottomWidth (width: int) = Interop.mkStyle "borderBottomWidth" (unbox<string> width + "px")
+    /// Sets the width of the bottom border of an element.
     static member inline borderBottomWidth (width: ICssUnit) = Interop.mkStyle "borderBottomWidth" (unbox<string> width)
+    /// Sets the color of an element's bottom border. 
+    ///
+    /// It can also be set with the shorthand CSS properties border-color or border-bottom.
     static member inline borderBottomColor (color: string) = Interop.mkStyle "borderBottomColor" color
+    /// Sets the line style of an element's top border.
     static member inline borderTopStyle(style: IBorderStyle) = Interop.mkStyle "borderTopStyle" (unbox<string> style)
+    /// Sets the width of the top border of an element.
     static member inline borderTopWidth (width: int) = Interop.mkStyle "borderTopWidth" (unbox<string> width + "px")
+    /// Sets the width of the top border of an element.
     static member inline borderTopWidth (width: ICssUnit) = Interop.mkStyle "borderTopWidth" (unbox<string> width)
+    /// Sets the color of an element's top border. 
+    ///
+    /// It can also be set with the shorthand CSS properties border-color or border-bottom.
     static member inline borderTopColor (color: string) = Interop.mkStyle "borderTopColor" color
+    /// /// Sets the line style of an element's right border.
     static member inline borderRightStyle(style: IBorderStyle) = Interop.mkStyle "borderRightStyle" (unbox<string> style)
+    /// Sets the width of the right border of an element.
     static member inline borderRightWidth (width: int) = Interop.mkStyle "borderRightWidth" (unbox<string> width + "px")
+    /// Sets the width of the right border of an element.
     static member inline borderRightWidth (width: ICssUnit) = Interop.mkStyle "borderRightWidth" (unbox<string> width)
+    /// Sets the color of an element's right border. 
+    ///
+    /// It can also be set with the shorthand CSS properties border-color or border-bottom.
     static member inline borderRightColor (color: string) = Interop.mkStyle "borderRightColor" color
+    /// Sets the line style of an element's left border.
     static member inline borderLeftStyle(style: IBorderStyle) = Interop.mkStyle "borderLeftStyle" (unbox<string> style)
+    /// Sets the width of the left border of an element.
     static member inline borderLeftWidth (width: int) = Interop.mkStyle "borderLeftWidth" (unbox<string> width + "px")
+    /// Sets the width of the left border of an element.
     static member inline borderLeftWidth (width: ICssUnit) = Interop.mkStyle "borderLeftWidth" (unbox<string> width)
+    /// Sets the color of an element's left border. 
+    ///
+    /// It can also be set with the shorthand CSS properties border-color or border-bottom.
     static member inline borderLeftColor (color: string) = Interop.mkStyle "borderLeftColor" color
+    /// Sets an element's border. 
+    ///
+    /// It sets the values of border-width, border-style, and border-color.
     static member inline border(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "border" (
             (unbox<string> width) + "px " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Sets an element's border. 
+    ///
+    /// It sets the values of border-width, border-style, and border-color.
     static member inline border(width: ICssUnit, style: IBorderStyle, color: string) =
         Interop.mkStyle "border" (
             (unbox<string> width) + " " +
             (unbox<string> style) + " " +
             color
         )
-
+    /// Sets an element's border. 
+    ///
+    /// It sets the values of border-width, border-style, and border-color.
     static member inline border(width: string, style: IBorderStyle, color: string) =
         Interop.mkStyle "border" (
             (unbox<string> width) + " " +
             (unbox<string> style) + " " +
             color
         )
-    static member inline animationName(keyframeName: string) = Interop.mkStyle "animationName" keyframeName
-    static member inline animationDuration(timespan: TimeSpan) = Interop.mkStyle "animationDuration" ((unbox<string> timespan.TotalMilliseconds) + "ms")
-    static member inline animationDuration(seconds: int) = Interop.mkStyle "animationDuration" ((unbox<string> seconds) + "s")
-    static member inline animationDelay(timespan: TimeSpan) = Interop.mkStyle "animationDelay" ((unbox<string> timespan.TotalMilliseconds) + "ms")
-    static member inline animationDelay(seconds: int) = Interop.mkStyle "animationDelay" ((unbox<string> seconds) + "s")
-    static member inline borderWidth (width: int) = Interop.mkStyle "borderWidth" width
+    /// Sets the line style for all four sides of an element's border.
     static member inline borderStyle (style: IBorderStyle) = Interop.mkStyle "borderStyle" style
+    /// Sets the line style for all four sides of an element's border.
     static member inline borderStyle(top: IBorderStyle, right: IBorderStyle)  =
         Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right))
+    /// Sets the line style for all four sides of an element's border.
     static member inline borderStyle(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle) =
         Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right) + " " +  (unbox<string> bottom))
+    /// Sets the line style for all four sides of an element's border.
     static member inline borderStyle(top: IBorderStyle, right: IBorderStyle, bottom: IBorderStyle, left: IBorderStyle) =
         Interop.mkStyle "borderStyle" ((unbox<string> top) + " " + (unbox<string> right) + " " + (unbox<string> bottom) + " " +  (unbox<string> left))
+    /// Sets the color of an element's border.
     static member inline borderColor (color: string) = Interop.mkStyle "borderColor" color
+    /// Rounds the corners of an element's outer border edge. You can set a single radius to make 
+    /// circular corners, or two radii to make elliptical corners.
     static member inline borderRadius (radius: int) = Interop.mkStyle "borderRadius" radius
-    static member inline fontFamily (family: string) = Interop.mkStyle "fontFamily" family
-    /// Defines from thin to thick characters. 400 is the same as normal, and 700 is the same as bold.
-    /// Possible values are [100, 200, 300, 400, 500, 600, 700, 800, 900]
-    static member inline fontWeight (weight: int) = Interop.mkStyle "fontWeight" weight
+    /// Rounds the corners of an element's outer border edge. You can set a single radius to make 
+    /// circular corners, or two radii to make elliptical corners.
     static member inline borderRadius (radius: ICssUnit) = Interop.mkStyle "borderRadius" radius
+    /// Sets the width of an element's border.
     static member inline borderWidth (top: int, right: int) =
         Interop.mkStyle "borderWidth" (
             (unbox<string> top) + "px " +
             (unbox<string> right) + "px"
         )
-
+    /// Sets the width of an element's border.
+    static member inline borderWidth (width: int) = Interop.mkStyle "borderWidth" width
+    /// Sets the width of an element's border.
     static member inline borderWidth (top: int, right: int, bottom: int) =
         Interop.mkStyle "borderWidth" (
             (unbox<string> top) + "px " +
             (unbox<string> right) + "px " +
             (unbox<string> bottom) + "px"
         )
-
+    /// Sets the width of an element's border.
     static member inline borderWidth (top: int, right: int, bottom: int, left: int) =
         Interop.mkStyle "borderWidth" (
             (unbox<string> top) + "px " +
@@ -446,45 +593,143 @@ type style =
             (unbox<string> bottom) + "px " +
             (unbox<string> left) + "px"
         )
-
+    /// Sets one or more animations to apply to an element. Each name is an @keyframes at-rule that 
+    /// sets the property values for the animation sequence.
+    static member inline animationName(keyframeName: string) = Interop.mkStyle "animationName" keyframeName
+    /// Sets the length of time that an animation takes to complete one cycle.
+    static member inline animationDuration(timespan: TimeSpan) = Interop.mkStyle "animationDuration" ((unbox<string> timespan.TotalMilliseconds) + "ms")
+    /// Sets the length of time that an animation takes to complete one cycle.
+    static member inline animationDuration(seconds: int) = Interop.mkStyle "animationDuration" ((unbox<string> seconds) + "s")
+    /// Sets when an animation starts. 
+    ///
+    /// The animation can start later, immediately from its beginning, or immediately and partway through the animation.
+    static member inline animationDelay(timespan: TimeSpan) = Interop.mkStyle "animationDelay" ((unbox<string> timespan.TotalMilliseconds) + "ms")
+    /// Sets when an animation starts. 
+    ///
+    /// The animation can start later, immediately from its beginning, or immediately and partway through the animation.
+    static member inline animationDelay(seconds: int) = Interop.mkStyle "animationDelay" ((unbox<string> seconds) + "s")
+    static member inline animationDurationCount(count: int) = Interop.mkStyle "animationDurationCount" count
+    /// Sets the font family for the font specified in a @font-face rule.
+    static member inline fontFamily (family: string) = Interop.mkStyle "fontFamily" family
+    /// Defines from thin to thick characters. 400 is the same as normal, and 700 is the same as bold.
+    /// Possible values are [100, 200, 300, 400, 500, 600, 700, 800, 900]
+    static member inline fontWeight (weight: int) = Interop.mkStyle "fontWeight" weight
+    /// Sets the color of decorations added to text by text-decoration-line.
     static member inline textDecorationColor(color: string) = Interop.mkStyle "textDecorationColor" color
+    /// Sets the kind of decoration that is used on text in an element, such as an underline or overline.
     static member inline textDecorationLine(line: ITextDecorationLine) = Interop.mkStyle "textDecorationLine" line
+    /// Sets the appearance of decorative lines on text. 
+    ///
+    /// It is a shorthand for text-decoration-line, text-decoration-color, text-decoration-style, 
+    /// and the newer text-decoration-thickness property.
     static member inline textDecoration(line: ITextDecorationLine) = Interop.mkStyle "textDecoration" line
+    /// Sets the appearance of decorative lines on text. 
+    ///
+    /// It is a shorthand for text-decoration-line, text-decoration-color, text-decoration-style, 
+    /// and the newer text-decoration-thickness property.
     static member inline textDecoration(bottom: ITextDecorationLine, top: ITextDecorationLine) =
         Interop.mkStyle "textDecoration" ((unbox<string> bottom) + " " + (unbox<string> top))
+    /// Sets the appearance of decorative lines on text. 
+    ///
+    /// It is a shorthand for text-decoration-line, text-decoration-color, text-decoration-style, 
+    /// and the newer text-decoration-thickness property.
     static member inline textDecoration(bottom: ITextDecorationLine, top: ITextDecorationLine, style: ITextDecoration) =
         Interop.mkStyle "textDecoration" ((unbox<string> bottom) + " " + (unbox<string> top) + " " + (unbox<string> style))
+    /// Sets the appearance of decorative lines on text. 
+    ///
+    /// It is a shorthand for text-decoration-line, text-decoration-color, text-decoration-style, 
+    /// and the newer text-decoration-thickness property.
     static member inline textDecoration(bottom: ITextDecorationLine, top: ITextDecorationLine, style: ITextDecoration, color: string) =
         Interop.mkStyle "textDecoration" ((unbox<string> bottom) + " " + (unbox<string> top) + " " + (unbox<string> style) + " " + color)
-    static member inline animationDurationCount(count: int) = Interop.mkStyle "animationDurationCount" count
+    /// Sets the length of empty space (indentation) that is put before lines of text in a block.
     static member inline textIndent(value: int) = Interop.mkStyle "textIndent" value
+    /// Sets the length of empty space (indentation) that is put before lines of text in a block.
     static member inline textIndent(value: string) = Interop.mkStyle "textIndent" value
+    /// Sets the opacity of an element. 
+    ///
+    /// Opacity is the degree to which content behind an element is hidden, and is the opposite of transparency.
     static member inline opacity(value: double) = Interop.mkStyle "opacity" value
+    /// Sets the minimum width of an element. 
+    ///
+    /// It prevents the used value of the width property from becoming smaller than the value specified for min-width.
     static member inline minWidth (value: int) = Interop.mkStyle "minWidth" value
+    /// Sets the minimum width of an element. 
+    ///
+    /// It prevents the used value of the width property from becoming smaller than the value specified for min-width.
     static member inline minWidth (value: ICssUnit) = Interop.mkStyle "minWidth" value
-    static member inline backgroundPosition  (position: string) = Interop.mkStyle "backgroundPosition" position
-    static member inline cursor (value: string) = Interop.mkStyle "cursor" value
+    /// Sets the minimum width of an element. 
+    ///
+    /// It prevents the used value of the width property from becoming smaller than the value specified for min-width.
     static member inline minWidth (value: string) = Interop.mkStyle "minWidth" value
+    /// Sets the initial position for each background image. 
+    ///
+    /// The position is relative to the position layer set by background-origin.
+    static member inline backgroundPosition  (position: string) = Interop.mkStyle "backgroundPosition" position
+    /// Sets the type of cursor, if any, to show when the mouse pointer is over an element.
+    static member inline cursor (value: string) = Interop.mkStyle "cursor" value
+    /// Sets the minimum height of an element. 
+    ///
+    /// It prevents the used value of the height property from becoming smaller than the value specified for min-height.
     static member inline minHeight (value: int) = Interop.mkStyle "minHeight" value
+    /// Sets the minimum height of an element. 
+    ///
+    /// It prevents the used value of the height property from becoming smaller than the value specified for min-height.
     static member inline minHeight (value: ICssUnit) = Interop.mkStyle "minHeight" value
+    /// Sets the maximum width of an element. 
+    ///
+    /// It prevents the used value of the width property from becoming larger than the value specified by max-width.
     static member inline maxWidth (value: int) = Interop.mkStyle "maxWidth" value
+    /// Sets the maximum width of an element. 
+    ///
+    /// It prevents the used value of the width property from becoming larger than the value specified by max-width.
     static member inline maxWidth (value: ICssUnit) = Interop.mkStyle "maxWidth" value
+    /// Sets the maximum height of an element. 
+    ///
+    /// It prevents the used value of the height property from becoming larger than the value specified for max-height.
     static member inline maxHeight (value: int) = Interop.mkStyle "maxHeight" value
+    /// Sets the maximum height of an element. 
+    ///
+    /// It prevents the used value of the height property from becoming larger than the value specified for max-height.
     static member inline maxHeight (value: ICssUnit) = Interop.mkStyle "maxHeight" value
+    /// Set the height of an element. 
+    ///
+    /// By default, the property defines the height of the content area.
     static member inline height (value: int) = Interop.mkStyle "height" value
+    /// Set the height of an element. 
+    ///
+    /// By default, the property defines the height of the content area.
     static member inline height (value: ICssUnit) = Interop.mkStyle "height" value
+    /// Sets the width of an element. 
+    ///
+    /// By default, the property defines the width of the content area.
     static member inline width (value: int) = Interop.mkStyle "width" value
+    /// Sets the width of an element. 
+    ///
+    /// By default, the property defines the width of the content area.
     static member inline width (value: ICssUnit) = Interop.mkStyle "width" value
+    /// Sets the size of the element's background image. 
+    ///
+    /// The image can be left to its natural size, stretched, or constrained to fit the available space.
     static member inline backgroundSize (value: string) = Interop.mkStyle "backgroundSize" value
+    /// Sets one or more background images on an element.
     static member inline backgroundImage (value: string) = Interop.mkStyle "backgroundImage" value
     static member inline backgroundImageUrl (value: string) = Interop.mkStyle "backgroundImage" ("url(" + value + ")")
+    /// Sets how background images are repeated. 
+    ///
+    /// A background image can be repeated along the horizontal and vertical axes, or not repeated at all.
     static member inline backgroundRepeat (repeat: IBackgroundRepeat) = Interop.mkStyle "backgroundRepeat" repeat
+    /// Adds shadow effects around an element's frame. 
+    ///
+    /// A box shadow is described by X and Y offsets relative to the element, blur and spread radii, and color.
     static member inline boxShadow(horizontalOffset: int, verticalOffset: int, color: string) =
         Interop.mkStyle "boxShadow" (
             (unbox<string> horizontalOffset) + "px " +
             (unbox<string> verticalOffset) + "px " +
             color
         )
+    /// Adds shadow effects around an element's frame. 
+    ///
+    /// A box shadow is described by X and Y offsets relative to the element, blur and spread radii, and color.
     static member inline boxShadow(horizontalOffset: int, verticalOffset: int, blur: int, color: string) =
         Interop.mkStyle "boxShadow" (
             (unbox<string> horizontalOffset) + "px " +
@@ -492,7 +737,9 @@ type style =
             (unbox<string> blur) + "px " +
             color
         )
-
+    /// Adds shadow effects around an element's frame. 
+    ///
+    /// A box shadow is described by X and Y offsets relative to the element, blur and spread radii, and color.
     static member inline boxShadow(horizontalOffset: int, verticalOffset: int, blur: int, spread: int, color: string) =
         Interop.mkStyle "boxShadow" (
             (unbox<string> horizontalOffset) + "px " +
