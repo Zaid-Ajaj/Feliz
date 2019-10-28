@@ -502,8 +502,72 @@ module style =
     [<Erase>]
     type boxShadow =
         static member inline none = Interop.mkStyle "boxShadow" "none"
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "boxShadow" "inheritFromParent"
 
+    [<Erase>]
+    type height =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "height" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "height" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "height" "unset"
+
+        /// The larger of either the intrinsic minimum height or the smaller of the intrinsic preferred height and the available height
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "height" "fit-content"
+        
+        /// The intrinsic preferred height.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "height" "max-content"
+        
+        /// The intrinsic minimum height.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "height" "min-content"
+        
+    [<Erase>]
+    type minHeight =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "min-height" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "min-height" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "min-height" "unset"
+
+        /// The larger of either the intrinsic minimum height or the smaller of the intrinsic preferred height and the available height
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "min-height" "fit-content"
+        
+        /// The intrinsic preferred height.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "min-height" "max-content"
+        
+        /// The intrinsic minimum height.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "min-height" "min-content"
+        
+    [<Erase>]
+    type maxHeight =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "max-height" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "max-height" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "max-height" "unset"
+
+        /// The larger of either the intrinsic minimum height or the smaller of the intrinsic preferred height and the available height
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "max-height" "fit-content"
+        
+        /// The intrinsic preferred height.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "max-height" "max-content"
+        
+        /// The intrinsic minimum height.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "max-height" "min-content"
+        
     [<Erase>]
     type textJustify =
         /// The browser determines the justification algorithm
@@ -515,6 +579,7 @@ module style =
         /// Disables justification methods
         static member inline none = Interop.mkStyle "textJustify" "none"
         static member inline initial = Interop.mkStyle "textJustify" "initial"
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "textJustify" "inherit"
 
     [<Erase>]
@@ -531,7 +596,7 @@ module style =
         static member inline prewrap = Interop.mkStyle "whiteSpace" "pre-wrap"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "whiteSpace" "initial"
-        /// Inherits this property from its parent element
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "whiteSpace" "inheritFromParent"
 
     [<Erase>]
@@ -546,7 +611,7 @@ module style =
         static member inline breakWord = Interop.mkStyle "wordBreak" "break-word"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "wordBreak" "initial"
-        /// Inherits this property from its parent element.
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "wordBreak" "inherit"
 
     [<Erase>]
@@ -561,7 +626,7 @@ module style =
         static member inline auto = Interop.mkStyle "overflow" "auto"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "overflow" "initial"
-        /// Inherits this property from its parent element.
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "overflow" "inherit"
 
     [<Erase>]
@@ -591,7 +656,7 @@ module style =
         static member inline collapse = Interop.mkStyle "visibility" "collapse"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "visibility" "initial"
-        /// Inherits this property from its parent element.
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "visibility" "inherit"
 
     [<Erase>]
@@ -615,7 +680,7 @@ module style =
         static member inline columnReverse = Interop.mkStyle "flexDirection" "column-reverse"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "flexBasis" "initial"
-        /// Inherits this property from its parent element.
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "flexBasis" "inherit"
 
     [<Erase>]
@@ -628,7 +693,7 @@ module style =
         static member inline wrapReverse = Interop.mkStyle "flexWrap" "wrap-reverse"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "flexWrap" "initial"
-        /// Inherits this property from its parent element.
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "flexWrap" "inherit"
 
     [<Erase>]
@@ -793,6 +858,7 @@ module style =
         static member inline overline = Interop.mkStyle "textDecorationLine" "overline"
         static member inline lineThrough = Interop.mkStyle "textDecorationLine" "line-through"
         static member inline initial = Interop.mkStyle "textDecorationLine" "initial"
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "textDecorationLine" "inherit"
 
     [<Erase>]
@@ -802,6 +868,7 @@ module style =
         static member inline overline = Interop.mkStyle "textDecoration" "overline"
         static member inline lineThrough = Interop.mkStyle "textDecoration" "line-through"
         static member inline initial = Interop.mkStyle "textDecoration" "initial"
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "textDecoration" "inherit"
 
     [<Erase>]
@@ -812,6 +879,7 @@ module style =
         /// Specifies that child elements will preserve its 3D position
         static member inline preserve3D = Interop.mkStyle "transformStyle" "preserve-3d"
         static member inline initial = Interop.mkStyle "transformStyle" "initial"
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "transformStyle" "inherit"
 
     [<Erase>]
@@ -825,6 +893,7 @@ module style =
         /// Transforms all characters to lowercase.
         static member inline lowercase = Interop.mkStyle "textTransform" "lowercase"
         static member inline initial = Interop.mkStyle "textTransform" "initial"
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "textTransform" "inherit"
 
     [<Erase>]
@@ -836,6 +905,7 @@ module style =
         /// Render the given string to represent the clipped text.
         static member inline custom(value: string) = Interop.mkStyle "textOverflow" value
         static member inline initial = Interop.mkStyle "textOverflow" "initial"
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "textOverflow" "inherit"
 
     [<Erase>]
@@ -1557,6 +1627,7 @@ module style =
         /// Note: Not supported in IE/Edge 15 or earlier. Supported in Safari from version 6.1 with a -webkit- prefix.
         static member inline sticky = Interop.mkStyle "position" "sticky"
         static member inline initial = Interop.mkStyle "position" "initial"
+        /// Inherits this property from its parent element. 
         static member inline inheritFromParent = Interop.mkStyle "position" "inherit"
 
     [<Erase; RequireQualifiedAccess>]
