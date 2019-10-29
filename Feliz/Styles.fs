@@ -97,53 +97,50 @@ type style =
     /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
     /// margin-bottom, and margin-left.
     static member inline margin(value: int) = Interop.mkStyle "margin" value
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on two sides of an element. It is a shorthand for margin-top and margin-right.
     static member inline margin(top: int, right: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + "px " +
             (unbox<string> right) + "px"
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on two sides of an element. It is a shorthand for margin-top and margin-right.
     static member inline margin(top: ICssUnit, right: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string>right) + "px"
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on two sides of an element. It is a shorthand for margin-top and margin-right.
     static member inline margin(top: ICssUnit, right: ICssUnit) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string>right)
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right 
+    /// and margin-bottom.
     static member inline margin(top: ICssUnit, right: int, bottom: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string>right) + "px " +
             (unbox<string>bottom) + "px"
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right 
+    /// and margin-bottom.
     static member inline margin(top: ICssUnit, right: ICssUnit, bottom: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string> right) + " " +
             (unbox<string>bottom) + "px"
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right 
+    /// and margin-bottom.
     static member inline margin(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string> right) + " " +
             (unbox<string> bottom)
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right 
+    /// and margin-bottom.
     static member inline margin(top: ICssUnit, right: int, bottom: ICssUnit) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
@@ -168,15 +165,14 @@ type style =
             (unbox<string>bottom) + "px " +
             (unbox<string>left) + "px"
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on two sides of an element. It is a shorthand for margin-top and margin-right.
     static member inline margin(top: int, right: ICssUnit) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + "px " +
             (unbox<string> right)
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right, 
-    /// margin-bottom, and margin-left.
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right 
+    /// and margin-bottom.
     static member inline margin(top: int, right: int, bottom: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + "px " +
@@ -225,32 +221,32 @@ type style =
             (unbox<string> top) + " " +
             (unbox<string>right) + "px"
         )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
-    /// padding-right, padding-bottom, and padding-left.
+    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, and padding-bottom.
     static member inline padding(top: ICssUnit, right: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
             (unbox<string> right) + "px " +
             (unbox<string> bottom) + "px"
         )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
-    /// padding-right, padding-bottom, and padding-left.
+    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, and padding-bottom.
     static member inline padding(top: ICssUnit, right: ICssUnit, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
             (unbox<string> right) + " " +
             (unbox<string>bottom) + "px"
         )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
-    /// padding-right, padding-bottom, and padding-left.
+    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, and padding-bottom.
     static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
             (unbox<string> right) + " " +
             (unbox<string> bottom)
         )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
-    /// padding-right, padding-bottom, and padding-left.
+    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, and padding-bottom.
     static member inline padding(top: ICssUnit, right: int, bottom: ICssUnit) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
@@ -275,8 +271,7 @@ type style =
             (unbox<string>bottom) + "px " +
             (unbox<string>left) + "px"
         )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
-    /// padding-right, padding-bottom, and padding-left.
+    /// Sets the padding area on two sides of an element. It is a shorthand for padding-top and padding-right.
     static member inline padding(top: int, right: ICssUnit) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
@@ -285,15 +280,14 @@ type style =
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
     /// padding-right, padding-bottom, and padding-left.
     static member inline padding(value: int) = Interop.mkStyle "padding" value
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
-    /// padding-right, padding-bottom, and padding-left.
+    /// Sets the padding area on two sides of an element. It is a shorthand for padding-top and padding-right.
     static member inline padding(top: int, right: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
             (unbox<string> right) + "px"
         )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top, 
-    /// padding-right, padding-bottom, and padding-left.
+    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top, 
+    /// padding-right, and padding-bottom.
     static member inline padding(top: int, right: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
@@ -608,6 +602,7 @@ type style =
     ///
     /// The animation can start later, immediately from its beginning, or immediately and partway through the animation.
     static member inline animationDelay(seconds: int) = Interop.mkStyle "animationDelay" ((unbox<string> seconds) + "s")
+    /// The number of times the animation runs.
     static member inline animationDurationCount(count: int) = Interop.mkStyle "animationDurationCount" count
     /// Sets the font family for the font specified in a @font-face rule.
     static member inline fontFamily (family: string) = Interop.mkStyle "fontFamily" family
@@ -713,6 +708,7 @@ type style =
     static member inline backgroundSize (value: string) = Interop.mkStyle "backgroundSize" value
     /// Sets one or more background images on an element.
     static member inline backgroundImage (value: string) = Interop.mkStyle "backgroundImage" value
+    /// Short-hand for `style.backgroundImage(sprintf "url(%s)" value)` to set the backround image using a url.
     static member inline backgroundImageUrl (value: string) = Interop.mkStyle "backgroundImage" ("url(" + value + ")")
     /// Sets how background images are repeated. 
     ///
