@@ -6,10 +6,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>0.1.1</Version>
+        <Version>0.2.1</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Update Feliz dependency, re-execute init when props change reference</PackageReleaseNotes>
+        <PackageReleaseNotes>Update Feliz dependency, use component names as required keys</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Components.fs" />

@@ -496,7 +496,8 @@ module MarkdownLoader =
                 prop.text error
             ]
 
-    let loadMarkdown' (path: string list) = React.elmishComponent(init path, update, render path)
+    let loadMarkdown' (path: string list) =
+        React.elmishComponent("LoadMarkdown", init path, update, render path)
 
 let loadMarkdown (path: string list) = MarkdownLoader.loadMarkdown' path
 // A collapsable nested menu for the sidebar

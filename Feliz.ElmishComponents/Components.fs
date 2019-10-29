@@ -7,6 +7,7 @@ type ElmishComponentProps<'State, 'Msg> = {
     Initial : 'State * Cmd<'Msg>
     Update : 'Msg -> 'State -> 'State * Cmd<'Msg>
     Render : 'State -> ('Msg -> unit) -> ReactElement
+    key : string
 }
 
 /// A React component that implements an internal Elmish dispatch loop using the program parts of `init`, `update` and `render`.
@@ -44,29 +45,31 @@ module ElmishComponentExtensiosns =
 
     type React with
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(init, update, render) =
+        static member inline elmishComponent(key, init, update, render) =
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
-                { Initial = init; Update = update; Render = render }
+                { Initial = init; Update = update; Render = render; key = key }
                 [ ]
 
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(init, update, render) =
+        static member inline elmishComponent(key, init, update, render) =
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
-                { Initial = init, Cmd.none; Update = update; Render = render }
+                { Initial = init, Cmd.none; Update = update; Render = render; key = key }
                 [ ]
 
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(init, update, render) =
+        static member inline elmishComponent(key, init, update, render) =
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
                 { Initial = init, Cmd.none;
                   Update = fun msg state -> update msg state, Cmd.none;
-                  Render = render }
+                  Render = render
+                  key = key }
                 [ ]
 
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(init, update, render) =
+        static member inline elmishComponent(key, init, update, render) =
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
                 { Initial = init;
                   Update = fun msg state -> update msg state, Cmd.none;
-                  Render = render }
+                  Render = render
+                  key = key }
                 [ ]

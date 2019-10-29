@@ -75,4 +75,4 @@ let render state dispatch =
         Html.h1 state.Count
     ]
 
-let application = React.elmishComponent(init, update, render)
+let application = React.elmishComponent("Counter", init, update, render)

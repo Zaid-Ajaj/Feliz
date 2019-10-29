@@ -1,6 +1,6 @@
 # Feliz.ElmishComponents  [![Nuget](https://img.shields.io/nuget/v/Feliz.ElmishComponents.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.ElmishComponents)
 
-Feliz can be used and integrated into your Elmish application inside the `render` functions just like any other React binding. However, the Elm(ish) componentization techniques are known to require a lot of boilerplate code in the application, especially when it comes to data and event communication between parent and child components. Luckily, Feliz includes a gem called `Feliz.ElmishComponents` that enables you to build Elmish components using `init`, `update` and `render` as standalone React components. These React componments will each keep track of their internal state, and have their own dispatch loop. Data and event communication will then go through React via the props.
+Feliz can be used and integrated into your Elmish application inside the `render` functions just like any other React binding. However, the Elm(ish) componentization techniques are known to require a lot of boilerplate code in the application, especially when it comes to data and event communication between parent and child components. Luckily, Feliz includes a gem called `Feliz.ElmishComponents` that enables you to build Elmish components using `init`, `update` and `render` as standalone React components. These React componments will each keep track of their internal state, and have their own dispatch loop instead of having the parent components manage their state explicitly. Data and event communication will then go through React via the props.
 
 ### Installation
 
@@ -10,7 +10,7 @@ dotnet add package Feliz.ElmishComponents
 
 ### Usage
 
-The library includes a single function: `React.elmishComponent(init, update, render)` which you can use to build your React components:
+The library includes a single function: `React.elmishComponent(name, init, update, render)` which you can use to build your React components:
 
 ```fsharp
 open Feliz
@@ -21,11 +21,27 @@ let init : State * Cmd<Msg> = ...
 let update (msg: Msg) (state: State) : State * Cmd<Msg> = ...
 let render (state: State) (dispatch: Msg -> unit) : ReactElement = ...
 
-let application : ReactElement = React.elmishComponent(init, update, render)
+let application : ReactElement = React.elmishComponent("Application", init, update, render)
 
 open Browser.Dom
 
 ReactDOM.render(application, document.getElementById "feliz-app")
+```
+
+### Compare with "traditional Elmish"
+
+To understand how this library simplifies Elmish composition, head to the [elmish-compostion](https://github.com/Zaid-Ajaj/elmish-composition) repository where a login example is implemented once using Elmish style composition (parent manages all children explicitly and duplicates state) and once again implemented using this library to greatly simplify the parent component (parent only manages its own state).
+
+### Careful with Component names
+
+The first argument of the function `React.elmishComponent` is the required name of that component which works effectively as a *key* of that component! This means if you built a component using a static name (such as `TodoItem`) to use it in a loop, that you have wrap the it inside a `Html.keyedFragment` element:
+```fsharp
+Html.div [
+    for todo in state.Todos ->
+    Html.keyedFragment(todo.Id, [
+        TodoItem.todoItem(todo)
+    ])
+]
 ```
 
 ### Full Live Example
@@ -109,7 +125,7 @@ let render state dispatch =
         Html.h1 state.Count
     ]
 
-let application = React.elmishComponent(init, update, render)
+let application = React.elmishComponent("Counter", init, update, render)
 
 open Browser.Dom
 
