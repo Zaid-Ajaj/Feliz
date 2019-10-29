@@ -38,3 +38,18 @@ type React =
         Fable.React.FunctionComponent.Of(render=render)
     static member functionComponent(name: string, render: 'props -> Fable.React.ReactElement) =
         Fable.React.FunctionComponent.Of(displayName=name, render=render)
+    /// The `useCallback` hook. Returns a memoized callback. Pass an inline callback and an array of dependencies. `useCallback` will return a memoized version of the callback that only changes if one of the dependencies has changed.
+    static member useCallback(callbackFunction: 'a -> 'b, dependencies: obj array) = Interop.reactApi.useCallback callbackFunction dependencies
+    /// The `useMemo` hook. Returns a memoized value. Pass a "create" function and an array of dependencies. `useMemo` will only recompute the memoized value when one of the dependencies has changed.
+    static member useMemo(createFunction: unit -> 'a, dependencies: obj array) = Interop.reactApi.useMemo createFunction dependencies
+    /// `React.memo` is a higher order component for function components.
+    /// If your function component renders the same result given the same props, you can wrap it in a call to `React.memo` for a performance boost in some cases by memoizing the result. This means that React will skip rendering the component, and reuse the last rendered result.
+    /// By default it will only shallowly compare complex objects in the props object. If you want control over the comparison, you can also provide a custom comparison function as the second argument.
+    static member memo(render: 'props -> Fable.React.ReactElement, ?areEqual: 'props -> 'props -> bool, ?displayName : string) : Fable.React.FunctionComponent<'props> =
+        let memoElementType =
+            match areEqual with
+            | Some areEqual -> Fable.React.ReactElementType.memoWith areEqual render
+            | None -> Fable.React.ReactElementType.memo render
+        displayName |> Option.iter (fun name -> memoElementType?displayName <- name)
+        fun props ->
+          Fable.React.ReactElementType.create memoElementType props []

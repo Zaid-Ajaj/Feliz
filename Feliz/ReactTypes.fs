@@ -16,3 +16,5 @@ type IReactApi =
     abstract createElement: comp: obj * props: obj -> ReactElement
     abstract createElement: comp: obj * props: obj * [<ParamList>] children: ReactElement seq -> ReactElement
     abstract Children : ReactChildren
+    abstract useCallback : callbackFunction: ('a -> 'b) -> dependencies: obj array -> ('a -> 'b)
+    abstract useMemo : createFunction: (unit -> 'a) -> dependencies: obj array -> 'a
