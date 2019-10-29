@@ -81,7 +81,7 @@ type length =
     static member inline percent(value: int) : ICssUnit = unbox ((unbox<string>value) + "%")
     /// Relative to the parent element
     static member inline percent(value: double) : ICssUnit = unbox ((unbox<string>value) + "%")
-    /// The browser calculates the width.
+    /// The browser calculates the length.
     static member inline auto : ICssUnit = unbox "auto"
 
 [<Erase>]
