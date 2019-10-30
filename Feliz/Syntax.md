@@ -3,7 +3,7 @@
 Elements can take simple values as their only input such a string, a number, a single child element or a list of child elements.
 
 ```fs
-Html.h1 state.Count
+Html.h1 42
 
 Html.div "Hello there!"
 

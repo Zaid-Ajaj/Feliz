@@ -57,7 +57,7 @@ let getGradientDefinition (gradientId: string) (data: Point list) =
         ]
     ]
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () ->
     Recharts.areaChart [
         areaChart.height 400
         areaChart.width 500
@@ -76,7 +76,7 @@ let chart = React.functionComponent <| fun () ->
                 area.fill "url(#splitColor)"
             ]
         ]
-    ]
+    ])
 
 open Browser.Dom
 

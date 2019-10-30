@@ -29,7 +29,7 @@ The `Popover` component can easily used in a React stateful component that keeps
 open Feliz
 open Feliz.Popover
 
-let popoverWithText' = React.functionComponent <| fun (input: {| content: string |}) ->
+let popoverWithText' = React.functionComponent(fun (input: {| content: string |}) ->
     let (popoverOpen, toggleOpen) = React.useState false
     Popover.popover [
         popover.body [
@@ -55,7 +55,7 @@ let popoverWithText' = React.functionComponent <| fun (input: {| content: string
                 prop.onClick (fun _ -> toggleOpen(not popoverOpen))
             ]
         ]
-    ]
+    ])
 
 let sample = Html.div [
     popoverWithText' {| content = "Popover Content" |}
