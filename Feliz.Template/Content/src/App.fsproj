@@ -10,6 +10,6 @@
         <PackageReference Include="Fable.Elmish.Debugger" Version="3.0.3" />
         <PackageReference Include="Fable.Elmish.HMR" Version="4.0.1" />
         <PackageReference Include="Fable.Elmish.React" Version="3.0.1" />
-        <PackageReference Include="Feliz" Version="0.65.5" />
+        <PackageReference Include="Feliz" Version="0.66.0" />
     </ItemGroup>
 </Project>

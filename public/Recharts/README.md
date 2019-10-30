@@ -40,7 +40,7 @@ let createGradient (id: string) (color: string) =
         ]
     ]
 
-let sampleChart = React.functionComponent <| fun () ->
+let sampleChart = React.functionComponent(fun () ->
     Recharts.areaChart [
         areaChart.width 730
         areaChart.height 250
@@ -72,7 +72,7 @@ let sampleChart = React.functionComponent <| fun () ->
                 area.fill "url(#colorPv)"
             ]
         ]
-    ]
+    ])
 
 open Browser.Dom
 

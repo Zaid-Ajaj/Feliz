@@ -17,8 +17,7 @@ let data = [
     { name = "Page G"; uv = 3490; }
 ]
 
-
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () -> [
     Recharts.barChart [
         barChart.width 150
         barChart.height 40
@@ -30,3 +29,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+])

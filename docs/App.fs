@@ -206,7 +206,7 @@ let fragmentTests =
     ]
 
 // Re-use state internally using React hooks
-let animationsOnHover' = React.functionComponent <| fun (props: {| content: ReactElement |}) ->
+let animationsOnHover' = React.functionComponent(fun (props: {| content: ReactElement |}) -> [
     let (hovered, setHovered) = React.useState(false)
     Html.div [
         prop.style [
@@ -228,6 +228,7 @@ let animationsOnHover' = React.functionComponent <| fun (props: {| content: Reac
         prop.onMouseLeave (fun _ -> setHovered(false))
         prop.children [ props.content ]
     ]
+])
 
 let animationsOnHover content = animationsOnHover' {| content = Html.fragment content |}
 let animationSample =
@@ -238,11 +239,11 @@ let animationSample =
 
 module ReactComponents =
     type Greeting = { Name: string option }
-    let greeting = React.functionComponent <| fun (props: Greeting) ->
+    let greeting = React.functionComponent(fun (props: Greeting) ->
         Html.div [
             Html.span "Hello, "
             Html.span (Option.defaultValue "World" props.Name)
-        ]
+        ])
 
     let simple = Html.div [
         prop.className "content"
@@ -502,7 +503,7 @@ module MarkdownLoader =
 let loadMarkdown (path: string list) = MarkdownLoader.loadMarkdown' path
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
-let nestedMenuList' = React.functionComponent <| fun (input: {| name: string; items: Fable.React.ReactElement list |}) ->
+let nestedMenuList' = React.functionComponent(fun (input: {| name: string; items: Fable.React.ReactElement list |}) -> [
     let (collapsed, setCollapsed) = React.useState(false)
     Html.li [
         Html.anchor [
@@ -526,6 +527,7 @@ let nestedMenuList' = React.functionComponent <| fun (input: {| name: string; it
             prop.children input.items
         ]
     ]
+])
 
 let nestedMenuList (name: string) (items: Fable.React.ReactElement list) =
     nestedMenuList' {| name = name; items = items |}
@@ -580,7 +582,7 @@ let sidebar (state: State) dispatch =
                 ]
 
                 nestedMenuList "Ecosystem" [
-                    menuItem "Feliz.ElmishComponents" [ Urls.Feliz; Urls.ElmishComponents ]
+                    menuItem "Feliz.ElmishComponents" [ Urls.Ecosystem; Urls.ElmishComponents ]
                     menuItem "Feliz.Router" [ Urls.Ecosystem; Urls.Router ]
                     menuItem "Feliz.Recharts" [ Urls.Ecosystem; Urls.Recharts ]
                     menuItem "Feliz.PigeonMaps" [ Urls.Ecosystem; Urls.PigeonMaps ]
@@ -651,6 +653,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.React; Urls.HoverAnimations ] -> loadMarkdown [ "Feliz"; "React"; "HoverAnimations.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Components ] -> loadMarkdown [ "Feliz"; "React"; "Components.md" ]
     | [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ] -> loadMarkdown [ "Feliz"; "React"; "CommonPitfalls.md" ]
+    | [ Urls.Ecosystem; Urls.ElmishComponents ] -> loadMarkdown [ "Feliz"; "ElmishComponents.md" ]
     | [ Urls.Ecosystem; Urls.Router ] -> loadMarkdown [ readme "Zaid-Ajaj" "Feliz.Router" ]
     | [ Urls.Ecosystem; Urls.Mui ] -> loadMarkdown [ readme "cmeeren" "Feliz.MaterialUI" ]
     | [ Urls.Ecosystem; Urls.Plotly ] -> loadMarkdown [ readme "Shmew" "Feliz.Plotly" ]

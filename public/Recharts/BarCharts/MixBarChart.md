@@ -22,7 +22,7 @@ let data = [
 ]
 
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () ->
     Recharts.barChart [
         barChart.width 500
         barChart.height 300
@@ -49,7 +49,7 @@ let chart = React.functionComponent <| fun () ->
                 bar.fill "#ffc658"
             ]
         ]
-    ]
+    ])
 
 open Browser.Dom
 

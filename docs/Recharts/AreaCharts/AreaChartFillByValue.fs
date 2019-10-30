@@ -17,20 +17,20 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300 }
 ]
 
-let getOffset (data: Point list) = 
-    match data with 
+let getOffset (data: Point list) =
+    match data with
     | [ ] -> 0.0
-    | points -> 
+    | points ->
         let dataMax = points |> List.maxBy (fun point -> point.uv)
         let dataMin = points |> List.minBy (fun point -> point.uv)
-        
-        if dataMax.uv <= 0 
+
+        if dataMax.uv <= 0
         then 0.0
         elif dataMin.uv >= 0
         then 1.0
         else float dataMax.uv / (float dataMax.uv - float dataMin.uv)
 
-let getGradientDefinition (gradientId: string) (data: Point list) = 
+let getGradientDefinition (gradientId: string) (data: Point list) =
     let offset = getOffset data
     Html.defs [
         Html.linearGradient [
@@ -38,22 +38,22 @@ let getGradientDefinition (gradientId: string) (data: Point list) =
             prop.x1 0; prop.x2 0
             prop.y1 0; prop.y2 1
             prop.children [
-                Html.stop [ 
+                Html.stop [
                     prop.offset offset
                     prop.stopColor "green"
                     prop.stopOpacity 1.0
                 ]
 
-                Html.stop [ 
+                Html.stop [
                     prop.offset offset
                     prop.stopColor "red"
                     prop.stopOpacity 1.0
                 ]
             ]
         ]
-    ] 
+    ]
 
-let chart = React.functionComponent <| fun () -> 
+let chart = React.functionComponent(fun () -> [
     Recharts.areaChart [
         areaChart.height 400
         areaChart.width 500
@@ -73,3 +73,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+])

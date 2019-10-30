@@ -8,11 +8,11 @@ The simplest types of React components are those that don't internal state, only
 type Greeting = { Name: string option }
 
 // greeting : Greeting -> ReactElement
-let greeting = React.functionComponent <| fun (props: Greeting) ->
+let greeting = React.functionComponent(fun (props: Greeting) ->
     Html.div [
         Html.span "Hello, "
         Html.span (Option.defaultValue "World" props.Name)
-    ]
+    ])
 
 Html.div [
     prop.className "content"

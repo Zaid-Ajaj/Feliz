@@ -16,7 +16,7 @@ let data = [
     { name = "Group F"; value = 189 }
 ]
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () -> [
     Recharts.pieChart [
         pieChart.width 400
         pieChart.height 400
@@ -34,3 +34,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+])

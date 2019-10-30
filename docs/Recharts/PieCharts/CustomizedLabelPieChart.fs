@@ -35,11 +35,11 @@ let renderCustomLabel (input: IPieLabelProperties) =
         prop.text (sprintf "%.0f%%" (100. * input.percent))
     ]
 
-let chart = React.functionComponent <| fun () ->
-    let cells = 
-        data 
+let chart = React.functionComponent(fun () -> [
+    let cells =
+        data
         |> List.mapi (fun index _ ->
-            Recharts.cell [ 
+            Recharts.cell [
                 cell.fill bgColors.[ index % bgColors.Length ]
             ])
 
@@ -59,3 +59,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+])

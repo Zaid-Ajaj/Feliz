@@ -9,7 +9,7 @@ You might be tempted to use a tuple for multiple parameters of a React component
 ### <i class="fa fa-times" style="color:red; margin-right: 5px" ></i> Don't do this
 
 ```fsharp
-let counter = React.functionComponent <| fun (min: int, max: int) ->
+let counter = React.functionComponent(fun (min: int, max: int) ->
     let (count, setCount) = React.useState(min)
     Html.div [
         Html.h1 count
@@ -17,11 +17,11 @@ let counter = React.functionComponent <| fun (min: int, max: int) ->
             prop.text "Increment"
             prop.onClick (fun _ -> if count < max then setCount(count + 1))
         ]
-    ]
+    ])
 ```
 ### <i class="fa fa-check" style="color:lightgreen; margin-right: 5px" ></i> Do this
 ```fsharp
-let counter = React.functionComponent <| fun (input: {| min: int; max: int |}) ->
+let counter = React.functionComponent(fun (input: {| min: int; max: int |}) ->
     let (count, setCount) = React.useState(input.min)
     Html.div [
         Html.h1 count
@@ -29,14 +29,14 @@ let counter = React.functionComponent <| fun (input: {| min: int; max: int |}) -
             prop.text "Increment"
             prop.onClick (fun _ -> if count < input.max then setCount(count + 1))
         ]
-    ]
+    ])
 ```
 ### <i class="fa fa-check" style="color:lightgreen; margin-right: 5px" ></i> Or this
 
 ```fsharp
 type CounterProps = { min: int; max: int }
 
-let counter = React.functionComponent <| fun (input: CounterProps) ->
+let counter = React.functionComponent(fun (input: CounterProps) ->
     let (count, setCount) = React.useState(input.min)
     Html.div [
         Html.h1 count
@@ -44,7 +44,7 @@ let counter = React.functionComponent <| fun (input: CounterProps) ->
             prop.text "Increment"
             prop.onClick (fun _ -> if count < input.max then setCount(count + 1))
         ]
-    ]
+    ])
 ```
 ## Components must be defined at the module level
 
@@ -61,7 +61,7 @@ let counter (start: int) =
                 prop.text "Increment"
                 prop.onClick (fun _ -> setCount(count + 1))
             ]
-        ]
+        ])
 
     counter' {| start = start |}
 ```
@@ -75,7 +75,7 @@ let counter' = React.functionComponent(fun (input: {| start: int |}) ->
             prop.text "Increment"
             prop.onClick (fun _ -> setCount(count + 1))
         ]
-    ]
+    ])
 
 let counter (start: int) = counter' {| start = start |}
 ```

@@ -17,7 +17,7 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300 }
 ]
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () -> [
     Recharts.lineChart [
         lineChart.width 500
         lineChart.height 300
@@ -45,3 +45,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+])

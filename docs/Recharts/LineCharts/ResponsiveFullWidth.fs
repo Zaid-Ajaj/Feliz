@@ -18,7 +18,7 @@ let data = [
 ]
 
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () -> [
     let responsiveChart =
         Recharts.lineChart [
             lineChart.data data
@@ -46,3 +46,4 @@ let chart = React.functionComponent <| fun () ->
         responsiveContainer.height 300
         responsiveContainer.chart responsiveChart
     ]
+])

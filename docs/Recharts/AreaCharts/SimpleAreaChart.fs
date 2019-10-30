@@ -17,7 +17,7 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300 }
 ]
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () -> [
     Recharts.areaChart [
         areaChart.width 500
         areaChart.height 400
@@ -36,3 +36,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+])

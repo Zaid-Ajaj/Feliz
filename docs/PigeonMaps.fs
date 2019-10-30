@@ -57,7 +57,7 @@ module DynamicMarkers =
         |> Option.map (fun city -> city.Latitude, city.Longitude)
         |> Option.defaultValue (51.812565, 5.837226)
 
-    let citiesMap = React.functionComponent <| fun () ->
+    let citiesMap = React.functionComponent(fun () -> [
         let (center, setCenter) = React.useState initialCenter
         let (zoom, setZoom) = React.useState 8
         PigeonMaps.map [
@@ -67,6 +67,7 @@ module DynamicMarkers =
             map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter (args.center))
             map.children [ for city in cities -> renderMarker city setCenter ]
         ]
+    ])
 
 module MarkerOverlays =
 
@@ -90,7 +91,7 @@ module MarkerOverlays =
         Hovered: bool
     }
 
-    let markerWithPopover = React.functionComponent <| fun (marker: MarkerProps) ->
+    let markerWithPopover = React.functionComponent(fun (marker: MarkerProps) -> [
         let (popoverOpen, toggleOpen) = React.useState false
         Popover.popover [
             popover.body [
@@ -120,6 +121,7 @@ module MarkerOverlays =
                 ]
             ]
         ]
+    ])
 
     let renderMarker city =
         PigeonMaps.marker [
@@ -140,7 +142,7 @@ module MarkerOverlays =
         |> Option.map (fun city -> city.Latitude, city.Longitude)
         |> Option.defaultValue (51.812565, 5.837226)
 
-    let citiesMap = React.functionComponent <| fun () ->
+    let citiesMap = React.functionComponent(fun () -> [
         let (zoom, setZoom) = React.useState 8
         let (center, setCenter) = React.useState initialCenter
         PigeonMaps.map [
@@ -150,3 +152,4 @@ module MarkerOverlays =
             map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter args.center)
             map.children [ for city in cities -> renderMarker city ]
         ]
+    ])

@@ -16,3 +16,15 @@ Html.div [
     ]
 ]
 ```
+Now with F# 4.7 it is even easier without this overload as you omit the `yield` keyword:
+```fs
+Html.div [
+    prop.style [
+        style.margin 10
+        style.borderRadius 15
+        if state.Errored
+        then style.color.red
+        else style.color.green
+    ]
+]
+```

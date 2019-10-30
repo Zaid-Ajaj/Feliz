@@ -6,10 +6,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>0.65.5</Version>
+        <Version>0.66.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Add transitionProperties and transitionDelay overloads</PackageReleaseNotes>
+        <PackageReleaseNotes>Add React.useCallback, React.useMemo and React.memo with additional optional properties for React.functionComponent</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>

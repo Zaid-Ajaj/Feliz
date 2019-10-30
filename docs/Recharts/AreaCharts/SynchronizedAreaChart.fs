@@ -17,13 +17,13 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300 }
 ]
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () -> [
     Html.div [
         Html.h4 "A demo of synchronized AreaCharts"
         Recharts.areaChart [
             areaChart.width 500
             areaChart.height 200
-            areaChart.data data 
+            areaChart.data data
             areaChart.syncId "anyId"
             areaChart.margin(top=10, right=30)
             areaChart.children [
@@ -45,7 +45,7 @@ let chart = React.functionComponent <| fun () ->
         Recharts.areaChart [
             areaChart.width 500
             areaChart.height 200
-            areaChart.data data 
+            areaChart.data data
             areaChart.syncId "anyId"
             areaChart.margin(top=10, right=30)
             areaChart.children [
@@ -62,3 +62,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+])

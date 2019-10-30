@@ -4,7 +4,7 @@ open Feliz
 open Feliz.Popover
 
 module Basic =
-    let popoverWithText' = React.functionComponent <| fun (input: {| content: string |}) ->
+    let popoverWithText' = React.functionComponent(fun (input: {| content: string |}) -> [
         let (popoverOpen, toggleOpen) = React.useState false
         Popover.popover [
             popover.body [
@@ -31,6 +31,7 @@ module Basic =
                 ]
             ]
         ]
+    ])
 
     let sample = Html.div [
         popoverWithText' {| content = "Popover Content" |}

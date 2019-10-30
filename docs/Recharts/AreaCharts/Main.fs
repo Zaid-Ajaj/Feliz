@@ -37,7 +37,7 @@ let createGradient (id: string) color =
         ]
     ]
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () -> [
     Recharts.areaChart [
         areaChart.width 730
         areaChart.height 250
@@ -68,3 +68,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+])
