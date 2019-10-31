@@ -2,6 +2,8 @@ namespace Feliz
 
 /// Contains a list of HTML5 colors from https://htmlcolorcodes.com/color-names/
 module colors =
+    let hsl (hue: float, saturation: float, lightness: float) = 
+        "hsl(" + (unbox<string> hue) + "," + (unbox<string> saturation) + "%," + (unbox<string> lightness) + "%)"
     let rgb (r: int, g: int, b: int) =
         "rgb(" + (unbox<string> r) + "," + (unbox<string> g) + "," + (unbox<string> b) + ")"
     let rgba (r: int, g: int, b: int, a) =
