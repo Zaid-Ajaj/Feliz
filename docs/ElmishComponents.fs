@@ -76,3 +76,49 @@ let render state dispatch =
     ]
 
 let application = React.elmishComponent("Counter", init, update, render)
+
+
+module ReplacementTests =
+    type Counter = { Count : int; Title: string }
+    type CounterMsg = Increment | IncrementDelayed
+    let init (title: string) = { Count = 0; Title = title }, Cmd.none
+
+    let update msg (state: Counter) : Counter * Cmd<CounterMsg> =
+        match msg with
+        | IncrementDelayed ->
+            state, Cmd.OfAsync.perform (fun () ->
+            async {
+                do! Async.Sleep 3000
+                return Increment
+            }) () (fun msg -> msg)
+        | Increment ->
+            { state with Count = state.Count + 1 }, Cmd.none
+
+    let render (state: Counter) dispatch =
+        Html.div [
+            Html.h1 (sprintf "%s: %d" state.Title state.Count)
+            Html.button [
+                prop.onClick (fun _ -> dispatch Increment)
+                prop.text "Increment"
+            ]
+            Html.button [
+                prop.onClick (fun _ -> dispatch IncrementDelayed)
+                prop.text "Increment Delayed"
+            ]
+        ]
+
+    let counter title = React.elmishComponent("Counter", init title, update, render)
+
+    let counterSwitcher = React.functionComponent(fun () -> [
+        let (switch, setSwitch) = React.useState(false)
+        Html.div [
+            if switch
+            then counter "First Counter"
+            else counter "Second Counter"
+            Html.hr [ ]
+            Html.button [
+                prop.onClick (fun _ -> setSwitch(not switch))
+                prop.text "Switch Counters"
+            ]
+        ]
+    ])

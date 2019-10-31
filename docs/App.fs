@@ -685,6 +685,7 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "CustomizedLabelPieChart.md" ]
     | [ Urls.PigeonMaps; Urls.Overview ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
     | [ Urls.PigeonMaps; Urls.Installation ] -> loadMarkdown [ "PigeonMaps"; "Installation.md" ]
+    | [ Urls.Tests; Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =
