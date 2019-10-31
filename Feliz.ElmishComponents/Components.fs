@@ -45,31 +45,47 @@ module ElmishComponentExtensiosns =
 
     type React with
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(key, init, update, render) =
+        static member inline elmishComponent(name, init, update, render, ?key:string) =
+            let fullKey =
+                match key with
+                | None -> name
+                | Some key -> name + "-" + key
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
-                { Initial = init; Update = update; Render = render; key = key }
+                { Initial = init; Update = update; Render = render; key = fullKey }
                 [ ]
 
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(key, init, update, render) =
+        static member inline elmishComponent(name, init, update, render, ?key) =
+            let fullKey =
+                match key with
+                | None -> name
+                | Some key -> name + "-" + key
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
-                { Initial = init, Cmd.none; Update = update; Render = render; key = key }
+                { Initial = init, Cmd.none; Update = update; Render = render; key = fullKey }
                 [ ]
 
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(key, init, update, render) =
+        static member inline elmishComponent(name, init, update, render, ?key) =
+            let fullKey =
+                match key with
+                | None -> name
+                | Some key -> name + "-" + key
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
                 { Initial = init, Cmd.none;
                   Update = fun msg state -> update msg state, Cmd.none;
                   Render = render
-                  key = key }
+                  key = fullKey }
                 [ ]
 
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(key, init, update, render) =
+        static member inline elmishComponent(name, init, update, render, ?key) =
+            let fullKey =
+                match key with
+                | None -> name
+                | Some key -> name + "-" + key
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
                 { Initial = init;
                   Update = fun msg state -> update msg state, Cmd.none;
                   Render = render
-                  key = key }
+                  key = fullKey }
                 [ ]

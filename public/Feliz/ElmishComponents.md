@@ -1,6 +1,10 @@
 # Feliz.ElmishComponents  [![Nuget](https://img.shields.io/nuget/v/Feliz.ElmishComponents.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.ElmishComponents)
 
-Feliz can be used and integrated into your Elmish application inside the `render` functions just like any other React binding. However, the Elm(ish) componentization techniques are known to require a lot of boilerplate code in the application, especially when it comes to data and event communication between parent and child components. Luckily, Feliz includes a gem called `Feliz.ElmishComponents` that enables you to build Elmish components using `init`, `update` and `render` as standalone React components. These React componments will each keep track of their internal state, and have their own dispatch loop instead of having the parent components manage their state explicitly. Data and event communication will then go through React via the props.
+Feliz can be used and integrated into your Elmish application inside the `render` functions just like any other React binding. However, the Elm(ish) componentization techniques are known to require a lot of boilerplate code in the application, especially when it comes to data and event communication between parent and child components.
+
+Luckily, Feliz includes a gem called `Feliz.ElmishComponents` that enables you to build lightweight Elmish components using `init`, `update` and `render` as standalone React components.
+
+These React componments will each keep track of their internal state, and have their own dispatch loop instead of having the parent components manage their state explicitly. Data and event communication will then go through React via the props.
 
 ### Installation
 
@@ -10,7 +14,7 @@ dotnet add package Feliz.ElmishComponents
 
 ### Usage
 
-The library includes a single function: `React.elmishComponent(name, init, update, render)` which you can use to build your React components:
+The library includes a single function: `React.elmishComponent(name, init, update, render, [key])` which you can use to build your React components:
 
 ```fsharp
 open Feliz
@@ -32,15 +36,33 @@ ReactDOM.render(application, document.getElementById "feliz-app")
 
 To understand how this library simplifies Elmish composition, head to the [elmish-compostion](https://github.com/Zaid-Ajaj/elmish-composition) repository where a login example is implemented once using Elmish style composition (parent manages all children explicitly and duplicates state) and once again implemented using this library to greatly simplify the parent component (parent only manages its own state).
 
-### Careful with Component names
+### Careful with Component names and Keys
 
-The first argument of the function `React.elmishComponent` is the required name of that component which works effectively as a *key* of that component! This means if you built a component using a static name (such as `TodoItem`) to use it in a loop, that you have wrap the it inside a `Html.keyedFragment` element:
+The first argument of the function `React.elmishComponent` is the required name of that component which works effectively as a *key* of that component! This means if you built a component using a static name (such as `TodoItem`) to use it in a loop, you have to give it an explicit `key:
 ```fsharp
+module Todo =
+    let init todoItem = (* ... *)
+    let update msg state = (* ... *)
+    let render state dispatch = (* ... *)
+
+
+let TodoItem (todoItem: Todo) =
+    React.elmishComponent("TodoItem", Todo.init todo, Todo.update, Todo.render, todo.Id)
+
+Html.div [
+    for todo in state.Todos -> TodoItem todo
+]
+```
+If you don't provide the key in the component definition, then you can wrap the component in a `Html.keyedFragment`:
+```fs
+let TodoItem (todoItem: Todo) =
+    React.elmishComponent("TodoItem", Todo.init todo, Todo.update, Todo.render)
+
 Html.div [
     for todo in state.Todos ->
-    Html.keyedFragment(todo.Id, [
-        TodoItem.todoItem(todo)
-    ])
+        Html.keyedFragment(todo.Id, [
+            TodoItem todo
+        ])
 ]
 ```
 
