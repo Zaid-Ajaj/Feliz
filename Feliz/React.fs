@@ -18,33 +18,29 @@ type internal Internal() =
     static member
         functionComponent
         (
-            renderElement: 'props -> Fable.React.ReactElement,
+            renderElement: 'props -> ReactElement,
             ?name: string,
             ?withKey: 'props -> string
         )
         : Fable.React.FunctionComponent<'props> =
-            let functionElementType = Fable.React.ReactElementType.ofFunction renderElement
-            name |> Option.iter (fun name -> functionElementType?displayName <- name)
+            name |> Option.iter (fun name -> renderElement?displayName <- name)
             fun props ->
                 let props = props |> propsWithKey withKey
-                Fable.React.ReactElementType.create functionElementType props []
+                Interop.reactApi.createElement(renderElement, props)
     static member
         memo
         (
-            renderElement: 'props -> Fable.React.ReactElement,
+            renderElement: 'props -> ReactElement,
             ?name: string,
             ?areEqual: 'props -> 'props -> bool,
             ?withKey: 'props -> string
         )
         : Fable.React.FunctionComponent<'props> =
-            let memoElementType =
-                match areEqual with
-                | Some areEqual -> Fable.React.ReactElementType.memoWith areEqual renderElement
-                | None -> Fable.React.ReactElementType.memo renderElement
+            let memoElementType = Interop.reactApi.memo(renderElement, (defaultArg areEqual (unbox null)))
             name |> Option.iter (fun name -> memoElementType?displayName <- name)
             fun props ->
                 let props = props |> propsWithKey withKey
-                Fable.React.ReactElementType.create memoElementType props []
+                Interop.reactApi.createElement(memoElementType, props)
 
 type React =
     /// The `useState` hook that create a state variable for React function components.
@@ -81,7 +77,7 @@ type React =
     /// <param name='dependencies'>An array of dependencies upon which the callback function depends.
     /// If not provided, defaults to empty array, representing dependencies that never change.</param>
     static member useCallback(callbackFunction: 'a -> 'b, ?dependencies: obj array) =
-      Interop.reactApi.useCallback callbackFunction (defaultArg dependencies [||])
+        Interop.reactApi.useCallback callbackFunction (defaultArg dependencies [||])
 
     /// <summary>
     /// The `useMemo` hook. Returns a memoized value. Pass a "create" function and an array of dependencies.
@@ -91,7 +87,7 @@ type React =
     /// <param name='dependencies'>An array of dependencies upon which the create function depends.
     /// If not provided, defaults to empty array, representing dependencies that never change.</param>
     static member useMemo(createFunction: unit -> 'a, ?dependencies: obj array) =
-      Interop.reactApi.useMemo createFunction (defaultArg dependencies [||])
+        Interop.reactApi.useMemo createFunction (defaultArg dependencies [||])
 
     //
     // React.functionComponent
@@ -102,7 +98,7 @@ type React =
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
     /// <param name='render'>A render function that returns an element.</param>
-    static member functionComponent(render: 'props -> Fable.React.ReactElement) =
+    static member functionComponent(render: 'props -> ReactElement) =
         Internal.functionComponent(render)
 
     /// <summary>
@@ -111,7 +107,7 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns an element.</param>
-    static member functionComponent(name: string, render: 'props -> Fable.React.ReactElement) =
+    static member functionComponent(name: string, render: 'props -> ReactElement) =
         Internal.functionComponent(render, name)
 
     /// <summary>
@@ -120,7 +116,7 @@ type React =
     /// </summary>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function that returns an element.</param>
-    static member functionComponent(withKey: 'props -> string, render: 'props -> Fable.React.ReactElement) =
+    static member functionComponent(withKey: 'props -> string, render: 'props -> ReactElement) =
         Internal.functionComponent(render, withKey=withKey)
 
     /// <summary>
@@ -130,7 +126,7 @@ type React =
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function that returns an element.</param>
-    static member functionComponent(name: string, withKey: 'props -> string, render: 'props -> Fable.React.ReactElement) =
+    static member functionComponent(name: string, withKey: 'props -> string, render: 'props -> ReactElement) =
         Internal.functionComponent(render, name, withKey=withKey)
 
     /// <summary>
@@ -138,7 +134,7 @@ type React =
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member functionComponent(render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member functionComponent(render: 'props -> #seq<ReactElement>) =
         Internal.functionComponent(render >> Html.fragment)
 
     /// <summary>
@@ -147,7 +143,7 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member functionComponent(name: string, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member functionComponent(name: string, render: 'props -> #seq<ReactElement>) =
         Internal.functionComponent(render >> Html.fragment, name)
 
     /// <summary>
@@ -156,7 +152,7 @@ type React =
     /// </summary>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member functionComponent(withKey: 'props -> string, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member functionComponent(withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
         Internal.functionComponent(render >> Html.fragment, withKey=withKey)
 
     /// <summary>
@@ -166,7 +162,7 @@ type React =
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member functionComponent(name: string, withKey: 'props -> string, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member functionComponent(name: string, withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
         Internal.functionComponent(render >> Html.fragment, name, withKey=withKey)
 
     //
@@ -179,7 +175,7 @@ type React =
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(render: 'props -> Fable.React.ReactElement) =
+    static member memo(render: 'props -> ReactElement) =
         Internal.memo(render)
 
     /// <summary>
@@ -189,7 +185,7 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(name: string, render: 'props -> Fable.React.ReactElement) =
+    static member memo(name: string, render: 'props -> ReactElement) =
         Internal.memo(render, name)
 
     /// <summary>
@@ -199,7 +195,7 @@ type React =
     /// </summary>
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(areEqual: 'props -> 'props -> bool, render: 'props -> Fable.React.ReactElement) =
+    static member memo(areEqual: 'props -> 'props -> bool, render: 'props -> ReactElement) =
         Internal.memo(render, areEqual=areEqual)
 
     /// <summary>
@@ -209,7 +205,7 @@ type React =
     /// </summary>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(withKey: 'props -> string, render: 'props -> Fable.React.ReactElement) =
+    static member memo(withKey: 'props -> string, render: 'props -> ReactElement) =
         Internal.memo(render, withKey=withKey)
 
     /// <summary>
@@ -220,7 +216,7 @@ type React =
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(name: string, areEqual: 'props -> 'props -> bool, render: 'props -> Fable.React.ReactElement) =
+    static member memo(name: string, areEqual: 'props -> 'props -> bool, render: 'props -> ReactElement) =
         Internal.memo(render, name, areEqual=areEqual)
 
     /// <summary>
@@ -231,7 +227,7 @@ type React =
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(name: string, withKey: 'props -> string, render: 'props -> Fable.React.ReactElement) =
+    static member memo(name: string, withKey: 'props -> string, render: 'props -> ReactElement) =
         Internal.memo(render, name, withKey=withKey)
 
     /// <summary>
@@ -242,7 +238,7 @@ type React =
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> Fable.React.ReactElement) =
+    static member memo(areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> ReactElement) =
         Internal.memo(render, areEqual=areEqual, withKey=withKey)
 
     /// <summary>
@@ -254,7 +250,7 @@ type React =
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(name: string, areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> Fable.React.ReactElement) =
+    static member memo(name: string, areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> ReactElement) =
         Internal.memo(render, name, areEqual=areEqual, withKey=withKey)
 
     /// <summary>
@@ -263,7 +259,7 @@ type React =
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member memo(render: 'props -> #seq<ReactElement>) =
         Internal.memo(render >> Html.fragment)
 
     /// <summary>
@@ -273,7 +269,7 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(name: string, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member memo(name: string, render: 'props -> #seq<ReactElement>) =
         Internal.memo(render >> Html.fragment, name)
 
     /// <summary>
@@ -283,7 +279,7 @@ type React =
     /// </summary>
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(areEqual: 'props -> 'props -> bool, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member memo(areEqual: 'props -> 'props -> bool, render: 'props -> #seq<ReactElement>) =
         Internal.memo(render >> Html.fragment, areEqual=areEqual)
 
     /// <summary>
@@ -293,7 +289,7 @@ type React =
     /// </summary>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(withKey: 'props -> string, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member memo(withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
         Internal.memo(render >> Html.fragment, withKey=withKey)
 
     /// <summary>
@@ -304,7 +300,7 @@ type React =
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(name: string, areEqual: 'props -> 'props -> bool, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member memo(name: string, areEqual: 'props -> 'props -> bool, render: 'props -> #seq<ReactElement>) =
         Internal.memo(render >> Html.fragment, name, areEqual=areEqual)
 
     /// <summary>
@@ -315,7 +311,7 @@ type React =
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(name: string, withKey: 'props -> string, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member memo(name: string, withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
         Internal.memo(render >> Html.fragment, name, withKey=withKey)
 
     /// <summary>
@@ -326,7 +322,7 @@ type React =
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member memo(areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
         Internal.memo(render >> Html.fragment, areEqual=areEqual, withKey=withKey)
 
     /// <summary>
@@ -338,5 +334,59 @@ type React =
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(name: string, areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> #seq<Fable.React.ReactElement>) =
+    static member memo(name: string, areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
         Internal.memo(render >> Html.fragment, name, areEqual=areEqual, withKey=withKey)
+
+    //
+    // React.useContext
+    //
+
+    /// <summary>
+    /// Creates a Context object. When React renders a component that subscribes to this Context object
+    /// it will read the current context value from the closest matching Provider above it in the tree.
+    /// </summary>
+    /// <param name='name'>The component name to display in the React dev tools.</param>
+    /// <param name='defaultValue'>A default value that is only used when a component does not have a matching Provider above it in the tree.</param>
+    static member createContext<'a>(?name: string, ?defaultValue: 'a) =
+        let contextObject = Interop.reactApi.createContext (defaultArg defaultValue Fable.Core.JS.undefined<'a>)
+        name |> Option.iter (fun name -> contextObject?displayName <- name)
+        contextObject
+
+    /// <summary>
+    /// A Provider component that allows consuming components to subscribe to context changes.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    /// <param name='contextValue'>The context value to be provided to descendant components.</param>
+    /// <param name='child'>A child element.</param>
+    static member contextProvider(contextObject: Fable.React.IContext<'a>, contextValue: 'a, child: ReactElement) : ReactElement =
+        Interop.reactApi.createElement(contextObject?Provider, createObj ["value" ==> contextValue], [child])
+    /// <summary>
+    /// A Provider component that allows consuming components to subscribe to context changes.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    /// <param name='contextValue'>The context value to be provided to descendant components.</param>
+    /// <param name='children'>A sequence of child elements.</param>
+    static member contextProvider(contextObject: Fable.React.IContext<'a>, contextValue: 'a, children: #seq<ReactElement>) : ReactElement =
+        Interop.reactApi.createElement(contextObject?Provider, createObj ["value" ==> contextValue], children)
+
+    /// <summary>
+    /// A Consumer component that subscribes to context changes.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    /// <param name='render'>A render function that returns an element.</param>
+    static member contextConsumer(contextObject: Fable.React.IContext<'a>, render: 'a -> ReactElement) : ReactElement =
+        Interop.reactApi.createElement(contextObject?Consumer, null, [!!render])
+    /// <summary>
+    /// A Consumer component that subscribes to context changes.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    /// <param name='render'>A render function that returns a sequence of elements.</param>
+    static member contextConsumer(contextObject: Fable.React.IContext<'a>, render: 'a -> #seq<ReactElement>) : ReactElement =
+        Interop.reactApi.createElement(contextObject?Consumer, null, [!!(render >> Html.fragment)])
+
+    /// <summary>
+    /// The `useContext` hook. Accepts a context object (the value returned from React.createContext) and returns the current context value for that context.
+    /// The current context value is determined by the value prop of the nearest Provider component above the calling component in the tree.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    static member useContext(contextObject: Fable.React.IContext<'a>) = Interop.reactApi.useContext contextObject
