@@ -11,6 +11,14 @@ module Interop =
 [<Erase>]
 type PigeonMaps =
     static member inline map (properties: IReactProperty list) =
-        Interop.reactApi.createElement(importDefault "pigeon-maps", createObj !!properties)
+        // use defaults with center at Madrid and zoom at the whole world
+        // this is because pigeon maps throws an exception when center isn't provided
+        let defaults = createObj [
+            "center" ==> [| 40.416775; -3.703790 |]
+            "zoom" ==> 3
+            "height" ==> 200
+        ]
+
+        Interop.reactApi.createElement(importDefault "pigeon-maps", JS.Object.assign(defaults, createObj !!properties))
     static member inline marker (properties: IReactProperty list) =
         Interop.createMarker (createObj !!properties)

@@ -2,8 +2,6 @@
 
 Feliz-style bindings for [pigeon-maps](https://github.com/mariusandra/pigeon-maps), React maps without external dependencies. This binding includes it's own custom `PigeonMaps.marker` component to build map markers manually.
 
-> Note: property `map.center` is required
-
 ```fsharp:pigeonmaps-map-basic
 open Feliz
 open Feliz.PigeonMaps
@@ -114,10 +112,10 @@ let markerWithPopover = React.functionComponent(fun (marker: MarkerProps) ->
             Html.div [
                 prop.text marker.City.Name
                 prop.style [
-                    style.backgroundColor.white
-                    style.padding 20
-                    style.borderRadius 10
-                    style.boxShadow(0, 0, 10, colors.black)
+                    style.backgroundColor.black
+                    style.padding 10
+                    style.borderRadius 5
+                    style.color.lightGreen
                 ]
             ]
         ]
@@ -199,10 +197,9 @@ let markerWithPopover = React.functionComponent(fun (marker: MarkerProps) -> [
         popover.body [
             Html.div [
                 prop.style [
-                    style.backgroundColor.white
-                    style.padding 20
-                    style.borderRadius 10
-                    style.boxShadow(0, 0, 10, colors.black)
+                    style.backgroundColor.black
+                    style.padding 10
+                    style.borderRadius 5
                 ]
                 prop.children [
                     Html.span [
@@ -212,7 +209,10 @@ let markerWithPopover = React.functionComponent(fun (marker: MarkerProps) -> [
                             prop.onClick (fun _ -> toggleOpen(false))
                         ]
                     ]
-                    Html.span marker.City.Name
+                    Html.span [
+                        prop.style [ style.color.lightGreen ]
+                        prop.text marker.City.Name
+                    ]
                 ]
             ]
         ]
@@ -262,4 +262,13 @@ let citiesMap = React.functionComponent(fun () -> [
         map.children [ for city in cities -> renderMarker city ]
     ]
 ])
+```
+
+### Basic empty map
+
+```fsharp:pigeonmaps-map-empty
+open Feliz
+open Feliz.PigeonMaps
+
+let emptyMap = PigeonMaps.map [ ]
 ```

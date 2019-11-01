@@ -98,10 +98,10 @@ module MarkerOverlays =
                 Html.div [
                     prop.text marker.City.Name
                     prop.style [
-                        style.backgroundColor.white
-                        style.padding 20
-                        style.borderRadius 10
-                        style.boxShadow(0, 0, 10, colors.black)
+                        style.backgroundColor.black
+                        style.padding 10
+                        style.borderRadius 5
+                        style.color.lightGreen
                     ]
                 ]
             ]
@@ -181,10 +181,9 @@ module MarkerWithCloseButton =
             popover.body [
                 Html.div [
                     prop.style [
-                        style.backgroundColor.white
-                        style.padding 20
-                        style.borderRadius 10
-                        style.boxShadow(0, 0, 10, colors.black)
+                        style.backgroundColor.black
+                        style.padding 10
+                        style.borderRadius 5
                     ]
 
                     prop.children [
@@ -196,7 +195,10 @@ module MarkerWithCloseButton =
                             ]
                         ]
 
-                        Html.span marker.City.Name
+                        Html.span [
+                            prop.style [ style.color.lightGreen ]
+                            prop.text marker.City.Name
+                        ]
                     ]
                 ]
             ]
@@ -247,3 +249,6 @@ module MarkerWithCloseButton =
             map.children [ for city in cities -> renderMarker city ]
         ]
     ])
+
+module EmptyMap =
+    let emptyMap = PigeonMaps.map [ ]

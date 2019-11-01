@@ -44,7 +44,8 @@ type popover =
 [<Erase>]
 type Popover =
     static member inline popover (properties: IPopoverProperty list) =
-        Interop.reactApi.createElement(importDefault "react-popover", createObj !!properties)
+        let defaults = createObj [ "body" ==> Html.none ]
+        Interop.reactApi.createElement(importDefault "react-popover", JS.Object.assign(defaults, createObj !!properties))
 
 module popover =
     /// Sets a preference of where to position the Popover. Only useful to specify placement in case of multiple available fits. Defaults to `auto`.

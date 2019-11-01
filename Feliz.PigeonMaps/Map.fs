@@ -17,6 +17,7 @@ type map =
     static member inline height(value: int) = Interop.mkAttr "height" value
     /// Width of the component in pixels. Defaults to 100% of the parent div if not set.
     static member inline width(value: int) = Interop.mkAttr "width" value
+    /// Enables or disables animations while spanning from place to another or while zooming in or out.
     static member inline animate (value: bool) = Interop.mkAttr "animate" value
     /// Snap to discrete zoom increments (14, 15, 16, etc) when scrolling with the mouse or pinching with touch events, Defaults to true.
     static member inline zoomSnap (value: bool) = Interop.mkAttr "zoomSpan" value
@@ -40,8 +41,10 @@ type map =
     static member inline devicePixelRatios(values: int list) = Interop.mkAttr "dprs" (Array.ofList values)
     /// An array of devicePixelRatios that your tile provider supports. Defaults to []. Pass an array like [1, 2] and the numbers here will be sent to provider as the 4th argument. The responses will be combined into an <img srcset> attribute, which modern browsers use to select tiles with the [right resolution](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images#Resolution_switching_Same_size_different_resolutions).
     static member inline devicePixelRatios([<System.ParamArray>]values: int []) = Interop.mkAttr "dprs" values
-    /// Defines the children of the component.
+    /// Defines the children of the component. Alias for `map.markers`.
     static member inline children (children: IMapMarker list) = prop.children (unbox<ReactElement list> children)
+    /// Defines the map markers
+    static member inline markers (children: IMapMarker list) = prop.children (unbox<ReactElement list> children)
     /// Can the user interact with the map with the mouse? Defaults to true.
     static member inline mouseEvents (value: bool) = Interop.mkAttr "mouseEvents" value
     /// Can the user interact with the map by touching it? Defaults to true.
