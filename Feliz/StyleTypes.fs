@@ -41,3 +41,5 @@ type IBackgroundClip = interface end
 type ICssUnit = interface end
 
 type ITransitionProperty = interface end
+
+type ITransformProperty = interface end

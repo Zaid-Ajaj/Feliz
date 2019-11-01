@@ -86,6 +86,7 @@ let update msg state =
     style.transform.translateX(100)
     style.transform.translateY(100)
     style.transform.translateZ(100)
+    style.transform [ transform.scale(0.5) ]
     style.textTransform.capitalize
     style.textTransform.lowercase
     style.fontStretch.extraCondensed

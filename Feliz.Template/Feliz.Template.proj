@@ -8,13 +8,13 @@
     <PackageTags>fable;template;fsharp</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageType>Template</PackageType>
-    <Version>0.2.9</Version>
+    <Version>0.2.10</Version>
     <PackProjectInputFile>$(MSBuildProjectFullPath)</PackProjectInputFile>
     <NoBuild>true</NoBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <PackageReleaseNotes>Update Feliz dependency and add TypedCssClasses</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Feliz dependency</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <ExcludeFromPackage>
