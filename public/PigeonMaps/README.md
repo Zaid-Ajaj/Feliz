@@ -167,3 +167,99 @@ let citiesMap = React.functionComponent(fun () ->
         map.children [ for city in cities -> renderMarker city ]
     ])
 ```
+### Markers with Close buttons
+
+You can choose when to close the popover of the marker by adding event handlers to elements inside of it that close it instead of the popover being arbitrarily closed when the user clicks somewhere outside of the popover or marker:
+
+```fsharp:pigoenmaps-map-closebutton
+open Feliz
+open Feliz.Popover
+
+type City = {
+    Name: string
+    Latitude: float
+    Longitude: float
+}
+
+let cities = [
+    { Name = "Utrecht"; Latitude = 52.090736; Longitude = 5.121420 }
+    { Name = "Nijmegen"; Latitude = 51.812565; Longitude = 5.837226 }
+    { Name = "Amsterdam"; Latitude = 52.370216; Longitude = 4.895168 }
+    { Name = "Rotterdam"; Latitude = 51.924419; Longitude = 4.477733 }
+]
+
+type MarkerProps = {
+    City: City
+    Hovered: bool
+}
+
+let markerWithPopover = React.functionComponent(fun (marker: MarkerProps) -> [
+    let (popoverOpen, toggleOpen) = React.useState false
+    Popover.popover [
+        popover.body [
+            Html.div [
+                prop.style [
+                    style.backgroundColor.white
+                    style.padding 20
+                    style.borderRadius 10
+                    style.boxShadow(0, 0, 10, colors.black)
+                ]
+                prop.children [
+                    Html.span [
+                        Html.i [
+                            prop.className [ "fa"; "fa-times" ]
+                            prop.style [ style.marginRight 10; style.cursor.pointer; style.color.red ]
+                            prop.onClick (fun _ -> toggleOpen(false))
+                        ]
+                    ]
+                    Html.span marker.City.Name
+                ]
+            ]
+        ]
+        popover.isOpen popoverOpen
+        popover.disableTip
+        popover.children [
+            Html.i [
+                prop.key marker.City.Name
+                prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
+                prop.onClick (fun _ -> toggleOpen(not popoverOpen))
+                prop.style [
+                    if marker.Hovered then style.cursor.pointer
+                    if popoverOpen then style.color.red
+                ]
+            ]
+        ]
+    ]
+])
+
+let renderMarker city =
+    PigeonMaps.marker [
+        marker.anchor(city.Latitude, city.Longitude)
+        marker.offsetLeft 15
+        marker.offsetTop 30
+        marker.render (fun marker -> [
+            markerWithPopover {
+                City = city
+                Hovered = marker.hovered
+            }
+        ])
+    ]
+
+let initialCenter =
+    cities
+    |> List.tryHead
+    |> Option.map (fun city -> city.Latitude, city.Longitude)
+    |> Option.defaultValue (51.812565, 5.837226)
+
+let citiesMap = React.functionComponent(fun () -> [
+    let (zoom, setZoom) = React.useState 8
+    let (center, setCenter) = React.useState initialCenter
+    PigeonMaps.map [
+        map.center center
+        map.zoom zoom
+        map.height 350
+        map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter args.center)
+        map.children [ for city in cities -> renderMarker city ]
+    ]
+])
+```

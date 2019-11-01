@@ -366,6 +366,7 @@ let samples = [
     "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
     "pigeonmaps-map-popover", Samples.PigeonMaps.MarkerOverlays.citiesMap()
+    "pigoenmaps-map-closebutton", Samples.PigeonMaps.MarkerWithCloseButton.citiesMap()
     "popover-basic-sample", Samples.Popover.Basic.sample
     "elmish-components-counter", Samples.ElmishComponents.application
 ]
