@@ -341,19 +341,52 @@ type React =
     // React.useContext
     //
 
+    /// <summary>
+    /// Creates a Context object. When React renders a component that subscribes to this Context object
+    /// it will read the current context value from the closest matching Provider above it in the tree.
+    /// </summary>
+    /// <param name='name'>The component name to display in the React dev tools.</param>
+    /// <param name='defaultValue'>A default value that is only used when a component does not have a matching Provider above it in the tree.</param>
     static member createContext<'a>(?name: string, ?defaultValue: 'a) =
         let contextObject = Interop.reactApi.createContext (defaultArg defaultValue Fable.Core.JS.undefined<'a>)
         name |> Option.iter (fun name -> contextObject?displayName <- name)
         contextObject
 
+    /// <summary>
+    /// A Provider component that allows consuming components to subscribe to context changes.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    /// <param name='contextValue'>The context value to be provided to descendant components.</param>
+    /// <param name='child'>A child element.</param>
     static member contextProvider(contextObject: Fable.React.IContext<'a>, contextValue: 'a, child: ReactElement) : ReactElement =
         Interop.reactApi.createElement(contextObject?Provider, createObj ["value" ==> contextValue], [child])
+    /// <summary>
+    /// A Provider component that allows consuming components to subscribe to context changes.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    /// <param name='contextValue'>The context value to be provided to descendant components.</param>
+    /// <param name='children'>A sequence of child elements.</param>
     static member contextProvider(contextObject: Fable.React.IContext<'a>, contextValue: 'a, children: #seq<ReactElement>) : ReactElement =
         Interop.reactApi.createElement(contextObject?Provider, createObj ["value" ==> contextValue], children)
 
+    /// <summary>
+    /// A Consumer component that subscribes to context changes.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    /// <param name='render'>A render function that returns an element.</param>
     static member contextConsumer(contextObject: Fable.React.IContext<'a>, render: 'a -> ReactElement) : ReactElement =
         Interop.reactApi.createElement(contextObject?Consumer, null, [!!render])
+    /// <summary>
+    /// A Consumer component that subscribes to context changes.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
+    /// <param name='render'>A render function that returns a sequence of elements.</param>
     static member contextConsumer(contextObject: Fable.React.IContext<'a>, render: 'a -> #seq<ReactElement>) : ReactElement =
         Interop.reactApi.createElement(contextObject?Consumer, null, [!!(render >> Html.fragment)])
 
+    /// <summary>
+    /// The `useContext` hook. Accepts a context object (the value returned from React.createContext) and returns the current context value for that context.
+    /// The current context value is determined by the value prop of the nearest Provider component above the calling component in the tree.
+    /// </summary>
+    /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
     static member useContext(contextObject: Fable.React.IContext<'a>) = Interop.reactApi.useContext contextObject
