@@ -18,3 +18,6 @@ type IReactApi =
     abstract Children : ReactChildren
     abstract useCallback : callbackFunction: ('a -> 'b) -> dependencies: obj array -> ('a -> 'b)
     abstract useMemo : createFunction: (unit -> 'a) -> dependencies: obj array -> 'a
+    abstract memo: render: ('props -> ReactElement) * areEqual: ('props -> 'props -> bool) -> ('props -> ReactElement)
+    abstract createContext: defaultValue: 'a -> IContext<'a>
+    abstract useContext: ctx: IContext<'a> -> 'a
