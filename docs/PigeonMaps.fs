@@ -8,7 +8,7 @@ module Main =
         map.center(50.879, 4.6997)
         map.zoom 12
         map.height 350
-        map.children [
+        map.markers [
             PigeonMaps.marker [
                 marker.anchor(50.879, 4.6997)
                 marker.offsetLeft 15
@@ -57,7 +57,7 @@ module DynamicMarkers =
         |> Option.map (fun city -> city.Latitude, city.Longitude)
         |> Option.defaultValue (51.812565, 5.837226)
 
-    let citiesMap = React.functionComponent(fun () -> [
+    let citiesMap = React.functionComponent(fun () ->
         let (center, setCenter) = React.useState initialCenter
         let (zoom, setZoom) = React.useState 8
         PigeonMaps.map [
@@ -65,9 +65,8 @@ module DynamicMarkers =
             map.zoom zoom
             map.height 350
             map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter (args.center))
-            map.children [ for city in cities -> renderMarker city setCenter ]
-        ]
-    ])
+            map.markers [ for city in cities -> renderMarker city setCenter ]
+        ])
 
 module MarkerOverlays =
 
@@ -91,7 +90,7 @@ module MarkerOverlays =
         Hovered: bool
     }
 
-    let markerWithPopover = React.functionComponent(fun (marker: MarkerProps) -> [
+    let markerWithPopover = React.functionComponent(fun (marker: MarkerProps) ->
         let (popoverOpen, toggleOpen) = React.useState false
         Popover.popover [
             popover.body [
@@ -120,8 +119,7 @@ module MarkerOverlays =
                     ]
                 ]
             ]
-        ]
-    ])
+        ])
 
     let renderMarker city =
         PigeonMaps.marker [
@@ -142,7 +140,7 @@ module MarkerOverlays =
         |> Option.map (fun city -> city.Latitude, city.Longitude)
         |> Option.defaultValue (51.812565, 5.837226)
 
-    let citiesMap = React.functionComponent(fun () -> [
+    let citiesMap = React.functionComponent(fun () ->
         let (zoom, setZoom) = React.useState 8
         let (center, setCenter) = React.useState initialCenter
         PigeonMaps.map [
@@ -150,9 +148,8 @@ module MarkerOverlays =
             map.zoom zoom
             map.height 350
             map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter args.center)
-            map.children [ for city in cities -> renderMarker city ]
-        ]
-    ])
+            map.markers [ for city in cities -> renderMarker city ]
+        ])
 
 module MarkerWithCloseButton =
     open Feliz.Popover
@@ -238,7 +235,7 @@ module MarkerWithCloseButton =
         |> Option.map (fun city -> city.Latitude, city.Longitude)
         |> Option.defaultValue (51.812565, 5.837226)
 
-    let citiesMap = React.functionComponent(fun () -> [
+    let citiesMap = React.functionComponent(fun () ->
         let (zoom, setZoom) = React.useState 8
         let (center, setCenter) = React.useState initialCenter
         PigeonMaps.map [
@@ -246,9 +243,8 @@ module MarkerWithCloseButton =
             map.zoom zoom
             map.height 350
             map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter args.center)
-            map.children [ for city in cities -> renderMarker city ]
-        ]
-    ])
+            map.markers [ for city in cities -> renderMarker city ]
+        ])
 
 module EmptyMap =
     let emptyMap = PigeonMaps.map [ ]
