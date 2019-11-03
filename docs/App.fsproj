@@ -30,7 +30,7 @@
         <Compile Include="Recharts/BarCharts/PositiveAndNegative.fs" />
         <Compile Include="Recharts/PieCharts/CustomizedLabelPieChart.fs" />
         <Compile Include="Recharts/PieCharts/TwoLevelPieChart.fs" />
-        <Compile Include="Recharts/PieCharts/SingleAngle.fs" />
+        <Compile Include="Recharts/PieCharts/StraightAngle.fs" />
         <Compile Include="PigeonMaps.fs" />
         <Compile Include="Popover.fs" />
         <Compile Include="ElmishComponents.fs" />

@@ -1,9 +1,5 @@
-# Feliz.Recharts - Single Angle
-
-Taken from [Recharts - SingleAnglePieChart](http://recharts.org/en-US/examples/StraightAnglePieChart).
-
-```fsharp:recharts-pie-singleangle
-module App
+[<RequireQualifiedAccess>]
+module Samples.Recharts.PieCharts.StraightAngle
 
 open Feliz
 open Feliz.Recharts
@@ -20,7 +16,7 @@ let data = [
     { name = "Group F"; value = 189 }
 ]
 
-let chart = React.functionComponent <| fun () ->
+let chart = React.functionComponent(fun () -> [
     Recharts.pieChart [
         pieChart.width 400
         pieChart.height 400
@@ -38,9 +34,4 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
-
-
-open Browser.Dom
-
-ReactDOM.render(chart, document.getElementById "root")
-```
+])
