@@ -3,6 +3,7 @@ namespace Feliz.ElmishComponents
 open Feliz
 open Elmish
 open System
+open Fable.Core
 
 type ElmishComponentProps<'State, 'Msg> = {
     Initial : 'State * Cmd<'Msg>
@@ -24,14 +25,14 @@ type ElmishComponent<'State, 'Msg>(props: ElmishComponentProps<'State, 'Msg>) as
         mounted <- true
         let initialEffect = snd this.props.Initial
         for subscriber in initialEffect do
-            subscriber(this.dispatch)
+            JS.setTimeout (fun _ -> subscriber(this.dispatch)) 0 |> ignore
 
     override this.componentDidUpdate(prevProps, prevState) =
         // if props changed reference, re-execute `init` from the program definition
         if not (System.Object.ReferenceEquals(prevProps, this.props)) then
             let initialEffect = snd this.props.Initial
             for subscriber in initialEffect do
-                subscriber(this.dispatch)
+                JS.setTimeout (fun _ -> subscriber(this.dispatch)) 0 |> ignore
 
     override this.componentWillUnmount() =
         mounted <- false
@@ -40,7 +41,7 @@ type ElmishComponent<'State, 'Msg>(props: ElmishComponentProps<'State, 'Msg>) as
         let (nextState, nextEffect) = this.props.Update msg this.state
         if mounted then this.setState(fun _ _ -> nextState)
         for subscriber in nextEffect do
-            subscriber(this.dispatch)
+            JS.setTimeout (fun _ -> subscriber(this.dispatch)) 0 |> ignore
 
     override this.render() =
         this.props.Render this.state this.dispatch
@@ -53,7 +54,7 @@ module ElmishComponentExtensiosns =
         static member inline elmishComponent(name, init, update, render, ?key) =
             let fullKey =
                 match key with
-                | None -> name + string (Guid.NewGuid())
+                | None -> name
                 | Some key -> name + "-" + key
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
                 { Initial = init; Update = update; Render = render; key = fullKey }
@@ -63,7 +64,7 @@ module ElmishComponentExtensiosns =
         static member inline elmishComponent(name, init, update, render, ?key) =
             let fullKey =
                 match key with
-                | None -> name + string (Guid.NewGuid())
+                | None -> name
                 | Some key -> name + "-" + key
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
                 { Initial = init, Cmd.none; Update = update; Render = render; key = fullKey }
@@ -73,7 +74,7 @@ module ElmishComponentExtensiosns =
         static member inline elmishComponent(name, init, update, render, ?key) =
             let fullKey =
                 match key with
-                | None -> name + string (Guid.NewGuid())
+                | None -> name
                 | Some key -> name + "-" + key
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
                 { Initial = init, Cmd.none;
@@ -86,7 +87,7 @@ module ElmishComponentExtensiosns =
         static member inline elmishComponent(name, init, update, render, ?key) =
             let fullKey =
                 match key with
-                | None -> name + string (Guid.NewGuid())
+                | None -> name
                 | Some key -> name + "-" + key
             Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
                 { Initial = init;
