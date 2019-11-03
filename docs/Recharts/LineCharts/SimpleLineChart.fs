@@ -28,6 +28,7 @@ let chart = React.functionComponent(fun () -> [
             Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
+            Recharts.legend [ ]
             Recharts.line [
                 line.monotone
                 line.dataKey (fun point -> nameof point.pv)
