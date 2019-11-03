@@ -1,8 +1,8 @@
-# Feliz.Recharts - Single Angle
+# Feliz.Recharts - Straight Angle
 
-Taken from [Recharts - SingleAnglePieChart](http://recharts.org/en-US/examples/StraightAnglePieChart).
+Taken from [Recharts - StraightAnglePieChart](http://recharts.org/en-US/examples/StraightAnglePieChart).
 
-```fsharp:recharts-pie-singleangle
+```fsharp:recharts-pie-straightangle
 module App
 
 open Feliz
