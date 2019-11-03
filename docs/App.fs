@@ -265,21 +265,21 @@ module ReactComponents =
         ]
     )
 
-let counter =
-    React.functionComponent(fun () ->
-        let (count, setCount) = React.useState 0
-        React.useEffect(fun () ->
-            Browser.Dom.window.document.title <- string count
-        )
+let counter = React.functionComponent(fun () ->
+    let (count, setCount) = React.useState 0
 
-        Html.div [
-            Html.h1 count
-            Html.button [
-                prop.text "Increment"
-                prop.onClick (fun _ -> setCount(count + 1))
-            ]
+    let modifyDocumentTitle() =
+        Browser.Dom.window.document.title <- string count
+
+    React.useEffect(modifyDocumentTitle)
+
+    Html.div [
+        Html.h1 count
+        Html.button [
+            prop.text "Increment"
+            prop.onClick (fun _ -> setCount(count + 1))
         ]
-    )
+    ])
 
 [<Emit("setInterval($0, $1)")>]
 let setInterval (f: unit -> unit) (n: int) : int = jsNative
@@ -287,19 +287,21 @@ let setInterval (f: unit -> unit) (n: int) : int = jsNative
 [<Emit("clearInterval($0)")>]
 let clearInterval (n: int) : unit = jsNative
 
-let ticker =
-    React.functionComponent("Ticker", fun (props: {| start: int |}) ->
-        let (tick, setTick) = React.useState props.start
-        React.useEffect(fun () ->
-            let interval = setInterval (fun () ->
-                printfn "Tick"
-                setTick(tick + 1)) 1000
+let ticker = React.functionComponent("Ticker", fun (input: {| start: int |}) ->
+    let (tick, setTick) = React.useState input.start
 
-            React.createDisposable(fun () -> clearInterval(interval))
-        , prop.start)
+    let tickerEffect() : IDisposable =
+        let interval = setInterval (fun () ->
+            printfn "Tick"
+            setTick(tick + 1)) 1000
 
+        React.createDisposable(fun () -> clearInterval(interval))
+
+    React.useEffect(tickerEffect, [| box input.start |])
+
+    Html.div [
         Html.h1 tick
-    )
+    ])
 
 let hooksAreAwesome =
     Html.fragment [

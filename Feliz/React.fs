@@ -50,22 +50,31 @@ type React =
     /// This effect has no dependencies which means the effect is re-executed on every re-render.
     /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
     /// for the dependencies: `React.useEffect(disposableEffect, [| |])`.
-    static member useEffect(effect: unit -> IDisposable) = ReactInterop.useEffect(effect)
+    static member useEffect(effect: unit -> IDisposable) : unit = ReactInterop.useEffect(effect)
     /// The `useEffect` hook that creates a disposable effect for React function components.
     /// This effect takes a array of *dependencies*.
     /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
     /// you have to explicitly provide an empty array for the dependencies: `React.useEffect(effect, [| |])`.
-    static member useEffect(effect: unit -> IDisposable, dependencies: obj []) = ReactInterop.useEffectWithDeps(effect, dependencies)
+    static member useEffect(effect: unit -> IDisposable, dependencies: obj []) : unit = ReactInterop.useEffectWithDeps effect dependencies
     /// Creates a disposable instance by providing the implementation of the dispose member
     static member createDisposable(dispose: unit -> unit) =
         { new IDisposable with member this.Dispose() = dispose() }
 
+    /// React hook to define and use an effect only once when a function component renders for the first time.
+    /// This an alias for `React.useEffect(effect, [| |])` which explicitly provide an empty array for the dependencies of the effect which means the effect will only run once.
+    static member useEffectOnce(effect: unit -> unit) =
+        React.useEffect(effect, [| |])
+
+    /// React hook to define and use a disposable effect only once when a function component renders for the first time.
+    /// This an alias for `React.useEffect(effect, [| |])` which explicitly provide an empty array for the dependencies of the effect which means the effect will only run once.
+    static member useEffectOnce(effect: unit -> IDisposable) =
+        React.useEffect(effect, [| |])
     /// The `useEffect` hook that creates an effect for React function components.
     /// This effect is executed *every time* the function component re-renders.
     ///
     /// To make the effect run only once, write: `React.useEffect(effect, [| |])` which explicitly states
     /// that this effect has no dependencies and should only run once on initial render.
-    static member useEffect(effect: unit -> unit) =
+    static member useEffect(effect: unit -> unit) : unit =
         ReactInterop.useEffect
             (fun _ ->
                 effect()
@@ -74,11 +83,12 @@ type React =
     /// The `useEffect` hook that creates an effect for React function components. This effect takes a array of *dependencies*.
     /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
     /// you have to explicitly provide an empty array for the dependencies: `React.useEffect(effect, [| |])`.
-    static member useEffect(effect: unit -> unit, dependencies: obj []) =
+    static member useEffect(effect: unit -> unit, dependencies: obj []) : unit =
         ReactInterop.useEffectWithDeps
             (fun _ ->
                 effect()
-                React.createDisposable(ignore), dependencies)
+                React.createDisposable(ignore))
+            dependencies
 
     /// <summary>
     /// The `useCallback` hook. Returns a memoized callback. Pass an inline callback and an array of dependencies.
