@@ -6,10 +6,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>0.66.3</Version>
+        <Version>0.66.4</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Add React.useContext, React.createContext, React.contextProvider and React.contextConsumer</PackageReleaseNotes>
+        <PackageReleaseNotes>Fix React.useEffect to match expected React behavior and remove cluttered overloads.</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
