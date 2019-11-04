@@ -28,6 +28,7 @@ let chart = React.functionComponent(fun () -> [
             Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
+            Recharts.legend [ ]
             Recharts.bar [
                 bar.dataKey (fun point -> nameof point.pv)
                 bar.fill "#8884d8"
@@ -35,13 +36,13 @@ let chart = React.functionComponent(fun () -> [
             ]
 
             Recharts.bar [
-                bar.dataKey (fun point -> nameof point.uv)
+                bar.dataKey (fun point -> nameof point.amt)
                 bar.fill "#82ca9d"
                 bar.stackId "a"
             ]
 
             Recharts.bar [
-                bar.dataKey (fun point -> nameof point.amt)
+                bar.dataKey (fun point -> nameof point.uv)
                 bar.fill "#ffc658"
             ]
         ]
