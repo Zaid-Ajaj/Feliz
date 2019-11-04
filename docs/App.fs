@@ -51,16 +51,16 @@ let update msg state =
     style.position.sticky
     style.borderBottomWidth 20
     style.borderBottomWidth (length.em 10)
-    style.borderBottomColor colors.red
+    style.borderBottomColor color.red
     style.borderBottomStyle borderStyle.dashed
     style.borderStyle.dotted
     style.margin(length.em 1, length.em 0)
     style.marginBottom 10
     style.marginBottom (length.em 1)
-    style.boxShadow(10, 10, colors.black)
-    style.boxShadow(10, 10, 10, colors.black)
-    style.boxShadow(0, 0, 10, colors.black)
-    style.boxShadow(0, 0, 10, 10, colors.darkGray)
+    style.boxShadow(10, 10, color.black)
+    style.boxShadow(10, 10, 10, color.black)
+    style.boxShadow(0, 0, 10, color.black)
+    style.boxShadow(0, 0, 10, 10, color.darkGray)
     style.boxShadow.none
     style.height length.auto
     style.borderRadius 20
@@ -80,8 +80,9 @@ let update msg state =
     style.height (length.percent 100)
     style.backgroundColor.fuchsia
     style.backgroundColor "#FFFFFF"
-    style.border(3, borderStyle.dashed, colors.crimson)
+    style.border(3, borderStyle.dashed, color.crimson)
     style.borderColor.blue
+    style.fontFamily font.aharoni
     style.transform.scale3D(20, 20, 20)
     style.transform.translateX(100)
     style.transform.translateY(100)
@@ -262,8 +263,7 @@ module ReactComponents =
                 prop.text "Increment"
                 prop.onClick (fun _ -> setCount(count + 1))
             ]
-        ]
-    )
+        ])
 
 let counter = React.functionComponent(fun () ->
     let (count, setCount) = React.useState 0
@@ -291,10 +291,7 @@ let ticker = React.functionComponent("Ticker", fun (input: {| start: int |}) ->
     let (tick, setTick) = React.useState input.start
 
     let tickerEffect() : IDisposable =
-        let interval = setInterval (fun () ->
-            printfn "Tick"
-            setTick(tick + 1)) 1000
-
+        let interval = setInterval (fun () -> setTick(tick + 1)) 1000
         React.createDisposable(fun () -> clearInterval(interval))
 
     React.useEffect(tickerEffect, [| box input.start |])
@@ -336,8 +333,7 @@ module ElmishCounter =
             ]
 
             Html.h1 state.Count
-        ]
-    )
+        ])
 
 
 
@@ -508,7 +504,7 @@ module MarkdownLoader =
 let loadMarkdown (path: string list) = MarkdownLoader.loadMarkdown' path
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
-let nestedMenuList' = React.functionComponent(fun (input: {| name: string; items: Fable.React.ReactElement list |}) -> [
+let nestedMenuList' = React.functionComponent(fun (input: {| name: string; items: Fable.React.ReactElement list |}) -> 
     let (collapsed, setCollapsed) = React.useState(false)
     Html.li [
         Html.anchor [
@@ -531,8 +527,7 @@ let nestedMenuList' = React.functionComponent(fun (input: {| name: string; items
             prop.style [ if collapsed then style.display.none ]
             prop.children input.items
         ]
-    ]
-])
+    ])
 
 let nestedMenuList (name: string) (items: Fable.React.ReactElement list) =
     nestedMenuList' {| name = name; items = items |}

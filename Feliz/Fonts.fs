@@ -1,7 +1,7 @@
 namespace Feliz
 
 /// Contains a list of CSS Fonts from https://www.tutorialbrain.com/css_tutorial/css_font_family_list/
-module fonts =
+module font =
     let [<Literal>] abadiMTCondensedLight = "Abadi MT Condensed Light"
     let [<Literal>] aharoni = "Aharoni"
     let [<Literal>] aharoniBold = "Aharoni Bold"

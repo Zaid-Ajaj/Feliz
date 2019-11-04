@@ -1,7 +1,7 @@
 namespace Feliz
 
 /// Contains a list of HTML5 colors from https://htmlcolorcodes.com/color-names/
-module colors =
+module color =
     /// Creates a color from components [hue](https://en.wikipedia.org/wiki/Hue), [saturation](https://en.wikipedia.org/wiki/Colorfulness) and [lightness](https://en.wikipedia.org/wiki/Lightness) where hue is a number that goes from 0 to 360 and both
     /// the `saturation` and `lightness` go from 0 to 100 as they are percentages.
     let hsl (hue: float, saturation: float, lightness: float) =

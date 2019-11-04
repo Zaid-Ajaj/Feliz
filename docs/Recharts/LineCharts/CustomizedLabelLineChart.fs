@@ -21,7 +21,7 @@ let renderCustomLabel (input: ILabelProperties) =
     Html.text [
         prop.x(input.x)
         prop.y(input.y)
-        prop.fill colors.black
+        prop.fill color.black
         prop.textAnchor.middle
         prop.dy(-4)
         prop.fontSize 10

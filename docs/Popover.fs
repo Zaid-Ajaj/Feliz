@@ -15,7 +15,7 @@ module Basic =
                         style.backgroundColor.white
                         style.padding 20
                         style.borderRadius 10
-                        style.boxShadow(0, 0, 10, colors.black)
+                        style.boxShadow(0, 0, 10, color.black)
                     ]
                 ]
             ]

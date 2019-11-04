@@ -28,8 +28,7 @@ let greeting = React.functionComponent("Greeting", fun (props: Greeting) ->
     Html.div [
         Html.span "Hello, "
         Html.span (Option.defaultValue "World" props.Name)
-    ]
-)
+    ])
 ```
 
 ### Stateful Components with Hooks
@@ -45,8 +44,7 @@ React.functionComponent(fun () ->
             prop.text "Increment"
             prop.onClick (fun _ -> setCount(count + 1))
         ]
-    ]
-)
+    ])
 ```
 
 The snippet above is a one-to-one translation of the Javascript equivalent in modern React applications:
@@ -85,15 +83,16 @@ let update (state: State) = function
 let counter = React.functionComponent("Counter", fun () ->
     let (state, dispatch) = React.useReducer(update, initialState)
     Html.div [
-      Html.button [
-        prop.onClick (fun _ -> dispatch Increment)
-        prop.text "Increment"
-      ]
-      Html.button [
-        prop.onClick (fun _ -> dispatch Decrement)
-        prop.text "Decrement"
-      ]
-      Html.h1 state.Count
-    ]
-)
+        Html.button [
+            prop.onClick (fun _ -> dispatch Increment)
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.onClick (fun _ -> dispatch Decrement)
+            prop.text "Decrement"
+        ]
+
+        Html.h1 state.Count
+    ])
 ```

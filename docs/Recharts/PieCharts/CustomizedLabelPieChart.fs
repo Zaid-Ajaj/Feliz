@@ -29,7 +29,7 @@ let renderCustomLabel (input: IPieLabelProperties) =
     Html.text [
         prop.x x
         prop.y y
-        prop.fill colors.white
+        prop.fill color.white
         prop.dominantBaseline.central
         if x > input.cx then prop.textAnchor.startOfText else prop.textAnchor.endOfText
         prop.text (sprintf "%.0f%%" (100. * input.percent))

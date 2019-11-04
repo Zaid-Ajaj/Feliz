@@ -25,7 +25,7 @@ let renderCustomLabel (input: ILabelProperties) =
     Html.text [
         prop.x(input.x)
         prop.y(input.y)
-        prop.fill colors.black
+        prop.fill color.black
         prop.textAnchor.middle
         prop.dy(-4)
         prop.fontSize 10
@@ -43,7 +43,7 @@ let chart = React.functionComponent(fun () ->
             Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
-            Recharts.legend [ ]            
+            Recharts.legend [ ]
             Recharts.line [
                 line.monotone
                 line.dataKey (fun point -> nameof point.pv)

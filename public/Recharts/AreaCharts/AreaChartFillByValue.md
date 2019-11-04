@@ -72,7 +72,7 @@ let chart = React.functionComponent(fun () ->
             Recharts.area [
                 area.monotone
                 area.dataKey (fun p -> nameof p.uv)
-                area.stroke colors.black
+                area.stroke color.black
                 area.fill "url(#splitColor)"
             ]
         ]

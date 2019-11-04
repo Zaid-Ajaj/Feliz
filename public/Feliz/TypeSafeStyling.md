@@ -17,16 +17,16 @@ let exampleDiv =
             style.position.sticky
             style.borderBottomWidth 20
             style.borderBottomWidth (length.em 10)
-            style.borderBottomColor colors.red
+            style.borderBottomColor color.red
             style.borderBottomStyle borderStyle.dashed
             style.borderStyle.dotted
             style.margin(length.em 1, length.em 0)
             style.marginBottom 10
             style.marginBottom (length.em 1)
-            style.boxShadow(10, 10, colors.black)
-            style.boxShadow(10, 10, 10, colors.black)
-            style.boxShadow(0, 0, 10, colors.black)
-            style.boxShadow(0, 0, 10, 10, colors.darkGray)
+            style.boxShadow(10, 10, color.black)
+            style.boxShadow(10, 10, 10, color.black)
+            style.boxShadow(0, 0, 10, color.black)
+            style.boxShadow(0, 0, 10, 10, color.darkGray)
             style.boxShadow.none
             style.height length.auto
             style.borderRadius 20
@@ -44,7 +44,7 @@ let exampleDiv =
             style.height (length.percent 100)
             style.backgroundColor.fuchsia
             style.backgroundColor "#FFFFFF"
-            style.border(3, borderStyle.dashed, colors.crimson)
+            style.border(3, borderStyle.dashed, color.crimson)
             style.borderColor.blue
             style.transform.scale3D(20, 20, 20)
             style.transform.translateX(100)

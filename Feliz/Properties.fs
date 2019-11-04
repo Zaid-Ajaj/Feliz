@@ -38,6 +38,7 @@ type AriaRelevant =
     /// Text is added to any DOM descendant nodes of the live region.
     | Text
 
+/// Represents the native Html properties.
 type prop =
     /// Often used with CSS to style a specific element. The value of this attribute must be unique.
     static member inline id(value: string) = Interop.mkAttr "id" value
