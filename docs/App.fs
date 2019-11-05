@@ -468,7 +468,6 @@ module MarkdownLoader =
     let resolvePath = function
     | [ one: string ] when one.StartsWith "http" -> one
     | segments -> String.concat "/" segments
-
     let update (msg: Msg) (state: State) =
         match msg with
         | StartLoading path ->
@@ -499,12 +498,12 @@ module MarkdownLoader =
             ]
 
     let loadMarkdown' (path: string list) =
-        React.elmishComponent("LoadMarkdown", init path, update, render path)
+        React.elmishComponent("LoadMarkdown", init path, update, render path, key=resolvePath path)
 
 let loadMarkdown (path: string list) = MarkdownLoader.loadMarkdown' path
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
-let nestedMenuList' = React.functionComponent(fun (input: {| name: string; items: Fable.React.ReactElement list |}) -> 
+let nestedMenuList' = React.functionComponent(fun (input: {| name: string; items: Fable.React.ReactElement list |}) ->
     let (collapsed, setCollapsed) = React.useState(false)
     Html.li [
         Html.anchor [
