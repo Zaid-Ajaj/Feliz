@@ -1524,7 +1524,7 @@ module style =
         static member inline contents = Interop.mkStyle "display" "contents"
         /// Displays an element as a block-level flex container.
         static member inline flex = Interop.mkStyle "display" "flex"
-        /// Displays am element as a block container box, and lays out its contents using flow layout. 
+        /// Displays an element as a block container box, and lays out its contents using flow layout. 
         /// 
         /// It always establishes a new block formatting context for its contents.
         static member inline flowRoot = Interop.mkStyle "display" "flow-root"
