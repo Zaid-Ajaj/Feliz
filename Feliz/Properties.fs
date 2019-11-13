@@ -82,7 +82,7 @@ type prop =
         |> Interop.mkAttr "className"
 
     /// Sets the `type` attribute for the element.
-    static member inline withType (value: string) = Interop.mkAttr "type" value
+    static member inline type' (value: string) = Interop.mkAttr "type" value
 
     /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
     ///
@@ -1387,7 +1387,7 @@ module prop =
         /// applied.
         static member inline other = Interop.mkAttr "aria-sort" "other"
 
-    type withType =
+    type type' =
         /// Defines a password field
         static member inline password = Interop.mkAttr "type" "password"
         /// Default. Defines a single-line text field
