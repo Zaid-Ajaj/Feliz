@@ -140,8 +140,8 @@ let keyedFragments state dispatch =
 
 let inputs state dispatch =
     Html.form [
-        Html.input [ prop.withType.checkbox ]
-        Html.input [ prop.withType "password" ]
+        Html.input [ prop.type'.checkbox ]
+        Html.input [ prop.type' "password" ]
     ]
 
 let counterApp state dispatch =
