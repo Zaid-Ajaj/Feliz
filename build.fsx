@@ -106,7 +106,8 @@ Target "PatchFeliz" <| fun _ ->
       publish "./Feliz.PigeonMaps"
       publish "./Feliz.Popover"
       publish "./Feliz.Template"
-      publish "./Feliz.ElmishComponents" ]
+      publish "./Feliz.ElmishComponents"
+      publish "./Feliz.Markdown" ]
    |> List.iter (fun target -> target())
 
 Target "Compile" <| fun _ ->
