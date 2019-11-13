@@ -1464,55 +1464,55 @@ module style =
         /// Specifies a dotted border.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline dotted = Interop.mkStyle "borderStyle" "dotted"
+        static member inline dotted : IBorderStyle = unbox ("borderStyle", "dotted")
         /// Specifies a dashed border.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline dashed = Interop.mkStyle "borderStyle" "dashed"
+        static member inline dashed : IBorderStyle = unbox ("borderStyle", "dashed")
         /// Specifies a solid border.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline solid = Interop.mkStyle "borderStyle" "solid"
+        static member inline solid : IBorderStyle = unbox ("borderStyle", "solid")
         /// Specifies a double border.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline double = Interop.mkStyle "borderStyle" "double"
+        static member inline double : IBorderStyle = unbox ("borderStyle", "double")
         /// Specifies a 3D grooved border. The effect depends on the border-color value.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline groove = Interop.mkStyle "borderStyle" "groove"
+        static member inline groove : IBorderStyle = unbox ("borderStyle", "groove")
         /// Specifies a 3D ridged border. The effect depends on the border-color value.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline ridge = Interop.mkStyle "borderStyle" "ridge"
+        static member inline ridge : IBorderStyle = unbox ("borderStyle", "ridge")
         /// Specifies a 3D inset border. The effect depends on the border-color value.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline inset = Interop.mkStyle "borderStyle" "inset"
+        static member inline inset : IBorderStyle = unbox ("borderStyle", "inset")
         /// Specifies a 3D outset border. The effect depends on the border-color value.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline outset = Interop.mkStyle "borderStyle" "outset"
+        static member inline outset : IBorderStyle = unbox ("borderStyle", "outset")
         /// Default value. Specifies no border.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-        static member inline none = Interop.mkStyle "borderStyle" "none"
+        static member inline none : IBorderStyle = unbox ("borderStyle", "none")
         /// The same as "none", except in border conflict resolution for table elements.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=hidden
-        static member inline hidden = Interop.mkStyle "borderStyle" "hidden"
+        static member inline hidden : IBorderStyle = unbox ("borderStyle", "hidden")
         /// Sets this property to its default value.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=hidden
         ///
         /// Read about initial value https://www.w3schools.com/cssref/css_initial.asp
-        static member inline initial = Interop.mkStyle "borderStyle" "initial"
+        static member inline initial : IBorderStyle = unbox ("borderStyle", "initial")
         /// Inherits this property from its parent element.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=hidden
         ///
         /// Read about inherit https://www.w3schools.com/cssref/css_inherit.asp
-        static member inline inheritFromParent = Interop.mkStyle "borderStyle" "inherit"
+        static member inline inheritFromParent : IBorderStyle = unbox ("borderStyle", "inherit")
 
     [<Erase>]
     type display =
