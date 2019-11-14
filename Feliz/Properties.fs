@@ -753,6 +753,8 @@ type prop =
         |> unbox
         |> createObj
         |> Interop.mkAttr "style"
+    /// Controls browser behavior when opening a link.
+    static member inline target (frameName: string) = Interop.mkAttr "target" frameName
 
 module prop =
 
@@ -1147,8 +1149,6 @@ module prop =
         static member inline parent = Interop.mkAttr "target" "_parent"
         /// Opens the linked document in the full body of the window.
         static member inline top = Interop.mkAttr "target" "_top"
-        /// Opens the linked document in a named frame.
-        static member inline frameName (value: string) = Interop.mkAttr "target" value
 
     [<Erase>]
     type transform =
