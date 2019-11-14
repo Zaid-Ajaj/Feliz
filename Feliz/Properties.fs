@@ -1140,13 +1140,13 @@ module prop =
     [<Erase>]
     type target =
         /// Opens the linked document in a new window or tab.
-        static member inline _blank = Interop.mkAttr "target" "_blank"
+        static member inline blank = Interop.mkAttr "target" "_blank"
         /// Opens the linked document in the same frame as it was clicked (this is default).
-        static member inline _self = Interop.mkAttr "target" "_self"
+        static member inline self = Interop.mkAttr "target" "_self"
         /// Opens the linked document in the parent frame.
-        static member inline _parent = Interop.mkAttr "target" "_parent"
+        static member inline parent = Interop.mkAttr "target" "_parent"
         /// Opens the linked document in the full body of the window.
-        static member inline _top = Interop.mkAttr "target" "_top"
+        static member inline top = Interop.mkAttr "target" "_top"
         /// Opens the linked document in a named frame.
         static member inline frameName (value: string) = Interop.mkAttr "target" value
 
