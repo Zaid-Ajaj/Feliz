@@ -1138,6 +1138,19 @@ module prop =
         static member inline search = Interop.mkAttr "role" "search"
 
     [<Erase>]
+    type target =
+        /// Opens the linked document in a new window or tab.
+        static member inline _blank = Interop.mkAttr "target" "_blank"
+        /// Opens the linked document in the same frame as it was clicked (this is default).
+        static member inline _self = Interop.mkAttr "target" "_self"
+        /// Opens the linked document in the parent frame.
+        static member inline _parent = Interop.mkAttr "target" "_parent"
+        /// Opens the linked document in the full body of the window.
+        static member inline _top = Interop.mkAttr "target" "_top"
+        /// Opens the linked document in a named frame.
+        static member inline frameName (value: string) = Interop.mkAttr "target" value
+
+    [<Erase>]
     type transform =
         /// Defines that there should be no transformation.
         static member inline none = Interop.mkAttr "transform" "none"
