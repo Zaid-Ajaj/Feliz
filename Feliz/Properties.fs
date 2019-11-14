@@ -753,6 +753,8 @@ type prop =
         |> unbox
         |> createObj
         |> Interop.mkAttr "style"
+    /// Controls browser behavior when opening a link.
+    static member inline target (frameName: string) = Interop.mkAttr "target" frameName
 
 module prop =
 
@@ -1136,6 +1138,17 @@ module prop =
         ///
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#search
         static member inline search = Interop.mkAttr "role" "search"
+
+    [<Erase>]
+    type target =
+        /// Opens the linked document in a new window or tab.
+        static member inline blank = Interop.mkAttr "target" "_blank"
+        /// Opens the linked document in the same frame as it was clicked (this is default).
+        static member inline self = Interop.mkAttr "target" "_self"
+        /// Opens the linked document in the parent frame.
+        static member inline parent = Interop.mkAttr "target" "_parent"
+        /// Opens the linked document in the full body of the window.
+        static member inline top = Interop.mkAttr "target" "_top"
 
     [<Erase>]
     type transform =
