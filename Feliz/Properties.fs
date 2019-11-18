@@ -376,8 +376,16 @@ type prop =
     static member inline htmlFor(value: string) = Interop.mkAttr "htmlFor" value
     /// Indicates the minimum value allowed.
     static member inline min(value: int) = Interop.mkAttr "min" value
+    /// Indicates the minimum value allowed.
+    static member inline min(value: float) = Interop.mkAttr "min" value
     /// Indicates the maximum value allowed.
     static member inline max(value: int) = Interop.mkAttr "max" value
+    /// Indicates the maximum value allowed.
+    static member inline max(value: float) = Interop.mkAttr "max" value
+    /// Indicates the stepping interval.
+    static member inline step(value: int) = Interop.mkAttr "step" value
+    /// Indicates the stepping interval.
+    static member inline step(value: float) = Interop.mkAttr "step" value
     /// Defines the minimum number of characters allowed in the element.
     static member inline minLength(value: int) = Interop.mkAttr "minlength" value
     /// Defines the maximum number of characters allowed in the element.
