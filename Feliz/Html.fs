@@ -25,7 +25,7 @@ type Html =
     static member inline progress xs = Interop.createElement "progress" xs
     static member inline progress (children: #seq<ReactElement>) = Interop.reactElement "progress" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
     static member inline nav xs = Interop.createElement "nav" xs
-    static member inline nav (children: #seq<ReactElement>) = Interop.reactElement "label" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
+    static member inline nav (children: #seq<ReactElement>) = Interop.reactElement "nav" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
     static member inline label xs = Interop.createElement "label" xs
     static member inline label (children: #seq<ReactElement>) = Interop.reactElement "label" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
     static member inline fieldSet xs = Interop.createElement "fieldset" xs
