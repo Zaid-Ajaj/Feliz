@@ -443,6 +443,52 @@ type style =
             (unbox<string> style) + " " +
             color
         )
+
+    /// An outline is a line around an element.
+    /// It is displayed around the margin of the element. However, it is different from the border property.
+    /// The outline is not a part of the element's dimensions, therefore the element's width and height properties do not contain the width of the outline.
+    static member inline outlineWidth(width: int) =
+        Interop.mkStyle "outlineWidth" ((unbox<string> width) + "px")
+
+    /// An outline is a line around an element.
+    /// It is displayed around the margin of the element. However, it is different from the border property.
+    /// The outline is not a part of the element's dimensions, therefore the element's width and height properties do not contain the width of the outline.
+    static member inline outlineWidth(width: ICssUnit) =
+        Interop.mkStyle "outlineWidth" width
+
+    /// The outline-offset property adds space between an outline and the edge or border of an element.
+    ///
+    /// The space between an element and its outline is transparent.
+    ///
+    /// Outlines differ from borders in three ways:
+    ///
+    ///  - An outline is a line drawn around elements, outside the border edge
+    ///  - An outline does not take up space
+    ///  - An outline may be non-rectangular
+    ///
+    static member inline outlineOffset (offset:int) =
+        Interop.mkStyle "outlineWidth" ((unbox<string> offset) + "px")
+
+    /// The outline-offset property adds space between an outline and the edge or border of an element.
+    ///
+    /// The space between an element and its outline is transparent.
+    ///
+    /// Outlines differ from borders in three ways:
+    ///
+    ///  - An outline is a line drawn around elements, outside the border edge
+    ///  - An outline does not take up space
+    ///  - An outline may be non-rectangular
+    ///
+    static member inline outlineOffset (offset:ICssUnit) =
+        Interop.mkStyle "outlineWidth" offset
+
+    /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
+    ///
+    /// The `outline-color` property specifies the color of an outline.
+
+    /// **Note**: Always declare the outline-style property before the outline-color property. An element must have an outline before you change the color of it.
+    static member inline outlineColor (color: string) =
+        Interop.mkStyle "outlineColor" color
     /// Set an element's left border.
     static member inline borderLeft(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderLeft" (
@@ -1064,6 +1110,12 @@ module style =
         /// Inherits this property from its parent element
         static member inline inheritFromParent = Interop.mkStyle "alignItems"  "inherit"
 
+    /// The `align-content` property modifies the behavior of the `flex-wrap` property.
+    /// It is similar to align-items, but instead of aligning flex items, it aligns flex lines.
+    ///
+    /// **Note**: There must be multiple lines of items for this property to have any effect!
+    ///
+    /// **Tip**: Use the justify-content property to align the items on the main-axis (horizontally).
     [<Erase>]
     type alignContent =
         /// Default value. Lines stretch to take up the remaining space.
@@ -1078,6 +1130,46 @@ module style =
         static member inline spaceBetween = Interop.mkStyle "alignContent" "space-between"
         /// Lines are evenly distributed in the flex container, with half-size spaces on either end.
         static member inline spaceAround = Interop.mkStyle "alignContent" "space-around"
+        static member inline initial = Interop.mkStyle "alignContent" "initial"
+        static member inline inheritFromParent = Interop.mkStyle "alignContent" "inherit"
+
+    /// The justify-content property aligns the flexible container's items when the items do not use all available space on the main-axis (horizontally).
+    ///
+    /// See https://www.w3schools.com/cssref/css3_pr_justify-content.asp for reference.
+    ///
+    /// **Tip**: Use the align-items property to align the items vertically.
+    [<Erase>]
+    type justifyContent =
+        /// Default value. Items are positioned at the beginning of the container.
+        static member inline flexStart = Interop.mkStyle "justifyContent" "flex-start"
+        /// Items are positioned at the end of the container.
+        static member inline flexEnd = Interop.mkStyle "justifyContent" "flex-end"
+        /// Items are positioned at the center of the container
+        static member inline center = Interop.mkStyle "justifyContent" "center"
+        /// Items are positioned with space between the lines
+        static member inline spaceBetween = Interop.mkStyle "justifyContent" "space-between"
+        /// Items are positioned with space before, between, and after the lines.
+        static member inline spaceAround = Interop.mkStyle "justifyContent" "space-around"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "justifyContent" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "justifyContent" "inherit"
+
+    /// An outline is a line around an element.
+    /// It is displayed around the margin of the element. However, it is different from the border property.
+    /// The outline is not a part of the element's dimensions, therefore the element's width and height properties do not contain the width of the outline.
+    [<Erase>]
+    type outlineWidth =
+        /// Specifies a medium outline. This is default.
+        static member inline medium = Interop.mkStyle "outlineWidth" "medium"
+        /// Specifies a thin outline.
+        static member inline thin = Interop.mkStyle "outlineWidth" "thin"
+        /// Specifies a thick outline.
+        static member inline thick = Interop.mkStyle "outlineWidth" "thick"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "outlineWidth" "initial"
+        /// Inherits this property from its parent element
+        static member inline inheritFromParent = Interop.mkStyle "outlineWidth" "inherit"
 
     [<Erase>]
     type textAlign =
@@ -1524,8 +1616,8 @@ module style =
         static member inline contents = Interop.mkStyle "display" "contents"
         /// Displays an element as a block-level flex container.
         static member inline flex = Interop.mkStyle "display" "flex"
-        /// Displays an element as a block container box, and lays out its contents using flow layout. 
-        /// 
+        /// Displays an element as a block container box, and lays out its contents using flow layout.
+        ///
         /// It always establishes a new block formatting context for its contents.
         static member inline flowRoot = Interop.mkStyle "display" "flow-root"
         /// Displays an element as a block-level grid container.
@@ -1643,6 +1735,40 @@ module style =
         static member inline zoomIn = Interop.mkStyle "cursor" "zoom-in"
         /// Something can be zoomed out
         static member inline zoomOut = Interop.mkStyle "cursor" "zoom-out"
+
+    /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
+    ///
+    /// The outline-style property specifies the style of an outline.
+    ///
+    /// An outline is a line around an element. It is displayed around the margin of the element. However, it is different from the border property.
+    ///
+    /// The outline is not a part of the element's dimensions, therefore the element's width and height properties do not contain the width of the outline.
+    [<Erase>]
+    type outlineStyle =
+        /// Specifies no outline. This is default.
+        static member inline none = Interop.mkStyle "outlineStyle" "none"
+        /// Specifies a hidden outline
+        static member inline hidden = Interop.mkStyle "outlineStyle" "hidden"
+        /// Specifies a dotted outline
+        static member inline dotted = Interop.mkStyle "outlineStyle" "dotted"
+        /// Specifies a dashed outline
+        static member inline dashed = Interop.mkStyle "outlineStyle" "dashed"
+        /// Specifies a solid outline
+        static member inline solid = Interop.mkStyle "outlineStyle" "solid"
+        /// Specifies a double outliner
+        static member inline double = Interop.mkStyle "outlineStyle" "double"
+        /// Specifies a 3D grooved outline. The effect depends on the outline-color value
+        static member inline groove = Interop.mkStyle "outlineStyle" "groove"
+        /// Specifies a 3D ridged outline. The effect depends on the outline-color value
+        static member inline ridge = Interop.mkStyle "outlineStyle" "ridge"
+        /// Specifies a 3D inset  outline. The effect depends on the outline-color value
+        static member inline inset = Interop.mkStyle "outlineStyle" "inset"
+        /// Specifies a 3D outset outline. The effect depends on the outline-color value
+        static member inline outset = Interop.mkStyle "outlineStyle" "outset"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "outlineStyle" "initial"
+        /// Inherits this property from its parent element
+        static member inline inheritFromParent = Interop.mkStyle "outlineStyle" "inherit"
 
     [<Erase>]
     type backgroundPosition =
