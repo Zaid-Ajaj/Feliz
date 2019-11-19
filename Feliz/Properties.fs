@@ -365,10 +365,18 @@ type prop =
     ///
     /// <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>
     static member inline height(value: int) = Interop.mkAttr "height" value
+    /// Specifies the height of elements listed here. For all other elements, use the CSS height property.
+    ///
+    /// <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>
+    static member inline height(value: ICssUnit) = Interop.mkAttr "height" value
     /// Specifies the width of elements listed here. For all other elements, use the CSS height property.
     ///
     /// <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>
     static member inline width(value: int) = Interop.mkAttr "width" value
+    /// Specifies the width of elements listed here. For all other elements, use the CSS height property.
+    ///
+    /// <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>
+    static member inline width(value: ICssUnit) = Interop.mkAttr "width" value
     /// The URL of a linked resource.
     static member inline href (value: string) = Interop.mkAttr "href" value
     /// Prevents rendering of given element, while keeping child elements, e.g. script elements, active.
