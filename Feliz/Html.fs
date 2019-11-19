@@ -65,6 +65,8 @@ type Html =
     static member inline th xs = Interop.createElement "th" xs
     static member inline tableHeader xs = Interop.createElement "th" xs
     static member inline tableHeader (children: #seq<ReactElement>) = Interop.reactElement "th" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
+    static member inline thead xs = Interop.createElement "thead" xs
+    static member inline thead (children: #seq<ReactElement>) = Interop.reactElement "thead" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
     static member inline tfoot xs = Interop.createElement "tfoot" xs
     static member inline tfoot (children: #seq<ReactElement>) = Interop.reactElement "tfoot" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
     static member inline textarea xs = Interop.createElement "textarea" xs
