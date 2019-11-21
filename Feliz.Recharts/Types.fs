@@ -1,7 +1,7 @@
 namespace Feliz.Recharts
 
 open Feliz
-open Fable.Core 
+open Fable.Core
 
 [<Erase>]
 type IDotProperties<'a> =
@@ -36,6 +36,27 @@ type ILabelProperties =
     abstract x : float
     abstract y : float
     abstract value : float
+
+[<Erase>]
+type IXAxisTickPayload =
+    abstract index : int
+    abstract isShow : bool
+    abstract coordinate : float
+    abstract tickCoord : float
+    abstract offset : float
+
+[<Erase>]
+type IXAxisTickProperties =
+    abstract fill : string
+    abstract index : int
+    abstract height : float
+    abstract stroke  : string
+    abstract textAnchor : string
+    abstract verticalAnchor : string
+    abstract visibleTicksCount : int
+    abstract width : float
+    abstract x : float
+    abstract y : float
 
 [<Erase>]
 type IPieLabelProperties =

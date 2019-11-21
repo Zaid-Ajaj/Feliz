@@ -47,6 +47,7 @@ type xAxis =
     static member inline tickMargin (value: float) = Interop.mkAttr "tickMargin" value
     static member inline unit (value: string) = Interop.mkAttr "unit" value
     static member inline name (value: string) = Interop.mkAttr "name" value
+    static member inline tick (tickRenderer : IXAxisTickProperties -> ReactElement) = Interop.mkAttr "tick" tickRenderer
 
 module xAxis =
     [<Erase>]
