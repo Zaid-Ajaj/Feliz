@@ -144,6 +144,174 @@ let inputs state dispatch =
         Html.input [ prop.type' "password" ]
     ]
 
+let multipleStateVariables = React.functionComponent(fun () ->
+    let (count, setCount) = React.useState(0)
+    let (textColor, setTextColor) = React.useState(color.red)
+
+    Html.div [
+        Html.h1 [
+            prop.style [ style.color textColor ]
+            prop.text count
+        ]
+
+        Html.button [
+            prop.text "Increment"
+            prop.onClick (fun _ -> setCount(count + 1))
+        ]
+
+        Html.button [
+            prop.text "Red"
+            prop.onClick (fun _ -> setTextColor(color.red))
+        ]
+
+        Html.button [
+            prop.text "Blue"
+            prop.onClick (fun _ -> setTextColor(color.blue))
+        ]
+    ])
+
+let asyncEffect = React.functionComponent(fun () ->
+    let (isLoading, setLoading) = React.useState(false)
+    let (content, setContent) = React.useState("")
+
+    let loadData() = async {
+        setLoading true
+        do! Async.Sleep 1500
+        setLoading false
+        setContent "Content"
+    }
+
+    React.useEffect(loadData >> Async.StartImmediate, [||])
+
+    Html.div [
+        if isLoading
+        then Html.h1 "Loading"
+        else Html.h1 content
+    ])
+
+let asyncEffectOnce = React.functionComponent(fun () ->
+    let (isLoading, setLoading) = React.useState(false)
+    let (content, setContent) = React.useState("")
+
+    let loadData() = async {
+        setLoading true
+        do! Async.Sleep 1500
+        setLoading false
+        setContent "Content"
+    }
+
+    React.useEffectOnce(loadData >> Async.StartImmediate)
+
+    Html.div [
+        if isLoading
+        then Html.h1 "Loading"
+        else Html.h1 content
+    ])
+
+[<Emit("setTimeout($0, $1)")>]
+let setTimeout (f: unit -> unit) (timeout: int) : int = jsNative
+
+[<Emit("clearTimeout($0)")>]
+let clearTimeout (id: int) : unit = jsNative
+
+let timer = React.functionComponent(fun () ->
+    let (paused, setPaused) = React.useState(false)
+    let (value, setValue) = React.useState(0)
+
+    let subscribeToTimer() =
+        // start the ticking
+        let subscriptionId = setTimeout (fun _ -> if not paused then setValue (value + 1)) 1000
+        // return IDisposable with cleanup code
+        { new IDisposable with member this.Dispose() = clearTimeout(subscriptionId) }
+
+    React.useEffect(subscribeToTimer)
+
+    Html.div [
+        Html.h1 value
+
+        Html.button [
+            prop.className [
+                Bulma.Button
+                Bulma.IsLarge
+                if paused then Bulma.IsPrimary else Bulma.IsWarning
+            ]
+
+            prop.onClick (fun _ -> setPaused(not paused))
+            prop.text (if paused then "Resume" else "Pause")
+        ]
+    ])
+
+let delayedComponent = React.functionComponent (fun (props: {| load: unit -> ReactElement |}) ->
+    let (started, setStarted) = React.useState(false)
+    Html.div [
+        if not started then Html.button [
+            prop.className [ Bulma.Button; Bulma.IsPrimary; Bulma.IsLarge ]
+            prop.onClick (fun _ -> setStarted(true))
+            prop.children [
+                Html.i [ prop.className [ "fa"; "fa-rocket" ] ]
+                Html.span [
+                    prop.style [ style.marginLeft 10 ]
+                    prop.text "Start Sample"
+                ]
+            ]
+        ]
+
+        if started then props.load()
+    ])
+
+
+let rnd = System.Random()
+let effectfulUserId = React.functionComponent(fun () ->
+    let (isLoading, setLoading) = React.useState(false)
+    let (content, setContent) = React.useState("")
+    let (userId, setUserId) = React.useState(0)
+    let (textColor, setTextColor) = React.useState(color.red)
+
+    let loadData() = async {
+        setLoading true
+        do! Async.Sleep 1500
+        setLoading false
+        setContent (sprintf "User %d" userId)
+    }
+
+    React.useEffect(loadData >> Async.StartImmediate, [| box userId |])
+
+    Html.div [
+        Html.h1 [
+            prop.style [ style.color textColor ]
+            prop.text (if isLoading then "Loading" else content)
+        ]
+
+        Html.button [
+            prop.text "Red"
+            prop.onClick (fun _ -> setTextColor(color.red))
+        ]
+
+        Html.button [
+            prop.text "Blue"
+            prop.onClick (fun _ -> setTextColor(color.blue))
+        ]
+
+        Html.button [
+            prop.text "Update User ID"
+            prop.onClick (fun _ -> setUserId(rnd.Next(1, 100)))
+        ]
+    ])
+
+let effectfulTabCounter = React.functionComponent(fun () ->
+    let (count, setCount) = React.useState(0)
+
+    // execute this effect on every render cycle
+    React.useEffect(fun () -> Browser.Dom.document.title <- sprintf "Count = %d" count)
+
+    Html.div [
+        Html.h1 count
+        Html.button [
+            prop.text "Increment"
+            prop.onClick (fun _ -> setCount(count + 1))
+        ]
+    ])
+
 let counterApp state dispatch =
     Html.div [
         prop.id "main"
@@ -335,14 +503,17 @@ module ElmishCounter =
             Html.h1 state.Count
         ])
 
-
-
-
 let samples = [
     "feliz-elmish-counter", ElmishCounter.app()
     "simple-components", ReactComponents.simple
+    "multiple-state-variables", multipleStateVariables()
     "hover-animations", animationSample
     "stateful-counter", ReactComponents.counter()
+    "effectful-tab-counter", delayedComponent {| load = effectfulTabCounter |}
+    "effectful-async", delayedComponent {| load = asyncEffect |}
+    "effectful-async-once", delayedComponent {| load = asyncEffectOnce |}
+    "effectful-user-id", delayedComponent {| load = effectfulUserId |}
+    "effectful-timer", delayedComponent {| load = timer |}
     "recharts-main", Samples.Recharts.AreaCharts.Main.chart()
     "recharts-area-simpleareachart", Samples.Recharts.AreaCharts.SimpleAreaChart.chart()
     "recharts-area-stackedareachart", Samples.Recharts.AreaCharts.StackedAreaChart.chart()
@@ -427,7 +598,7 @@ let codeBlockRenderer (codeProps: Markdown.ICodeProperties) =
 let renderMarkdown (path: string) (content: string) =
     Html.div [
         prop.className Bulma.Content
-        prop.style [ style.width (length.percent 100); style.padding 20 ]
+        prop.style [ style.padding 20 ]
         prop.children [
             if path.StartsWith "https://raw.githubusercontent.com" then
                 Html.h2 [
@@ -568,15 +739,20 @@ let sidebar (state: State) dispatch =
                 menuItem "Installation" [ Urls.Feliz; Urls.Installation ]
                 menuItem "Project Template" [ Urls.Feliz; Urls.ProjectTemplate ]
                 menuItem "Syntax" [ Urls.Feliz; Urls.Syntax ]
+                menuItem "React API Support" [ Urls.Feliz; Urls.ReactApiSupport ]
                 menuItem "Type-Safe Styling" [ Urls.Feliz; Urls.TypeSafeStyling ]
                 menuItem "Type-Safe CSS" [ Urls.Feliz; Urls.TypeSafeCss ]
                 menuItem "Use with Elmish" [ Urls.Feliz; Urls.UseWithElmish ]
                 menuItem "Elmish Components" [ Urls.Feliz; Urls.ElmishComponents ]
                 menuItem "Contributing" [ Urls.Feliz; Urls.Contributing ]
                 menuItem "Aliasing props" [ Urls.Feliz; Urls.Aliasing ]
-                nestedMenuList "React" [
-                    menuItem "Components" [ Urls.Feliz; Urls.React; Urls.Components ]
-                    menuItem "Standalone Application" [ Urls.Feliz; Urls.React; Urls.Standalone ]
+                nestedMenuList "React Components" [
+                    menuItem "Stateless Components" [ Urls.Feliz; Urls.React; Urls.StatelessComponents ]
+                    menuItem "Not Just Functions" [ Urls.Feliz; Urls.React; Urls.NotJustFunctions ]
+                    menuItem "Stateful Components" [ Urls.Feliz; Urls.React; Urls.StatefulComponents ]
+                    menuItem "Effectful Components" [ Urls.Feliz; Urls.React; Urls.EffectfulComponents ]
+                    menuItem "Subscriptions with Effects" [ Urls.Feliz; Urls.React; Urls.SubscriptionsWithEffects ]
+                    menuItem "Context Propagation" [ Urls.Feliz; Urls.React; Urls.ContextPropagation ]
                     menuItem "Hover Animations" [ Urls.Feliz; Urls.React; Urls.HoverAnimations ]
                     menuItem "Common Pitfalls" [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ]
                 ]
@@ -647,11 +823,18 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.ElmishComponents ] -> loadMarkdown [ "Feliz"; "ElmishComponents.md" ]
     | [ Urls.Feliz; Urls.Contributing ] -> loadMarkdown [ "Feliz"; "Contributing.md" ]
     | [ Urls.Feliz; Urls.Syntax ] -> loadMarkdown [ "Feliz"; "Syntax.md" ]
+    | [ Urls.Feliz; Urls.ReactApiSupport ] -> loadMarkdown [ "Feliz"; "ReactApiSupport.md   " ]
     | [ Urls.Feliz; Urls.TypeSafeStyling ] -> loadMarkdown [ "Feliz"; "TypeSafeStyling.md" ]
     | [ Urls.Feliz; Urls.TypeSafeCss ] -> loadMarkdown [ "Feliz"; "TypeSafeCss.md" ]
     | [ Urls.Feliz; Urls.Aliasing ] -> loadMarkdown [ "Feliz"; "AliasingProp.md" ]
     | [ Urls.Feliz; Urls.ConditionalStyling ] -> loadMarkdown [ "Feliz"; "ConditionalStyling.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Standalone ] -> loadMarkdown [ "Feliz"; "React"; "Standalone.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.StatelessComponents ] -> loadMarkdown  [ "Feliz"; "React"; "StatelessComponents.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.NotJustFunctions ] -> loadMarkdown [ "Feliz"; "React"; "NotJustFunctions.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.StatefulComponents ] -> loadMarkdown [ "Feliz"; "React"; "StatefulComponents.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.EffectfulComponents ] -> loadMarkdown [ "Feliz"; "React"; "EffectfulComponents.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.SubscriptionsWithEffects ] -> loadMarkdown [ "Feliz"; "React"; "SubscriptionsWithEffects.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.ContextPropagation ] -> loadMarkdown [ "Feliz"; "React"; "ContextPropagation.md" ]
     | [ Urls.Feliz; Urls.React; Urls.HoverAnimations ] -> loadMarkdown [ "Feliz"; "React"; "HoverAnimations.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Components ] -> loadMarkdown [ "Feliz"; "React"; "Components.md" ]
     | [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ] -> loadMarkdown [ "Feliz"; "React"; "CommonPitfalls.md" ]
@@ -698,7 +881,9 @@ let main state dispatch =
 
             Html.div [
                 prop.className Bulma.Tile
-                prop.children [ content state dispatch ]
+                prop.children [
+                   content state dispatch
+                ]
             ]
         ]
     ]
