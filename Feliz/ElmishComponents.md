@@ -34,7 +34,7 @@ ReactDOM.render(application, document.getElementById "feliz-app")
 
 ### Compare with "traditional Elmish"
 
-To understand how this library simplifies Elmish composition, head to the [elmish-compostion](https://github.com/Zaid-Ajaj/elmish-composition) repository where a login example is implemented once using Elmish style composition (parent manages all children explicitly and duplicates state) and once again implemented using this library to greatly simplify the parent component (parent only manages its own state).
+To understand how this library simplifies Elmish composition, head to the [elmish-compostion](https://github.com/Zaid-Ajaj/elmish-composition) repository where a login example is implemented once using Elmish style composition (parent manages all children explicitly) and once again implemented using this library to greatly simplify the parent component (parent only manages its own state).
 
 ### Careful with Component names and Keys
 

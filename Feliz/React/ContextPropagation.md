@@ -43,7 +43,7 @@ let themeContext = React.createContext(name="Theme", defaultValue=Theme.Light)
 ### Creating a Context provider
 ```fsharp
 let render (state: State) (dispatch: Msg -> unit) =
-    React.contextProvider(themeContext, state.Theme, Html.fragment [
+    React.contextProvider(themeContext, state.Theme, React.fragment [
         renderContent()
     ])
 ```
