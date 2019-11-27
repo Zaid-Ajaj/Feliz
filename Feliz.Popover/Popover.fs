@@ -4,13 +4,17 @@ open Feliz
 open Fable.Core
 open Fable.Core.JsInterop
 
+module internal Interop =
+    [<Emit("Object.assign({}, $0, $1)")>]
+    let objectAssign (x: obj) (y: obj) = jsNative
+
 type IPopoverProperty = interface end
 
 [<Erase>]
 type popover =
     /// The popover content.
     static member inline body (content: ReactElement list) =
-        unbox<IPopoverProperty> ("body", Html.fragment content)
+        unbox<IPopoverProperty> ("body", React.fragment content)
     /// Determines Whether or not the popover is rendered.
     static member inline isOpen(value: bool) =
         unbox<IPopoverProperty> ("isOpen", value)
@@ -32,20 +36,18 @@ type popover =
     /// Defines the size of the tip pointer. Use .01 to disable tip. Defaults to '7'.
     static member inline tipSize (value: float) =
         unbox<IPopoverProperty> ("tipSize", value)
-    /// Disables the tip of the popover
-    static member inline disableTip = unbox<IPopoverProperty> ("tipSize", 0.01)
+    /// Disables the tip of the popover. When this option is used, then `popover.tipSize` should be omitted.
+    static member inline disableTip =
+        unbox<IPopoverProperty> ("tipSize", 0.01)
     /// The content that this popover will orient itself around.
-    static member inline children (content: ReactElement list) =
-        unbox<IPopoverProperty> ("children", Html.fragment (Interop.reactApi.Children.toArray(content)))
-    /// The content that this popover will orient itself around.
-    static member inline children (content: ReactElement) =
-        unbox<IPopoverProperty> ("children", content)
+    static member inline children (children: ReactElement list) =
+        unbox<IPopoverProperty> ("children", React.keyedFragment("popoverChildren", children))
 
 [<Erase>]
 type Popover =
     static member inline popover (properties: IPopoverProperty list) =
         let defaults = createObj [ "body" ==> Html.none ]
-        Interop.reactApi.createElement(importDefault "react-popover", JS.Object.assign(defaults, createObj !!properties))
+        Interop.reactApi.createElement(importDefault "react-popover", Interop.objectAssign defaults (createObj !!properties))
 
 module popover =
     /// Sets a preference of where to position the Popover. Only useful to specify placement in case of multiple available fits. Defaults to `auto`.
