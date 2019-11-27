@@ -1,4 +1,4 @@
-# Effectful Components
+# Components with Effects
 
 Aside from using states variables, React components can also execute side-effects. These are things like subscriptions, timers, network calls, modifying the DOM or even logging something to the console. React gives us a special hook to work with effects: the `React.useEffect` hook.
 

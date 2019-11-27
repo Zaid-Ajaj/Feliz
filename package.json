@@ -12,6 +12,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.0.0",
+        "@babel/preset-react": "^7.7.4",
         "fable-compiler": "^2.4.6",
         "fable-loader": "^2.1.6",
         "gh-pages": "^2.1.1",

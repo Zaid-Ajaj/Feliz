@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Description>Feliz/Elmish application</Description>
+    <Description>Feliz application template with proper configuration and a unit test project</Description>
     <Authors>Zaid Ajaj</Authors>
     <PackageProjectUrl>https://github.com/Zaid-Ajaj/Feliz</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE.md</PackageLicenseUrl>
@@ -8,7 +8,7 @@
     <PackageTags>fable;template;fsharp</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageType>Template</PackageType>
-    <Version>0.2.19</Version>
+    <Version>0.2.20</Version>
     <PackProjectInputFile>$(MSBuildProjectFullPath)</PackProjectInputFile>
     <NoBuild>true</NoBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>

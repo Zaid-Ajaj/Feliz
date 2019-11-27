@@ -4,7 +4,7 @@
         "start": "webpack-dev-server",
         "build": "webpack",
         "test:live": "webpack-dev-server --config ./webpack.tests.js",
-        "pretest": "fable-splitter ./tests -o ./tests-js --commonjs",
+        "pretest": "fable-splitter --config splitter.tests.js",
         "test": "mocha ./tests-js"
     },
     "dependencies": {
@@ -17,12 +17,13 @@
         "@babel/plugin-transform-runtime": "^7.4.4",
         "@babel/polyfill": "^7.7.0",
         "@babel/preset-env": "^7.7.1",
+        "@babel/preset-react": "^7.7.4",
         "@babel/runtime": "^7.7.1",
         "babel-loader": "^8.0.5",
         "copy-webpack-plugin": "^4.6.0",
         "core-js": "^3.3.6",
         "css-loader": "^3.2.0",
-        "fable-compiler": "^2.4.9",
+        "fable-compiler": "^2.4.11",
         "fable-loader": "^2.1.8",
         "fable-splitter": "^2.1.11",
         "file-loader": "^4.2.0",

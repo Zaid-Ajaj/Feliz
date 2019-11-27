@@ -67,7 +67,7 @@ let counter (start: int) =
 ```
 ### <i class="fa fa-check" style="color:lightgreen; margin-right: 5px" ></i> Do this
 ```fsharp
-let counter' = React.functionComponent(fun (input: {| start: int |}) ->
+let counter' = React.functionComponent("Counter", fun (input: {| start: int |}) ->
     let (count, setCount) = React.useState(input.start)
     Html.div [
         Html.h1 count

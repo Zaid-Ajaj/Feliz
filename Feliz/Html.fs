@@ -3,6 +3,7 @@ namespace Feliz
 open Fable.React
 open Fable.Core
 open Fable.Core.JsInterop
+open System
 
 [<Erase>]
 type Html =
@@ -10,9 +11,13 @@ type Html =
     static member inline none : ReactElement = unbox null
     /// The `<div>` tag defines a division or a section in an HTML document
     static member inline div xs = Interop.createElement "div" xs
+    [<Obsolete("Html.fragment is obsolete, use React.fragment instead. This function will be removed in the coming v1.0 release")>]
     static member inline fragment xs = Fable.React.Helpers.fragment [] xs
+    [<Obsolete("Html.keyedFragment is obsolete, use React.keyedFragment instead. This function will be removed in the coming v1.0 release")>]
     static member inline keyedFragment(key: int, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    [<Obsolete("Html.keyedFragment is obsolete, use React.keyedFragment instead. This function will be removed in the coming v1.0 release")>]
     static member inline keyedFragment(key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    [<Obsolete("Html.keyedFragment is obsolete, use React.keyedFragment instead. This function will be removed in the coming v1.0 release")>]
     static member inline keyedFragment(key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
     static member inline em xs = Interop.createElement "em" xs
     static member inline iframe xs = Interop.createElement "iframe" xs

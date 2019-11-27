@@ -43,6 +43,14 @@ type internal Internal() =
                 Interop.reactApi.createElement(memoElementType, props)
 
 type React =
+    /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
+    static member inline fragment xs = Fable.React.Helpers.fragment [] xs
+    /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
+    static member inline keyedFragment(key: int, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
+    static member inline keyedFragment(key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
+    static member inline keyedFragment(key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
     /// The `useState` hook that create a state variable for React function components.
     static member useState<'t>(initial: 't) = Interop.reactApi.useState(initial)
     static member useReducer(update, initialState) = Interop.reactApi.useReducer update initialState

@@ -25,7 +25,7 @@ let animationsOnHover' = React.functionComponent(fun (props: {| content: ReactEl
         prop.children [ props.content ]
     ])
 
-let animationsOnHover content = animationsOnHover' {| content = Html.fragment content |}
+let animationsOnHover content = animationsOnHover' {| content = React.fragment content |}
 
 Html.div [
     animationsOnHover [ Html.span "Hover me!" ]

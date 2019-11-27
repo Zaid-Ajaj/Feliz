@@ -117,9 +117,9 @@ let emptyStyles state dispatch =
     ]
 
 let keyedFragments state dispatch =
-    Html.keyedFragment(1, [
+    React.keyedFragment(1, [
         Html.div [
-            Html.keyedFragment("hello", [
+            React.keyedFragment("hello", [
                 Html.h1 "Hello"
                 Html.div [ ]
                 Html.div [ Html.h1 "More stuff" ]
@@ -143,6 +143,35 @@ let inputs state dispatch =
         Html.input [ prop.type'.checkbox ]
         Html.input [ prop.type' "password" ]
     ]
+
+let staticHtml = React.functionComponent(fun () ->
+    let html = Html.div [
+        prop.style [ style.padding 20 ]
+        prop.children [
+            Html.h1 "Html content"
+            Html.br [ ]
+        ]
+    ]
+
+
+    Html.pre [
+        Html.text (ReactDOMServer.renderToString html)
+    ])
+
+
+let staticMarkup = React.functionComponent(fun () ->
+    let html = Html.div [
+        prop.style [ style.padding 20 ]
+        prop.children [
+            Html.h1 "Html content"
+            Html.br [ ]
+        ]
+    ]
+
+
+    Html.pre [
+        Html.text (ReactDOMServer.renderToStaticMarkup html)
+    ])
 
 let multipleStateVariables = React.functionComponent(fun () ->
     let (count, setCount) = React.useState(0)
@@ -251,7 +280,7 @@ let delayedComponent = React.functionComponent (fun (props: {| load: unit -> Rea
                 Html.i [ prop.className [ "fa"; "fa-rocket" ] ]
                 Html.span [
                     prop.style [ style.marginLeft 10 ]
-                    prop.text "Start Sample"
+                    prop.text "Run Sample"
                 ]
             ]
         ]
@@ -368,7 +397,7 @@ let keyWarnings state dispatch =
 let fragmentTests =
     Html.div [
         prop.children [
-            Html.fragment [
+            React.fragment [
                 Html.h1 "One"
                 Html.h2 "Two"
             ]
@@ -400,7 +429,7 @@ let animationsOnHover' = React.functionComponent(fun (props: {| content: ReactEl
     ]
 ])
 
-let animationsOnHover content = animationsOnHover' {| content = Html.fragment content |}
+let animationsOnHover content = animationsOnHover' {| content = React.fragment content |}
 let animationSample =
     Html.div [
         animationsOnHover [ Html.span "Hover me!" ]
@@ -469,7 +498,7 @@ let ticker = React.functionComponent("Ticker", fun (input: {| start: int |}) ->
     ])
 
 let hooksAreAwesome =
-    Html.fragment [
+    React.fragment [
         counter()
         Html.hr [ ]
         ticker {| start = 0 |}
@@ -514,6 +543,8 @@ let samples = [
     "effectful-async-once", delayedComponent {| load = asyncEffectOnce |}
     "effectful-user-id", delayedComponent {| load = effectfulUserId |}
     "effectful-timer", delayedComponent {| load = timer |}
+    "static-html", staticHtml()
+    "static-markup", staticMarkup()
     "recharts-main", Samples.Recharts.AreaCharts.Main.chart()
     "recharts-area-simpleareachart", Samples.Recharts.AreaCharts.SimpleAreaChart.chart()
     "recharts-area-stackedareachart", Samples.Recharts.AreaCharts.StackedAreaChart.chart()
@@ -750,11 +781,12 @@ let sidebar (state: State) dispatch =
                     menuItem "Stateless Components" [ Urls.Feliz; Urls.React; Urls.StatelessComponents ]
                     menuItem "Not Just Functions" [ Urls.Feliz; Urls.React; Urls.NotJustFunctions ]
                     menuItem "Stateful Components" [ Urls.Feliz; Urls.React; Urls.StatefulComponents ]
-                    menuItem "Effectful Components" [ Urls.Feliz; Urls.React; Urls.EffectfulComponents ]
+                    menuItem "Components with Effects" [ Urls.Feliz; Urls.React; Urls.EffectfulComponents ]
                     menuItem "Subscriptions with Effects" [ Urls.Feliz; Urls.React; Urls.SubscriptionsWithEffects ]
                     menuItem "Context Propagation" [ Urls.Feliz; Urls.React; Urls.ContextPropagation ]
                     menuItem "Hover Animations" [ Urls.Feliz; Urls.React; Urls.HoverAnimations ]
                     menuItem "Common Pitfalls" [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ]
+                    menuItem "Render Static Html" [ Urls.Feliz; Urls.React; Urls.RenderStaticHtml ]
                 ]
 
                 nestedMenuList "Ecosystem" [
@@ -838,6 +870,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.React; Urls.HoverAnimations ] -> loadMarkdown [ "Feliz"; "React"; "HoverAnimations.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Components ] -> loadMarkdown [ "Feliz"; "React"; "Components.md" ]
     | [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ] -> loadMarkdown [ "Feliz"; "React"; "CommonPitfalls.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.RenderStaticHtml ] -> loadMarkdown [ "Feliz"; "React"; "RenderStaticHtml.md" ]
     | [ Urls.Ecosystem; Urls.ElmishComponents ] -> loadMarkdown [ "Feliz"; "ElmishComponents.md" ]
     | [ Urls.Ecosystem; Urls.Router ] -> loadMarkdown [ readme "Zaid-Ajaj" "Feliz.Router" ]
     | [ Urls.Ecosystem; Urls.Mui ] -> loadMarkdown [ readme "cmeeren" "Feliz.MaterialUI" ]

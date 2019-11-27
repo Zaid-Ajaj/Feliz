@@ -26,6 +26,8 @@ var CONFIG = {
     // More info at https://babeljs.io/docs/en/next/babel-preset-env.html
     babel: {
         presets: [
+            // In case interop is used with React/Jsx components, this React preset would be required
+            ["@babel/preset-react"],
             ["@babel/preset-env", {
                 "targets": "> 0.25%, not dead",
                 "modules": false,
@@ -85,7 +87,12 @@ module.exports = {
     resolve: {
         // See https://github.com/fable-compiler/Fable/issues/1490
         symlinks: false,
-        modules: [resolve("./node_modules")]
+        modules: [resolve("./node_modules")],
+        alias: {
+            // Some old libraries still use an old specific version of core-js
+            // Redirect the imports of these libraries to the newer core-js
+            'core-js/es6': 'core-js/es'
+        }
     },
     // Configuration for webpack-dev-server
     devServer: {
