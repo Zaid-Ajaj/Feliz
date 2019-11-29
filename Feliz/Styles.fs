@@ -759,10 +759,24 @@ type style =
     ///
     /// The image can be left to its natural size, stretched, or constrained to fit the available space.
     static member inline backgroundSize (value: string) = Interop.mkStyle "backgroundSize" value
+    /// Sets the size of the element's background image.
+    ///
+    /// The image can be left to its natural size, stretched, or constrained to fit the available space.
+    static member inline backgroundSize (value: ICssUnit) = Interop.mkStyle "backgroundSize" value
+    /// Sets the size of the element's background image.
+    ///
+    /// The image can be left to its natural size, stretched, or constrained to fit the available space.
+    static member inline backgroundSize (width: ICssUnit, height: ICssUnit) =
+        Interop.mkStyle "backgroundSize" (
+            unbox<string> width
+            + " " +
+            unbox<string> height
+        )
+
     /// Sets one or more background images on an element.
     static member inline backgroundImage (value: string) = Interop.mkStyle "backgroundImage" value
-    /// Short-hand for `style.backgroundImage(sprintf "url(%s)" value)` to set the backround image using a url.
-    static member inline backgroundImageUrl (value: string) = Interop.mkStyle "backgroundImage" ("url(" + value + ")")
+    /// Short-hand for `style.backgroundImage(sprintf "url('%s')" value)` to set the backround image using a url.
+    static member inline backgroundImageUrl (value: string) = Interop.mkStyle "backgroundImage" ("url('" + value + "')")
     /// Sets how background images are repeated.
     ///
     /// A background image can be repeated along the horizontal and vertical axes, or not repeated at all.
@@ -1374,6 +1388,38 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "filter" "inherit"
 
     [<Erase>]
+    /// Sets whether table borders should collapse into a single border or be separated as in standard HTML.
+    type borderCollapse =
+        /// Borders are separated; each cell will display its own borders. This is default.
+        static member inline separate = Interop.mkStyle "borderCollapse" "separate"
+        /// Borders are collapsed into a single border when possible (border-spacing and empty-cells properties have no effect)
+        static member inline collapse = Interop.mkStyle "borderCollapse" "collapse"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "borderCollapse" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "borderCollapse" "inherit"
+
+    [<Erase>]
+    /// Specifies the size of the background images
+    type backgroundSize =
+        /// Default value. The background image is displayed in its original size
+        ///
+        /// See [example here](https://www.w3schools.com/cssref/playit.asp?filename=playcss_background-size&preval=auto)
+        static member inline auto = Interop.mkStyle "backgroundSize" "auto"
+        /// Resize the background image to cover the entire container, even if it has to stretch the image or cut a little bit off one of the edges.
+        ///
+        /// See [example here](https://www.w3schools.com/cssref/playit.asp?filename=playcss_background-size&preval=cover)
+        static member inline cover = Interop.mkStyle "backgroundSize" "cover"
+        /// Resize the background image to make sure the image is fully visible
+        ///
+        /// See [example here](https://www.w3schools.com/cssref/playit.asp?filename=playcss_background-size&preval=contain)
+        static member inline contain = Interop.mkStyle "backgroundSize" "contain"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "backgroundSize" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "backgroundSize" "inherit"
+
+    [<Erase>]
     type textDecorationStyle =
         /// Default value. The line will display as a single line.
         ///
@@ -1401,6 +1447,7 @@ module style =
         static member inline initial = Interop.mkStyle "textDecorationStyle" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "textDecorationStyle" "inherit"
+
 
     [<Erase>]
     type fontStretch =
@@ -1783,6 +1830,7 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "backgroundPosition" "inherit"
 
+    [<Erase>]
     /// This property defines the blending mode of each background layer (color and/or image).
     type backgroundBlendMode =
         /// This is default. Sets the blending mode to normal.
@@ -1939,6 +1987,35 @@ module style =
         static member inline initial = Interop.mkStyle "transform" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "transform" "inherit"
+
+    [<Erase>]
+    type margin =
+        static member inline auto = Interop.mkStyle "margin" "auto"
+
+    [<Erase>]
+    /// The direction property specifies the text direction/writing direction within a block-level element.
+    type direction =
+        /// Text direction goes from right-to-left
+        static member inline rightToLeft = Interop.mkStyle "direction" "rtl"
+        /// Text direction goes from left-to-right. This is default
+        static member inline leftToRight = Interop.mkStyle "direction" "ltr"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "direction" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "direction" "inherit"
+
+    [<Erase>]
+    /// Sets whether or not to display borders on empty cells in a table.
+    type emptyCells =
+        /// Display borders on empty cells. This is default
+        static member show = Interop.mkStyle "emptyCells" "show"
+        /// Hide borders on empty cells
+        static member hide = Interop.mkStyle "emptyCells" "hide"
+        /// Sets this property to its default value
+        static member initial = Interop.mkStyle "emptyCells" "initial"
+        /// Inherits this property from its parent element
+        static member inheritFromParent = Interop.mkStyle "emptyCells" "inherit"
+
 
     [<Erase>]
     /// Sets whether or not the animation should play in reverse on alternate cycles.

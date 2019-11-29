@@ -74,6 +74,8 @@ let update msg state =
     style.margin(10, 10, 10, 20)
     style.margin(10, 10, 10)
     style.margin(10, 10)
+    style.margin.auto
+    style.borderCollapse.collapse
     style.width 10
     style.height 100
     style.height (length.vh 50)
