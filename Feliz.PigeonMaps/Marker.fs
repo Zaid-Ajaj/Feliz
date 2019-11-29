@@ -23,7 +23,7 @@ type marker =
     static member inline render (handler: IMarkerRenderProperties -> Fable.React.ReactElement) =
         Interop.mkAttr "render" handler
     static member inline render (handler: IMarkerRenderProperties -> Fable.React.ReactElement list) =
-        Interop.mkAttr "render" (handler >> Html.fragment)
+        Interop.mkAttr "render" (handler >> React.fragment)
 
 [<Erase>]
 type marker<'t> =
@@ -42,7 +42,7 @@ type marker<'t> =
     static member inline render (handler: IMarkerRenderProperties -> Fable.React.ReactElement) =
         Interop.mkAttr "render" handler
     static member inline render (handler: IMarkerRenderProperties -> Fable.React.ReactElement list) =
-        Interop.mkAttr "render" (handler >> Html.fragment)
+        Interop.mkAttr "render" (handler >> React.fragment)
     static member inline offsetLeft (offset: int) =
         Interop.mkAttr "offsetLeft" offset
     static member inline offsetTop (offset: int) =

@@ -4,11 +4,12 @@ open Feliz
 open Fable.Core
 open Fable.Core.JsInterop
 
-module internal Interop =
+module Interop =
     /// Creates a map marker internally (which is actually `ReactElement`)
     let createMarker : obj -> IMapMarker = import "createMarker" "./Marker.js"
     [<Emit("Object.assign({}, $0, $1)")>]
     let objectAssign (x: obj) (y: obj) = jsNative
+
 [<Erase>]
 type PigeonMaps =
     static member inline map (properties: IReactProperty list) =
