@@ -4,7 +4,7 @@ open Feliz
 open Fable.Core
 open Fable.Core.JsInterop
 
-module internal Interop =
+module Interop =
     [<Emit("Object.assign({}, $0, $1)")>]
     let objectAssign (x: obj) (y: obj) = jsNative
 
