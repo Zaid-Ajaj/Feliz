@@ -1654,6 +1654,20 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "borderStyle" "inherit"
 
     [<Erase>]
+    /// Defines the algorithm used to lay out table cells, rows, and columns.
+    ///
+    /// **Tip:** The main benefit of table-layout: fixed; is that the table renders much faster. On large tables, users will not see any part of the table until the browser has rendered the whole table. So, if you use table-layout: fixed, users will see the top of the table while the browser loads and renders rest of the table. This gives the impression that the page loads a lot quicker!
+    type tableLayout =
+        /// Browsers use an automatic table layout algorithm. The column width is set by the widest unbreakable content in the cells. The content will dictate the layout
+        static member inline auto = Interop.mkStyle "tableLayout" "auto"
+        /// Sets a fixed table layout algorithm. The table and column widths are set by the widths of table and col or by the width of the first row of cells. Cells in other rows do not affect column widths. If no widths are present on the first row, the column widths are divided equally across the table, regardless of content inside the cells
+        static member inline fixed' = Interop.mkStyle "tableLayout" "fixed"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "tableLayout" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "tableLayout" "inherit"
+
+    [<Erase>]
     type display =
         /// Displays an element as an inline element (like `<span>`). Any height and width properties will have no effect.
         static member inline inlineElement = Interop.mkStyle "display" "inline"
