@@ -1408,6 +1408,7 @@ module prop =
         /// applied.
         static member inline other = Interop.mkAttr "aria-sort" "other"
 
+    [<Erase>]
     type type' =
         /// Defines a password field
         static member inline password = Interop.mkAttr "type" "password"
@@ -1453,3 +1454,14 @@ module prop =
         static member inline url = Interop.mkAttr "type" "url"
         /// Defines a week and year control (no timezone)
         static member inline week = Interop.mkAttr "type" "week"
+
+    [<Erase>]
+    type autoCapitalize =
+        /// No autocapitalization is applied (all letters default to lowercase)
+        static member inline off = Interop.mkAttr "autoCapitalize" "off"
+        /// The first letter of each sentence defaults to a capital letter; all other letters default to lowercase
+        static member inline on' = Interop.mkAttr "autoCapitalize" "on"
+        /// The first letter of each word defaults to a capital letter; all other letters default to lowercase
+        static member inline words = Interop.mkAttr "autoCapitalize" "words"
+        /// All letters should default to uppercase
+        static member inline characters = Interop.mkAttr "autoCapitalize" "characters"
