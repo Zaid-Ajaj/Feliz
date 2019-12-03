@@ -248,3 +248,9 @@ type Html =
     static member inline i(value: string) = Interop.reactElement "i" (createObj [ "children" ==> [| value |] ])
     static member inline i(value: ReactElement) = Interop.reactElement "i" (createObj [ "children" ==> [| value |] ])
     static member inline i (children: #seq<ReactElement>) = Interop.reactElement "i" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
+    static member inline u xs = Interop.createElement "u" xs
+    static member inline u (value: int) = Interop.reactElement "u" (createObj [ "children" ==> [| value |] ])
+    static member inline u (value: string) = Interop.reactElement "u" (createObj [ "children" ==> [| value |] ])
+    static member inline u (value: ReactElement) = Interop.reactElement "u" (createObj [ "children" ==> [| value |] ])
+    static member inline u (children: #seq<ReactElement>) = Interop.reactElement "u" (createObj [ "children" ==> Interop.reactApi.Children.toArray (unbox<ReactElement list> children) ])
+    
