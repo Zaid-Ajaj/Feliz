@@ -403,6 +403,24 @@ type style =
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     static member inline fontSize(size: ICssUnit) = Interop.mkStyle "fontSize" size
+    /// Specifies the height of a text lines.
+    ///
+    /// This property is also used to compute the size of em, ex, and other relative <length> units.
+    /// 
+    /// Note: Negative values are not allowed.
+    static member inline lineHeight(size: int) = Interop.mkStyle "lineHeight" size
+    /// Specifies the height of a text lines.
+    ///
+    /// This property is also used to compute the size of em, ex, and other relative <length> units.
+    /// 
+    /// Note: Negative values are not allowed.
+    static member inline lineHeight(size: float) = Interop.mkStyle "lineHeight" size
+    /// Specifies the height of a text lines.
+    ///
+    /// This property is also used to compute the size of em, ex, and other relative <length> units.
+    /// 
+    /// Note: Negative values are not allowed.
+    static member inline lineHeight(size: ICssUnit) = Interop.mkStyle "lineHeight" size
     /// Sets the background color of an element.
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
     /// Sets the foreground color value of an element's text and text decorations, and sets the
