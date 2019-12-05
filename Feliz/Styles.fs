@@ -394,11 +394,11 @@ type style =
     /// Sets the size of the font.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
-    static member inline fontSize(size: int) = Interop.mkStyle "fontSize" size
+    static member inline fontSize(size: int) = Interop.mkStyle "fontSize" (unbox<string> size + "px")
     /// Sets the size of the font.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
-    static member inline fontSize(size: float) = Interop.mkStyle "fontSize" size
+    static member inline fontSize(size: float) = Interop.mkStyle "fontSize" (unbox<string> size + "px")
     /// Sets the size of the font.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
@@ -406,19 +406,19 @@ type style =
     /// Specifies the height of a text lines.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
-    /// 
+    ///
     /// Note: Negative values are not allowed.
-    static member inline lineHeight(size: int) = Interop.mkStyle "lineHeight" size
+    static member inline lineHeight(size: int) = Interop.mkStyle "lineHeight" (unbox<string> size + "px")
     /// Specifies the height of a text lines.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
-    /// 
+    ///
     /// Note: Negative values are not allowed.
-    static member inline lineHeight(size: float) = Interop.mkStyle "lineHeight" size
+    static member inline lineHeight(size: float) = Interop.mkStyle "lineHeight" (unbox<string> size + "px")
     /// Specifies the height of a text lines.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
-    /// 
+    ///
     /// Note: Negative values are not allowed.
     static member inline lineHeight(size: ICssUnit) = Interop.mkStyle "lineHeight" size
     /// Sets the background color of an element.
