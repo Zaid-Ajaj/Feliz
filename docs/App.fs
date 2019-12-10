@@ -568,6 +568,7 @@ let samples = [
     "recharts-pie-customizedlabelpiechart", Samples.Recharts.PieCharts.CustomizedLabelPieChart.chart()
     "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
+    "pigeonmaps-map-popover-hover", Samples.PigeonMaps.MarkerOverlaysOnHover.citiesMap()
     "pigeonmaps-map-popover", Samples.PigeonMaps.MarkerOverlays.citiesMap()
     "pigoenmaps-map-closebutton", Samples.PigeonMaps.MarkerWithCloseButton.citiesMap()
     "pigeonmaps-map-empty", Samples.PigeonMaps.EmptyMap.emptyMap

@@ -68,6 +68,86 @@ module DynamicMarkers =
             map.markers [ for city in cities -> renderMarker city setCenter ]
         ])
 
+module MarkerOverlaysOnHover =
+
+    open Feliz.Popover
+
+    type City = {
+        Name: string
+        Latitude: float
+        Longitude: float
+    }
+
+    let cities = [
+        { Name = "Utrecht"; Latitude = 52.090736; Longitude = 5.121420 }
+        { Name = "Nijmegen"; Latitude = 51.812565; Longitude = 5.837226 }
+        { Name = "Amsterdam"; Latitude = 52.370216; Longitude = 4.895168 }
+        { Name = "Rotterdam"; Latitude = 51.924419; Longitude = 4.477733 }
+    ]
+
+    type MarkerProps = {
+        City: City
+        Hovered: bool
+    }
+
+    let markerWithPopover (marker: MarkerProps)  =
+        Popover.popover [
+            popover.body [
+                Html.div [
+                    prop.text marker.City.Name
+                    prop.style [
+                        style.backgroundColor.black
+                        style.padding 10
+                        style.borderRadius 5
+                        style.color.lightGreen
+                    ]
+                ]
+            ]
+
+            popover.isOpen marker.Hovered
+            popover.disableTip
+            popover.children [
+                Html.i [
+                    prop.key marker.City.Name
+                    prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
+                    if marker.Hovered then prop.style [
+                        style.cursor.pointer
+                        style.color.red
+                    ]
+                ]
+            ]
+        ]
+
+    let renderMarker city =
+        PigeonMaps.marker [
+            marker.anchor(city.Latitude, city.Longitude)
+            marker.offsetLeft 15
+            marker.offsetTop 30
+            marker.render (fun marker -> [
+                markerWithPopover {
+                    City = city
+                    Hovered = marker.hovered
+                }
+            ])
+        ]
+
+    let initialCenter =
+        cities
+        |> List.tryHead
+        |> Option.map (fun city -> city.Latitude, city.Longitude)
+        |> Option.defaultValue (51.812565, 5.837226)
+
+    let citiesMap = React.functionComponent(fun () ->
+        let (zoom, setZoom) = React.useState 8
+        let (center, setCenter) = React.useState initialCenter
+        PigeonMaps.map [
+            map.center center
+            map.zoom zoom
+            map.height 350
+            map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter args.center)
+            map.markers [ for city in cities -> renderMarker city ]
+        ])
+
 module MarkerOverlays =
 
     open Feliz.Popover
