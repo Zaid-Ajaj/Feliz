@@ -40,6 +40,8 @@ type AriaRelevant =
 
 /// Represents the native Html properties.
 type prop =
+    /// The empty property, adds no attribute to element.
+    static member inline none = Interop.mkAttr "" ""
     /// Often used with CSS to style a specific element. The value of this attribute must be unique.
     static member inline id(value: string) = Interop.mkAttr "id" value
     /// Used to reference a DOM element or class component from within a parent component.
