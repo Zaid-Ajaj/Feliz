@@ -47,7 +47,7 @@ type ElmishComponent<'State, 'Msg>(props: ElmishComponentProps<'State, 'Msg>) as
         this.props.Render this.state this.dispatch
 
 [<AutoOpen>]
-module ElmishComponentExtensiosns =
+module ElmishComponentExtensions =
 
     type React with
         /// Creates a standalone React component using an Elmish dispatch loop
