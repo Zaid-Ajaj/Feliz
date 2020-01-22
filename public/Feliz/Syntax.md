@@ -24,7 +24,9 @@ Html.h1 [
     ]
 ]
 ```
-Which is the same as:
+Note that you can't mix attributes and child elements. If you use the component overload taking `IReactProperty list`, you must use `prop.children` to specify the child elements, as shown above.
+
+However, in the specific case of a single `Html.text` child, you can also use the `prop.text` alias. The code above is the same as this:
 ```fs
 Html.h1 [
     prop.className "title"
