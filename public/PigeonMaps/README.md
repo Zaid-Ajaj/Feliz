@@ -345,12 +345,3 @@ let citiesMap = React.functionComponent(fun () ->
         map.markers [ for city in cities -> renderMarker city ]
     ])
 ```
-
-### Basic empty map
-
-```fsharp:pigeonmaps-map-empty
-open Feliz
-open Feliz.PigeonMaps
-
-let emptyMap = PigeonMaps.map [ ]
-```

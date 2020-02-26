@@ -325,6 +325,3 @@ module MarkerWithCloseButton =
             map.onBoundsChanged (fun args -> setZoom (int args.zoom); setCenter args.center)
             map.markers [ for city in cities -> renderMarker city ]
         ])
-
-module EmptyMap =
-    let emptyMap = PigeonMaps.map [ ]
