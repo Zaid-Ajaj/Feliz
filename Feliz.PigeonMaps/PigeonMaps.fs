@@ -18,7 +18,7 @@ type PigeonMaps =
         let defaults = createObj [
             "center" ==> [| 40.416775; -3.703790 |]
             "zoom" ==> 3
-            "height" ==> 200
+
         ]
 
         Interop.reactApi.createElement(importDefault "pigeon-maps", Interop.objectAssign defaults (createObj !!properties))
