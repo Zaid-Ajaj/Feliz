@@ -383,16 +383,16 @@ A nice options seems to be [MapTiler](https://www.maptiler.com/cloud), Their map
 You can enable load their tiles by making an account and optaining a *API key*, then after selecting a map and getting its *map identifier*, you can build configure the tiles provider as follows:
 ```fsharp
 let mapTilerKey = "YOUR-KEY-HERE"
-let mapId = "SOME-MAP-ID"
+let mapTilerId = "SOME-MAP-ID"
 
-let mapTilerProvder x y z dpr =
-    sprintf "https://api.maptiler.com/maps/%s/256/%A/%A/%A.png?key=%s" mapId z x y mapTilerKey
+let mapTilerProvider x y z dpr =
+    sprintf "https://api.maptiler.com/maps/%s/256/%A/%A/%A.png?key=%s" mapTilerId z x y mapTilerKey
 
 let pigeonMap = PigeonMaps.map [
     map.center(50.879, 4.6997)
     map.zoom 12
     map.height 350
-    map.provider stamenTerrain
+    map.provider mapTilerProvider
     map.markers [
         PigeonMaps.marker [
             marker.anchor(50.879, 4.6997)
