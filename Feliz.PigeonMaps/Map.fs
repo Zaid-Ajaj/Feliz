@@ -13,6 +13,9 @@ type map =
     static member inline zoom(value: int) = Interop.mkAttr "zoom" value
     /// Current zoom level, e.g. 12, use for controlled components and update when onBoundsChanged give you a new value.
     static member inline zoom(value: float) = Interop.mkAttr "zoom" value
+    static member inline provider (handler: (float -> float -> float -> int -> string)) =
+        let uncurried = System.Func<float, float, float, int, string>(fun x y z dpr -> handler x y z dpr)
+        Interop.mkAttr "provider" uncurried
     /// Height of the component in pixels. Defaults to 100% of the parent div if not set.
     static member inline height(value: int) = Interop.mkAttr "height" value
     /// Width of the component in pixels. Defaults to 100% of the parent div if not set.
@@ -63,3 +66,26 @@ type map =
     static member inline onAnimationEnd (handler: unit -> unit) = Interop.mkAttr "onAnimationEnd" handler
     static member inline onClick (handler: IMapMouseEvent -> unit) = Interop.mkAttr "onClick" handler
     static member inline onBoundsChanged (handler: IMapBoundsChangedArgs -> unit) = Interop.mkAttr "onBoundsChanged" handler
+
+module map =
+    [<Emit "String.fromCharCode(97 + ($0 % 3))">]
+    let internal fromCharCode (n: float) : string = jsNative
+
+    type provider =
+        static member openStreetMap : IReactProperty =
+            "provider" ==> fun x y z dpr ->
+                let s = fromCharCode (x + y + z)
+                sprintf "https://%s.tile.openstreetmap.org/%d/%d/%d.png" s (unbox z) (unbox x) (unbox y)
+            |> unbox
+
+        static member stamenToner : IReactProperty =
+            "provider" ==> fun x y z dpr ->
+                let size = if dpr >= 2 then "@2x" else ""
+                sprintf "https://stamen-tiles.a.ssl.fastly.net/toner/%d/%d/%d%s.png" (unbox z) (unbox x) (unbox y) size
+            |> unbox
+
+        static member stamenTerrain : IReactProperty =
+            "provider" ==> fun x y z dpr ->
+                let size = if dpr >= 2 then "@2x" else ""
+                sprintf "https://stamen-tiles.a.ssl.fastly.net/terrain/%d/%d/%d%s.png" (unbox z) (unbox x) (unbox y) size
+            |> unbox

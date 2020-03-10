@@ -24,6 +24,30 @@ module Main =
         ]
     ]
 
+module CustomProviders =
+    let stamenTerrain x y z dpr =
+        sprintf "https://stamen-tiles.a.ssl.fastly.net/terrain/%A/%A/%A.png" z x y
+
+    let pigeonMap = PigeonMaps.map [
+        map.center(50.879, 4.6997)
+        map.zoom 12
+        map.height 350
+        map.provider stamenTerrain
+        map.markers [
+            PigeonMaps.marker [
+                marker.anchor(50.879, 4.6997)
+                marker.offsetLeft 15
+                marker.offsetTop 30
+                marker.render (fun marker -> [
+                    Html.i [
+                        if marker.hovered
+                        then prop.style [ style.color.red; style.cursor.pointer ]
+                        prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
+                    ]
+                ])
+            ]
+        ]
+    ]
 module DynamicMarkers =
     type City = {
         Name: string
