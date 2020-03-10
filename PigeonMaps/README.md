@@ -345,12 +345,67 @@ let citiesMap = React.functionComponent(fun () ->
         map.markers [ for city in cities -> renderMarker city ]
     ])
 ```
+# Custom Tiles Provider
 
-### Basic empty map
-
-```fsharp:pigeonmaps-map-empty
+It is possible to use different tile providers for the map. Currently the default provider is open streets map but you could change it to show tiles from another provider. For that you can use the `map.provider` property to customize the provider.
+```fsharp:pigeonmaps-map-stamenterrain
 open Feliz
 open Feliz.PigeonMaps
 
-let emptyMap = PigeonMaps.map [ ]
+let stamenTerrain x y z dpr =
+    sprintf "https://stamen-tiles.a.ssl.fastly.net/terrain/%A/%A/%A.png" z x y
+
+let pigeonMap = PigeonMaps.map [
+    map.center(50.879, 4.6997)
+    map.zoom 12
+    map.height 350
+    map.provider stamenTerrain
+    map.markers [
+        PigeonMaps.marker [
+            marker.anchor(50.879, 4.6997)
+            marker.offsetLeft 15
+            marker.offsetTop 30
+            marker.render (fun marker -> [
+                Html.i [
+                    if marker.hovered
+                    then prop.style [ style.color.red; style.cursor.pointer ]
+                    prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
+                ]
+            ])
+        ]
+    ]
+]
+```
+### Paid Custom Tiles Provider
+
+A nice options seems to be [MapTiler](https://www.maptiler.com/cloud), Their maps look good and their free plan provides up to 100k tile loads per month. You will need to sign up for an account and pass your API key and map id to the following provider
+
+You can enable load their tiles by making an account and optaining a *API key*, then after selecting a map and getting its *map identifier*, you can build configure the tiles provider as follows:
+```fsharp
+let mapTilerKey = "YOUR-KEY-HERE"
+let mapId = "SOME-MAP-ID"
+
+let mapTilerProvder x y z dpr =
+    sprintf "https://api.maptiler.com/maps/%s/256/%A/%A/%A.png?key=%s" mapId z x y mapTilerKey
+
+let pigeonMap = PigeonMaps.map [
+    map.center(50.879, 4.6997)
+    map.zoom 12
+    map.height 350
+    map.provider stamenTerrain
+    map.markers [
+        PigeonMaps.marker [
+            marker.anchor(50.879, 4.6997)
+            marker.offsetLeft 15
+            marker.offsetTop 30
+            marker.render (fun marker -> [
+                Html.i [
+                    if marker.hovered
+                    then prop.style [ style.color.red; style.cursor.pointer ]
+                    prop.className [ "fa"; "fa-map-marker"; "fa-2x" ]
+                ]
+            ])
+        ]
+    ]
+]
 ```
