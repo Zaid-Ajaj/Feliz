@@ -13,7 +13,7 @@
     "devDependencies": {
         "@babel/core": "^7.0.0",
         "@babel/preset-react": "^7.7.4",
-        "fable-compiler": "^2.4.6",
+        "fable-compiler": "^2.4.21",
         "fable-loader": "^2.1.6",
         "gh-pages": "^2.1.1",
         "remotedev": "^0.2.7",
@@ -22,7 +22,7 @@
         "webpack-dev-server": "^3.2.1"
     },
     "dependencies": {
-        "pigeon-maps": "^0.14.0",
+        "pigeon-maps": "^0.15.0",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-highlight": "^0.11.1",
