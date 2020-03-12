@@ -9,7 +9,11 @@ type yAxis =
     /// The key of data displayed in the axis.
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
     /// The key of data displayed in the axis.
-    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
+    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" f
+    /// The key of data displayed in the axis.
+    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f 
+    /// The key of data displayed in the axis.
+    static member inline dataKey (f: 'a -> float) = Interop.mkAttr "dataKey" f
     /// If set true, the axis do not display in the chart.
     static member inline hide (value: bool) = Interop.mkAttr "hide" value
     /// The unique id of y-axis.

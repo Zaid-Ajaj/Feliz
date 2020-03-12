@@ -7,7 +7,6 @@ module App
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type Point = { name: string; uv: int }
 
@@ -29,7 +28,7 @@ let chart = React.functionComponent(fun () ->
         barChart.data data
         barChart.children [
             Recharts.bar [
-                bar.dataKey (fun point -> nameof point.uv)
+                bar.dataKey (fun point -> point.uv)
                 bar.fill "#8884d8"
             ]
         ]

@@ -9,7 +9,9 @@ open Fable.Core.JsInterop
 type bar =
     static member inline name(value: string) = Interop.mkAttr "name" value
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
-    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
+    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> float) = Interop.mkAttr "dataKey" f
     static member inline stroke (color: string) = Interop.mkAttr "stroke" color
     static member inline strokeWidth (width: int) = Interop.mkAttr "strokeWidth" width
     static member inline strokeOpacity (opacity: int) = Interop.mkAttr "strokeOpacity" opacity

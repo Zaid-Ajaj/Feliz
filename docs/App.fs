@@ -847,6 +847,25 @@ let sidebar (state: State) dispatch =
         ]
     ]
 
+open Browser.Types
+
+let fileUpload = React.functionComponent(fun () -> [
+    Html.div [
+        Html.h1 "Single File Selection"
+        Html.input [
+            prop.type'.file
+            prop.onChange (fun (file: File) -> Browser.Dom.console.log(file))
+        ]
+
+        Html.h1 "Multi-File Selection"
+        Html.input [
+            prop.type'.file
+            prop.multiple true
+            prop.onChange (fun (files: File list) -> Browser.Dom.console.log(Array.ofList files))
+        ]
+    ]
+])
+
 let readme = sprintf "https://raw.githubusercontent.com/%s/%s/master/README.md"
 
 let content state dispatch =
@@ -906,6 +925,7 @@ let content state dispatch =
     | [ Urls.PigeonMaps; Urls.Overview ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
     | [ Urls.PigeonMaps; Urls.Installation ] -> loadMarkdown [ "PigeonMaps"; "Installation.md" ]
     | [ Urls.Tests; Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
+    | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =

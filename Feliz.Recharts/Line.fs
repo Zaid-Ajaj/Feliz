@@ -8,7 +8,9 @@ open Fable.Core
 type line =
     static member inline name(value: string) = Interop.mkAttr "name" value
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
-    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" (f (unbox null))
+    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> float) = Interop.mkAttr "dataKey" f
     static member inline stroke (value: string) = Interop.mkAttr "stroke" value
     static member inline xAxisId (value: string) = Interop.mkAttr "xAxisId" value
     static member inline yAxisId (value: string) = Interop.mkAttr "yAxisId" value

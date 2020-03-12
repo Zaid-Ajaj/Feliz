@@ -3,7 +3,6 @@ module Samples.Recharts.BarCharts.PostiveAndNegative
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type Point = { name: string; uv: int; pv: int; }
 
@@ -24,7 +23,7 @@ let chart = React.functionComponent(fun () -> [
         barChart.data data
         barChart.children [
             Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-            Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+            Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
             Recharts.legend [ ]
@@ -35,12 +34,12 @@ let chart = React.functionComponent(fun () -> [
             ]
 
             Recharts.bar [
-                bar.dataKey (fun point -> nameof point.pv)
+                bar.dataKey (fun point -> point.pv)
                 bar.fill "#8884d8"
             ]
 
             Recharts.bar [
-                bar.dataKey (fun point -> nameof point.uv)
+                bar.dataKey (fun point -> point.uv)
                 bar.fill "#82ca9d"
             ]
         ]

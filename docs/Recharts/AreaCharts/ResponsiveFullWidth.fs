@@ -3,7 +3,6 @@ module Samples.Recharts.AreaCharts.ResponsiveFullWidth
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type Point = { name: string; uv: int; pv: int }
 
@@ -37,7 +36,6 @@ let createGradient (id: string) color =
         ]
     ]
 
-
 let chart = React.functionComponent(fun () -> [
     let responsiveChart =
         Recharts.areaChart [
@@ -48,20 +46,20 @@ let chart = React.functionComponent(fun () -> [
                     createGradient "colorUv" "#8884d8"
                     createGradient "colorPv" "#82ca9d"
                 ]
-                Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+                Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
                 Recharts.yAxis [ ]
                 Recharts.tooltip [ ]
                 Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
                 Recharts.area [
                     area.monotone
-                    area.dataKey (fun p -> nameof p.uv)
+                    area.dataKey (fun point -> point.uv)
                     area.stroke "#8884d8"
                     area.fillOpacity 1
                     area.fill "url(#colorUv)"
                 ]
                 Recharts.area [
                     area.monotone
-                    area.dataKey (fun p -> nameof p.pv)
+                    area.dataKey (fun point -> point.pv)
                     area.stroke "#82ca9d"
                     area.fillOpacity 1
                     area.fill "url(#colorPv)"
@@ -70,7 +68,7 @@ let chart = React.functionComponent(fun () -> [
         ]
 
     Recharts.responsiveContainer [
-        responsiveContainer.width (length.percent 99)
+        responsiveContainer.width (length.percent 100)
         responsiveContainer.height 300
         responsiveContainer.chart responsiveChart
     ]

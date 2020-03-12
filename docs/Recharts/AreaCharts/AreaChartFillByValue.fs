@@ -61,13 +61,13 @@ let chart = React.functionComponent(fun () -> [
         areaChart.margin(top=10, right=30)
         areaChart.children [
             Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-            Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+            Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
             getGradientDefinition "splitColor" data
             Recharts.area [
                 area.monotone
-                area.dataKey (fun p -> nameof p.uv)
+                area.dataKey (fun point -> point.uv)
                 area.stroke color.black
                 area.fill "url(#splitColor)"
             ]

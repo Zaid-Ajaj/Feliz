@@ -440,16 +440,23 @@ type prop =
     static member inline onBlur (handler: FocusEvent -> unit) = Interop.mkAttr "onBlur" handler
     /// Fires the moment when the value of the element is changed
     static member inline onChange (handler: Event -> unit) = Interop.mkAttr "onChange" handler
-    /// Same as `onChange` but let's you deal with the text changed from the `input` element directly
-    /// instead of extracting it from the event arguments.
-    static member inline onTextChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
-    /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element directly
+    /// Same as `onChange` that takes an event as input but instead lets you deal with the text changed from the `input` element directly
     /// instead of extracting it from the event arguments.
     static member inline onChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
-    /// Same as `onChange` that takes an event as input but instead let's you deal with the `checked` value changed from the `input` element directly when it is defined as a checkbox with `prop.inputType.checkbox`.
+    /// Same as `onChange` that takes an event as input but instead lets you deal with the `checked` value changed from the `input` element directly when it is defined as a checkbox with `prop.type'.checkbox`.
     static member inline onChange (handler: bool -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?``checked``))
-    /// Same as `onChange` but let's you deal with the `checked` value that has changed from the `input` element directly instead of extracting it from the event arguments.
-    static member inline onCheckedChange (handler: bool -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?``checked``))
+    /// Same as `onChange` that takes an event as input but instead lets you deal with the selected file directly from the `input` element when it is defined as a checkbox with `prop.type'.file`.
+    static member inline onChange (handler: File -> unit) = 
+        let fileHandler (ev: Event) : unit = 
+            let files : FileList = ev?target?files 
+            if not (isNullOrUndefined files) && files.length > 0 then handler (files.item 0)
+        Interop.mkAttr "onChange" fileHandler 
+    /// Same as `onChange` that takes an event as input but instead lets you deal with the selected files directly from the `input` element when it is defined as a checkbox with `prop.type'.file` and `prop.multiple true`.
+    static member inline onChange (handler: File list -> unit) = 
+        let fileHandler (ev: Event) : unit = 
+            let fileList : FileList = ev?target?files 
+            if not (isNullOrUndefined fileList) then handler [ for i in 0 .. fileList.length - 1 -> fileList.item i ]
+        Interop.mkAttr "onChange" fileHandler
     /// Fires when an element gets user input.
     static member inline onInput (handler: Event -> unit) = Interop.mkAttr "onInput" handler
     /// Fires when a form is submitted.

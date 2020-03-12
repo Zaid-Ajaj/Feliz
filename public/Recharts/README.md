@@ -1,4 +1,4 @@
-# Feliz.Recharts (beta) [![Nuget](https://img.shields.io/nuget/v/Feliz.Recharts.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.Recharts)
+# Feliz.Recharts [![Nuget](https://img.shields.io/nuget/v/Feliz.Recharts.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.Recharts)
 
 Feliz-style bindings for [recharts](http://recharts.org/en-US/), a composable charting library built on React components. The binding translates the original API of recharts in a one-to-one fashion but makes it type-safe and easily discoverable.
 
@@ -51,14 +51,14 @@ let sampleChart = React.functionComponent(fun () ->
                 createGradient "colorUv" "#8884d8"
                 createGradient "colorPv" "#82ca9d"
             ]
-            Recharts.xAxis [ xAxis.dataKey (fun point -> nameof point.name) ]
+            Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
             Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
 
             Recharts.area [
                 area.monotone
-                area.dataKey (fun point -> nameof point.uv)
+                area.dataKey (fun point -> point.uv)
                 area.stroke "#8884d8"
                 area.fillOpacity 1
                 area.fill "url(#colorUv)"
@@ -66,7 +66,7 @@ let sampleChart = React.functionComponent(fun () ->
 
             Recharts.area [
                 area.monotone
-                area.dataKey (fun point -> nameof point.pv)
+                area.dataKey (fun point -> point.pv)
                 area.stroke "#82ca9d"
                 area.fillOpacity 1
                 area.fill "url(#colorPv)"

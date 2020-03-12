@@ -48,20 +48,20 @@ let chart = React.functionComponent(fun () -> [
                 createGradient "colorUv" "#8884d8"
                 createGradient "colorPv" "#82ca9d"
             ]
-            Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+            Recharts.xAxis [ xAxis.dataKey (fun p -> p.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
             Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
             Recharts.area [
                 area.monotone
-                area.dataKey (fun p -> nameof p.uv)
+                area.dataKey (fun p -> p.uv)
                 area.stroke "#8884d8"
                 area.fillOpacity 1
                 area.fill "url(#colorUv)"
             ]
             Recharts.area [
                 area.monotone
-                area.dataKey (fun p -> nameof p.pv)
+                area.dataKey (fun p -> p.pv)
                 area.stroke "#82ca9d"
                 area.fillOpacity 1
                 area.fill "url(#colorPv)"

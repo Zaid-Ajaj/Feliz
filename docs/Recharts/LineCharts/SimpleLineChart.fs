@@ -3,7 +3,6 @@ module Samples.Recharts.LineCharts.SimpleLineChart
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type Point = { name: string; uv: int; pv: int; }
 
@@ -25,19 +24,19 @@ let chart = React.functionComponent(fun () -> [
         lineChart.margin(top=5, right=30)
         lineChart.children [
             Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-            Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+            Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
             Recharts.legend [ ]
             Recharts.line [
                 line.monotone
-                line.dataKey (fun point -> nameof point.pv)
+                line.dataKey (fun point -> point.pv)
                 line.stroke "#8884d8"
             ]
 
             Recharts.line [
                 line.monotone
-                line.dataKey (fun point -> nameof point.uv)
+                line.dataKey (fun point -> point.uv)
                 line.stroke "#82ca9d"
             ]
         ]

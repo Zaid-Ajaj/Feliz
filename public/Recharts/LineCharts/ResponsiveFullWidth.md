@@ -2,15 +2,11 @@
 
 Charts are usually rendered with a fixed size given a `width` and `height` property but a lot of the times you want the chart to be responsive: resize according to the size of the parent which is what `Recharts.responsiveContainer` is for. Here follows an example of how to use a full width chart.
 
-> Note that the given `width` for the responsive container is `99%` instead of `100%` to let Recharts calculate the width properly, see this issue [rechart/recharts#1423](https://github.com/recharts/recharts/issues/1423) for further details.
-
-
 ```fsharp:recharts-line-responsivefullwidth
 module App
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type Point = { name: string; uv: int; pv: int; }
 
@@ -32,25 +28,25 @@ let chart = React.functionComponent(fun () ->
             lineChart.margin(top=5, right=30)
             lineChart.children [
                 Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-                Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+                Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
                 Recharts.yAxis [ ]
                 Recharts.tooltip [ ]
-                Recharts.legend [ ]                
+                Recharts.legend [ ]
                 Recharts.line [
                     line.monotone
-                    line.dataKey (fun point -> nameof point.pv)
+                    line.dataKey (fun point -> point.pv)
                     line.stroke "#8884d8"
                 ]
                 Recharts.line [
                     line.monotone
-                    line.dataKey (fun point -> nameof point.uv)
+                    line.dataKey (fun point -> point.uv)
                     line.stroke "#82ca9d"
                 ]
             ]
         ]
 
     Recharts.responsiveContainer [
-        responsiveContainer.width (length.percent 99)
+        responsiveContainer.width (length.percent 100)
         responsiveContainer.height 300
         responsiveContainer.chart responsiveChart
     ])

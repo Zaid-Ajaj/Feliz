@@ -7,7 +7,6 @@ module App
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type PieSlice = { name: string; value: int }
 
@@ -27,7 +26,7 @@ let chart = React.functionComponent <| fun () ->
         pieChart.children [
             Recharts.pie [
                 pie.data data
-                pie.dataKey (fun point -> nameof point.value)
+                pie.dataKey (fun point -> point.value)
                 pie.startAngle 180
                 pie.endAngle 0
                 pie.cx 200

@@ -3,7 +3,6 @@ module Samples.Recharts.AreaCharts.SynchronizedAreaChart
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type Point = { name: string; uv: int; pv: int }
 
@@ -28,12 +27,12 @@ let chart = React.functionComponent(fun () -> [
             areaChart.margin(top=10, right=30)
             areaChart.children [
                 Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-                Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+                Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
                 Recharts.yAxis [ ]
                 Recharts.tooltip [ ]
                 Recharts.area [
                     area.monotone
-                    area.dataKey (fun point -> nameof point.uv)
+                    area.dataKey (fun point -> point.uv)
                     area.stroke "#8884d8"
                     area.fill "#8884d8"
                 ]
@@ -50,12 +49,12 @@ let chart = React.functionComponent(fun () -> [
             areaChart.margin(top=10, right=30)
             areaChart.children [
                 Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-                Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+                Recharts.xAxis [ xAxis.dataKey (fun p -> p.name) ]
                 Recharts.yAxis [ ]
                 Recharts.tooltip [ ]
                 Recharts.area [
                     area.monotone
-                    area.dataKey (fun point -> nameof point.pv)
+                    area.dataKey (fun point -> point.pv)
                     area.stroke "#82ca9d"
                     area.fill "#82ca9d"
                 ]

@@ -11,7 +11,11 @@ type responsiveContainer =
     /// The percentage value of the chart's width or a fixed width. Default is 100%.
     static member inline width (value: float) = Interop.mkAttr "width" value
     /// The percentage value of the chart's width or a fixed width. Default is 100%.
-    static member inline width (value: ICssUnit) = Interop.mkAttr "width" value
+    static member inline width (value: ICssUnit) = 
+        if value = length.percent(100) || value = length.perc(100.0) then 
+            Interop.mkAttr "width" (length.percent(99))
+        else 
+            Interop.mkAttr "width" value
     /// The percentage value of the chart's width or a fixed height. Default is 100%.
     static member inline height (value: int) = Interop.mkAttr "height" value
     /// The percentage value of the chart's width or a fixed height. Default is 100%.

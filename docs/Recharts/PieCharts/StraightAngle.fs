@@ -3,7 +3,6 @@ module Samples.Recharts.PieCharts.StraightAngle
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type PieSlice = { name: string; value: int }
 
@@ -15,15 +14,14 @@ let data = [
     { name = "Group E"; value = 278 }
     { name = "Group F"; value = 189 }
 ]
-
-let chart = React.functionComponent(fun () -> 
+let chart = React.functionComponent(fun () ->
     Recharts.pieChart [
         pieChart.width 400
         pieChart.height 400
         pieChart.children [
             Recharts.pie [
                 pie.data data
-                pie.dataKey (fun point -> nameof point.value)
+                pie.dataKey (fun point -> point.value)
                 pie.startAngle 180
                 pie.endAngle 0
                 pie.cx 200
