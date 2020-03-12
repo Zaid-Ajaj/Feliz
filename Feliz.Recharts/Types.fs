@@ -93,7 +93,9 @@ type ChartMouseEvent<'label, 'payload> =
     abstract chartY : int
 
 module Interop =
+    [<Emit("Object.keys($0)")>]
+    let internal objectKeys (x: obj) = jsNative
     let objectHas (keys: string list) (x: obj) =
-        Fable.Core.JS.Object.keys(x)
+        objectKeys(x)
         |> Seq.toList
         |> (=) keys
