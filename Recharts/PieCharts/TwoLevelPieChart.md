@@ -5,7 +5,6 @@ Taken from [Recharts - TwoLevelPieChart](http://recharts.org/en-US/examples/TwoL
 ```fsharp:recharts-pie-twolevel
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type PieSlice = { name: string; value: int }
 
@@ -37,7 +36,7 @@ let chart = React.functionComponent <| fun () ->
         pieChart.children [
             Recharts.pie [
                 pie.data firstSerie
-                pie.dataKey (fun p -> nameof p.value)
+                pie.dataKey (fun point -> point.value)
                 pie.cx 200
                 pie.cy 200
                 pie.outerRadius 60
@@ -45,7 +44,7 @@ let chart = React.functionComponent <| fun () ->
             ]
             Recharts.pie [
                 pie.data secondSerie
-                pie.dataKey (fun p -> nameof p.value)
+                pie.dataKey (fun point -> point.value)
                 pie.cx 200
                 pie.cy 200
                 pie.innerRadius 70

@@ -7,7 +7,6 @@ module Main
 
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type Point = { name: string; uv: int; pv: int }
 
@@ -28,13 +27,13 @@ let chart = React.functionComponent(fun () ->
         areaChart.data data
         areaChart.margin(top=10, right=30)
         areaChart.children [
-            Recharts.xAxis [ xAxis.dataKey (fun p -> nameof p.name) ]
+            Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
             Recharts.yAxis [ ]
             Recharts.tooltip [ ]
             Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
             Recharts.area [
                 area.monotone
-                area.dataKey (fun p -> nameof p.uv)
+                area.dataKey (fun point -> point.uv)
                 area.stroke "#8884d8"
                 area.fill "#8884d8"
             ]
