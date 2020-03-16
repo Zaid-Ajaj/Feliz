@@ -238,4 +238,3 @@ module font =
     let [<Literal>] yuGothicUI = "Yu Gothic UI"
     let [<Literal>] yuMincho = "Yu Mincho"
     let [<Literal>] zapfChancery = "Zapf Chancery"
-
