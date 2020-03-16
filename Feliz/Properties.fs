@@ -934,6 +934,12 @@ type prop =
     /// Two elements are using this attribute: <ellipse>, and <rect>
     static member inline ry (value: int) = Interop.mkAttr "ry" value
 
+    /// Applies extra restrictions to the content in the frame. 
+    ///
+    /// The value of the attribute can either be empty to apply all restrictions, 
+    /// or space-separated tokens to lift particular restrictions
+    static member inline sandbox (values: #seq<string>) = Interop.mkAttr "sandbox" (values |> String.concat " ")
+
     /// Defines a value which will be selected on page load.
     static member inline selected (value: bool) = Interop.mkAttr "selected" value
 
