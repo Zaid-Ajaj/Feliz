@@ -1337,6 +1337,17 @@ module prop =
         /// Applies to Worker and SharedWorker.
         static member inline worker = Interop.mkAttr "as" "worker"
 
+    [<Erase>]
+    type autoCapitalize =
+        /// All letters should default to uppercase
+        static member inline characters = Interop.mkAttr "autoCapitalize" "characters"
+        /// No autocapitalization is applied (all letters default to lowercase)
+        static member inline off = Interop.mkAttr "autoCapitalize" "off"
+        /// The first letter of each sentence defaults to a capital letter; all other letters default to lowercase
+        static member inline on' = Interop.mkAttr "autoCapitalize" "on"
+        /// The first letter of each word defaults to a capital letter; all other letters default to lowercase
+        static member inline words = Interop.mkAttr "autoCapitalize" "words"
+
     /// A set of values specifying the coordinates of the hot-spot region. 
     ///
     /// The number and meaning of the values depend upon the value specified for the shape attribute
@@ -2029,14 +2040,3 @@ module prop =
         static member inline url = Interop.mkAttr "type" "url"
         /// Defines a week and year control (no timezone)
         static member inline week = Interop.mkAttr "type" "week"
-
-    [<Erase>]
-    type autoCapitalize =
-        /// No autocapitalization is applied (all letters default to lowercase)
-        static member inline off = Interop.mkAttr "autoCapitalize" "off"
-        /// The first letter of each sentence defaults to a capital letter; all other letters default to lowercase
-        static member inline on' = Interop.mkAttr "autoCapitalize" "on"
-        /// The first letter of each word defaults to a capital letter; all other letters default to lowercase
-        static member inline words = Interop.mkAttr "autoCapitalize" "words"
-        /// All letters should default to uppercase
-        static member inline characters = Interop.mkAttr "autoCapitalize" "characters"
