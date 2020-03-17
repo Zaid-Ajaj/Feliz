@@ -5,18 +5,14 @@ open Feliz.Styles
 
 [<Erase>]
 type borderStyle =
-    /// Specifies a dotted border.
-    ///
-    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-    static member inline dotted : IBorderStyle = unbox "dotted"
     /// Specifies a dashed border.
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
     static member inline dashed : IBorderStyle = unbox "dashed"
-    /// Specifies a solid border.
+    /// Specifies a dotted border.
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-    static member inline solid : IBorderStyle = unbox "solid"
+    static member inline dotted : IBorderStyle = unbox "dotted"
     /// Specifies a double border.
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
@@ -25,35 +21,39 @@ type borderStyle =
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
     static member inline groove : IBorderStyle = unbox "groove"
-    /// Specifies a 3D ridged border. The effect depends on the border-color value.
-    ///
-    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-    static member inline ridge : IBorderStyle = unbox "ridge"
-    /// Specifies a 3D inset border. The effect depends on the border-color value.
-    ///
-    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-    static member inline inset : IBorderStyle = unbox "inset"
-    /// Specifies a 3D outset border. The effect depends on the border-color value.
-    ///
-    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-    static member inline outset : IBorderStyle = unbox "outset"
-    /// Default value. Specifies no border.
-    ///
-    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
-    static member inline none : IBorderStyle = unbox "none"
     /// The same as "none", except in border conflict resolution for table elements.
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=hidden
     static member inline hidden : IBorderStyle = unbox "hidden"
-    /// Sets this property to its default value.
-    ///
-    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=hidden
-    ///
-    /// Read about initial value https://www.w3schools.com/cssref/css_initial.asp
-    static member inline initial : IBorderStyle = unbox "initial"
     /// Inherits this property from its parent element.
     ///
     /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=hidden
     ///
     /// Read about inherit https://www.w3schools.com/cssref/css_inherit.asp
     static member inline inheritFromParent : IBorderStyle = unbox "inherit"
+    /// Sets this property to its default value.
+    ///
+    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=hidden
+    ///
+    /// Read about initial value https://www.w3schools.com/cssref/css_initial.asp
+    static member inline initial : IBorderStyle = unbox "initial"
+    /// Specifies a 3D inset border. The effect depends on the border-color value.
+    ///
+    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
+    static member inline inset : IBorderStyle = unbox "inset"
+    /// Default value. Specifies no border.
+    ///
+    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
+    static member inline none : IBorderStyle = unbox "none"
+    /// Specifies a 3D outset border. The effect depends on the border-color value.
+    ///
+    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
+    static member inline outset : IBorderStyle = unbox "outset"
+    /// Specifies a 3D ridged border. The effect depends on the border-color value.
+    ///
+    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
+    static member inline ridge : IBorderStyle = unbox "ridge"
+    /// Specifies a solid border.
+    ///
+    /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_border-style&preval=dotted
+    static member inline solid : IBorderStyle = unbox "solid"
