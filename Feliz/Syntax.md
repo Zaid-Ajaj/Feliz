@@ -75,6 +75,10 @@ type onChange = Event -> unit
 type onChange = string -> unit
 // onChange for boolean input boxes, i.e. checkbox
 type onChange = bool -> unit
+// onChange for single file uploads
+type onChange = File -> unit
+// onChange for multiple file upload when prop.multiple true
+type onChange = File list -> unit
 ```
 
 ### The empty element
@@ -95,3 +99,25 @@ prop.className [ true, "conditional"; false, "falsy"; true, "class" ] // => "con
 ```
 
 The property `className` has overloads to combine a list of classes into a single class, convenient when your classes are bound to values so that you do not need to concatenate them yourself.
+
+### Enhanced keyboard events
+
+The events `prop.onKeyUp`, `prop.onKeyDown` and `onKeyPressed` are all of type `KeyboardEvent -> unit` which is correct. The input `KeyboardEvent` will contain information about the key that was pressed, its char code and whether it was pressed in combination with CTRL or SHIFT (or both). Alongside these default handlers, Feliz provides enhanced handlers that make it even *simpler* to handle certain key presses. For example, if you have a login form and you want to dispacch `Login` message when the user hits `Enter` (very common scenario), you can do it like this:
+```fs
+Html.input [
+    prop.onKeyUp (key.enter, fun _ -> dispatch Login)
+    prop.onChange (UsernameChanged >> dispatch)
+    prop.valueOrDefault state.Username
+]
+```
+Notice the first properties `prop.onKeyUp (key.enter, fun _ -> dispatch Login)`. It takes two parameters: one is the key we are matching against and another which is of the same type as the default handlers, namely: `KeyboardEvent -> unit`. This enhanced API also allows you to easily match against combinations of keys such with `CTRL` and `SHIFT` as follows:
+```fs
+// Enter only
+prop.onKeyUp (key.enter, fun _ -> dispatch Login)
+// Enter + CTRL
+prop.onKeyUp (key.ctrl(key.enter), fun _ -> dispatch Login)
+// Enter + SHIFT
+prop.onKeyUp (key.shift(key.enter), fun _ -> dispatch Login)
+// Enter + CTRL + SHIFT
+prop.onKeyUp (key.ctrlAndShift(key.enter), fun _ -> dispatch Login)
+```

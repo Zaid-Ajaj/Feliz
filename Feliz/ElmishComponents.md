@@ -1,8 +1,8 @@
 # Feliz.ElmishComponents  [![Nuget](https://img.shields.io/nuget/v/Feliz.ElmishComponents.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.ElmishComponents)
 
-Feliz can be used and integrated into your Elmish application inside the `render` functions just like any other React binding. However, the Elm(ish) componentization techniques are known to require a lot of boilerplate code in the application, especially when it comes to data and event communication between parent and child components.
+Feliz can be used and integrated into your Elmish application inside the `render` functions just like any other React binding. However, the Elm(ish) componentization techniques are known to require quite some boilerplate code in the application, especially when it comes to data and event communication between parent and child components.
 
-Luckily, Feliz includes a gem called `Feliz.ElmishComponents` that enables you to build lightweight Elmish components using `init`, `update` and `render` as standalone React components.
+Feliz includes a library called `Feliz.ElmishComponents` that enables you to build lightweight Elmish components using `init`, `update` and `render` as standalone React components.
 
 These React componments will each keep track of their internal state, and have their own dispatch loop instead of having the parent components manage their state explicitly. Data and event communication will then go through React via the props.
 
@@ -53,14 +53,14 @@ Html.div [
     for todo in state.Todos -> TodoItem todo
 ]
 ```
-If you don't provide the key in the component definition, then you can wrap the component in a `Html.keyedFragment`:
+If you don't provide the key in the component definition, then you can wrap the component in a `React.keyedFragment`:
 ```fs
 let TodoItem (todoItem: Todo) =
     React.elmishComponent("TodoItem", Todo.init todo, Todo.update, Todo.render)
 
 Html.div [
     for todo in state.Todos ->
-        Html.keyedFragment(todo.Id, [
+        React.keyedFragment(todo.Id, [
             TodoItem todo
         ])
 ]
