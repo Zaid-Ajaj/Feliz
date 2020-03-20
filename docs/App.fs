@@ -777,7 +777,6 @@ let sidebar (state: State) dispatch =
                 menuItem "Type-Safe Styling" [ Urls.Feliz; Urls.TypeSafeStyling ]
                 menuItem "Type-Safe CSS" [ Urls.Feliz; Urls.TypeSafeCss ]
                 menuItem "Use with Elmish" [ Urls.Feliz; Urls.UseWithElmish ]
-                menuItem "Elmish Components" [ Urls.Feliz; Urls.ElmishComponents ]
                 menuItem "Contributing" [ Urls.Feliz; Urls.Contributing ]
                 menuItem "Aliasing props" [ Urls.Feliz; Urls.Aliasing ]
                 nestedMenuList "React Components" [
@@ -866,6 +865,37 @@ let fileUpload = React.functionComponent(fun () -> [
     ]
 ])
 
+let keyboardKey = React.functionComponent(fun () -> [
+    let (keyPressed, setKeyPressed) = React.useState("")
+
+    let update() = setKeyPressed (sprintf "Key 'Enter' presssed at %s" (DateTime.Now.ToString("hh:mm:ss")))
+
+    Html.div [
+        Html.h3 "Handling ENTER"
+        Html.input [
+            prop.onKeyUp(key.enter, fun ev -> update())
+        ]
+
+        Html.h3 "Handling SHIFT + ENTER"
+        Html.input [
+            prop.onKeyUp(key.shift(key.enter), fun ev -> update())
+        ]
+
+        Html.h3 "Handling CTRL + ENTER"
+        Html.input [
+            prop.onKeyUp(key.ctrl(key.enter), fun ev -> update())
+        ]
+
+        Html.h3 "Handling CTRL + SHIFT + ENTER"
+
+        Html.input [
+            prop.onKeyUp(key.ctrlAndShift(key.enter), fun ev -> update())
+        ]
+
+        Html.h1 keyPressed
+    ]
+])
+
 let readme = sprintf "https://raw.githubusercontent.com/%s/%s/master/README.md"
 
 let content state dispatch =
@@ -875,7 +905,6 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.ProjectTemplate ] -> loadMarkdown [ "Feliz"; "ProjectTemplate.md" ]
     | [ Urls.Feliz; Urls.Installation ] -> loadMarkdown [ "Feliz"; "Installation.md" ]
     | [ Urls.Feliz; Urls.UseWithElmish ] -> loadMarkdown [ "Feliz"; "UseWithElmish.md" ]
-    | [ Urls.Feliz; Urls.ElmishComponents ] -> loadMarkdown [ "Feliz"; "ElmishComponents.md" ]
     | [ Urls.Feliz; Urls.Contributing ] -> loadMarkdown [ "Feliz"; "Contributing.md" ]
     | [ Urls.Feliz; Urls.Syntax ] -> loadMarkdown [ "Feliz"; "Syntax.md" ]
     | [ Urls.Feliz; Urls.ReactApiSupport ] -> loadMarkdown [ "Feliz"; "ReactApiSupport.md   " ]
@@ -926,6 +955,7 @@ let content state dispatch =
     | [ Urls.PigeonMaps; Urls.Installation ] -> loadMarkdown [ "PigeonMaps"; "Installation.md" ]
     | [ Urls.Tests; Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
     | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
+    | [ Urls.Tests; Urls.KeyboardKey ] -> keyboardKey()
     | segments -> Html.div [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =

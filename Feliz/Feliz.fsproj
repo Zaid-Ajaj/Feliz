@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Description>A fresh retake of the base React DSL used within Elmish applications, optimized for happiness</Description>
         <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz.git</RepositoryUrl>
@@ -7,10 +7,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>0.70.0</Version>
+        <Version>0.71.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Add missing Html attributes and initial work on sorting the source code in attributes and properties alphabetically.</PackageReleaseNotes>
+        <PackageReleaseNotes>Add enhanced keyboard event handlers</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
@@ -19,7 +19,9 @@
         </NpmDependencies>
     </PropertyGroup>
     <ItemGroup>
+        <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
         <Compile Include="Types.fs" />
+        <Compile Include="Key.fs" />
         <Compile Include="StyleTypes.fs" />
         <Compile Include="ReactTypes.fs" />
         <Compile Include="Interop.fs" />
@@ -36,8 +38,6 @@
         <Compile Include="React.fs" />
         <Compile Include="ReactDOM.fs" />
     </ItemGroup>
-    <ItemGroup>
-        <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
-    </ItemGroup>
+    <ItemGroup />
     <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

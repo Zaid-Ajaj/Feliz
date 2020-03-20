@@ -731,11 +731,44 @@ type prop =
     /// Fires when a user is pressing a key.
     static member inline onKeyDown (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyDown" handler
 
+    /// Fires when a user pressing a key.
+    static member inline onKeyDown (key: IKeyboardKey, handler: KeyboardEvent -> unit) = 
+        Interop.mkAttr "onKeyDown" <| fun (ev: KeyboardEvent) -> 
+            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key 
+            match ctrl, shift with 
+            | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
+            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev 
+            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev 
+            | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
+            | _, _ -> ignore()
+
     /// Fires when a user presses a key.
     static member inline onKeyPress (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyPress" handler
+    
+    /// Fires when a user presses a key.
+    static member inline onKeyPress (key: IKeyboardKey, handler: KeyboardEvent -> unit) = 
+        Interop.mkAttr "onKeyPress" <| fun (ev: KeyboardEvent) -> 
+            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key 
+            match ctrl, shift with 
+            | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
+            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev 
+            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev 
+            | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
+            | _, _ -> ignore()
 
     /// Fires when a user releases a key.
     static member inline onKeyUp (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyUp" handler
+
+    /// Fires when a user releases a key.
+    static member inline onKeyUp (key: IKeyboardKey, handler: KeyboardEvent -> unit) = 
+        Interop.mkAttr "onKeyUp" <| fun (ev: KeyboardEvent) -> 
+            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key 
+            match ctrl, shift with 
+            | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
+            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev 
+            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev 
+            | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
+            | _, _ -> ignore()
 
     /// Fires after the page is finished loading.
     static member inline onLoad (handler: Event -> unit) = Interop.mkAttr "onLoad" handler
