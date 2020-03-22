@@ -7,3 +7,4 @@ type IReactProperty = interface end
 type IStyleAttribute = interface end
 
 type ReactElement = Fable.React.ReactElement
+type IRefValue<'T> = Fable.React.IRefValue<'T>

@@ -14,6 +14,7 @@ open Fable.Core.Experimental
 open Zanaptak.TypedCssClasses
 open System.Collections.Generic
 open System
+open Browser.Types
 
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
 type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
@@ -534,6 +535,45 @@ module ElmishCounter =
             Html.h1 state.Count
         ])
 
+let fullFocusInputExample = React.functionComponent(fun () ->
+    // obtain a reference
+    let inputRef = React.useRef(None)
+
+    let focusTextInput() =
+        match inputRef.current with
+        | None -> ()
+        | Some element ->
+            let inputElement = unbox<HTMLInputElement> element
+            inputElement.focus()
+
+    Html.div [
+        Html.input [
+            prop.ref inputRef
+            prop.type'.text
+        ]
+
+        Html.button [
+            prop.onClick (fun _ -> focusTextInput())
+            prop.text "Focus Input"
+        ]
+    ])
+
+let focusInputExample = React.functionComponent(fun () ->
+    let inputRef = React.useInputRef()
+    let focusTextInput() = inputRef.current |> Option.iter (fun el -> el.focus())
+
+    Html.div [
+        Html.input [
+            prop.ref inputRef
+            prop.type'.text
+        ]
+
+        Html.button [
+            prop.onClick (fun _ -> focusTextInput())
+            prop.text "Focus Input"
+        ]
+    ])
+
 let samples = [
     "feliz-elmish-counter", ElmishCounter.app()
     "simple-components", ReactComponents.simple
@@ -574,6 +614,7 @@ let samples = [
     "pigeonmaps-map-stamenterrain", Samples.PigeonMaps.CustomProviders.pigeonMap
     "popover-basic-sample", Samples.Popover.Basic.sample
     "elmish-components-counter", Samples.ElmishComponents.application
+    "focus-input-example", focusInputExample()
 ]
 
 let githubPath (rawPath: string) =
@@ -787,6 +828,7 @@ let sidebar (state: State) dispatch =
                     menuItem "Subscriptions with Effects" [ Urls.Feliz; Urls.React; Urls.SubscriptionsWithEffects ]
                     menuItem "Context Propagation" [ Urls.Feliz; Urls.React; Urls.ContextPropagation ]
                     menuItem "Hover Animations" [ Urls.Feliz; Urls.React; Urls.HoverAnimations ]
+                    menuItem "Using References" [ Urls.Feliz; Urls.React; Urls.Refs ]
                     menuItem "Common Pitfalls" [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ]
                     menuItem "Render Static Html" [ Urls.Feliz; Urls.React; Urls.RenderStaticHtml ]
                 ]
@@ -896,6 +938,8 @@ let keyboardKey = React.functionComponent(fun () -> [
     ]
 ])
 
+
+
 let readme = sprintf "https://raw.githubusercontent.com/%s/%s/master/README.md"
 
 let content state dispatch =
@@ -920,6 +964,7 @@ let content state dispatch =
     | [ Urls.Feliz; Urls.React; Urls.SubscriptionsWithEffects ] -> loadMarkdown [ "Feliz"; "React"; "SubscriptionsWithEffects.md" ]
     | [ Urls.Feliz; Urls.React; Urls.ContextPropagation ] -> loadMarkdown [ "Feliz"; "React"; "ContextPropagation.md" ]
     | [ Urls.Feliz; Urls.React; Urls.HoverAnimations ] -> loadMarkdown [ "Feliz"; "React"; "HoverAnimations.md" ]
+    | [ Urls.Feliz; Urls.React; Urls.Refs ] -> loadMarkdown [ "Feliz"; "React"; "UsingReferences.md" ]
     | [ Urls.Feliz; Urls.React; Urls.Components ] -> loadMarkdown [ "Feliz"; "React"; "Components.md" ]
     | [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ] -> loadMarkdown [ "Feliz"; "React"; "CommonPitfalls.md" ]
     | [ Urls.Feliz; Urls.React; Urls.RenderStaticHtml ] -> loadMarkdown [ "Feliz"; "React"; "RenderStaticHtml.md" ]
@@ -956,7 +1001,8 @@ let content state dispatch =
     | [ Urls.Tests; Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
     | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
     | [ Urls.Tests; Urls.KeyboardKey ] -> keyboardKey()
-    | segments -> Html.div [ for segment in segments -> Html.p segment ]
+    | [ Urls.Tests; Urls.Refs ] -> focusInputExample()
+    | segments -> React.fragment [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =
     Html.div [

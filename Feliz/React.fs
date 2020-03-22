@@ -3,6 +3,7 @@ namespace Feliz
 open System
 open Fable.Core
 open Fable.Core.JsInterop
+open Browser.Types
 
 module internal ReactInterop =
     let useEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useEffectWithDeps" "./ReactInterop.js"
@@ -107,6 +108,24 @@ type React =
     /// If not provided, defaults to empty array, representing dependencies that never change.</param>
     static member useCallback(callbackFunction: 'a -> 'b, ?dependencies: obj array) =
         Interop.reactApi.useCallback callbackFunction (defaultArg dependencies [||])
+
+    /// Returns a mutable ref object whose .current property is initialized to the passed argument (initialValue). The returned object will persist for the full lifetime of the component.
+    ///
+    /// Essentially, useRef is like a container that can hold a mutable value in its .current property.
+    static member useRef(initialValue) = Interop.reactApi.useRef(initialValue)
+
+    /// A specialized version of React.useRef() that creates a reference to an input element.
+    /// 
+    /// Useful for controlling the internal properties and methods that element, for example to enable focus().
+    static member useInputRef() : IRefValue<HTMLInputElement option> = React.useRef(None)
+
+    /// A specialized version of React.useRef() that creates a reference to a button element.
+    static member useButtonRef() : IRefValue<HTMLButtonElement option> = React.useRef(None)
+
+    /// A specialized version of React.useRef() that creates a reference to a generic HTML element.
+    /// 
+    /// Useful for controlling the internal properties and methods that element, for integration with third-party libraries that require a Html element.
+    static member useElementRef() : IRefValue<HTMLElement option> = React.useRef(None)
 
     /// <summary>
     /// The `useMemo` hook. Returns a memoized value. Pass a "create" function and an array of dependencies.

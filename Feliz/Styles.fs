@@ -949,6 +949,17 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "wordBreak" "inherit"
 
     [<Erase>]
+    type scrollBehavior = 
+        /// Allows a straight jump "scroll effect" between elements within the scrolling box. This is default
+        static member inline auto = Interop.mkStyle "scrollBehavior" "auto"
+        /// Allows a smooth animated "scroll effect" between elements within the scrolling box.
+        static member inline smooth = Interop.mkStyle "scrollBehavior" "smooth"
+        /// Sets this property to its default value. 
+        static member inline initial = Interop.mkStyle "scrollBehavior" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "scrollBehavior" "inherit"
+
+    [<Erase>]
     type overflow =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
         static member inline visible = Interop.mkStyle "overflow" "visibile"
@@ -1202,6 +1213,90 @@ module style =
         static member inline initial = Interop.mkStyle "outlineWidth" "initial"
         /// Inherits this property from its parent element
         static member inline inheritFromParent = Interop.mkStyle "outlineWidth" "inherit"
+
+    [<Erase>]
+    type listStyleType = 
+        /// Default value. The marker is a filled circle	
+        static member inline disc = Interop.mkStyle "listStyleType" "disc"
+        /// The marker is traditional Armenian numbering
+        static member inline armenian = Interop.mkStyle "listStyleType" "armenian"
+        /// The marker is a circle
+        static member inline circle = Interop.mkStyle "listStyleType" "circle"
+        /// The marker is plain ideographic numbers
+        static member inline cjkIdeographic = Interop.mkStyle "listStyleType" "cjk-ideographic"
+        /// The marker is a number
+        static member inline decimal = Interop.mkStyle "listStyleType" "decimal"
+        /// The marker is a number with leading zeros (01, 02, 03, etc.)
+        static member inline decimalLeadingZero = Interop.mkStyle "listStyleType" "decimal-leading-zero"
+        /// The marker is traditional Georgian numbering
+        static member inline georgian = Interop.mkStyle "listStyleType" "georgian"
+        /// The marker is traditional Hebrew numbering
+        static member inline hebrew = Interop.mkStyle "listStyleType" "hebrew"
+        /// The marker is traditional Hiragana numbering
+        static member inline hiragana = Interop.mkStyle "listStyleType" "hiragana"
+        /// The marker is traditional Hiragana iroha numbering
+        static member inline hiraganaIroha = Interop.mkStyle "listStyleType" "hiragana-iroha"
+        /// The marker is traditional Katakana numbering
+        static member inline katakana = Interop.mkStyle "listStyleType" "katakana"
+        /// The marker is traditional Katakana iroha numbering
+        static member inline katakanaIroha = Interop.mkStyle "listStyleType" "katakana-iroha"
+        /// The marker is lower-alpha (a, b, c, d, e, etc.)
+        static member inline lowerAlpha = Interop.mkStyle "listStyleType" "lower-alpha"
+        /// The marker is lower-greek
+        static member inline lowerGreek = Interop.mkStyle "listStyleType" "lower-greek"
+        /// The marker is lower-latin (a, b, c, d, e, etc.)
+        static member inline lowerLatin = Interop.mkStyle "listStyleType" "lower-latin"
+        /// The marker is lower-roman (i, ii, iii, iv, v, etc.)
+        static member inline lowerRoman = Interop.mkStyle "listStyleType" "lower-roman"
+        /// No marker is shown
+        static member inline none = Interop.mkStyle "listStyleType" "none"
+        /// The marker is a square
+        static member inline square = Interop.mkStyle "listStyleType" "square"
+        /// The marker is upper-alpha (A, B, C, D, E, etc.)
+        static member inline upperAlpha = Interop.mkStyle "listStyleType" "upper-alpha"
+        /// The marker is upper-greek
+        static member inline upperGreek = Interop.mkStyle "listStyleType" "upper-greek"
+        /// The marker is upper-latin (A, B, C, D, E, etc.)
+        static member inline upperLatin = Interop.mkStyle "listStyleType" "upper-latin"
+        /// The marker is upper-roman (I, II, III, IV, V, etc.)
+        static member inline upperRoman = Interop.mkStyle "listStyleType" "upper-roman"
+        /// Sets this property to its default value.
+        ///
+        /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
+        static member inline initial = Interop.mkStyle "listStyleType" "initial"
+        /// Inherits this property from its parent element.
+        ///
+        /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
+        static member inline inheritFromParent = Interop.mkStyle "listStyleType" "inheritFromParent"
+
+    type listStyleImage = 
+        /// No image will be displayed. Instead, the list-style-type property will define what type of list marker will be rendered. This is default
+        static member inline none = Interop.mkStyle "listStyleImage" "none"
+        /// The path to the image to be used as a list-item marker
+        static member inline url (path: string) = Interop.mkStyle "listStyleImage" (sprintf "url('%s')" path)
+        /// Sets this property to its default value.
+        ///
+        /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
+        static member inline initial = Interop.mkStyle "listStyleImage" "initial"
+        /// Inherits this property from its parent element.
+        ///
+        /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
+        static member inline inheritFromParent = Interop.mkStyle "listStyleImage" "inheritFromParent"
+
+    [<Erase>]
+    type listStylePosition = 
+        /// The bullet points will be inside the list item
+        static member inline inside = Interop.mkStyle "listStylePosition" "inside"
+        /// The bullet points will be outside the list item. This is default
+        static member inline outside = Interop.mkStyle "listStylePosition" "outside"
+        /// Sets this property to its default value.
+        ///
+        /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
+        static member inline initial = Interop.mkStyle "listStylePosition" "initial"
+        /// Inherits this property from its parent element.
+        ///
+        /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
+        static member inline inheritFromParent = Interop.mkStyle "listStylePosition" "inheritFromParent"
 
     [<Erase>]
     type textAlign =

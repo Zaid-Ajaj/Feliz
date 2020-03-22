@@ -916,7 +916,7 @@ type prop =
     /// Used to reference a DOM element or class component from within a parent component.
     static member inline ref (handler: Element -> unit) = Interop.mkAttr "ref" handler
     /// Used to reference a DOM element or class component from within a parent component.
-    static member inline ref (ref: Fable.React.IRefValue<HTMLElement option>) = Interop.mkAttr "ref" ref
+    static member inline ref (ref: IRefValue<#HTMLElement option>) = Interop.mkAttr "ref" ref
     
     /// For anchors containing the href attribute, this attribute specifies the relationship 
     /// of the target object to the link object. The value is a space-separated list of link 

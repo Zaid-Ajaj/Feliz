@@ -9,6 +9,7 @@ type ReactChildren =
 
 type IReactApi =
     abstract useState<'t> : initial:'t -> ('t * ('t -> unit))
+    abstract useRef<'t> : initial: 't -> Fable.React.IRefValue<'t>
     abstract useReducer : ('state -> 'msg -> 'state) -> 'state -> ('state * ('msg -> unit))
     abstract useEffect : obj * 't array -> unit
     abstract useEffect : obj -> unit
