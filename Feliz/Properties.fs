@@ -354,6 +354,9 @@ type prop =
     /// including volume, seeking, and pause/resume playback.
     static member inline controls (value: bool) = Interop.mkAttr "controls" value
 
+    /// Create a custom prop
+    ///
+    /// You generally shouldn't need to use this, if you notice a core React/Html attribute missing please submit an issue.
     static member inline custom (key: string, value: 't) = Interop.mkAttr key value
 
     /// The SVG cx attribute define the x-axis coordinate of a center point.
@@ -420,6 +423,9 @@ type prop =
     /// in this case it would have no effect.
     static member inline defer (value: bool) = Interop.mkAttr "defer" value
 
+    /// Sets the directionality of the element.
+    static member inline dirName (value: string) = Interop.mkAttr "dirName" value
+
     /// Indicates whether the user can interact with the element.
     static member inline disabled (value: bool) = Interop.mkAttr "disabled" value
 
@@ -433,6 +439,9 @@ type prop =
     static member inline dy (value: float) = Interop.mkAttr "dy" value
     /// SVG attribute to indicate a shift along the y-axis on the position of an element or its content.
     static member inline dy (value: int) = Interop.mkAttr "dy" value
+
+    /// Defines the files that will be uploaded when using an input element of the file type.
+    static member inline files (value: FileList) = Interop.mkAttr "files" value
 
     /// The fill attribute has two different meanings. For shapes and text it's a presentation
     /// attribute that defines the color (or any SVG paint servers like gradients or patterns) 
@@ -513,8 +522,10 @@ type prop =
     /// has been delivered free of unexpected manipulation.
     static member inline integrity (value: string) = Interop.mkAttr "integrity" value
 
+    /// Sets the checked attribute for an element.
     static member inline isChecked (value: bool) = Interop.mkAttr "checked" value
 
+    /// Sets the open attribute for an element.
     static member inline isOpen (value: bool) = Interop.mkAttr "open" value
     
     /// A special string attribute you need to include when creating arrays of elements. 
@@ -625,10 +636,13 @@ type prop =
     /// Fires when a media event is aborted.
     static member inline onAbort (handler: Event -> unit) = Interop.mkAttr "onAbort" handler
     
+    /// Fires when animation ends.
     static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationEnd" handler
-
+    
+    /// Fires when animation iterates.
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
-
+    
+    /// Fires when animation starts.
     static member inline onAnimationStart (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationStart" handler
 
     /// Fires the moment that the element loses focus.
@@ -667,10 +681,13 @@ type prop =
     /// Fires on a mouse click on the element.
     static member inline onClick (handler: MouseEvent -> unit) = Interop.mkAttr "onClick" handler
 
+    /// Fires when composition ends.
     static member inline onCompositionEnd (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionEnd" handler
-
+    
+    /// Fires when composition starts.
     static member inline onCompositionStart (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionStart" handler
-
+    
+    /// Fires when composition changes.
     static member inline onCompositionUpdate (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionUpdate" handler
 
     /// Fires when a context menu is triggered.
@@ -785,8 +802,10 @@ type prop =
     /// Fires when a mouse button is pressed down on an element.
     static member inline onMouseDown (handler: MouseEvent -> unit) = Interop.mkAttr "onMouseDown" handler
 
+    /// Fires when a pointer enters an element.
     static member inline onMouseEnter (handler: MouseEvent -> unit) = Interop.mkAttr "onMouseEnter" handler
 
+    /// Fires when a pointer leaves an element.
     static member inline onMouseLeave (handler: MouseEvent -> unit) = Interop.mkAttr "onMouseLeave" handler
 
     /// Fires when the mouse pointer is moving while it is over an element.
@@ -876,6 +895,11 @@ type prop =
     /// where along the range is considered preferable. For example, if it is between the min attribute and the 
     /// low attribute, then the lower range is considered preferred.
     static member inline optimum (value: int) = Interop.mkAttr "optimum" value
+
+    /// Sets the input field allowed input.
+    ///
+    /// This attribute only applies when the value of the type attribute is text, search, tel, url or email. 
+    static member inline pattern (value: System.Text.RegularExpressions.Regex) = Interop.mkAttr "pattern" value
 
     /// Provides a hint to the user of what can be entered in the field.
     static member inline placeholder (value: string) = Interop.mkAttr "placeholder" value
@@ -976,6 +1000,23 @@ type prop =
     /// Defines a value which will be selected on page load.
     static member inline selected (value: bool) = Interop.mkAttr "selected" value
 
+    /// Sets the beginning index of the selected text.
+    ///
+    /// When nothing is selected, this returns the position of the text input cursor (caret) inside of the <input> element.
+    static member inline selectionStart (value: int) = Interop.mkAttr "selectionStart" value
+
+    /// Sets the end index of the selected text.
+    ///
+    /// When there's no selection, this returns the offset of the character immediately following the current text input cursor position.
+    static member inline selectionEnd (value: int) = Interop.mkAttr "selectionStart" value
+    
+    /// Sets the *visual* size of the control.
+    ///
+    /// The value is in pixels unless the value of type is text or password, in which case, it is the number of characters.
+    ///
+    /// This attribute only applies when type is set to text, search, tel, url, email, or password.
+    static member inline size (value: int) = Interop.mkAttr "size" value
+
     /// Defines the sizes of the icons for visual media contained in the resource. 
     /// It must be present only if the rel contains a value of icon or a non-standard 
     /// type such as Apple's apple-touch-icon.
@@ -1075,6 +1116,20 @@ type prop =
     static member inline value (value: int) = Interop.mkAttr "value" value
     /// Sets the value of a React controlled component.
     static member inline value (value: string) = Interop.mkAttr "value" value
+
+    /// The value of the element, interpreted as a date, or null if conversion is not possible.
+    static member inline valueAsDate (value: System.DateTime) = Interop.mkAttr "valueAsDate" value
+    /// The value of the element, interpreted as a date, or null if conversion is not possible.
+    static member inline valueAsDate (value: System.DateTime option) = Interop.mkAttr "valueAsDate" value
+
+    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
+    static member inline valueAsNumber (value: float) = Interop.mkAttr "valueAsNumber" value
+    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
+    static member inline valueAsNumber (value: float option) = Interop.mkAttr "valueAsNumber" value
+    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
+    static member inline valueAsNumber (value: int) = Interop.mkAttr "valueAsNumber" value
+    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
+    static member inline valueAsNumber (value: int option) = Interop.mkAttr "valueAsNumber" value
 
     /// `prop.ref` callback that sets the value of an input after DOM element is created.
     /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input value.
@@ -1495,6 +1550,17 @@ module prop =
         /// This value uses the top of the em box as the baseline.
         static member inline textTop = Interop.mkAttr "dominantBaseline" "text-top"
 
+    /// Provides a hint to browsers as to the type of virtual keyboard configuration to use when editing this element or its contents.
+    [<Erase>]
+    type inputMode =
+        static member inline decimal = Interop.mkAttr "inputmode" "decimal"
+        static member inline email = Interop.mkAttr "inputmode" "email"
+        static member inline none = Interop.mkAttr "inputmode" "none"
+        static member inline numeric = Interop.mkAttr "inputmode" "numeric"
+        static member inline search = Interop.mkAttr "inputmode" "search"
+        static member inline tel = Interop.mkAttr "inputmode" "tel"
+        static member inline url = Interop.mkAttr "inputmode" "url"
+
     /// How the text track is meant to be used.
     [<Erase>]
     type kind =
@@ -1858,6 +1924,15 @@ module prop =
         ///
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#treeitem
         static member inline treeItem = Interop.mkAttr "role" "treeitem"        
+
+    [<Erase>]
+    type selectionDirection =
+        /// For the opposite direction.
+        static member inline backward = Interop.mkAttr "selectionDirection" "backward"
+        /// If selection was performed in the start-to-end direction of the current locale.
+        static member inline forward = Interop.mkAttr "selectionDirection" "forward"
+        /// If the direction is unknown.
+        static member inline none = Interop.mkAttr "selectionDirection" "none"
 
     /// The shape of the associated hot spot.
     [<Erase>]
