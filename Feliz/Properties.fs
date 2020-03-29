@@ -575,7 +575,7 @@ type prop =
     static member inline max (value: int) = Interop.mkAttr "max" value
 
     /// Defines the maximum number of characters allowed in the element.
-    static member inline maxLength (value: int) = Interop.mkAttr "maxlength" value
+    static member inline maxLength (value: int) = Interop.mkAttr "maxLength" value
 
     /// This attribute specifies the media that the linked resource applies to. 
     /// Its value must be a media type / media query. This attribute is mainly useful 
