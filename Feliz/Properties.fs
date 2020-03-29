@@ -55,6 +55,9 @@ type prop =
     /// Alternative text in case an image can't be displayed.
     static member inline alt (value: string) = Interop.mkAttr "alt" value
 
+    /// A shorthand for using prop.custom("data-testid", value). Useful for referencing elements when testing React code.
+    static member inline testId(value: string) = Interop.mkAttr "data-testid" value
+
     /// Identifies the currently active descendant of a `composite` widget.
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-activedescendant
@@ -235,13 +238,13 @@ type prop =
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-required
     static member inline ariaRequired (value: bool) = Interop.mkAttr "aria-required" value
-    
+
     /// Indicates the current "selected" state of various widgets. See related
     /// `aria-checked` and `aria-pressed`.
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-selected
     static member inline ariaSelected (value: bool) = Interop.mkAttr "aria-selected" value
-    
+
     /// Defines the maximum allowed value for a range widget.
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuemax
@@ -250,7 +253,7 @@ type prop =
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuemax
     static member inline ariaValueMax (value: int) = Interop.mkAttr "aria-valuemax" value
-    
+
     /// Defines the minimum allowed value for a range widget.
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuemin
@@ -276,7 +279,7 @@ type prop =
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-valuetext
     static member inline ariaValueText (value: string) = Interop.mkAttr "aria-valuetext" value
-    
+
     /// Defines the number of items in the current set of listitems or
     /// treeitems. Not required if all elements in the set are present in the
     /// DOM. See related `aria-posinset`.
@@ -303,13 +306,13 @@ type prop =
     /// Children of this React element.
     static member inline children (elems: Fable.React.ReactElement seq) = Interop.mkAttr "children" (Interop.reactApi.Children.toArray elems)
 
-    /// A URL that designates a source document or message for the information quoted. This attribute is intended to 
+    /// A URL that designates a source document or message for the information quoted. This attribute is intended to
     /// point to information explaining the context or the reference for the quote.
     static member inline cite (value: string) = Interop.mkAttr "cite" value
 
     /// Specifies a CSS class for this element.
     static member inline className (value: string) = Interop.mkAttr "className" value
-    /// Takes a list of conditional classes (`predicate:bool` * `className:string`), filters out the ones where the 
+    /// Takes a list of conditional classes (`predicate:bool` * `className:string`), filters out the ones where the
     /// `predicate` is false and joins the rest of them using a space to combine the classses into a single class property.
     ///
     ///`prop.className [ true, "one";  false, "two" ]`
@@ -350,7 +353,7 @@ type prop =
     /// Indicates whether the element's content is editable.
     static member inline contentEditable (value: bool) = Interop.mkAttr "contenteditable" value
 
-    /// If true, the browser will offer controls to allow the user to control video playback, 
+    /// If true, the browser will offer controls to allow the user to control video playback,
     /// including volume, seeking, and pause/resume playback.
     static member inline controls (value: bool) = Interop.mkAttr "controls" value
 
@@ -360,18 +363,18 @@ type prop =
     static member inline custom (key: string, value: 't) = Interop.mkAttr key value
 
     /// The SVG cx attribute define the x-axis coordinate of a center point.
-    /// 
+    ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
     static member inline cx (value: float) = Interop.mkAttr "cx" value
     /// The SVG cx attribute define the x-axis coordinate of a center point.
-    /// 
+    ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
     static member inline cx (value: ICssUnit) = Interop.mkAttr "cx" value
     /// The SVG cx attribute define the x-axis coordinate of a center point.
-    /// 
+    ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
     static member inline cx (value: int) = Interop.mkAttr "cx" value
-    
+
     /// The SVG cy attribute define the y-axis coordinate of a center point.
     ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
@@ -413,13 +416,13 @@ type prop =
     /// Typically only used with uncontrolled components.
     static member inline defaultValue (value: string) = Interop.mkAttr "defaultValue" value
 
-    /// Indicates to a browser that the script is meant to be executed after the document 
+    /// Indicates to a browser that the script is meant to be executed after the document
     /// has been parsed, but before firing DOMContentLoaded.
-    /// 
-    /// Scripts with the defer attribute will prevent the DOMContentLoaded event from 
+    ///
+    /// Scripts with the defer attribute will prevent the DOMContentLoaded event from
     /// firing until the script has loaded and finished evaluating.
     ///
-    /// This attribute must not be used if the src attribute is absent (i.e. for inline scripts), 
+    /// This attribute must not be used if the src attribute is absent (i.e. for inline scripts),
     /// in this case it would have no effect.
     static member inline defer (value: bool) = Interop.mkAttr "defer" value
 
@@ -444,14 +447,14 @@ type prop =
     static member inline files (value: FileList) = Interop.mkAttr "files" value
 
     /// The fill attribute has two different meanings. For shapes and text it's a presentation
-    /// attribute that defines the color (or any SVG paint servers like gradients or patterns) 
+    /// attribute that defines the color (or any SVG paint servers like gradients or patterns)
     /// used to paint the element; for animation it defines the final state of the animation.
     ///
-    /// As a presentation attribute, it can be applied to any element but it only has an effect 
-    /// on the following eleven elements: <altGlyph>, <circle>, <ellipse>, <path>, <polygon>, 
+    /// As a presentation attribute, it can be applied to any element but it only has an effect
+    /// on the following eleven elements: <altGlyph>, <circle>, <ellipse>, <path>, <polygon>,
     /// <polyline>, <rect>, <text>, <textPath>, <tref>, and <tspan>.
     ///
-    /// For animation five elements are using this attribute: <animate>, <animateColor>, 
+    /// For animation five elements are using this attribute: <animate>, <animateColor>,
     /// <animateMotion>, <animateTransform>, and <set>.
     static member inline fill (color: string) = Interop.mkAttr "fill" color
 
@@ -460,27 +463,27 @@ type prop =
     /// SVG attribute to define the opacity of the paint server (color, gradient, pattern, etc) applied to a shape.
     static member inline fillOpacity (value: int) = Interop.mkAttr "fillOpacity" value
 
-    /// SVG attribute to define the size of the font from baseline to baseline when multiple 
+    /// SVG attribute to define the size of the font from baseline to baseline when multiple
     /// lines of text are set solid in a multiline layout environment.
     static member inline fontSize (value: float) = Interop.mkAttr "fontSize" value
-    /// SVG attribute to define the size of the font from baseline to baseline when multiple 
+    /// SVG attribute to define the size of the font from baseline to baseline when multiple
     /// lines of text are set solid in a multiline layout environment.
     static member inline fontSize (value: int) = Interop.mkAttr "fontSize" value
 
-    /// A space-separated list of other elements’ ids, indicating that those elements contributed input 
+    /// A space-separated list of other elements’ ids, indicating that those elements contributed input
     /// values to (or otherwise affected) the calculation.
     static member inline for' (value: string) = Interop.mkAttr "for" value
-    /// A space-separated list of other elements’ ids, indicating that those elements contributed input 
+    /// A space-separated list of other elements’ ids, indicating that those elements contributed input
     /// values to (or otherwise affected) the calculation.
     static member inline for' (ids: #seq<string>) = Interop.mkAttr "for" (ids |> String.concat " ")
 
-    /// The <form> element to associate the <meter> element with (its form owner). The value of this 
-    /// attribute must be the id of a <form> in the same document. If this attribute is not set, the 
-    /// <button> is associated with its ancestor <form> element, if any. This attribute is only used 
-    /// if the <meter> element is being used as a form-associated element, such as one displaying a 
+    /// The <form> element to associate the <meter> element with (its form owner). The value of this
+    /// attribute must be the id of a <form> in the same document. If this attribute is not set, the
+    /// <button> is associated with its ancestor <form> element, if any. This attribute is only used
+    /// if the <meter> element is being used as a form-associated element, such as one displaying a
     /// range corresponding to an <input type="number">.
     static member inline form (value: string) = Interop.mkAttr "form" value
-    
+
     /// Prevents rendering of given element, while keeping child elements, e.g. script elements, active.
     static member inline hidden (value: bool) = Interop.mkAttr "hidden" value
 
@@ -489,21 +492,21 @@ type prop =
     /// <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>
     static member inline height (value: int) = Interop.mkAttr "height" value
 
-    /// The lower numeric bound of the high end of the measured range. This must be less than the 
-    /// maximum value (max attribute), and it also must be greater than the low value and minimum 
-    /// value (low attribute and min attribute, respectively), if any are specified. If unspecified, 
+    /// The lower numeric bound of the high end of the measured range. This must be less than the
+    /// maximum value (max attribute), and it also must be greater than the low value and minimum
+    /// value (low attribute and min attribute, respectively), if any are specified. If unspecified,
     /// or if greater than the maximum value, the high value is equal to the maximum value.
     static member inline high (value: float) = Interop.mkAttr "high" value
-    /// The lower numeric bound of the high end of the measured range. This must be less than the 
-    /// maximum value (max attribute), and it also must be greater than the low value and minimum 
-    /// value (low attribute and min attribute, respectively), if any are specified. If unspecified, 
+    /// The lower numeric bound of the high end of the measured range. This must be less than the
+    /// maximum value (max attribute), and it also must be greater than the low value and minimum
+    /// value (low attribute and min attribute, respectively), if any are specified. If unspecified,
     /// or if greater than the maximum value, the high value is equal to the maximum value.
     static member inline high (value: int) = Interop.mkAttr "high" value
 
     /// The URL of a linked resource.
     static member inline href (value: string) = Interop.mkAttr "href" value
 
-    /// Indicates the language of the linked resource. Allowed values are determined by BCP47. 
+    /// Indicates the language of the linked resource. Allowed values are determined by BCP47.
     ///
     /// Use this attribute only if the href attribute is present.
     static member inline hrefLang (value: string) = Interop.mkAttr "hreflang" value
@@ -518,7 +521,7 @@ type prop =
     /// Alias for `dangerouslySetInnerHTML`, sets the inner Html content of the element.
     static member inline innerHtml (content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
 
-    /// Contains inline metadata that a user agent can use to verify that a fetched resource 
+    /// Contains inline metadata that a user agent can use to verify that a fetched resource
     /// has been delivered free of unexpected manipulation.
     static member inline integrity (value: string) = Interop.mkAttr "integrity" value
 
@@ -527,45 +530,45 @@ type prop =
 
     /// Sets the open attribute for an element.
     static member inline isOpen (value: bool) = Interop.mkAttr "open" value
-    
-    /// A special string attribute you need to include when creating arrays of elements. 
-    /// Keys help React identify which items have changed, are added, or are removed. 
+
+    /// A special string attribute you need to include when creating arrays of elements.
+    /// Keys help React identify which items have changed, are added, or are removed.
     /// Keys should be given to the elements inside an array to give the elements a stable identity.
-    /// 
-    /// Keys only need to be unique among sibling elements in the same array. They don’t need to 
+    ///
+    /// Keys only need to be unique among sibling elements in the same array. They don’t need to
     /// be unique across the whole application or even a single component.
     static member inline key (value: System.Guid) = Interop.mkAttr "value" (string value)
-    /// A special string attribute you need to include when creating arrays of elements. Keys help 
-    /// React identify which items have changed, are added, or are removed. Keys should be given 
+    /// A special string attribute you need to include when creating arrays of elements. Keys help
+    /// React identify which items have changed, are added, or are removed. Keys should be given
     /// to the elements inside an array to give the elements a stable identity.
-    /// 
-    /// Keys only need to be unique among sibling elements in the same array. They don’t need to 
+    ///
+    /// Keys only need to be unique among sibling elements in the same array. They don’t need to
     /// be unique across the whole application or even a single component.
     static member inline key (value: int) = Interop.mkAttr "key" value
-    /// A special string attribute you need to include when creating arrays of elements. Keys 
-    /// help React identify which 
-    /// items have changed, are added, or are removed. Keys should be given to the elements 
+    /// A special string attribute you need to include when creating arrays of elements. Keys
+    /// help React identify which
+    /// items have changed, are added, or are removed. Keys should be given to the elements
     /// inside an array to give the elements a stable identity.
-    /// 
-    /// Keys only need to be unique among sibling elements in the same array. They don’t need to 
+    ///
+    /// Keys only need to be unique among sibling elements in the same array. They don’t need to
     /// be unique across the whole application or even a single component.
     static member inline key (value: string) = Interop.mkAttr "key" value
 
-    /// Helps define the language of an element: the language that non-editable elements are 
+    /// Helps define the language of an element: the language that non-editable elements are
     /// written in, or the language that the editable elements should be written in by the user.
     static member inline lang (value: string) = Interop.mkAttr "lang" value
 
     /// If true, the browser will automatically seek back to the start upon reaching the end of the video.
     static member inline loop (value: bool) = Interop.mkAttr "loop" value
 
-    /// The upper numeric bound of the low end of the measured range. This must be greater than 
-    /// the minimum value (min attribute), and it also must be less than the high value and 
-    /// maximum value (high attribute and max attribute, respectively), if any are specified. 
+    /// The upper numeric bound of the low end of the measured range. This must be greater than
+    /// the minimum value (min attribute), and it also must be less than the high value and
+    /// maximum value (high attribute and max attribute, respectively), if any are specified.
     /// If unspecified, or if less than the minimum value, the low value is equal to the minimum value.
     static member inline low (value: float) = Interop.mkAttr "low" value
-    /// The upper numeric bound of the low end of the measured range. This must be greater than 
-    /// the minimum value (min attribute), and it also must be less than the high value and 
-    /// maximum value (high attribute and max attribute, respectively), if any are specified. 
+    /// The upper numeric bound of the low end of the measured range. This must be greater than
+    /// the minimum value (min attribute), and it also must be less than the high value and
+    /// maximum value (high attribute and max attribute, respectively), if any are specified.
     /// If unspecified, or if less than the minimum value, the low value is equal to the minimum value.
     static member inline low (value: int) = Interop.mkAttr "low" value
 
@@ -577,19 +580,19 @@ type prop =
     /// Defines the maximum number of characters allowed in the element.
     static member inline maxLength (value: int) = Interop.mkAttr "maxLength" value
 
-    /// This attribute specifies the media that the linked resource applies to. 
-    /// Its value must be a media type / media query. This attribute is mainly useful 
-    /// when linking to external stylesheets — it allows the user agent to pick the 
+    /// This attribute specifies the media that the linked resource applies to.
+    /// Its value must be a media type / media query. This attribute is mainly useful
+    /// when linking to external stylesheets — it allows the user agent to pick the
     /// best adapted one for the device it runs on.
     ///
-    /// In HTML 4, this can only be a simple white-space-separated list of media 
-    /// description literals, i.e., media types and groups, where defined and allowed 
-    /// as values for this attribute, such as print, screen, aural, braille. HTML5 
-    /// extended this to any kind of media queries, which are a superset of the allowed 
+    /// In HTML 4, this can only be a simple white-space-separated list of media
+    /// description literals, i.e., media types and groups, where defined and allowed
+    /// as values for this attribute, such as print, screen, aural, braille. HTML5
+    /// extended this to any kind of media queries, which are a superset of the allowed
     /// values of HTML 4.
     ///
-    /// Browsers not supporting CSS3 Media Queries won't necessarily recognize the adequate 
-    /// link; do not forget to set fallback links, the restricted set of media queries 
+    /// Browsers not supporting CSS3 Media Queries won't necessarily recognize the adequate
+    /// link; do not forget to set fallback links, the restricted set of media queries
     /// defined in HTML 4.
     static member inline media (value: string) = Interop.mkAttr "media" value
 
@@ -606,23 +609,23 @@ type prop =
 
     /// Indicates whether multiple values can be entered in an input of the type email or file.
     static member inline multiple (value: bool) = Interop.mkAttr "multiple" value
-    
+
     /// Indicates whether the audio will be initially silenced on page load.
     static member inline muted (value: bool) = Interop.mkAttr "muted" value
-    
-    /// Name of the element. 
+
+    /// Name of the element.
     ///
     /// For example used by the server to identify the fields in form submits.
     static member inline name (value: string) = Interop.mkAttr "name" value
 
-    /// This Boolean attribute is set to indicate that the script should not be executed in 
-    /// browsers that support ES2015 modules — in effect, this can be used to serve fallback 
+    /// This Boolean attribute is set to indicate that the script should not be executed in
+    /// browsers that support ES2015 modules — in effect, this can be used to serve fallback
     /// scripts to older browsers that do not support modular JavaScript code.
     static member inline nomodule (value: bool) = Interop.mkAttr "nomodule" value
 
-    /// A cryptographic nonce (number used once) to whitelist scripts in a script-src 
-    /// Content-Security-Policy. The server must generate a unique nonce value each time 
-    /// it transmits a policy. It is critical to provide a nonce that cannot be guessed 
+    /// A cryptographic nonce (number used once) to whitelist scripts in a script-src
+    /// Content-Security-Policy. The server must generate a unique nonce value each time
+    /// it transmits a policy. It is critical to provide a nonce that cannot be guessed
     /// as bypassing a resource's policy is otherwise trivial.
     static member inline nonce (value: string) = Interop.mkAttr "nonce" value
 
@@ -635,13 +638,13 @@ type prop =
 
     /// Fires when a media event is aborted.
     static member inline onAbort (handler: Event -> unit) = Interop.mkAttr "onAbort" handler
-    
+
     /// Fires when animation ends.
     static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationEnd" handler
-    
+
     /// Fires when animation iterates.
     static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationIteration" handler
-    
+
     /// Fires when animation starts.
     static member inline onAnimationStart (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationStart" handler
 
@@ -654,21 +657,21 @@ type prop =
     /// Fires when a file can be played all the way to the end without pausing for buffering
     static member inline onCanPlayThrough (handler: Event -> unit) = Interop.mkAttr "onCanPlayThrough" handler
 
-    /// Same as `onChange` that takes an event as input but instead let's you deal with the `checked` value changed from the `input` element 
+    /// Same as `onChange` that takes an event as input but instead let's you deal with the `checked` value changed from the `input` element
     /// directly when it is defined as a checkbox with `prop.inputType.checkbox`.
     static member inline onChange (handler: bool -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?``checked``))
     /// Fires the moment when the value of the element is changed
     static member inline onChange (handler: Event -> unit) = Interop.mkAttr "onChange" handler
     /// Same as `onChange` that takes an event as input but instead lets you deal with the selected file directly from the `input` element when it is defined as a checkbox with `prop.type'.file`.
-    static member inline onChange (handler: File -> unit) = 
-        let fileHandler (ev: Event) : unit = 
-            let files : FileList = ev?target?files 
+    static member inline onChange (handler: File -> unit) =
+        let fileHandler (ev: Event) : unit =
+            let files : FileList = ev?target?files
             if not (isNullOrUndefined files) && files.length > 0 then handler (files.item 0)
-        Interop.mkAttr "onChange" fileHandler 
+        Interop.mkAttr "onChange" fileHandler
     /// Same as `onChange` that takes an event as input but instead lets you deal with the selected files directly from the `input` element when it is defined as a checkbox with `prop.type'.file` and `prop.multiple true`.
-    static member inline onChange (handler: File list -> unit) = 
-        let fileHandler (ev: Event) : unit = 
-            let fileList : FileList = ev?target?files 
+    static member inline onChange (handler: File list -> unit) =
+        let fileHandler (ev: Event) : unit =
+            let fileList : FileList = ev?target?files
             if not (isNullOrUndefined fileList) then handler [ for i in 0 .. fileList.length - 1 -> fileList.item i ]
         Interop.mkAttr "onChange" fileHandler
     /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element directly
@@ -683,10 +686,10 @@ type prop =
 
     /// Fires when composition ends.
     static member inline onCompositionEnd (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionEnd" handler
-    
+
     /// Fires when composition starts.
     static member inline onCompositionStart (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionStart" handler
-    
+
     /// Fires when composition changes.
     static member inline onCompositionUpdate (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionUpdate" handler
 
@@ -749,27 +752,27 @@ type prop =
     static member inline onKeyDown (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyDown" handler
 
     /// Fires when a user pressing a key.
-    static member inline onKeyDown (key: IKeyboardKey, handler: KeyboardEvent -> unit) = 
-        Interop.mkAttr "onKeyDown" <| fun (ev: KeyboardEvent) -> 
-            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key 
-            match ctrl, shift with 
+    static member inline onKeyDown (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
+        Interop.mkAttr "onKeyDown" <| fun (ev: KeyboardEvent) ->
+            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key
+            match ctrl, shift with
             | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
-            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev 
-            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev 
+            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev
+            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev
             | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
             | _, _ -> ignore()
 
     /// Fires when a user presses a key.
     static member inline onKeyPress (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyPress" handler
-    
+
     /// Fires when a user presses a key.
-    static member inline onKeyPress (key: IKeyboardKey, handler: KeyboardEvent -> unit) = 
-        Interop.mkAttr "onKeyPress" <| fun (ev: KeyboardEvent) -> 
-            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key 
-            match ctrl, shift with 
+    static member inline onKeyPress (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
+        Interop.mkAttr "onKeyPress" <| fun (ev: KeyboardEvent) ->
+            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key
+            match ctrl, shift with
             | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
-            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev 
-            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev 
+            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev
+            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev
             | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
             | _, _ -> ignore()
 
@@ -777,13 +780,13 @@ type prop =
     static member inline onKeyUp (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyUp" handler
 
     /// Fires when a user releases a key.
-    static member inline onKeyUp (key: IKeyboardKey, handler: KeyboardEvent -> unit) = 
-        Interop.mkAttr "onKeyUp" <| fun (ev: KeyboardEvent) -> 
-            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key 
-            match ctrl, shift with 
+    static member inline onKeyUp (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
+        Interop.mkAttr "onKeyUp" <| fun (ev: KeyboardEvent) ->
+            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key
+            match ctrl, shift with
             | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
-            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev 
-            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev 
+            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev
+            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev
             | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
             | _, _ -> ignore()
 
@@ -831,7 +834,7 @@ type prop =
 
     /// Fires when the browser is in the process of getting the media data.
     static member inline onProgress (handler: Event -> unit) = Interop.mkAttr "onProgress" handler
-    
+
     /// Fires when the playback rate changes (like when a user switches to a slow motion or fast forward mode).
     static member inline onRateChange (handler: Event -> unit) = Interop.mkAttr "onRateChange" handler
 
@@ -862,10 +865,10 @@ type prop =
     /// Same as `onChange` but let's you deal with the text changed from the `input` element directly
     /// instead of extracting it from the event arguments.
     static member inline onTextChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
-    
+
     /// Fires when the playing position has changed (like when the user fast forwards to a different point in the media).
     static member inline onTimeUpdate (handler: Event -> unit) = Interop.mkAttr "onTimeUpdate" handler
-    
+
     static member inline onTouchCancel (handler: TouchEvent -> unit) = Interop.mkAttr "onTouchCancel" handler
 
     static member inline onTouchEnd (handler: TouchEvent -> unit) = Interop.mkAttr "onTouchEnd" handler
@@ -878,52 +881,52 @@ type prop =
 
     /// Fires when the volume is changed which (includes setting the volume to "mute").
     static member inline onVolumeChange (handler: Event -> unit) = Interop.mkAttr "onVolumeChange" handler
-    
+
     /// Fires when the media has paused but is expected to resume (like when the media pauses to buffer more data).
     static member inline onWaiting (handler: Event -> unit) = Interop.mkAttr "onWaiting" handler
-    
+
     /// Fires when the mouse wheel rolls up or down over an element.
     static member inline onWheel (handler: WheelEvent -> unit) = Interop.mkAttr "onWheel" handler
-    
-    /// This attribute indicates the optimal numeric value. It must be within the range (as defined by the min 
-    /// attribute and max attribute). When used with the low attribute and high attribute, it gives an indication 
-    /// where along the range is considered preferable. For example, if it is between the min attribute and the 
+
+    /// This attribute indicates the optimal numeric value. It must be within the range (as defined by the min
+    /// attribute and max attribute). When used with the low attribute and high attribute, it gives an indication
+    /// where along the range is considered preferable. For example, if it is between the min attribute and the
     /// low attribute, then the lower range is considered preferred.
     static member inline optimum (value: float) = Interop.mkAttr "optimum" value
-    /// This attribute indicates the optimal numeric value. It must be within the range (as defined by the min 
-    /// attribute and max attribute). When used with the low attribute and high attribute, it gives an indication 
-    /// where along the range is considered preferable. For example, if it is between the min attribute and the 
+    /// This attribute indicates the optimal numeric value. It must be within the range (as defined by the min
+    /// attribute and max attribute). When used with the low attribute and high attribute, it gives an indication
+    /// where along the range is considered preferable. For example, if it is between the min attribute and the
     /// low attribute, then the lower range is considered preferred.
     static member inline optimum (value: int) = Interop.mkAttr "optimum" value
 
     /// Sets the input field allowed input.
     ///
-    /// This attribute only applies when the value of the type attribute is text, search, tel, url or email. 
+    /// This attribute only applies when the value of the type attribute is text, search, tel, url or email.
     static member inline pattern (value: System.Text.RegularExpressions.Regex) = Interop.mkAttr "pattern" value
 
     /// Provides a hint to the user of what can be entered in the field.
     static member inline placeholder (value: string) = Interop.mkAttr "placeholder" value
 
-    /// Indicating that the video is to be played "inline", that is within the element's playback area. 
+    /// Indicating that the video is to be played "inline", that is within the element's playback area.
     ///
     /// Note that the absence of this attribute does not imply that the video will always be played in fullscreen.
     static member inline playsInline (value: bool) = Interop.mkAttr "playsinline" value
 
-    /// Contains a space-separated list of URLs to which, when the hyperlink is followed, 
+    /// Contains a space-separated list of URLs to which, when the hyperlink is followed,
     /// POST requests with the body PING will be sent by the browser (in the background).
-    /// 
+    ///
     /// Typically used for tracking.
     static member inline ping (value: string) = Interop.mkAttr "ping" value
-    /// Contains a space-separated list of URLs to which, when the hyperlink is followed, 
+    /// Contains a space-separated list of URLs to which, when the hyperlink is followed,
     /// POST requests with the body PING will be sent by the browser (in the background).
-    /// 
+    ///
     /// Typically used for tracking.
     static member inline ping (urls: #seq<string>) = Interop.mkAttr "ping" (urls |> String.concat " ")
 
     /// SVG attribute to define a list of points.
     static member inline points (value: string) = Interop.mkAttr "points" value
 
-    /// A URL for an image to be shown while the video is downloading. If this attribute isn't specified, nothing 
+    /// A URL for an image to be shown while the video is downloading. If this attribute isn't specified, nothing
     /// is displayed until the first frame is available, then the first frame is shown as the poster frame.
     static member inline poster (value: string) = Interop.mkAttr "poster" value
 
@@ -941,12 +944,12 @@ type prop =
     static member inline ref (handler: Element -> unit) = Interop.mkAttr "ref" handler
     /// Used to reference a DOM element or class component from within a parent component.
     static member inline ref (ref: IRefValue<#HTMLElement option>) = Interop.mkAttr "ref" ref
-    
-    /// For anchors containing the href attribute, this attribute specifies the relationship 
-    /// of the target object to the link object. The value is a space-separated list of link 
-    /// types values. The values and their semantics will be registered by some authority that 
-    /// might have meaning to the document author. The default relationship, if no other is 
-    /// given, is void. 
+
+    /// For anchors containing the href attribute, this attribute specifies the relationship
+    /// of the target object to the link object. The value is a space-separated list of link
+    /// types values. The values and their semantics will be registered by some authority that
+    /// might have meaning to the document author. The default relationship, if no other is
+    /// given, is void.
     ///
     /// Use this attribute only if the href attribute is present.
     static member inline rel (value: bool) = Interop.mkAttr "rel" value
@@ -977,7 +980,7 @@ type prop =
     ///
     /// Two elements are using this attribute: <ellipse>, and <rect>
     static member inline rx (value: int) = Interop.mkAttr "rx" value
-    
+
     /// The SVG ry attribute defines a radius on the y-axis.
     ///
     /// Two elements are using this attribute: <ellipse>, and <rect>
@@ -991,9 +994,9 @@ type prop =
     /// Two elements are using this attribute: <ellipse>, and <rect>
     static member inline ry (value: int) = Interop.mkAttr "ry" value
 
-    /// Applies extra restrictions to the content in the frame. 
+    /// Applies extra restrictions to the content in the frame.
     ///
-    /// The value of the attribute can either be empty to apply all restrictions, 
+    /// The value of the attribute can either be empty to apply all restrictions,
     /// or space-separated tokens to lift particular restrictions
     static member inline sandbox (values: #seq<string>) = Interop.mkAttr "sandbox" (values |> String.concat " ")
 
@@ -1009,7 +1012,7 @@ type prop =
     ///
     /// When there's no selection, this returns the offset of the character immediately following the current text input cursor position.
     static member inline selectionEnd (value: int) = Interop.mkAttr "selectionStart" value
-    
+
     /// Sets the *visual* size of the control.
     ///
     /// The value is in pixels unless the value of type is text or password, in which case, it is the number of characters.
@@ -1017,13 +1020,13 @@ type prop =
     /// This attribute only applies when type is set to text, search, tel, url, email, or password.
     static member inline size (value: int) = Interop.mkAttr "size" value
 
-    /// Defines the sizes of the icons for visual media contained in the resource. 
-    /// It must be present only if the rel contains a value of icon or a non-standard 
+    /// Defines the sizes of the icons for visual media contained in the resource.
+    /// It must be present only if the rel contains a value of icon or a non-standard
     /// type such as Apple's apple-touch-icon.
     ///
     /// It may have the following values:
     ///
-    /// `any`, meaning that the icon can be scaled to any size as it is in a vector 
+    /// `any`, meaning that the icon can be scaled to any size as it is in a vector
     /// format, like image/svg+xml.
     ///
     /// A white-space separated list of sizes, each in the format `<width in pixels>x<height in pixels>`
@@ -1033,14 +1036,14 @@ type prop =
     /// Defines whether the element may be checked for spelling errors.
     static member inline spellcheck (value: bool) = Interop.mkAttr "spellcheck" value
 
-    /// This attribute contains a positive integer indicating the number of consecutive 
+    /// This attribute contains a positive integer indicating the number of consecutive
     /// columns the <col> element spans. If not present, its default value is 1.
     static member inline spam (value: int) = Interop.mkAttr "span" value
 
     /// The URL of the embeddable content.
     static member inline src (value: string) = Interop.mkAttr "src" value
 
-    /// Language of the track text data. It must be a valid BCP 47 language tag. 
+    /// Language of the track text data. It must be a valid BCP 47 language tag.
     ///
     /// If the kind attribute is set to subtitles, then srclang must be defined.
     static member inline srcLang (value: string) = Interop.mkAttr "srclang" value
@@ -1073,7 +1076,7 @@ type prop =
     static member inline strokeWidth (value: ICssUnit) = Interop.mkAttr "strokeWidth" value
     /// SVG attribute to define the width of the stroke to be applied to the shape.
     static member inline strokeWidth (value: int) = Interop.mkAttr "strokeWidth" value
-    
+
     static member inline style (properties: #IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
     static member style (properties: (bool * IStyleAttribute list) list) =
         properties
@@ -1083,7 +1086,7 @@ type prop =
         |> createObj
         |> Interop.mkAttr "style"
 
-    /// The `tabindex` global attribute indicates that its element can be focused, 
+    /// The `tabindex` global attribute indicates that its element can be focused,
     /// and where it participates in sequential keyboard navigation (usually with the Tab key, hence the name).
     static member inline tabIndex (index: int) = Interop.mkAttr "tabindex" index
 
@@ -1102,7 +1105,7 @@ type prop =
 
     /// Sets the `type` attribute for the element.
     static member inline type' (value: string) = Interop.mkAttr "type" value
-    
+
     /// A hash-name reference to a <map> element; that is a '#' followed by the value of a name of a map element.
     static member inline usemap (value: string) = Interop.mkAttr "usemap" value
 
@@ -1151,7 +1154,7 @@ type prop =
     /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input box value.
     static member inline valueOrDefault (value: string) =
         prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
-    
+
     /// Set visible area of the SVG image.
     static member inline viewPort (x: int, y: int, height: int, width: int) =
         Interop.mkAttr "viewport"
@@ -1159,7 +1162,7 @@ type prop =
            (unbox<string> y) + " " +
            (unbox<string> height) + " " +
            (unbox<string> width))
-    
+
     /// Specifies the width of elements listed here. For all other elements, use the CSS height property.
     ///
     /// <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>
@@ -1172,42 +1175,42 @@ type prop =
     /// SVG attribute to define a x-axis coordinate in the user coordinate system.
     static member inline x (value: int) = Interop.mkAttr "x" value
 
-    /// The x1 attribute is used to specify the first x-coordinate for drawing an SVG element that 
+    /// The x1 attribute is used to specify the first x-coordinate for drawing an SVG element that
     /// requires more than one coordinate. Elements that only need one coordinate use the x attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline x1 (value: float) = Interop.mkAttr "x1" value
-    /// The x1 attribute is used to specify the first x-coordinate for drawing an SVG element that 
+    /// The x1 attribute is used to specify the first x-coordinate for drawing an SVG element that
     /// requires more than one coordinate. Elements that only need one coordinate use the x attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline x1 (value: ICssUnit) = Interop.mkAttr "x1" value
-    /// The x1 attribute is used to specify the first x-coordinate for drawing an SVG element that 
+    /// The x1 attribute is used to specify the first x-coordinate for drawing an SVG element that
     /// requires more than one coordinate. Elements that only need one coordinate use the x attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline x1 (value: int) = Interop.mkAttr "x1" value
 
-    /// The x2 attribute is used to specify the second x-coordinate for drawing an SVG element that requires 
+    /// The x2 attribute is used to specify the second x-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the x attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline x2 (value: float) = Interop.mkAttr "x2" value
-    /// The x2 attribute is used to specify the second x-coordinate for drawing an SVG element that requires 
+    /// The x2 attribute is used to specify the second x-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the x attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline x2 (value: ICssUnit) = Interop.mkAttr "x2" value
-    /// The x2 attribute is used to specify the second x-coordinate for drawing an SVG element that requires 
+    /// The x2 attribute is used to specify the second x-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the x attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline x2 (value: int) = Interop.mkAttr "x2" value
-    
-    /// Specifies the XML Namespace of the document. 
+
+    /// Specifies the XML Namespace of the document.
     ///
-    /// Default value is "http://www.w3.org/1999/xhtml". 
-    /// 
+    /// Default value is "http://www.w3.org/1999/xhtml".
+    ///
     /// This is required in documents parsed with XML parsers, and optional in text/html documents.
     static member inline xmlns (value: string) = Interop.mkAttr "xmlns" value
 
@@ -1218,33 +1221,33 @@ type prop =
     /// SVG attribute to define a y-axis coordinate in the user coordinate system.
     static member inline y (value: int) = Interop.mkAttr "y" value
 
-    /// The y1 attribute is used to specify the first y-coordinate for drawing an SVG element that requires 
+    /// The y1 attribute is used to specify the first y-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the y attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline y1 (value: float) = Interop.mkAttr "y1" value
-    /// The y1 attribute is used to specify the first y-coordinate for drawing an SVG element that requires 
+    /// The y1 attribute is used to specify the first y-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the y attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline y1 (value: ICssUnit) = Interop.mkAttr "y1" value
-    /// The y1 attribute is used to specify the first y-coordinate for drawing an SVG element that requires 
+    /// The y1 attribute is used to specify the first y-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the y attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline y1 (value: int) = Interop.mkAttr "y1" value
 
-    /// The y2 attribute is used to specify the second y-coordinate for drawing an SVG element that requires 
+    /// The y2 attribute is used to specify the second y-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the y attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline y2 (value: float) = Interop.mkAttr "y2" value
-    /// The y2 attribute is used to specify the second y-coordinate for drawing an SVG element that requires 
+    /// The y2 attribute is used to specify the second y-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the y attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
     static member inline y2 (value: ICssUnit) = Interop.mkAttr "y2" value
-    /// The y2 attribute is used to specify the second y-coordinate for drawing an SVG element that requires 
+    /// The y2 attribute is used to specify the second y-coordinate for drawing an SVG element that requires
     /// more than one coordinate. Elements that only need one coordinate use the y attribute instead.
     ///
     /// Two elements are using this attribute: <line>, and <linearGradient>
@@ -1373,7 +1376,7 @@ module prop =
         /// DOM.
         static member inline removals = Interop.mkAttr "aria-relevant" "removals"
         /// Text is added to any DOM descendant nodes of the live region.
-        static member inline text = Interop.mkAttr "aria-relevant" "text"    
+        static member inline text = Interop.mkAttr "aria-relevant" "text"
 
     /// Indicates if items in a table or grid are sorted in ascending or
     /// descending order.
@@ -1391,9 +1394,9 @@ module prop =
         /// applied.
         static member inline other = Interop.mkAttr "aria-sort" "other"
 
-    /// This attribute is only used when rel="preload" or rel="prefetch" has been set on the <link> element. 
-    /// It specifies the type of content being loaded by the <link>, which is necessary for request matching, 
-    /// application of correct content security policy, and setting of correct Accept request header. 
+    /// This attribute is only used when rel="preload" or rel="prefetch" has been set on the <link> element.
+    /// It specifies the type of content being loaded by the <link>, which is necessary for request matching,
+    /// application of correct content security policy, and setting of correct Accept request header.
     /// Furthermore, rel="preload" uses this as a signal for request prioritization.
     [<Erase>]
     type as' =
@@ -1409,7 +1412,7 @@ module prop =
         static member inline fetch = Interop.mkAttr "as" "fetch"
         /// Applies to CSS @font-face.
         static member inline font = Interop.mkAttr "as" "font"
-        /// Applies to <img> and <picture> elements with srcset or imageset attributes, 
+        /// Applies to <img> and <picture> elements with srcset or imageset attributes,
         /// SVG <image> elements, and CSS *-image rules.
         static member inline image = Interop.mkAttr "as" "image"
         /// Applies to <object> elements.
@@ -1436,24 +1439,24 @@ module prop =
         /// The first letter of each word defaults to a capital letter; all other letters default to lowercase
         static member inline words = Interop.mkAttr "autoCapitalize" "words"
 
-    /// A set of values specifying the coordinates of the hot-spot region. 
+    /// A set of values specifying the coordinates of the hot-spot region.
     ///
     /// The number and meaning of the values depend upon the value specified for the shape attribute
     [<Erase>]
     type coords =
-        static member inline rect (left: int, top: int, right: int, bottom: int) = 
-            Interop.mkAttr "coords" 
+        static member inline rect (left: int, top: int, right: int, bottom: int) =
+            Interop.mkAttr "coords"
                 ((unbox<string> left) + "," +
                  (unbox<string> top) + "," +
                  (unbox<string> right) + "," +
                  (unbox<string> bottom))
         static member inline circle (x: int, y: int, r: int) =
-            Interop.mkAttr "coords" 
+            Interop.mkAttr "coords"
                 ((unbox<string> x) + "," +
                  (unbox<string> y) + "," +
                  (unbox<string> r))
         static member inline poly (x1: int, y1: int, x2: int, y2: int, x3: int, y3: int) =
-            Interop.mkAttr "coords" 
+            Interop.mkAttr "coords"
                 ((unbox<string> x1) + "," +
                  (unbox<string> y1) + "," +
                  (unbox<string> x2) + "," +
@@ -1464,14 +1467,14 @@ module prop =
     /// Indicates whether CORS must be used when fetching the resource.
     [<Erase>]
     type crossOrigin =
-        /// A cross-origin request (i.e. with an Origin HTTP header) is performed, but no credential 
-        /// is sent (i.e. no cookie, X.509 certificate, or HTTP Basic authentication). If the server 
-        /// does not give credentials to the origin site (by not setting the Access-Control-Allow-Origin 
+        /// A cross-origin request (i.e. with an Origin HTTP header) is performed, but no credential
+        /// is sent (i.e. no cookie, X.509 certificate, or HTTP Basic authentication). If the server
+        /// does not give credentials to the origin site (by not setting the Access-Control-Allow-Origin
         /// HTTP header) the resource will be tainted and its usage restricted.
         static member inline anonymous = Interop.mkAttr "crossorigin" "anonymous"
-        /// A cross-origin request (i.e. with an Origin HTTP header) is performed along with a credential 
-        /// sent (i.e. a cookie, certificate, and/or HTTP Basic authentication is performed). If the server 
-        /// does not give credentials to the origin site (through Access-Control-Allow-Credentials HTTP 
+        /// A cross-origin request (i.e. with an Origin HTTP header) is performed along with a credential
+        /// sent (i.e. a cookie, certificate, and/or HTTP Basic authentication is performed). If the server
+        /// does not give credentials to the origin site (through Access-Control-Allow-Credentials HTTP
         /// header), the resource will be tainted and its usage restricted.
         static member inline useCredentials = Interop.mkAttr "crossorigin" "use-credentials"
 
@@ -1484,67 +1487,67 @@ module prop =
         static member inline ltr = Interop.mkAttr "dir" "ltr"
         /// Right to left - for languages that are written from right to left.
         static member inline rtl = Interop.mkAttr "dir" "rtl"
-    
+
     /// The `dominantBaseline` attribute specifies the dominant baseline, which is the baseline used to align the box’s text
-    /// and inline-level contents. It also indicates the default alignment baseline of any boxes participating in baseline 
-    /// alignment in the box’s alignment context. It is used to determine or re-determine a scaled-baseline-table. A 
-    /// scaled-baseline-table is a compound value with three components: a baseline-identifier for the dominant-baseline, a 
-    /// baseline-table and a baseline-table font-size. Some values of the property re-determine all three values; other only 
-    /// re-establish the baseline-table font-size. When the initial value, auto, would give an undesired result, this property 
+    /// and inline-level contents. It also indicates the default alignment baseline of any boxes participating in baseline
+    /// alignment in the box’s alignment context. It is used to determine or re-determine a scaled-baseline-table. A
+    /// scaled-baseline-table is a compound value with three components: a baseline-identifier for the dominant-baseline, a
+    /// baseline-table and a baseline-table font-size. Some values of the property re-determine all three values; other only
+    /// re-establish the baseline-table font-size. When the initial value, auto, would give an undesired result, this property
     /// can be used to explicitly set the desired scaled-baseline-table.
-    /// If there is no baseline table in the nominal font or if the baseline table lacks an entry for the desired baseline, 
+    /// If there is no baseline table in the nominal font or if the baseline table lacks an entry for the desired baseline,
     /// then the browser may use heuristics to determine the position of the desired baseline.
     [<Erase>]
     type dominantBaseline =
-        /// The baseline-identifier for the dominant-baseline is set to be alphabetic, the derived baseline-table is constructed 
-        /// using the alphabetic baseline-table in the font, and the baseline-table font-size is changed to the value of the 
+        /// The baseline-identifier for the dominant-baseline is set to be alphabetic, the derived baseline-table is constructed
+        /// using the alphabetic baseline-table in the font, and the baseline-table font-size is changed to the value of the
         /// font-size attribute on this element.
         static member inline alphabetic = Interop.mkAttr "dominantBaseline" "alphabetic"
         /// If this property occurs on a <text> element, then the computed value depends on the value of the writing-mode attribute.
         ///
-        /// If the writing-mode is horizontal, then the value of the dominant-baseline component is alphabetic, else if the writing-mode 
-        /// is vertical, then the value of the dominant-baseline component is central. 
+        /// If the writing-mode is horizontal, then the value of the dominant-baseline component is alphabetic, else if the writing-mode
+        /// is vertical, then the value of the dominant-baseline component is central.
         ///
-        /// If this property occurs on a <tspan>, <tref>, 
-        /// <altGlyph> or <textPath> element, then the dominant-baseline and the baseline-table components remain the same as those of 
-        /// the parent text content element. 
+        /// If this property occurs on a <tspan>, <tref>,
+        /// <altGlyph> or <textPath> element, then the dominant-baseline and the baseline-table components remain the same as those of
+        /// the parent text content element.
         ///
-        /// If the computed baseline-shift value actually shifts the baseline, then the baseline-table 
-        /// font-size component is set to the value of the font-size attribute on the element on which the dominant-baseline attribute 
-        /// occurs, otherwise the baseline-table font-size remains the same as that of the element. 
+        /// If the computed baseline-shift value actually shifts the baseline, then the baseline-table
+        /// font-size component is set to the value of the font-size attribute on the element on which the dominant-baseline attribute
+        /// occurs, otherwise the baseline-table font-size remains the same as that of the element.
         ///
-        /// If there is no parent text content 
+        /// If there is no parent text content
         /// element, the scaled-baseline-table value is constructed as above for <text> elements.
         static member inline auto = Interop.mkAttr "dominantBaseline" "auto"
-        /// The baseline-identifier for the dominant-baseline is set to be central. The derived baseline-table is constructed from the 
-        /// defined baselines in a baseline-table in the font. That font baseline-table is chosen using the following priority order of 
-        /// baseline-table names: ideographic, alphabetic, hanging, mathematical. The baseline-table font-size is changed to the value 
+        /// The baseline-identifier for the dominant-baseline is set to be central. The derived baseline-table is constructed from the
+        /// defined baselines in a baseline-table in the font. That font baseline-table is chosen using the following priority order of
+        /// baseline-table names: ideographic, alphabetic, hanging, mathematical. The baseline-table font-size is changed to the value
         /// of the font-size attribute on this element.
         static member inline central = Interop.mkAttr "dominantBaseline" "central"
-        /// The baseline-identifier for the dominant-baseline is set to be hanging, the derived baseline-table is constructed using the 
-        /// hanging baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size attribute on 
+        /// The baseline-identifier for the dominant-baseline is set to be hanging, the derived baseline-table is constructed using the
+        /// hanging baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size attribute on
         /// this element.
         static member inline hanging = Interop.mkAttr "dominantBaseline" "hanging"
-        /// The baseline-identifier for the dominant-baseline is set to be ideographic, the derived baseline-table is constructed using 
-        /// the ideographic baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size 
+        /// The baseline-identifier for the dominant-baseline is set to be ideographic, the derived baseline-table is constructed using
+        /// the ideographic baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size
         /// attribute on this element.
         static member inline ideographic = Interop.mkAttr "dominantBaseline" "ideographic"
-        /// The baseline-identifier for the dominant-baseline is set to be mathematical, the derived baseline-table is constructed using 
-        /// the mathematical baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size 
+        /// The baseline-identifier for the dominant-baseline is set to be mathematical, the derived baseline-table is constructed using
+        /// the mathematical baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size
         /// attribute on this element.
         static member inline mathematical = Interop.mkAttr "dominantBaseline" "mathematical"
-        /// The baseline-identifier for the dominant-baseline is set to be middle. The derived baseline-table is constructed from the 
-        /// defined baselines in a baseline-table in the font. That font baseline-table is chosen using the following priority order 
-        /// of baseline-table names: alphabetic, ideographic, hanging, mathematical. The baseline-table font-size is changed to the value 
+        /// The baseline-identifier for the dominant-baseline is set to be middle. The derived baseline-table is constructed from the
+        /// defined baselines in a baseline-table in the font. That font baseline-table is chosen using the following priority order
+        /// of baseline-table names: alphabetic, ideographic, hanging, mathematical. The baseline-table font-size is changed to the value
         /// of the font-size attribute on this element.
         static member inline middle = Interop.mkAttr "dominantBaseline" "middle"
-        /// The baseline-identifier for the dominant-baseline is set to be text-after-edge. The derived baseline-table is constructed 
-        /// from the defined baselines in a baseline-table in the font. The choice of which font baseline-table to use from the 
-        /// baseline-tables in the font is browser dependent. The baseline-table font-size is changed to the value of the font-size 
+        /// The baseline-identifier for the dominant-baseline is set to be text-after-edge. The derived baseline-table is constructed
+        /// from the defined baselines in a baseline-table in the font. The choice of which font baseline-table to use from the
+        /// baseline-tables in the font is browser dependent. The baseline-table font-size is changed to the value of the font-size
         /// attribute on this element.
         static member inline textAfterEdge = Interop.mkAttr "dominantBaseline" "text-after-edge"
-        /// The baseline-identifier for the dominant-baseline is set to be text-before-edge. The derived baseline-table is constructed 
-        /// from the defined baselines in a baseline-table in the font. The choice of which baseline-table to use from the baseline-tables 
+        /// The baseline-identifier for the dominant-baseline is set to be text-before-edge. The derived baseline-table is constructed
+        /// from the defined baselines in a baseline-table in the font. The choice of which baseline-table to use from the baseline-tables
         /// in the font is browser dependent. The baseline-table font-size is changed to the value of the font-size attribute on this element.
         static member inline textBeforeEdge = Interop.mkAttr "dominantBaseline" "text-before-edge"
         /// This value uses the top of the em box as the baseline.
@@ -1564,15 +1567,15 @@ module prop =
     /// How the text track is meant to be used.
     [<Erase>]
     type kind =
-        /// Subtitles provide translation of content that cannot be understood by the viewer. For example dialogue 
+        /// Subtitles provide translation of content that cannot be understood by the viewer. For example dialogue
         /// or text that is not English in an English language film.
         ///
-        /// Subtitles may contain additional content, usually extra background information. For example the text 
+        /// Subtitles may contain additional content, usually extra background information. For example the text
         /// at the beginning of the Star Wars films, or the date, time, and location of a scene.
         static member inline subtitles = Interop.mkAttr "kind" "subtitles"
         /// Closed captions provide a transcription and possibly a translation of audio.
         ///
-        /// It may include important non-verbal information such as music cues or sound effects. 
+        /// It may include important non-verbal information such as music cues or sound effects.
         /// It may indicate the cue's source (e.g. music, text, character).
         ///
         /// Suitable for users who are deaf or when the sound is muted.
@@ -1586,7 +1589,7 @@ module prop =
         /// Tracks used by scripts. Not visible to the user.
         static member inline metadata = Interop.mkAttr "kind" "metadata"
 
-    /// Provide a hint to the browser about what the author thinks will lead to the best user experience with regards 
+    /// Provide a hint to the browser about what the author thinks will lead to the best user experience with regards
     /// to what content is loaded before the video is played.
     [<Erase>]
     type preload =
@@ -1606,18 +1609,18 @@ module prop =
         static member inline noReferrerWhenDowngrade = Interop.mkAttr "referrerpolicy" "no-referrer-when-downgrade"
         /// The sent referrer will be limited to the origin of the referring page: its scheme, host, and port.
         static member inline origin = Interop.mkAttr "referrerpolicy" "origin"
-        /// The referrer sent to other origins will be limited to the scheme, the host, and the port. 
+        /// The referrer sent to other origins will be limited to the scheme, the host, and the port.
         /// Navigations on the same origin will still include the path.
         static member inline originWhenCrossOrigin = Interop.mkAttr "referrerpolicy" "origin-when-cross-origin"
         /// A referrer will be sent for same origin, but cross-origin requests will contain no referrer information.
         static member inline sameOrigin = Interop.mkAttr "referrerpolicy" "same-origin"
-        /// Only send the origin of the document as the referrer when the protocol security level stays the same 
+        /// Only send the origin of the document as the referrer when the protocol security level stays the same
         /// (e.g. HTTPS→HTTPS), but don't send it to a less secure destination (e.g. HTTPS→HTTP).
         static member inline strictOrigin = Interop.mkAttr "referrerpolicy" "strict-origin"
-        /// Send a full URL when performing a same-origin request, but only send the origin when the protocol security 
+        /// Send a full URL when performing a same-origin request, but only send the origin when the protocol security
         /// level stays the same (e.g.HTTPS→HTTPS), and send no header to a less secure destination (e.g. HTTPS→HTTP).
         static member inline strictOriginWhenCrossOrigin = Interop.mkAttr "referrerpolicy" "strict-origin-when-cross-origin"
-        /// The referrer will include the origin and the path (but not the fragment, password, or username). This value is unsafe, 
+        /// The referrer will include the origin and the path (but not the fragment, password, or username). This value is unsafe,
         /// because it leaks origins and paths from TLS-protected resources to insecure origins.
         static member inline unsafeUrl = Interop.mkAttr "referrerpolicy" "unsafe-url"
 
@@ -1923,7 +1926,7 @@ module prop =
         /// `treeitem` elements.
         ///
         /// https://www.w3.org/WAI/PF/aria-1.1/roles#treeitem
-        static member inline treeItem = Interop.mkAttr "role" "treeitem"        
+        static member inline treeItem = Interop.mkAttr "role" "treeitem"
 
     [<Erase>]
     type selectionDirection =
@@ -1951,7 +1954,7 @@ module prop =
         static member inline self = Interop.mkAttr "target" "_self"
         /// Opens the linked document in the full body of the window.
         static member inline top = Interop.mkAttr "target" "_top"
-    
+
     /// The `text-anchor` attribute is used to align (start-, middle- or
     /// end-alignment) a string of pre-formatted text or auto-wrapped text where
     /// the wrapping area is determined from the `inline-size` property relative
