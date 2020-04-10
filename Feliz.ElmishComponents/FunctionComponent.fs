@@ -2,7 +2,6 @@ namespace Feliz.ElmishComponents
 
 open Feliz
 open Elmish
-open Microsoft.FSharp.Reflection
 open Fable.Core
 open System.ComponentModel
 
@@ -59,12 +58,10 @@ type ElmishComponentProps<'State, 'Msg> =
 [<AutoOpen>]
 module FuncComponent =
     [<EditorBrowsable(EditorBrowsableState.Never)>]
-    let inline getDisposables (record: 'State) = 
-        FSharpType.GetRecordFields(record.GetType()) 
-        |> Array.choose (fun field -> 
-            match FSharpValue.GetRecordField(record,field) with
-            | :? System.IDisposable as disposable -> Some disposable
-            | _ -> None)
+    let inline getDisposable (record: 'State) = 
+        match box record with
+        | :? System.IDisposable as disposable -> Some disposable
+        | _ -> None
 
     [<EditorBrowsable(EditorBrowsableState.Never)>]
     let inline elmishComponent<'State,'Msg> = React.memo(fun (input: ElmishComponentProps<'State,'Msg>) ->
@@ -103,8 +100,8 @@ module FuncComponent =
         React.useEffectOnce(fun () ->
             React.createDisposable <| fun () ->
                 token.current.Cancel()
-                getDisposables state.current
-                |> Array.iter(fun o -> o.Dispose())
+                getDisposable state.current
+                |> Option.iter (fun o -> o.Dispose())
                 token.current.Dispose())
 
         React.useEffectOnce(fun () ->
