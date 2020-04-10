@@ -105,18 +105,13 @@ module FuncComponent =
                 token.current.Cancel()
                 getDisposables state.current
                 |> Array.iter(fun o -> o.Dispose())
-                token.current.Dispose()
-        )
+                token.current.Dispose())
 
         React.useEffectOnce(fun () ->
             snd input.Initial
-            |> List.iter (fun sub -> sub dispatch)
-        )
-
-        React.useEffect(fun () -> 
-            match ring.current.Pop() with
-            | Some sub -> dispatch sub
-            | None -> ())
+            |> List.iter (fun sub -> sub dispatch))
+            
+        React.useEffect(fun () -> ring.current.Pop() |> Option.iter dispatch)
 
         input.Render childState dispatch)
 
