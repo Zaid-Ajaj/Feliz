@@ -56,7 +56,7 @@ type ElmishComponentProps<'State, 'Msg> =
       key : string }
 
 [<AutoOpen>]
-module FuncComponent =
+module ElmishComponentExtensions =
     [<EditorBrowsable(EditorBrowsableState.Never)>]
     let inline getDisposable (record: 'State) = 
         match box record with
