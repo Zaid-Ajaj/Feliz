@@ -105,6 +105,7 @@ module FuncComponent =
                 token.current.Cancel()
                 getDisposables state.current
                 |> Array.iter(fun o -> o.Dispose())
+                token.current.Dispose()
         )
 
         React.useEffectOnce(fun () ->
