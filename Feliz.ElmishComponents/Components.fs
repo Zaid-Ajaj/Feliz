@@ -2,52 +2,115 @@ namespace Feliz.ElmishComponents
 
 open Feliz
 open Elmish
-open System
 open Fable.Core
+open System.ComponentModel
 
-type ElmishComponentProps<'State, 'Msg> = {
-    Initial : 'State * Cmd<'Msg>
-    Update : 'Msg -> 'State -> 'State * Cmd<'Msg>
-    Render : 'State -> ('Msg -> unit) -> ReactElement
-    key : string
-}
+[<Struct>]
+type internal RingState<'item> =
+    | Writable of wx:'item array * ix:int
+    | ReadWritable of rw:'item array * wix:int * rix:int
 
-/// A React component that implements an internal Elmish dispatch loop using the program parts of `init`, `update` and `render`.
-type ElmishComponent<'State, 'Msg>(props: ElmishComponentProps<'State, 'Msg>) as this =
-    inherit Fable.React.Component<ElmishComponentProps<'State, 'Msg>, 'State>(props)
-    let mutable mounted = false
+type internal RingBuffer<'item>(size) =
+    let doubleSize ix (items: 'item array) =
+        seq { yield! items |> Seq.skip ix
+              yield! items |> Seq.take ix
+              for _ in 0..items.Length do
+                yield Unchecked.defaultof<'item> }
+        |> Array.ofSeq
 
-    do
-        let initialState = fst this.props.Initial
-        this.setInitState(initialState)
+    let mutable state : 'item RingState =
+        Writable (Array.zeroCreate (max size 10), 0)
 
-    override this.componentDidMount() =
-        mounted <- true
-        let initialEffect = snd this.props.Initial
-        for subscriber in initialEffect do
-            JS.setTimeout (fun _ -> subscriber(this.dispatch)) 0 |> ignore
+    member _.Pop() =
+        match state with
+        | ReadWritable (items, wix, rix) ->
+            let rix' = (rix + 1) % items.Length
+            match rix' = wix with
+            | true -> 
+                state <- Writable(items, wix)
+            | _ ->
+                state <- ReadWritable(items, wix, rix')
+            Some items.[rix]
+        | _ ->
+            None
 
-    override this.componentDidUpdate(prevProps, prevState) =
-        // if props changed reference, re-execute `init` from the program definition
-        if not (System.Object.ReferenceEquals(prevProps, this.props)) then
-            let initialEffect = snd this.props.Initial
-            for subscriber in initialEffect do
-                JS.setTimeout (fun _ -> subscriber(this.dispatch)) 0 |> ignore
+    member _.Push (item:'item) =
+        match state with
+        | Writable (items, ix) ->
+            items.[ix] <- item
+            let wix = (ix + 1) % items.Length
+            state <- ReadWritable(items, wix, ix)
+        | ReadWritable (items, wix, rix) ->
+            items.[wix] <- item
+            let wix' = (wix + 1) % items.Length
+            match wix' = rix with
+            | true -> 
+                state <- ReadWritable(items |> doubleSize rix, items.Length, 0)
+            | _ -> 
+                state <- ReadWritable(items, wix', rix)
 
-    override this.componentWillUnmount() =
-        mounted <- false
-
-    member this.dispatch(msg: 'Msg) =
-        let (nextState, nextEffect) = this.props.Update msg this.state
-        if mounted then this.setState(fun _ _ -> nextState)
-        for subscriber in nextEffect do
-            JS.setTimeout (fun _ -> subscriber(this.dispatch)) 0 |> ignore
-
-    override this.render() =
-        this.props.Render this.state this.dispatch
+type ElmishComponentProps<'State, 'Msg> = 
+    { Initial : 'State * Cmd<'Msg>
+      Update : 'Msg -> 'State -> 'State * Cmd<'Msg>
+      Render : 'State -> ('Msg -> unit) -> ReactElement
+      key : string }
 
 [<AutoOpen>]
-module ElmishComponentExtensions =
+module FuncComponent =
+    [<EditorBrowsable(EditorBrowsableState.Never)>]
+    let inline getDisposable (record: 'State) = 
+        match box record with
+        | :? System.IDisposable as disposable -> Some disposable
+        | _ -> None
+
+    [<EditorBrowsable(EditorBrowsableState.Never)>]
+    let inline elmishComponent<'State,'Msg> = React.memo(fun (input: ElmishComponentProps<'State,'Msg>) ->
+        let state = React.useRef(fst input.Initial)
+        let ring = React.useRef(RingBuffer(10))
+        let reentered = React.useRef(false)
+        let childState, setChildState = React.useState(fst input.Initial)
+        let setChildState = 
+            React.useCallback(fun () -> 
+                JS.setTimeout(fun () -> setChildState state.current) 0 
+                |> ignore)
+
+        let token = React.useRef(new System.Threading.CancellationTokenSource())
+    
+        let rec dispatch (msg: 'Msg) =
+            promise {
+                if reentered.current then
+                    ring.current.Push msg
+                else
+                    reentered.current <- false
+                    let mutable nextMsg = Some msg
+
+                    while nextMsg.IsSome && not (token.current.IsCancellationRequested) do
+                        let msg = nextMsg.Value
+                        let (state', cmd') = input.Update msg state.current
+                        cmd' |> List.iter (fun sub -> sub dispatch)
+                        nextMsg <- ring.current.Pop()
+                        state.current <- state'
+                        setChildState()
+                    reentered.current <- false
+            }
+            |> Promise.start
+
+        let dispatch = React.useCallback(dispatch, [| token |])
+
+        React.useEffectOnce(fun () ->
+            React.createDisposable <| fun () ->
+                token.current.Cancel()
+                getDisposable state.current
+                |> Option.iter (fun o -> o.Dispose())
+                token.current.Dispose())
+
+        React.useEffectOnce(fun () ->
+            snd input.Initial
+            |> List.iter (fun sub -> sub dispatch))
+            
+        React.useEffect(fun () -> ring.current.Pop() |> Option.iter dispatch)
+
+        input.Render childState dispatch)
 
     type React with
         /// Creates a standalone React component using an Elmish dispatch loop
@@ -56,9 +119,8 @@ module ElmishComponentExtensions =
                 match key with
                 | None -> name
                 | Some key -> name + "-" + key
-            Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
-                { Initial = init; Update = update; Render = render; key = fullKey }
-                [ ]
+
+            elmishComponent { Initial = init; Update = update; Render = render; key = fullKey }
 
         /// Creates a standalone React component using an Elmish dispatch loop
         static member inline elmishComponent(name, init, update, render, ?key) =
@@ -66,32 +128,31 @@ module ElmishComponentExtensions =
                 match key with
                 | None -> name
                 | Some key -> name + "-" + key
-            Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
-                { Initial = init, Cmd.none; Update = update; Render = render; key = fullKey }
-                [ ]
 
+            elmishComponent { Initial = init, Cmd.none; Update = update; Render = render; key = fullKey }
+    
         /// Creates a standalone React component using an Elmish dispatch loop
         static member inline elmishComponent(name, init, update, render, ?key) =
             let fullKey =
                 match key with
                 | None -> name
                 | Some key -> name + "-" + key
-            Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
+
+            elmishComponent
                 { Initial = init, Cmd.none;
                   Update = fun msg state -> update msg state, Cmd.none;
                   Render = render
                   key = fullKey }
-                [ ]
-
+    
         /// Creates a standalone React component using an Elmish dispatch loop
         static member inline elmishComponent(name, init, update, render, ?key) =
             let fullKey =
                 match key with
                 | None -> name
                 | Some key -> name + "-" + key
-            Fable.React.Helpers.ofType<ElmishComponent<_, _>, _, _>
+
+            elmishComponent
                 { Initial = init;
                   Update = fun msg state -> update msg state, Cmd.none;
                   Render = render
                   key = fullKey }
-                [ ]

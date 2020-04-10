@@ -153,3 +153,60 @@ open Browser.Dom
 
 ReactDOM.render(application, document.getElementById "feliz-app")
 ```
+
+### Disposable Resources
+
+You can implement `System.IDisposable` on your `State` when using resources
+that need to be cleaned up before your component unmounts.
+
+You can see in this example if you load the component and then unload it
+your web console will have the message "I was disposed!"
+
+```fsharp:elmish-components-dispose
+module App
+
+open Elmish
+open Feliz
+open Feliz.ElmishComponents
+
+type State =
+    { Count: int }
+
+    interface System.IDisposable with
+        member _.Dispose () = JS.console.log("I was disposed!")
+
+type Msg =
+    | Increment
+    | Decrement
+
+let init : State * Cmd<Msg> = { Count = 0 }, Cmd.none
+
+let update (msg: Msg) (state: State) : State * Cmd<Msg> =
+    match msg with
+    | Increment ->
+        { state with Count = state.Count + 1 }, Cmd.ofSub (fun dispatch -> printfn "Increment")
+
+    | Decrement ->
+        { state with Count = state.Count - 1 }, Cmd.ofSub (fun dispatch -> printfn "Decrement")
+
+let render state dispatch =
+    Html.div [
+        Html.button [
+            prop.onClick (fun _ -> dispatch Increment)
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.onClick (fun _ -> dispatch Decrement)
+            prop.text "Decrement"
+        ]
+
+        Html.h1 state.Count
+    ]
+
+let application = React.elmishComponent("CounterWithDispose", init, update, render)
+
+open Browser.Dom
+
+ReactDOM.render(application, document.getElementById "feliz-app")
+```

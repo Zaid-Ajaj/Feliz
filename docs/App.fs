@@ -614,6 +614,7 @@ let samples = [
     "pigeonmaps-map-stamenterrain", Samples.PigeonMaps.CustomProviders.pigeonMap
     "popover-basic-sample", Samples.Popover.Basic.sample
     "elmish-components-counter", Samples.ElmishComponents.application
+    "elmish-components-dispose", Samples.ElmishComponents.WithDispose.application
     "focus-input-example", focusInputExample()
 ]
 
