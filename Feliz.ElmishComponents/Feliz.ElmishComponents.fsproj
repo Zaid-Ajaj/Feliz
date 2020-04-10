@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Description>Elmish components as React elements without the boilerplate based on the Feliz API</Description>
         <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
@@ -13,6 +13,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Components.fs" />
+        <Compile Include="FunctionComponent.fs" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Feliz\Feliz.fsproj" />
@@ -21,6 +22,7 @@
         <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Fable.Promise" Version="2.0.0" />
         <PackageReference Include="Fable.Elmish" Version="3.0.6" />
     </ItemGroup>
 </Project>
