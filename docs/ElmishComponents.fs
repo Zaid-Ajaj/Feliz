@@ -77,6 +77,71 @@ let render state dispatch =
 
 let application = React.elmishComponent("Counter", init, update, render)
 
+module WithDispose =
+    open Fable.Core
+    open Zanaptak.TypedCssClasses
+
+    type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
+    type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
+
+    let disposableComponent = React.functionComponent (fun (props: {| load: unit -> ReactElement |}) ->
+        let (started, setStarted) = React.useState(false)
+        Html.div [
+            Html.button [
+                prop.className [ Bulma.Button; Bulma.IsPrimary; Bulma.IsLarge ]
+                if not started then prop.onClick (fun _ -> setStarted(true))
+                else prop.onClick (fun _ -> setStarted(false))
+                prop.children [
+                    Html.i [ prop.className [ "fa"; "fa-rocket" ] ]
+                    Html.span [
+                        prop.style [ style.marginLeft 10 ]
+                        if not started then prop.text "Run Sample"
+                        else prop.text "Unmount Sample"
+                    ]
+                ]
+            ]
+    
+            if started then props.load()
+        ])
+
+    type State = 
+        { Count: int }
+
+        interface System.IDisposable with
+            member _.Dispose () = JS.console.log("I was disposed!")
+    
+    type Msg =
+        | Increment
+        | Decrement
+    
+    let init : State * Cmd<Msg> = { Count = 0 }, Cmd.none
+    
+    let update (msg: Msg) (state: State) : State * Cmd<Msg> =
+        match msg with
+        | Increment ->
+            { state with Count = state.Count + 1 }, Cmd.ofSub (fun dispatch -> printfn "Increment")
+    
+        | Decrement ->
+            { state with Count = state.Count - 1 }, Cmd.ofSub (fun dispatch -> printfn "Decrement")
+        
+    let render state dispatch =
+        Html.div [
+            Html.button [
+                prop.onClick (fun _ -> dispatch Increment)
+                prop.text "Increment"
+            ]
+    
+            Html.button [
+                prop.onClick (fun _ -> dispatch Decrement)
+                prop.text "Decrement"
+            ]
+    
+            Html.h1 state.Count
+        ]
+    
+    let example () = React.elmishComponent("CounterWithDispose", init, update, render)
+
+    let application = disposableComponent {| load = example |}
 
 module ReplacementTests =
     type Counter = { Count : int; Title: string }
