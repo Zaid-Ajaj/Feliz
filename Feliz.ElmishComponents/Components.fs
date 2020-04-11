@@ -57,14 +57,13 @@ type ElmishComponentProps<'State, 'Msg> =
 
 [<AutoOpen>]
 module ElmishComponentExtensions =
-    [<EditorBrowsable(EditorBrowsableState.Never)>]
-    let inline getDisposable (record: 'State) = 
+    let inline internal getDisposable (record: 'State) = 
         match box record with
         | :? System.IDisposable as disposable -> Some disposable
         | _ -> None
 
     [<EditorBrowsable(EditorBrowsableState.Never)>]
-    let inline elmishComponent<'State,'Msg> = React.memo(fun (input: ElmishComponentProps<'State,'Msg>) ->
+    let elmishComponent<'State,'Msg> = React.memo(fun (input: ElmishComponentProps<'State,'Msg>) ->
         let state = React.useRef(fst input.Initial)
         let ring = React.useRef(RingBuffer(10))
         let reentered = React.useRef(false)
