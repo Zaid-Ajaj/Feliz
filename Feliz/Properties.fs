@@ -1088,7 +1088,7 @@ type prop =
 
     /// The `tabindex` global attribute indicates that its element can be focused,
     /// and where it participates in sequential keyboard navigation (usually with the Tab key, hence the name).
-    static member inline tabIndex (index: int) = Interop.mkAttr "tabindex" index
+    static member inline tabIndex (index: int) = Interop.mkAttr "tabIndex" index
 
     /// Controls browser behavior when opening a link.
     static member inline target (frameName: string) = Interop.mkAttr "target" frameName
