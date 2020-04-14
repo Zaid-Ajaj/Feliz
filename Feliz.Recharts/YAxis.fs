@@ -6,14 +6,14 @@ open Fable.Core.JsInterop
 
 [<Erase>]
 type yAxis =
-    /// The key of data displayed in the axis.
+    /// The key of data displayed in the y-axis.
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
-    /// The key of data displayed in the axis.
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" f
-    /// The key of data displayed in the axis.
-    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f 
-    /// The key of data displayed in the axis.
+    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f
     static member inline dataKey (f: 'a -> float) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> string option) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> int option) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> float option) = Interop.mkAttr "dataKey" f
     /// If set true, the axis do not display in the chart.
     static member inline hide (value: bool) = Interop.mkAttr "hide" value
     /// The unique id of y-axis.
@@ -58,3 +58,21 @@ module yAxis =
         static member inline preserveStart = Interop.mkAttr "interval" "preserveStart"
         static member inline preserveEnd = Interop.mkAttr "interval" "preserveEnd"
         static member inline preserveStartEnd = Interop.mkAttr "interval" "preserveStartEnd"
+
+    [<Erase>]
+    type scale =
+        static member inline auto = Interop.mkAttr "scale" "auto"
+        static member inline linear = Interop.mkAttr "scale" "linear"
+        static member inline pow = Interop.mkAttr "scale" "pow"
+        static member inline sqrt = Interop.mkAttr "scale" "sqrt"
+        static member inline log = Interop.mkAttr "scale" "log"
+        static member inline identity = Interop.mkAttr "scale" "identity"
+        static member inline time = Interop.mkAttr "scale" "time"
+        static member inline band = Interop.mkAttr "scale" "band"
+        static member inline point = Interop.mkAttr "scale" "point"
+        static member inline ordinal = Interop.mkAttr "scale" "ordinal"
+        static member inline quantile = Interop.mkAttr "scale" "quantile"
+        static member inline quantize = Interop.mkAttr "scale" "quantize"
+        static member inline utc = Interop.mkAttr "scale" "utc"
+        static member inline sequential = Interop.mkAttr "scale" "sequential"
+        static member inline threshold = Interop.mkAttr "scale" "threshold"

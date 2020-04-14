@@ -591,6 +591,7 @@ let samples = [
     "recharts-area-simpleareachart", Samples.Recharts.AreaCharts.SimpleAreaChart.chart()
     "recharts-area-stackedareachart", Samples.Recharts.AreaCharts.StackedAreaChart.chart()
     "recharts-area-tinyareachart", Samples.Recharts.AreaCharts.TinyAreaChart.chart()
+    "recharts-area-optionalvalues", Samples.Recharts.AreaCharts.OptionalValues.chart()
     "recharts-area-synchronized", Samples.Recharts.AreaCharts.SynchronizedAreaChart.chart()
     "recharts-area-fillbyvalue", Samples.Recharts.AreaCharts.AreaChartFillByValue.chart()
     "recharts-line-simplelinechart", Samples.Recharts.LineCharts.SimpleLineChart.chart()
@@ -601,6 +602,7 @@ let samples = [
     "recharts-bar-mixbarchart", Samples.Recharts.BarCharts.MixBarChart.chart()
     "recharts-bar-tinybarchart", Samples.Recharts.BarCharts.TinyBarChart.chart()
     "recharts-line-customizedlabellinechart", Samples.Recharts.LineCharts.CustomizedLabelLineChart.chart()
+    "recharts-line-optionalvalues", Samples.Recharts.LineCharts.OptionalValues.chart()
     "recharts-bar-positiveandnagative", Samples.Recharts.BarCharts.PostiveAndNegative.chart()
     "recharts-line-biaxial", Samples.Recharts.LineCharts.BiaxialLineChart.chart()
     "recharts-pie-twolevel", Samples.Recharts.PieCharts.TwoLevelPieChart.chart()
@@ -860,6 +862,7 @@ let sidebar (state: State) dispatch =
                     menuItem "Simple Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ]
                     menuItem "Responsive Full Width" [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ]
                     menuItem "Customized Label" [ Urls.Recharts; Urls.LineCharts; Urls.CustomizedLabelLineChart ]
+                    menuItem "Optional Values" [ Urls.Recharts; Urls.LineCharts; Urls.LineChartOptionalValues ]
                     menuItem "Biaxial Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ]
                 ]
 
@@ -876,6 +879,7 @@ let sidebar (state: State) dispatch =
                     menuItem "Stacked Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.StackedAreaChart ]
                     menuItem "Tiny Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.TinyAreaChart ]
                     menuItem "Responsive Full Width" [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ]
+                    menuItem "Optional Values" [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartOptionalValues ]
                     menuItem "Synchronized Charts" [ Urls.Recharts; Urls.AreaCharts; Urls.SynchronizedAreaChart ]
                     menuItem "AreaChartFillByValue" [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartFillByValue ]
                 ]
@@ -985,7 +989,9 @@ let content state dispatch =
     | [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "SimpleLineChart.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "LineCharts"; "ResponsiveFullWidth.md" ]
     | [ Urls.Recharts; Urls.LineCharts; Urls.CustomizedLabelLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts" ; "CustomizedLabelLineChart.md" ]
+    | [ Urls.Recharts; Urls.LineCharts; Urls.LineChartOptionalValues ] -> loadMarkdown [ "Recharts"; "LineCharts" ; "OptionalValues.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "ResponsiveFullWidth.md" ]
+    | [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartOptionalValues ] -> loadMarkdown [ "Recharts"; "AreaCharts" ; "OptionalValues.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.SynchronizedAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "SynchronizedAreaChart.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartFillByValue ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "AreaChartFillByValue.md" ]
     | [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "SimpleBarChart.md" ]
