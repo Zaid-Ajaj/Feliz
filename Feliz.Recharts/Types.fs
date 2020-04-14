@@ -92,6 +92,24 @@ type ChartMouseEvent<'label, 'payload> =
     abstract chartX : int
     abstract chartY : int
 
+[<StringEnum>]
+type Scale =
+    | Auto
+    | Linear
+    | Pow
+    | Sqrt
+    | Log
+    | Identity
+    | Time
+    | Band
+    | Point
+    | Ordinal
+    | Quantile
+    | Quantize
+    | Utc
+    | Sequential
+    | Threshold
+
 module Interop =
     [<Emit("Object.keys($0)")>]
     let internal objectKeys (x: obj) = jsNative

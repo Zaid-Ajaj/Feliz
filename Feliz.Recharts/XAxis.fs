@@ -6,12 +6,14 @@ open Fable.Core.JsInterop
 
 [<Erase>]
 type xAxis =
-    /// The key of data displayed in the axis.
+    /// The key of data displayed in the x-axis.
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
-    /// The key of data displayed in the axis.
-    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" f 
-    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f 
-    static member inline dataKey (f: 'a -> float) = Interop.mkAttr "dataKey" f 
+    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> float) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> string option) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> int option) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> float option) = Interop.mkAttr "dataKey" f
     /// If set true, the axis do not display in the chart.
     static member inline hide (value: bool) = Interop.mkAttr "hide" value
     /// The unique id of x-axis.
@@ -35,6 +37,7 @@ type xAxis =
     static member inline tickCount (value: int) = Interop.mkAttr "tickCount" value
     static member inline domain (min : IAxisDomain, max: IAxisDomain) = Interop.mkAttr "domain" [| min; max |]
     static member inline interval (value: int) = Interop.mkAttr "interval" value
+    static member scale (value : Scale) = Interop.mkAttr "scale" value
     /// Specify the padding of x-axis. Default is `xAxis.padding(left=0, right=0)`.
     static member inline padding(?top: int, ?right: int, ?left: int, ?bottom: int) =
         let padding = createObj [

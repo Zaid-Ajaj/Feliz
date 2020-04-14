@@ -6,14 +6,14 @@ open Fable.Core.JsInterop
 
 [<Erase>]
 type yAxis =
-    /// The key of data displayed in the axis.
+    /// The key of data displayed in the y-axis.
     static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
-    /// The key of data displayed in the axis.
     static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" f
-    /// The key of data displayed in the axis.
-    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f 
-    /// The key of data displayed in the axis.
+    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f
     static member inline dataKey (f: 'a -> float) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> string option) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> int option) = Interop.mkAttr "dataKey" f
+    static member inline dataKey (f: 'a -> float option) = Interop.mkAttr "dataKey" f
     /// If set true, the axis do not display in the chart.
     static member inline hide (value: bool) = Interop.mkAttr "hide" value
     /// The unique id of y-axis.
@@ -34,6 +34,7 @@ type yAxis =
     static member inline tickCount (value: int) = Interop.mkAttr "tickCount" value
     static member inline domain (min: IAxisDomain, max: IAxisDomain) = Interop.mkAttr "domain" [| min; max |]
     static member inline interval (value: int) = Interop.mkAttr "interval" value
+    static member scale (value : Scale) = Interop.mkAttr "scale" value
     /// Specify the padding of y-axis. Default is `yAxis.padding(top=0, bottom=0)`.
     static member inline padding (?top: int, ?right: int, ?left: int, ?bottom: int) =
         let padding =
