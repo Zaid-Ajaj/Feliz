@@ -845,6 +845,7 @@ let sidebar (state: State) dispatch =
                     menuItem "Feliz.Plotly" [ Urls.Ecosystem; Urls.Plotly ]
                     menuItem "Feliz.Bulma" [ Urls.Ecosystem; Urls.Bulma ]
                     menuItem "Feliz.Popover" [ Urls.Ecosystem; Urls.Popover ]
+                    menuItem "Feliz.ViewEngine" [ Urls.Ecosystem; Urls.ViewEngine ]
                 ]
             ]
 
@@ -981,6 +982,7 @@ let content state dispatch =
     | [ Urls.Ecosystem; Urls.PigeonMaps ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
     | [ Urls.Ecosystem; Urls.Popover ] -> loadMarkdown [ "Popover"; "README.md" ]
     | [ Urls.Ecosystem; Urls.Bulma ] -> loadMarkdown [ readme "Dzoukr" "Feliz.Bulma" ]
+    | [ Urls.Ecosystem; Urls.ViewEngine ] -> loadMarkdown [ readme "dbrattli" "Feliz.ViewEngine" ]
     | [ Urls.Recharts; Urls.Overview ] -> loadMarkdown [ "Recharts"; "README.md" ]
     | [ Urls.Recharts; Urls.Installation ] -> loadMarkdown [ "Recharts"; "Installation.md" ]
     | [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "SimpleAreaChart.md" ]
