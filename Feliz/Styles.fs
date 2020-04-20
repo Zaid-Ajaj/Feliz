@@ -837,7 +837,7 @@ module style =
     type boxShadow =
         static member inline none = Interop.mkStyle "boxShadow" "none"
         /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "boxShadow" "inheritFromParent"
+        static member inline inheritFromParent = Interop.mkStyle "boxShadow" "inherit"
 
     [<Erase>]
     type height =
@@ -931,7 +931,7 @@ module style =
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "whiteSpace" "initial"
         /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "whiteSpace" "inheritFromParent"
+        static member inline inheritFromParent = Interop.mkStyle "whiteSpace" "inherit"
 
     [<Erase>]
     type wordBreak =
@@ -1267,9 +1267,9 @@ module style =
         /// Inherits this property from its parent element.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
-        static member inline inheritFromParent = Interop.mkStyle "listStyleType" "inheritFromParent"
+        static member inline inheritFromParent = Interop.mkStyle "listStyleType" "inherit"
 
-    type listStyleImage = 
+    type listStyleImage =
         /// No image will be displayed. Instead, the list-style-type property will define what type of list marker will be rendered. This is default
         static member inline none = Interop.mkStyle "listStyleImage" "none"
         /// The path to the image to be used as a list-item marker
@@ -1281,10 +1281,10 @@ module style =
         /// Inherits this property from its parent element.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
-        static member inline inheritFromParent = Interop.mkStyle "listStyleImage" "inheritFromParent"
+        static member inline inheritFromParent = Interop.mkStyle "listStyleImage" "inherit"
 
     [<Erase>]
-    type listStylePosition = 
+    type listStylePosition =
         /// The bullet points will be inside the list item
         static member inline inside = Interop.mkStyle "listStylePosition" "inside"
         /// The bullet points will be outside the list item. This is default
@@ -1296,7 +1296,7 @@ module style =
         /// Inherits this property from its parent element.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
-        static member inline inheritFromParent = Interop.mkStyle "listStylePosition" "inheritFromParent"
+        static member inline inheritFromParent = Interop.mkStyle "listStylePosition" "inherit"
 
     [<Erase>]
     type textAlign =
@@ -1323,7 +1323,7 @@ module style =
         /// Inherits this property from its parent element.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
-        static member inline inheritFromParent = Interop.mkStyle "textAlign" "inheritFromParent"
+        static member inline inheritFromParent = Interop.mkStyle "textAlign" "inherit"
 
 
     [<Erase>]
@@ -1622,7 +1622,7 @@ module style =
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "verticalAlign" "initial"
         /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "verticalAlign" "inheritFromParent"
+        static member inline inheritFromParent = Interop.mkStyle "verticalAlign" "inherit"
 
     [<Erase>]
     /// Specifies whether lines of text are laid out horizontally or vertically.
