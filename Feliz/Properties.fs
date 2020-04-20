@@ -952,7 +952,7 @@ type prop =
     /// given, is void.
     ///
     /// Use this attribute only if the href attribute is present.
-    static member inline rel (value: bool) = Interop.mkAttr "rel" value
+    static member inline rel (value: string) = Interop.mkAttr "rel" string
 
     /// Indicates whether this element is required to fill out or not.
     static member inline required (value: bool) = Interop.mkAttr "required" value
