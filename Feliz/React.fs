@@ -23,7 +23,7 @@ type internal Internal() =
             ?name: string,
             ?withKey: 'props -> string
         )
-        : Fable.React.FunctionComponent<'props> =
+        : 'props -> Fable.React.ReactElement =
             name |> Option.iter (fun name -> renderElement?displayName <- name)
             fun props ->
                 let props = props |> propsWithKey withKey
@@ -36,7 +36,7 @@ type internal Internal() =
             ?areEqual: 'props -> 'props -> bool,
             ?withKey: 'props -> string
         )
-        : Fable.React.FunctionComponent<'props> =
+        : 'props -> Fable.React.ReactElement =
             let memoElementType = Interop.reactApi.memo(renderElement, (defaultArg areEqual (unbox null)))
             name |> Option.iter (fun name -> memoElementType?displayName <- name)
             fun props ->
@@ -115,7 +115,7 @@ type React =
     static member useRef(initialValue) = Interop.reactApi.useRef(initialValue)
 
     /// A specialized version of React.useRef() that creates a reference to an input element.
-    /// 
+    ///
     /// Useful for controlling the internal properties and methods that element, for example to enable focus().
     static member useInputRef() : IRefValue<HTMLInputElement option> = React.useRef(None)
 
@@ -123,7 +123,7 @@ type React =
     static member useButtonRef() : IRefValue<HTMLButtonElement option> = React.useRef(None)
 
     /// A specialized version of React.useRef() that creates a reference to a generic HTML element.
-    /// 
+    ///
     /// Useful for controlling the internal properties and methods that element, for integration with third-party libraries that require a Html element.
     static member useElementRef() : IRefValue<HTMLElement option> = React.useRef(None)
 
