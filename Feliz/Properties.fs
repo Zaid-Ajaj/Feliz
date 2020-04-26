@@ -312,21 +312,6 @@ type prop =
 
     /// Specifies a CSS class for this element.
     static member inline className (value: string) = Interop.mkAttr "className" value
-    /// Takes a list of conditional classes (`predicate:bool` * `className:string`), filters out the ones where the
-    /// `predicate` is false and joins the rest of them using a space to combine the classses into a single class property.
-    ///
-    ///`prop.className [ true, "one";  false, "two" ]`
-    ///
-    /// is the same as
-    ///
-    ///`prop.className "one"`
-    ///
-    static member inline className (classes: #seq<bool * string>) =
-        classes
-        |> Seq.filter fst
-        |> Seq.map snd
-        |> String.concat " "
-        |> Interop.mkAttr "className"
     /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
     ///
     /// `prop.className [ "one"; "two" ]`
@@ -1076,39 +1061,24 @@ type prop =
     static member inline strokeWidth (value: ICssUnit) = Interop.mkAttr "strokeWidth" value
     /// SVG attribute to define the width of the stroke to be applied to the shape.
     static member inline strokeWidth (value: int) = Interop.mkAttr "strokeWidth" value
-
     static member inline style (properties: #IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
-    static member style (properties: (bool * IStyleAttribute list) list) =
-        properties
-        |> List.filter fst
-        |> List.collect snd
-        |> unbox
-        |> createObj
-        |> Interop.mkAttr "style"
-
     /// The `tabindex` global attribute indicates that its element can be focused,
     /// and where it participates in sequential keyboard navigation (usually with the Tab key, hence the name).
     static member inline tabIndex (index: int) = Interop.mkAttr "tabIndex" index
-
     /// Controls browser behavior when opening a link.
     static member inline target (frameName: string) = Interop.mkAttr "target" frameName
-
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: float) = Interop.mkAttr "children" value
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: int) = Interop.mkAttr "children" value
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: string) = Interop.mkAttr "children" value
-
     /// The title global attribute contains text representing advisory information related to the element it belongs to.
     static member inline title (value: string) = Interop.mkAttr "title" value
-
     /// Sets the `type` attribute for the element.
     static member inline type' (value: string) = Interop.mkAttr "type" value
-
     /// A hash-name reference to a <map> element; that is a '#' followed by the value of a name of a map element.
     static member inline usemap (value: string) = Interop.mkAttr "usemap" value
-
     /// Sets the value of a React controlled component.
     static member inline value (value: bool) = Interop.mkAttr "value" value
     /// Sets the value of a React controlled component.
@@ -1623,6 +1593,46 @@ module prop =
         /// The referrer will include the origin and the path (but not the fragment, password, or username). This value is unsafe,
         /// because it leaks origins and paths from TLS-protected resources to insecure origins.
         static member inline unsafeUrl = Interop.mkAttr "referrerpolicy" "unsafe-url"
+
+    [<Erase>]
+    /// The required rel attribute specifies the relationship between the current document and the linked document/resource.
+    ///
+    /// Docs at https://www.w3schools.com/tags/att_link_rel.asp
+    type rel =
+        /// Provides a link to an alternate version of the document (i.e. print page, translated or mirror).
+        ///
+        /// Example: <link rel="alternate" type="application/atom+xml" title="W3Schools News" href="/blog/news/atom">
+        static member inline alternate = Interop.mkAttr "rel" "alternate"
+        /// Provides a link to the author of the document
+        static member inline author = Interop.mkAttr "rel" "author"
+        /// Specifies that the browser should preemptively perform DNS resolution for the target resource's origin
+        static member inline dnsPrefetch = Interop.mkAttr "rel" "dns-prefetch"
+        /// Provides a link to a help document. Example: <link rel="help" href="/help/">
+        static member inline help = Interop.mkAttr "rel" "help"
+        /// Imports an icon to represent the document.
+        ///
+        /// Example: <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        static member inline icon = Interop.mkAttr "rel" "icon"
+        /// Provides a link to copyright information for the document
+        static member inline license = Interop.mkAttr "rel" "license"
+        /// Provides a link to the next document in the series
+        static member inline next = Interop.mkAttr "rel" "next"
+        /// Provides the address of the pingback server that handles pingbacks to the current document
+        static member inline pingback = Interop.mkAttr "rel" "pingback"
+        /// Specifies that the browser should preemptively connect to the target resource's origin
+        static member inline preconnect = Interop.mkAttr "rel" "preconnect"
+        /// Specifies that the browser should preemptively fetch and cache the target resource as it is likely to be required for a follow-up navigation
+        static member inline prefetch = Interop.mkAttr "rel" "prefetch"
+        /// Specifies that the browser agent must preemptively fetch and cache the target resource for current navigation according to the destination given by the "as" attribute (and the priority associated with that destination).
+        static member inline preload = Interop.mkAttr "rel" "preload"
+        /// Specifies that the browser should pre-render (load) the specified webpage in the background. So, if the user navigates to this page, it speeds up the page load (because the page is already loaded). Warning! This waste the user's bandwidth! Only use prerender if it is absolutely sure that the webpage is required at some point in the user journey
+        static member inline prerender = Interop.mkAttr "rel" "prerender"
+        /// Indicates that the document is a part of a series, and that the previous document in the series is the referenced document
+        static member inline prev = Interop.mkAttr "rel" "prev"
+        /// Provides a link to a resource that can be used to search through the current document and its related pages
+        static member inline search = Interop.mkAttr "rel" "search"
+        /// Imports a style sheet
+        static member inline stylesheet = Interop.mkAttr "rel" "stylesheet"
 
     /// https://www.w3.org/WAI/PF/aria-1.1/roles
     [<Erase>]

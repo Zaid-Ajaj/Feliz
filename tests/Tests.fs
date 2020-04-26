@@ -43,13 +43,59 @@ let testReact name test =
         use rtl = { new IDisposable with member this.Dispose() = RTL.cleanup() }
         test()
 
+let testReactAsync name test = 
+    testCaseAsync name <| async {
+        use rtl = { new IDisposable with member this.Dispose() = RTL.cleanup() }
+        let! _ = test
+        return ()
+    }
+
 let ftestReact name test = 
     ftestCase name <| fun _ -> 
         use rtl = { new IDisposable with member this.Dispose() = RTL.cleanup() }
         test()
 
+let ftestReactAsync name test = 
+    ftestCaseAsync name <| async {
+        use rtl = { new IDisposable with member this.Dispose() = RTL.cleanup() }
+        let! _ = test
+        return ()
+    }
+
 [<Emit("$1['style'][$0]")>]
 let getStyle<'t> (key: string) (x: HTMLElement) = jsNative 
+
+let effectOnceComponent = React.functionComponent(fun (props: {| effectTriggered: unit -> unit |}) -> 
+    let (count, setCount) = React.useState(0)
+    React.useEffectOnce(fun _ -> props.effectTriggered())
+    Html.div [
+        Html.h1 [
+            prop.testId "count"
+            prop.text count
+        ]
+
+        Html.button [
+            prop.text "Increment"
+            prop.onClick (fun _ -> setCount (count + 1))
+            prop.testId "increment"
+        ]
+    ])
+
+let useEffectEveryRender = React.functionComponent(fun (props: {| effectTriggered: unit -> unit |}) -> 
+    let (count, setCount) = React.useState(0)
+    React.useEffect(fun _ -> props.effectTriggered())
+    Html.div [
+        Html.h1 [
+            prop.testId "count"
+            prop.text count
+        ]
+
+        Html.button [
+            prop.text "Increment"
+            prop.onClick (fun _ -> setCount (count + 1))
+            prop.testId "increment"
+        ]
+    ])
 
 let felizTests = testList "Feliz Tests" [
 
@@ -84,6 +130,39 @@ let felizTests = testList "Feliz Tests" [
         Expect.equal "11" count.innerText "After one click, the count becomes 11"
         RTL.userEvent.click(increment)
         Expect.equal "12" count.innerText "After another click, the count becomes 12"
+
+    testReact "React.useEffectOnce(unit -> unit) executes onece" <| fun _ ->
+        let mutable effectCount = 0
+        let render = RTL.render(effectOnceComponent {| effectTriggered = fun () -> effectCount <- effectCount + 1 |})
+        let count = render.getByTestId "count"
+        let increment = render.getByTestId "increment"
+        Expect.equal 1 effectCount "Effect has been been executed once when the component has been rendered"
+        Expect.equal "0" count.innerText "Count has initial value of zero"
+        RTL.userEvent.click(increment)
+        Expect.equal "1" count.innerText "Component has been updated/re-rendered"
+        Expect.equal 1 effectCount "Effect count stays the same"
+        RTL.userEvent.click(increment)
+        Expect.equal "2" count.innerText "Component has been updated/re-rendered again"
+        Expect.equal 1 effectCount "Effect count stays the same"
+
+    testReactAsync "React.useEffect(unit -> unit) executes on each (re)render" <| async {
+        let mutable effectCount = 0
+        let render = RTL.render(useEffectEveryRender {| effectTriggered = fun () -> effectCount <- effectCount + 1 |})
+        let count = render.getByTestId "count" 
+        let increment = render.getByTestId "increment"
+        Expect.equal 1 effectCount "Effect has been been executed when the component has been rendered"
+        Expect.equal "0" count.innerText "Count has initial value of zero"
+        RTL.userEvent.click(increment)
+        do! Async.Sleep 100
+        
+        Expect.equal "1" count.innerText "Component has been updated/re-rendered"
+        Expect.equal 2 effectCount "Effect count has increased to two"
+        RTL.userEvent.click(increment)
+
+        do! Async.Sleep 100
+        Expect.equal "2" count.innerText "Component has been updated/re-rendered again"
+        Expect.equal 3 effectCount "Effect count has increased three"
+    }
 
     testReact "Styles are rendered correctly" <| fun _ -> 
         let render = RTL.render(Html.div [

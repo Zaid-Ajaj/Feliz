@@ -103,22 +103,6 @@ let update msg state =
 ]
 |> List.iter (fun x -> Browser.Dom.console.log(createObj [!!x]))
 
-let emptyStyles state dispatch =
-    Html.div [
-        prop.style [ true, [ style.color.red ] ]
-        prop.children [
-            Html.h1 [
-                prop.style [ style.color.red ]
-                prop.children [
-                    Html.span [
-                        prop.style [ ]
-                        prop.text "Hello"
-                    ]
-                ]
-            ]
-        ]
-    ]
-
 let keyedFragments state dispatch =
     React.keyedFragment(1, [
         Html.div [
@@ -374,7 +358,6 @@ let keyWarnings state dispatch =
             Html.div "text"
             Html.div [
                 prop.id "id"
-                prop.className [ true,"class"; false, "other"; true, "conditional" ]
                 prop.children [
                     Html.text "text"
                     Html.div [
@@ -799,8 +782,8 @@ let sidebar (state: State) dispatch =
         Html.li [
             Html.anchor [
                 prop.className [
-                    state.CurrentPath = path, Bulma.IsActive
-                    state.CurrentPath = path, Bulma.HasBackgroundPrimary
+                    if state.CurrentPath = path then Bulma.IsActive
+                    if state.CurrentPath = path then Bulma.HasBackgroundPrimary
                 ]
                 prop.text name
                 prop.href (sprintf "#/%s" (String.concat "/" path))
