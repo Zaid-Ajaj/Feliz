@@ -805,6 +805,9 @@ type prop =
     /// Fires when the mouse pointer moves over an element.
     static member inline onMouseOver (handler: MouseEvent -> unit) = Interop.mkAttr "onMouseOver" handler
 
+    /// Fires when a mouse button is released while it is over an element.
+    static member inline onMouseUp (handler: MouseEvent -> unit) = Interop.mkAttr "onMouseUp" handler
+
     /// Fires when the user pastes some content in an element.
     static member inline onPaste (handler: ClipboardEvent -> unit) = Interop.mkAttr "onPaste" handler
 
