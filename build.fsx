@@ -1,4 +1,5 @@
 #r @"packages/build/FAKE/tools/FakeLib.dll"
+#r @"packages\build\Fable.MochaPuppeteerRunner\lib\netstandard2.0\Fable.MochaPuppeteerRunner.dll"
 
 open System
 open System.IO
@@ -16,7 +17,7 @@ let platformTool tool winTool =
 let nodeTool = "node"
 let npmTool = "npm"
 
-let mutable dotnetCli = "dotnet"
+let dotnetCli = "dotnet"
 
 let run fileName args workingDir =
     printfn "CWD: %s" workingDir
@@ -73,6 +74,14 @@ Target "InstallNpmPackages" (fun _ ->
 
 Target "Start" <| fun _ ->
     run npmTool "start" "."
+
+Target "RunHeadlessTests" <| fun _ -> 
+    run "npm" "run test:build" __SOURCE_DIRECTORY__
+    let publishedTestsPath = __SOURCE_DIRECTORY__ </> "public-tests"
+    publishedTestsPath
+    |> Puppeteer.runTests
+    |> Async.Ignore
+    |> Async.RunSynchronously
 
 let publish projectPath = fun () ->
     [ projectPath </> "bin"

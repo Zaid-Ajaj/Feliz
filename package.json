@@ -4,7 +4,10 @@
         "build": "webpack --mode production",
         "start": "webpack-dev-server",
         "compile-demo-raw": "fable-splitter demo -o ./dist",
-        "publish-docs": "npm run build && node publish.js"
+        "publish-docs": "npm run build && node publish.js",
+        "test:live": "webpack-dev-server --config webpack.tests.js",
+        "pretest": "webpack --config webpack.tests.js",
+        "test": "dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj"
     },
     "repository": {
         "type": "git",
@@ -13,9 +16,12 @@
     "devDependencies": {
         "@babel/core": "^7.0.0",
         "@babel/preset-react": "^7.7.4",
-        "fable-compiler": "^2.4.21",
+        "@testing-library/react": "^10.0.3",
+        "@testing-library/user-event": "^10.1.0",
+        "fable-compiler": "^2.8.1",
         "fable-loader": "^2.1.6",
         "gh-pages": "^2.1.1",
+        "mocha": "^6.2.0",
         "remotedev": "^0.2.7",
         "webpack": "^4.29.6",
         "webpack-cli": "^3.3.0",
