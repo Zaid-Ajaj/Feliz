@@ -118,6 +118,7 @@ let markerWithPopover (marker: MarkerProps)  =
             ]
         ]
         popover.isOpen marker.Hovered
+        popover.enterExitTransitionDurationMs 0
         popover.disableTip
         popover.children [
             Html.i [
@@ -204,7 +205,8 @@ let markerWithPopover = React.functionComponent(fun (marker: MarkerProps) ->
             ]
         ]
         popover.isOpen popoverOpen
-        popover.tipSize 0.1
+        popover.enterExitTransitionDurationMs 0
+        popover.disableTip
         popover.onOuterAction (fun _ -> toggleOpen(false))
         popover.children [
             Html.i [
