@@ -9,16 +9,10 @@
     </PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>0.76.0</Version>
+    <Version>0.77.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>
-      Add prop.rel properties
-      Resolve maximum version of React/ReactDOM; 
-      Remove ability to add children to Html.link
-      Remove prop.className accepting predicate * string
-      Remove prop.style accepting predicate * style list
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>Add onMouseUp to the properties</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>
