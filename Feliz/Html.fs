@@ -332,7 +332,6 @@ type Html =
     static member inline linearGradient (children: #seq<ReactElement>) = Interop.reactElementWithChildren "linearGradient" children
 
     static member inline link xs = Interop.createElement "link" xs
-    static member inline link (children: #seq<ReactElement>) = Interop.reactElementWithChildren "link" children
 
     static member inline listItem xs = Interop.createElement "li" xs
     static member inline listItem (value: float) = Interop.reactElementWithChild "li" value
