@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+        <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
+        <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
+        <ProjectReference Include="..\Feliz.PigeonMaps\Feliz.PigeonMaps.fsproj" />
+        <ProjectReference Include="..\Feliz.Popover\Feliz.Popover.fsproj" />
+        <ProjectReference Include="..\Feliz.ElmishComponents\Feliz.ElmishComponents.fsproj" />
+        <ProjectReference Include="Fable.ReactTestingLibrary\Fable.ReactTestingLibrary.fsproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Tests.fs" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Fable.Mocha" Version="2.8.0" />
+    </ItemGroup>
+</Project>

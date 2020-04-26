@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Types.fs" />
+    <Compile Include="Interop.fs" />
+    <Compile Include="Bindings.fs" />
+    <Compile Include="Events.fs" />
+    <Compile Include="RTL.fs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <NpmDependencies>
+      <NpmPackage Name="@testing-library/react" Version="gte 10 lt 11" ResolutionStrategy="max" DevDependency="true" />
+      <NpmPackage Name="@testing-library/user-event" Version="gte 10 lt 11" ResolutionStrategy="max" DevDependency="true" />
+    </NpmDependencies>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Feliz\Feliz.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fable.Promise" Version="2.1.0" />
+  </ItemGroup>
+</Project>

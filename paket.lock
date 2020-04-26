@@ -58,4 +58,4 @@ GROUP Build
 RESTRICTION: >= net45
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    FAKE (4.64.13)
+    FAKE (4.64.18)

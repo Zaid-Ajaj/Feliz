@@ -16,7 +16,7 @@ let platformTool tool winTool =
 let nodeTool = "node"
 let npmTool = "npm"
 
-let mutable dotnetCli = "dotnet"
+let dotnetCli = "dotnet"
 
 let run fileName args workingDir =
     printfn "CWD: %s" workingDir
