@@ -98,7 +98,6 @@ let felizTests = testList "Feliz Tests" [
         ])
 
         let container = render.getByTestId "styled-div"
-        Browser.Dom.console.log(container)
         Expect.equal "rgb(255, 0, 0)" (getStyle "color" container) "Text color is red"
         Expect.equal "20px" (getStyle "margin" container) "Margin is used correctly"
         Expect.equal "22px" (getStyle "fontSize" container) "Font size is used correctly"
