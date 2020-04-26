@@ -8,7 +8,6 @@ open Browser.Dom
 open Browser.Types
 open Fable.ReactTestingLibrary
 open Fable.Core
-open Fable.Core.JsInterop
 
 let counter = React.functionComponent(fun (props: {| initialCount: int |}) ->
     let (count, setCount) = React.useState(props.initialCount)

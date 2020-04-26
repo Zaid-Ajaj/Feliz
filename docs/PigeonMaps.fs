@@ -129,6 +129,7 @@ module MarkerOverlaysOnHover =
             ]
 
             popover.isOpen marker.Hovered
+            popover.enterExitTransitionDurationMs 0
             popover.disableTip
             popover.children [
                 Html.i [
@@ -212,6 +213,7 @@ module MarkerOverlays =
             popover.isOpen popoverOpen
             popover.disableTip
             popover.onOuterAction (fun _ -> toggleOpen(false))
+            popover.enterExitTransitionDurationMs 0
             popover.children [
                 Html.i [
                     prop.key marker.City.Name
