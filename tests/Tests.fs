@@ -88,6 +88,24 @@ let useLayoutEffectEveryRender = React.functionComponent(fun (props: {| effectTr
         ]
     ])
 
+let focusInputExample = React.functionComponent(fun () ->
+    let inputRef = React.useInputRef()
+    let focusTextInput() = inputRef.current |> Option.iter (fun el -> el.focus())
+
+    Html.div [
+        Html.input [
+            prop.ref inputRef
+            prop.type'.text
+            prop.testId "focused-input"
+        ]
+
+        Html.button [
+            prop.testId "focus-input"
+            prop.onClick (fun _ -> focusTextInput())
+            prop.text "Focus Input"
+        ]
+    ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -178,6 +196,14 @@ let felizTests = testList "Feliz Tests" [
         RTL.userEvent.click(increment)
         Expect.equal "2" count.innerText "Component has been updated/re-rendered again"
         Expect.equal 3 effectCount "Effect count has increased three"
+
+    testReact "Focusing input element works with React refs" <| fun _ -> 
+        let render = RTL.render(focusInputExample())
+        let focusedInput = render.getByTestId "focused-input"
+        let focusInputButton = render.getByTestId "focus-input"
+        Expect.isFalse (focusedInput = unbox document.activeElement) "Input is not focused yet before clicking button"
+        RTL.userEvent.click(focusInputButton)
+        Expect.isTrue (focusedInput = unbox document.activeElement) "Input is now active"
 
     testReact "Styles are rendered correctly" <| fun _ ->
         let render = RTL.render(Html.div [
