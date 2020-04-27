@@ -8,6 +8,9 @@ open Browser.Types
 module internal ReactInterop =
     let useEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useEffectWithDeps" "./ReactInterop.js"
     let useEffect (effect: obj) : unit =  import "useEffect" "./ReactInterop.js"
+    let useLayoutEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useLayoutEffectWithDeps" "./ReactInterop.js"
+    let useLayoutEffect (effect: obj) : unit =  import "useLayoutEffect" "./ReactInterop.js"
+    let useDebugValueWithFormatter<'t>(value: 't, formatter: 't -> string) : unit = import "useDebugValue" "./ReactInterop.js"
 
 type internal Internal() =
     static let propsWithKey (withKey: ('props -> string) option) props =
@@ -65,6 +68,40 @@ type React =
     /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
     /// you have to explicitly provide an empty array for the dependencies: `React.useEffect(effect, [| |])`.
     static member useEffect(effect: unit -> IDisposable, dependencies: obj []) : unit = ReactInterop.useEffectWithDeps effect dependencies
+    /// The `useLayoutEffect` hook that creates a disposable effect for React function components
+    /// This effect has no dependencies which means the effect is re-executed on every re-render.
+    /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
+    /// for the dependencies: `React.useLayoutEffect(disposableEffect, [| |])`.
+    /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+    static member useLayoutEffect(effect: unit -> IDisposable) : unit = ReactInterop.useLayoutEffect(effect)
+    /// The `useLayoutEffect` hook that creates a disposable effect for React function components.
+    /// This effect takes a array of *dependencies*.
+    /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
+    /// you have to explicitly provide an empty array for the dependencies: `React.useLayoutEffect(effect, [| |])`.
+    /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+    static member useLayoutEffect(effect: unit -> IDisposable, dependencies: obj []) : unit = ReactInterop.useLayoutEffectWithDeps effect dependencies
+    /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+    /// This effect is executed on every (re)render
+    static member useLayoutEffect(effect: unit -> unit) = 
+        ReactInterop.useLayoutEffect
+            (fun _ ->
+                effect()
+                React.createDisposable(ignore))
+
+    /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+    static member useLayoutEffect(effect: unit -> unit, dependencies: obj []) = 
+        ReactInterop.useLayoutEffect
+            (fun _ ->
+                effect()
+                React.createDisposable(ignore))
+
+    static member useLayoutEffectOnce(effect: unit -> unit) = 
+         React.useLayoutEffect(effect, [| |])
+
+    static member useLayoutEffectOnce(effect: unit -> IDisposable) = 
+        React.useLayoutEffect(effect, [| |])
+
+
     /// Creates a disposable instance by providing the implementation of the dispose member
     static member createDisposable(dispose: unit -> unit) =
         { new IDisposable with member this.Dispose() = dispose() }
@@ -98,6 +135,14 @@ type React =
                 effect()
                 React.createDisposable(ignore))
             dependencies
+
+    /// Can be used to display a label for custom hooks in React DevTools.
+    static member useDebugValue(value: string) = 
+        ReactInterop.useDebugValueWithFormatter(value, id)
+
+    /// Can be used to display a label for custom hooks in React DevTools.
+    static member useDebugValue(value: 't, formatter: 't -> string) = 
+        ReactInterop.useDebugValueWithFormatter(value, formatter)
 
     /// <summary>
     /// The `useCallback` hook. Returns a memoized callback. Pass an inline callback and an array of dependencies.

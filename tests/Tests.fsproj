@@ -12,6 +12,7 @@
         <ProjectReference Include="Fable.ReactTestingLibrary\Fable.ReactTestingLibrary.fsproj" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Utilities.fs" />
         <Compile Include="Tests.fs" />
     </ItemGroup>
     <ItemGroup>
