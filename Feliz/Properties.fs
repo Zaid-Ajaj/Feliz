@@ -1064,35 +1064,35 @@ type prop =
     static member inline strokeWidth (value: ICssUnit) = Interop.mkAttr "strokeWidth" value
     /// SVG attribute to define the width of the stroke to be applied to the shape.
     static member inline strokeWidth (value: int) = Interop.mkAttr "strokeWidth" value
-    
+
     static member inline style (properties: #IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
-    
+
     /// The `tabindex` global attribute indicates that its element can be focused,
     /// and where it participates in sequential keyboard navigation (usually with the Tab key, hence the name).
     static member inline tabIndex (index: int) = Interop.mkAttr "tabIndex" index
-    
+
     /// Controls browser behavior when opening a link.
     static member inline target (frameName: string) = Interop.mkAttr "target" frameName
-    
+
     /// A shorthand for using prop.custom("data-testid", value). Useful for referencing elements when testing React code.
     static member inline testId(value: string) = Interop.mkAttr "data-testid" value
-    
+
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: float) = Interop.mkAttr "children" value
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: int) = Interop.mkAttr "children" value
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: string) = Interop.mkAttr "children" value
-    
+
     /// The title global attribute contains text representing advisory information related to the element it belongs to.
     static member inline title (value: string) = Interop.mkAttr "title" value
-    
+
     /// Sets the `type` attribute for the element.
     static member inline type' (value: string) = Interop.mkAttr "type" value
-    
+
     /// A hash-name reference to a <map> element; that is a '#' followed by the value of a name of a map element.
     static member inline usemap (value: string) = Interop.mkAttr "usemap" value
-    
+
     /// Sets the value of a React controlled component.
     static member inline value (value: bool) = Interop.mkAttr "value" value
     /// Sets the value of a React controlled component.
@@ -1423,6 +1423,10 @@ module prop =
         /// The first letter of each word defaults to a capital letter; all other letters default to lowercase
         static member inline words = Interop.mkAttr "autoCapitalize" "words"
 
+    [<Erase>]
+    type charset =
+        static member inline utf8 = Interop.mkAttr "charset" "UTF-8"
+
     /// A set of values specifying the coordinates of the hot-spot region.
     ///
     /// The number and meaning of the values depend upon the value specified for the shape attribute
@@ -1540,19 +1544,19 @@ module prop =
     /// Defines a pragma directive.
     [<Erase>]
     type httpEquiv =
-        /// Allows page authors to define a content policy for the current page. 
+        /// Allows page authors to define a content policy for the current page.
         ///
-        /// Content policies mostly specify allowed server origins and script endpoints which help guard against cross-site 
+        /// Content policies mostly specify allowed server origins and script endpoints which help guard against cross-site
         /// scripting attacks.
         static member inline contentSecurityPolicy = Interop.mkAttr "http-equiv" "content-security-policy"
-        /// If specified, the content attribute must have the value "text/html; charset=utf-8". 
+        /// If specified, the content attribute must have the value "text/html; charset=utf-8".
         ///
         /// Note: Can only be used in documents served with a text/html MIME type — not in documents served with an XML MIME type.
         static member inline contentType = Interop.mkAttr "http-equiv" "content-type"
         /// Sets the name of the default CSS style sheet set.
         static member inline defaultStyle = Interop.mkAttr "http-equiv" "default-style"
         /// This instruction specifies:
-        /// 
+        ///
         /// The number of seconds until the page should be reloaded - only if the content attribute contains a positive integer.
         ///
         /// The number of seconds until the page should redirect to another - only if the content attribute contains a positive integer followed by the string ';url=', and a valid URL.
