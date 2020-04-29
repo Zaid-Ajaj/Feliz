@@ -1238,6 +1238,108 @@ type prop =
     static member inline y2 (value: int) = Interop.mkAttr "y2" value
 
 module prop =
+    /// Specifies a feature policy for the <iframe>.
+    [<Erase>]
+    type allow =
+        /// Controls whether the current document is allowed to gather information about the acceleration of 
+        /// the device through the Accelerometer interface.
+        static member inline accelerometer = Interop.mkAttr "allow" "accelerometer"
+        /// Controls whether the current document is allowed to gather information about the amount of light
+        /// in the environment around the device through the AmbientLightSensor interface.
+        static member inline ambientLightSensor = Interop.mkAttr "allow" "ambient-light-sensor"
+        /// Controls whether the current document is allowed to autoplay media requested through the 
+        /// HTMLMediaElement interface. 
+        ///
+        /// When this policy is disabled and there were no user gestures, the Promise returned by 
+        /// HTMLMediaElement.play() will reject with a DOMException. The autoplay attribute on <audio> and 
+        /// <video> elements will be ignored.
+        static member inline autoplay = Interop.mkAttr "allow" "autoplay"
+        /// Controls whether the use of the Battery Status API is allowed. 
+        ///
+        /// When this policy is disabled, the  Promise returned by Navigator.getBattery() will reject with
+        /// a NotAllowedError DOMException.
+        static member inline battery = Interop.mkAttr "allow" "battery"
+        /// Controls whether the current document is allowed to use video input devices. 
+        ///
+        /// When this policy is disabled, the Promise returned by getUserMedia() will reject with a 
+        /// NotAllowedError DOMException.
+        static member inline camera = Interop.mkAttr "allow" "camera"
+        /// Controls whether or not the current document is permitted to use the getDisplayMedia() method to 
+        /// capture screen contents. 
+        ///
+        /// When this policy is disabled, the promise returned by getDisplayMedia() will reject with a 
+        /// NotAllowedError if permission is not obtained to capture the display's contents.
+        static member inline displayCapture = Interop.mkAttr "allow" "display-capture"
+        /// Controls whether the current document is allowed to set document.domain. 
+        ///
+        /// When this policy is disabled, attempting to set document.domain will fail and cause a SecurityError 
+        /// DOMException to be be thrown.
+        static member inline documentDomain = Interop.mkAttr "allow" "document-domain"
+        /// Controls whether the current document is allowed to use the Encrypted Media Extensions API (EME). 
+        ///
+        /// When this policy is disabled, the Promise returned by Navigator.requestMediaKeySystemAccess() will 
+        /// reject with a DOMException.
+        static member inline encryptedMedia = Interop.mkAttr "allow" "encrypted-media"
+        /// Controls whether tasks should execute in frames while they're not being rendered (e.g. if an iframe 
+        /// is hidden or display: none).
+        static member inline executionWhileNotRendered = Interop.mkAttr "allow" "execution-while-not-rendered"
+        /// Controls whether tasks should execute in frames while they're outside of the visible viewport.
+        static member inline executionWhileOutOfViewport = Interop.mkAttr "allow" "execution-while-out-of-viewport"
+        /// Controls whether the current document is allowed to use Element.requestFullScreen(). 
+        ///
+        /// When this policy is disabled, the returned Promise rejects with a TypeError DOMException.
+        static member inline fullscreen = Interop.mkAttr "allow" "fullscreen"
+        /// Controls whether the current document is allowed to use the Geolocation Interface. 
+        ///
+        /// When this policy is disabled, calls to getCurrentPosition() and watchPosition() will cause those 
+        /// functions' callbacks to be invoked with a PositionError code of PERMISSION_DENIED.
+        static member inline geolocation = Interop.mkAttr "allow" "geolocation"
+        /// Controls whether the current document is allowed to gather information about the orientation of the 
+        /// device through the Gyroscope interface.
+        static member inline gyroscope = Interop.mkAttr "allow" "gyroscope"
+        /// Controls whether the current document is allowed to show layout animations.
+        static member inline layoutAnimations = Interop.mkAttr "allow" "layout-animations"
+        /// Controls whether the current document is allowed to display images in legacy formats.
+        static member inline legacyImageFormats = Interop.mkAttr "allow" "legacy-image-formats"
+        /// Controls whether the current document is allowed to gather information about the orientation of the
+        /// device through the Magnetometer interface.
+        static member inline magnetometer = Interop.mkAttr "allow" "magnetometer"
+        /// Controls whether the current document is allowed to use audio input devices. 
+        ///
+        /// When this policy is disabled, the Promise returned by MediaDevices.getUserMedia() will reject 
+        /// with a NotAllowedError.
+        static member inline microphone = Interop.mkAttr "allow" "microphone"
+        /// Controls whether the current document is allowed to use the Web MIDI API. 
+        ///
+        /// When this policy is disabled, the Promise returned by Navigator.requestMIDIAccess() will reject 
+        /// with a DOMException.
+        static member inline midi = Interop.mkAttr "allow" "midi"
+        /// Controls the availability of mechanisms that enables the page author to take control over the behavior
+        /// of spatial navigation, or to cancel it outright.
+        static member inline navigationOverride = Interop.mkAttr "allow" "navigation-override"
+        /// Controls whether the current document is allowed to download and display large images.
+        static member inline oversizedImages = Interop.mkAttr "allow" "oversized-images"
+        /// Controls whether the current document is allowed to use the Payment Request API. 
+        ///
+        /// When this policy is enabled, the PaymentRequest() constructor will throw a SecurityError DOMException.
+        static member inline payment = Interop.mkAttr "allow" "payment"
+        /// Controls whether the current document is allowed to play a video in a Picture-in-Picture mode via 
+        /// the corresponding API.
+        static member inline pictureInPicture = Interop.mkAttr "allow" "picture-in-picture"
+        /// Controls whether the current document is allowed to use the Web Authentication API to create, store,
+        /// and retreive public-key credentials.
+        static member inline publickeyCredentials = Interop.mkAttr "allow" "publickey-credentials"
+        /// Controls whether the current document is allowed to make synchronous XMLHttpRequest requests.
+        static member inline syncXhr = Interop.mkAttr "allow" "sync-xhr"
+        /// Controls whether the current document is allowed to use the WebUSB API.
+        static member inline usb = Interop.mkAttr "allow" "usb"
+        /// Controls whether the current document is allowed to use Wake Lock API to indicate that 
+        /// device should not enter power-saving mode.
+        static member inline wakeLock = Interop.mkAttr "allow" "wake-lock"
+        /// Controls whether or not the current document is allowed to use the WebXR Device API to interact 
+        /// with a WebXR session.
+        static member inline xrSpatialTracking = Interop.mkAttr "allow" "xr-spatial-tracking"
+
     /// Indicates whether user input completion suggestions are provided.
     ///
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-autocomplete
