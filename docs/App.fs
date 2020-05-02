@@ -927,6 +927,49 @@ let keyboardKey = React.functionComponent(fun () -> [
     ]
 ])
 
+[<Emit("alert($0)")>]
+let alert s : unit = jsNative
+
+let renderCount = React.functionComponent(fun (input: {| label: string |}) ->
+    let countRef = React.useRef 0
+        
+    let mutable currentCount = countRef.current
+
+    React.useEffect(fun () -> countRef.current <- currentCount)
+
+    currentCount <- currentCount + 1
+
+    Html.div [
+        prop.text (sprintf "%s render count: %i" input.label currentCount)
+    ])
+
+let callbackStaticButton = React.memo(fun (input: {| onClick: unit -> unit |}) ->
+    Html.div [
+        renderCount {| label = "Button" |}
+        Html.button [
+            prop.onClick <| fun _ -> input.onClick()
+            prop.text "Show renders"
+        ]
+    ])
+
+let callbackStatic = React.functionComponent(fun () -> 
+    let count,setCount = React.useState 1
+
+    React.useEffect((fun () ->
+        let interval = setInterval(fun () -> 
+            printfn "Called setInterval"
+            setCount(count + 1)) 1000
+        React.createDisposable(fun () -> 
+            printfn "Disposed!"
+            clearInterval(interval))
+    ), [| count :> obj |])
+
+    let showCount = React.useCallbackStatic(fun () -> alert count)
+
+    Html.div [
+        renderCount {| label = "Main" |}
+        callbackStaticButton {| onClick = showCount |}
+    ])
 
 
 let readme = sprintf "https://raw.githubusercontent.com/%s/%s/master/README.md"
@@ -994,6 +1037,7 @@ let content state dispatch =
     | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
     | [ Urls.Tests; Urls.KeyboardKey ] -> keyboardKey()
     | [ Urls.Tests; Urls.Refs ] -> focusInputExample()
+    | [ Urls.Tests; Urls.CallbackStatic ] -> callbackStatic()
     | segments -> React.fragment [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =

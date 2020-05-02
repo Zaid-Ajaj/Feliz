@@ -483,3 +483,25 @@ type React =
     /// </summary>
     /// <param name='contextObject'>A context object returned from a previous React.createContext call.</param>
     static member useContext(contextObject: Fable.React.IContext<'a>) = Interop.reactApi.useContext contextObject
+
+    /// <summary>
+    /// Creates a callback that keeps the same reference during the entire lifecycle of the component while having access to
+    /// the current variables on every call.
+    ///
+    /// This hook should only be used for functions that are not used to provide information during render (such as a dispatch function).
+    /// </summary>
+    /// <param name='callback'>The function call.</param>
+    static member useCallbackStatic (callback: ('a -> 'b)) =
+        let lastRenderCallbackRef = React.useRef(callback)
+        
+        let staticCallback = 
+            React.useCallback((fun (arg: 'a) ->
+                lastRenderCallbackRef.current(arg)
+            ), [||])
+
+        React.useLayoutEffect(fun () ->
+            // render is commited - it's safe to update the callback
+            lastRenderCallbackRef.current <- callback
+        )
+
+        staticCallback
