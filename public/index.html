@@ -18,11 +18,36 @@
         <style>
             pre {
                 padding: 0;
-                margin-top:20px;
-                margin-bottom:20px;
+                margin-top: 20px;
+                margin-bottom: 20px;
             }
 
-            code { margin: 10 }
+            code {
+                margin: 10px;
+            }
+
+            .scrollbar {
+                max-height: 90vh;
+                overflow: auto;
+            }
+
+            *::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            *::-webkit-scrollbar-track {
+                display: none;
+            }
+
+            *::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                background: #00000000;
+                transition: background 3s;
+            }
+
+            *:hover::-webkit-scrollbar-thumb {
+                background: rgba(0, 209, 178, 0.54);
+            }
         </style>
         <div id="root">
 
