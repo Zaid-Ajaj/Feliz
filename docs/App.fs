@@ -943,7 +943,7 @@ let renderCount = React.functionComponent(fun (input: {| label: string |}) ->
         prop.text (sprintf "%s render count: %i" input.label currentCount)
     ])
 
-let callbackStaticButton = React.memo(fun (input: {| onClick: unit -> unit |}) ->
+let callbackRefButton = React.memo(fun (input: {| onClick: unit -> unit |}) ->
     Html.div [
         renderCount {| label = "Button" |}
         Html.button [
@@ -952,7 +952,7 @@ let callbackStaticButton = React.memo(fun (input: {| onClick: unit -> unit |}) -
         ]
     ])
 
-let callbackStatic = React.functionComponent(fun () -> 
+let callbackRef = React.functionComponent(fun () -> 
     let count,setCount = React.useState 1
 
     React.useEffect((fun () ->
@@ -960,14 +960,14 @@ let callbackStatic = React.functionComponent(fun () ->
         React.createDisposable(fun () -> clearInterval(interval))
     ), [| count :> obj |])
 
-    let showCount = React.useCallbackStatic(fun () -> alert count)
+    let showCount = React.useCallbackRef(fun () -> alert count)
 
     Html.div [
         renderCount {| label = "Main" |}
-        callbackStaticButton {| onClick = showCount |}
+        callbackRefButton {| onClick = showCount |}
     ])
 
-let callbackNoStatic = React.functionComponent(fun () -> 
+let callbackNoRef = React.functionComponent(fun () -> 
     let count,setCount = React.useState 1
 
     React.useEffect((fun () ->
@@ -979,7 +979,7 @@ let callbackNoStatic = React.functionComponent(fun () ->
 
     Html.div [
         renderCount {| label = "Main" |}
-        callbackStaticButton {| onClick = showCount |}
+        callbackRefButton {| onClick = showCount |}
     ])
 
 let runCallbackTests = React.functionComponent(fun () ->
@@ -997,9 +997,9 @@ let runCallbackTests = React.functionComponent(fun () ->
                         prop.style [
                             style.paddingBottom (length.em 2)
                         ]
-                        prop.text "Using callbackStatic"
+                        prop.text "Using callbackRef"
                     ]
-                    callbackStatic()
+                    callbackRef()
                 ]
             ]
             Html.div [
@@ -1013,7 +1013,7 @@ let runCallbackTests = React.functionComponent(fun () ->
                         ]
                         prop.text "Using callback"
                     ]
-                    callbackNoStatic()
+                    callbackNoRef()
                 ]
             ]
         ]
@@ -1085,7 +1085,7 @@ let content state dispatch =
     | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
     | [ Urls.Tests; Urls.KeyboardKey ] -> keyboardKey()
     | [ Urls.Tests; Urls.Refs ] -> focusInputExample()
-    | [ Urls.Tests; Urls.CallbackStatic ] -> runCallbackTests()
+    | [ Urls.Tests; Urls.CallbackRef ] -> runCallbackTests()
     | segments -> React.fragment [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =

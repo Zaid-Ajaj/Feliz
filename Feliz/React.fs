@@ -486,15 +486,18 @@ type React =
 
     /// <summary>
     /// Creates a callback that keeps the same reference during the entire lifecycle of the component while having access to
-    /// the current variables on every call.
+    /// the current value of the dependencies on every call.
     ///
-    /// This hook should only be used for functions that are not used to provide information during render (such as a dispatch function).
+    /// This hook should only be used for (like a dispatch) functions that are not used to provide information during render.
+    ///
+    /// This is not a complete replacement for the `useCallback` hook. It returns a callback that does not need explicit 
+    /// dependency declarations and never causes a re-render.
     /// </summary>
     /// <param name='callback'>The function call.</param>
-    static member useCallbackStatic (callback: ('a -> 'b)) =
+    static member useCallbackRef (callback: ('a -> 'b)) =
         let lastRenderCallbackRef = React.useRef(callback)
         
-        let staticCallback = 
+        let callbackRef = 
             React.useCallback((fun (arg: 'a) ->
                 lastRenderCallbackRef.current(arg)
             ), [||])
@@ -504,4 +507,4 @@ type React =
             lastRenderCallbackRef.current <- callback
         )
 
-        staticCallback
+        callbackRef
