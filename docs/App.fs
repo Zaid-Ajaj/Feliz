@@ -956,12 +956,8 @@ let callbackStatic = React.functionComponent(fun () ->
     let count,setCount = React.useState 1
 
     React.useEffect((fun () ->
-        let interval = setInterval(fun () -> 
-            printfn "Called setInterval"
-            setCount(count + 1)) 1000
-        React.createDisposable(fun () -> 
-            printfn "Disposed!"
-            clearInterval(interval))
+        let interval = setInterval(fun () -> setCount(count + 1)) 1000
+        React.createDisposable(fun () -> clearInterval(interval))
     ), [| count :> obj |])
 
     let showCount = React.useCallbackStatic(fun () -> alert count)
@@ -969,6 +965,58 @@ let callbackStatic = React.functionComponent(fun () ->
     Html.div [
         renderCount {| label = "Main" |}
         callbackStaticButton {| onClick = showCount |}
+    ])
+
+let callbackNoStatic = React.functionComponent(fun () -> 
+    let count,setCount = React.useState 1
+
+    React.useEffect((fun () ->
+        let interval = setInterval(fun () -> setCount(count + 1)) 1000
+        React.createDisposable(fun () -> clearInterval(interval))
+    ), [| count :> obj |])
+
+    let showCount = React.useCallback(fun () -> alert count)
+
+    Html.div [
+        renderCount {| label = "Main" |}
+        callbackStaticButton {| onClick = showCount |}
+    ])
+
+let runCallbackTests = React.functionComponent(fun () ->
+    Html.div [
+        prop.style [ 
+            style.display.inheritFromParent
+        ]
+        prop.children [
+            Html.div [
+                prop.style [
+                    style.paddingRight (length.em 10)
+                ]
+                prop.children [
+                    Html.h1 [
+                        prop.style [
+                            style.paddingBottom (length.em 2)
+                        ]
+                        prop.text "Using callbackStatic"
+                    ]
+                    callbackStatic()
+                ]
+            ]
+            Html.div [
+                prop.style [
+                    style.paddingRight (length.em 10)
+                ]
+                prop.children [
+                    Html.h1 [
+                        prop.style [
+                            style.paddingBottom (length.em 2)
+                        ]
+                        prop.text "Using callback"
+                    ]
+                    callbackNoStatic()
+                ]
+            ]
+        ]
     ])
 
 
@@ -1037,7 +1085,7 @@ let content state dispatch =
     | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
     | [ Urls.Tests; Urls.KeyboardKey ] -> keyboardKey()
     | [ Urls.Tests; Urls.Refs ] -> focusInputExample()
-    | [ Urls.Tests; Urls.CallbackStatic ] -> callbackStatic()
+    | [ Urls.Tests; Urls.CallbackStatic ] -> runCallbackTests()
     | segments -> React.fragment [ for segment in segments -> Html.p segment ]
 
 let main state dispatch =
