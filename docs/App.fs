@@ -1,5 +1,6 @@
 module App
 
+open Browser.Dom
 open Elmish
 open Elmish.React
 open Feliz
@@ -10,9 +11,7 @@ open Feliz.Router
 open Fable.Core
 open Fable.Core.JsInterop
 open Fable.SimpleHttp
-open Fable.Core.Experimental
 open Zanaptak.TypedCssClasses
-open System.Collections.Generic
 open System
 open Browser.Types
 
@@ -23,20 +22,39 @@ type Highlight =
     static member inline highlight (properties: IReactProperty list) =
         Interop.reactApi.createElement(importDefault "react-highlight", createObj !!properties)
 
-type State = {
-    CurrentPath : string list
-}
+type State = 
+    { CurrentPath : string list
+      CurrentTab: string list }
 
-let init() = { CurrentPath = [ ] }, Cmd.none
+let init () =
+    let path = 
+        match document.URL.Split('#') with
+        | [| _ |] -> []
+        | [| _; path |] -> path.Split('/') |> List.ofArray |> List.tail
+        | _ -> []
+    { CurrentPath = path
+      CurrentTab = path }, Cmd.none
 
 type Msg =
     | Increment
     | Decrement
+    | TabToggled of string list
     | UrlChanged of string list
 
 let update msg state =
     match msg with
-    | UrlChanged segments -> { state with CurrentPath = segments }, Cmd.none
+    | UrlChanged segments -> 
+        { state with CurrentPath = segments }, 
+        match state.CurrentTab with
+        | [ ] when segments.Length > 2 -> 
+            segments
+            |> TabToggled
+            |> Cmd.ofMsg
+        | _ -> Cmd.none
+    | TabToggled tabs ->
+        match tabs with
+        | [ ] -> { state with CurrentTab = [ ] }, Cmd.none
+        | _ -> { state with CurrentTab = tabs }, Cmd.none
     | _ -> state, Cmd.none
 
 [
@@ -631,9 +649,9 @@ let centeredSpinner =
 
 /// Renders a code block from markdown using react-highlight.
 /// Injects sample React components when the code block has language of the format <language>:<sample-name>
-let codeBlockRenderer (codeProps: Markdown.ICodeProperties) =
-    if codeProps.language <> null && codeProps.language.Contains ":" then
-        let languageParts = codeProps.language.Split(':')
+let codeBlockRenderer' = React.functionComponent(fun (input: {| codeProps: Markdown.ICodeProperties |}) ->
+    if input.codeProps.language <> null && input.codeProps.language.Contains ":" then
+        let languageParts = input.codeProps.language.Split(':')
         let sampleName = languageParts.[1]
         let sampleApp =
             samples
@@ -647,42 +665,46 @@ let codeBlockRenderer (codeProps: Markdown.ICodeProperties) =
             sampleApp
             Highlight.highlight [
                 prop.className "fsharp"
-                prop.text(codeProps.value)
+                prop.text(input.codeProps.value)
             ]
         ]
     else
         Highlight.highlight [
             prop.className "fsharp"
-            prop.text(codeProps.value)
-        ]
+            prop.text(input.codeProps.value)
+        ])
 
-let renderMarkdown (path: string) (content: string) =
+let codeBlockRenderer (codeProps: Markdown.ICodeProperties) = codeBlockRenderer' {| codeProps = codeProps |}
+
+let renderMarkdown = React.functionComponent(fun (input: {| path: string; content: string |}) ->
     Html.div [
-        prop.className Bulma.Content
-        prop.style [ style.padding 20 ]
+        prop.className [ Bulma.Content; "scrollbar" ]
+        prop.style [ 
+            style.width (length.percent 100)
+            style.padding (0,20)
+        ]
         prop.children [
-            if path.StartsWith "https://raw.githubusercontent.com" then
+            if input.path.StartsWith "https://raw.githubusercontent.com" then
                 Html.h2 [
                     Html.i [ prop.className [ FA.Fa; FA.FaGithub ] ]
                     Html.anchor [
                         prop.style [ style.marginLeft 10; style.color.lightGreen ]
-                        prop.href (githubPath path)
+                        prop.href (githubPath input.path)
                         prop.text "View on Github"
                     ]
                 ]
 
             Markdown.markdown [
-                markdown.source content
+                markdown.source input.content
                 markdown.escapeHtml false
                 markdown.renderers [
                     markdown.renderers.code codeBlockRenderer
                 ]
             ]
         ]
-    ]
+    ])
 
 module MarkdownLoader =
-
     open Feliz.ElmishComponents
 
     type State =
@@ -700,6 +722,7 @@ module MarkdownLoader =
     let resolvePath = function
     | [ one: string ] when one.StartsWith "http" -> one
     | segments -> String.concat "/" segments
+
     let update (msg: Msg) (state: State) =
         match msg with
         | StartLoading path ->
@@ -715,38 +738,49 @@ module MarkdownLoader =
         | Loaded (Ok content) ->
             State.LoadedMarkdown content, Cmd.none
 
-        | Loaded (Error (status, error)) ->
+        | Loaded (Error (status, _)) ->
             State.LoadedMarkdown (sprintf "Status %d: could not load markdown" status), Cmd.none
 
-    let render path (state: State) dispatch  =
+    let render path (state: State) dispatch =
         match state with
         | Initial -> Html.none
         | Loading -> centeredSpinner
-        | LoadedMarkdown content -> renderMarkdown (resolvePath path) content
+        | LoadedMarkdown content -> renderMarkdown {| path = (resolvePath path); content = content |}
         | Errored error ->
             Html.h1 [
                 prop.style [ style.color.crimson ]
                 prop.text error
             ]
 
-    let loadMarkdown' (path: string list) =
-        React.elmishComponent("LoadMarkdown", init path, update, render path, key=resolvePath path)
+    let load (path: string list) = React.elmishComponent("LoadMarkdown", init path, update, render path, key = resolvePath path)
 
-let loadMarkdown (path: string list) = MarkdownLoader.loadMarkdown' path
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
-let nestedMenuList' = React.functionComponent(fun (input: {| name: string; items: Fable.React.ReactElement list |}) ->
-    let (collapsed, setCollapsed) = React.useState(false)
+let nestedMenuList' = React.functionComponent(fun (input: {| state: State; name: string; basePath: string list; elems: (string list -> Fable.React.ReactElement) list; dispatch: Msg -> unit |}) ->
+    let collapsed = 
+        match input.state.CurrentTab with
+        | [ ] -> false
+        | _ -> 
+            input.basePath 
+            |> List.indexed 
+            |> List.forall (fun (i, segment) -> 
+                List.tryItem i input.state.CurrentTab 
+                |> Option.map ((=) segment) 
+                |> Option.defaultValue false) 
+
     Html.li [
         Html.anchor [
-            prop.onClick (fun _ -> setCollapsed(not collapsed))
+            prop.className Bulma.IsUnselectable
+            prop.onClick <| fun _ -> 
+                match collapsed with
+                | true -> input.dispatch <| TabToggled (input.basePath |> List.rev |> List.tail |> List.rev)
+                | false -> input.dispatch <| TabToggled input.basePath
             prop.children [
                 Html.i [
                     prop.style [ style.marginRight 10 ]
                     prop.className [
                         FA.Fa
-                        if not collapsed then FA.FaAngleUp
-                        if collapsed then FA.FaAngleDown
+                        if not collapsed then FA.FaAngleDown else FA.FaAngleUp
                     ]
                 ]
                 Html.span input.name
@@ -755,46 +789,81 @@ let nestedMenuList' = React.functionComponent(fun (input: {| name: string; items
 
         Html.ul [
             prop.className Bulma.MenuList
-            prop.style [ if collapsed then style.display.none ]
-            prop.children input.items
+            prop.style [ 
+                if not collapsed then yield! [ style.display.none ] 
+            ]
+            prop.children (input.elems |> List.map (fun f -> f input.basePath))
         ]
     ])
 
-let nestedMenuList (name: string) (items: Fable.React.ReactElement list) =
-    nestedMenuList' {| name = name; items = items |}
+// top level label
+let menuLabel' = React.functionComponent (fun (input: {| content: string |}) ->
+    Html.p [
+        prop.className [ Bulma.MenuLabel; Bulma.IsUnselectable ]
+        prop.text input.content
+    ])
 
-let sidebar (state: State) dispatch =
-    // top level label
-    let menuLabel (content: string) =
-        Html.p [
-            prop.className Bulma.MenuLabel
-            prop.text content
-        ]
+// top level menu
+let menuList' = React.functionComponent(fun (input: {| items: Fable.React.ReactElement list |}) ->
+    Html.ul [
+        prop.className Bulma.MenuList
+        prop.style [ style.width (length.percent 95) ]
+        prop.children input.items
+    ])
 
-    // top level menu
-    let menuList (items: Fable.React.ReactElement list) =
-        Html.ul [
-            prop.className Bulma.MenuList
-            prop.children items
-        ]
-
-    let menuItem (name: string) (path: string list) =
-        Html.li [
-            Html.anchor [
-                prop.className [
-                    if state.CurrentPath = path then Bulma.IsActive
-                    if state.CurrentPath = path then Bulma.HasBackgroundPrimary
-                ]
-                prop.text name
-                prop.href (sprintf "#/%s" (String.concat "/" path))
+let menuItem' = React.functionComponent(fun (input: {| currentPath: string list; name: string; path: string list |}) ->
+    Html.li [
+        Html.anchor [
+            prop.className [
+                if input.currentPath = input.path then Bulma.IsActive
+                if input.currentPath = input.path then Bulma.HasBackgroundPrimary
             ]
+            prop.text input.name
+            prop.href (sprintf "#/%s" (String.concat "/" input.path))
         ]
+    ])
 
-    // the actual nav bar
-    Html.aside [
-        prop.className Bulma.Menu
+let menuLabel (content: string) =
+    menuLabel' {| content = content |}
+
+let menuList (items: Fable.React.ReactElement list) =
+    menuList' {| items = items |}
+
+let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |} ) ->
+    let dispatch = React.useCallback(input.dispatch, [||])
+
+    let menuItem (name: string) (basePath: string list) =
+        menuItem' 
+            {| currentPath = input.state.CurrentPath
+               name = name
+               path = basePath |}
+    
+    let nestedMenuItem (name: string) (extendedPath: string list) (basePath: string list) =
+        let path = basePath @ extendedPath
+        menuItem' 
+            {| currentPath = input.state.CurrentPath
+               name = name
+               path = path |}
+
+    let nestedMenuList (name: string) (basePath: string list) (items: (string list -> Fable.React.ReactElement) list) =
+        nestedMenuList' 
+            {| state = input.state
+               name = name
+               basePath = basePath
+               elems = items
+               dispatch = dispatch |}
+    
+    let subNestedMenuList (name: string) (basePath: string list) (items: (string list -> Fable.React.ReactElement) list) (addedBasePath: string list) =
+        nestedMenuList' 
+            {| state = input.state
+               name = name
+               basePath = (addedBasePath @ basePath)
+               elems = items
+               dispatch = dispatch |}
+
+    Html.div [
+        prop.className "scrollbar"
         prop.children [
-            menuLabel "Feliz"
             menuList [
                 menuItem "Overview" [ ]
                 menuItem "Installation" [ Urls.Feliz; Urls.Installation ]
@@ -806,78 +875,83 @@ let sidebar (state: State) dispatch =
                 menuItem "Use with Elmish" [ Urls.Feliz; Urls.UseWithElmish ]
                 menuItem "Contributing" [ Urls.Feliz; Urls.Contributing ]
                 menuItem "Aliasing props" [ Urls.Feliz; Urls.Aliasing ]
-                nestedMenuList "React Components" [
-                    menuItem "Stateless Components" [ Urls.Feliz; Urls.React; Urls.StatelessComponents ]
-                    menuItem "Not Just Functions" [ Urls.Feliz; Urls.React; Urls.NotJustFunctions ]
-                    menuItem "Stateful Components" [ Urls.Feliz; Urls.React; Urls.StatefulComponents ]
-                    menuItem "Components with Effects" [ Urls.Feliz; Urls.React; Urls.EffectfulComponents ]
-                    menuItem "Subscriptions with Effects" [ Urls.Feliz; Urls.React; Urls.SubscriptionsWithEffects ]
-                    menuItem "Context Propagation" [ Urls.Feliz; Urls.React; Urls.ContextPropagation ]
-                    menuItem "Hover Animations" [ Urls.Feliz; Urls.React; Urls.HoverAnimations ]
-                    menuItem "Using References" [ Urls.Feliz; Urls.React; Urls.Refs ]
-                    menuItem "Common Pitfalls" [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ]
-                    menuItem "Render Static Html" [ Urls.Feliz; Urls.React; Urls.RenderStaticHtml ]
+                nestedMenuList "React Components" [ Urls.Feliz; Urls.React ] [
+                    nestedMenuItem "Stateless Components" [ Urls.StatelessComponents ]
+                    nestedMenuItem "Not Just Functions" [ Urls.NotJustFunctions ]
+                    nestedMenuItem "Stateful Components" [ Urls.StatefulComponents ]
+                    nestedMenuItem "Components with Effects" [ Urls.EffectfulComponents ]
+                    nestedMenuItem "Subscriptions with Effects" [ Urls.SubscriptionsWithEffects ]
+                    nestedMenuItem "Context Propagation" [ Urls.ContextPropagation ]
+                    nestedMenuItem "Hover Animations" [ Urls.HoverAnimations ]
+                    nestedMenuItem "Using References" [ Urls.Refs ]
+                    nestedMenuItem "Common Pitfalls" [ Urls.CommonPitfalls ]
+                    nestedMenuItem "Render Static Html" [ Urls.RenderStaticHtml ]
                 ]
-
-                nestedMenuList "Ecosystem" [
-                    menuItem "Feliz.ElmishComponents" [ Urls.Ecosystem; Urls.ElmishComponents ]
-                    menuItem "Feliz.Router" [ Urls.Ecosystem; Urls.Router ]
-                    menuItem "Feliz.Recharts" [ Urls.Ecosystem; Urls.Recharts ]
-                    menuItem "Feliz.PigeonMaps" [ Urls.Ecosystem; Urls.PigeonMaps ]
-                    menuItem "Feliz.MaterialUI" [ Urls.Ecosystem; Urls.Mui ]
-                    menuItem "Feliz.Plotly" [ Urls.Ecosystem; Urls.Plotly ]
-                    menuItem "Feliz.Bulma" [ Urls.Ecosystem; Urls.Bulma ]
-                    menuItem "Feliz.Popover" [ Urls.Ecosystem; Urls.Popover ]
-                    menuItem "Feliz.ViewEngine" [ Urls.Ecosystem; Urls.ViewEngine ]
+                nestedMenuList "Ecosystem" [ Urls.Ecosystem ] [
+                    nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
+                    nestedMenuItem "Feliz.Router" [ Urls.Router ]
+                    nestedMenuItem "Feliz.Recharts" [ Urls.Recharts ]
+                    nestedMenuItem "Feliz.PigeonMaps" [ Urls.PigeonMaps ]
+                    nestedMenuItem "Feliz.MaterialUI" [ Urls.Mui ]
+                    nestedMenuItem "Feliz.Plotly" [ Urls.Plotly ]
+                    nestedMenuItem "Feliz.Bulma" [ Urls.Bulma ]
+                    nestedMenuItem "Feliz.Popover" [ Urls.Popover ]
+                    nestedMenuItem "Feliz.ViewEngine" [ Urls.ViewEngine ]
                 ]
-            ]
-
-            menuLabel "Feliz.PigeonMaps"
-            menuList [
-                menuItem "Overview" [ Urls.PigeonMaps; Urls.Overview ]
-                menuItem "Installation" [ Urls.PigeonMaps; Urls.Installation ]
-            ]
-            menuLabel "Feliz.Recharts"
-            menuList [
-                menuItem "Overview" [ Urls.Recharts; Urls.Overview ]
-                menuItem "Installation" [ Urls.Recharts; Urls.Installation ]
-
-                nestedMenuList "Line Charts" [
-                    menuItem "Simple Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ]
-                    menuItem "Responsive Full Width" [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ]
-                    menuItem "Customized Label" [ Urls.Recharts; Urls.LineCharts; Urls.CustomizedLabelLineChart ]
-                    menuItem "Optional Values" [ Urls.Recharts; Urls.LineCharts; Urls.LineChartOptionalValues ]
-                    menuItem "Biaxial Line Chart" [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ]
+                nestedMenuList "Feliz.PigeonMaps" [ Urls.PigeonMaps ] [
+                    nestedMenuItem "Overview" [ Urls.Overview ]
+                    nestedMenuItem "Installation" [ Urls.Installation ]
                 ]
-
-                nestedMenuList "Bar Charts" [
-                    menuItem "Simple Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ]
-                    menuItem "Tiny Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.TinyBarChart ]
-                    menuItem "Stacked Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.StackedBarChart ]
-                    menuItem "Mix Bar Chart" [ Urls.Recharts; Urls.BarCharts; Urls.MixBarChart ]
-                    menuItem "Positive And Negative" [ Urls.Recharts; Urls.BarCharts; Urls.PositiveAndNegative ]
-                ]
-
-                nestedMenuList "Area Charts" [
-                    menuItem "Simple Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ]
-                    menuItem "Stacked Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.StackedAreaChart ]
-                    menuItem "Tiny Area Chart" [ Urls.Recharts; Urls.AreaCharts; Urls.TinyAreaChart ]
-                    menuItem "Responsive Full Width" [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ]
-                    menuItem "Optional Values" [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartOptionalValues ]
-                    menuItem "Synchronized Charts" [ Urls.Recharts; Urls.AreaCharts; Urls.SynchronizedAreaChart ]
-                    menuItem "AreaChartFillByValue" [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartFillByValue ]
-                ]
-
-                nestedMenuList "Pie Charts" [
-                    menuItem "Two Level Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ]
-                    menuItem "Straight Angle Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.StraightAngle ]
-                    menuItem "Customized Label Pie Chart" [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ]
+                nestedMenuList "Feliz.Recharts" [ Urls.Recharts ] [
+                    nestedMenuItem "Overview" [ Urls.Overview ]
+                    nestedMenuItem "Installation" [ Urls.Installation ]
+                    subNestedMenuList "Line Charts" [ Urls.LineCharts ] [
+                        nestedMenuItem "Simple Line Chart" [ Urls.SimpleLineChart ]
+                        nestedMenuItem "Responsive Full Width" [ Urls.ResponsiveFullWidth ]
+                        nestedMenuItem "Customized Label" [ Urls.CustomizedLabelLineChart ]
+                        nestedMenuItem "Optional Values" [ Urls.LineChartOptionalValues ]
+                        nestedMenuItem "Biaxial Line Chart" [ Urls.BiaxialLineChart ]
+                    ]
+                    subNestedMenuList "Bar Charts" [ Urls.BarCharts ] [
+                        nestedMenuItem "Simple Bar Chart" [ Urls.SimpleBarChart ]
+                        nestedMenuItem "Tiny Bar Chart" [ Urls.TinyBarChart ]
+                        nestedMenuItem "Stacked Bar Chart" [ Urls.StackedBarChart ]
+                        nestedMenuItem "Mix Bar Chart" [ Urls.MixBarChart ]
+                        nestedMenuItem "Positive And Negative" [ Urls.PositiveAndNegative ]
+                    ]
+                    subNestedMenuList "Area Charts" [ Urls.AreaCharts ] [
+                        nestedMenuItem "Simple Area Chart" [ Urls.SimpleAreaChart ]
+                        nestedMenuItem "Stacked Area Chart" [ Urls.StackedAreaChart ]
+                        nestedMenuItem "Tiny Area Chart" [ Urls.TinyAreaChart ]
+                        nestedMenuItem "Responsive Full Width" [ Urls.ResponsiveFullWidth ]
+                        nestedMenuItem "Optional Values" [ Urls.AreaChartOptionalValues ]
+                        nestedMenuItem "Synchronized Charts" [ Urls.SynchronizedAreaChart ]
+                        nestedMenuItem "AreaChartFillByValue" [ Urls.AreaChartFillByValue ]
+                    ]
+                    subNestedMenuList "Pie Charts" [ Urls.PieCharts ] [
+                        nestedMenuItem "Two Level Pie Chart" [ Urls.TwoLevelPieChart ]
+                        nestedMenuItem "Straight Angle Pie Chart" [ Urls.StraightAngle ]
+                        nestedMenuItem "Customized Label Pie Chart" [ Urls.CustomizedLabelPieChart ]
+                    ]
                 ]
             ]
         ]
-    ]
+    ])
 
-open Browser.Types
+let sidebar = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |}) ->
+    let dispatch = React.useCallback(input.dispatch, [||])
+
+    // the actual nav bar
+    Html.aside [
+        prop.className Bulma.Menu
+        prop.style [
+            style.width (length.perc 100)
+        ]
+        prop.children [ 
+            menuLabel "Feliz"
+            allItems {| state = input.state; dispatch = dispatch |} 
+        ]
+    ])
 
 let fileUpload = React.functionComponent(fun () -> [
     Html.div [
@@ -927,104 +1001,165 @@ let keyboardKey = React.functionComponent(fun () -> [
     ]
 ])
 
-
-
 let readme = sprintf "https://raw.githubusercontent.com/%s/%s/master/README.md"
 
-let content state dispatch =
-    match state.CurrentPath with
-    | [ ] -> loadMarkdown [ "Feliz"; "README.md" ]
-    | [ Urls.Feliz; Urls.Overview; ] -> loadMarkdown [ "Feliz"; "README.md" ]
-    | [ Urls.Feliz; Urls.ProjectTemplate ] -> loadMarkdown [ "Feliz"; "ProjectTemplate.md" ]
-    | [ Urls.Feliz; Urls.Installation ] -> loadMarkdown [ "Feliz"; "Installation.md" ]
-    | [ Urls.Feliz; Urls.UseWithElmish ] -> loadMarkdown [ "Feliz"; "UseWithElmish.md" ]
-    | [ Urls.Feliz; Urls.Contributing ] -> loadMarkdown [ "Feliz"; "Contributing.md" ]
-    | [ Urls.Feliz; Urls.Syntax ] -> loadMarkdown [ "Feliz"; "Syntax.md" ]
-    | [ Urls.Feliz; Urls.ReactApiSupport ] -> loadMarkdown [ "Feliz"; "ReactApiSupport.md   " ]
-    | [ Urls.Feliz; Urls.TypeSafeStyling ] -> loadMarkdown [ "Feliz"; "TypeSafeStyling.md" ]
-    | [ Urls.Feliz; Urls.TypeSafeCss ] -> loadMarkdown [ "Feliz"; "TypeSafeCss.md" ]
-    | [ Urls.Feliz; Urls.Aliasing ] -> loadMarkdown [ "Feliz"; "AliasingProp.md" ]
-    | [ Urls.Feliz; Urls.ConditionalStyling ] -> loadMarkdown [ "Feliz"; "ConditionalStyling.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.Standalone ] -> loadMarkdown [ "Feliz"; "React"; "Standalone.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.StatelessComponents ] -> loadMarkdown  [ "Feliz"; "React"; "StatelessComponents.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.NotJustFunctions ] -> loadMarkdown [ "Feliz"; "React"; "NotJustFunctions.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.StatefulComponents ] -> loadMarkdown [ "Feliz"; "React"; "StatefulComponents.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.EffectfulComponents ] -> loadMarkdown [ "Feliz"; "React"; "EffectfulComponents.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.SubscriptionsWithEffects ] -> loadMarkdown [ "Feliz"; "React"; "SubscriptionsWithEffects.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.ContextPropagation ] -> loadMarkdown [ "Feliz"; "React"; "ContextPropagation.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.HoverAnimations ] -> loadMarkdown [ "Feliz"; "React"; "HoverAnimations.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.Refs ] -> loadMarkdown [ "Feliz"; "React"; "UsingReferences.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.Components ] -> loadMarkdown [ "Feliz"; "React"; "Components.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.CommonPitfalls ] -> loadMarkdown [ "Feliz"; "React"; "CommonPitfalls.md" ]
-    | [ Urls.Feliz; Urls.React; Urls.RenderStaticHtml ] -> loadMarkdown [ "Feliz"; "React"; "RenderStaticHtml.md" ]
-    | [ Urls.Ecosystem; Urls.ElmishComponents ] -> loadMarkdown [ "Feliz"; "ElmishComponents.md" ]
-    | [ Urls.Ecosystem; Urls.Router ] -> loadMarkdown [ readme "Zaid-Ajaj" "Feliz.Router" ]
-    | [ Urls.Ecosystem; Urls.Mui ] -> loadMarkdown [ readme "cmeeren" "Feliz.MaterialUI" ]
-    | [ Urls.Ecosystem; Urls.Plotly ] -> loadMarkdown [ readme "Shmew" "Feliz.Plotly" ]
-    | [ Urls.Ecosystem; Urls.Recharts ] -> loadMarkdown [ "Recharts"; "README.md" ]
-    | [ Urls.Ecosystem; Urls.PigeonMaps ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
-    | [ Urls.Ecosystem; Urls.Popover ] -> loadMarkdown [ "Popover"; "README.md" ]
-    | [ Urls.Ecosystem; Urls.Bulma ] -> loadMarkdown [ readme "Dzoukr" "Feliz.Bulma" ]
-    | [ Urls.Ecosystem; Urls.ViewEngine ] -> loadMarkdown [ readme "dbrattli" "Feliz.ViewEngine" ]
-    | [ Urls.Recharts; Urls.Overview ] -> loadMarkdown [ "Recharts"; "README.md" ]
-    | [ Urls.Recharts; Urls.Installation ] -> loadMarkdown [ "Recharts"; "Installation.md" ]
-    | [ Urls.Recharts; Urls.AreaCharts; Urls.SimpleAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "SimpleAreaChart.md" ]
-    | [ Urls.Recharts; Urls.AreaCharts; Urls.StackedAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "StackedAreaChart.md" ]
-    | [ Urls.Recharts; Urls.AreaCharts; Urls.TinyAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "TinyAreaChart.md" ]
-    | [ Urls.Recharts; Urls.LineCharts; Urls.SimpleLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "SimpleLineChart.md" ]
-    | [ Urls.Recharts; Urls.LineCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "LineCharts"; "ResponsiveFullWidth.md" ]
-    | [ Urls.Recharts; Urls.LineCharts; Urls.CustomizedLabelLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts" ; "CustomizedLabelLineChart.md" ]
-    | [ Urls.Recharts; Urls.LineCharts; Urls.LineChartOptionalValues ] -> loadMarkdown [ "Recharts"; "LineCharts" ; "OptionalValues.md" ]
-    | [ Urls.Recharts; Urls.AreaCharts; Urls.ResponsiveFullWidth ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "ResponsiveFullWidth.md" ]
-    | [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartOptionalValues ] -> loadMarkdown [ "Recharts"; "AreaCharts" ; "OptionalValues.md" ]
-    | [ Urls.Recharts; Urls.AreaCharts; Urls.SynchronizedAreaChart ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "SynchronizedAreaChart.md" ]
-    | [ Urls.Recharts; Urls.AreaCharts; Urls.AreaChartFillByValue ] -> loadMarkdown [ "Recharts"; "AreaCharts"; "AreaChartFillByValue.md" ]
-    | [ Urls.Recharts; Urls.BarCharts; Urls.SimpleBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "SimpleBarChart.md" ]
-    | [ Urls.Recharts; Urls.BarCharts; Urls.StackedBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "StackedBarChart.md" ]
-    | [ Urls.Recharts; Urls.BarCharts; Urls.MixBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "MixBarChart.md" ]
-    | [ Urls.Recharts; Urls.BarCharts; Urls.TinyBarChart ] -> loadMarkdown [ "Recharts"; "BarCharts"; "TinyBarChart.md" ]
-    | [ Urls.Recharts; Urls.BarCharts; Urls.PositiveAndNegative ] -> loadMarkdown [ "Recharts" ; "BarCharts"; "PositiveAndNegative.md" ]
-    | [ Urls.Recharts; Urls.LineCharts; Urls.BiaxialLineChart ] -> loadMarkdown [ "Recharts"; "LineCharts"; "BiaxialLineChart.md" ]
-    | [ Urls.Recharts; Urls.PieCharts; Urls.TwoLevelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "TwoLevelPieChart.md" ]
-    | [ Urls.Recharts; Urls.PieCharts; Urls.StraightAngle ] -> loadMarkdown [ "Recharts"; "PieCharts"; "StraightAngle.md" ]
-    | [ Urls.Recharts; Urls.PieCharts; Urls.CustomizedLabelPieChart ] -> loadMarkdown [ "Recharts"; "PieCharts"; "CustomizedLabelPieChart.md" ]
-    | [ Urls.PigeonMaps; Urls.Overview ] -> loadMarkdown [ "PigeonMaps"; "README.md" ]
-    | [ Urls.PigeonMaps; Urls.Installation ] -> loadMarkdown [ "PigeonMaps"; "Installation.md" ]
-    | [ Urls.Tests; Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
-    | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
-    | [ Urls.Tests; Urls.KeyboardKey ] -> keyboardKey()
-    | [ Urls.Tests; Urls.Refs ] -> focusInputExample()
-    | segments -> React.fragment [ for segment in segments -> Html.p segment ]
+let reactExamples (currentPath: string list) =
+    match currentPath with
+    | [ Urls.Standalone ] -> [ "Standalone.md" ]
+    | [ Urls.StatelessComponents ] -> [ "StatelessComponents.md" ]
+    | [ Urls.NotJustFunctions ] -> [ "NotJustFunctions.md" ]
+    | [ Urls.StatefulComponents ] -> [ "StatefulComponents.md" ]
+    | [ Urls.EffectfulComponents ] -> [ "EffectfulComponents.md" ]
+    | [ Urls.SubscriptionsWithEffects ] -> [ "SubscriptionsWithEffects.md" ]
+    | [ Urls.ContextPropagation ] -> [ "ContextPropagation.md" ]
+    | [ Urls.HoverAnimations ] -> [ "HoverAnimations.md" ]
+    | [ Urls.Refs ] -> [ "UsingReferences.md" ]
+    | [ Urls.Components ] -> [ "Components.md" ]
+    | [ Urls.CommonPitfalls ] -> [ "CommonPitfalls.md" ]
+    | [ Urls.RenderStaticHtml ] -> [ "RenderStaticHtml.md" ]
+    | _ -> []
+    |> fun path -> [ Urls.React ] @ path
 
-let main state dispatch =
+let rechartsExamples (currentPath: string list) =
+    match currentPath with
+    | [ Urls.Overview ] -> [ "README.md" ]
+    | [ Urls.Installation ] -> [ "Installation.md" ]
+    | Urls.AreaCharts :: rest ->
+        match rest with
+        | [ Urls.SimpleAreaChart ] -> [ "SimpleAreaChart.md" ]
+        | [ Urls.StackedAreaChart ] -> [ "StackedAreaChart.md" ]
+        | [ Urls.TinyAreaChart ] -> [ "TinyAreaChart.md" ]
+        | [ Urls.ResponsiveFullWidth ] -> [ "ResponsiveFullWidth.md" ]
+        | [ Urls.AreaChartOptionalValues ] -> [ "OptionalValues.md" ]
+        | [ Urls.SynchronizedAreaChart ] -> [ "SynchronizedAreaChart.md" ]
+        | [ Urls.AreaChartFillByValue ] -> [ "AreaChartFillByValue.md" ]
+        | _ -> []
+        |> List.append [ Urls.AreaCharts ]
+    | Urls.LineCharts :: rest ->
+        match rest with
+        | [ Urls.SimpleLineChart ] -> [ "SimpleLineChart.md" ]
+        | [ Urls.ResponsiveFullWidth ] -> [ "ResponsiveFullWidth.md" ]
+        | [ Urls.CustomizedLabelLineChart ] -> [ "CustomizedLabelLineChart.md" ]
+        | [ Urls.LineChartOptionalValues ] -> [ "OptionalValues.md" ]
+        | [ Urls.BiaxialLineChart ] -> [ "BiaxialLineChart.md" ]
+        | _ -> []
+        |> List.append [ Urls.LineCharts ]
+    | Urls.BarCharts :: rest ->
+        match rest with
+        | [ Urls.SimpleBarChart ] -> [ "SimpleBarChart.md" ]
+        | [ Urls.StackedBarChart ] -> [ "StackedBarChart.md" ]
+        | [ Urls.MixBarChart ] -> [ "MixBarChart.md" ]
+        | [ Urls.TinyBarChart ] -> [ "TinyBarChart.md" ]
+        | [ Urls.PositiveAndNegative ] -> [ "PositiveAndNegative.md" ]
+        | _ -> []
+        |> List.append [ Urls.BarCharts ]
+    | Urls.PieCharts :: rest ->
+        match rest with
+        | [ Urls.TwoLevelPieChart ] -> [ "TwoLevelPieChart.md" ]
+        | [ Urls.StraightAngle ] -> [ "StraightAngle.md" ]
+        | [ Urls.CustomizedLabelPieChart ] -> [ "CustomizedLabelPieChart.md" ]
+        | _ -> []
+        |> List.append [ Urls.PieCharts ]
+    | _ -> []
+    |> fun path -> [ Urls.Recharts ] @ path
+
+let (|PathPrefix|) (segments: string list) (path: string list) =
+    if path.Length > segments.Length then
+        match List.splitAt segments.Length path with
+        | start,end' when start = segments -> Some end'
+        | _ -> None
+    else None
+
+let loadOrSegment (origPath: string list) (basePath: string list) (path: string list) =
+    if path |> List.isEmpty then
+        Html.div [ for segment in origPath -> Html.p segment ]
+    else basePath @ path |> lazyView MarkdownLoader.load
+
+let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |}) ->
+    let loadOrSegment = loadOrSegment input.state.CurrentPath
+    
+    match input.state.CurrentPath with
+    | [ ] -> lazyView MarkdownLoader.load [ "Feliz"; "README.md" ]
+    | PathPrefix [ Urls.Feliz ] (Some res) ->
+        match res with
+        | [ Urls.Overview ] -> [ "README.md" ]
+        | [ Urls.ProjectTemplate ] -> [ "ProjectTemplate.md" ]
+        | [ Urls.Installation ] -> [ "Installation.md" ]
+        | [ Urls.UseWithElmish ] -> [ "UseWithElmish.md" ]
+        | [ Urls.Contributing ] -> [ "Contributing.md" ]
+        | [ Urls.Syntax ] -> [ "Syntax.md" ]
+        | [ Urls.ReactApiSupport ] -> [ "ReactApiSupport.md" ]
+        | [ Urls.TypeSafeStyling ] -> [ "TypeSafeStyling.md" ]
+        | [ Urls.TypeSafeCss ] -> [ "TypeSafeCss.md" ]
+        | [ Urls.Aliasing ] -> [ "AliasingProp.md" ]
+        | [ Urls.ConditionalStyling ] -> [ "ConditionalStyling.md" ]
+        | PathPrefix [ Urls.React ] (Some res) -> reactExamples res 
+        | _ -> []
+        |> loadOrSegment [ Urls.Feliz ]
+    | PathPrefix [ Urls.Ecosystem ] (Some res) ->
+        match res with
+        | [ Urls.ElmishComponents ] -> lazyView MarkdownLoader.load [ "Feliz"; "ElmishComponents.md" ]
+        | [ Urls.Router ] -> lazyView MarkdownLoader.load [ readme "Zaid-Ajaj" "Feliz.Router" ]
+        | [ Urls.Mui ] -> lazyView MarkdownLoader.load [ readme "cmeeren" "Feliz.MaterialUI" ]
+        | [ Urls.Plotly ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.Plotly" ]
+        | [ Urls.Recharts ] -> lazyView MarkdownLoader.load [ "Recharts"; "README.md" ]
+        | [ Urls.PigeonMaps ] -> lazyView MarkdownLoader.load [ "PigeonMaps"; "README.md" ]
+        | [ Urls.Popover ] -> lazyView MarkdownLoader.load [ "Popover"; "README.md" ]
+        | [ Urls.Bulma ] -> lazyView MarkdownLoader.load [ readme "Dzoukr" "Feliz.Bulma" ]
+        | [ Urls.ViewEngine ] -> lazyView  MarkdownLoader.load [ readme "dbrattli" "Feliz.ViewEngine" ]
+        | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
+    | PathPrefix [ Urls.Recharts ] (Some res) -> rechartsExamples res |> loadOrSegment []
+    | PathPrefix [ Urls.PigeonMaps ] (Some res) ->
+        match res with
+        | [ Urls.Overview ] -> [ "README.md" ]
+        | [ Urls.Installation ] -> [ "Installation.md" ]
+        | _ -> []
+        |> loadOrSegment [ Urls.PigeonMaps ]
+    | PathPrefix [ Urls.Tests ] (Some res) ->
+        match res with
+        | [ Urls.Tests; Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
+        | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
+        | [ Urls.Tests; Urls.KeyboardKey ] -> keyboardKey()
+        | [ Urls.Tests; Urls.Refs ] -> focusInputExample()
+        | _ -> React.fragment [ for segment in input.state.CurrentPath -> Html.p segment ]
+    | segments -> React.fragment [ for segment in segments -> Html.p segment ])
+
+let main = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |}) ->
+    let dispatch = React.useCallback(input.dispatch, [||])
+    
     Html.div [
         prop.className [ Bulma.Tile; Bulma.IsAncestor ]
         prop.children [
             Html.div [
                 prop.className [ Bulma.Tile; Bulma.Is2 ]
-                prop.children [ sidebar state dispatch ]
+                prop.children [ sidebar {| state = input.state; dispatch = dispatch |} ]
             ]
 
             Html.div [
                 prop.className Bulma.Tile
-                prop.children [
-                   content state dispatch
-                ]
+                prop.style [ style.paddingTop 30 ]
+                prop.children [ content {| state = input.state; dispatch = dispatch |} ]
             ]
         ]
-    ]
+    ])
 
-let render (state: State) dispatch =
+let render' = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |}) ->
+    let dispatch = React.useCallback(input.dispatch, [||])
+    
     let application =
         Html.div [
-            prop.style [ style.padding 30 ]
-            prop.children [ main state dispatch ]
+            prop.style [ 
+                style.padding 30
+            ]
+            prop.children [ main {| state = input.state; dispatch = dispatch |} ]
         ]
 
     Router.router [
         Router.onUrlChanged (UrlChanged >> dispatch)
         Router.application application
-    ]
+    ])
+
+let render (state: State) dispatch = render' {| state = state; dispatch = dispatch |}
 
 Program.mkProgram init update render
 |> Program.withReactSynchronous "root"
