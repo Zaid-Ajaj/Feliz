@@ -1209,11 +1209,11 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         |> loadOrSegment [ Urls.PigeonMaps ]
     | PathPrefix [ Urls.Tests ] (Some res) ->
         match res with
+        | [ Urls.CallbackRef ] -> runCallbackTests()
         | [ Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
         | [ Urls.FileUpload ] -> fileUpload()
         | [ Urls.KeyboardKey ] -> keyboardKey()
         | [ Urls.Refs ] -> focusInputExample()
-        | [ Urls.CallbackRef ] -> runCallbackTests()
         | _ -> React.fragment [ for segment in input.state.CurrentPath -> Html.p segment ]
     | segments -> React.fragment [ for segment in segments -> Html.p segment ])
 
