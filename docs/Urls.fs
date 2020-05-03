@@ -102,5 +102,6 @@ let [<Literal>] Tests = "Tests"
 
 let [<Literal>] Bulma = "Bulma"
 let [<Literal>] FileUpload = "FileUpload"
+let [<Literal>] ForwardRef = "ForwardRef"
 let [<Literal>] KeyboardKey = "KeyboardKey"
 let [<Literal>] CallbackRef = "CallbackRef"

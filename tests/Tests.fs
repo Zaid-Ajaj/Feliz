@@ -151,6 +151,33 @@ let focusInputExample = React.functionComponent(fun () ->
         ]
     ])
 
+let forwardRefChild = React.forwardRef("forwardChild", fun ((), ref) ->
+    Html.div [
+        prop.children [
+            Html.input [
+                prop.testId "focus-input"
+                prop.type'.text
+                prop.ref ref
+            ]
+        ]
+    ])
+
+let forwardRefParent = React.functionComponent(fun () ->
+    let inputRef = React.useInputRef()
+
+    Html.div [
+        prop.children [
+            forwardRefChild((), inputRef)
+            Html.button [
+                prop.testId "focus-button"
+                prop.text "Click!"
+                prop.onClick <| fun ev ->
+                    inputRef.current 
+                    |> Option.iter (fun elem -> elem.focus())
+            ]
+        ]
+    ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -281,6 +308,16 @@ let felizTests = testList "Feliz Tests" [
         Expect.isTrue (buttonField.innerText = "1") "Child component has not re-rendered"
         Expect.isTrue (parentField.innerText <> "1") "Parent component has re-rendered"
         Expect.isTrue (mainField.innerText <> "1" && mainField.innerText <> "") "Count was updated by child component"
+    }
+
+    testReactAsync "forwardRef works correctly" <| async {
+        let render = RTL.render(forwardRefParent())
+        let button = render.getByTestId "focus-button"
+        let input = render.getByTestId "focus-input"
+
+        Expect.isFalse (input = unbox document.activeElement) "Input is not focused yet before clicking button"
+        do! RTL.waitFor(fun () -> RTL.userEvent.click(button)) |> Async.AwaitPromise
+        Expect.isTrue (input = unbox document.activeElement) "Input is now active"
     }
 ]
 

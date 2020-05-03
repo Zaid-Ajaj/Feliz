@@ -494,7 +494,7 @@ type React =
     /// dependency declarations and never causes a re-render.
     /// </summary>
     /// <param name='callback'>The function call.</param>
-    static member useCallbackRef (callback: ('a -> 'b)) =
+    static member useCallbackRef(callback: ('a -> 'b)) =
         let lastRenderCallbackRef = React.useRef(callback)
         
         let callbackRef = 
@@ -508,3 +508,24 @@ type React =
         )
 
         callbackRef
+
+    /// <summary>
+    /// Forwards a given ref, allowing you to pass it further down to a child.
+    /// </summary>
+    /// <param name='render'>A render function that returns an element.</param>
+    static member forwardRef(render: ('Props * IRefValue<#HTMLElement option> -> ReactElement)) : ('Props * IRefValue<#HTMLElement option> -> ReactElement) = 
+        let forwardRefType = Interop.reactApi.forwardRef(render)
+        fun props ->
+            Interop.reactApi.createElement(forwardRefType, props)
+
+    /// <summary>
+    /// Forwards a given ref, allowing you to pass it further down to a child.
+    /// </summary>
+    /// <param name='name'>The component name to display in the React dev tools.</param>
+    /// <param name='render'>A render function that returns an element.</param>
+    static member forwardRef(name: string, render: ('Props * IRefValue<#HTMLElement option> -> ReactElement)) : ('Props * IRefValue<#HTMLElement option> -> ReactElement) = 
+        let forwardRefType = Interop.reactApi.forwardRef(render)
+        render?displayName <- name
+        fun props ->
+            Interop.reactApi.createElement(forwardRefType, props)
+

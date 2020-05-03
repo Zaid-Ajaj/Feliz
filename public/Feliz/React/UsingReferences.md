@@ -54,3 +54,32 @@ let focusInputExample = React.functionComponent(fun () ->
         ]
     ])
 ```
+
+#### Forwarding Refs
+
+You can also use `React.forwardRef` for passing refs to children components.
+
+In most cases the above examples will suit your needs, but in some use-cases such as creating libraries for reusable components, it can be useful.
+
+For more information see the React docs on [forwarding refs](https://reactjs.org/docs/forwarding-refs.html).
+
+```fs:forward-ref-example
+let forwardRefChild = React.forwardRef(fun ((), ref) ->
+    Html.input [
+        prop.type'.text
+        prop.ref ref
+    ])
+
+let forwardRefParent = React.functionComponent(fun () ->
+    let inputRef = React.useInputRef()
+
+    Html.div [
+        forwardRefChild((), inputRef)
+        Html.button [
+            prop.text "Focus Input"
+            prop.onClick <| fun ev ->
+                inputRef.current 
+                |> Option.iter (fun elem -> elem.focus())
+        ]
+    ])
+```
