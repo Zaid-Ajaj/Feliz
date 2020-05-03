@@ -68,10 +68,7 @@ module ElmishComponentExtensions =
         let ring = React.useRef(RingBuffer(10))
         let reentered = React.useRef(false)
         let childState, setChildState = React.useState(fst input.Initial)
-        let setChildState = 
-            React.useCallback(fun () -> 
-                JS.setTimeout(fun () -> setChildState state.current) 0 
-                |> ignore)
+        let setChildState () = JS.setTimeout(fun () -> setChildState state.current) 0 |> ignore
 
         let token = React.useRef(new System.Threading.CancellationTokenSource())
     
@@ -94,7 +91,7 @@ module ElmishComponentExtensions =
             }
             |> Promise.start
 
-        let dispatch = React.useCallback(dispatch, [| token |])
+        let dispatch = React.useCallbackRef(dispatch)
 
         React.useEffectOnce(fun () ->
             React.createDisposable <| fun () ->
@@ -113,7 +110,7 @@ module ElmishComponentExtensions =
 
     type React with
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(name, init, update, render, ?key) =
+        static member inline elmishComponent(name: string, init: 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, render: 'Model -> ('Msg -> unit) -> ReactElement, ?key: string) =
             let fullKey =
                 match key with
                 | None -> name
@@ -122,7 +119,7 @@ module ElmishComponentExtensions =
             elmishComponent { Initial = init; Update = update; Render = render; key = fullKey }
 
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(name, init, update, render, ?key) =
+        static member inline elmishComponent(name: string, init: 'Model, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, render: 'Model -> ('Msg -> unit) -> ReactElement, ?key: string)  =
             let fullKey =
                 match key with
                 | None -> name
@@ -131,7 +128,7 @@ module ElmishComponentExtensions =
             elmishComponent { Initial = init, Cmd.none; Update = update; Render = render; key = fullKey }
     
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(name, init, update, render, ?key) =
+        static member inline elmishComponent(name: string, init: 'Model, update: 'Msg -> 'Model -> 'Model, render: 'Model -> ('Msg -> unit) -> ReactElement, ?key: string) =
             let fullKey =
                 match key with
                 | None -> name
@@ -144,7 +141,7 @@ module ElmishComponentExtensions =
                   key = fullKey }
     
         /// Creates a standalone React component using an Elmish dispatch loop
-        static member inline elmishComponent(name, init, update, render, ?key) =
+        static member inline elmishComponent(name: string, init: 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model, render: 'Model -> ('Msg -> unit) -> ReactElement, ?key: string) =
             let fullKey =
                 match key with
                 | None -> name
