@@ -22,3 +22,4 @@ type IReactApi =
     abstract memo: render: ('props -> ReactElement) * areEqual: ('props -> 'props -> bool) -> ('props -> ReactElement)
     abstract createContext: defaultValue: 'a -> IContext<'a>
     abstract useContext: ctx: IContext<'a> -> 'a
+    abstract forwardRef : render: ('props * IRefValue<'ref option> -> ReactElement) -> ('props -> IRefValue<'ref option> -> ReactElement)

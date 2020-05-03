@@ -36,6 +36,8 @@
         <Compile Include="PigeonMaps.fs" />
         <Compile Include="Popover.fs" />
         <Compile Include="ElmishComponents.fs" />
+        <Compile Include="Examples.fs" />
+        <Compile Include="Tests.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <PropertyGroup>
