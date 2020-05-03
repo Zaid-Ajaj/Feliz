@@ -151,7 +151,7 @@ let focusInputExample = React.functionComponent(fun () ->
         ]
     ])
 
-let forwardRefChild = React.forwardRef(fun ((), ref) ->
+let forwardRefChild = React.forwardRef("forwardChild", fun ((), ref) ->
     Html.div [
         prop.children [
             Html.input [
