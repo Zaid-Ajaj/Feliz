@@ -88,6 +88,51 @@ let useLayoutEffectEveryRender = React.functionComponent(fun (props: {| effectTr
         ]
     ])
 
+let renderCount = React.functionComponent(fun (input: {| label: string |}) ->
+    let countRef = React.useRef 0
+        
+    let mutable currentCount = countRef.current
+
+    React.useEffect(fun () -> countRef.current <- currentCount)
+
+    currentCount <- currentCount + 1
+
+    Html.div [
+        prop.testId input.label
+        prop.text (sprintf "%i" currentCount)
+    ])
+
+let callbackRefButton = React.memo(fun (input: {| onClick: unit -> unit |}) ->
+    Html.div [
+        renderCount {| label = "Button" |}
+        Html.button [
+            prop.testId "callbackRefButton"
+            prop.onClick <| fun _ -> input.onClick()
+            prop.text "Show renders"
+        ]
+    ])
+
+let callbackRef = React.functionComponent(fun () -> 
+    let count,setCount = React.useState 1
+    let resultText,setResultText = React.useState ""
+
+    React.useEffect((fun () ->
+        let interval = JS.setInterval(fun () -> setCount(count + 1)) 1000
+        React.createDisposable(fun () -> JS.clearInterval(interval))
+    ), [| count :> obj |])
+
+    let showCount = React.useCallbackRef(fun () -> setResultText (string count))
+
+    Html.div [
+        prop.testId "callbackRef"
+        prop.text resultText
+        prop.children [
+            renderCount {| label = "Main" |}
+            callbackRefButton {| onClick = showCount |}
+        ]
+    ])
+
+
 let focusInputExample = React.functionComponent(fun () ->
     let inputRef = React.useInputRef()
     let focusTextInput() = inputRef.current |> Option.iter (fun el -> el.focus())
@@ -222,6 +267,21 @@ let felizTests = testList "Feliz Tests" [
         Expect.equal "20px" (getStyle "margin" container) "Margin is used correctly"
         Expect.equal "22px" (getStyle "fontSize" container) "Font size is used correctly"
         Expect.equal "italic" (getStyle "fontStyle" container) "Font style is used correctly"
+
+    testReactAsync "useCallbackRef gets updated values without re-rendering" <| async {
+        let render = RTL.render(callbackRef())
+        let buttonField = render.getByTestId "Button"
+        let parentField = render.getByTestId "Main"
+        let mainField = render.getByTestId "callbackRef"
+        let buttonRef = render.getByTestId "callbackRefButton"
+
+        do! Async.Sleep 2000
+
+        do! RTL.waitFor(fun () -> RTL.userEvent.click(buttonRef)) |> Async.AwaitPromise
+        Expect.isTrue (buttonField.innerText = "1") "Child component has not re-rendered"
+        Expect.isTrue (parentField.innerText <> "1") "Parent component has re-rendered"
+        Expect.isTrue (mainField.innerText <> "1" && mainField.innerText <> "") "Count was updated by child component"
+    }
 ]
 
 [<EntryPoint>]

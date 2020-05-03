@@ -1001,6 +1001,98 @@ let keyboardKey = React.functionComponent(fun () -> [
     ]
 ])
 
+[<Emit("alert($0)")>]
+let alert s : unit = jsNative
+
+let renderCount = React.functionComponent(fun (input: {| label: string |}) ->
+    let countRef = React.useRef 0
+        
+    let mutable currentCount = countRef.current
+
+    React.useEffect(fun () -> countRef.current <- currentCount)
+
+    currentCount <- currentCount + 1
+
+    Html.div [
+        prop.text (sprintf "%s render count: %i" input.label currentCount)
+    ])
+
+let callbackRefButton = React.memo(fun (input: {| onClick: unit -> unit |}) ->
+    Html.div [
+        renderCount {| label = "Button" |}
+        Html.button [
+            prop.onClick <| fun _ -> input.onClick()
+            prop.text "Show renders"
+        ]
+    ])
+
+let callbackRef = React.functionComponent(fun () -> 
+    let count,setCount = React.useState 1
+
+    React.useEffect((fun () ->
+        let interval = setInterval(fun () -> setCount(count + 1)) 1000
+        React.createDisposable(fun () -> clearInterval(interval))
+    ), [| count :> obj |])
+
+    let showCount = React.useCallbackRef(fun () -> alert count)
+
+    Html.div [
+        renderCount {| label = "Main" |}
+        callbackRefButton {| onClick = showCount |}
+    ])
+
+let callbackNoRef = React.functionComponent(fun () -> 
+    let count,setCount = React.useState 1
+
+    React.useEffect((fun () ->
+        let interval = setInterval(fun () -> setCount(count + 1)) 1000
+        React.createDisposable(fun () -> clearInterval(interval))
+    ), [| count :> obj |])
+
+    let showCount = React.useCallback(fun () -> alert count)
+
+    Html.div [
+        renderCount {| label = "Main" |}
+        callbackRefButton {| onClick = showCount |}
+    ])
+
+let runCallbackTests = React.functionComponent(fun () ->
+    Html.div [
+        prop.style [ 
+            style.display.inheritFromParent
+        ]
+        prop.children [
+            Html.div [
+                prop.style [
+                    style.paddingRight (length.em 10)
+                ]
+                prop.children [
+                    Html.h1 [
+                        prop.style [
+                            style.paddingBottom (length.em 2)
+                        ]
+                        prop.text "Using callbackRef"
+                    ]
+                    callbackRef()
+                ]
+            ]
+            Html.div [
+                prop.style [
+                    style.paddingRight (length.em 10)
+                ]
+                prop.children [
+                    Html.h1 [
+                        prop.style [
+                            style.paddingBottom (length.em 2)
+                        ]
+                        prop.text "Using callback"
+                    ]
+                    callbackNoRef()
+                ]
+            ]
+        ]
+    ])
+
 let readme = sprintf "https://raw.githubusercontent.com/%s/%s/master/README.md"
 
 let reactExamples (currentPath: string list) =
@@ -1117,10 +1209,11 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         |> loadOrSegment [ Urls.PigeonMaps ]
     | PathPrefix [ Urls.Tests ] (Some res) ->
         match res with
-        | [ Urls.Tests; Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
-        | [ Urls.Tests; Urls.FileUpload ] -> fileUpload()
-        | [ Urls.Tests; Urls.KeyboardKey ] -> keyboardKey()
-        | [ Urls.Tests; Urls.Refs ] -> focusInputExample()
+        | [ Urls.CallbackRef ] -> runCallbackTests()
+        | [ Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
+        | [ Urls.FileUpload ] -> fileUpload()
+        | [ Urls.KeyboardKey ] -> keyboardKey()
+        | [ Urls.Refs ] -> focusInputExample()
         | _ -> React.fragment [ for segment in input.state.CurrentPath -> Html.p segment ]
     | segments -> React.fragment [ for segment in segments -> Html.p segment ])
 
