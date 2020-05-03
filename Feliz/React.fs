@@ -529,22 +529,3 @@ type React =
         fun props ->
             Interop.reactApi.createElement(forwardRefType, props)
 
-    /// <summary>
-    /// Forwards a given ref, allowing you to pass it further down to a child.
-    /// </summary>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member forwardRef(render: ('Props * IRefValue<#HTMLElement option> -> #seq<ReactElement>)) : ('Props * IRefValue<#HTMLElement option> -> ReactElement) = 
-        let forwardRefType = Interop.reactApi.forwardRef(render >> React.fragment)
-        fun props ->
-            Interop.reactApi.createElement(forwardRefType, props)
-
-    /// <summary>
-    /// Forwards a given ref, allowing you to pass it further down to a child.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member forwardRef(name: string, render: ('Props * IRefValue<#HTMLElement option> -> #seq<ReactElement>)) : ('Props * IRefValue<#HTMLElement option> -> ReactElement) = 
-        let forwardRefType = Interop.reactApi.forwardRef(render >> React.fragment)
-        render?displayName <- name
-        fun props ->
-            Interop.reactApi.createElement(forwardRefType, props)
