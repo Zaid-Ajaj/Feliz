@@ -6,11 +6,11 @@ open Fable.Core.JsInterop
 open Browser.Types
 
 module internal ReactInterop =
-    let useEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useEffectWithDeps" "./ReactInterop.js"
-    let useEffect (effect: obj) : unit =  import "useEffect" "./ReactInterop.js"
-    let useLayoutEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useLayoutEffectWithDeps" "./ReactInterop.js"
-    let useLayoutEffect (effect: obj) : unit =  import "useLayoutEffect" "./ReactInterop.js"
     let useDebugValueWithFormatter<'t>(value: 't, formatter: 't -> string) : unit = import "useDebugValue" "./ReactInterop.js"
+    let useEffect (effect: obj) : unit =  import "useEffect" "./ReactInterop.js"
+    let useEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useEffectWithDeps" "./ReactInterop.js"
+    let useLayoutEffect (effect: obj) : unit =  import "useLayoutEffect" "./ReactInterop.js"
+    let useLayoutEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useLayoutEffectWithDeps" "./ReactInterop.js"
 
 type internal Internal() =
     static let propsWithKey (withKey: ('props -> string) option) props =
@@ -514,9 +514,9 @@ type React =
     /// </summary>
     /// <param name='render'>A render function that returns an element.</param>
     static member forwardRef(render: ('Props * IRefValue<#HTMLElement option> -> ReactElement)) : ('Props * IRefValue<#HTMLElement option> -> ReactElement) = 
-        let forwardRefType = Interop.reactApi.forwardRef(render)
-        fun props ->
-            Interop.reactApi.createElement(forwardRefType, props)
+        let forwardRefType = Interop.reactApi.forwardRef(Func<'Props,IRefValue<#HTMLElement option>,ReactElement> (fun props ref -> render(props,ref)))
+        fun (props, ref) ->
+            Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
 
     /// <summary>
     /// Forwards a given ref, allowing you to pass it further down to a child.
@@ -524,8 +524,7 @@ type React =
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns an element.</param>
     static member forwardRef(name: string, render: ('Props * IRefValue<#HTMLElement option> -> ReactElement)) : ('Props * IRefValue<#HTMLElement option> -> ReactElement) = 
-        let forwardRefType = Interop.reactApi.forwardRef(render)
+        let forwardRefType = Interop.reactApi.forwardRef(Func<'Props,IRefValue<#HTMLElement option>,ReactElement> (fun props ref -> render(props,ref)))
         render?displayName <- name
-        fun props ->
-            Interop.reactApi.createElement(forwardRefType, props)
-
+        fun (props, ref) ->
+            Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
