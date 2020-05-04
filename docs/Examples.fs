@@ -442,3 +442,26 @@ let forwardRefParent = React.functionComponent(fun () ->
                 |> Option.iter (fun elem -> elem.focus())
         ]
     ])
+
+type StrictModeWarning () =
+    inherit Fable.React.Component<obj,obj>()
+
+    // The unsafe call.
+    override _.componentWillMount() = ()
+
+    override _.render () =        
+        Html.div [
+            prop.text "I cause a warning!"
+        ]
+
+let strictModeExample = React.functionComponent(fun () ->
+    Html.div [
+        prop.style [
+            style.display.inheritFromParent
+        ]
+        prop.children [
+            React.strictMode [
+                Fable.React.Helpers.ofType<StrictModeWarning,obj,obj> "" []
+            ]
+        ]
+    ])

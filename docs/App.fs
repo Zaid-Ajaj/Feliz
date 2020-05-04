@@ -146,6 +146,7 @@ let samples = [
     "effectful-timer", delayedComponent {| load = Examples.timer |}
     "static-html", Examples.staticHtml()
     "static-markup", Examples.staticMarkup()
+    "strict-mode", delayedComponent {| load = Examples.strictModeExample |}
     "recharts-main", Samples.Recharts.AreaCharts.Main.chart()
     "recharts-area-simpleareachart", Samples.Recharts.AreaCharts.SimpleAreaChart.chart()
     "recharts-area-stackedareachart", Samples.Recharts.AreaCharts.StackedAreaChart.chart()
@@ -445,6 +446,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Using References" [ Urls.Refs ]
                     nestedMenuItem "Common Pitfalls" [ Urls.CommonPitfalls ]
                     nestedMenuItem "Render Static Html" [ Urls.RenderStaticHtml ]
+                    nestedMenuItem "Strict Mode" [ Urls.StrictMode ]
                 ]
                 nestedMenuList "Ecosystem" [ Urls.Ecosystem ] [
                     nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
@@ -528,6 +530,7 @@ let reactExamples (currentPath: string list) =
     | [ Urls.Components ] -> [ "Components.md" ]
     | [ Urls.CommonPitfalls ] -> [ "CommonPitfalls.md" ]
     | [ Urls.RenderStaticHtml ] -> [ "RenderStaticHtml.md" ]
+    | [ Urls.StrictMode ] -> [ "StrictMode.md" ]
     | _ -> []
     |> fun path -> [ Urls.React ] @ path
 
