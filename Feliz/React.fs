@@ -528,3 +528,15 @@ type React =
         render?displayName <- name
         fun (props, ref) ->
             Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
+
+    /// <summary>
+    /// Highlights potential problems in an application by enabling additional checks 
+    /// and warnings for descendants. As well as double rendering function components.
+    ///
+    /// This *does not do anything* in production mode. You do not need to hide it 
+    /// with compiler directives.
+    /// </summary>
+    /// <param name='children'>The elements that will be rendered with additional 
+    /// checks and warnings.</param>
+    static member strictMode(children: ReactElement list) =
+        Interop.reactApi.createElement(Interop.reactApi.StrictMode, None, children)
