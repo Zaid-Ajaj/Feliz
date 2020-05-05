@@ -7,6 +7,7 @@ open Zanaptak.TypedCssClasses
 open System
 
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
+type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
 
 type Msg =
     | Increment
@@ -463,5 +464,44 @@ let strictModeExample = React.functionComponent(fun () ->
             React.strictMode [
                 Fable.React.Helpers.ofType<StrictModeWarning,obj,obj> "" []
             ]
+        ]
+    ])
+
+let myNonCodeSplitComponent = React.functionComponent(fun () ->
+    Html.div [
+        prop.text "I was loaded synchronously!"
+    ])
+
+let myCodeSplitComponent : obj = React.lazy'(fun () -> JsInterop.importDynamic "./temp/CodeSplitting.js")
+
+let centeredSpinner =
+    Html.div [
+        prop.style [
+            style.textAlign.center
+            style.marginLeft length.auto
+            style.marginRight length.auto
+            style.marginTop 50
+        ]
+        prop.children [
+            Html.li [
+                prop.className [
+                    FA.Fa
+                    FA.FaRefresh
+                    FA.FaSpin
+                    FA.Fa3X
+                ]
+            ]
+        ]
+    ]
+
+let codeSplitting = React.functionComponent(fun () ->
+    Html.div [
+        prop.children [
+            myNonCodeSplitComponent()
+            React.suspense([
+                Html.div [
+                    Interop.reactApi.createElement(myCodeSplitComponent, ())
+                ]
+            ], centeredSpinner)
         ]
     ])

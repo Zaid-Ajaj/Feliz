@@ -36,10 +36,12 @@
         <Compile Include="PigeonMaps.fs" />
         <Compile Include="Popover.fs" />
         <Compile Include="ElmishComponents.fs" />
+        <Compile Include="CodeSplitting.fs" />
         <Compile Include="Examples.fs" />
         <Compile Include="Tests.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
+    <ItemGroup />
     <PropertyGroup>
         <NpmDependencies>
             <NpmPackage Name="react-highlight" Version="&gt;= 0.11.1" />

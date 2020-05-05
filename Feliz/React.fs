@@ -540,3 +540,13 @@ type React =
     /// checks and warnings.</param>
     static member strictMode(children: ReactElement list) =
         Interop.reactApi.createElement(Interop.reactApi.StrictMode, None, children)
+
+    static member lazy'<'T>(dynamicImport: unit -> JS.Promise<'T>) =
+        Interop.reactApi.lazy'(dynamicImport)
+
+    static member suspense(children: ReactElement list) =
+        Interop.reactApi.createElement(Interop.reactApi.Suspense, None, children)
+    static member suspense(children: ReactElement list, fallback: ReactElement) =
+        Interop.reactApi.createElement(Interop.reactApi.Suspense, {| fallback = fallback |} |> JsInterop.toPlainJsObj, children)
+
+

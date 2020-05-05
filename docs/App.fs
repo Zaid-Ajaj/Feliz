@@ -179,6 +179,7 @@ let samples = [
     "elmish-components-dispose", Samples.ElmishComponents.WithDispose.application
     "focus-input-example", Examples.focusInputExample()
     "forward-ref-example", Examples.forwardRefParent()
+    "code-splitting", Examples.codeSplitting()
 ]
 
 let githubPath (rawPath: string) =
@@ -447,6 +448,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Common Pitfalls" [ Urls.CommonPitfalls ]
                     nestedMenuItem "Render Static Html" [ Urls.RenderStaticHtml ]
                     nestedMenuItem "Strict Mode" [ Urls.StrictMode ]
+                    nestedMenuItem "Code Splitting" [ Urls.CodeSplitting ]
                 ]
                 nestedMenuList "Ecosystem" [ Urls.Ecosystem ] [
                     nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
@@ -531,6 +533,7 @@ let reactExamples (currentPath: string list) =
     | [ Urls.CommonPitfalls ] -> [ "CommonPitfalls.md" ]
     | [ Urls.RenderStaticHtml ] -> [ "RenderStaticHtml.md" ]
     | [ Urls.StrictMode ] -> [ "StrictMode.md" ]
+    | [ Urls.CodeSplitting ] -> [ "CodeSplitting.md" ]
     | _ -> []
     |> fun path -> [ Urls.React ] @ path
 
