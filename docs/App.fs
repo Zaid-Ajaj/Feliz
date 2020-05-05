@@ -179,7 +179,7 @@ let samples = [
     "elmish-components-dispose", Samples.ElmishComponents.WithDispose.application
     "focus-input-example", Examples.focusInputExample()
     "forward-ref-example", Examples.forwardRefParent()
-    "code-splitting", Examples.codeSplitting()
+    "code-splitting", delayedComponent {| load = Examples.codeSplitting |}
 ]
 
 let githubPath (rawPath: string) =

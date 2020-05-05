@@ -472,8 +472,6 @@ let myNonCodeSplitComponent = React.functionComponent(fun () ->
         prop.text "I was loaded synchronously!"
     ])
 
-let myCodeSplitComponent : obj = React.lazy'(fun () -> JsInterop.importDynamic "./temp/CodeSplitting.js")
-
 let centeredSpinner =
     Html.div [
         prop.style [
@@ -500,7 +498,12 @@ let codeSplitting = React.functionComponent(fun () ->
             myNonCodeSplitComponent()
             React.suspense([
                 Html.div [
-                    Interop.reactApi.createElement(myCodeSplitComponent, ())
+                    React.lazy'((fun () -> 
+                        promise { 
+                            do! Promise.sleep 2000
+                            return! JsInterop.importDynamic "./temp/CodeSplitting.js"
+                        }
+                    ),())
                 ]
             ], centeredSpinner)
         ]

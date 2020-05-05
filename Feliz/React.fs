@@ -541,12 +541,35 @@ type React =
     static member strictMode(children: ReactElement list) =
         Interop.reactApi.createElement(Interop.reactApi.StrictMode, None, children)
 
-    static member lazy'<'T>(dynamicImport: unit -> JS.Promise<'T>) =
-        Interop.reactApi.lazy'(dynamicImport)
+    /// <summary>
+    /// Lets you define a component that is loaded dynamically. Which helps with code
+    /// splitting.
+    /// </summary>
+    /// <param name='dynamicImport'>
+    /// The dynamicImport of the component.
+    ///
+    /// Such as `fun () -> JsInterop.importDynamic "./temp/CodeSplitting.js"`.
+    /// </param>
+    /// <param name="props">The props to be passed to the component.</param>
+    static member lazy'<'T,'Props>(dynamicImport: unit -> JS.Promise<'T>, props: 'Props) =
+        Interop.reactApi.createElement(Interop.reactApi.lazy'(dynamicImport),props)
 
+    /// <summary>
+    /// Lets you specify a loading indicator whenever a child element is not yet ready 
+    /// to render.
+    ///
+    /// Currently this is only usable with `React.lazy'`.
+    /// </summary>
+    /// <param name='children'>The elements that will be rendered within the suspense block.</param>
     static member suspense(children: ReactElement list) =
         Interop.reactApi.createElement(Interop.reactApi.Suspense, None, children)
+    /// <summary>
+    /// Lets you specify a loading indicator whenever a child element is not yet ready 
+    /// to render.
+    ///
+    /// Currently this is only usable with `React.lazy'`.
+    /// </summary>
+    /// <param name='children'>The elements that will be rendered within the suspense block.</param>
+    /// <param name='fallback'>The element that will be rendered while the children are loading.</param>
     static member suspense(children: ReactElement list, fallback: ReactElement) =
         Interop.reactApi.createElement(Interop.reactApi.Suspense, {| fallback = fallback |} |> JsInterop.toPlainJsObj, children)
-
-
