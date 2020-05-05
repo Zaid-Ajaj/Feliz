@@ -173,8 +173,10 @@ packages/
 # Generated documentation folder
 docs/output/
 
-# Temp folder used for publishing docs
+# Temp folders
 docs/temp/
+tests/temp/
+public-tests/
 
 # Test results produced by build
 TestResults.xml
