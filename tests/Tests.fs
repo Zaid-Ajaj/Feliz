@@ -184,7 +184,7 @@ let codeSplittingLoading = React.functionComponent(fun () ->
         prop.text "Loading" 
     ])
 
-let importAsyncComp : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"
+let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"
 
 let codeSplitting = React.functionComponent(fun () ->
     React.suspense([
@@ -192,7 +192,7 @@ let codeSplitting = React.functionComponent(fun () ->
             React.lazy'((fun () -> 
                 promise { 
                     do! Promise.sleep 1000
-                    return! importAsyncComp
+                    return! asyncComponent
                 }
             ),())
         ]
