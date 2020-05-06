@@ -492,6 +492,8 @@ let centeredSpinner =
         ]
     ]
 
+let importAsyncComp : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"
+
 let codeSplitting = React.functionComponent(fun () ->
     Html.div [
         prop.children [
@@ -501,7 +503,7 @@ let codeSplitting = React.functionComponent(fun () ->
                     React.lazy'((fun () -> 
                         promise { 
                             do! Promise.sleep 2000
-                            return! JsInterop.importDynamic "./temp/CodeSplitting.js"
+                            return! importAsyncComp
                         }
                     ),())
                 ]

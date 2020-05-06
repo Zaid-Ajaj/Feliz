@@ -1,14 +1,12 @@
 {
     "private": true,
     "scripts": {
-        "build": "npm run-script compile-code-splitting && webpack --mode production",
-        "start": "npm run-script compile-code-splitting && webpack-dev-server",
+        "build": "webpack --mode production",
+        "start": "webpack-dev-server",
         "compile-demo-raw": "fable-splitter demo -o ./dist",
-        "compile-code-splitting": "fable-splitter ./docs/App.fsproj -o ./docs/temp --allFiles",
-        "compile-test-splitting": "fable-splitter ./tests/Tests.fsproj -o ./tests/temp --allFiles",
         "publish-docs": "npm run build && node publish.js",
         "test:live": "webpack-dev-server --config webpack.tests.js",
-        "pretest": "npm run-script compile-test-splitting && webpack --config webpack.tests.js",
+        "pretest": "webpack --config webpack.tests.js",
         "test": "dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj"
     },
     "repository": {
@@ -22,7 +20,6 @@
         "@testing-library/user-event": "^10.1.0",
         "fable-compiler": "^2.8.1",
         "fable-loader": "^2.1.6",
-        "fable-splitter": "^2.1.13",
         "gh-pages": "^2.1.1",
         "mocha": "^6.2.0",
         "remotedev": "^0.2.7",

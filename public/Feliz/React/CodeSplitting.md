@@ -20,34 +20,7 @@ application if you were so inclined.
 In summary, place `suspense` where you want to see the loading indicator and `lazy'` where you want
 to do the code splitting.
 
-#### Configuration
-
-You will need to do some minor pre-build steps to get this to work.
-
-What's recommended is to call your dynamic imports from an empty temp directory. When you are ready
-to build your application you will want to make a call like: 
-
-```bash
-fable-splitter ./docs/App.fsproj -o ./docs/temp --allFiles
-```
-
-which you can place in your `package.json` to make easier:
-
-```json
-{
-    ...
-    "scripts": {
-        "compile-code-splitting": "fable-splitter ./docs/App.fsproj -o ./docs/temp --allFiles",
-        // With NPM
-        "build": "npm run-script compile-code-splitting && webpack --mode production"
-        // With Yarn
-        "build": "yarn compile-code-splitting && webpack --mode production"
-    },
-    ...
-}
-```
-
-> You will need a step like this for each project that uses these features.
+**You must define the dynamic import at the module level, or it will fail!**
 
 ```fsharp:code-splitting
 // CodeSplitting.fs
@@ -89,6 +62,8 @@ let centeredSpinner =
         ]
     ]
 
+let importAsyncComp : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"
+
 let codeSplitting = React.functionComponent(fun () ->
     Html.div [
         prop.children [
@@ -98,7 +73,7 @@ let codeSplitting = React.functionComponent(fun () ->
                     React.lazy'((fun () -> 
                         promise { 
                             do! Promise.sleep 2000
-                            return! JsInterop.importDynamic "./temp/CodeSplitting.js"
+                            return! importAsyncComp
                         }
                     ),())
                 ]
