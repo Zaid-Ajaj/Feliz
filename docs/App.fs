@@ -51,70 +51,6 @@ let update msg state =
         | [ ] -> { state with CurrentTab = [ ] }, Cmd.none
         | _ -> { state with CurrentTab = tabs }, Cmd.none
 
-[
-    style.display.flex
-    style.display.none
-    style.fontSize 20
-    style.borderRadius 15
-    style.textAlign.center
-    style.alignContent.flexStart
-    style.textDecorationColor.blue
-    style.visibility.hidden
-    style.textDecoration.lineThrough
-    style.position.sticky
-    style.borderBottomWidth 20
-    style.borderBottomWidth (length.em 10)
-    style.borderBottomColor color.red
-    style.borderBottomStyle borderStyle.dashed
-    style.borderStyle.dotted
-    style.margin(length.em 1, length.em 0)
-    style.marginBottom 10
-    style.marginBottom (length.em 1)
-    style.boxShadow(10, 10, color.black)
-    style.boxShadow(10, 10, 10, color.black)
-    style.boxShadow(0, 0, 10, color.black)
-    style.boxShadow(0, 0, 10, 10, color.darkGray)
-    style.boxShadow.none
-    style.height length.auto
-    style.borderRadius 20
-    style.borderRadius (length.rem 10)
-    style.margin 10
-    style.backgroundRepeat.repeatX
-    style.backgroundPosition.fixedNoScroll
-    style.color.blue
-    style.cursor.pointer
-    style.margin (length.px 10)
-    style.margin(10, 10, 10, 20)
-    style.margin(10, 10, 10)
-    style.margin(10, 10)
-    style.margin.auto
-    style.borderCollapse.collapse
-    style.width 10
-    style.height 100
-    style.height (length.vh 50)
-    style.height (length.percent 100)
-    style.backgroundColor.fuchsia
-    style.backgroundColor "#FFFFFF"
-    style.border(3, borderStyle.dashed, color.crimson)
-    style.borderColor.blue
-    style.fontFamily font.aharoni
-    style.transform.scale3D(20, 20, 20)
-    style.transform.translateX(100)
-    style.transform.translateY(100)
-    style.transform.translateZ(100)
-    style.transform [ transform.scale(0.5) ]
-    style.textTransform.capitalize
-    style.textTransform.lowercase
-    style.fontStretch.extraCondensed
-    style.fontVariant.smallCaps
-    style.fontStyle.italic
-    style.fontSize 20
-    style.fontSize (length.em 2)
-    style.color.crimson
-    style.color "#000000"
-]
-|> List.iter (fun x -> Browser.Dom.console.log(createObj [!!x]))
-
 let delayedComponent = React.functionComponent (fun (props: {| load: unit -> ReactElement |}) ->
     let (started, setStarted) = React.useState(false)
     Html.div [
@@ -179,6 +115,8 @@ let samples = [
     "elmish-components-dispose", Samples.ElmishComponents.WithDispose.application
     "focus-input-example", Examples.focusInputExample()
     "forward-ref-example", Examples.forwardRefParent()
+    "code-splitting", delayedComponent {| load = Examples.codeSplitting |}
+    "code-splitting-delayed", delayedComponent {| load = Examples.codeSplittingDelayed |}
 ]
 
 let githubPath (rawPath: string) =
@@ -447,6 +385,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Common Pitfalls" [ Urls.CommonPitfalls ]
                     nestedMenuItem "Render Static Html" [ Urls.RenderStaticHtml ]
                     nestedMenuItem "Strict Mode" [ Urls.StrictMode ]
+                    nestedMenuItem "Code Splitting" [ Urls.CodeSplitting ]
                 ]
                 nestedMenuList "Ecosystem" [ Urls.Ecosystem ] [
                     nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
@@ -531,6 +470,7 @@ let reactExamples (currentPath: string list) =
     | [ Urls.CommonPitfalls ] -> [ "CommonPitfalls.md" ]
     | [ Urls.RenderStaticHtml ] -> [ "RenderStaticHtml.md" ]
     | [ Urls.StrictMode ] -> [ "StrictMode.md" ]
+    | [ Urls.CodeSplitting ] -> [ "CodeSplitting.md" ]
     | _ -> []
     |> fun path -> [ Urls.React ] @ path
 

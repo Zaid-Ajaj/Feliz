@@ -67,6 +67,7 @@ let [<Literal>] TwoLevelPieChart = "TwoLevelPieChart"
 
 let [<Literal>] React = "React"
 
+let [<Literal>] CodeSplitting = "CodeSplitting"
 let [<Literal>] CommonPitfalls = "CommonPitfalls"
 let [<Literal>] Components = "Components"
 let [<Literal>] ContextPropagation = "ContextPropagation"

@@ -15,8 +15,11 @@ type IReactApi =
     abstract createElement: comp: obj * props: obj -> ReactElement
     abstract createElement: comp: obj * props: obj * [<ParamList>] children: ReactElement seq -> ReactElement
     abstract forwardRef : render: Func<'Props,IRefValue<#HTMLElement option>,ReactElement> -> ('props -> IRefValue<'ref option> -> ReactElement)
+    [<Emit("$0.lazy($1)")>]
+    abstract lazy': import: (unit -> JS.Promise<'T>) -> 'T
     abstract memo: render: ('props -> ReactElement) * areEqual: ('props -> 'props -> bool) -> ('props -> ReactElement)
     abstract StrictMode: obj
+    abstract Suspense: obj
     abstract useCallback : callbackFunction: ('a -> 'b) -> dependencies: obj array -> ('a -> 'b)
     abstract useContext: ctx: IContext<'a> -> 'a
     abstract useEffect : obj * 't array -> unit

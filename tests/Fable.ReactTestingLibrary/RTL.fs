@@ -78,17 +78,23 @@ type RTL =
     static member screen = RTL.within(Browser.Dom.document.body)
 
     /// When in need to wait for any period of time you can use waitFor, to wait for your expectations to pass.
-    static member waitFor (callback: unit -> 'T) = Bindings.waitForImport.invoke callback
+    static member waitFor (callback: unit -> unit) = Bindings.waitForImport.invoke callback
     /// When in need to wait for any period of time you can use waitFor, to wait for your expectations to pass.
-    static member waitFor (callback: unit -> 'T, waitForOptions: IWaitOption list) = 
+    static member waitFor (callback: unit -> unit, waitForOptions: IWaitOption list) = 
         Bindings.waitForImport.invoke(callback, unbox<IWaitOptions> (createObj !!waitForOptions)) 
 
-    /// Wait for the removal of element(s) from the DOM.
-    static member waitForElementToBeRemoved (callback: unit -> 'T) = 
-        Bindings.waitForElementToBeRemovedImport.invoke callback
-    /// Wait for the removal of element(s) from the DOM.
-    static member waitForElementToBeRemoved (callback: unit -> 'T, waitForOptions: IWaitOption list) = 
+    /// Wait for the removal of an element from the DOM.
+    static member waitForElementToBeRemoved (callback: unit -> #HTMLElement option) = 
+        Bindings.waitForElementToBeRemovedImport.invoke(callback)
+    /// Wait for the removal of elements from the DOM.
+    static member waitForElementToBeRemoved (callback: unit -> #HTMLElement list) = 
+        Bindings.waitForElementToBeRemovedImport.invoke(callback >> ResizeArray)
+    /// Wait for the removal of an element from the DOM.
+    static member waitForElementToBeRemoved (callback: unit -> #HTMLElement option, waitForOptions: IWaitOption list) = 
         Bindings.waitForElementToBeRemovedImport.invoke(callback, unbox<IWaitOptions> (createObj !!waitForOptions)) 
+    /// Wait for the removal of an element from the DOM.
+    static member waitForElementToBeRemoved (callback: unit -> #HTMLElement list, waitForOptions: IWaitOption list) = 
+        Bindings.waitForElementToBeRemovedImport.invoke(callback >> ResizeArray, unbox<IWaitOptions> (createObj !!waitForOptions)) 
 
     /// Takes a DOM element and binds it to the raw query functions, allowing them to be used without specifying a container. 
     static member within (element: HTMLElement) =

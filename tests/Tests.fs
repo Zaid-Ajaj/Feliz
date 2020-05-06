@@ -178,6 +178,26 @@ let forwardRefParent = React.functionComponent(fun () ->
         ]
     ])
 
+let codeSplittingLoading = React.functionComponent(fun () ->
+    Html.div [ 
+        prop.testId "loading"
+        prop.text "Loading" 
+    ])
+
+let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"
+
+let codeSplitting = React.functionComponent(fun () ->
+    React.suspense([
+        Html.div [
+            React.lazy'((fun () -> 
+                promise { 
+                    do! Promise.sleep 1000
+                    return! asyncComponent
+                }
+            ),())
+        ]
+    ], codeSplittingLoading()))
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -318,6 +338,26 @@ let felizTests = testList "Feliz Tests" [
         Expect.isFalse (input = unbox document.activeElement) "Input is not focused yet before clicking button"
         do! RTL.waitFor(fun () -> RTL.userEvent.click(button)) |> Async.AwaitPromise
         Expect.isTrue (input = unbox document.activeElement) "Input is now active"
+    }
+
+    testReactAsync "lazy and suspense works" <| async {
+        let render = RTL.render(codeSplitting())
+        let loader = render.getByTestId("loading")
+
+        Expect.isTrue (loader.innerText = "Loading") "Loading element is displayed"
+        Expect.isTrue (render.queryByTestId("async-load", true).IsNone) "Code-split element is not displayed"
+        
+        do! 
+            RTL.waitForElementToBeRemoved((fun () -> render.queryByTestId("loading")), [
+                waitForOption.timeout 5000
+            ]) |> Async.AwaitPromise
+
+        Expect.isTrue (render.queryByTestId("loading").IsNone) "Loading element is not displayed"
+
+        do! 
+            RTL.waitFor(fun () -> 
+                Expect.isTrue (render.queryByTestId("async-load").IsSome) "Code-split element is displayed"
+            ) |> Async.AwaitPromise
     }
 ]
 

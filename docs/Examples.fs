@@ -7,6 +7,7 @@ open Zanaptak.TypedCssClasses
 open System
 
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
+type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
 
 type Msg =
     | Increment
@@ -463,5 +464,61 @@ let strictModeExample = React.functionComponent(fun () ->
             React.strictMode [
                 Fable.React.Helpers.ofType<StrictModeWarning,obj,obj> "" []
             ]
+        ]
+    ])
+
+let myNonCodeSplitComponent = React.functionComponent(fun () ->
+    Html.div [
+        prop.text "I was loaded synchronously!"
+    ])
+
+let centeredSpinner =
+    Html.div [
+        prop.style [
+            style.textAlign.center
+            style.marginLeft length.auto
+            style.marginRight length.auto
+            style.marginTop 50
+        ]
+        prop.children [
+            Html.li [
+                prop.className [
+                    FA.Fa
+                    FA.FaRefresh
+                    FA.FaSpin
+                    FA.Fa3X
+                ]
+            ]
+        ]
+    ]
+
+let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"
+
+let codeSplitting = React.functionComponent(fun () ->
+    Html.div [
+        prop.children [
+            myNonCodeSplitComponent()
+            React.suspense([
+                Html.div [
+                    React.lazy'(asyncComponent,())
+                ]
+            ], centeredSpinner)
+        ]
+    ])
+
+let codeSplittingDelayed = React.functionComponent(fun () ->
+    Html.div [
+        prop.children [
+            myNonCodeSplitComponent()
+            React.suspense([
+                Html.div [
+                    React.lazy'((fun () -> 
+                        promise { 
+                            do! Promise.sleep 2000
+                            return! asyncComponent
+                        }
+                    ),())
+                ]
+            ], centeredSpinner)
         ]
     ])

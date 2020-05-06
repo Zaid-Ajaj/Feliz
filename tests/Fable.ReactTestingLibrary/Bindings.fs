@@ -1327,12 +1327,15 @@ module Bindings =
 
     type WaitFor =
         [<Emit("$0($1)")>]
-        abstract invoke: callback: (unit -> 'T) * ?options: IWaitOptions -> JS.Promise<'T>
+        abstract invoke: callback: (unit -> unit) * ?options: IWaitOptions -> JS.Promise<unit>
 
     let waitForImport : WaitFor = import "waitFor" "@testing-library/react"
 
     type WaitForElementToBeRemoved =
-        abstract invoke: callback: (unit -> 'T) * ?options: IWaitOptions -> JS.Promise<'T>
+        [<Emit("$0($1...)")>]
+        abstract invoke: callback: (unit -> #HTMLElement option) * ?options: IWaitOptions -> JS.Promise<unit>
+        [<Emit("$0($1...)")>]
+        abstract invoke: callback: (unit -> ResizeArray<#HTMLElement>) * ?options: IWaitOptions -> JS.Promise<unit>
 
     let waitForElementToBeRemovedImport : WaitForElementToBeRemoved = import "waitForElementToBeRemoved" "@testing-library/react"
 
