@@ -70,6 +70,25 @@ let codeSplitting = React.functionComponent(fun () ->
             myNonCodeSplitComponent()
             React.suspense([
                 Html.div [
+                    React.lazy'(asyncComponent,())
+                ]
+            ], centeredSpinner)
+        ]
+    ])
+```
+
+This doesn't appear to be doing anything, this is because the file loads so quickly. To get
+a better unstanding of what's happening we can map the `JS.Promise` to add a delay:
+
+```fsharp:code-splitting-delayed
+
+...
+let codeSplittingDelayed = React.functionComponent(fun () ->
+    Html.div [
+        prop.children [
+            myNonCodeSplitComponent()
+            React.suspense([
+                Html.div [
                     React.lazy'((fun () -> 
                         promise { 
                             do! Promise.sleep 2000

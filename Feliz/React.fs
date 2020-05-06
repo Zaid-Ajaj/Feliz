@@ -548,7 +548,23 @@ type React =
     /// <param name='dynamicImport'>
     /// The dynamicImport of the component.
     ///
-    /// Such as `fun () -> JsInterop.importDynamic "./temp/CodeSplitting.js"`.
+    /// Such as `let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"`.
+    ///
+    /// Where you would then pass in `asyncComponent`.
+    /// </param>
+    /// <param name="props">The props to be passed to the component.</param>
+    static member lazy'<'T,'Props>(dynamicImport: JS.Promise<'T>, props: 'Props) =
+        Interop.reactApi.createElement(Interop.reactApi.lazy'(fun () -> dynamicImport),props)
+    /// <summary>
+    /// Lets you define a component that is loaded dynamically. Which helps with code
+    /// splitting.
+    /// </summary>
+    /// <param name='dynamicImport'>
+    /// The dynamicImport of the component.
+    ///
+    /// Such as `let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"`.
+    ///
+    /// Where you would then pass in `fun () -> asyncComponent`.
     /// </param>
     /// <param name="props">The props to be passed to the component.</param>
     static member lazy'<'T,'Props>(dynamicImport: unit -> JS.Promise<'T>, props: 'Props) =

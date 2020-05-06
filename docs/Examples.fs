@@ -500,6 +500,18 @@ let codeSplitting = React.functionComponent(fun () ->
             myNonCodeSplitComponent()
             React.suspense([
                 Html.div [
+                    React.lazy'(asyncComponent,())
+                ]
+            ], centeredSpinner)
+        ]
+    ])
+
+let codeSplittingDelayed = React.functionComponent(fun () ->
+    Html.div [
+        prop.children [
+            myNonCodeSplitComponent()
+            React.suspense([
+                Html.div [
                     React.lazy'((fun () -> 
                         promise { 
                             do! Promise.sleep 2000
