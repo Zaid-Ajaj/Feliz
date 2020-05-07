@@ -183,12 +183,14 @@ let forwardRefImperativeChild = React.forwardRef(fun ((), ref) ->
     let inputRef = React.useInputRef()
 
     React.useImperativeHandle(ref, fun () ->
-        {| focus = fun () -> setDivText "Howdy!" |}
-        |> Some
+        inputRef.current
+        |> Option.map(fun innerRef ->
+            {| focus = fun () -> setDivText innerRef.className |})
     )
 
     Html.div [
         Html.input [
+            prop.className "Howdy!"
             prop.type'.text
             prop.ref inputRef
         ]
