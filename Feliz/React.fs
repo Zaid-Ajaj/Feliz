@@ -257,9 +257,9 @@ type React =
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
-    static member memo(render: 'props -> #seq<ReactElement>, ?areEqual: 'props -> 'props -> bool, ?withKey: 'props -> string) =
+    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
+    static member memo(render: 'props -> #seq<ReactElement>, ?withKey: 'props -> string, ?areEqual: 'props -> 'props -> bool) =
         Internal.memo(render >> React.fragment, ?areEqual=areEqual, ?withKey=withKey)
 
     /// <summary>
@@ -269,9 +269,9 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
-    static member memo(name: string, render: 'props -> #seq<ReactElement>, ?areEqual: 'props -> 'props -> bool, ?withKey: 'props -> string) =
+    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
+    static member memo(name: string, render: 'props -> #seq<ReactElement>, ?withKey: 'props -> string, ?areEqual: 'props -> 'props -> bool) =
         Internal.memo(render >> React.fragment, name, ?areEqual=areEqual, ?withKey=withKey)
 
     //
