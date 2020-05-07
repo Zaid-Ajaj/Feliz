@@ -191,8 +191,9 @@ type React =
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
     /// <param name='render'>A render function that returns an element.</param>
-    static member functionComponent(render: 'props -> ReactElement) =
-        Internal.functionComponent(render)
+    /// <param name='withKey'>A function to derive a component key from the props.</param>
+    static member functionComponent(render: 'props -> ReactElement, ?withKey: 'props -> string) =
+        Internal.functionComponent(render, ?withKey=withKey)
 
     /// <summary>
     /// Creates a React function component from a function that accepts a "props" object and renders a result.
@@ -200,63 +201,28 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns an element.</param>
-    static member functionComponent(name: string, render: 'props -> ReactElement) =
-        Internal.functionComponent(render, name)
-
-    /// <summary>
-    /// Creates a React function component from a function that accepts a "props" object and renders a result.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function that returns an element.</param>
-    static member functionComponent(withKey: 'props -> string, render: 'props -> ReactElement) =
-        Internal.functionComponent(render, withKey=withKey)
+    static member functionComponent(name: string, render: 'props -> ReactElement, ?withKey: 'props -> string) =
+        Internal.functionComponent(render, name, ?withKey=withKey)
 
     /// <summary>
     /// Creates a React function component from a function that accepts a "props" object and renders a result.
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
+    /// <param name='render'>A render function that returns a list of elements.</param>
+    /// <param name='withKey'>A function to derive a component key from the props.</param>
+    static member functionComponent(render: 'props -> #seq<ReactElement>, ?withKey: 'props -> string) =
+        Internal.functionComponent(render >> React.fragment, ?withKey=withKey)
+
+    /// <summary>
+    /// Creates a React function component from a function that accepts a "props" object and renders a result.
+    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
+    /// </summary>
+    /// <param name='render'>A render function that returns a list of elements.</param>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function that returns an element.</param>
-    static member functionComponent(name: string, withKey: 'props -> string, render: 'props -> ReactElement) =
-        Internal.functionComponent(render, name, withKey=withKey)
-
-    /// <summary>
-    /// Creates a React function component from a function that accepts a "props" object and renders a result.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member functionComponent(render: 'props -> #seq<ReactElement>) =
-        Internal.functionComponent(render >> React.fragment)
-
-    /// <summary>
-    /// Creates a React function component from a function that accepts a "props" object and renders a result.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member functionComponent(name: string, render: 'props -> #seq<ReactElement>) =
-        Internal.functionComponent(render >> React.fragment, name)
-
-    /// <summary>
-    /// Creates a React function component from a function that accepts a "props" object and renders a result.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member functionComponent(withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
-        Internal.functionComponent(render >> React.fragment, withKey=withKey)
-
-    /// <summary>
-    /// Creates a React function component from a function that accepts a "props" object and renders a result.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
-    /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member functionComponent(name: string, withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
-        Internal.functionComponent(render >> React.fragment, name, withKey=withKey)
+    static member functionComponent(name: string, render: 'props -> #seq<ReactElement>, ?withKey: 'props -> string) =
+        Internal.functionComponent(render >> React.fragment, name, ?withKey=withKey)
 
     //
     // React.memo
@@ -268,8 +234,10 @@ type React =
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(render: 'props -> ReactElement) =
-        Internal.memo(render)
+    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
+    /// <param name='withKey'>A function to derive a component key from the props.</param>
+    static member memo(render: 'props -> ReactElement, ?withKey: 'props -> string, ?areEqual: 'props -> 'props -> bool) =
+        Internal.memo(render, ?areEqual=areEqual, ?withKey=withKey)
 
     /// <summary>
     /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
@@ -278,73 +246,10 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(name: string, render: 'props -> ReactElement) =
-        Internal.memo(render, name)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
-    /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(areEqual: 'props -> 'props -> bool, render: 'props -> ReactElement) =
-        Internal.memo(render, areEqual=areEqual)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(withKey: 'props -> string, render: 'props -> ReactElement) =
-        Internal.memo(render, withKey=withKey)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
-    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
-    /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(name: string, areEqual: 'props -> 'props -> bool, render: 'props -> ReactElement) =
-        Internal.memo(render, name, areEqual=areEqual)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
-    /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(name: string, withKey: 'props -> string, render: 'props -> ReactElement) =
-        Internal.memo(render, name, withKey=withKey)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> ReactElement) =
-        Internal.memo(render, areEqual=areEqual, withKey=withKey)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
-    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
-    /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function or a React.functionComponent.</param>
-    static member memo(name: string, areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> ReactElement) =
-        Internal.memo(render, name, areEqual=areEqual, withKey=withKey)
+    static member memo(name: string, render: 'props -> ReactElement, ?withKey: 'props -> string, ?areEqual: 'props -> 'props -> bool) =
+        Internal.memo(render, name, ?areEqual=areEqual, ?withKey=withKey)
 
     /// <summary>
     /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
@@ -352,8 +257,10 @@ type React =
     /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
     /// </summary>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(render: 'props -> #seq<ReactElement>) =
-        Internal.memo(render >> React.fragment)
+    /// <param name='withKey'>A function to derive a component key from the props.</param>
+    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
+    static member memo(render: 'props -> #seq<ReactElement>, ?withKey: 'props -> string, ?areEqual: 'props -> 'props -> bool) =
+        Internal.memo(render >> React.fragment, ?areEqual=areEqual, ?withKey=withKey)
 
     /// <summary>
     /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
@@ -362,73 +269,10 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(name: string, render: 'props -> #seq<ReactElement>) =
-        Internal.memo(render >> React.fragment, name)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(areEqual: 'props -> 'props -> bool, render: 'props -> #seq<ReactElement>) =
-        Internal.memo(render >> React.fragment, areEqual=areEqual)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
-        Internal.memo(render >> React.fragment, withKey=withKey)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(name: string, areEqual: 'props -> 'props -> bool, render: 'props -> #seq<ReactElement>) =
-        Internal.memo(render >> React.fragment, name, areEqual=areEqual)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
-    /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(name: string, withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
-        Internal.memo(render >> React.fragment, name, withKey=withKey)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
-    /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
-        Internal.memo(render >> React.fragment, areEqual=areEqual, withKey=withKey)
-
-    /// <summary>
-    /// `React.memo` memoizes the result of a function component. Given the same props, React will skip rendering the component, and reuse the last rendered result.
-    /// By default it will only shallowly compare complex objects in the props object. For more control, a custom `areEqual` function can be provided.
-    /// A component key can be provided in the props object, or a custom `withKey` function can be provided.
-    /// </summary>
-    /// <param name='name'>The component name to display in the React dev tools.</param>
-    /// <param name='areEqual'>A custom comparison function to use instead of React's default shallow compare.</param>
-    /// <param name='withKey'>A function to derive a component key from the props.</param>
-    /// <param name='render'>A render function that returns a list of elements.</param>
-    static member memo(name: string, areEqual: 'props -> 'props -> bool, withKey: 'props -> string, render: 'props -> #seq<ReactElement>) =
-        Internal.memo(render >> React.fragment, name, areEqual=areEqual, withKey=withKey)
+    static member memo(name: string, render: 'props -> #seq<ReactElement>, ?withKey: 'props -> string, ?areEqual: 'props -> 'props -> bool) =
+        Internal.memo(render >> React.fragment, name, ?areEqual=areEqual, ?withKey=withKey)
 
     //
     // React.useContext

@@ -233,6 +233,122 @@ let codeSplitting = React.functionComponent(fun () ->
         ]
     ], codeSplittingLoading()))
 
+let funcCompTest = React.functionComponent(fun (input: {| count: int |}) ->
+    Html.div [
+        renderCount {| label = "funcCompTest" |}
+        Html.div [
+            prop.text (string input.count)
+        ]
+    ])
+
+let funcCompTestDiff = React.functionComponent(fun () ->
+    let count,setCount = React.useState 0
+    
+    React.useEffectOnce(fun () -> setCount (count + 1))
+
+    Html.div [
+        funcCompTest {| count = count |}
+    ])
+
+let funcCompWithKey (props: {| count: int |} ) = 
+    if props.count = 0 then "originalKey" 
+    else "staticKey"
+
+let funcCompTestWithKey = React.functionComponent((fun (input: {| count: int |}) ->
+    Html.div [
+        renderCount {| label = "funcCompTestWithKey" |}
+        Html.div [
+            prop.text (string input.count)
+        ]
+    ]), funcCompWithKey)
+
+let funcCompTestWithKeyDiff = React.functionComponent(fun () ->
+    let count,setCount = React.useState 0
+    
+    React.useEffectOnce(fun () -> setCount (count + 1))
+
+    Html.div [
+        funcCompTestWithKey {| count = count |}
+    ])
+
+let memoCompTest = React.memo(fun (input: {| count: int |}) ->
+    Html.div [
+        renderCount {| label = "memoCompTest" |}
+        Html.div [
+            prop.text (string input.count)
+        ]
+    ])
+
+let memoCompTestDiff = React.functionComponent(fun () ->
+    let count,setCount = React.useState 0
+    
+    React.useEffectOnce(fun () -> setCount (count + 1))
+
+    Html.div [
+        memoCompTest {| count = count |}
+    ])
+
+let memoCompTestWithKey = React.memo((fun (input: {| count: int |}) ->
+    Html.div [
+        renderCount {| label = "memoCompTestWithKey" |}
+        Html.div [
+            prop.text (string input.count)
+        ]
+    ]), funcCompWithKey)
+
+let memoCompTestWithKeyDiff = React.functionComponent(fun () ->
+    let count,setCount = React.useState 0
+    
+    React.useEffectOnce(fun () -> setCount (count + 1))
+
+    Html.div [
+        memoCompTestWithKey {| count = count |}
+    ])
+
+let memoCompareEqual oldProps newProps = true
+
+let memoCompTestAreEqual = React.memo((fun (input: {| count: int |}) ->
+    Html.div [
+        renderCount {| label = "memoCompTestAreEqual" |}
+        Html.div [
+            prop.text (string input.count)
+        ]
+    ]), areEqual = memoCompareEqual)
+
+let memoCompTestAreEqualDiff = React.functionComponent(fun () ->
+    let count,setCount = React.useState 0
+    
+    React.useEffectOnce(fun () -> setCount (count + 1))
+
+    Html.div [
+        memoCompTestAreEqual {| count = count |}
+    ])
+
+let memoCompAreEqual (oldProps: {| count: int |}) (newProps: {| count: int |}) =
+    if oldProps.count < 2 then false
+    else true
+
+let memoCompWithKey (props: {| count: int |}) =
+    if props.count > 2 then "2"
+    else System.Guid() |> unbox<string>
+
+let memoCompTestAreEqualWithKey = React.memo((fun (input: {| count: int |}) ->
+    Html.div [
+        renderCount {| label = "memoCompTestAreEqualWithKey" |}
+        Html.div [
+            prop.text (string input.count)
+        ]
+    ]), memoCompWithKey, areEqual = memoCompAreEqual)
+
+let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
+    let count,setCount = React.useState 0
+    
+    React.useEffect(fun () -> if count < 10 then setCount (count + 1))
+
+    Html.div [
+        memoCompTestAreEqualWithKey {| count = count |}
+    ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -404,6 +520,42 @@ let felizTests = testList "Feliz Tests" [
         do! RTL.waitFor(fun () -> RTL.userEvent.click(button)) |> Async.AwaitPromise
         Expect.isTrue (text.innerText = "Howdy!") "Div has text value set"
     }
+
+    testReact "funcComps work correctly" <| fun _ ->
+        let render = RTL.render(funcCompTestDiff())
+        let renderCount = render.getByTestId "funcCompTest"
+
+        Expect.equal "2" renderCount.innerText "Renders twice"
+
+    testReact "funcComps withKey work correctly" <| fun _ ->
+        let render = RTL.render(funcCompTestWithKeyDiff())
+        let renderCount = render.getByTestId "funcCompTestWithKey"
+
+        Expect.equal "1" renderCount.innerText "Renders once due to static key"
+
+    testReact "memoComps work correctly" <| fun _ ->
+        let render = RTL.render(memoCompTestDiff())
+        let renderCount = render.getByTestId "memoCompTest"
+
+        Expect.equal "2" renderCount.innerText "Renders twice"
+
+    testReact "memoComps withKey work correctly" <| fun _ ->
+        let render = RTL.render(memoCompTestWithKeyDiff())
+        let renderCount = render.getByTestId "memoCompTestWithKey"
+
+        Expect.equal "1" renderCount.innerText "Renders once due to static key"
+
+    testReact "memoComps areEqual work correctly" <| fun _ ->
+        let render = RTL.render(memoCompTestAreEqualDiff())
+        let renderCount = render.getByTestId "memoCompTestAreEqual"
+
+        Expect.equal "1" renderCount.innerText "Renders once due to areEqual eval"
+
+    testReact "memoComps withKey areEqual work correctly" <| fun _ ->
+        let render = RTL.render(memoCompTestAreEqualWithKeyDiff())
+        let renderCount = render.getByTestId "memoCompTestAreEqualWithKey"
+
+        Expect.equal "3" renderCount.innerText "Renders three times due to areEqual and withKey evals"
 ]
 
 [<EntryPoint>]
