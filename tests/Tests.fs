@@ -178,6 +178,41 @@ let forwardRefParent = React.functionComponent(fun () ->
         ]
     ])
 
+let forwardRefImperativeChild = React.forwardRef(fun ((), ref) ->
+    let divText,setDivText = React.useState ""
+    let inputRef = React.useInputRef()
+
+    React.useImperativeHandle(ref, fun () ->
+        inputRef.current
+        |> Option.map(fun innerRef ->
+            {| focus = fun () -> setDivText innerRef.className |})
+    )
+
+    Html.div [
+        Html.input [
+            prop.className "Howdy!"
+            prop.type'.text
+            prop.ref inputRef
+        ]
+        Html.div [
+            prop.testId "focus-text"
+            prop.text divText
+        ]
+    ])
+
+let forwardRefImperativeParent = React.functionComponent(fun () ->
+    let ref = React.useRef<{| focus: unit -> unit |} option>(None)
+
+    Html.div [
+        forwardRefImperativeChild((), ref)
+        Html.button [
+            prop.testId "focus-button"
+            prop.onClick <| fun ev ->
+                ref.current 
+                |> Option.iter (fun elem -> elem.focus())
+        ]
+    ])
+
 let codeSplittingLoading = React.functionComponent(fun () ->
     Html.div [ 
         prop.testId "loading"
@@ -358,6 +393,16 @@ let felizTests = testList "Feliz Tests" [
             RTL.waitFor(fun () -> 
                 Expect.isTrue (render.queryByTestId("async-load").IsSome) "Code-split element is displayed"
             ) |> Async.AwaitPromise
+    }
+
+    testReactAsync "useImperativeHandle works correctly" <| async {
+        let render = RTL.render(forwardRefImperativeParent())
+        let button = render.getByTestId "focus-button"
+        let text = render.getByTestId "focus-text"
+
+        Expect.isFalse (text.innerText <> "") "Div has empty text value"
+        do! RTL.waitFor(fun () -> RTL.userEvent.click(button)) |> Async.AwaitPromise
+        Expect.isTrue (text.innerText = "Howdy!") "Div has text value set"
     }
 ]
 
