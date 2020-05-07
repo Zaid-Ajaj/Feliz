@@ -9,10 +9,10 @@
     </PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>0.84.0</Version>
+    <Version>0.85.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Add React.strictMode</PackageReleaseNotes>
+    <PackageReleaseNotes>Add React.memo, React.lazy and React.suspense</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>
