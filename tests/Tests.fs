@@ -184,6 +184,7 @@ let forwardRefImperativeChild = React.forwardRef(fun ((), ref) ->
     React.useImperativeHandle(ref, fun () ->
         {| focus = fun () -> setDivText "Howdy!" |}
     )
+
     Html.div [
         Html.input [
             prop.type'.text
