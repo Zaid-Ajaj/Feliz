@@ -596,7 +596,7 @@ type React =
     /// The fields must match the name of the properties/methods.
     /// </summary>
     /// <param name='ref'>The ref you want to override.</param>
-    /// <param name='createHandle'>An object that describes the changed behavior. </param>
+    /// <param name='createHandle'>A function that returns an object that describes the changed behavior.</param>
     static member useImperativeHandle(ref: IRefValue<'T>, createHandle: unit -> 'U) =
         Interop.reactApi.useImperativeHandleNoDeps ref (createHandle >> JsInterop.toPlainJsObj)
 
@@ -607,7 +607,7 @@ type React =
     /// Currently this is only usable with `React.lazy'`.
     /// </summary>
     /// <param name='ref'>The ref you want to override.</param>
-    /// <param name='createHandle'>An object that describes the changed behavior. </param>
+    /// <param name='createHandle'>A function that returns an object that describes the changed behavior.</param>
     /// <param name='dependencies'>An array of dependencies upon which the imperative handle function depends.</param>
     static member useImperativeHandle(ref: IRefValue<'T>, createHandle: unit -> 'U, dependencies: obj []) =
         Interop.reactApi.useImperativeHandle ref (createHandle >> JsInterop.toPlainJsObj) dependencies
