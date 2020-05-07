@@ -180,15 +180,17 @@ let forwardRefParent = React.functionComponent(fun () ->
 
 let forwardRefImperativeChild = React.forwardRef(fun ((), ref) ->
     let divText,setDivText = React.useState ""
-    
+    let inputRef = React.useInputRef()
+
     React.useImperativeHandle(ref, fun () ->
         {| focus = fun () -> setDivText "Howdy!" |}
+        |> Some
     )
 
     Html.div [
         Html.input [
             prop.type'.text
-            prop.ref ref
+            prop.ref inputRef
         ]
         Html.div [
             prop.testId "focus-text"
@@ -197,14 +199,14 @@ let forwardRefImperativeChild = React.forwardRef(fun ((), ref) ->
     ])
 
 let forwardRefImperativeParent = React.functionComponent(fun () ->
-    let inputRef = React.useInputRef()
+    let ref = React.useRef<{| focus: unit -> unit |} option>(None)
 
     Html.div [
-        forwardRefImperativeChild((), inputRef)
+        forwardRefImperativeChild((), ref)
         Html.button [
             prop.testId "focus-button"
             prop.onClick <| fun ev ->
-                inputRef.current 
+                ref.current 
                 |> Option.iter (fun elem -> elem.focus())
         ]
     ])

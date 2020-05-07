@@ -513,8 +513,8 @@ type React =
     /// Forwards a given ref, allowing you to pass it further down to a child.
     /// </summary>
     /// <param name='render'>A render function that returns an element.</param>
-    static member forwardRef(render: ('Props * IRefValue<#HTMLElement option> -> ReactElement)) : ('Props * IRefValue<#HTMLElement option> -> ReactElement) = 
-        let forwardRefType = Interop.reactApi.forwardRef(Func<'Props,IRefValue<#HTMLElement option>,ReactElement> (fun props ref -> render(props,ref)))
+    static member forwardRef(render: ('props * IRefValue<'t> -> ReactElement)) : ('props * IRefValue<'t> -> ReactElement) = 
+        let forwardRefType = Interop.reactApi.forwardRef(Func<'props,IRefValue<'t>,ReactElement> (fun props ref -> render(props,ref)))
         fun (props, ref) ->
             Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
 
@@ -523,8 +523,8 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns an element.</param>
-    static member forwardRef(name: string, render: ('Props * IRefValue<#HTMLElement option> -> ReactElement)) : ('Props * IRefValue<#HTMLElement option> -> ReactElement) = 
-        let forwardRefType = Interop.reactApi.forwardRef(Func<'Props,IRefValue<#HTMLElement option>,ReactElement> (fun props ref -> render(props,ref)))
+    static member forwardRef(name: string, render: ('props * IRefValue<'t> -> ReactElement)) : ('props * IRefValue<'t> -> ReactElement) = 
+        let forwardRefType = Interop.reactApi.forwardRef(Func<'props,IRefValue<'t>,ReactElement> (fun props ref -> render(props,ref)))
         render?displayName <- name
         fun (props, ref) ->
             Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
@@ -553,7 +553,7 @@ type React =
     /// Where you would then pass in `asyncComponent`.
     /// </param>
     /// <param name="props">The props to be passed to the component.</param>
-    static member lazy'<'T,'Props>(dynamicImport: JS.Promise<'T>, props: 'Props) =
+    static member lazy'<'t,'props>(dynamicImport: JS.Promise<'t>, props: 'props) =
         Interop.reactApi.createElement(Interop.reactApi.lazy'(fun () -> dynamicImport),props)
     /// <summary>
     /// Lets you define a component that is loaded dynamically. Which helps with code
@@ -567,7 +567,7 @@ type React =
     /// Where you would then pass in `fun () -> asyncComponent`.
     /// </param>
     /// <param name="props">The props to be passed to the component.</param>
-    static member lazy'<'T,'Props>(dynamicImport: unit -> JS.Promise<'T>, props: 'Props) =
+    static member lazy'<'t,'props>(dynamicImport: unit -> JS.Promise<'t>, props: 'props) =
         Interop.reactApi.createElement(Interop.reactApi.lazy'(dynamicImport),props)
 
     /// <summary>
@@ -593,12 +593,11 @@ type React =
     /// <summary>
     /// Allows you to override the behavior of a given ref.
     ///
-    /// The fields must match the name of the properties/methods.
     /// </summary>
     /// <param name='ref'>The ref you want to override.</param>
-    /// <param name='createHandle'>A function that returns an object that describes the changed behavior.</param>
-    static member useImperativeHandle(ref: IRefValue<'T>, createHandle: unit -> 'U) =
-        Interop.reactApi.useImperativeHandleNoDeps ref (createHandle >> JsInterop.toPlainJsObj)
+    /// <param name='createHandle'>A function that returns a new ref with changed behavior.</param>
+    static member useImperativeHandle(ref: IRefValue<'t>, createHandle: unit -> 't) =
+        Interop.reactApi.useImperativeHandleNoDeps ref createHandle
 
     /// <summary>
     /// Lets you specify a loading indicator whenever a child element is not yet ready 
@@ -607,7 +606,7 @@ type React =
     /// Currently this is only usable with `React.lazy'`.
     /// </summary>
     /// <param name='ref'>The ref you want to override.</param>
-    /// <param name='createHandle'>A function that returns an object that describes the changed behavior.</param>
+    /// <param name='createHandle'>A function that returns a new ref with changed behavior.</param>
     /// <param name='dependencies'>An array of dependencies upon which the imperative handle function depends.</param>
-    static member useImperativeHandle(ref: IRefValue<'T>, createHandle: unit -> 'U, dependencies: obj []) =
-        Interop.reactApi.useImperativeHandle ref (createHandle >> JsInterop.toPlainJsObj) dependencies
+    static member useImperativeHandle(ref: IRefValue<'t>, createHandle: unit -> 't, dependencies: obj []) =
+        Interop.reactApi.useImperativeHandle ref createHandle dependencies
