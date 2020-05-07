@@ -444,6 +444,35 @@ let forwardRefParent = React.functionComponent(fun () ->
         ]
     ])
 
+let forwardRefImperativeChild = React.forwardRef(fun ((), ref) ->
+    let divText,setDivText = React.useState ""
+    
+    React.useImperativeHandle(ref, fun () ->
+        {| focus = fun () -> setDivText "Howdy!" |}
+    )
+    Html.div [
+        Html.input [
+            prop.type'.text
+            prop.ref ref
+        ]
+        Html.div [
+            prop.text divText
+        ]
+    ])
+
+let forwardRefImperativeParent = React.functionComponent(fun () ->
+    let inputRef = React.useInputRef()
+
+    Html.div [
+        forwardRefImperativeChild((), inputRef)
+        Html.button [
+            prop.text "Focus Input"
+            prop.onClick <| fun ev ->
+                inputRef.current 
+                |> Option.iter (fun elem -> elem.focus())
+        ]
+    ])
+
 type StrictModeWarning () =
     inherit Fable.React.Component<obj,obj>()
 

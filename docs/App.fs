@@ -115,6 +115,7 @@ let samples = [
     "elmish-components-dispose", Samples.ElmishComponents.WithDispose.application
     "focus-input-example", Examples.focusInputExample()
     "forward-ref-example", Examples.forwardRefParent()
+    "use-imperative-handle", Examples.forwardRefImperativeParent()
     "code-splitting", delayedComponent {| load = Examples.codeSplitting |}
     "code-splitting-delayed", delayedComponent {| load = Examples.codeSplittingDelayed |}
 ]

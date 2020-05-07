@@ -589,3 +589,25 @@ type React =
     /// <param name='fallback'>The element that will be rendered while the children are loading.</param>
     static member suspense(children: ReactElement list, fallback: ReactElement) =
         Interop.reactApi.createElement(Interop.reactApi.Suspense, {| fallback = fallback |} |> JsInterop.toPlainJsObj, children)
+
+    /// <summary>
+    /// Allows you to override the behavior of a given ref.
+    ///
+    /// The fields must match the name of the properties/methods.
+    /// </summary>
+    /// <param name='ref'>The ref you want to override.</param>
+    /// <param name='createHandle'>An object that describes the changed behavior. </param>
+    static member useImperativeHandle(ref: IRefValue<'T>, createHandle: unit -> 'U) =
+        Interop.reactApi.useImperativeHandleNoDeps ref (createHandle >> JsInterop.toPlainJsObj)
+
+    /// <summary>
+    /// Lets you specify a loading indicator whenever a child element is not yet ready 
+    /// to render.
+    ///
+    /// Currently this is only usable with `React.lazy'`.
+    /// </summary>
+    /// <param name='ref'>The ref you want to override.</param>
+    /// <param name='createHandle'>An object that describes the changed behavior. </param>
+    /// <param name='dependencies'>An array of dependencies upon which the imperative handle function depends.</param>
+    static member useImperativeHandle(ref: IRefValue<'T>, createHandle: unit -> 'U, dependencies: obj []) =
+        Interop.reactApi.useImperativeHandle ref (createHandle >> JsInterop.toPlainJsObj) dependencies

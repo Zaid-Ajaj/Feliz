@@ -83,3 +83,44 @@ let forwardRefParent = React.functionComponent(fun () ->
         ]
     ])
 ```
+
+#### Overriding behavior with useImperativeHandle
+
+The hook `React.useImperativeHandle` allows you to override the behavior of the given `ref`.
+
+> This should be used in conjunction with `React.forwardRef`.
+
+**You should try to avoid using this when possible.**
+
+In this example we override the behavior of `focus` to instead set the text value of a div:
+
+```fs:use-imperative-handle
+let forwardRefImperativeChild = React.forwardRef(fun ((), ref) ->
+    let divText,setDivText = React.useState ""
+    
+    React.useImperativeHandle(ref, fun () ->
+        {| focus = fun () -> setDivText "Howdy!" |}
+    )
+    Html.div [
+        Html.input [
+            prop.type'.text
+            prop.ref ref
+        ]
+        Html.div [
+            prop.text divText
+        ]
+    ])
+
+let forwardRefImperativeParent = React.functionComponent(fun () ->
+    let inputRef = React.useInputRef()
+
+    Html.div [
+        forwardRefImperativeChild((), inputRef)
+        Html.button [
+            prop.text "Focus Input"
+            prop.onClick <| fun ev ->
+                inputRef.current 
+                |> Option.iter (fun elem -> elem.focus())
+        ]
+    ])
+```
