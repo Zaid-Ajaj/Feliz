@@ -16,6 +16,7 @@ let [<Literal>] UseWithElmish = "UseWithElmish"
 // ____________________________________________________
 // Shared Urls
 
+let [<Literal>] Components = "Components"
 let [<Literal>] Refs = "Refs"
 
 // ____________________________________________________
@@ -69,7 +70,7 @@ let [<Literal>] React = "React"
 
 let [<Literal>] CodeSplitting = "CodeSplitting"
 let [<Literal>] CommonPitfalls = "CommonPitfalls"
-let [<Literal>] Components = "Components"
+// Components
 let [<Literal>] ContextPropagation = "ContextPropagation"
 let [<Literal>] EffectfulComponents = "EffectfulComponents"
 let [<Literal>] HoverAnimations = "HoverAnimations"
@@ -90,19 +91,65 @@ let [<Literal>] UseState = "UseState"
 
 let [<Literal>] Ecosystem = "Ecosystem"
 
-let [<Literal>] ElmishComponents = "ElmishComponents"
+// __________________________
+
+let [<Literal>] UIFrameworks = "UIFrameworks"
+
+let [<Literal>] Bulma = "Bulma"
 let [<Literal>] Mui = "Mui"
-let [<Literal>] PigeonMaps = "PigeonMaps"
-let [<Literal>] Plotly = "Plotly"
+
+// __________________________
+
+let [<Literal>] Hooks = "Hooks"
+
+let [<Literal>] UseWorker = "UseWorker"
+
+// __________________________
+
+// Components
+
+let [<Literal>] ElmishComponents = "ElmishComponents"
 let [<Literal>] Popover = "Popover"
 let [<Literal>] Router = "Router"
+
+// __________________________
+
+let [<Literal>] Visualizations = "Visualizations"
+
+let [<Literal>] PigeonMaps = "PigeonMaps"
+let [<Literal>] Plotly = "Plotly"
+// Recharts
+
+// __________________________
+
+let [<Literal>] Testing = "Testing"
+
+// _____________
+
+let [<Literal>] Frameworks = "Frameworks"
+
+let [<Literal>] Jest = "Jest"
+let [<Literal>] Mocha = "Mocha"
+
+// _____________
+
+let [<Literal>] Utilities = "Utilities"
+
+let [<Literal>] RTL = "RTL"
+let [<Literal>] FastCheck = "FastCheck"
+
+// __________________________
+
+let [<Literal>] Misc = "Misc"
+
+let [<Literal>] SweetAlert = "SweetAlert"
 let [<Literal>] ViewEngine = "ViewEngine"
 
 // ____________________________________________________
 
 let [<Literal>] Tests = "Tests"
 
-let [<Literal>] Bulma = "Bulma"
+
 let [<Literal>] FileUpload = "FileUpload"
 let [<Literal>] ForwardRef = "ForwardRef"
 let [<Literal>] KeyboardKey = "KeyboardKey"

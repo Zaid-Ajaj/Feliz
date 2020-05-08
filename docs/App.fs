@@ -1,6 +1,7 @@
 module App
 
 open Browser.Dom
+open Browser.Types
 open Elmish
 open Elmish.React
 open Feliz
@@ -256,6 +257,8 @@ module MarkdownLoader =
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
 let nestedMenuList' = React.functionComponent(fun (input: {| state: State; name: string; basePath: string list; elems: (string list -> Fable.React.ReactElement) list; dispatch: Msg -> unit |}) ->
+    let listRef = React.useElementRef()
+    
     let collapsed = 
         match input.state.CurrentTab with
         | [ ] -> false
@@ -267,31 +270,45 @@ let nestedMenuList' = React.functionComponent(fun (input: {| state: State; name:
                 |> Option.map ((=) segment) 
                 |> Option.defaultValue false) 
 
-    Html.li [
-        Html.anchor [
-            prop.className Bulma.IsUnselectable
-            prop.onClick <| fun _ -> 
-                match collapsed with
-                | true -> input.dispatch <| TabToggled (input.basePath |> List.rev |> List.tail |> List.rev)
-                | false -> input.dispatch <| TabToggled input.basePath
-            prop.children [
-                Html.i [
-                    prop.style [ style.marginRight 10 ]
-                    prop.className [
-                        FA.Fa
-                        if not collapsed then FA.FaAngleDown else FA.FaAngleUp
-                    ]
-                ]
-                Html.span input.name
-            ]
-        ]
+    React.useLayoutEffect(fun () -> 
+        match listRef.current with
+        | Some elem -> 
+            jsOptions<ScrollIntoViewOptions>(fun o ->
+                o.behavior <- ScrollIntoViewOptionsBehavior.Smooth
+                o.``inline`` <- ScrollIntoViewOptionsAlignment.Center
+            )
+            |> elem.scrollIntoView
+        | None -> ()
+    )
 
-        Html.ul [
-            prop.className Bulma.MenuList
-            prop.style [ 
-                if not collapsed then yield! [ style.display.none ] 
+    Html.li [
+        prop.ref listRef
+        prop.children [
+            Html.anchor [
+                prop.className Bulma.IsUnselectable
+                prop.onClick <| fun _ -> 
+                    match collapsed with
+                    | true -> input.dispatch <| TabToggled (input.basePath |> List.rev |> List.tail |> List.rev)
+                    | false -> input.dispatch <| TabToggled input.basePath
+                prop.children [
+                    Html.i [
+                        prop.style [ style.marginRight 10 ]
+                        prop.className [
+                            FA.Fa
+                            if not collapsed then FA.FaAngleDown else FA.FaAngleUp
+                        ]
+                    ]
+                    Html.span input.name
+                ]
             ]
-            prop.children (input.elems |> List.map (fun f -> f input.basePath))
+
+            Html.ul [
+                prop.className Bulma.MenuList
+                prop.style [ 
+                    if not collapsed then yield! [ style.display.none ] 
+                ]
+                prop.children (input.elems |> List.map (fun f -> f input.basePath))
+            ]
         ]
     ])
 
@@ -388,17 +405,44 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Strict Mode" [ Urls.StrictMode ]
                     nestedMenuItem "Code Splitting" [ Urls.CodeSplitting ]
                 ]
-                nestedMenuList "Ecosystem" [ Urls.Ecosystem ] [
-                    nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
-                    nestedMenuItem "Feliz.Router" [ Urls.Router ]
-                    nestedMenuItem "Feliz.Recharts" [ Urls.Recharts ]
-                    nestedMenuItem "Feliz.PigeonMaps" [ Urls.PigeonMaps ]
-                    nestedMenuItem "Feliz.MaterialUI" [ Urls.Mui ]
-                    nestedMenuItem "Feliz.Plotly" [ Urls.Plotly ]
+                menuLabel "Ecosystem"
+                nestedMenuList "UI Frameworks" [ Urls.UIFrameworks ] [
                     nestedMenuItem "Feliz.Bulma" [ Urls.Bulma ]
+                    nestedMenuItem "Feliz.MaterialUI" [ Urls.Mui ]
+                ]
+
+                nestedMenuList "Hooks" [ Urls.Hooks ] [
+                    nestedMenuItem "Feliz.UseWorker" [ Urls.UseWorker ]
+                ]
+                    
+                nestedMenuList "Components" [ Urls.Components ] [
+                    nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
                     nestedMenuItem "Feliz.Popover" [ Urls.Popover ]
+                    nestedMenuItem "Feliz.Router" [ Urls.Router ]
+                ]
+
+                nestedMenuList "Visualizations" [ Urls.Visualizations ] [
+                    nestedMenuItem "Feliz.PigeonMaps" [ Urls.PigeonMaps ]
+                    nestedMenuItem "Feliz.Plotly" [ Urls.Plotly ]
+                    nestedMenuItem "Feliz.Recharts" [ Urls.Recharts ]
+                ]
+
+                nestedMenuList "Testing" [ Urls.Testing ] [
+                    subNestedMenuList "Frameworks" [ Urls.Frameworks ] [
+                        nestedMenuItem "Fable.Jester" [ Urls.Jest ]
+                        nestedMenuItem "Fable.Mocha" [ Urls.Mocha ]
+                    ]
+                    subNestedMenuList "Utilities" [ Urls.Utilities ] [
+                        nestedMenuItem "Fable.ReactTestingLibrary" [ Urls.RTL ]
+                        nestedMenuItem "Fable.FastCheck" [ Urls.FastCheck ]
+                    ]
+                ]
+                    
+                nestedMenuList "Misc" [ Urls.Misc ] [
+                    nestedMenuItem "Feliz.SweetAlert" [ Urls.SweetAlert ]
                     nestedMenuItem "Feliz.ViewEngine" [ Urls.ViewEngine ]
                 ]
+                menuLabel "Other Docs"
                 nestedMenuList "Feliz.PigeonMaps" [ Urls.PigeonMaps ] [
                     nestedMenuItem "Overview" [ Urls.Overview ]
                     nestedMenuItem "Installation" [ Urls.Installation ]
@@ -551,16 +595,43 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | PathPrefix [ Urls.React ] (Some res) -> reactExamples res 
         | _ -> []
         |> loadOrSegment [ Urls.Feliz ]
-    | PathPrefix [ Urls.Ecosystem ] (Some res) ->
+    | PathPrefix [ Urls.UIFrameworks ] (Some res) ->
+        match res with
+        | [ Urls.Bulma ] -> lazyView MarkdownLoader.load [ readme "Dzoukr" "Feliz.Bulma" ]
+        | [ Urls.Mui ] -> lazyView MarkdownLoader.load [ readme "cmeeren" "Feliz.MaterialUI" ]
+        | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
+    | PathPrefix [ Urls.Hooks ] (Some res) ->
+        match res with
+        | [ Urls.UseWorker ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseWorker" ]
+        | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
+    | PathPrefix [ Urls.Components ] (Some res) ->
         match res with
         | [ Urls.ElmishComponents ] -> lazyView MarkdownLoader.load [ "Feliz"; "ElmishComponents.md" ]
+        | [ Urls.Popover ] -> lazyView MarkdownLoader.load [ "Popover"; "README.md" ]
         | [ Urls.Router ] -> lazyView MarkdownLoader.load [ readme "Zaid-Ajaj" "Feliz.Router" ]
-        | [ Urls.Mui ] -> lazyView MarkdownLoader.load [ readme "cmeeren" "Feliz.MaterialUI" ]
+        | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
+    | PathPrefix [ Urls.Visualizations ] (Some res) ->
+        match res with
+        | [ Urls.PigeonMaps ] -> lazyView MarkdownLoader.load [ "PigeonMaps"; "README.md" ]
         | [ Urls.Plotly ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.Plotly" ]
         | [ Urls.Recharts ] -> lazyView MarkdownLoader.load [ "Recharts"; "README.md" ]
-        | [ Urls.PigeonMaps ] -> lazyView MarkdownLoader.load [ "PigeonMaps"; "README.md" ]
-        | [ Urls.Popover ] -> lazyView MarkdownLoader.load [ "Popover"; "README.md" ]
-        | [ Urls.Bulma ] -> lazyView MarkdownLoader.load [ readme "Dzoukr" "Feliz.Bulma" ]
+        | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
+    | PathPrefix [ Urls.Testing ] (Some res) ->
+        match res with
+        | PathPrefix [ Urls.Frameworks ] (Some res) ->
+            match res with
+            | [ Urls.Jest ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Fable.Jester" ]
+            | [ Urls.Mocha ] -> lazyView MarkdownLoader.load [ readme "Zaid-Ajaj" "Fable.Mocha" ]
+            | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
+        | PathPrefix [ Urls.Utilities ] (Some res) ->
+            match res with
+            | [ Urls.RTL ] -> lazyView MarkdownLoader.load [ "https://raw.githubusercontent.com/Shmew/Fable.Jester/master/src/Fable.ReactTestingLibrary/README.md" ]
+            | [ Urls.FastCheck ] -> lazyView MarkdownLoader.load [ "https://raw.githubusercontent.com/Shmew/Fable.Jester/master/src/Fable.FastCheck/README.md" ]
+            | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
+        | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
+    | PathPrefix [ Urls.Misc ] (Some res) ->
+        match res with
+        | [ Urls.SweetAlert ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.SweetAlert" ]
         | [ Urls.ViewEngine ] -> lazyView  MarkdownLoader.load [ readme "dbrattli" "Feliz.ViewEngine" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Recharts ] (Some res) -> rechartsExamples res |> loadOrSegment []
