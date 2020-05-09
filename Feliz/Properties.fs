@@ -84,7 +84,7 @@ module PropHelpers =
         path 
         |> Seq.map (fun (cmdType, cmds) ->
             cmds 
-            |> Seq.map (Seq.map unbox<string> >> String.concat ",")
+            |> Seq.map (unbox<seq<string>> >> String.concat ",")
             |> String.concat " "
             |> sprintf "%s %s" ((unbox<string> cmdType).ToUpper()))
         |> String.concat System.Environment.NewLine
@@ -93,7 +93,7 @@ module PropHelpers =
         path 
         |> Seq.map (fun (cmdType, cmds) ->
             cmds 
-            |> Seq.map (Seq.map unbox<string> >> String.concat ",")
+            |> Seq.map (unbox<seq<string>> >> String.concat ",")
             |> String.concat " "
             |> sprintf "%s %s" ((unbox<string> cmdType).ToUpper()))
         |> String.concat System.Environment.NewLine
@@ -653,7 +653,7 @@ type prop =
     /// 
     /// When used with the `by` attribute, the animation will change the attribute relatively 
     /// from the from value by the value specified in by.
-    static member inline from (values: seq<float>) = Interop.mkAttr "from" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline from (values: seq<float>) = Interop.mkAttr "from" (values |> unbox<seq<string>> |> String.concat " ")
     /// Indicates the initial value of the attribute that will be modified during the animation. 
     /// 
     /// When used with the `to` attribute, the animation will change the modified attribute from
@@ -669,7 +669,7 @@ type prop =
     /// 
     /// When used with the `by` attribute, the animation will change the attribute relatively 
     /// from the from value by the value specified in by.
-    static member inline from (values: seq<int>) = Interop.mkAttr "from" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline from (values: seq<int>) = Interop.mkAttr "from" (values |> unbox<seq<string>> |> String.concat " ")
     /// Indicates the initial value of the attribute that will be modified during the animation. 
     /// 
     /// When used with the `to` attribute, the animation will change the modified attribute from
@@ -834,10 +834,10 @@ type prop =
 
     /// Defines the list of numbers that make up the kernel matrix for the 
     /// <feConvolveMatrix> element.
-    static member inline kernelMatrix (values: seq<float>) = Interop.mkAttr "kernelMatrix" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline kernelMatrix (values: seq<float>) = Interop.mkAttr "kernelMatrix" (values |> unbox<seq<string>> |> String.concat " ")
     /// Defines the list of numbers that make up the kernel matrix for the 
     /// <feConvolveMatrix> element.
-    static member inline kernelMatrix (values: seq<int>) = Interop.mkAttr "kernelMatrix" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline kernelMatrix (values: seq<int>) = Interop.mkAttr "kernelMatrix" (values |> unbox<seq<string>>  |> String.concat " ")
 
     /// A special string attribute you need to include when creating arrays of elements.
     /// Keys help React identify which items have changed, are added, or are removed.
@@ -864,7 +864,7 @@ type prop =
 
     /// Indicates the simple duration of an animation.
     static member inline keyPoints (values: seq<float>) = 
-        Interop.mkAttr "keyPoints" (values |> Seq.map unbox<string> |> String.concat ";")
+        Interop.mkAttr "keyPoints" (values |> unbox<seq<string>>  |> String.concat ";")
 
     /// Indicates the simple duration of an animation.
     /// 
@@ -882,7 +882,7 @@ type prop =
 
     /// Indicates the simple duration of an animation.
     static member inline keyTimes (values: seq<float>) = 
-        Interop.mkAttr "keyTimes" (values |> Seq.map unbox<string> |> String.concat ";")
+        Interop.mkAttr "keyTimes" (values |> unbox<seq<string>> |> String.concat ";")
 
     /// Helps define the language of an element: the language that non-editable elements are
     /// written in, or the language that the editable elements should be written in by the user.
@@ -1256,7 +1256,7 @@ type prop =
     /// Indicates the minimum value allowed.
     static member inline order (value: int) = Interop.mkAttr "order" value
     /// Indicates the minimum value allowed.
-    static member inline order (values: seq<int>) = Interop.mkAttr "order" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline order (values: seq<int>) = Interop.mkAttr "order" (values |> unbox<seq<string>> |> String.concat " ")
 
     /// Represents the ideal vertical position of the overline. 
     /// 
@@ -1704,7 +1704,7 @@ type prop =
     /// 
     /// When used with the `by` attribute, the animation will change the attribute relatively 
     /// from the from value by the value specified in by.
-    static member inline to' (values: seq<float>) = Interop.mkAttr "to" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline to' (values: seq<float>) = Interop.mkAttr "to" (values |> unbox<seq<string>> |> String.concat " ")
     /// Indicates the initial value of the attribute that will be modified during the animation. 
     /// 
     /// When used with the `to` attribute, the animation will change the modified attribute from
@@ -1720,7 +1720,7 @@ type prop =
     /// 
     /// When used with the `by` attribute, the animation will change the attribute relatively 
     /// from the from value by the value specified in by.
-    static member inline to' (values: seq<int>) = Interop.mkAttr "to" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline to' (values: seq<int>) = Interop.mkAttr "to" (values |> unbox<seq<string>> |> String.concat " ")
     /// Indicates the initial value of the attribute that will be modified during the animation. 
     /// 
     /// When used with the `to` attribute, the animation will change the modified attribute from
@@ -1824,7 +1824,7 @@ type prop =
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 
     /// list of numbers for a color matrix, which is interpreted differently depending on the 
     /// type of color change to be performed.
-    static member inline values (values: seq<float>) = Interop.mkAttr "values" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline values (values: seq<float>) = Interop.mkAttr "values" (values |> unbox<seq<string>> |> String.concat " ")
     /// The values attribute has different meanings, depending upon the context where itʼs used, 
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 
     /// list of numbers for a color matrix, which is interpreted differently depending on the 
@@ -1834,7 +1834,7 @@ type prop =
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 
     /// list of numbers for a color matrix, which is interpreted differently depending on the 
     /// type of color change to be performed.
-    static member inline values (values: seq<int>) = Interop.mkAttr "values" (values |> Seq.map unbox<string> |> String.concat " ")
+    static member inline values (values: seq<int>) = Interop.mkAttr "values" (values |> unbox<seq<string>> |> String.concat " ")
     /// The values attribute has different meanings, depending upon the context where itʼs used, 
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 
     /// list of numbers for a color matrix, which is interpreted differently depending on the 
