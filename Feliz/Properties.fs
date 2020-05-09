@@ -1345,6 +1345,11 @@ type prop =
     static member inline points (coordinates: seq<int * int>) = 
         PropHelpers.createPointsInt(coordinates)
         |> Interop.mkAttr "points"
+    /// Defines a list of points. 
+    /// 
+    /// Each point is defined by a pair of numbers representing a X and a Y coordinate in 
+    /// the user coordinate system.
+    static member inline points (coordinates: string) = Interop.mkAttr "points"
 
     /// Represents the x location in the coordinate system established by attribute primitiveUnits 
     /// on the <filter> element of the point at which the light source is pointing.
