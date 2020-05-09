@@ -369,19 +369,6 @@ type prop =
     /// point to information explaining the context or the reference for the quote.
     static member inline cite (value: string) = Interop.mkAttr "cite" value
 
-    /// Assigns a class name to a SVG element.
-    static member inline class' (value: string) = Interop.mkAttr "class" value
-    /// Assigns a class name to a SVG element.
-    ///
-    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
-    ///
-    /// `prop.class' [ "one"; "two" ]`
-    ///
-    /// is the same as
-    ///
-    /// `prop.class' "one two"`
-    static member inline class' (names: seq<string>) = Interop.mkAttr "class" (String.concat " " names)
-
     /// Specifies a CSS class for this element.
     static member inline className (value: string) = Interop.mkAttr "className" value
     /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
