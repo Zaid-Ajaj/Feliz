@@ -42,7 +42,7 @@ type AriaRelevant =
 [<RequireQualifiedAccess; EditorBrowsable(EditorBrowsableState.Never)>]
 module PropHelpers =
     let createClockValue (duration: System.TimeSpan) =
-        let inline emptyZero i = if i = 0 then "00" else string i
+        let inline emptyZero i = if i = 0 then "00" else unbox<string> i
 
         [ duration.Hours
           duration.Minutes
@@ -54,10 +54,10 @@ module PropHelpers =
     let createKeySplines (values: seq<float * float * float * float>) = 
         values
         |> Seq.map (fun (x1,y1,x2,y2) -> 
-            (string x1) + " " + 
-            (string y1) + " " + 
-            (string x2) + " " + 
-            (string y2))
+            (unbox<string> x1) + " " + 
+            (unbox<string> y1) + " " + 
+            (unbox<string> x2) + " " + 
+            (unbox<string> y2))
         |> String.concat ";"
 
     let createOnKey (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
@@ -72,30 +72,30 @@ module PropHelpers =
 
     let createPointsFloat (coordinates: seq<float * float>) = 
         coordinates
-        |> Seq.map (fun (x,y) -> (string x) + "," + (string y))
+        |> Seq.map (fun (x,y) -> (unbox<string> x) + "," + (unbox<string> y))
         |> String.concat " "
 
     let createPointsInt (coordinates: seq<int * int>) = 
         coordinates
-        |> Seq.map (fun (x,y) -> (string x) + "," + (string y))
+        |> Seq.map (fun (x,y) -> (unbox<string> x) + "," + (unbox<string> y))
         |> String.concat " "
 
     let createSvgPathFloat (path: seq<char * (float list list)>) = 
         path 
         |> Seq.map (fun (cmdType, cmds) ->
             cmds 
-            |> Seq.map (Seq.map string >> String.concat ",")
+            |> Seq.map (Seq.map unbox<string> >> String.concat ",")
             |> String.concat " "
-            |> sprintf "%s %s" ((string cmdType).ToUpper()))
+            |> sprintf "%s %s" ((unbox<string> cmdType).ToUpper()))
         |> String.concat System.Environment.NewLine
 
     let createSvgPathInt (path: seq<char * (int list list)>) = 
         path 
         |> Seq.map (fun (cmdType, cmds) ->
             cmds 
-            |> Seq.map (Seq.map string >> String.concat ",")
+            |> Seq.map (Seq.map unbox<string> >> String.concat ",")
             |> String.concat " "
-            |> sprintf "%s %s" ((string cmdType).ToUpper()))
+            |> sprintf "%s %s" ((unbox<string> cmdType).ToUpper()))
         |> String.concat System.Environment.NewLine
 
 /// Represents the native Html properties.
@@ -384,16 +384,16 @@ type prop =
     static member inline baseFrequency (value: int) = Interop.mkAttr "baseFrequency" value
     /// Represents the base frequency parameter for the noise function of the 
     /// <feTurbulence> filter primitive.
-    static member inline baseFrequency (horizontal: float, vertical: float) = Interop.mkAttr "baseFrequency" (horizontal, vertical)
+    static member inline baseFrequency (horizontal: float, vertical: float) = Interop.mkAttr "baseFrequency" (unbox<string> horizontal  + "," + unbox<string> vertical)
     /// Represents the base frequency parameter for the noise function of the 
     /// <feTurbulence> filter primitive.
-    static member inline baseFrequency (horizontal: float, vertical: int) = Interop.mkAttr "baseFrequency" (horizontal, vertical)
+    static member inline baseFrequency (horizontal: float, vertical: int) = Interop.mkAttr "baseFrequency" (unbox<string> horizontal  + "," + unbox<string> vertical)
     /// Represents the base frequency parameter for the noise function of the 
     /// <feTurbulence> filter primitive.
-    static member inline baseFrequency (horizontal: int, vertical: float) = Interop.mkAttr "baseFrequency" (horizontal, vertical)
+    static member inline baseFrequency (horizontal: int, vertical: float) = Interop.mkAttr "baseFrequency" (unbox<string> horizontal  + "," + unbox<string> vertical)
     /// Represents the base frequency parameter for the noise function of the 
     /// <feTurbulence> filter primitive.
-    static member inline baseFrequency (horizontal: int, vertical: int) = Interop.mkAttr "baseFrequency" (horizontal, vertical)
+    static member inline baseFrequency (horizontal: int, vertical: int) = Interop.mkAttr "baseFrequency" (unbox<string> horizontal  + "," + unbox<string> vertical)
     
     /// Defines when an animation should begin or when an element should be discarded.
     static member inline begin' (value: string) = Interop.mkAttr "begin" value
@@ -653,7 +653,7 @@ type prop =
     /// 
     /// When used with the `by` attribute, the animation will change the attribute relatively 
     /// from the from value by the value specified in by.
-    static member inline from (values: seq<float>) = Interop.mkAttr "from" (values |> Seq.map string |> String.concat " ")
+    static member inline from (values: seq<float>) = Interop.mkAttr "from" (values |> Seq.map unbox<string> |> String.concat " ")
     /// Indicates the initial value of the attribute that will be modified during the animation. 
     /// 
     /// When used with the `to` attribute, the animation will change the modified attribute from
@@ -669,7 +669,7 @@ type prop =
     /// 
     /// When used with the `by` attribute, the animation will change the attribute relatively 
     /// from the from value by the value specified in by.
-    static member inline from (values: seq<int>) = Interop.mkAttr "from" (values |> Seq.map string |> String.concat " ")
+    static member inline from (values: seq<int>) = Interop.mkAttr "from" (values |> Seq.map unbox<string> |> String.concat " ")
     /// Indicates the initial value of the attribute that will be modified during the animation. 
     /// 
     /// When used with the `to` attribute, the animation will change the modified attribute from
@@ -780,7 +780,7 @@ type prop =
     static member inline htmlFor (value: string) = Interop.mkAttr "htmlFor" value
 
     /// Often used with CSS to style a specific element. The value of this attribute must be unique.
-    static member inline id (value: int) = Interop.mkAttr "id" (string value)
+    static member inline id (value: int) = Interop.mkAttr "id" (unbox<string> value)
     /// Often used with CSS to style a specific element. The value of this attribute must be unique.
     static member inline id (value: string) = Interop.mkAttr "id" value
 
@@ -834,10 +834,10 @@ type prop =
 
     /// Defines the list of numbers that make up the kernel matrix for the 
     /// <feConvolveMatrix> element.
-    static member inline kernelMatrix (values: seq<float>) = Interop.mkAttr "kernelMatrix" (values |> Seq.map string |> String.concat " ")
+    static member inline kernelMatrix (values: seq<float>) = Interop.mkAttr "kernelMatrix" (values |> Seq.map unbox<string> |> String.concat " ")
     /// Defines the list of numbers that make up the kernel matrix for the 
     /// <feConvolveMatrix> element.
-    static member inline kernelMatrix (values: seq<int>) = Interop.mkAttr "kernelMatrix" (values |> Seq.map string |> String.concat " ")
+    static member inline kernelMatrix (values: seq<int>) = Interop.mkAttr "kernelMatrix" (values |> Seq.map unbox<string> |> String.concat " ")
 
     /// A special string attribute you need to include when creating arrays of elements.
     /// Keys help React identify which items have changed, are added, or are removed.
@@ -845,7 +845,7 @@ type prop =
     ///
     /// Keys only need to be unique among sibling elements in the same array. They don’t need to
     /// be unique across the whole application or even a single component.
-    static member inline key (value: System.Guid) = Interop.mkAttr "value" (string value)
+    static member inline key (value: System.Guid) = Interop.mkAttr "value" (unbox<string> value)
     /// A special string attribute you need to include when creating arrays of elements. Keys help
     /// React identify which items have changed, are added, or are removed. Keys should be given
     /// to the elements inside an array to give the elements a stable identity.
@@ -864,7 +864,7 @@ type prop =
 
     /// Indicates the simple duration of an animation.
     static member inline keyPoints (values: seq<float>) = 
-        Interop.mkAttr "keyPoints" (values |> Seq.map string |> String.concat ";")
+        Interop.mkAttr "keyPoints" (values |> Seq.map unbox<string> |> String.concat ";")
 
     /// Indicates the simple duration of an animation.
     /// 
@@ -882,7 +882,7 @@ type prop =
 
     /// Indicates the simple duration of an animation.
     static member inline keyTimes (values: seq<float>) = 
-        Interop.mkAttr "keyTimes" (values |> Seq.map string |> String.concat ";")
+        Interop.mkAttr "keyTimes" (values |> Seq.map unbox<string> |> String.concat ";")
 
     /// Helps define the language of an element: the language that non-editable elements are
     /// written in, or the language that the editable elements should be written in by the user.
@@ -1256,7 +1256,7 @@ type prop =
     /// Indicates the minimum value allowed.
     static member inline order (value: int) = Interop.mkAttr "order" value
     /// Indicates the minimum value allowed.
-    static member inline order (values: seq<int>) = Interop.mkAttr "order" (values |> Seq.map string |> String.concat " ")
+    static member inline order (values: seq<int>) = Interop.mkAttr "order" (values |> Seq.map unbox<string> |> String.concat " ")
 
     /// Represents the ideal vertical position of the overline. 
     /// 
@@ -1395,13 +1395,13 @@ type prop =
     /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
     static member inline radius (value: int) = Interop.mkAttr "radius" value
     /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (xRadius: float, yRadius: float) = Interop.mkAttr "radius" (xRadius, yRadius)
+    static member inline radius (xRadius: float, yRadius: float) = Interop.mkAttr "radius" (unbox<string> xRadius  + "," + unbox<string> yRadius)
     /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (xRadius: float, yRadius: int) = Interop.mkAttr "radius" (xRadius, yRadius)
+    static member inline radius (xRadius: float, yRadius: int) = Interop.mkAttr "radius" (unbox<string> xRadius  + "," + unbox<string> yRadius)
     /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (xRadius: int, yRadius: float) = Interop.mkAttr "radius" (xRadius, yRadius)
+    static member inline radius (xRadius: int, yRadius: float) = Interop.mkAttr "radius" (unbox<string> xRadius  + "," + unbox<string> yRadius)
     /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (xRadius: int, yRadius: int) = Interop.mkAttr "radius" (xRadius, yRadius)
+    static member inline radius (xRadius: int, yRadius: int) = Interop.mkAttr "radius" (unbox<string> xRadius  + "," + unbox<string> yRadius)
 
     /// Indicates whether the element can be edited.
     static member inline readOnly (value: bool) = Interop.mkAttr "readOnly" value
@@ -1572,13 +1572,13 @@ type prop =
     /// Defines the standard deviation for the blur operation.
     static member inline stdDeviation (value: int) = Interop.mkAttr "stdDeviation" value
     /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (xAxis: float, yAxis: float) = Interop.mkAttr "stdDeviation" (xAxis, yAxis)
+    static member inline stdDeviation (xAxis: float, yAxis: float) = Interop.mkAttr "stdDeviation" (unbox<string> xAxis  + "," + unbox<string> yAxis)
     /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (xAxis: float, yAxis: int) = Interop.mkAttr "stdDeviation" (xAxis, yAxis)
+    static member inline stdDeviation (xAxis: float, yAxis: int) = Interop.mkAttr "stdDeviation" (unbox<string> xAxis  + "," + unbox<string> yAxis)
     /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (xAxis: int, yAxis: float) = Interop.mkAttr "stdDeviation" (xAxis, yAxis)
+    static member inline stdDeviation (xAxis: int, yAxis: float) = Interop.mkAttr "stdDeviation" (unbox<string> xAxis  + "," + unbox<string> yAxis)
     /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (xAxis: int, yAxis: int) = Interop.mkAttr "stdDeviation" (xAxis, yAxis)
+    static member inline stdDeviation (xAxis: int, yAxis: int) = Interop.mkAttr "stdDeviation" (unbox<string> xAxis  + "," + unbox<string> yAxis)
 
     /// Indicates the stepping interval.
     static member inline step (value: float) = Interop.mkAttr "step" value
@@ -1704,7 +1704,7 @@ type prop =
     /// 
     /// When used with the `by` attribute, the animation will change the attribute relatively 
     /// from the from value by the value specified in by.
-    static member inline to' (values: seq<float>) = Interop.mkAttr "to" (values |> Seq.map string |> String.concat " ")
+    static member inline to' (values: seq<float>) = Interop.mkAttr "to" (values |> Seq.map unbox<string> |> String.concat " ")
     /// Indicates the initial value of the attribute that will be modified during the animation. 
     /// 
     /// When used with the `to` attribute, the animation will change the modified attribute from
@@ -1720,7 +1720,7 @@ type prop =
     /// 
     /// When used with the `by` attribute, the animation will change the attribute relatively 
     /// from the from value by the value specified in by.
-    static member inline to' (values: seq<int>) = Interop.mkAttr "to" (values |> Seq.map string |> String.concat " ")
+    static member inline to' (values: seq<int>) = Interop.mkAttr "to" (values |> Seq.map unbox<string> |> String.concat " ")
     /// Indicates the initial value of the attribute that will be modified during the animation. 
     /// 
     /// When used with the `to` attribute, the animation will change the modified attribute from
@@ -1774,7 +1774,7 @@ type prop =
     /// Sets the value of a React controlled component.
     static member inline value (value: float) = Interop.mkAttr "value" value
     /// Sets the value of a React controlled component.
-    static member inline value (value: System.Guid) = Interop.mkAttr "value" (string value)
+    static member inline value (value: System.Guid) = Interop.mkAttr "value" (unbox<string> value)
     /// Sets the value of a React controlled component.
     static member inline value (value: int) = Interop.mkAttr "value" value
     /// Sets the value of a React controlled component.
@@ -1824,7 +1824,7 @@ type prop =
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 
     /// list of numbers for a color matrix, which is interpreted differently depending on the 
     /// type of color change to be performed.
-    static member inline values (values: seq<float>) = Interop.mkAttr "values" (values |> Seq.map string |> String.concat " ")
+    static member inline values (values: seq<float>) = Interop.mkAttr "values" (values |> Seq.map unbox<string> |> String.concat " ")
     /// The values attribute has different meanings, depending upon the context where itʼs used, 
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 
     /// list of numbers for a color matrix, which is interpreted differently depending on the 
@@ -1834,7 +1834,7 @@ type prop =
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 
     /// list of numbers for a color matrix, which is interpreted differently depending on the 
     /// type of color change to be performed.
-    static member inline values (values: seq<int>) = Interop.mkAttr "values" (values |> Seq.map string |> String.concat " ")
+    static member inline values (values: seq<int>) = Interop.mkAttr "values" (values |> Seq.map unbox<string> |> String.concat " ")
     /// The values attribute has different meanings, depending upon the context where itʼs used, 
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 
     /// list of numbers for a color matrix, which is interpreted differently depending on the 
@@ -1849,10 +1849,10 @@ type prop =
     /// Defines the position and dimension, in user space, of an SVG viewport. 
     static member inline viewBox (minX: int, minY: int, width: int, height: int) =
         Interop.mkAttr "viewBox" (
-            (string minX) + " " + 
-            (string minY) + " " + 
-            (string width) + " " + 
-            (string height))
+            (unbox<string> minX) + " " + 
+            (unbox<string> minY) + " " + 
+            (unbox<string> width) + " " + 
+            (unbox<string> height))
 
     /// Set visible area of the SVG image.
     static member inline viewPort (x: int, y: int, height: int, width: int) =
