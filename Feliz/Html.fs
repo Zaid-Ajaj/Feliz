@@ -26,6 +26,14 @@ type Html =
 
     static member inline anchor xs = Interop.createElement "a" xs
     static member inline anchor (children: #seq<ReactElement>) = Interop.reactElementWithChildren "a" children
+    
+    static member inline animate xs = Interop.createElement "animate" xs
+
+    static member inline animateMotion xs = Interop.createElement "animateMotion" xs
+    static member inline animateMotion (children: #seq<ReactElement>) = Interop.reactElementWithChildren "animateMotion" children
+    
+    static member inline animateTransform xs = Interop.createElement "animateTransform" xs
+    static member inline animateTransform (children: #seq<ReactElement>) = Interop.reactElementWithChildren "animateTransform" children
 
     static member inline area xs = Interop.createElement "area" xs
 
@@ -155,6 +163,11 @@ type Html =
 
     static member inline details xs = Interop.createElement "details" xs
     static member inline details (children: #seq<ReactElement>) = Interop.reactElementWithChildren "details" children
+    
+    static member inline desc xs = Interop.createElement "desc" xs
+    static member inline desc (value: float) = Interop.reactElementWithChild "desc" value
+    static member inline desc (value: int) = Interop.reactElementWithChild "desc" value
+    static member inline desc (value: string) = Interop.reactElementWithChild "desc" value
 
     static member inline dfn xs = Interop.createElement "ins" xs
     static member inline dfn (value: float) = Interop.reactElementWithChild "dfn" value
@@ -200,6 +213,81 @@ type Html =
 
     static member inline embed xs = Interop.createElement "embed" xs
 
+    static member inline feBlend xs = Interop.createElement "feBlend" xs
+    static member inline feBlend (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feBlend" children
+    
+    static member inline feColorMatrix xs = Interop.createElement "feColorMatrix" xs
+    static member inline feColorMatrix (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feColorMatrix" children
+    
+    static member inline feComponentTransfer xs = Interop.createElement "feComponentTransfer" xs
+    static member inline feComponentTransfer (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feComponentTransfer" children
+    
+    static member inline feComposite xs = Interop.createElement "feComposite" xs
+    static member inline feComposite (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feComposite" children
+    
+    static member inline feConvolveMatrix xs = Interop.createElement "feConvolveMatrix" xs
+    static member inline feConvolveMatrix (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feConvolveMatrix" children
+    
+    static member inline feDiffuseLighting xs = Interop.createElement "feDiffuseLighting" xs
+    static member inline feDiffuseLighting (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feDiffuseLighting" children
+    
+    static member inline feDisplacementMap xs = Interop.createElement "feDisplacementMap" xs
+    static member inline feDisplacementMap (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feDisplacementMap" children
+    
+    static member inline feDistantLight xs = Interop.createElement "feDistantLight" xs
+    static member inline feDistantLight (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feDistantLight" children
+    
+    static member inline feDropShadow xs = Interop.createElement "feDropShadow" xs
+    static member inline feDropShadow (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feDropShadow" children
+    
+    static member inline feFlood xs = Interop.createElement "feFlood" xs
+    static member inline feFlood (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFlood" children
+    
+    static member inline feFuncA xs = Interop.createElement "feFuncA" xs
+    static member inline feFuncA (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFuncA" children
+    
+    static member inline feFuncB xs = Interop.createElement "feFuncB" xs
+    static member inline feFuncB (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFuncB" children
+    
+    static member inline feFuncG xs = Interop.createElement "feFuncG" xs
+    static member inline feFuncG (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFuncG" children
+    
+    static member inline feFuncR xs = Interop.createElement "feFuncR" xs
+    static member inline feFuncR (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFuncR" children
+    
+    static member inline feGaussianBlur xs = Interop.createElement "feGaussianBlur" xs
+    static member inline feGaussianBlur (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feGaussianBlur" children
+    
+    static member inline feImage xs = Interop.createElement "feImage" xs
+    static member inline feImage (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feImage" children
+    
+    static member inline feMerge xs = Interop.createElement "feMerge" xs
+    static member inline feMerge (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feMerge" children
+
+    static member inline feMergeNode xs = Interop.createElement "feMergeNode" xs
+    static member inline feMergeNode (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feMergeNode" children
+    
+    static member inline feMorphology xs = Interop.createElement "feMorphology" xs
+    static member inline feMorphology (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feMorphology" children
+    
+    static member inline feOffset xs = Interop.createElement "feOffset" xs
+    static member inline feOffset (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feOffset" children
+    
+    static member inline fePointLight xs = Interop.createElement "fePointLight" xs
+    static member inline fePointLight (children: #seq<ReactElement>) = Interop.reactElementWithChildren "fePointLight" children
+    
+    static member inline feSpecularLighting xs = Interop.createElement "feSpecularLighting" xs
+    static member inline feSpecularLighting (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feSpecularLighting" children
+
+    static member inline feSpotLight xs = Interop.createElement "feSpotLight" xs
+    static member inline feSpotLight (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feSpotLight" children
+    
+    static member inline feTile xs = Interop.createElement "feTile" xs
+    static member inline feTile (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feTile" children
+
+    static member inline feTurbulence xs = Interop.createElement "feTurbulence" xs
+    static member inline feTurbulence (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feTurbulence" children
+
     static member inline fieldSet xs = Interop.createElement "fieldset" xs
     static member inline fieldSet (children: #seq<ReactElement>) = Interop.reactElementWithChildren "fieldset" children
     
@@ -208,10 +296,16 @@ type Html =
     
     static member inline figure xs = Interop.createElement "figure" xs
     static member inline figure (children: #seq<ReactElement>) = Interop.reactElementWithChildren "figure" children
-
+    
+    static member inline filter xs = Interop.createElement "filter" xs
+    static member inline filter (children: #seq<ReactElement>) = Interop.reactElementWithChildren "filter" children
+    
     static member inline footer xs = Interop.createElement "footer" xs
     static member inline footer (children: #seq<ReactElement>) = Interop.reactElementWithChildren "footer" children
-    
+
+    static member inline foreignObject xs = Interop.createElement "feGaussianBlur" xs
+    static member inline foreignObject (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feGaussianBlur" children
+
     static member inline form xs = Interop.createElement "form" xs
     static member inline form (children: #seq<ReactElement>) = Interop.reactElementWithChildren "form" children
     
@@ -285,6 +379,10 @@ type Html =
 
     static member inline img xs = Interop.createElement "img" xs
 
+    static member inline image xs = Interop.createElement "image" xs
+    /// SVG Image element, not to be confused with HTML img alias.
+    static member inline image (children: #seq<ReactElement>) = Interop.reactElementWithChildren "image" children
+
     static member inline input xs = Interop.createElement "input" xs
 
     static member inline ins xs = Interop.createElement "ins" xs
@@ -353,7 +451,16 @@ type Html =
     static member inline mark (value: string) = Interop.reactElementWithChild "mark" value
     static member inline mark (children: #seq<ReactElement>) = Interop.reactElementWithChildren "mark" children
 
+    static member inline marker xs = Interop.createElement "marker" xs
+    static member inline marker (children: #seq<ReactElement>) = Interop.reactElementWithChildren "marker" children
+
+    static member inline mask xs = Interop.createElement "marker" xs
+    static member inline mask (children: #seq<ReactElement>) = Interop.reactElementWithChildren "marker" children
+
     static member inline meta xs = Interop.createElement "meta" xs
+
+    static member inline metadata xs = Interop.createElement "metadata" xs
+    static member inline metadata (children: #seq<ReactElement>) = Interop.reactElementWithChildren "metadata" children
 
     static member inline meter xs = Interop.createElement "meter" xs
     static member inline meter (value: float) = Interop.reactElementWithChild "meter" value
@@ -361,6 +468,9 @@ type Html =
     static member inline meter (value: ReactElement) = Interop.reactElementWithChild "meter" value
     static member inline meter (value: string) = Interop.reactElementWithChild "meter" value
     static member inline meter (children: #seq<ReactElement>) = Interop.reactElementWithChildren "meter" children
+
+    static member inline mpath xs = Interop.createElement "mpath" xs
+    static member inline mpath (children: #seq<ReactElement>) = Interop.reactElementWithChildren "mpath" children
 
     static member inline nav xs = Interop.createElement "nav" xs
     static member inline nav (children: #seq<ReactElement>) = Interop.reactElementWithChildren "nav" children
@@ -415,6 +525,9 @@ type Html =
 
     static member inline path xs = Interop.createElement "path" xs
     static member inline path (children: #seq<ReactElement>) = Interop.reactElementWithChildren "path" children
+
+    static member inline pattern xs = Interop.createElement "pattern" xs
+    static member inline pattern (children: #seq<ReactElement>) = Interop.reactElementWithChildren "pattern" children
 
     static member inline picture xs = Interop.createElement "picture" xs
     static member inline picture (children: #seq<ReactElement>) = Interop.reactElementWithChildren "picture" children
@@ -503,6 +616,9 @@ type Html =
     static member inline select xs = Interop.createElement "select" xs
     static member inline select (children: #seq<ReactElement>) = Interop.reactElementWithChildren "select" children
     
+    static member inline set xs = Interop.createElement "set" xs
+    static member inline set (children: #seq<ReactElement>) = Interop.reactElementWithChildren "set" children
+
     static member inline small xs = Interop.createElement "small" xs
     static member inline small (value: float) = Interop.reactElementWithChild "small" value
     static member inline small (value: int) = Interop.reactElementWithChild "small" value
@@ -555,6 +671,12 @@ type Html =
 
     static member inline svg xs = Interop.createElement "svg" xs
     static member inline svg (children: #seq<ReactElement>) = Interop.reactElementWithChildren "svg" children
+    
+    static member inline switch xs = Interop.createElement "switch" xs
+    static member inline switch (children: #seq<ReactElement>) = Interop.reactElementWithChildren "switch" children
+    
+    static member inline symbol xs = Interop.createElement "symbol" xs
+    static member inline symbol (children: #seq<ReactElement>) = Interop.reactElementWithChildren "symbol" children
 
     static member inline table xs = Interop.createElement "table" xs
 
@@ -589,6 +711,9 @@ type Html =
 
     static member inline textarea xs = Interop.createElement "textarea" xs
     static member inline textarea (children: #seq<ReactElement>) = Interop.reactElementWithChildren "textarea" children
+    
+    static member inline textPath xs = Interop.createElement "textPath" xs
+    static member inline textPath (children: #seq<ReactElement>) = Interop.reactElementWithChildren "textPath" children
 
     static member inline tfoot xs = Interop.createElement "tfoot" xs
     static member inline tfoot (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tfoot" children
@@ -617,7 +742,10 @@ type Html =
     static member inline tr (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tr" children
     
     static member inline track xs = Interop.createElement "track" xs
-
+    
+    static member inline tspan xs = Interop.createElement "tspan" xs
+    static member inline tspan (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tspan" children
+    
     static member inline u xs = Interop.createElement "u" xs
     static member inline u (value: float) = Interop.reactElementWithChild "u" value
     static member inline u (value: int) = Interop.reactElementWithChild "u" value
@@ -630,7 +758,10 @@ type Html =
     
     static member inline unorderedList xs = Interop.createElement "ul" xs
     static member inline unorderedList (children: #seq<ReactElement>) = Interop.reactElementWithChildren "ul" children
-
+    
+    static member inline use' xs = Interop.createElement "use" xs
+    static member inline use' (children: #seq<ReactElement>) = Interop.reactElementWithChildren "use" children
+    
     static member inline var xs = Interop.createElement "var" xs
     static member inline var (value: float) = Interop.reactElementWithChild "var" value
     static member inline var (value: int) = Interop.reactElementWithChild "var" value
@@ -640,5 +771,8 @@ type Html =
 
     static member inline video xs = Interop.createElement "video" xs
     static member inline video (children: #seq<ReactElement>) = Interop.reactElementWithChildren "video" children
+    
+    static member inline view xs = Interop.createElement "view" xs
+    static member inline view (children: #seq<ReactElement>) = Interop.reactElementWithChildren "view" children
     
     static member inline wbr xs = Interop.createElement "wbr" xs
