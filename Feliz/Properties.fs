@@ -4,6 +4,7 @@ open Browser.Types
 open Fable.Core.JsInterop
 open Fable.Core
 open Feliz.Styles
+open System.ComponentModel
 
 [<StringEnum; RequireQualifiedAccess>]
 type AriaDropEffect =
@@ -38,7 +39,67 @@ type AriaRelevant =
     /// Text is added to any DOM descendant nodes of the live region.
     | Text
 
+[<RequireQualifiedAccess; EditorBrowsable(EditorBrowsableState.Never)>]
+module PropHelpers =
+    let createClockValue (duration: System.TimeSpan) =
+        let inline emptyZero i = if i = 0 then "" else string i
+
+        [ duration.Hours
+          duration.Minutes
+          duration.Seconds
+          duration.Milliseconds ]
+        |> List.map emptyZero
+        |> String.concat ":"
+
+    let createKeySplines (values: seq<float * float * float * float>) = 
+        values
+        |> Seq.map (fun (x1,y1,x2,y2) -> 
+            (string x1) + " " + 
+            (string y1) + " " + 
+            (string x2) + " " + 
+            (string y2))
+        |> String.concat ";"
+
+    let createOnKey (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
+        fun (ev: KeyboardEvent) ->
+            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key
+            match ctrl, shift with
+            | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
+            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev
+            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev
+            | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
+            | _, _ -> ignore()
+
+    let createPointsFloat (coordinates: seq<float * float>) = 
+        coordinates
+        |> Seq.map (fun (x,y) -> (string x) + "," + (string y))
+        |> String.concat " "
+
+    let createPointsInt (coordinates: seq<int * int>) = 
+        coordinates
+        |> Seq.map (fun (x,y) -> (string x) + "," + (string y))
+        |> String.concat " "
+
+    let createSvgPathFloat (path: seq<char * (float list list)>) = 
+        path 
+        |> Seq.map (fun (cmdType, cmds) ->
+            cmds 
+            |> Seq.map (Seq.map string >> String.concat ",")
+            |> String.concat " "
+            |> sprintf "%s %s" ((string cmdType).ToUpper()))
+        |> String.concat System.Environment.NewLine
+
+    let createSvgPathInt (path: seq<char * (int list list)>) = 
+        path 
+        |> Seq.map (fun (cmdType, cmds) ->
+            cmds 
+            |> Seq.map (Seq.map string >> String.concat ",")
+            |> String.concat " "
+            |> sprintf "%s %s" ((string cmdType).ToUpper()))
+        |> String.concat System.Environment.NewLine
+
 /// Represents the native Html properties.
+[<Erase>]
 type prop =
     /// List of types the server accepts, typically a file type.
     static member inline accept (value: string) = Interop.mkAttr "accept" value
@@ -434,24 +495,14 @@ type prop =
 
     /// Defines a SVG path to be drawn.
     static member inline d (path: seq<char * (float list list)>) = 
-        path 
-        |> Seq.map (fun (cmdType, cmds) ->
-            cmds 
-            |> Seq.map (Seq.map string >> String.concat ",")
-            |> String.concat " "
-            |> sprintf "%s %s" ((string cmdType).ToUpper()))
-        |> String.concat System.Environment.NewLine
+        PropHelpers.createSvgPathFloat path
         |> Interop.mkAttr "d"
     /// Defines a SVG path to be drawn.
     static member inline d (path: seq<char * (int list list)>) = 
-        path 
-        |> Seq.map (fun (cmdType, cmds) ->
-            cmds 
-            |> Seq.map (Seq.map string >> String.concat ",")
-            |> String.concat " "
-            |> sprintf "%s %s" ((string cmdType).ToUpper()))
-        |> String.concat System.Environment.NewLine
+        PropHelpers.createSvgPathInt path
         |> Interop.mkAttr "d"
+    /// Defines a SVG path to be drawn.
+    static member inline d (path: string) = Interop.mkAttr "d" path 
 
     /// Sets the inner Html content of the element.
     static member inline dangerouslySetInnerHTML (content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
@@ -826,13 +877,7 @@ type prop =
     /// 
     /// The values of x1 y1 x2 y2 must all be in the range 0 to 1.
     static member inline keySplines (values: seq<float * float * float * float>) = 
-        values
-        |> Seq.map (fun (x1,y1,x2,y2) -> 
-            (string x1) + " " + 
-            (string y1) + " " + 
-            (string x2) + " " + 
-            (string y2))
-        |> String.concat ";"
+        PropHelpers.createKeySplines(values)
         |> Interop.mkAttr "keySplines"
 
     /// Indicates the simple duration of an animation.
@@ -1077,42 +1122,24 @@ type prop =
 
     /// Fires when a user pressing a key.
     static member inline onKeyDown (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
-        Interop.mkAttr "onKeyDown" <| fun (ev: KeyboardEvent) ->
-            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key
-            match ctrl, shift with
-            | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
-            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev
-            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev
-            | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
-            | _, _ -> ignore()
+        PropHelpers.createOnKey(key, handler)
+        |> Interop.mkAttr "onKeyDown"
 
     /// Fires when a user presses a key.
     static member inline onKeyPress (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyPress" handler
 
     /// Fires when a user presses a key.
     static member inline onKeyPress (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
-        Interop.mkAttr "onKeyPress" <| fun (ev: KeyboardEvent) ->
-            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key
-            match ctrl, shift with
-            | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
-            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev
-            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev
-            | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
-            | _, _ -> ignore()
+        PropHelpers.createOnKey(key, handler)
+        |> Interop.mkAttr "onKeyPress"
 
     /// Fires when a user releases a key.
     static member inline onKeyUp (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyUp" handler
 
     /// Fires when a user releases a key.
     static member inline onKeyUp (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
-        Interop.mkAttr "onKeyUp" <| fun (ev: KeyboardEvent) ->
-            let (pressedKey: string, ctrl: bool, shift: bool) = unbox key
-            match ctrl, shift with
-            | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
-            | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev
-            | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev
-            | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
-            | _, _ -> ignore()
+        PropHelpers.createOnKey(key, handler)
+        |> Interop.mkAttr "onKeyUp"
 
     /// Fires after the page is finished loading.
     static member inline onLoad (handler: Event -> unit) = Interop.mkAttr "onLoad" handler
@@ -1252,25 +1279,16 @@ type prop =
     /// It either defines a text path along which the characters of a text are rendered, or a motion 
     /// path along which a referenced element is animated.
     static member inline path (path: seq<char * (float list list)>) = 
-        path 
-        |> Seq.map (fun (cmdType, cmds) ->
-            cmds 
-            |> Seq.map (Seq.map string >> String.concat ",")
-            |> String.concat " "
-            |> sprintf "%s %s" ((string cmdType).ToUpper()))
-        |> String.concat System.Environment.NewLine
+        PropHelpers.createSvgPathFloat path
         |> Interop.mkAttr "path"
     /// It either defines a text path along which the characters of a text are rendered, or a motion 
     /// path along which a referenced element is animated.
     static member inline path (path: seq<char * (int list list)>) = 
-        path 
-        |> Seq.map (fun (cmdType, cmds) ->
-            cmds 
-            |> Seq.map (Seq.map string >> String.concat ",")
-            |> String.concat " "
-            |> sprintf "%s %s" ((string cmdType).ToUpper()))
-        |> String.concat System.Environment.NewLine
+        PropHelpers.createSvgPathInt path
         |> Interop.mkAttr "path"
+    /// It either defines a text path along which the characters of a text are rendered, or a motion 
+    /// path along which a referenced element is animated.
+    static member inline path (path: string) = Interop.mkAttr "path" path
 
     /// Specifies a total length for the path, in user units. 
     /// 
@@ -1317,19 +1335,15 @@ type prop =
     /// 
     /// Each point is defined by a pair of numbers representing a X and a Y coordinate in 
     /// the user coordinate system.
-    static member inline points (coordinates: seq<float * float>) = 
-        coordinates
-        |> Seq.map (fun (x,y) -> (string x) + "," + (string y))
-        |> String.concat " "
+    static member inline points (coordinates: seq<float * float>) =
+        PropHelpers.createPointsFloat(coordinates)
         |> Interop.mkAttr "points"
     /// Defines a list of points. 
     /// 
     /// Each point is defined by a pair of numbers representing a X and a Y coordinate in 
     /// the user coordinate system.
     static member inline points (coordinates: seq<int * int>) = 
-        coordinates
-        |> Seq.map (fun (x,y) -> (string x) + "," + (string y))
-        |> String.concat " "
+        PropHelpers.createPointsInt(coordinates)
         |> Interop.mkAttr "points"
 
     /// Represents the x location in the coordinate system established by attribute primitiveUnits 
@@ -2530,13 +2544,7 @@ module prop =
     type dur =
         /// This value specifies the length of the simple duration.
         static member inline clockValue (duration: System.TimeSpan) =
-            let inline emptyZero i = if i = 0 then "" else string i
-            [ duration.Hours
-              duration.Minutes
-              duration.Seconds
-              duration.Milliseconds ]
-            |> List.map emptyZero
-            |> String.concat ":"
+            PropHelpers.createClockValue(duration)
             |> Interop.mkAttr "dur"
         /// This value specifies the simple duration as indefinite.
         static member inline indefinite = Interop.mkAttr "dur" "indefinite"
@@ -3394,13 +3402,7 @@ module prop =
     type repeatDur =
         /// This value specifies the duration in presentation time to repeat the animation.
         static member inline clockValue (duration: System.TimeSpan) =
-            let inline emptyZero i = if i = 0 then "" else string i
-            [ duration.Hours
-              duration.Minutes
-              duration.Seconds
-              duration.Milliseconds ]
-            |> List.map emptyZero
-            |> String.concat ":"
+            PropHelpers.createClockValue(duration)
             |> Interop.mkAttr "repeatDur"
         /// Indicates that the animation will be repeated indefinitely (i.e. until the document ends).
         static member inline indefinite = Interop.mkAttr "repeatDur" "indefinite"
