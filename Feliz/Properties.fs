@@ -42,7 +42,9 @@ type AriaRelevant =
 [<RequireQualifiedAccess; EditorBrowsable(EditorBrowsableState.Never)>]
 module PropHelpers =
     let createClockValue (duration: System.TimeSpan) =
-        let inline emptyZero i = if i = 0 then "00" else unbox<string> i
+        let inline emptyZero i = 
+            if i < 10 then "0" + (unbox<string> i)
+            else unbox<string> i
 
         [ duration.Hours
           duration.Minutes
@@ -58,7 +60,7 @@ module PropHelpers =
             (unbox<string> y1) + " " + 
             (unbox<string> x2) + " " + 
             (unbox<string> y2))
-        |> String.concat ";"
+        |> String.concat "; "
 
     let createOnKey (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
         fun (ev: KeyboardEvent) ->
@@ -83,19 +85,23 @@ module PropHelpers =
     let createSvgPathFloat (path: seq<char * (float list list)>) = 
         path 
         |> Seq.map (fun (cmdType, cmds) ->
-            cmds 
-            |> Seq.map (unbox<seq<string>> >> String.concat ",")
-            |> String.concat " "
-            |> sprintf "%s %s" ((unbox<string> cmdType).ToUpper()))
+            if cmds.Length = 0 then unbox<string> cmdType
+            else
+                cmds
+                |> Seq.map (unbox<seq<string>> >> String.concat ",")
+                |> String.concat " "
+                |> sprintf "%s %s" (unbox<string> cmdType))
         |> String.concat System.Environment.NewLine
 
     let createSvgPathInt (path: seq<char * (int list list)>) = 
         path 
         |> Seq.map (fun (cmdType, cmds) ->
-            cmds 
-            |> Seq.map (unbox<seq<string>> >> String.concat ",")
-            |> String.concat " "
-            |> sprintf "%s %s" ((unbox<string> cmdType).ToUpper()))
+            if cmds.Length = 0 then unbox<string> cmdType
+            else
+                cmds
+                |> Seq.map (unbox<seq<string>> >> String.concat ",")
+                |> String.concat " "
+                |> sprintf "%s %s" (unbox<string> cmdType))
         |> String.concat System.Environment.NewLine
 
 /// Represents the native Html properties.
