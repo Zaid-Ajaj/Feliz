@@ -750,6 +750,9 @@ type style =
             color
         )
 
+    /// Sets the color of an SVG shape.
+    static member inline fill (color: string) = Interop.mkStyle "fill" color
+
 [<Erase>]
 module style =
 
