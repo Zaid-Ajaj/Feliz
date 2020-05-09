@@ -42,14 +42,14 @@ type AriaRelevant =
 [<RequireQualifiedAccess; EditorBrowsable(EditorBrowsableState.Never)>]
 module PropHelpers =
     let createClockValue (duration: System.TimeSpan) =
-        let inline emptyZero i = if i = 0 then "" else string i
+        let inline emptyZero i = if i = 0 then "00" else string i
 
         [ duration.Hours
           duration.Minutes
-          duration.Seconds
-          duration.Milliseconds ]
+          duration.Seconds ]
         |> List.map emptyZero
         |> String.concat ":"
+        |> fun res -> res + "." + (emptyZero duration.Milliseconds)
 
     let createKeySplines (values: seq<float * float * float * float>) = 
         values
