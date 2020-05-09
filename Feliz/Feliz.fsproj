@@ -30,6 +30,7 @@
     <Compile Include="Colors.fs" />
     <Compile Include="Fonts.fs" />
     <Compile Include="Transform.fs" />
+    <Compile Include="Length.fs" />
     <Compile Include="Properties.fs" />
     <Compile Include="BorderStyle.fs" />
     <Compile Include="TextDecorationStyle.fs" />

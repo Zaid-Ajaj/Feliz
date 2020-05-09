@@ -1,11 +1,8 @@
 module Tests
 
-open System
 open Fable.Mocha
 open Feliz
 open Browser
-open Browser.Dom
-open Browser.Types
 open Fable.ReactTestingLibrary
 open Fable.Core
 
@@ -559,4 +556,10 @@ let felizTests = testList "Feliz Tests" [
 ]
 
 [<EntryPoint>]
-let main (args: string []) = Mocha.runTests (testSequenced felizTests)
+let main (args: string []) = 
+    let allTests = testList "All Tests" [
+        felizTests
+        PropHelperTests.propHelpersTests
+    ]
+
+    Mocha.runTests (testSequenced allTests)
