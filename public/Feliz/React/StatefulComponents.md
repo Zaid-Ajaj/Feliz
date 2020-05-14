@@ -68,7 +68,8 @@ React will call the initialization on every rerender, even if it's no longer nee
 In most cases this has no performance impact at all, however, in some cases where the
 initial value is very expensive this can cause an application to become unusable.
 
-You can ensure that expensive initialization functions only run once via `React.useStateLazy`:
+You can ensure that expensive initialization functions only run once by passing in 
+an initializer function into `React.useState`:
 
 ```fsharp:use-state-lazy
 let useStateNormal = React.functionComponent(fun () ->
@@ -84,7 +85,7 @@ let useStateNormal = React.functionComponent(fun () ->
     ])
 
 let useStateLazy = React.functionComponent(fun () ->
-    let count,setCount = React.useStateLazy (fun () -> sortNumbers())
+    let count,setCount = React.useState (fun () -> sortNumbers())
  
     Html.div [
         prop.classes [ Bulma.Box ]

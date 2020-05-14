@@ -55,10 +55,8 @@ type React =
     static member inline keyedFragment(key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
     static member inline keyedFragment(key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
-    /// The `useState` hook that create a state variable for React function components.
-    static member useState<'t>(initial: 't) = Interop.reactApi.useState<'t,'t>(initial)
     /// The `useState` hook that create a state variable for React function components from a initialization function.
-    static member useStateLazy<'t>(initializer: unit -> 't) = Interop.reactApi.useState<unit -> 't,'t>(initializer)
+    static member useState<'t>(initializer: unit -> 't) = Interop.reactApi.useState<unit -> 't,'t>(initializer)
     static member useReducer(update, initialState) = Interop.reactApi.useReducer update initialState
     /// The `useEffect` hook that creates a disposable effect for React function components
     /// This effect has no dependencies which means the effect is re-executed on every re-render.
@@ -456,3 +454,9 @@ type React =
     /// <param name='dependencies'>An array of dependencies upon which the imperative handle function depends.</param>
     static member useImperativeHandle(ref: IRefValue<'t>, createHandle: unit -> 't, dependencies: obj []) =
         Interop.reactApi.useImperativeHandle ref createHandle dependencies
+
+[<AutoOpen>]
+module ReactOverloadMagic =
+    type React with
+        /// The `useState` hook that create a state variable for React function components.
+        static member useState<'t>(initial: 't) = Interop.reactApi.useState<'t,'t>(initial)

@@ -585,7 +585,7 @@ let useStateNormal = React.forwardRef(fun ((), ref) ->
     ])
 
 let useStateLazy = React.forwardRef(fun ((), ref) ->
-    let count,setCount = React.useStateLazy (fun () -> sortNumbers())
+    let count,setCount = React.useState (fun () -> sortNumbers())
 
     let setCount = React.useCallback(setCount, [||])
 
