@@ -556,3 +556,89 @@ let codeSplittingDelayed = React.functionComponent(fun () ->
             ], centeredSpinner)
         ]
     ])
+
+let rng = System.Random()
+
+let sortNumbers () =
+    Array.init 3000000 (fun _ -> rng.NextDouble() * 1000000.)
+    |> Array.sort
+    |> Array.sum
+    |> int
+    |> fun res ->
+        JS.console.log(res)
+        res
+
+let useStateNormal = React.forwardRef(fun ((), ref) ->
+    let count,setCount = React.useState (sortNumbers())
+
+    let setCount = React.useCallback(setCount, [||])
+
+    ref.current <- Some setCount
+
+    Html.div [
+        prop.classes [ Bulma.Box ]
+        prop.children [
+            Html.div [
+                prop.text (sprintf "Normal Count: %i" count)
+            ]
+        ]
+    ])
+
+let useStateLazy = React.forwardRef(fun ((), ref) ->
+    let count,setCount = React.useStateLazy (fun () -> sortNumbers())
+
+    let setCount = React.useCallback(setCount, [||])
+
+    ref.current <- Some setCount
+
+ 
+    Html.div [
+        prop.classes [ Bulma.Box ]
+        prop.children [
+            Html.div [
+                prop.text (sprintf "Lazy Count: %i" count)
+            ]
+        ]
+    ])
+
+let useStateNormalVsLazy = React.functionComponent(fun () ->
+    let rerenderNormal : IRefValue<(int -> unit) option> = React.useRef None
+    let rerenderLazy : IRefValue<(int -> unit) option> = React.useRef None
+
+    Html.div [
+        prop.className Bulma.Control
+        prop.style [
+            style.paddingLeft (length.em 8)
+            style.paddingBottom (length.em 1)
+        ]
+        prop.children [
+            Html.div [
+                prop.style [ style.maxWidth (length.em 15); style.paddingBottom (length.em 2) ]
+                prop.children [
+                    Html.div [
+                        prop.style [
+                            style.textAlign.center
+                            style.marginLeft length.auto
+                            style.marginRight length.auto
+                            style.marginTop 50
+                            style.paddingBottom (length.em 2)
+                        ]
+                        prop.children [ FPSStats.render() ]
+                    ]
+                    useStateNormal((), rerenderNormal)
+                    useStateLazy((), rerenderLazy)
+                ]
+            ]
+            
+            Html.button [
+                prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
+                prop.onClick <| fun _ -> rerenderNormal.current |> Option.iter (fun f -> f(rng.Next(0,10)))
+                prop.text "Rerender normal"
+            ]
+            Html.button [
+                prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
+                prop.onClick <| fun _ -> rerenderLazy.current |> Option.iter (fun f -> f(rng.Next(0,10)))
+                prop.text "Rerender lazy"
+            ]
+        ]
+    ])

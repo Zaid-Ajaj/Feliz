@@ -37,6 +37,8 @@
         <Compile Include="Popover.fs" />
         <Compile Include="ElmishComponents.fs" />
         <Compile Include="CodeSplitting.fs" />
+        <Compile Include="FPSCounter.fs" />
+        <Compile Include="DelayedComponent.fs" />
         <Compile Include="Examples.fs" />
         <Compile Include="Tests.fs" />
         <Compile Include="App.fs" />

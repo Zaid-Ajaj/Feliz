@@ -52,38 +52,20 @@ let update msg state =
         | [ ] -> { state with CurrentTab = [ ] }, Cmd.none
         | _ -> { state with CurrentTab = tabs }, Cmd.none
 
-let delayedComponent = React.functionComponent (fun (props: {| load: unit -> ReactElement |}) ->
-    let (started, setStarted) = React.useState(false)
-    Html.div [
-        if not started then Html.button [
-            prop.className [ Bulma.Button; Bulma.IsPrimary; Bulma.IsLarge ]
-            prop.onClick (fun _ -> setStarted(true))
-            prop.children [
-                Html.i [ prop.className [ "fa"; "fa-rocket" ] ]
-                Html.span [
-                    prop.style [ style.marginLeft 10 ]
-                    prop.text "Run Sample"
-                ]
-            ]
-        ]
-
-        if started then props.load()
-    ])
-
 let samples = [
     "feliz-elmish-counter", Examples.ElmishCounter.app()
     "simple-components", Examples.ReactComponents.simple
     "multiple-state-variables", Examples.multipleStateVariables()
     "hover-animations", Examples.animationSample
     "stateful-counter", Examples.ReactComponents.counter()
-    "effectful-tab-counter", delayedComponent {| load = Examples.effectfulTabCounter |}
-    "effectful-async", delayedComponent {| load = Examples.asyncEffect |}
-    "effectful-async-once", delayedComponent {| load = Examples.asyncEffectOnce |}
-    "effectful-user-id", delayedComponent {| load = Examples.effectfulUserId |}
-    "effectful-timer", delayedComponent {| load = Examples.timer |}
+    "effectful-tab-counter", DelayedComponent.render {| load = Examples.effectfulTabCounter |}
+    "effectful-async", DelayedComponent.render {| load = Examples.asyncEffect |}
+    "effectful-async-once", DelayedComponent.render {| load = Examples.asyncEffectOnce |}
+    "effectful-user-id", DelayedComponent.render {| load = Examples.effectfulUserId |}
+    "effectful-timer", DelayedComponent.render {| load = Examples.timer |}
     "static-html", Examples.staticHtml()
     "static-markup", Examples.staticMarkup()
-    "strict-mode", delayedComponent {| load = Examples.strictModeExample |}
+    "strict-mode", DelayedComponent.render {| load = Examples.strictModeExample |}
     "recharts-main", Samples.Recharts.AreaCharts.Main.chart()
     "recharts-area-simpleareachart", Samples.Recharts.AreaCharts.SimpleAreaChart.chart()
     "recharts-area-stackedareachart", Samples.Recharts.AreaCharts.StackedAreaChart.chart()
@@ -117,8 +99,9 @@ let samples = [
     "focus-input-example", Examples.focusInputExample()
     "forward-ref-example", Examples.forwardRefParent()
     "use-imperative-handle", Examples.forwardRefImperativeParent()
-    "code-splitting", delayedComponent {| load = Examples.codeSplitting |}
-    "code-splitting-delayed", delayedComponent {| load = Examples.codeSplittingDelayed |}
+    "code-splitting", DelayedComponent.render {| load = Examples.codeSplitting |}
+    "code-splitting-delayed", DelayedComponent.render {| load = Examples.codeSplittingDelayed |}
+    "use-state-lazy", DelayedComponent.render {| load = Examples.useStateNormalVsLazy |}
 ]
 
 let githubPath (rawPath: string) =
