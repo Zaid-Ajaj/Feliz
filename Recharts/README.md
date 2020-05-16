@@ -7,7 +7,6 @@ The following sample is the equivalent of [this sample](http://recharts.org/en-U
 ```fsharp:recharts-main
 open Feliz
 open Feliz.Recharts
-open Fable.Core.Experimental
 
 type Point = { name: string; uv: int; pv: int }
 
