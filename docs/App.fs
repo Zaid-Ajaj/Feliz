@@ -20,12 +20,12 @@ type Highlight =
     static member inline highlight (properties: IReactProperty list) =
         Interop.reactApi.createElement(importDefault "react-highlight", createObj !!properties)
 
-type State = 
+type State =
     { CurrentPath : string list
       CurrentTab: string list }
 
 let init () =
-    let path = 
+    let path =
         match document.URL.Split('#') with
         | [| _ |] -> []
         | [| _; path |] -> path.Split('/') |> List.ofArray |> List.tail
@@ -39,10 +39,10 @@ type Msg =
 
 let update msg state =
     match msg with
-    | UrlChanged segments -> 
-        { state with CurrentPath = segments }, 
+    | UrlChanged segments ->
+        { state with CurrentPath = segments },
         match state.CurrentTab with
-        | [ ] when segments.Length > 2 -> 
+        | [ ] when segments.Length > 2 ->
             segments
             |> TabToggled
             |> Cmd.ofMsg
@@ -162,7 +162,7 @@ let codeBlockRenderer (codeProps: Markdown.ICodeProperties) = codeBlockRenderer'
 let renderMarkdown = React.functionComponent(fun (input: {| path: string; content: string |}) ->
     Html.div [
         prop.className [ Bulma.Content; "scrollbar" ]
-        prop.style [ 
+        prop.style [
             style.width (length.percent 100)
             style.padding (0,20)
         ]
@@ -240,58 +240,47 @@ module MarkdownLoader =
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
 let nestedMenuList' = React.functionComponent(fun (input: {| state: State; name: string; basePath: string list; elems: (string list -> Fable.React.ReactElement) list; dispatch: Msg -> unit |}) ->
-    let listRef = React.useElementRef()
-    
-    let collapsed = 
+    let collapsed =
         match input.state.CurrentTab with
         | [ ] -> false
-        | _ -> 
-            input.basePath 
-            |> List.indexed 
-            |> List.forall (fun (i, segment) -> 
-                List.tryItem i input.state.CurrentTab 
-                |> Option.map ((=) segment) 
-                |> Option.defaultValue false) 
-
-    React.useLayoutEffect(fun () -> 
-        match listRef.current with
-        | Some elem -> 
-            jsOptions<ScrollIntoViewOptions>(fun o ->
-                o.behavior <- ScrollIntoViewOptionsBehavior.Smooth
-                o.``inline`` <- ScrollIntoViewOptionsAlignment.Center
-            )
-            |> elem.scrollIntoView
-        | None -> ()
-    )
+        | _ ->
+            input.basePath
+            |> List.indexed
+            |> List.forall (fun (i, segment) ->
+                List.tryItem i input.state.CurrentTab
+                |> Option.map ((=) segment)
+                |> Option.defaultValue false)
 
     Html.li [
-        prop.ref listRef
-        prop.children [
-            Html.anchor [
-                prop.className Bulma.IsUnselectable
-                prop.onClick <| fun _ -> 
-                    match collapsed with
-                    | true -> input.dispatch <| TabToggled (input.basePath |> List.rev |> List.tail |> List.rev)
-                    | false -> input.dispatch <| TabToggled input.basePath
-                prop.children [
-                    Html.i [
-                        prop.style [ style.marginRight 10 ]
-                        prop.className [
-                            FA.Fa
-                            if not collapsed then FA.FaAngleDown else FA.FaAngleUp
-                        ]
+        Html.anchor [
+            prop.className Bulma.IsUnselectable
+            prop.onClick <| fun _ ->
+                match collapsed with
+                | true -> input.dispatch <| TabToggled (input.basePath |> List.rev |> List.tail |> List.rev)
+                | false -> input.dispatch <| TabToggled input.basePath
+            prop.children [
+                Html.i [
+                    prop.style [ style.marginRight 10 ]
+                    prop.className [
+                        FA.Fa
+                        if not collapsed
+                        then FA.FaAngleDown
+                        else FA.FaAngleUp
                     ]
-                    Html.span input.name
                 ]
+
+                Html.span input.name
+            ]
+        ]
+
+        Html.ul [
+            prop.className Bulma.MenuList
+            prop.style [
+                if not collapsed
+                then style.display.none
             ]
 
-            Html.ul [
-                prop.className Bulma.MenuList
-                prop.style [ 
-                    if not collapsed then yield! [ style.display.none ] 
-                ]
-                prop.children (input.elems |> List.map (fun f -> f input.basePath))
-            ]
+            prop.children (input.elems |> List.map (fun f -> f input.basePath))
         ]
     ])
 
@@ -332,28 +321,28 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
     let dispatch = React.useCallback(input.dispatch, [||])
 
     let menuItem (name: string) (basePath: string list) =
-        menuItem' 
+        menuItem'
             {| currentPath = input.state.CurrentPath
                name = name
                path = basePath |}
-    
+
     let nestedMenuItem (name: string) (extendedPath: string list) (basePath: string list) =
         let path = basePath @ extendedPath
-        menuItem' 
+        menuItem'
             {| currentPath = input.state.CurrentPath
                name = name
                path = path |}
 
     let nestedMenuList (name: string) (basePath: string list) (items: (string list -> Fable.React.ReactElement) list) =
-        nestedMenuList' 
+        nestedMenuList'
             {| state = input.state
                name = name
                basePath = basePath
                elems = items
                dispatch = dispatch |}
-    
+
     let subNestedMenuList (name: string) (basePath: string list) (items: (string list -> Fable.React.ReactElement) list) (addedBasePath: string list) =
-        nestedMenuList' 
+        nestedMenuList'
             {| state = input.state
                name = name
                basePath = (addedBasePath @ basePath)
@@ -397,7 +386,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                 nestedMenuList "Hooks" [ Urls.Hooks ] [
                     nestedMenuItem "Feliz.UseWorker" [ Urls.UseWorker ]
                 ]
-                    
+
                 nestedMenuList "Components" [ Urls.Components ] [
                     nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
                     nestedMenuItem "Feliz.Popover" [ Urls.Popover ]
@@ -420,7 +409,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                         nestedMenuItem "Fable.FastCheck" [ Urls.FastCheck ]
                     ]
                 ]
-                    
+
                 nestedMenuList "Misc" [ Urls.Misc ] [
                     nestedMenuItem "Feliz.SweetAlert" [ Urls.SweetAlert ]
                     nestedMenuItem "Feliz.ViewEngine" [ Urls.ViewEngine ]
@@ -475,9 +464,9 @@ let sidebar = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         prop.style [
             style.width (length.perc 100)
         ]
-        prop.children [ 
+        prop.children [
             menuLabel "Feliz"
-            allItems {| state = input.state; dispatch = dispatch |} 
+            allItems {| state = input.state; dispatch = dispatch |}
         ]
     ])
 
@@ -559,7 +548,7 @@ let loadOrSegment (origPath: string list) (basePath: string list) (path: string 
 
 let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |}) ->
     let loadOrSegment = loadOrSegment input.state.CurrentPath
-    
+
     match input.state.CurrentPath with
     | [ ] -> lazyView MarkdownLoader.load [ "Feliz"; "README.md" ]
     | PathPrefix [ Urls.Feliz ] (Some res) ->
@@ -575,7 +564,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | [ Urls.TypeSafeCss ] -> [ "TypeSafeCss.md" ]
         | [ Urls.Aliasing ] -> [ "AliasingProp.md" ]
         | [ Urls.ConditionalStyling ] -> [ "ConditionalStyling.md" ]
-        | PathPrefix [ Urls.React ] (Some res) -> reactExamples res 
+        | PathPrefix [ Urls.React ] (Some res) -> reactExamples res
         | _ -> []
         |> loadOrSegment [ Urls.Feliz ]
     | PathPrefix [ Urls.UIFrameworks ] (Some res) ->
@@ -637,7 +626,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
 
 let main = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |}) ->
     let dispatch = React.useCallback(input.dispatch, [||])
-    
+
     Html.div [
         prop.className [ Bulma.Tile; Bulma.IsAncestor ]
         prop.children [
@@ -656,10 +645,10 @@ let main = React.functionComponent(fun (input: {| state: State; dispatch: Msg ->
 
 let render' = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |}) ->
     let dispatch = React.useCallback(input.dispatch, [||])
-    
+
     let application =
         Html.div [
-            prop.style [ 
+            prop.style [
                 style.padding 30
             ]
             prop.children [ main {| state = input.state; dispatch = dispatch |} ]

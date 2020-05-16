@@ -5,24 +5,31 @@ A fresh retake of the base React DSL to build React applications, optimized for 
 Here is how it looks like:
 
 ```fs
+module App
+
 open Feliz
 
-let render state dispatch =
-  Html.div [
-    Html.button [
-        prop.style [ style.marginRight 5 ]
-        prop.onClick (fun _ -> dispatch Increment)
-        prop.text "Increment"
-    ]
+let counter = React.functionComponent(fun () ->
+    let (count, setCount) = React.useState(0)
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
 
-    Html.button [
-        prop.style [ style.marginLeft 5 ]
-        prop.onClick (fun _ -> dispatch Decrement)
-        prop.text "Decrement"
-    ]
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
 
-    Html.h1 state.Count
-  ]
+        Html.h1 count
+    ])
+
+open Browser.Dom
+
+ReactDOM.render(counter, document.getElementById "root")
 ```
 
 ### Features

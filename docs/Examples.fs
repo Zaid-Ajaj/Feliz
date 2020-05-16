@@ -439,7 +439,7 @@ let forwardRefParent = React.functionComponent(fun () ->
         Html.button [
             prop.text "Focus Input"
             prop.onClick <| fun ev ->
-                inputRef.current 
+                inputRef.current
                 |> Option.iter (fun elem -> elem.focus())
         ]
     ])
@@ -473,7 +473,7 @@ let forwardRefImperativeParent = React.functionComponent(fun () ->
         Html.button [
             prop.text "Focus Input"
             prop.onClick <| fun ev ->
-                ref.current 
+                ref.current
                 |> Option.iter (fun elem -> elem.focus())
         ]
     ])
@@ -484,7 +484,7 @@ type StrictModeWarning () =
     // The unsafe call.
     override _.componentWillMount() = ()
 
-    override _.render () =        
+    override _.render () =
         Html.div [
             prop.text "I cause a warning!"
         ]
@@ -546,8 +546,8 @@ let codeSplittingDelayed = React.functionComponent(fun () ->
             myNonCodeSplitComponent()
             React.suspense([
                 Html.div [
-                    React.lazy'((fun () -> 
-                        promise { 
+                    React.lazy'((fun () ->
+                        promise {
                             do! Promise.sleep 2000
                             return! asyncComponent
                         }
@@ -591,7 +591,7 @@ let useStateLazy = React.forwardRef(fun ((), ref) ->
 
     ref.current <- Some setCount
 
- 
+
     Html.div [
         prop.classes [ Bulma.Box ]
         prop.children [
@@ -629,7 +629,7 @@ let useStateNormalVsLazy = React.functionComponent(fun () ->
                     useStateLazy((), rerenderLazy)
                 ]
             ]
-            
+
             Html.button [
                 prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
                 prop.onClick <| fun _ -> rerenderNormal.current |> Option.iter (fun f -> f(rng.Next(0,10)))

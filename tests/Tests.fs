@@ -87,7 +87,7 @@ let useLayoutEffectEveryRender = React.functionComponent(fun (props: {| effectTr
 
 let renderCount = React.functionComponent(fun (input: {| label: string |}) ->
     let countRef = React.useRef 0
-        
+
     let mutable currentCount = countRef.current
 
     React.useEffect(fun () -> countRef.current <- currentCount)
@@ -109,7 +109,7 @@ let callbackRefButton = React.memo(fun (input: {| onClick: unit -> unit |}) ->
         ]
     ])
 
-let callbackRef = React.functionComponent(fun () -> 
+let callbackRef = React.functionComponent(fun () ->
     let count,setCount = React.useState 1
     let resultText,setResultText = React.useState ""
 
@@ -169,7 +169,7 @@ let forwardRefParent = React.functionComponent(fun () ->
                 prop.testId "focus-button"
                 prop.text "Click!"
                 prop.onClick <| fun ev ->
-                    inputRef.current 
+                    inputRef.current
                     |> Option.iter (fun elem -> elem.focus())
             ]
         ]
@@ -205,15 +205,15 @@ let forwardRefImperativeParent = React.functionComponent(fun () ->
         Html.button [
             prop.testId "focus-button"
             prop.onClick <| fun ev ->
-                ref.current 
+                ref.current
                 |> Option.iter (fun elem -> elem.focus())
         ]
     ])
 
 let codeSplittingLoading = React.functionComponent(fun () ->
-    Html.div [ 
+    Html.div [
         prop.testId "loading"
-        prop.text "Loading" 
+        prop.text "Loading"
     ])
 
 let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"
@@ -221,8 +221,8 @@ let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic 
 let codeSplitting = React.functionComponent(fun () ->
     React.suspense([
         Html.div [
-            React.lazy'((fun () -> 
-                promise { 
+            React.lazy'((fun () ->
+                promise {
                     do! Promise.sleep 1000
                     return! asyncComponent
                 }
@@ -240,15 +240,15 @@ let funcCompTest = React.functionComponent(fun (input: {| count: int |}) ->
 
 let funcCompTestDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
-    
+
     React.useEffectOnce(fun () -> setCount (count + 1))
 
     Html.div [
         funcCompTest {| count = count |}
     ])
 
-let funcCompWithKey (props: {| count: int |} ) = 
-    if props.count = 0 then "originalKey" 
+let funcCompWithKey (props: {| count: int |} ) =
+    if props.count = 0 then "originalKey"
     else "staticKey"
 
 let funcCompTestWithKey = React.functionComponent((fun (input: {| count: int |}) ->
@@ -261,7 +261,7 @@ let funcCompTestWithKey = React.functionComponent((fun (input: {| count: int |})
 
 let funcCompTestWithKeyDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
-    
+
     React.useEffectOnce(fun () -> setCount (count + 1))
 
     Html.div [
@@ -278,7 +278,7 @@ let memoCompTest = React.memo(fun (input: {| count: int |}) ->
 
 let memoCompTestDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
-    
+
     React.useEffectOnce(fun () -> setCount (count + 1))
 
     Html.div [
@@ -295,7 +295,7 @@ let memoCompTestWithKey = React.memo((fun (input: {| count: int |}) ->
 
 let memoCompTestWithKeyDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
-    
+
     React.useEffectOnce(fun () -> setCount (count + 1))
 
     Html.div [
@@ -314,7 +314,7 @@ let memoCompTestAreEqual = React.memo((fun (input: {| count: int |}) ->
 
 let memoCompTestAreEqualDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
-    
+
     React.useEffectOnce(fun () -> setCount (count + 1))
 
     Html.div [
@@ -339,7 +339,7 @@ let memoCompTestAreEqualWithKey = React.memo((fun (input: {| count: int |}) ->
 
 let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
-    
+
     React.useEffect(fun () -> if count < 10 then setCount (count + 1))
 
     Html.div [
@@ -437,7 +437,7 @@ let felizTests = testList "Feliz Tests" [
         Expect.equal "2" count.innerText "Component has been updated/re-rendered again"
         Expect.equal 3 effectCount "Effect count has increased three"
 
-    testReact "Focusing input element works with React refs" <| fun _ -> 
+    testReact "Focusing input element works with React refs" <| fun _ ->
         let render = RTL.render(focusInputExample())
         let focusedInput = render.getByTestId "focused-input"
         let focusInputButton = render.getByTestId "focus-input"
@@ -494,16 +494,16 @@ let felizTests = testList "Feliz Tests" [
 
         Expect.isTrue (loader.innerText = "Loading") "Loading element is displayed"
         Expect.isTrue (render.queryByTestId("async-load", true).IsNone) "Code-split element is not displayed"
-        
-        do! 
+
+        do!
             RTL.waitForElementToBeRemoved((fun () -> render.queryByTestId("loading")), [
                 waitForOption.timeout 5000
             ]) |> Async.AwaitPromise
 
         Expect.isTrue (render.queryByTestId("loading").IsNone) "Loading element is not displayed"
 
-        do! 
-            RTL.waitFor(fun () -> 
+        do!
+            RTL.waitFor(fun () ->
                 Expect.isTrue (render.queryByTestId("async-load").IsSome) "Code-split element is displayed"
             ) |> Async.AwaitPromise
     }
@@ -556,7 +556,7 @@ let felizTests = testList "Feliz Tests" [
 ]
 
 [<EntryPoint>]
-let main (args: string []) = 
+let main (args: string []) =
     let allTests = testList "All Tests" [
         felizTests
         PropHelperTests.propHelpersTests

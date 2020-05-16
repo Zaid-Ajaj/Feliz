@@ -9,15 +9,15 @@
     </PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>0.86.0</Version>
+    <Version>1.0.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Complete SVG coverage for the elements and properties</PackageReleaseNotes>
+    <PackageReleaseNotes>Stable release</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>
-      <NpmPackage Name="react" Version="&gt;= 16.8.0 &lt; 17.0.0" ResolutionStrategy="Max" />
-      <NpmPackage Name="react-dom" Version="&gt;= 16.8.0 &lt; 17.0.0" ResolutionStrategy="Max" />
+      <NpmPackage Name="react" Version="&gt;= 16.13.1 &lt; 17.0.0" ResolutionStrategy="Max" />
+      <NpmPackage Name="react-dom" Version="&gt;= 16.13.1 &lt; 17.0.0" ResolutionStrategy="Max" />
     </NpmDependencies>
   </PropertyGroup>
   <ItemGroup>
