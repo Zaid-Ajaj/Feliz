@@ -61,3 +61,38 @@ React.functionComponent(fun () ->
         ]
     ])
 ```
+
+### Lazy State
+
+React will call the initialization on every rerender, even if it's no longer needed.
+In most cases this has no performance impact at all, however, in some cases where the
+initial value is very expensive this can cause an application to become unusable.
+
+You can ensure that expensive initialization functions only run once by passing in 
+an initializer function into `React.useState`:
+
+```fsharp:use-state-lazy
+let useStateNormal = React.functionComponent(fun () ->
+    let count,setCount = React.useState (sortNumbers())
+
+    Html.div [
+        prop.classes [ Bulma.Box ]
+        prop.children [
+            Html.div [
+                prop.text (sprintf "Normal Count: %i" count)
+            ]
+        ]
+    ])
+
+let useStateLazy = React.functionComponent(fun () ->
+    let count,setCount = React.useState (fun () -> sortNumbers())
+ 
+    Html.div [
+        prop.classes [ Bulma.Box ]
+        prop.children [
+            Html.div [
+                prop.text (sprintf "Lazy Count: %i" count)
+            ]
+        ]
+    ])
+```
