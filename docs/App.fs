@@ -53,21 +53,38 @@ let update msg state =
         | [ ] -> { state with CurrentTab = [ ] }, Cmd.none
         | _ -> { state with CurrentTab = tabs }, Cmd.none
 
-let useDeferredBasic = React.functionComponent("BasicDeferred", fun () ->
-    let (data, setData) = React.useState Deferred.HasNotStartedYet
-
+let basicDeferred = React.functionComponent("BasicDeferred", fun () ->
     let loadData = async {
         do! Async.Sleep 1000
         return "Hello!"
     }
 
-    React.useDeferred(loadData, setData, [|  |])
+    let data = React.useDeferred(loadData, [|  |])
 
     match data with
     | Deferred.HasNotStartedYet -> Html.none
     | Deferred.InProgress -> Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin"; "fa-2x" ] ]
     | Deferred.Failed error -> Html.div error.Message
     | Deferred.Resolved content -> Html.h1 content
+)
+
+let basicDeferredV2 = React.functionComponent("BasicDeferredV2", fun () -> 
+    let loadData = async {
+        do! Async.Sleep 1000
+        return "Hello!"
+    }
+    
+    let (data, setData) = React.useState(Deferred.HasNotStartedYet)
+
+    let startLoadingData = React.useDeferredCallback((fun () -> loadData), setData)
+
+    React.useEffect(startLoadingData, [| |])
+
+    match data with
+    | Deferred.HasNotStartedYet -> Html.none
+    | Deferred.InProgress -> Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin"; "fa-2x" ] ]
+    | Deferred.Failed error -> Html.div error.Message
+    | Deferred.Resolved content -> Html.h1 content 
 )
 
 let login username password = async {
@@ -214,8 +231,9 @@ let samples = [
     "code-splitting", DelayedComponent.render {| load = Examples.codeSplitting |}
     "code-splitting-delayed", DelayedComponent.render {| load = Examples.codeSplittingDelayed |}
     "use-state-lazy", DelayedComponent.render {| load = Examples.useStateNormalVsLazy |}
-    "use-deferred", DelayedComponent.render {| load = useDeferredBasic |}
+    "use-deferred", DelayedComponent.render {| load = basicDeferred |}
     "deferred-form", DelayedComponent.render {| load = loginForm |}
+    "use-deferred-v2", DelayedComponent.render {|  load = basicDeferredV2 |}
 ]
 
 let githubPath (rawPath: string) =

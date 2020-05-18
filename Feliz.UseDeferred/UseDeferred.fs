@@ -60,7 +60,8 @@ open Feliz
 [<AutoOpen>]
 module ReactHookExtensions =
     type React with
-        static member useDeferred(operation: Async<'T>, setDeferred: Deferred<'T> -> unit, dependencies: obj array) =
+        static member useDeferred(operation: Async<'T>, dependencies: obj array) =
+            let (deferred, setDeferred) = React.useState(Deferred.HasNotStartedYet)
             let cancellationToken = React.useRef(new System.Threading.CancellationTokenSource())
             let executeOperation = async {
                 try
@@ -79,6 +80,8 @@ module ReactHookExtensions =
             )
 
             React.useEffect((fun () -> Async.StartImmediate(executeOperation, cancellationToken.current.Token)), dependencies)
+
+            deferred
 
         static member useDeferredCallback(operation: unit -> Async<'T>, setDeferred: Deferred<'T> -> unit) =
             let cancellationToken = React.useRef(new System.Threading.CancellationTokenSource())

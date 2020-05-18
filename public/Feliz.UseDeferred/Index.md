@@ -1,20 +1,21 @@
 # Feliz.UseDeferred
 
-Dead-simple data fetching hook for React component.
+Dead-simple data fetching hook for React component. It turns an asynchronous operation `Async<'T>` into a state variable that describes the current status of that operation. It comes in two flavours:
+ - `React.useDeferred`
+ - `React.useDeferredCallback`
 
+The first variant `React.useDeferred` is the simplest one as it takes an asynchronous operations and a list of dependencies (similar to `React.useEffect`) and returns you a `Deferred<'T>` that you can use right away:
 ```fsharp:use-deferred
 open Feliz
 open Feliz.UseDeferred
 
 React.functionComponent("BasicDeferred", fun () ->
-    let (data, setData) = React.useState(Deferred.HasNotStartedYet)
-
     let loadData = async {
         do! Async.Sleep 1000
         return "Hello!"
     }
 
-    React.useDeferred(loadData, setData, [|  |])
+    let data = React.useDeferred(loadData, [|  |])
 
     match data with
     | Deferred.HasNotStartedYet -> Html.none
@@ -23,8 +24,28 @@ React.functionComponent("BasicDeferred", fun () ->
     | Deferred.Resolved content -> Html.h1 content
 )
 ```
+The operation is executed immediately as soon as the component mounts. This makes an easy way to build components that only to fetch and present the data right away. However, when more control is required that is where `React.useDeferredCallback` comes into play as it allows you to control when the operation is executed and what you want to do with the data after it has finished loading. For example, the same component above can be reweritten in a more explicit fashion using `React.useDeferredCallback`:
+```fsharp:use-deferred-v2
+React.functionComponent("BasicDeferred", fun () ->
+    let loadData = async {
+        do! Async.Sleep 1000
+        return "Hello!"
+    }
 
-More complicated example:
+    let (data, setData) = React.useState(Deferred.HasNotStartedYet)
+
+    let startLoadingData = React.useDeferredCallback((fun () -> loadData), setData)
+
+    React.useEffect(startLoadingData, [| |])
+
+    match data with
+    | Deferred.HasNotStartedYet -> Html.none
+    | Deferred.InProgress -> Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin"; "fa-2x" ] ]
+    | Deferred.Failed error -> Html.div error.Message
+    | Deferred.Resolved content -> Html.h1 content
+)
+```
+Here is a more complicated sample where it uses `React.useDeferredCallback` hook to implement a login form
 ```fsharp:deferred-form
 open Feliz
 open Feliz.UseDeferred
