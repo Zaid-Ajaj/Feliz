@@ -95,6 +95,7 @@ let publish projectPath = fun () ->
 Target "PublishFeliz" (publish libPath)
 Target "PublishRecharts" (publish "./Feliz.Recharts")
 Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")
+Target "PublishUseDeferred" (publish "./Feliz.UseDeferred")
 Target "PublishTemplate" (publish "./Feliz.Template")
 Target "PublishMarkdown" (publish "./Feliz.Markdown")
 Target "PublishPopover" (publish "./Feliz.Popover")
@@ -107,6 +108,7 @@ Target "PatchFeliz" <| fun _ ->
       publish "./Feliz.Popover"
       publish "./Feliz.Template"
       publish "./Feliz.ElmishComponents"
+      publish "./Feliz.UseDeferred"
       publish "./Feliz.Markdown" ]
    |> List.iter (fun target -> target())
 
