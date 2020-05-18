@@ -104,6 +104,8 @@ let [<Literal>] Hooks = "Hooks"
 
 let [<Literal>] UseWorker = "UseWorker"
 
+let [<Literal>] UseDeferred = "UseDeferred"
+
 // __________________________
 
 // Components

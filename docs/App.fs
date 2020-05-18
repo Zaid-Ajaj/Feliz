@@ -8,6 +8,7 @@ open Feliz
 open Feliz.Recharts
 open Feliz.Markdown
 open Feliz.PigeonMaps
+open Feliz.UseDeferred
 open Feliz.Router
 open Fable.Core.JsInterop
 open Fable.SimpleHttp
@@ -51,6 +52,117 @@ let update msg state =
         match tabs with
         | [ ] -> { state with CurrentTab = [ ] }, Cmd.none
         | _ -> { state with CurrentTab = tabs }, Cmd.none
+
+let useDeferredBasic = React.functionComponent("BasicDeferred", fun () ->
+    let (data, setData) = React.useState Deferred.HasNotStartedYet
+
+    let loadData = async {
+        do! Async.Sleep 1000
+        return "Hello!"
+    }
+
+    React.useDeferred(loadData, setData, [|  |])
+
+    match data with
+    | Deferred.HasNotStartedYet -> Html.none
+    | Deferred.InProgress -> Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin"; "fa-2x" ] ]
+    | Deferred.Failed error -> Html.div error.Message
+    | Deferred.Resolved content -> Html.h1 content
+)
+
+let login username password = async {
+    do! Async.Sleep 1500
+    if username = "admin" && password = "admin"
+    then return Ok "admin"
+    else return Error "Credentials incorrect"
+}
+
+let loginForm = React.functionComponent("LoginForm", fun () ->
+    let (loginState, setLoginState) = React.useState(Deferred.HasNotStartedYet)
+    let usernameRef = React.useInputRef()
+    let passwordRef = React.useInputRef()
+
+    let login() =
+        match usernameRef.current, passwordRef.current with
+        | Some username, Some password -> login username.value password.value
+        | _ -> failwith "Component hasn't been initialized"
+
+    let startLogin = React.useDeferredCallback(login, setLoginState)
+
+    let message =
+        match loginState with
+        | Deferred.HasNotStartedYet -> Html.none
+        | Deferred.InProgress -> Html.none
+        | Deferred.Failed error ->
+            Html.p [
+                prop.style [ style.color.red ]
+                prop.text (sprintf "Internal error: %s" error.Message)
+            ]
+
+        | Deferred.Resolved (Ok user) ->
+            Html.p [
+                prop.style [ style.color.green ]
+                prop.text (sprintf "User %s logged in" user)
+            ]
+
+        | Deferred.Resolved (Error error) ->
+            Html.p [
+                prop.style [ style.color.red ]
+                prop.text (sprintf "Login error: %s" error)
+            ]
+
+    Html.div [
+        Html.div [
+            prop.className "field"
+            prop.children [
+                Html.label [ prop.className "label"; prop.text "Username" ]
+                Html.div [
+                    prop.className "control"
+                    prop.children [
+                        Html.input [
+                            prop.className "input"
+                            prop.ref usernameRef
+                            prop.placeholder "Username"
+                            prop.disabled (Deferred.inProgress loginState)
+                        ]
+                    ]
+                ]
+            ]
+        ]
+
+        Html.div [
+            prop.className "field"
+            prop.children [
+                Html.label [ prop.className "label"; prop.text "Password" ]
+                Html.div [
+                    prop.className "control"
+                    prop.children [
+                        Html.input [
+                            prop.className "input"
+                            prop.ref passwordRef
+                            prop.placeholder "Password"
+                            prop.disabled (Deferred.inProgress loginState)
+                            prop.type'.password
+                        ]
+                    ]
+                ]
+            ]
+        ]
+
+        message
+
+        Html.button [
+            prop.className [
+                "button is-primary";
+                if Deferred.inProgress loginState
+                then "is-loading"
+            ]
+
+            prop.text "Login"
+            prop.disabled (Deferred.inProgress loginState)
+            prop.onClick(fun _ -> startLogin())
+        ]
+    ])
 
 let samples = [
     "feliz-elmish-counter", Examples.ElmishCounter.app()
@@ -102,6 +214,8 @@ let samples = [
     "code-splitting", DelayedComponent.render {| load = Examples.codeSplitting |}
     "code-splitting-delayed", DelayedComponent.render {| load = Examples.codeSplittingDelayed |}
     "use-state-lazy", DelayedComponent.render {| load = Examples.useStateNormalVsLazy |}
+    "use-deferred", DelayedComponent.render {| load = useDeferredBasic |}
+    "deferred-form", DelayedComponent.render {| load = loginForm |}
 ]
 
 let githubPath (rawPath: string) =
@@ -385,6 +499,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
 
                 nestedMenuList "Hooks" [ Urls.Hooks ] [
                     nestedMenuItem "Feliz.UseWorker" [ Urls.UseWorker ]
+                    nestedMenuItem "Feliz.UseDeferred" [ Urls.UseDeferred ]
                 ]
 
                 nestedMenuList "Components" [ Urls.Components ] [
@@ -575,6 +690,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
     | PathPrefix [ Urls.Hooks ] (Some res) ->
         match res with
         | [ Urls.UseWorker ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseWorker" ]
+        | [ Urls.UseDeferred ] -> lazyView MarkdownLoader.load [ "Feliz.UseDeferred"; "Index.md" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Components ] (Some res) ->
         match res with
