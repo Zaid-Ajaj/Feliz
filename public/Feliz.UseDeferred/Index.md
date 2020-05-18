@@ -1,4 +1,4 @@
-# Feliz.UseDeferred
+# Feliz.UseDeferred [![Nuget](https://img.shields.io/nuget/v/Feliz.UseDeferred.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.UseDeferred)
 
 Dead-simple data fetching hook for React component. It turns an asynchronous operation `Async<'T>` into a state variable that describes the current status of that operation. It comes in two flavours:
  - `React.useDeferred`
