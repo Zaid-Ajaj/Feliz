@@ -107,3 +107,35 @@ module ReactHookExtensions =
             )
 
             start
+
+        static member useDeferredParallel<'T, 'U, 'Key when 'Key : comparison>(deferred: Deferred<'T>, map: 'T -> ('Key * Async<'U>) list) =
+            let (data, setData) = React.useState(Map.empty)
+            let addData = React.useCallbackRef(fun (key, value) -> setData(Map.add key value data))
+            let cancellationToken = React.useRef(new System.Threading.CancellationTokenSource())
+            let mapKeyedOperatons (operations: ('Key * Async<'U>) list) = [
+                for (key, operation) in operations do
+                    async {
+                        try
+                            do addData(key,  Deferred.InProgress)
+                            let! output = operation
+                            do addData(key, Deferred.Resolved output)
+                        with error ->
+                            #if DEBUG
+                            Browser.Dom.console.log(error)
+                            #endif
+                            do addData(key, Deferred.Failed error)
+                    }
+            ]
+
+            let start = React.useCallback(fun operations ->
+                Fable.Core.JS.setTimeout(fun () ->
+                    Async.StartImmediate(Async.Parallel(mapKeyedOperatons operations) |> Async.Ignore, cancellationToken.current.Token)
+                ) 0 |> ignore
+            )
+
+            React.useEffect(fun () ->
+                deferred
+                |> Deferred.iter (fun data -> start(map data))
+            , [| box deferred |])
+
+            Map.toList data

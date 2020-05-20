@@ -87,6 +87,38 @@ let basicDeferredV2 = React.functionComponent("BasicDeferredV2", fun () ->
     | Deferred.Resolved content -> Html.h1 content 
 )
 
+let parallelDeferred = React.functionComponent("ParallelDeferred", fun () -> 
+    let loadIds = async {
+        do! Async.Sleep 1000
+        return [ 1 .. 5 ]
+    }
+
+    let loadItem itemId = async {
+        do! Async.Sleep (itemId * 1000)
+        return sprintf "Loaded item %d" itemId
+    }
+
+    let itemIds = React.useDeferred(loadIds, [|  |])
+    
+    let items = React.useDeferredParallel(itemIds, fun ids -> [ for itemId in ids -> itemId, loadItem itemId ])
+     
+    match itemIds with 
+    | Deferred.HasNotStartedYet -> Html.none 
+    | Deferred.InProgress -> Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin"; "fa-2x" ] ]
+    | Deferred.Failed error -> Html.h1 error.Message
+    | Deferred.Resolved ids -> 
+        Html.ul [
+            for (id, item) in items -> 
+            React.keyedFragment(id, [
+                match item with 
+                | Deferred.HasNotStartedYet -> Html.none 
+                | Deferred.InProgress -> Html.li [ Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin" ] ] ]
+                | Deferred.Failed error -> Html.h1 error.Message
+                | Deferred.Resolved item -> Html.li item
+            ])
+        ]
+)
+
 let login username password = async {
     do! Async.Sleep 1500
     if username = "admin" && password = "admin"
@@ -234,6 +266,7 @@ let samples = [
     "use-deferred", DelayedComponent.render {| load = basicDeferred |}
     "deferred-form", DelayedComponent.render {| load = loginForm |}
     "use-deferred-v2", DelayedComponent.render {|  load = basicDeferredV2 |}
+    "parallel-deferred", DelayedComponent.render {| load = parallelDeferred |}
 ]
 
 let githubPath (rawPath: string) =
