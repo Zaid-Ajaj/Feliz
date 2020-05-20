@@ -1,9 +1,11 @@
 # Feliz.UseDeferred [![Nuget](https://img.shields.io/nuget/v/Feliz.UseDeferred.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.UseDeferred)
 
-Dead-simple data fetching hook for React component. It turns an asynchronous operation `Async<'T>` into a state variable that describes the current status of that operation. It comes in two flavours:
+Dead-simple data fetching hook for React component. It turns an asynchronous operation `Async<'T>` into a state variable that describes the current status of that operation. It comes in the following flavours:
  - `React.useDeferred`
  - `React.useDeferredCallback`
+ - `React.useDeferredParallel`
 
+### `React.useDeferred` and `React.useDeferredCallback`
 The first variant `React.useDeferred` is the simplest one as it takes an asynchronous operations and a list of dependencies (similar to `React.useEffect`) and returns you a `Deferred<'T>` that you can use right away:
 ```fsharp:use-deferred
 open Feliz
@@ -45,6 +47,7 @@ React.functionComponent("BasicDeferred", fun () ->
     | Deferred.Resolved content -> Html.h1 content
 )
 ```
+### Advanced example with `React.useDeferredCallback`
 Here is a more complicated sample where it uses `React.useDeferredCallback` hook to implement a login form
 ```fsharp:deferred-form
 open Feliz
@@ -143,4 +146,43 @@ let loginForm = React.functionComponent("LoginForm", fun () ->
             prop.onClick(fun _ -> startLogin())
         ]
     ])
+```
+### `React.useDeferredParallel`
+
+You can use `Async.Parallel` to create a single parallel asynchronous operation made from multiple operations. Combine that with the `React.useDeferred` hook and you can control the state of the entire operation in one `Deferred<'T>` variable. However, if you want to take control of the state of each individual operation, then `React.useDeferredParallel` is your friend.
+
+The hook `React.useDeferredParallel` allows you to load multiple asynchronous operations in parallel while giving you fine-grained access to the state of *each* operation separately! The following example demonstrates how to load data that is dependent on another asynchronous operation which is common when you need to run requests that depend on each other:
+
+```fsharp:parallel-deferred
+React.functionComponent("ParallelDeferred", fun () ->
+    let loadIds = async {
+        do! Async.Sleep 1000
+        return [ 1 .. 5 ]
+    }
+
+    let loadItem itemId = async {
+        do! Async.Sleep (itemId * 1000)
+        return sprintf "Loaded item %d" itemId
+    }
+
+    let itemIds = React.useDeferred(loadIds, [|  |])
+
+    let items = React.useDeferredParallel(itemIds, fun ids -> [ for itemId in ids -> itemId, loadItem itemId ])
+
+    match itemIds with
+    | Deferred.HasNotStartedYet -> Html.none
+    | Deferred.InProgress -> Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin"; "fa-2x" ] ]
+    | Deferred.Failed error -> Html.h1 "oops"
+    | Deferred.Resolved ids ->
+        Html.ul [
+            for (id, item) in items ->
+            React.keyedFragment(id, [
+                match item with
+                | Deferred.HasNotStartedYet -> Html.none
+                | Deferred.InProgress -> Html.li [ Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin" ] ] ]
+                | Deferred.Failed error -> Html.h1 "Oops"
+                | Deferred.Resolved item -> Html.li item
+            ])
+        ]
+)
 ```
