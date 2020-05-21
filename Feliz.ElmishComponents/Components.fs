@@ -118,13 +118,14 @@ module ElmishComponentExtensions =
             React.useElmish<'State,'Msg>((init, Cmd.none), (fun msg state -> update msg state, Cmd.none))
 
     type React with
-        //[<EditorBrowsable(EditorBrowsableState.Never)>]
+        [<EditorBrowsable(EditorBrowsableState.Never)>]
         static member inline elmishComponentInner<'State,'Msg> (name: string) =
             React.memo(name, (fun (input: ElmishComponentProps<'State,'Msg>) ->
                 let childState, dispatch = React.useElmish(input.Initial, input.Update)
 
                 input.Render childState dispatch
             ))
+        [<EditorBrowsable(EditorBrowsableState.Never)>]
         static member inline elmishComponentInner<'State,'Msg> (name: string, key: string) =
             React.memo(name, (fun (input: ElmishComponentProps<'State,'Msg>) ->
                 let childState, dispatch = React.useElmish(input.Initial, input.Update)
