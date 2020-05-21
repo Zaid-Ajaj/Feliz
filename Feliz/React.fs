@@ -422,7 +422,7 @@ type React =
     /// </summary>
     /// <param name='children'>The elements that will be rendered within the suspense block.</param>
     static member suspense(children: ReactElement list) =
-        Interop.reactApi.createElement(Interop.reactApi.Suspense, None, children)
+        Interop.reactApi.createElement(Interop.reactApi.Suspense, {| fallback = Html.none |} |> JsInterop.toPlainJsObj, children)
     /// <summary>
     /// Lets you specify a loading indicator whenever a child element is not yet ready 
     /// to render.
