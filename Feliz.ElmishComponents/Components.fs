@@ -52,8 +52,7 @@ type internal RingBuffer<'item>(size) =
 type ElmishComponentProps<'State, 'Msg> = 
     { Initial : 'State * Cmd<'Msg>
       Update : 'Msg -> 'State -> 'State * Cmd<'Msg>
-      Render : 'State -> ('Msg -> unit) -> ReactElement
-      key : string }
+      Render : 'State -> ('Msg -> unit) -> ReactElement }
 
 [<AutoOpen>]
 module ElmishComponentExtensions =
@@ -144,7 +143,6 @@ module ElmishComponentExtensions =
                 Initial = init
                 Update = update
                 Render = render
-                key = fullKey 
             }
 
         /// Creates a standalone React component using an Elmish dispatch loop
@@ -158,7 +156,6 @@ module ElmishComponentExtensions =
                 Initial = (init, Cmd.none)
                 Update = update
                 Render = render
-                key = fullKey 
             }
     
         /// Creates a standalone React component using an Elmish dispatch loop
@@ -171,7 +168,7 @@ module ElmishComponentExtensions =
             React.elmishComponentInner<'Model,'Msg>(name, fullKey) { 
                 Initial = (init, Cmd.none)
                 Update = (fun msg state -> update msg state, Cmd.none)
-                Render = render; key = fullKey 
+                Render = render
             }
     
         /// Creates a standalone React component using an Elmish dispatch loop
@@ -184,5 +181,5 @@ module ElmishComponentExtensions =
             React.elmishComponentInner<'Model,'Msg>(name, fullKey) { 
                 Initial = init
                 Update = (fun msg state -> update msg state, Cmd.none)
-                Render = render; key = fullKey 
+                Render = render
             }
