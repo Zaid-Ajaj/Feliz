@@ -96,6 +96,7 @@ Target "PublishFeliz" (publish libPath)
 Target "PublishRecharts" (publish "./Feliz.Recharts")
 Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")
 Target "PublishUseDeferred" (publish "./Feliz.UseDeferred")
+Target "PublishUseElmish" (publish "./Feliz.UseElmish")
 Target "PublishTemplate" (publish "./Feliz.Template")
 Target "PublishMarkdown" (publish "./Feliz.Markdown")
 Target "PublishPopover" (publish "./Feliz.Popover")
@@ -107,6 +108,7 @@ Target "PatchFeliz" <| fun _ ->
       publish "./Feliz.PigeonMaps"
       publish "./Feliz.Popover"
       publish "./Feliz.Template"
+      publish "./Feliz.UseElmish"
       publish "./Feliz.ElmishComponents"
       publish "./Feliz.UseDeferred"
       publish "./Feliz.Markdown" ]
