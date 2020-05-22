@@ -59,7 +59,6 @@ module UseElmishExtensions =
         static member useElmish<'State,'Msg> (init: 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>, dependencies: obj[]) =
             let state = React.useRef(fst init)
             let ring = React.useRef(RingBuffer(10))
-            let reentered = React.useRef(false)
             let childState, setChildState = React.useState(fst init)
             let setChildState () = JS.setTimeout(fun () -> setChildState state.current) 0 |> ignore
 
@@ -67,20 +66,15 @@ module UseElmishExtensions =
 
             let rec dispatch (msg: 'Msg) =
                 promise {
-                    if reentered.current then
-                        ring.current.Push msg
-                    else
-                        reentered.current <- false
-                        let mutable nextMsg = Some msg
+                    let mutable nextMsg = Some msg
 
-                        while nextMsg.IsSome && not (token.current.IsCancellationRequested) do
-                            let msg = nextMsg.Value
-                            let (state', cmd') = update msg state.current
-                            cmd' |> List.iter (fun sub -> sub dispatch)
-                            nextMsg <- ring.current.Pop()
-                            state.current <- state'
-                            setChildState()
-                        reentered.current <- false
+                    while nextMsg.IsSome && not (token.current.IsCancellationRequested) do
+                        let msg = nextMsg.Value
+                        let (state', cmd') = update msg state.current
+                        cmd' |> List.iter (fun sub -> sub dispatch)
+                        nextMsg <- ring.current.Pop()
+                        state.current <- state'
+                        setChildState()
                 }
                 |> Promise.start
 
