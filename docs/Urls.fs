@@ -86,6 +86,7 @@ let [<Literal>] UseContext = "UseContext"
 let [<Literal>] UseEffect = "UseEffect"
 let [<Literal>] UseReducer = "UseReducer"
 let [<Literal>] UseState = "UseState"
+let [<Literal>] UseElmish = "UseElmish"
 
 // ____________________________________________________
 
