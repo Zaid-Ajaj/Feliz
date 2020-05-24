@@ -41,7 +41,7 @@ type internal Internal() =
         )
         : 'props -> Fable.React.ReactElement =
             let memoElementType = Interop.reactApi.memo(renderElement, (defaultArg areEqual (unbox null)))
-            name |> Option.iter (fun name -> memoElementType?displayName <- name)
+            name |> Option.iter (fun name -> renderElement?displayName <- name)
             fun props ->
                 let props = props |> propsWithKey withKey
                 Interop.reactApi.createElement(memoElementType, props)
