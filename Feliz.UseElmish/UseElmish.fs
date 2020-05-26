@@ -88,6 +88,9 @@ module UseElmishExtensions =
                     token.current.Dispose())
 
             React.useEffect((fun () ->
+                state.current <- fst init
+                setChildState()
+
                 snd init
                 |> List.iter (fun sub -> sub dispatch)), dependencies)
 
