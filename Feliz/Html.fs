@@ -679,16 +679,19 @@ type Html =
     static member inline symbol (children: #seq<ReactElement>) = Interop.reactElementWithChildren "symbol" children
 
     static member inline table xs = Interop.createElement "table" xs
+    static member inline table (children: #seq<ReactElement>) = Interop.reactElementWithChildren "table" children
 
     static member inline tableBody xs = Interop.createElement "tbody" xs
     static member inline tableBody (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tbody" children
 
     static member inline tableCell xs = Interop.createElement "td" xs
+    static member inline tableCell (children: #seq<ReactElement>) = Interop.reactElementWithChildren "td" children
 
     static member inline tableHeader xs = Interop.createElement "th" xs
     static member inline tableHeader (children: #seq<ReactElement>) = Interop.reactElementWithChildren "th" children
     
     static member inline tableRow xs = Interop.createElement "tr" xs
+    static member inline tableRow (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tr" children
 
     static member inline tbody xs = Interop.createElement "tbody" xs
     static member inline tbody (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tbody" children
