@@ -1842,6 +1842,8 @@ module style =
     /// The outline is not a part of the element's dimensions, therefore the element's width and height properties do not contain the width of the outline.
     [<Erase>]
     type outlineStyle =
+        /// Permits the user agent to render a custom outline style.
+        static member inline auto = Interop.mkStyle "outlineStyle" "auto"
         /// Specifies no outline. This is default.
         static member inline none = Interop.mkStyle "outlineStyle" "none"
         /// Specifies a hidden outline
@@ -1866,6 +1868,9 @@ module style =
         static member inline initial = Interop.mkStyle "outlineStyle" "initial"
         /// Inherits this property from its parent element
         static member inline inheritFromParent = Interop.mkStyle "outlineStyle" "inherit"
+        /// Resets to its inherited value if the property naturally inherits from its parent, 
+        /// and to its initial value if not.
+        static member inline unset = Interop.mkStyle "outlineStyle" "unset"
 
     [<Erase>]
     type backgroundPosition =
