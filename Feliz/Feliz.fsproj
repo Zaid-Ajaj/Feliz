@@ -9,10 +9,10 @@
     </PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Fix displayName for memoized components</PackageReleaseNotes>
+    <PackageReleaseNotes>Add table overloads and missing CSS properties for outline</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>
