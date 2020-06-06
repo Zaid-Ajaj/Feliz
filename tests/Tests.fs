@@ -340,7 +340,12 @@ let memoCompTestAreEqualWithKey = React.memo((fun (input: {| count: int |}) ->
 let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
 
-    React.useEffect(fun () -> if count < 10 then setCount (count + 1))
+    React.useEffect(fun () -> 
+        async {
+            do! Async.Sleep 200
+            if count < 10 then setCount (count + 1)
+        } |> Async.StartImmediate
+    )
 
     Html.div [
         memoCompTestAreEqualWithKey {| count = count |}
@@ -580,11 +585,17 @@ let felizTests = testList "Feliz Tests" [
 
         Expect.equal renderCount.innerText "1" "Renders once due to areEqual eval"
 
-    testReact "memoComps withKey areEqual work correctly" <| fun _ ->
+    testReactAsync "memoComps withKey areEqual work correctly" <| async {
         let render = RTL.render(memoCompTestAreEqualWithKeyDiff())
         let renderCount = render.getByTestId "memoCompTestAreEqualWithKey"
 
-        Expect.equal renderCount.innerText "3" "Renders three times due to areEqual and withKey evals"
+        do! Async.Sleep 800
+
+        do! 
+            RTL.waitFor <| fun () -> 
+                Expect.equal renderCount.innerText "3" "Renders three times due to areEqual and withKey evals"
+            |> Async.AwaitPromise
+    }
 
     testReact "can handle select multiple with defaultValue" <| fun _ ->
         let render = RTL.render(selectMultipleWithDefault({| isDefaultValue = true; isValue = false; isValueOrDefault = false |}))
