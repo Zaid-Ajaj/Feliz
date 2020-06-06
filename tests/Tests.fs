@@ -342,7 +342,7 @@ let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
 
     React.useEffect(fun () -> 
         async {
-            do! Async.Sleep 200
+            do! Async.Sleep 50
             if count < 10 then setCount (count + 1)
         } |> Async.StartImmediate
     )
@@ -589,7 +589,7 @@ let felizTests = testList "Feliz Tests" [
         let render = RTL.render(memoCompTestAreEqualWithKeyDiff())
         let renderCount = render.getByTestId "memoCompTestAreEqualWithKey"
 
-        do! Async.Sleep 800
+        do! Async.Sleep 200
 
         do! 
             RTL.waitFor <| fun () -> 
