@@ -74,6 +74,22 @@ Target "InstallNpmPackages" (fun _ ->
 Target "Start" <| fun _ ->
     run npmTool "start" "."
 
+let getEnvFromAllOrNone (s: string) =
+    let envOpt (envVar: string) =
+        if String.IsNullOrEmpty envVar then None
+        else Some(envVar)
+
+    let procVar = Environment.GetEnvironmentVariable(s) |> envOpt
+    let userVar = Environment.GetEnvironmentVariable(s, EnvironmentVariableTarget.User) |> envOpt
+    let machVar = Environment.GetEnvironmentVariable(s, EnvironmentVariableTarget.Machine) |> envOpt
+
+    match procVar,userVar,machVar with
+    | Some(v), _, _
+    | _, Some(v), _
+    | _, _, Some(v)
+        -> Some(v)
+    | _ -> None
+
 let publish projectPath = fun () ->
     [ projectPath </> "bin"
       projectPath </> "obj"
@@ -81,9 +97,10 @@ let publish projectPath = fun () ->
     run dotnetCli "restore --no-cache" projectPath
     run dotnetCli "pack -c Release" projectPath
     let nugetKey =
-        match environVarOrNone "NUGET_KEY" with
-        | Some nugetKey -> nugetKey
-        | None -> failwith "The Nuget API key must be set in a NUGET_KEY environmental variable"
+        match getEnvFromAllOrNone "FELIZ_NUGET_KEY", getEnvFromAllOrNone "NUGET_KEY" with
+        | Some nugetKey, _ -> nugetKey
+        | None, Some nugetKey -> nugetKey
+        | _ -> failwith "The Nuget API key must be set in a NUGET_KEY environmental variable"
     let nupkg =
         Directory.GetFiles(projectPath </> "bin" </> "Release")
         |> Seq.head
