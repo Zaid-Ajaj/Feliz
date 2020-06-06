@@ -14,7 +14,7 @@
   <PropertyGroup>
     <NpmDependencies>
       <NpmPackage Name="@testing-library/react" Version="gte 10 lt 11" ResolutionStrategy="max" DevDependency="true" />
-      <NpmPackage Name="@testing-library/user-event" Version="gte 10 lt 11" ResolutionStrategy="max" DevDependency="true" />
+      <NpmPackage Name="@testing-library/user-event" Version="gte 11.1 lt 12" ResolutionStrategy="max" DevDependency="true" />
     </NpmDependencies>
   </PropertyGroup>
   <ItemGroup>
@@ -22,5 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fable.Promise" Version="2.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.0" />
   </ItemGroup>
 </Project>

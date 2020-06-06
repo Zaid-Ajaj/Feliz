@@ -416,8 +416,8 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                         nestedMenuItem "Fable.Mocha" [ Urls.Mocha ]
                     ]
                     subNestedMenuList "Utilities" [ Urls.Utilities ] [
-                        nestedMenuItem "Fable.ReactTestingLibrary" [ Urls.RTL ]
                         nestedMenuItem "Fable.FastCheck" [ Urls.FastCheck ]
+                        nestedMenuItem "Fable.ReactTestingLibrary" [ Urls.RTL ]
                     ]
                 ]
 

@@ -537,6 +537,18 @@ type prop =
     ///
     /// Typically only used with uncontrolled components.
     static member inline defaultValue (value: string) = Interop.mkAttr "defaultValue" value
+    /// Sets the DOM defaultValue value when initially rendered.
+    ///
+    /// Typically only used with uncontrolled components.
+    static member inline defaultValue (value: seq<float>) = Interop.mkAttr "defaultValue" (ResizeArray value)
+    /// Sets the DOM defaultValue value when initially rendered.
+    ///
+    /// Typically only used with uncontrolled components.
+    static member inline defaultValue (value: seq<int>) = Interop.mkAttr "defaultValue" (ResizeArray value)
+    /// Sets the DOM defaultValue value when initially rendered.
+    ///
+    /// Typically only used with uncontrolled components.
+    static member inline defaultValue (value: seq<string>) = Interop.mkAttr "defaultValue" (ResizeArray value)
 
     /// Indicates to a browser that the script is meant to be executed after the document
     /// has been parsed, but before firing DOMContentLoaded.
@@ -1785,6 +1797,12 @@ type prop =
     static member inline value (value: int) = Interop.mkAttr "value" value
     /// Sets the value of a React controlled component.
     static member inline value (value: string) = Interop.mkAttr "value" value
+    /// Sets the value of a React controlled component.
+    static member inline value (value: seq<float>) = Interop.mkAttr "value" (ResizeArray value)
+    /// Sets the value of a React controlled component.
+    static member inline value (value: seq<int>) = Interop.mkAttr "value" (ResizeArray value)
+    /// Sets the value of a React controlled component.
+    static member inline value (value: seq<string>) = Interop.mkAttr "value" (ResizeArray value)
 
     /// The value of the element, interpreted as a date, or null if conversion is not possible.
     static member inline valueAsDate (value: System.DateTime) = Interop.mkAttr "valueAsDate" value
@@ -1820,6 +1838,18 @@ type prop =
     /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input box value.
     static member inline valueOrDefault (value: string) =
         prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!value)
+    /// `prop.ref` callback that sets the value of an input after DOM element is created.
+    /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input value.
+    static member inline valueOrDefault (value: seq<float>) =
+        prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!(ResizeArray value))
+    /// `prop.ref` callback that sets the value of an input after DOM element is created.
+    /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input value.
+    static member inline valueOrDefault (value: seq<int>) =
+        prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!(ResizeArray value))
+    /// `prop.ref` callback that sets the value of an input after DOM element is created.
+    /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input box value.
+    static member inline valueOrDefault (value: seq<string>) =
+        prop.ref (fun e -> if e |> isNull |> not && !!e?value <> !!value then e?value <- !!(ResizeArray value))
 
     /// The values attribute has different meanings, depending upon the context where itʼs used, 
     /// either it defines a sequence of values used over the course of an animation, or itʼs a 

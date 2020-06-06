@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
@@ -18,6 +18,9 @@
         <Compile Include="Tests.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Fable.Mocha" Version="2.8.0" />
+        <PackageReference Include="Fable.Mocha" Version="2.9.1" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Update="FSharp.Core" Version="4.7.2" />
     </ItemGroup>
 </Project>

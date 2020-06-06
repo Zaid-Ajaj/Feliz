@@ -419,30 +419,106 @@ module RTL =
     /// Convenience methods for using fireEvent.
     type userEvent =
         /// Selects the text inside an input or textarea and deletes it.
-        static member clear (element: HTMLElement) : unit = Bindings.userEvent.clear(element)
+        static member clear (element: HTMLElement) = Bindings.userEvent.clear(element)
         /// Clicks element, depending on what element is it can have different side effects.
-        static member click (element: HTMLElement) : unit = Bindings.userEvent.click(element)
+        static member click (element: HTMLElement) = Bindings.userEvent.click(element)
+        /// Cntrl + clicks element, depending on what element is it can have different side effects.
+        static member ctrlClick (element: HTMLElement) = Bindings.userEvent.click(element, createObj !!["ctrlKey" ==> true])
         /// Clicks element twice, depending on what element is it can have different side effects.
-        static member dblClick (element: HTMLElement) : unit = Bindings.userEvent.dblClick(element)
+        static member dblClick (element: HTMLElement) = Bindings.userEvent.dblClick(element)
         /// Selects the specified option(s) of a <select> or a <select multiple> element.
-        static member selectOptions (element: HTMLElement, values: 'T []) : unit = Bindings.userEvent.selectOptions(element, values)
+        static member selectOptions (element: HTMLElement, values: 'T []) = Bindings.userEvent.selectOptions(element, values)
         /// Selects the specified option(s) of a <select> or a <select multiple> element.
-        static member selectOptions (element: HTMLElement, values: 'T list) : unit = Bindings.userEvent.selectOptions(element, values)
+        static member selectOptions (element: HTMLElement, values: 'T list) = Bindings.userEvent.selectOptions(element, values)
         /// Selects the specified option(s) of a <select> or a <select multiple> element.
-        static member selectOptions (element: HTMLElement, values: ResizeArray<'T>) : unit = Bindings.userEvent.selectOptions(element, values)
+        static member selectOptions (element: HTMLElement, values: ResizeArray<'T>) = Bindings.userEvent.selectOptions(element, values)
+        /// Toggle the specified option(s) of a <select multiple> element.
+        static member toggleSelectOptions (element: HTMLElement, values: 'T []) : unit = Bindings.userEvent.toggleSelectOptions(element, values)
+        /// Toggle the specified option(s) of a <select multiple> element.
+        static member toggleSelectOptions (element: HTMLElement, values: 'T list) : unit = Bindings.userEvent.toggleSelectOptions(element, values)
+        /// Toggle the specified option(s) of a <select multiple> element.
+        static member toggleSelectOptions (element: HTMLElement, values: ResizeArray<'T>) : unit = Bindings.userEvent.toggleSelectOptions(element, values)
+        /// Shift + clicks element, depending on what element is it can have different side effects.
+        static member shiftClick (element: HTMLElement) = Bindings.userEvent.click(element, createObj !!["shiftKey" ==> true])
+        /// Cntrl + shift + clicks element, depending on what element is it can have different side effects.
+        static member shiftCtrlClick (element: HTMLElement) = Bindings.userEvent.click(element, createObj !!["ctrlKey" ==> true; "shiftKey" ==> true])
         /// Fires a tab event changing the document.activeElement in the same way the browser does.
-        static member tab (shift: bool, focusTrap: HTMLElement) : unit = Bindings.userEvent.tab(shift, focusTrap)
+        static member tab (shift: bool, focusTrap: HTMLElement) = Bindings.userEvent.tab(shift, focusTrap)
         /// Writes text inside an <input> or a <textarea>.
-        static member type' (element: HTMLElement, text: string) : JS.Promise<unit> = Bindings.userEvent.typeInternal(element, text)
+        ///
+        /// You can use special characters via brackets such as {enter}, supported keys:
+        /// enter, esc, backspace, shift, ctrl, alt, meta
+        ///
+        /// shift, ctrl, alt, and meta will activate their respective event key. Which is 
+        /// ended with a closing tag: {/shift}, {/ctrl}, {/alt}, and {/meta}.
+        ///
+        /// shift does *not* cause lowercase text to become uppercase.
+        static member type' (element: HTMLElement, text: string) = Bindings.userEvent.typeInternal(element, text)
         /// Writes text inside an <input> or a <textarea>.
-        static member type' (element: HTMLElement, text: string, allAtOnce: bool) : JS.Promise<unit> = 
+        ///
+        /// You can use special characters via brackets such as {enter}, supported keys:
+        /// enter, esc, backspace, shift, ctrl, alt, meta
+        ///
+        /// shift, ctrl, alt, and meta will activate their respective event key. Which is 
+        /// ended with a closing tag: {/shift}, {/ctrl}, {/alt}, and {/meta}.
+        ///
+        /// shift does *not* cause lowercase text to become uppercase.
+        static member type' (element: HTMLElement, text: string, allAtOnce: bool) = 
             Bindings.userEvent.typeInternal(element, text, toPlainJsObj {| allAtOnce = allAtOnce |})
         /// Writes text inside an <input> or a <textarea>.
-        static member type' (element: HTMLElement, text: string, delay: int) : JS.Promise<unit> = 
+        ///
+        /// You can use special characters via brackets such as {enter}, supported keys:
+        /// enter, esc, backspace, shift, ctrl, alt, meta
+        ///
+        /// shift, ctrl, alt, and meta will activate their respective event key. Which is 
+        /// ended with a closing tag: {/shift}, {/ctrl}, {/alt}, and {/meta}.
+        ///
+        /// shift does *not* cause lowercase text to become uppercase.
+        static member type' (element: HTMLElement, text: string, delay: int) = 
             Bindings.userEvent.typeInternal(element, text, toPlainJsObj {| delay = delay |})
         /// Writes text inside an <input> or a <textarea>.
-        static member type' (element: HTMLElement, text: string, allAtOnce: bool, delay: int) : JS.Promise<unit> = 
+        ///
+        /// You can use special characters via brackets such as {enter}, supported keys:
+        /// enter, esc, backspace, shift, ctrl, alt, meta
+        ///
+        /// shift, ctrl, alt, and meta will activate their respective event key. Which is 
+        /// ended with a closing tag: {/shift}, {/ctrl}, {/alt}, and {/meta}.
+        ///
+        /// shift does *not* cause lowercase text to become uppercase.
+        static member type' (element: HTMLElement, text: string, allAtOnce: bool, delay: int) = 
             Bindings.userEvent.typeInternal(element, text, toPlainJsObj {| allAtOnce = allAtOnce; delay = delay |})
+        /// Uploads a file to an <input>. 
+        static member upload (element: HTMLElement, file: File) =
+            Bindings.userEvent.upload(element, file)
+        /// Uploads a file to an <input>. 
+        static member upload (element: HTMLElement, file: File, clickInit: EventInit) =
+            Bindings.userEvent.upload(element, file, toPlainJsObj {| clickInit = clickInit |})
+        /// Uploads a file to an <input>. 
+        static member upload (element: HTMLElement, file: File, changeInit: Event) =
+            Bindings.userEvent.upload(element, file, toPlainJsObj {| changeInit = changeInit |})
+        /// Uploads a file to an <input>. 
+        static member upload (element: HTMLElement, file: File, clickInit: EventInit, changeInit: Event) =
+            Bindings.userEvent.upload(element, file, toPlainJsObj {| clickInit = clickInit; changeInit = changeInit |})
+        /// Uploads a file to an <input>. 
+        ///
+        /// For uploading multiple files use <input> with the multiple attribute.
+        static member upload (element: HTMLElement, files: seq<File>) =
+            Bindings.userEvent.upload(element, ResizeArray files)
+        /// Uploads a file to an <input>. 
+        ///
+        /// For uploading multiple files use <input> with the multiple attribute.
+        static member upload (element: HTMLElement, file: seq<File>, clickInit: EventInit) =
+            Bindings.userEvent.upload(element, ResizeArray file, toPlainJsObj {| clickInit = clickInit |})
+        /// Uploads a file to an <input>. 
+        ///
+        /// For uploading multiple files use <input> with the multiple attribute.
+        static member upload (element: HTMLElement, file: seq<File>, changeInit: Event) =
+            Bindings.userEvent.upload(element, ResizeArray file, toPlainJsObj {| changeInit = changeInit |})
+        /// Uploads a file to an <input>. 
+        ///
+        /// For uploading multiple files use <input> with the multiple attribute.
+        static member upload (element: HTMLElement, file: seq<File>, clickInit: EventInit, changeInit: Event) =
+            Bindings.userEvent.upload(element, ResizeArray file, toPlainJsObj {| clickInit = clickInit; changeInit = changeInit |})
 
 [<AutoOpen>]
 module RTLExtensions =
@@ -633,6 +709,8 @@ module RTLExtensions =
         member _.clear () : unit = Bindings.userEvent.clear(element)
         /// Clicks element, depending on what element is it can have different side effects.
         member _.click () : unit = Bindings.userEvent.click(element)
+        /// Cntrl + clicks element, depending on what element is it can have different side effects.
+        member _.ctrlClick () : unit = Bindings.userEvent.click(element, createObj !!["ctrlKey" ==> true])
         /// Clicks element twice, depending on what element is it can have different side effects.
         member _.dblClick () : unit = Bindings.userEvent.dblClick(element)
         /// Selects the specified option(s) of a <select> or a <select multiple> element.
@@ -641,19 +719,93 @@ module RTLExtensions =
         member _.selectOptions (values: 'T list) : unit = Bindings.userEvent.selectOptions(element, values)
         /// Selects the specified option(s) of a <select> or a <select multiple> element.
         member _.selectOptions (values: ResizeArray<'T>) : unit = Bindings.userEvent.selectOptions(element, values)
+        /// Toggle the specified option(s) of a <select multiple> element.
+        member _.toggleSelectOptions (values: 'T []) : unit = Bindings.userEvent.toggleSelectOptions(element, values)
+        /// Toggle the specified option(s) of a <select multiple> element.
+        member _.toggleSelectOptions (values: 'T list) : unit = Bindings.userEvent.toggleSelectOptions(element, values)
+        /// Toggle the specified option(s) of a <select multiple> element.
+        member _.toggleSelectOptions (values: ResizeArray<'T>) : unit = Bindings.userEvent.toggleSelectOptions(element, values)
+        /// Shift + clicks element, depending on what element is it can have different side effects.
+        member _.shiftClick () : unit = Bindings.userEvent.click(element, createObj !!["shiftKey" ==> true])
+        /// Cntrl + shift + clicks element, depending on what element is it can have different side effects.
+        member _.shiftCtrlClick () : unit = Bindings.userEvent.click(element, createObj !!["ctrlKey" ==> true; "shiftKey" ==> true])
         /// Fires a tab event changing the document.activeElement in the same way the browser does.
         member _.tab (shift: bool, focusTrap: HTMLElement) : unit = Bindings.userEvent.tab(shift, focusTrap)
         /// Writes text inside an <input> or a <textarea>.
+        ///
+        /// You can use special characters via brackets such as {enter}, supported keys:
+        /// enter, esc, backspace, shift, ctrl, alt, meta
+        ///
+        /// shift, ctrl, alt, and meta will activate their respective event key. Which is 
+        /// ended with a closing tag: {/shift}, {/ctrl}, {/alt}, and {/meta}.
+        ///
+        /// shift does *not* cause lowercase text to become uppercase.
         member _.type' (text: string) : JS.Promise<unit> = Bindings.userEvent.typeInternal(element, text)
         /// Writes text inside an <input> or a <textarea>.
+        ///
+        /// You can use special characters via brackets such as {enter}, supported keys:
+        /// enter, esc, backspace, shift, ctrl, alt, meta
+        ///
+        /// shift, ctrl, alt, and meta will activate their respective event key. Which is 
+        /// ended with a closing tag: {/shift}, {/ctrl}, {/alt}, and {/meta}.
+        ///
+        /// shift does *not* cause lowercase text to become uppercase.
         member _.type' (text: string, allAtOnce: bool) : JS.Promise<unit> = 
             Bindings.userEvent.typeInternal(element, text, toPlainJsObj {| allAtOnce = allAtOnce |})
         /// Writes text inside an <input> or a <textarea>.
+        ///
+        /// You can use special characters via brackets such as {enter}, supported keys:
+        /// enter, esc, backspace, shift, ctrl, alt, meta
+        ///
+        /// shift, ctrl, alt, and meta will activate their respective event key. Which is 
+        /// ended with a closing tag: {/shift}, {/ctrl}, {/alt}, and {/meta}.
+        ///
+        /// shift does *not* cause lowercase text to become uppercase.
         member _.type' (text: string, delay: int) : JS.Promise<unit> = 
             Bindings.userEvent.typeInternal(element, text, toPlainJsObj {| delay = delay |})
         /// Writes text inside an <input> or a <textarea>.
+        ///
+        /// You can use special characters via brackets such as {enter}, supported keys:
+        /// enter, esc, backspace, shift, ctrl, alt, meta
+        ///
+        /// shift, ctrl, alt, and meta will activate their respective event key. Which is 
+        /// ended with a closing tag: {/shift}, {/ctrl}, {/alt}, and {/meta}.
+        ///
+        /// shift does *not* cause lowercase text to become uppercase.
         member _.type' (text: string, allAtOnce: bool, delay: int) : JS.Promise<unit> = 
             Bindings.userEvent.typeInternal(element, text, toPlainJsObj {| allAtOnce = allAtOnce; delay = delay |})
+        /// Uploads a file to an <input>. 
+        member _.upload (file: File) =
+            Bindings.userEvent.upload(element, file)
+        /// Uploads a file to an <input>. 
+        member _.upload (file: File, clickInit: EventInit) =
+            Bindings.userEvent.upload(element, file, toPlainJsObj {| clickInit = clickInit |})
+        /// Uploads a file to an <input>. 
+        member _.upload (file: File, changeInit: Event) =
+            Bindings.userEvent.upload(element, file, toPlainJsObj {| changeInit = changeInit |})
+        /// Uploads a file to an <input>. 
+        member _.upload (file: File, clickInit: EventInit, changeInit: Event) =
+            Bindings.userEvent.upload(element, file, toPlainJsObj {| clickInit = clickInit; changeInit = changeInit |})
+        /// Uploads a file to an <input>. 
+        ///
+        /// For uploading multiple files use <input> with the multiple attribute.
+        member _.upload (files: seq<File>) =
+            Bindings.userEvent.upload(element, ResizeArray files)
+        /// Uploads a file to an <input>. 
+        ///
+        /// For uploading multiple files use <input> with the multiple attribute.
+        member _.upload (file: seq<File>, clickInit: EventInit) =
+            Bindings.userEvent.upload(element, ResizeArray file, toPlainJsObj {| clickInit = clickInit |})
+        /// Uploads a file to an <input>. 
+        ///
+        /// For uploading multiple files use <input> with the multiple attribute.
+        member _.upload (file: seq<File>, changeInit: Event) =
+            Bindings.userEvent.upload(element, ResizeArray file, toPlainJsObj {| changeInit = changeInit |})
+        /// Uploads a file to an <input>. 
+        ///
+        /// For uploading multiple files use <input> with the multiple attribute.
+        member _.upload (file: seq<File>, clickInit: EventInit, changeInit: Event) =
+            Bindings.userEvent.upload(element, ResizeArray file, toPlainJsObj {| clickInit = clickInit; changeInit = changeInit |})
 
     type Browser.Types.HTMLElement with
         member this.createEvent = HTMLElementCreateEvent(this)
