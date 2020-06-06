@@ -340,10 +340,47 @@ let memoCompTestAreEqualWithKey = React.memo((fun (input: {| count: int |}) ->
 let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
 
-    React.useEffect(fun () -> if count < 10 then setCount (count + 1))
+    React.useEffect(fun () -> 
+        async {
+            do! Async.Sleep 50
+            if count < 10 then setCount (count + 1)
+        } |> Async.StartImmediate
+    )
 
     Html.div [
         memoCompTestAreEqualWithKey {| count = count |}
+    ])
+
+let selectMultipleWithDefault = React.functionComponent(fun (input: {| isDefaultValue: bool; isValue: bool; isValueOrDefault: bool |}) ->
+    React.fragment [
+        Html.select [
+            prop.multiple true
+            prop.testId "select-multiple"
+            if input.isDefaultValue then
+                prop.defaultValue [3]
+            elif input.isValue then
+                prop.value [3]
+            elif input.isValueOrDefault then
+                prop.valueOrDefault [3]
+
+            prop.children [
+                Html.option [
+                    prop.testId "val1"
+                    prop.value 1
+                    prop.text "A"
+                ]
+                Html.option [
+                    prop.testId "val2"
+                    prop.value 2
+                    prop.text "B"
+                ]
+                Html.option [
+                    prop.testId "val3"
+                    prop.value 3
+                    prop.text "C"
+                ]
+            ]
+        ]
     ])
 
 let felizTests = testList "Feliz Tests" [
@@ -522,37 +559,79 @@ let felizTests = testList "Feliz Tests" [
         let render = RTL.render(funcCompTestDiff())
         let renderCount = render.getByTestId "funcCompTest"
 
-        Expect.equal "2" renderCount.innerText "Renders twice"
+        Expect.equal renderCount.innerText "2" "Renders twice"
 
     testReact "funcComps withKey work correctly" <| fun _ ->
         let render = RTL.render(funcCompTestWithKeyDiff())
         let renderCount = render.getByTestId "funcCompTestWithKey"
 
-        Expect.equal "1" renderCount.innerText "Renders once due to static key"
+        Expect.equal renderCount.innerText "1" "Renders once due to static key"
 
     testReact "memoComps work correctly" <| fun _ ->
         let render = RTL.render(memoCompTestDiff())
         let renderCount = render.getByTestId "memoCompTest"
 
-        Expect.equal "2" renderCount.innerText "Renders twice"
+        Expect.equal renderCount.innerText "2" "Renders twice"
 
     testReact "memoComps withKey work correctly" <| fun _ ->
         let render = RTL.render(memoCompTestWithKeyDiff())
         let renderCount = render.getByTestId "memoCompTestWithKey"
 
-        Expect.equal "1" renderCount.innerText "Renders once due to static key"
+        Expect.equal renderCount.innerText "1" "Renders once due to static key"
 
     testReact "memoComps areEqual work correctly" <| fun _ ->
         let render = RTL.render(memoCompTestAreEqualDiff())
         let renderCount = render.getByTestId "memoCompTestAreEqual"
 
-        Expect.equal "1" renderCount.innerText "Renders once due to areEqual eval"
+        Expect.equal renderCount.innerText "1" "Renders once due to areEqual eval"
 
-    testReact "memoComps withKey areEqual work correctly" <| fun _ ->
+    testReactAsync "memoComps withKey areEqual work correctly" <| async {
         let render = RTL.render(memoCompTestAreEqualWithKeyDiff())
         let renderCount = render.getByTestId "memoCompTestAreEqualWithKey"
 
-        Expect.equal "3" renderCount.innerText "Renders three times due to areEqual and withKey evals"
+        do! Async.Sleep 200
+
+        do! 
+            RTL.waitFor <| fun () -> 
+                Expect.equal renderCount.innerText "3" "Renders three times due to areEqual and withKey evals"
+            |> Async.AwaitPromise
+    }
+
+    testReact "can handle select multiple with defaultValue" <| fun _ ->
+        let render = RTL.render(selectMultipleWithDefault({| isDefaultValue = true; isValue = false; isValueOrDefault = false |}))
+        let select = render.getByTestId("select-multiple")
+
+        Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "val3 is set via default value"
+
+        select.userEvent.toggleSelectOptions(["1";"2"])
+
+        Expect.isTrue (RTL.screen.getByTestId("val1") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val1 option"
+        Expect.isTrue (RTL.screen.getByTestId("val2") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val2 option"
+        Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "Does not set val3 option"
+
+    testReact "can handle select multiple with value" <| fun _ ->
+        let render = RTL.render(selectMultipleWithDefault({| isDefaultValue = false; isValue = true; isValueOrDefault = false |}))
+        let select = render.getByTestId("select-multiple")
+
+        Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "val3 is set via default value"
+
+        select.userEvent.toggleSelectOptions(["1";"2"])
+
+        Expect.isFalse (RTL.screen.getByTestId("val1") |> unbox<Browser.Types.HTMLOptionElement>).selected "Setting val1 option is ignored"
+        Expect.isFalse (RTL.screen.getByTestId("val2") |> unbox<Browser.Types.HTMLOptionElement>).selected "Setting val2 option is ignored"
+        Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "Does not set val3 option"
+
+    testReact "can handle select multiple with valueOrDefault" <| fun _ ->
+        let render = RTL.render(selectMultipleWithDefault({| isDefaultValue = false; isValue = false; isValueOrDefault = true |}))
+        let select = render.getByTestId("select-multiple")
+
+        Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "val3 is set via default value"
+
+        select.userEvent.toggleSelectOptions(["1";"2"])
+
+        Expect.isTrue (RTL.screen.getByTestId("val1") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val1 option"
+        Expect.isTrue (RTL.screen.getByTestId("val2") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val2 option"
+        Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "Does not set val3 option"
 ]
 
 [<EntryPoint>]
