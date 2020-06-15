@@ -1,0 +1,85 @@
+namespace Feliz.RoughViz
+
+open System
+open Feliz
+open Fable.Core
+open Fable.Core.JsInterop
+open Browser.Types
+
+type IResizeObserver =
+    abstract observe : HTMLElement -> unit
+    abstract unobserve : HTMLElement -> unit
+
+type IContentRect =
+    abstract width : float
+    abstract height : float
+
+type IObserverEntry =
+    abstract contentRect : IContentRect
+
+module internal Interop =
+    [<Emit("Object.assign({}, $0, $1)")>]
+    let objectAssign (x: obj) (y: obj) = jsNative
+    let createBarChart (config: obj) : unit = import "createBarChart" "./createChart.js"
+    let createHorizontalBarChart (config: obj) : unit = import "createHorizontalBarChart" "./createChart.js"
+    [<Emit("new ResizeObserver($0)")>]
+    let createResizeObserver(handler: IObserverEntry array -> unit) : IResizeObserver = jsNative
+
+[<RequireQualifiedAccess>]
+module RoughViz =
+    [<StringEnum>]
+    type private ChartType =
+        | Bar
+        | HorizontalBar
+
+    let private buildChart = React.functionComponent("RoughViz", fun (props: {| chartType: ChartType; config: obj list |}) ->
+        let elementId = React.useRef("RoughViz" + (Guid.NewGuid().ToString().Substring(10)))
+        let rerendered, setRerendered = React.useState(false)
+        let elementRef = React.useElementRef()
+        let parentWidth, setParentWidth = React.useState(None)
+        let observer = React.useRef(Interop.createResizeObserver(fun entries ->
+                for entry in entries do setParentWidth(Some entry.contentRect.width)
+            )
+        )
+
+        React.useEffect((fun () ->
+            match elementRef.current with
+            | None -> ()
+            | Some element ->
+                let emptyData = toPlainJsObj {| labels = [||]; values = [||] |}
+                let defaultConfig = toPlainJsObj {| element = "#" + elementId.current; data = emptyData; width = element.clientWidth |}
+                let config = Interop.objectAssign defaultConfig (createObj (unbox props.config))
+
+                match props.chartType with
+                | Bar -> Interop.createBarChart config
+                | HorizontalBar -> Interop.createHorizontalBarChart config
+
+                observer.current.observe element
+
+            React.createDisposable(fun () ->
+                match elementRef.current with
+                | None -> ()
+                | Some element ->
+                    observer.current.unobserve element
+                    element.innerHTML <- ""
+                )
+            ),
+
+            [| box rerendered; box props |]
+        )
+
+        React.useEffect((fun () ->
+                parentWidth |> Option.iter (fun _ -> setRerendered(not rerendered))
+            ),
+            [| box parentWidth |]
+        )
+
+        Html.div [
+            prop.id elementId.current
+            prop.ref elementRef
+            prop.style [ style.width (length.percent 100) ]
+        ])
+
+    let barChart (properties: IBarChartProperty list) = buildChart {| chartType = Bar; config = unbox properties |}
+
+    let horizontalBarChart (properties: IBarChartProperty list) = buildChart {| chartType = HorizontalBar; config = unbox properties |}

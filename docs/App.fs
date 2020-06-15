@@ -54,6 +54,90 @@ let update msg state =
         | _ -> { state with CurrentTab = tabs }, Cmd.none
 
 
+open Feliz.RoughViz
+
+let fruitSales = [
+    ("Oranges", 5.0)
+    ("Apples", 8.2)
+    ("Strawberry", 10.0)
+    ("Peach", 2.0)
+    ("Pineapple", 17.0)
+    ("Bananas", 10.0)
+    ("Mango", 6.4)
+]
+
+let roughBarChart = React.functionComponent(fun () ->
+    RoughViz.barChart [
+        barChart.title "Fruit Sales"
+        barChart.data fruitSales
+        barChart.roughness 3
+        barChart.color color.skyBlue
+        barChart.stroke color.darkCyan
+        barChart.axisFontSize 18
+        barChart.fillStyle.crossHatch
+        barChart.highlight color.lightGreen
+    ])
+
+
+let roughHorizontalBarChart = React.functionComponent(fun () ->
+    RoughViz.horizontalBarChart [
+        barChart.title "Fruit Sales"
+        barChart.data fruitSales
+        barChart.roughness 3
+        barChart.color color.skyBlue
+        barChart.stroke color.darkCyan
+        barChart.axisFontSize 18
+        barChart.fillStyle.crossHatch
+        barChart.highlight color.lightGreen
+    ])
+
+let dynamicRoughChart = React.functionComponent(fun () ->
+    let (data, setData) = React.useState [
+        ("point1", 70.0)
+        ("point2", 40.0)
+        ("point3", 65.0)
+    ]
+
+    let roughness, setRoughness = React.useState 3
+
+    let addDataPoint() =
+        let pointCount = List.length data
+        let pointLabel = "point" + string (pointCount + 1)
+        let nextPoint = (pointLabel, System.Random().NextDouble() * 100.0)
+        let nextData = List.append data [ nextPoint ]
+        setData nextData
+
+    Html.div [
+
+        Html.button [
+            prop.className "button is-primary"
+            prop.onClick (fun _ -> addDataPoint())
+            prop.text "Add Datapoint"
+        ]
+
+        Html.h3 (sprintf "Roughness: %d" roughness)
+
+        Html.input [
+            prop.className "input"
+            prop.type'.range
+            prop.min 1
+            prop.max 10
+            prop.valueOrDefault roughness
+            prop.onChange (fun (value: string) -> try setRoughness(int value) with | _ -> ())
+            prop.style [ style.marginBottom 20 ]
+        ]
+
+        RoughViz.barChart [
+            barChart.title "Random Data Points"
+            barChart.data data
+            barChart.roughness roughness
+            barChart.color color.skyBlue
+            barChart.stroke color.darkCyan
+            barChart.axisFontSize 18
+            barChart.fillStyle.crossHatch
+            barChart.highlight color.lightGreen
+        ]
+    ])
 let samples = [
     "feliz-elmish-counter", Examples.ElmishCounter.app()
     "simple-components", Examples.ReactComponents.simple
@@ -110,6 +194,9 @@ let samples = [
     "parallel-deferred", DelayedComponent.render {| load = UseDeferredExamples.parallelDeferred |}
     "use-elmish-basic", DelayedComponent.render {| load = UseElmishExamples.counter |}
     "use-elmish-combined", DelayedComponent.render {| load = UseElmishExamples.counterCombined |}
+    "rough-bar-chart", roughBarChart()
+    "rough-horizontal-bar-chart", roughHorizontalBarChart()
+    "dynamic-rough-chart", dynamicRoughChart()
 ]
 
 let githubPath (rawPath: string) =
@@ -408,6 +495,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Feliz.PigeonMaps" [ Urls.PigeonMaps ]
                     nestedMenuItem "Feliz.Plotly" [ Urls.Plotly ]
                     nestedMenuItem "Feliz.Recharts" [ Urls.Recharts ]
+                    nestedMenuItem "Feliz.RoughViz" [ Urls.RoughViz ]
                 ]
 
                 nestedMenuList "Testing" [ Urls.Testing ] [
@@ -601,6 +689,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | [ Urls.PigeonMaps ] -> lazyView MarkdownLoader.load [ "PigeonMaps"; "README.md" ]
         | [ Urls.Plotly ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.Plotly" ]
         | [ Urls.Recharts ] -> lazyView MarkdownLoader.load [ "Recharts"; "README.md" ]
+        | [ Urls.RoughViz ] -> lazyView MarkdownLoader.load [ "RoughViz"; "Index.md" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Testing ] (Some res) ->
         match res with
