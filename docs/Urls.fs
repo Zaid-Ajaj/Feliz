@@ -118,7 +118,7 @@ let [<Literal>] Router = "Router"
 // __________________________
 
 let [<Literal>] Visualizations = "Visualizations"
-
+let [<Literal>] RoughViz = "RoughViz"
 let [<Literal>] PigeonMaps = "PigeonMaps"
 let [<Literal>] Plotly = "Plotly"
 // Recharts

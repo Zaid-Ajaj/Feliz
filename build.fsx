@@ -111,6 +111,7 @@ let publish projectPath = fun () ->
 
 Target "PublishFeliz" (publish libPath)
 Target "PublishRecharts" (publish "./Feliz.Recharts")
+Target "PublishRoughViz" (publish "./Feliz.RoughViz")
 Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")
 Target "PublishUseDeferred" (publish "./Feliz.UseDeferred")
 Target "PublishUseElmish" (publish "./Feliz.UseElmish")

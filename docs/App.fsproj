@@ -10,6 +10,7 @@
         <ProjectReference Include="..\Feliz.Popover\Feliz.Popover.fsproj" />
         <ProjectReference Include="..\Feliz.UseDeferred\Feliz.UseDeferred.fsproj" />
         <ProjectReference Include="..\Feliz.ElmishComponents\Feliz.ElmishComponents.fsproj" />
+        <ProjectReference Include="..\Feliz.RoughViz\Feliz.RoughViz.fsproj" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Urls.fs" />
