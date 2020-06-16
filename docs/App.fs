@@ -100,12 +100,18 @@ let dynamicRoughChart = React.functionComponent(fun () ->
 
     let roughness, setRoughness = React.useState 3
 
+    let title, setTitle = React.useState "Random Data Points"
+
     let addDataPoint() =
         let pointCount = List.length data
         let pointLabel = "point" + string (pointCount + 1)
         let nextPoint = (pointLabel, System.Random().NextDouble() * 100.0)
         let nextData = List.append data [ nextPoint ]
         setData nextData
+
+    let barClicked (pointIndex: int) = 
+        let (label, value) = List.item pointIndex data
+        setTitle (sprintf "Clicked %s: %f" label value) 
 
     Html.div [
 
@@ -128,7 +134,7 @@ let dynamicRoughChart = React.functionComponent(fun () ->
         ]
 
         RoughViz.barChart [
-            barChart.title "Random Data Points"
+            barChart.title title
             barChart.data data
             barChart.roughness roughness
             barChart.color color.skyBlue
@@ -136,8 +142,10 @@ let dynamicRoughChart = React.functionComponent(fun () ->
             barChart.axisFontSize 18
             barChart.fillStyle.crossHatch
             barChart.highlight color.lightGreen
+            barChart.barClicked (fun index -> barClicked index)
         ]
     ])
+
 let samples = [
     "feliz-elmish-counter", Examples.ElmishCounter.app()
     "simple-components", Examples.ReactComponents.simple

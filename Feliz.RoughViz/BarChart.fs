@@ -62,6 +62,8 @@ type barChart =
 
         unbox<IBarChartProperty> ("margin", margin)
 
+    static member inline barClicked (handler: int -> unit) = unbox<IBarChartProperty>("barClicked", handler)
+
 [<Erase>]
 module barChart =
     [<Erase>]

@@ -61,7 +61,9 @@ module RoughViz =
                 | None -> ()
                 | Some element ->
                     observer.current.unobserve element
-                    element.innerHTML <- ""
+                    while not (isNullOrUndefined element.firstChild) do 
+                        element.removeChild(element.firstChild)
+                        |> ignore
                 )
             ),
 
@@ -73,6 +75,31 @@ module RoughViz =
             ),
             [| box parentWidth |]
         )
+
+        React.useEffect((fun () ->
+            match elementRef.current with
+            | None -> ()
+            | Some _ ->
+                let pairs = unbox<(string * obj) list> props.config
+                let barClickedHandler = pairs |> List.tryFind (fun (key, value) -> key = "barClicked")
+                match barClickedHandler with 
+                | None -> () 
+                | Some (key, barClicked) -> 
+                    let handler = unbox<int -> unit> barClicked
+                    let bars = Browser.Dom.document.getElementsByClassName(elementId.current)
+                    for barIndex in [0 .. bars.length - 1] do
+                        let barHtml = unbox<HTMLElement> bars.[barIndex]
+                        barHtml.addEventListener("click", fun _ -> handler barIndex)
+
+            React.createDisposable(fun () -> 
+                let bars = Browser.Dom.document.getElementsByClassName(elementId.current)
+                for barIndex in [0 .. bars.length - 1] do
+                    let barHtml = unbox<HTMLElement> bars.[barIndex]
+                    barHtml.removeEventListener("click", fun _ -> ()) |> ignore
+            )),
+
+            [| box rerendered; box props |]
+        );
 
         Html.div [
             prop.id elementId.current
