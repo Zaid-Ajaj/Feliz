@@ -1688,6 +1688,9 @@ type prop =
     /// Defines the text content of the element. Alias for `children [ Html.text value ]`
     static member inline text (value: string) = Interop.mkAttr "children" value
 
+    /// Defines the text content of the element. Alias for `children [ Html.text (sprintf ...) ]`
+    static member inline textf fmt = Printf.kprintf prop.text fmt
+
     /// Specifies the width of the space into which the text will draw. 
     /// 
     /// The user agent will ensure that the text does not extend farther than that distance, using the method or methods 

@@ -383,6 +383,28 @@ let selectMultipleWithDefault = React.functionComponent(fun (input: {| isDefault
         ]
     ])
 
+let textfComp = React.functionComponent(fun (input: {| str: string; i: int |}) ->
+    Html.div [
+        prop.children [
+            Html.div [
+                prop.testId "textf-str"
+                prop.textf "Hello! %s" input.str
+            ]
+            Html.div [
+                prop.testId "textf-int"
+                prop.textf "Hello! %i" input.i
+            ]
+            Html.div [
+                prop.testId "textf-two"
+                prop.textf "Hello! %s %i" input.str input.i
+            ]
+            Html.div [
+                prop.testId "textf-three"
+                prop.textf "Hello! %s %i %s" input.str input.i (input.str + (string input.i))
+            ]
+        ]
+    ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -632,6 +654,15 @@ let felizTests = testList "Feliz Tests" [
         Expect.isTrue (RTL.screen.getByTestId("val1") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val1 option"
         Expect.isTrue (RTL.screen.getByTestId("val2") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val2 option"
         Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "Does not set val3 option"
+
+    testReact "can use string format as prop" <| fun _ ->
+        let input = {| str = "hello"; i = 1 |}
+        let render = RTL.render(textfComp input)
+
+        Expect.isTrue (render.getByTestId("textf-str").innerText = (sprintf "Hello! %s" input.str)) "Correctly accepts single string parameter"
+        Expect.isTrue (render.getByTestId("textf-int").innerText = (sprintf "Hello! %i" input.i)) "Correctly accepts single int parameter"
+        Expect.isTrue (render.getByTestId("textf-two").innerText = (sprintf "Hello! %s %i" input.str input.i)) "Correctly accepts two parameters"
+        Expect.isTrue (render.getByTestId("textf-three").innerText = (sprintf "Hello! %s %i %s" input.str input.i (input.str + (string input.i)))) "Correctly accepts three parameters"
 ]
 
 [<EntryPoint>]
