@@ -145,6 +145,7 @@ let [<Literal>] FastCheck = "FastCheck"
 
 let [<Literal>] Misc = "Misc"
 
+let [<Literal>] Felizia = "Felizia"
 let [<Literal>] Recoil = "Recoil"
 let [<Literal>] SweetAlert = "SweetAlert"
 let [<Literal>] ViewEngine = "ViewEngine"
