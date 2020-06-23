@@ -342,7 +342,7 @@ let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
 
     React.useEffect(fun () -> 
         async {
-            do! Async.Sleep 50
+            do! Async.Sleep 25
             if count < 10 then setCount (count + 1)
         } |> Async.StartImmediate
     )
@@ -529,7 +529,7 @@ let felizTests = testList "Feliz Tests" [
         let mainField = render.getByTestId "callbackRef"
         let buttonRef = render.getByTestId "callbackRefButton"
 
-        do! Async.Sleep 2000
+        do! Async.Sleep 1000
 
         do! RTL.waitFor(fun () -> RTL.userEvent.click(buttonRef)) |> Async.AwaitPromise
         Expect.isTrue (buttonField.innerText = "1") "Child component has not re-rendered"
@@ -611,7 +611,7 @@ let felizTests = testList "Feliz Tests" [
         let render = RTL.render(memoCompTestAreEqualWithKeyDiff())
         let renderCount = render.getByTestId "memoCompTestAreEqualWithKey"
 
-        do! Async.Sleep 200
+        do! Async.Sleep 100
 
         do! 
             RTL.waitFor <| fun () -> 
