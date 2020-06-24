@@ -62,7 +62,7 @@ module ReactHookExtensions =
     type React with
         static member useDeferred(operation: Async<'T>, dependencies: obj array) =
             let (deferred, setDeferred) = React.useState(Deferred.HasNotStartedYet)
-            let cancellationToken = React.useRef(new System.Threading.CancellationTokenSource())
+            let token = React.useCancellationToken()
             let executeOperation = async {
                 try
                     do setDeferred(Deferred<'T>.InProgress)
@@ -75,11 +75,7 @@ module ReactHookExtensions =
                     do setDeferred(Deferred<'T>.Failed error)
             }
 
-            React.useEffectOnce(fun () ->
-                React.createDisposable(fun () -> cancellationToken.current.Cancel())
-            )
-
-            React.useEffect((fun () -> Async.StartImmediate(executeOperation, cancellationToken.current.Token)), dependencies)
+            React.useEffect((fun () -> Async.StartImmediate(executeOperation, token.current)), dependencies)
 
             deferred
 
@@ -111,7 +107,7 @@ module ReactHookExtensions =
         static member useDeferredParallel<'T, 'U, 'Key when 'Key : comparison>(deferred: Deferred<'T>, map: 'T -> ('Key * Async<'U>) list) =
             let (data, setData) = React.useState(Map.empty)
             let addData = React.useCallbackRef(fun (key, value) -> setData(Map.add key value data))
-            let cancellationToken = React.useRef(new System.Threading.CancellationTokenSource())
+            let token = React.useCancellationToken()
             let mapKeyedOperatons (operations: ('Key * Async<'U>) list) = [
                 for (key, operation) in operations do
                     async {
@@ -129,7 +125,7 @@ module ReactHookExtensions =
 
             let start = React.useCallback(fun operations ->
                 Fable.Core.JS.setTimeout(fun () ->
-                    Async.StartImmediate(Async.Parallel(mapKeyedOperatons operations) |> Async.Ignore, cancellationToken.current.Token)
+                    Async.StartImmediate(Async.Parallel(mapKeyedOperatons operations) |> Async.Ignore, token.current)
                 ) 0 |> ignore
             )
 

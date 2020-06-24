@@ -61,8 +61,7 @@ module UseElmishExtensions =
             let ring = React.useRef(RingBuffer(10))
             let childState, setChildState = React.useState(fst init)
             let setChildState () = JS.setTimeout(fun () -> setChildState state.current) 0 |> ignore
-
-            let token = React.useRef(new System.Threading.CancellationTokenSource())
+            let token = React.useCancellationToken()
 
             let rec dispatch (msg: 'Msg) =
                 promise {
@@ -82,10 +81,8 @@ module UseElmishExtensions =
 
             React.useEffectOnce(fun () ->
                 React.createDisposable <| fun () ->
-                    token.current.Cancel()
                     getDisposable state.current
-                    |> Option.iter (fun o -> o.Dispose())
-                    token.current.Dispose())
+                    |> Option.iter (fun o -> o.Dispose()))
 
             React.useEffect((fun () ->
                 state.current <- fst init

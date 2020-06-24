@@ -642,3 +642,53 @@ let useStateNormalVsLazy = React.functionComponent(fun () ->
             ]
         ]
     ])
+
+module TokenCancellation =
+    let useToken = React.functionComponent(fun (input: {| failedCallback: unit -> unit |}) ->
+        let token = React.useCancellationToken()
+
+        React.useEffect(fun () ->
+            async {
+                do! Async.Sleep 4000
+                input.failedCallback()
+            }
+            |> fun a -> Async.StartImmediate(a,token.current)
+        )
+
+        Html.none)
+
+    let result = React.functionComponent(fun (input: {| text: string |}) -> Html.div input.text)
+
+    let render = React.functionComponent(fun () ->
+        let renderChild,setRenderChild = React.useState true
+        let resultText,setResultText = React.useState "Pending..."
+
+        let setFailed = React.useCallbackRef <| fun () -> setResultText "You didn't cancel me in time!"
+
+        Html.div [
+            if renderChild then
+                useToken {| failedCallback = setFailed |}
+            result {| text = resultText |}
+            Html.button [
+                prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
+                prop.disabled <| (resultText = "Disposed")
+                prop.onClick <| fun _ ->
+                    async {
+                        setResultText "Disposed"
+                        setRenderChild false
+                    }
+                    |> Async.StartImmediate
+                prop.text "Dispose"
+            ]
+            Html.button [
+                prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
+                prop.disabled <| (renderChild && resultText = "Pending...")
+                prop.onClick <| fun _ ->
+                    async {
+                        setResultText "Pending..."
+                        setRenderChild true
+                    }
+                    |> Async.StartImmediate
+                prop.text "Reset"
+            ]
+        ])
