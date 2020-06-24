@@ -712,6 +712,8 @@ type Html =
     static member inline text (value: string) : ReactElement = unbox value
     static member inline text (value: System.Guid) : ReactElement = unbox (string value)
 
+    static member inline textf fmt = Printf.kprintf Html.text fmt
+    
     static member inline textarea xs = Interop.createElement "textarea" xs
     static member inline textarea (children: #seq<ReactElement>) = Interop.reactElementWithChildren "textarea" children
     

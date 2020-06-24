@@ -405,6 +405,36 @@ let textfComp = React.functionComponent(fun (input: {| str: string; i: int |}) -
         ]
     ])
 
+let htmlTextfComp = React.functionComponent(fun (input: {| str: string; i: int |}) ->
+    Html.div [
+        prop.children [
+            Html.div [
+                prop.testId "textf-str"
+                prop.children [
+                    Html.textf "Hello! %s" input.str
+                ]
+            ]
+            Html.div [
+                prop.testId "textf-int"
+                prop.children [
+                    Html.textf "Hello! %i" input.i
+                ]
+            ]
+            Html.div [
+                prop.testId "textf-two"
+                prop.children [
+                    Html.textf "Hello! %s %i" input.str input.i
+                ]
+            ]
+            Html.div [
+                prop.testId "textf-three"
+                prop.children [
+                    Html.textf "Hello! %s %i %s" input.str input.i (input.str + (string input.i))
+                ]
+            ]
+        ]
+    ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -658,6 +688,15 @@ let felizTests = testList "Feliz Tests" [
     testReact "can use string format as prop" <| fun _ ->
         let input = {| str = "hello"; i = 1 |}
         let render = RTL.render(textfComp input)
+
+        Expect.isTrue (render.getByTestId("textf-str").innerText = (sprintf "Hello! %s" input.str)) "Correctly accepts single string parameter"
+        Expect.isTrue (render.getByTestId("textf-int").innerText = (sprintf "Hello! %i" input.i)) "Correctly accepts single int parameter"
+        Expect.isTrue (render.getByTestId("textf-two").innerText = (sprintf "Hello! %s %i" input.str input.i)) "Correctly accepts two parameters"
+        Expect.isTrue (render.getByTestId("textf-three").innerText = (sprintf "Hello! %s %i %s" input.str input.i (input.str + (string input.i)))) "Correctly accepts three parameters"
+
+    testReact "can use string format directly from Html" <| fun _ ->
+        let input = {| str = "hello"; i = 1 |}
+        let render = RTL.render(htmlTextfComp input)
 
         Expect.isTrue (render.getByTestId("textf-str").innerText = (sprintf "Hello! %s" input.str)) "Correctly accepts single string parameter"
         Expect.isTrue (render.getByTestId("textf-int").innerText = (sprintf "Hello! %i" input.i)) "Correctly accepts single int parameter"
