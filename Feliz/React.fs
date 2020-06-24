@@ -455,6 +455,21 @@ type React =
     static member useImperativeHandle(ref: IRefValue<'t>, createHandle: unit -> 't, dependencies: obj []) =
         Interop.reactApi.useImperativeHandle ref createHandle dependencies
 
+    /// <summary>
+    /// Creates a CancellationToken that is cancelled when a component is unmounted.
+    /// </summary>
+    static member inline useCancellationToken () =
+        let cts = React.useRef(new System.Threading.CancellationTokenSource())
+        let token = React.useRef(cts.current.Token)
+        
+        React.useEffectOnce(fun () ->
+            React.createDisposable <| fun () -> 
+                cts.current.Cancel()
+                cts.current.Dispose()
+        )
+
+        token
+
 [<AutoOpen>]
 module ReactOverloadMagic =
     type React with

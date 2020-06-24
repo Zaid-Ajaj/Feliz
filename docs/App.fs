@@ -157,6 +157,7 @@ let samples = [
     "effectful-async-once", DelayedComponent.render {| load = Examples.asyncEffectOnce |}
     "effectful-user-id", DelayedComponent.render {| load = Examples.effectfulUserId |}
     "effectful-timer", DelayedComponent.render {| load = Examples.timer |}
+    "effectful-usecancellationtoken", DelayedComponent.render {| load = Examples.TokenCancellation.render |}
     "static-html", Examples.staticHtml()
     "static-markup", Examples.staticMarkup()
     "strict-mode", DelayedComponent.render {| load = Examples.strictModeExample |}

@@ -435,6 +435,49 @@ let htmlTextfComp = React.functionComponent(fun (input: {| str: string; i: int |
         ]
     ])
 
+module TokenCancellation =
+    let useToken = React.functionComponent(fun (input: {| failedCallback: unit -> unit |}) ->
+        let token = React.useCancellationToken()
+
+        React.useEffectOnce(fun () ->
+            async {
+                do! Async.Sleep 500
+                input.failedCallback()
+            }
+            |> fun a -> Async.StartImmediate(a,token.current)
+        )
+
+        Html.none)
+
+    let resultComp = React.functionComponent(fun (input: {| result: string |}) ->
+        Html.div [
+            prop.testId "useTokenCancellation"
+            prop.text input.result
+        ])
+
+    let main = React.functionComponent(fun (input: {| failTest: bool |}) ->
+        let renderChild,setRenderChild = React.useState true
+        let resultText,setResultText = React.useState ""
+
+        let setFailed = React.useCallbackRef <| fun () -> setResultText "Failed"
+
+        React.useLayoutEffectOnce(fun () ->
+            async {
+                do! Async.Sleep 100
+                      
+                if not input.failTest then
+                    setResultText "Disposed"
+                    setRenderChild false
+            }
+            |> Async.StartImmediate
+        )
+
+        Html.div [
+            if renderChild then
+                useToken {| failedCallback = setFailed |}
+            resultComp {| result = resultText |}
+        ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -702,6 +745,28 @@ let felizTests = testList "Feliz Tests" [
         Expect.isTrue (render.getByTestId("textf-int").innerText = (sprintf "Hello! %i" input.i)) "Correctly accepts single int parameter"
         Expect.isTrue (render.getByTestId("textf-two").innerText = (sprintf "Hello! %s %i" input.str input.i)) "Correctly accepts two parameters"
         Expect.isTrue (render.getByTestId("textf-three").innerText = (sprintf "Hello! %s %i %s" input.str input.i (input.str + (string input.i)))) "Correctly accepts three parameters"
+
+    testReactAsync "useCancellationToken works correctly" <| async {
+        let render = RTL.render(TokenCancellation.main({| failTest = false |}))
+    
+        do! Async.Sleep 600
+    
+        do! 
+            RTL.waitFor <| fun () -> 
+                Expect.equal (render.getByTestId "useTokenCancellation").innerText "Disposed" "Cancels all subsequent re-renders and calls the disposal function"
+            |> Async.AwaitPromise
+    }
+    
+    testReactAsync "useCancellationToken works correctly - failure case" <| async {
+        let render = RTL.render(TokenCancellation.main({| failTest = true |}))
+    
+        do! Async.Sleep 600
+    
+        do!
+            RTL.waitFor <| fun () -> 
+                Expect.equal (render.getByTestId "useTokenCancellation").innerText "Failed" "Cancels all subsequent re-renders and calls the disposal function"
+            |> Async.AwaitPromise
+    }
 ]
 
 [<EntryPoint>]
