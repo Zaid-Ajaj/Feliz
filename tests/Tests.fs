@@ -342,7 +342,7 @@ let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
 
     React.useEffect(fun () -> 
         async {
-            do! Async.Sleep 50
+            do! Async.Sleep 25
             if count < 10 then setCount (count + 1)
         } |> Async.StartImmediate
     )
@@ -379,6 +379,28 @@ let selectMultipleWithDefault = React.functionComponent(fun (input: {| isDefault
                     prop.value 3
                     prop.text "C"
                 ]
+            ]
+        ]
+    ])
+
+let textfComp = React.functionComponent(fun (input: {| str: string; i: int |}) ->
+    Html.div [
+        prop.children [
+            Html.div [
+                prop.testId "textf-str"
+                prop.textf "Hello! %s" input.str
+            ]
+            Html.div [
+                prop.testId "textf-int"
+                prop.textf "Hello! %i" input.i
+            ]
+            Html.div [
+                prop.testId "textf-two"
+                prop.textf "Hello! %s %i" input.str input.i
+            ]
+            Html.div [
+                prop.testId "textf-three"
+                prop.textf "Hello! %s %i %s" input.str input.i (input.str + (string input.i))
             ]
         ]
     ])
@@ -507,7 +529,7 @@ let felizTests = testList "Feliz Tests" [
         let mainField = render.getByTestId "callbackRef"
         let buttonRef = render.getByTestId "callbackRefButton"
 
-        do! Async.Sleep 2000
+        do! Async.Sleep 1000
 
         do! RTL.waitFor(fun () -> RTL.userEvent.click(buttonRef)) |> Async.AwaitPromise
         Expect.isTrue (buttonField.innerText = "1") "Child component has not re-rendered"
@@ -589,7 +611,7 @@ let felizTests = testList "Feliz Tests" [
         let render = RTL.render(memoCompTestAreEqualWithKeyDiff())
         let renderCount = render.getByTestId "memoCompTestAreEqualWithKey"
 
-        do! Async.Sleep 200
+        do! Async.Sleep 100
 
         do! 
             RTL.waitFor <| fun () -> 
@@ -632,6 +654,15 @@ let felizTests = testList "Feliz Tests" [
         Expect.isTrue (RTL.screen.getByTestId("val1") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val1 option"
         Expect.isTrue (RTL.screen.getByTestId("val2") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val2 option"
         Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "Does not set val3 option"
+
+    testReact "can use string format as prop" <| fun _ ->
+        let input = {| str = "hello"; i = 1 |}
+        let render = RTL.render(textfComp input)
+
+        Expect.isTrue (render.getByTestId("textf-str").innerText = (sprintf "Hello! %s" input.str)) "Correctly accepts single string parameter"
+        Expect.isTrue (render.getByTestId("textf-int").innerText = (sprintf "Hello! %i" input.i)) "Correctly accepts single int parameter"
+        Expect.isTrue (render.getByTestId("textf-two").innerText = (sprintf "Hello! %s %i" input.str input.i)) "Correctly accepts two parameters"
+        Expect.isTrue (render.getByTestId("textf-three").innerText = (sprintf "Hello! %s %i %s" input.str input.i (input.str + (string input.i)))) "Correctly accepts three parameters"
 ]
 
 [<EntryPoint>]
