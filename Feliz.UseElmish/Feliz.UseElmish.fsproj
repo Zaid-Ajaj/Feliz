@@ -6,10 +6,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>1.2.1</Version>
+        <Version>1.2.2</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Properly reset state when the dependencies update</PackageReleaseNotes>
+        <PackageReleaseNotes>Prevent updates after component unmounts</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="UseElmish.fs" />
