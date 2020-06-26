@@ -60,8 +60,12 @@ module UseElmishExtensions =
             let state = React.useRef(fst init)
             let ring = React.useRef(RingBuffer(10))
             let childState, setChildState = React.useState(fst init)
-            let setChildState () = JS.setTimeout(fun () -> setChildState state.current) 0 |> ignore
             let token = React.useCancellationToken()
+            let setChildState () = 
+                JS.setTimeout(fun () ->
+                    if not token.current.IsCancellationRequested then
+                        setChildState state.current
+                ) 0 |> ignore
 
             let rec dispatch (msg: 'Msg) =
                 promise {
