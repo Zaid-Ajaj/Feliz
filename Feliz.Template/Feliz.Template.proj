@@ -15,6 +15,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <PackageReleaseNotes>Update dependencies</PackageReleaseNotes>
+    <!-- https://github.com/dotnet/templating/issues/2350#issuecomment-610431461 -->
+    <NoDefaultExcludes>true</NoDefaultExcludes>
   </PropertyGroup>
   <PropertyGroup>
     <ExcludeFromPackage>
