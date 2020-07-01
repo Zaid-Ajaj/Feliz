@@ -52,3 +52,70 @@ let subscribeToTimer() =
     // return IDisposable with cleanup code
     React.createDisposable(fun _ -> clearTimeout subscriptionId)
 ```
+
+## useCancellationToken Hook
+
+A common scenario is executing a promise or async function based on some
+input or user event.
+
+When this component is unmounted, if you have a pending operation in-flight 
+this can cause errors. The way to fix this is to pass a `CancellationToken` 
+to your async call so it is cancelled when that token is disposed.
+
+To make this easier you can use `React.useCancellationToken()` which will
+create a React `IRefValue` that you can pass to your calls (or children
+if you have a use case of not wanting to cancel an operation, but adjust logic
+if the component was unmounted).
+
+Here is an example of how you could use this:
+
+```fsharp:effectful-usecancellationtoken
+let useToken = React.functionComponent(fun (input: {| failedCallback: unit -> unit |}) ->
+    let token = React.useCancellationToken()
+
+    React.useEffect(fun () ->
+        async {
+            do! Async.Sleep 4000
+            input.failedCallback()
+        }
+        |> fun a -> Async.StartImmediate(a,token.current)
+    )
+
+    Html.none)
+
+let result = React.functionComponent(fun (input: {| text: string |}) -> Html.div input.text)
+
+let render = React.functionComponent(fun () ->
+    let renderChild,setRenderChild = React.useState true
+    let resultText,setResultText = React.useState "Pending..."
+
+    let setFailed = React.useCallbackRef <| fun () -> setResultText "You didn't cancel me in time!"
+
+    Html.div [
+        if renderChild then
+            useToken {| failedCallback = setFailed |}
+        result {| text = resultText |}
+        Html.button [
+            prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
+            prop.disabled <| (resultText = "Disposed")
+            prop.onClick <| fun _ ->
+                async {
+                    setResultText "Disposed"
+                    setRenderChild false
+                }
+                |> Async.StartImmediate
+            prop.text "Dispose"
+        ]
+        Html.button [
+            prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
+            prop.disabled <| (renderChild && resultText = "Pending...")
+            prop.onClick <| fun _ ->
+                async {
+                    setResultText "Pending..."
+                    setRenderChild true
+                }
+                |> Async.StartImmediate
+            prop.text "Reset"
+        ]
+    ])
+```
