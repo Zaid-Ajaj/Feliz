@@ -79,27 +79,27 @@ module ReactHookExtensions =
 
             deferred
 
-        static member useDeferredCallback(operation: unit -> Async<'T>, setDeferred: Deferred<'T> -> unit) =
+        static member useDeferredCallback(operation: 'TIn -> Async<'TOut>, setDeferred: Deferred<'TOut> -> unit) =
             let cancellationToken = React.useRef(new System.Threading.CancellationTokenSource())
-            let executeOperation = async {
+            let executeOperation arg = async {
                 try
-                    do setDeferred(Deferred<'T>.InProgress)
-                    let! output = operation()
-                    do setDeferred(Deferred<'T>.Resolved output)
+                    do setDeferred(Deferred<'TOut>.InProgress)
+                    let! output = operation arg
+                    do setDeferred(Deferred<'TOut>.Resolved output)
                 with error ->
                     #if DEBUG
                     Browser.Dom.console.log(error)
                     #endif
-                    do setDeferred(Deferred<'T>.Failed error)
+                    do setDeferred(Deferred<'TOut>.Failed error)
             }
 
             React.useEffectOnce(fun () ->
                 React.createDisposable(fun () -> cancellationToken.current.Cancel())
             )
 
-            let start = React.useCallbackRef(fun () ->
+            let start = React.useCallbackRef(fun arg ->
                 if not cancellationToken.current.IsCancellationRequested
-                then Async.StartImmediate(executeOperation, cancellationToken.current.Token)
+                then Async.StartImmediate(executeOperation arg, cancellationToken.current.Token)
             )
 
             start
