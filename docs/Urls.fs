@@ -103,9 +103,9 @@ let [<Literal>] Mui = "Mui"
 
 let [<Literal>] Hooks = "Hooks"
 
-let [<Literal>] UseWorker = "UseWorker"
-
 let [<Literal>] UseDeferred = "UseDeferred"
+// UseElmish
+let [<Literal>] UseWorker = "UseWorker"
 
 // __________________________
 
@@ -118,6 +118,7 @@ let [<Literal>] Router = "Router"
 // __________________________
 
 let [<Literal>] Visualizations = "Visualizations"
+
 let [<Literal>] RoughViz = "RoughViz"
 let [<Literal>] PigeonMaps = "PigeonMaps"
 let [<Literal>] Plotly = "Plotly"
@@ -147,6 +148,7 @@ let [<Literal>] Misc = "Misc"
 
 let [<Literal>] Felizia = "Felizia"
 let [<Literal>] Recoil = "Recoil"
+let [<Literal>] SignalR = "SignalR"
 let [<Literal>] SweetAlert = "SweetAlert"
 let [<Literal>] ViewEngine = "ViewEngine"
 
@@ -154,8 +156,8 @@ let [<Literal>] ViewEngine = "ViewEngine"
 
 let [<Literal>] Tests = "Tests"
 
-
+let [<Literal>] CallbackRef = "CallbackRef"
+// ElmishComponents
 let [<Literal>] FileUpload = "FileUpload"
 let [<Literal>] ForwardRef = "ForwardRef"
 let [<Literal>] KeyboardKey = "KeyboardKey"
-let [<Literal>] CallbackRef = "CallbackRef"
