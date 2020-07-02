@@ -489,9 +489,9 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                 ]
 
                 nestedMenuList "Hooks" [ Urls.Hooks ] [
+                    nestedMenuItem "Feliz.UseDeferred" [ Urls.UseDeferred ]
                     nestedMenuItem "Feliz.UseElmish" [ Urls.UseElmish ]
                     nestedMenuItem "Feliz.UseWorker" [ Urls.UseWorker ]
-                    nestedMenuItem "Feliz.UseDeferred" [ Urls.UseDeferred ]
                 ]
 
                 nestedMenuList "Components" [ Urls.Components ] [
@@ -521,6 +521,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                 nestedMenuList "Misc" [ Urls.Misc ] [
                     nestedMenuItem "Felizia" [ Urls.Felizia ]
                     nestedMenuItem "Feliz.Recoil" [ Urls.Recoil ]
+                    nestedMenuItem "Fable.SignalR" [ Urls.SignalR ]
                     nestedMenuItem "Feliz.SweetAlert" [ Urls.SweetAlert ]
                     nestedMenuItem "Feliz.ViewEngine" [ Urls.ViewEngine ]
                 ]
@@ -684,9 +685,9 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Hooks ] (Some res) ->
         match res with
-        | [ Urls.UseWorker ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseWorker" ]
         | [ Urls.UseDeferred ] -> lazyView MarkdownLoader.load [ "Feliz.UseDeferred"; "Index.md" ]
         | [ Urls.UseElmish ] -> lazyView MarkdownLoader.load [ "Feliz.UseElmish"; "Index.md" ]
+        | [ Urls.UseWorker ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseWorker" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Components ] (Some res) ->
         match res with
@@ -718,6 +719,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         match res with
         | [ Urls.Felizia ] -> lazyView  MarkdownLoader.load [ readme "dbrattli" "Felizia" ]
         | [ Urls.Recoil ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.Recoil" ]
+        | [ Urls.SignalR ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Fable.SignalR" ]
         | [ Urls.SweetAlert ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.SweetAlert" ]
         | [ Urls.ViewEngine ] -> lazyView  MarkdownLoader.load [ readme "dbrattli" "Feliz.ViewEngine" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
