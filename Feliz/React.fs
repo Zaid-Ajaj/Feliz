@@ -1,6 +1,7 @@
 namespace Feliz
 
 open System
+open System.ComponentModel
 open Fable.Core
 open Fable.Core.JsInterop
 open Browser.Types
@@ -10,7 +11,13 @@ module internal ReactInterop =
     let useEffect (effect: obj) : unit =  import "useEffect" "./ReactInterop.js"
     let useEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useEffectWithDeps" "./ReactInterop.js"
     let useLayoutEffect (effect: obj) : unit =  import "useLayoutEffect" "./ReactInterop.js"
-    let useLayoutEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useLayoutEffectWithDeps" "./ReactInterop.js"
+    let useLayoutEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useLayoutEffectWithDeps" "./ReactInterop.js" 
+
+[<EditorBrowsable(EditorBrowsableState.Never);Erase>]
+[<RequireQualifiedAccess>]
+module Helpers =
+    let inline optDispose (disposeOption: IDisposable option) =
+        { new IDisposable with member _.Dispose () = disposeOption |> Option.iter (fun d -> d.Dispose()) }
 
 type internal Internal() =
     static let propsWithKey (withKey: ('props -> string) option) props =
@@ -47,27 +54,47 @@ type internal Internal() =
                 Interop.reactApi.createElement(memoElementType, props)
 
 type React =
+    /// Creates a disposable instance by providing the implementation of the dispose member.
+    static member createDisposable(dispose: unit -> unit) =
+        { new IDisposable with member _.Dispose() = dispose() }
+
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
     static member inline fragment xs = Fable.React.Helpers.fragment [] xs
+
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
     static member inline keyedFragment(key: int, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
     static member inline keyedFragment(key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
     static member inline keyedFragment(key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
+
     /// The `useState` hook that create a state variable for React function components from a initialization function.
     static member useState<'t>(initializer: unit -> 't) = Interop.reactApi.useState<unit -> 't,'t>(initializer)
+
+    /// Accepts a reducer and returns the current state paired with a dispatch.
     static member useReducer(update, initialState) = Interop.reactApi.useReducer update initialState
+
     /// The `useEffect` hook that creates a disposable effect for React function components
     /// This effect has no dependencies which means the effect is re-executed on every re-render.
     /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
     /// for the dependencies: `React.useEffect(disposableEffect, [| |])`.
     static member useEffect(effect: unit -> IDisposable) : unit = ReactInterop.useEffect(effect)
+    /// The `useEffect` hook that creates a disposable effect for React function components
+    /// This effect has no dependencies which means the effect is re-executed on every re-render.
+    /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
+    /// for the dependencies: `React.useEffect(disposableEffect, [| |])`.
+    static member inline useEffect(effect: unit -> IDisposable option) = React.useEffect(effect >> Helpers.optDispose)
     /// The `useEffect` hook that creates a disposable effect for React function components.
     /// This effect takes a array of *dependencies*.
     /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
     /// you have to explicitly provide an empty array for the dependencies: `React.useEffect(effect, [| |])`.
     static member useEffect(effect: unit -> IDisposable, dependencies: obj []) : unit = ReactInterop.useEffectWithDeps effect dependencies
+    /// The `useEffect` hook that creates a disposable effect for React function components.
+    /// This effect takes a array of *dependencies*.
+    /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
+    /// you have to explicitly provide an empty array for the dependencies: `React.useEffect(effect, [| |])`.
+    static member inline useEffect(effect: unit -> IDisposable option, dependencies: obj []) = React.useEffect(effect >> Helpers.optDispose, dependencies)
+
     /// The `useLayoutEffect` hook that creates a disposable effect for React function components
     /// This effect has no dependencies which means the effect is re-executed on every re-render.
     /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
@@ -101,11 +128,6 @@ type React =
     static member useLayoutEffectOnce(effect: unit -> IDisposable) = 
         React.useLayoutEffect(effect, [| |])
 
-
-    /// Creates a disposable instance by providing the implementation of the dispose member
-    static member createDisposable(dispose: unit -> unit) =
-        { new IDisposable with member this.Dispose() = dispose() }
-
     /// React hook to define and use an effect only once when a function component renders for the first time.
     /// This an alias for `React.useEffect(effect, [| |])` which explicitly provide an empty array for the dependencies of the effect which means the effect will only run once.
     static member useEffectOnce(effect: unit -> unit) =
@@ -115,6 +137,11 @@ type React =
     /// This an alias for `React.useEffect(effect, [| |])` which explicitly provide an empty array for the dependencies of the effect which means the effect will only run once.
     static member useEffectOnce(effect: unit -> IDisposable) =
         React.useEffect(effect, [| |])
+    /// React hook to define and use a disposable effect only once when a function component renders for the first time.
+    /// This an alias for `React.useEffect(effect, [| |])` which explicitly provide an empty array for the dependencies of the effect which means the effect will only run once.
+    static member useEffectOnce(effect: unit -> IDisposable option) =
+        React.useEffect(effect >> Helpers.optDispose, [| |])
+
     /// The `useEffect` hook that creates an effect for React function components.
     /// This effect is executed *every time* the function component re-renders.
     ///

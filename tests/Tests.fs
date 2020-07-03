@@ -478,6 +478,35 @@ module TokenCancellation =
             resultComp {| result = resultText |}
         ])
 
+module OptionalDispose =
+    let optionalDispose = React.functionComponent(fun (input: {| onDispose: System.IDisposable option |}) ->
+        React.useEffectOnce(fun () -> input.onDispose)
+        
+        Html.div [
+            prop.testId "dispose-inner"
+        ])
+
+    let render = React.functionComponent(fun (input: {| isSome: bool |}) ->
+        let wasDisposed,setWasDisposed = React.useState false
+        let disposeElement,setDisposeElement = React.useState false
+
+        let setWasDisposed = React.useCallbackRef(setWasDisposed)
+
+        Html.div [
+            Html.div [
+                prop.testId "was-disposed"
+                prop.textf "%b" wasDisposed
+            ]
+            if not disposeElement then
+                if input.isSome then
+                    optionalDispose {| onDispose = Some { new System.IDisposable with member _.Dispose () = setWasDisposed true } |}
+                else optionalDispose {| onDispose = None |}
+            Html.button [
+                prop.testId "dispose-button"
+                prop.onClick <| fun _ -> setDisposeElement (not disposeElement)
+            ]
+        ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -766,6 +795,36 @@ let felizTests = testList "Feliz Tests" [
             RTL.waitFor <| fun () -> 
                 Expect.equal (render.getByTestId "useTokenCancellation").innerText "Failed" "Cancels all subsequent re-renders and calls the disposal function"
             |> Async.AwaitPromise
+    }
+
+    testReactAsync "Can dispose of optional IDisposables" <| async {
+        let render = RTL.render(OptionalDispose.render {| isSome = true |})
+
+        Expect.equal (render.getByTestId("was-disposed").innerText) "false" "Should not be disposed yet"
+
+        render.getByTestId("dispose-button").click()
+
+        do! 
+            RTL.waitFor <| fun () -> 
+                Expect.equal (render.getByTestId("was-disposed").innerText) "true" "Should have been disposed" 
+            |> Async.AwaitPromise
+    }
+
+    testReactAsync "Does not dispose of optional IDisposables that are None" <| async {
+        let render = RTL.render(OptionalDispose.render {| isSome = false |})
+
+        Expect.equal (render.getByTestId("was-disposed").innerText) "false" "Should not be disposed yet"
+
+        render.getByTestId("dispose-button").click()
+
+        let innerElem = render.queryByTestId("dispose-inner")
+        
+        if innerElem.IsSome then
+            do! 
+                RTL.waitForElementToBeRemoved(fun () -> render.queryByTestId("dispose-inner"))
+                |> Async.AwaitPromise
+
+        Expect.equal (render.getByTestId("was-disposed").innerText) "false" "Should not have been disposed"
     }
 ]
 
