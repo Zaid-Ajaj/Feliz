@@ -83,10 +83,7 @@ module UseElmishExtensions =
 
             let dispatch = React.useCallbackRef(dispatch)
 
-            React.useEffectOnce(fun () ->
-                React.createDisposable <| fun () ->
-                    getDisposable state.current
-                    |> Option.iter (fun o -> o.Dispose()))
+            React.useEffectOnce(fun () -> getDisposable state.current)
 
             React.useEffect((fun () ->
                 state.current <- fst init

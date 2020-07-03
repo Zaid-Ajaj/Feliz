@@ -14,17 +14,17 @@
         "url": "https://github.com/Zaid-Ajaj/Elmish.Toastr.git"
     },
     "devDependencies": {
-        "@babel/core": "^7.10.2",
-        "@babel/preset-react": "^7.10.1",
-        "@testing-library/react": "^10.2.1",
-        "@testing-library/user-event": "^11.2.1",
+        "@babel/core": "^7.10.4",
+        "@babel/preset-react": "^7.10.4",
+        "@testing-library/react": "^10.4.3",
+        "@testing-library/user-event": "^11.4.2",
         "fable-compiler": "^2.10.1",
         "fable-loader": "^2.1.9",
         "gh-pages": "^2.2.0",
         "mocha": "^6.2.3",
         "remotedev": "^0.2.7",
         "webpack": "^4.43.0",
-        "webpack-cli": "^3.3.11",
+        "webpack-cli": "^3.3.12",
         "webpack-dev-server": "^3.11.0"
     },
     "dependencies": {

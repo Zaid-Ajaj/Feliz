@@ -4,12 +4,12 @@ NUGET
     Fable.Browser.Blob (1.1) - restriction: >= netstandard2.0
       Fable.Core (>= 3.0) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.6.2) - restriction: >= netstandard2.0
-    Fable.Browser.Dom (1.1) - restriction: >= netstandard2.0
+    Fable.Browser.Dom (1.2) - restriction: >= netstandard2.0
       Fable.Browser.Blob (>= 1.1) - restriction: >= netstandard2.0
       Fable.Browser.Event (>= 1.0) - restriction: >= netstandard2.0
       Fable.Browser.WebStorage (>= 1.0) - restriction: >= netstandard2.0
       Fable.Core (>= 3.0) - restriction: >= netstandard2.0
-      FSharp.Core (>= 4.6.2) - restriction: >= netstandard2.0
+      FSharp.Core (>= 4.7) - restriction: >= netstandard2.0
     Fable.Browser.Event (1.0) - restriction: >= netstandard2.0
       Fable.Core (>= 3.0) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.5.2) - restriction: >= netstandard2.0
@@ -32,25 +32,25 @@ NUGET
       Fable.Elmish (>= 3.0) - restriction: >= netstandard2.0
       Fable.React (>= 5.1) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.6.2) - restriction: >= netstandard2.0
-    Fable.React (6.0)
+    Fable.React (6.2)
       Fable.Browser.Dom (>= 1.0) - restriction: >= netstandard2.0
       Fable.Core (>= 3.1.5) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.7) - restriction: >= netstandard2.0
-    Fable.SimpleHttp (2.6)
+    Fable.SimpleHttp (3.0)
       Fable.Browser.Dom (>= 1.0) - restriction: >= netstandard2.0
       Fable.Browser.XMLHttpRequest (>= 1.1) - restriction: >= netstandard2.0
       Fable.Core (>= 3.0) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.6.2) - restriction: >= netstandard2.0
-    Feliz (0.68.3) - restriction: >= netstandard2.0
-      Fable.Core (>= 3.1.1) - restriction: >= netstandard2.0
-      Fable.React (>= 5.3.2) - restriction: >= netstandard2.0
+    Feliz (1.5) - restriction: >= netstandard2.0
+      Fable.Core (>= 3.1.5) - restriction: >= netstandard2.0
+      Fable.React (>= 6.0) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.7) - restriction: >= netstandard2.0
-    Feliz.Router (1.7.1)
-      Fable.Core (>= 3.1.2) - restriction: >= netstandard2.0
+    Feliz.Router (2.1)
+      Fable.Core (>= 3.1.5) - restriction: >= netstandard2.0
       Fable.Elmish (>= 3.0.5) - restriction: >= netstandard2.0
-      Feliz (>= 0.68.3) - restriction: >= netstandard2.0
+      Feliz (>= 1.0) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.7) - restriction: >= netstandard2.0
-    FSharp.Core (4.7)
+    FSharp.Core (4.7.2)
     Zanaptak.TypedCssClasses (0.2)
       FSharp.Core (>= 4.3.4) - restriction: || (>= net452) (>= netstandard2.0)
 
