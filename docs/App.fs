@@ -203,6 +203,9 @@ let samples = [
     "parallel-deferred", DelayedComponent.render {| load = UseDeferredExamples.parallelDeferred |}
     "use-elmish-basic", DelayedComponent.render {| load = UseElmishExamples.counter |}
     "use-elmish-combined", DelayedComponent.render {| load = UseElmishExamples.counterCombined |}
+    "use-media-query", DelayedComponent.render {| load = UseMediaQueryExamples.useMediaQueryExample |}
+    "use-responsive", DelayedComponent.render {| load = UseMediaQueryExamples.useResponsiveExample |}
+    "use-responsive-custom", DelayedComponent.render {| load = UseMediaQueryExamples.useResponsiveCustomBreakpointsExample |}
     "rough-bar-chart", roughBarChart()
     "rough-horizontal-bar-chart", roughHorizontalBarChart()
     "dynamic-rough-chart", dynamicRoughChart()
@@ -492,6 +495,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Feliz.UseDeferred" [ Urls.UseDeferred ]
                     nestedMenuItem "Feliz.UseElmish" [ Urls.UseElmish ]
                     nestedMenuItem "Feliz.UseWorker" [ Urls.UseWorker ]
+                    nestedMenuItem "Feliz.UseMediaQuery" [ Urls.UseMediaQuery ]
                 ]
 
                 nestedMenuList "Components" [ Urls.Components ] [
@@ -688,6 +692,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | [ Urls.UseDeferred ] -> lazyView MarkdownLoader.load [ "Feliz.UseDeferred"; "Index.md" ]
         | [ Urls.UseElmish ] -> lazyView MarkdownLoader.load [ "Feliz.UseElmish"; "Index.md" ]
         | [ Urls.UseWorker ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseWorker" ]
+        | [ Urls.UseMediaQuery ] -> lazyView MarkdownLoader.load [ "Feliz.UseMediaQuery"; "Index.md" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Components ] (Some res) ->
         match res with

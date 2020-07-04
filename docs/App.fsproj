@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Feliz.UseMediaQuery\Feliz.UseMediaQuery.fsproj" />
     <ProjectReference Include="..\Feliz\Feliz.fsproj" />
     <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
     <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
@@ -44,6 +45,7 @@
     <Compile Include="DelayedComponent.fs" />
     <Compile Include="UseDeferredExamples.fs" />
     <Compile Include="UseElmishExamples.fs" />
+    <Compile Include="UseMediaQueryExamples.fs" />
     <Compile Include="Examples.fs" />
     <Compile Include="Tests.fs" />
     <Compile Include="App.fs" />
