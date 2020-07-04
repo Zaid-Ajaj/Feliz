@@ -187,6 +187,42 @@ let pushPackage (project: string) =
         | Some nugetKey, _ -> nugetKey
         | None, Some nugetKey -> nugetKey
         | _ -> failwith "The Nuget API key must be set in a NUGET_KEY environmental variable"
+    let nupkg =
+        Directory.GetFiles(projectPath </> "bin" </> "Release")
+        |> Seq.head
+        |> Path.GetFullPath
+
+    let pushCmd = sprintf "nuget push %s -s nuget.org -k %s" nupkg nugetKey
+    run dotnetCli pushCmd projectPath
+
+Target "PublishFeliz" (publish libPath)
+Target "PublishRecharts" (publish "./Feliz.Recharts")
+Target "PublishRoughViz" (publish "./Feliz.RoughViz")
+Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")
+Target "PublishUseDeferred" (publish "./Feliz.UseDeferred")
+Target "PublishUseElmish" (publish "./Feliz.UseElmish")
+Target "PublishTemplate" (publish "./Feliz.Template")
+Target "PublishMarkdown" (publish "./Feliz.Markdown")
+Target "PublishPopover" (publish "./Feliz.Popover")
+Target "PublishUseMediaQuery" (publish "./Feliz.UseMediaQuery")
+Target "PublishElmishComponents" (publish "./Feliz.ElmishComponents")
+
+Target "PatchFeliz" <| fun _ ->
+    [ publish libPath
+      publish "./Feliz.Recharts"
+      publish "./Feliz.PigeonMaps"
+      publish "./Feliz.Popover"
+      publish "./Feliz.Template"
+      publish "./Feliz.UseElmish"
+      publish "./Feliz.ElmishComponents"
+      publish "./Feliz.UseDeferred"
+      publish "./Feliz.Markdown" ]
+   |> List.iter (fun target -> target())
+
+Target "Compile" <| fun _ ->
+    run npmTool "run build" "."
+
+Target "Build" DoNothing
 
     let dir = __SOURCE_DIRECTORY__ @@ project @@ "bin"
 
