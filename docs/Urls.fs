@@ -87,6 +87,7 @@ let [<Literal>] UseEffect = "UseEffect"
 let [<Literal>] UseReducer = "UseReducer"
 let [<Literal>] UseState = "UseState"
 let [<Literal>] UseElmish = "UseElmish"
+let [<Literal>] UseMediaQuery = "UseMediaQuery"
 
 // ____________________________________________________
 
