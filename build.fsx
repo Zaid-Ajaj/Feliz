@@ -118,6 +118,7 @@ Target "PublishUseElmish" (publish "./Feliz.UseElmish")
 Target "PublishTemplate" (publish "./Feliz.Template")
 Target "PublishMarkdown" (publish "./Feliz.Markdown")
 Target "PublishPopover" (publish "./Feliz.Popover")
+Target "PublishUseMediaQuery" (publish "./Feliz.UseMediaQuery")
 Target "PublishElmishComponents" (publish "./Feliz.ElmishComponents")
 
 Target "PatchFeliz" <| fun _ ->
