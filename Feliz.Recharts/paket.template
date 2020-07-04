@@ -1,0 +1,11 @@
+﻿type project
+authors Zaid Ajaj
+description
+    Recharts bindings based on the Feliz API
+language
+    F#
+tags
+    fsharp, fable, react, html
+files
+    *.fsproj ==> fable
+    *.fs ==> fable

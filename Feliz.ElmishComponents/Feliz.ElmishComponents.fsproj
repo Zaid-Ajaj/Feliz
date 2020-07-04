@@ -1,26 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <Description>Elmish components as React elements without the boilerplate based on the Feliz API</Description>
-        <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
-        <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
-        <PackageIconUrl></PackageIconUrl>
-        <PackageTags>fsharp;fable;react;html</PackageTags>
-        <Authors>Zaid Ajaj</Authors>
-        <Version>1.2.0</Version>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Relax FSharp.Core dependency</PackageReleaseNotes>
-    </PropertyGroup>
-    <ItemGroup>
-        <Compile Include="Components.fs" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Feliz.UseElmish\Feliz.UseElmish.fsproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Update="FSharp.Core" Version="4.7.0" />
-    </ItemGroup>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Components.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Feliz.UseElmish\Feliz.UseElmish.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="paket.references" />
+    <None Include="paket.template" />
+    <None Include="RELEASE_NOTES.md" />
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

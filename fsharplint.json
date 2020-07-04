@@ -1,0 +1,47 @@
+{
+  "interfaceNames": {
+    "enabled": false
+  },
+  "exceptionNames": {
+    "enabled": false
+  },
+  "typeNames": {
+    "enabled": false
+  },
+  "recordFieldNames": {
+    "enabled": false
+  },
+  "enumCasesNames": {
+    "enabled": false
+  },
+  "moduleNames": {
+    "enabled": false
+  },
+  "literalNames": {
+    "enabled": false
+  },
+  "namespaceNames": {
+    "enabled": false
+  },
+  "unionCasesNames": {
+    "enabled": false
+  },
+  "memberNames": {
+    "enabled": false
+  },
+  "parameterNames": {
+    "enabled": false
+  },
+  "measureTypeNames": {
+    "enabled": false
+  },
+  "activePatternNames": {
+    "enabled": false
+  },
+  "publicValuesNames": {
+    "enabled": false
+  },
+  "nonPublicValuesNames": {
+    "enabled": false
+  }
+}

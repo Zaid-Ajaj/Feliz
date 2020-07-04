@@ -19,24 +19,11 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Feliz.Popover", "Feliz.Popo
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Tests", "tests\Tests.fsproj", "{74AC6D90-9BF7-44B7-ACDD-6C7616CE07E7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2979FCC6-85A7-4C95-B05B-D9A5F48B3C6A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{2979FCC6-85A7-4C95-B05B-D9A5F48B3C6A}"
 	ProjectSection(SolutionItems) = preProject
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		.travis.yml = .travis.yml
-		appveyor.yml = appveyor.yml
-		build.cmd = build.cmd
-		build.fsx = build.fsx
-		build.sh = build.sh
-		clean-cache.sh = clean-cache.sh
-		LICENSE = LICENSE
 		package-lock.json = package-lock.json
 		package.json = package.json
-		paket-install.sh = paket-install.sh
-		paket.dependencies = paket.dependencies
-		paket.lock = paket.lock
 		publish.js = publish.js
-		README.md = README.md
 		webpack.config.js = webpack.config.js
 		webpack.tests.js = webpack.tests.js
 	EndProjectSection
@@ -51,7 +38,40 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Fable.ReactTestingLibrary",
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Feliz.RoughViz", "Feliz.RoughViz\Feliz.RoughViz.fsproj", "{63AC765A-8559-4715-AF14-ECD702C5C437}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Feliz.UseMediaQuery", "Feliz.UseMediaQuery\Feliz.UseMediaQuery.fsproj", "{0E225B46-28B4-4ADF-8116-13A47207F7B4}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Feliz.UseMediaQuery", "Feliz.UseMediaQuery\Feliz.UseMediaQuery.fsproj", "{0E225B46-28B4-4ADF-8116-13A47207F7B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{7AB5C631-5EFA-4043-8B33-3E5B6654A21A}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget.Config = Nuget.Config
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project", "project", "{6BDF4EFD-C4B7-4F15-A87D-369F2361BB18}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		dotnet-tools.json = dotnet-tools.json
+		fsharplint.json = fsharplint.json
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{A745F588-B6C4-4246-AC86-43975F3DB32D}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		appveyor.yml = appveyor.yml
+		build.cmd = build.cmd
+		build.fsx = build.fsx
+		build.sh = build.sh
+		clean-cache.sh = clean-cache.sh
+		lint.fsx = lint.fsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".git", ".git", "{D5C85509-4F75-423B-8078-D8ABD7694BA9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

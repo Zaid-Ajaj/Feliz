@@ -1,0 +1,11 @@
+﻿type project
+authors Zaid Ajaj
+description
+    Feliz binding for the rough-viz library
+language
+    F#
+tags
+    fsharp, fable, react, html, feliz
+files
+    *.fsproj ==> fable
+    *.fs ==> fable

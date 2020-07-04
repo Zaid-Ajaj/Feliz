@@ -49,6 +49,7 @@
     <Compile Include="Examples.fs" />
     <Compile Include="Tests.fs" />
     <Compile Include="App.fs" />
+    <None Include="paket.references" />
   </ItemGroup>
   <PropertyGroup>
     <NpmDependencies>

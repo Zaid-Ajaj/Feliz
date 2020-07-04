@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Description>A fresh retake of the base React DSL used within Elmish applications, optimized for happiness</Description>
-    <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz.git</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/Zaid-Ajaj/Feliz</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageIconUrl>
-    </PackageIconUrl>
-    <PackageTags>fsharp;fable;react;html</PackageTags>
-    <Authors>Zaid Ajaj</Authors>
-    <Version>1.6.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Add support for IDisposable option overloads</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>
@@ -21,7 +11,6 @@
     </NpmDependencies>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
     <Compile Include="Types.fs" />
     <Compile Include="Key.fs" />
     <Compile Include="StyleTypes.fs" />
@@ -40,6 +29,9 @@
     <Compile Include="Html.fs" />
     <Compile Include="React.fs" />
     <Compile Include="ReactDOM.fs" />
+    <None Include="paket.references" />
+    <None Include="paket.template" />
+    <None Include="RELEASE_NOTES.md" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

@@ -1,26 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Feliz\Feliz.fsproj" />
-        <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
-        <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
-        <ProjectReference Include="..\Feliz.PigeonMaps\Feliz.PigeonMaps.fsproj" />
-        <ProjectReference Include="..\Feliz.Popover\Feliz.Popover.fsproj" />
-        <ProjectReference Include="..\Feliz.ElmishComponents\Feliz.ElmishComponents.fsproj" />
-        <ProjectReference Include="Fable.ReactTestingLibrary\Fable.ReactTestingLibrary.fsproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Utilities.fs" />
-        <Compile Include="CodeSplitting.fs" />
-        <Compile Include="PropHelpersTests.fs" />
-        <Compile Include="Tests.fs" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Fable.Mocha" Version="2.9.1" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Update="FSharp.Core" Version="4.7.2" />
-    </ItemGroup>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+    <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
+    <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
+    <ProjectReference Include="..\Feliz.PigeonMaps\Feliz.PigeonMaps.fsproj" />
+    <ProjectReference Include="..\Feliz.Popover\Feliz.Popover.fsproj" />
+    <ProjectReference Include="..\Feliz.ElmishComponents\Feliz.ElmishComponents.fsproj" />
+    <ProjectReference Include="Fable.ReactTestingLibrary\Fable.ReactTestingLibrary.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Utilities.fs" />
+    <Compile Include="CodeSplitting.fs" />
+    <Compile Include="PropHelpersTests.fs" />
+    <Compile Include="Tests.fs" />
+    <None Include="paket.references" />
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

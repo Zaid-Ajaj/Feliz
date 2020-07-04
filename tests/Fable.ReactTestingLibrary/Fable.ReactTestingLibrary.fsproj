@@ -10,6 +10,7 @@
     <Compile Include="Bindings.fs" />
     <Compile Include="Events.fs" />
     <Compile Include="RTL.fs" />
+    <None Include="paket.references" />
   </ItemGroup>
   <PropertyGroup>
     <NpmDependencies>
@@ -20,10 +21,5 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Feliz\Feliz.fsproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Fable.Promise" Version="2.1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="4.7.0" />
-  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

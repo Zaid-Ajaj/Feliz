@@ -1,17 +1,36 @@
+version 5.247.4
+
 group Main
     source https://api.nuget.org/v3/index.json
     storage:none
 
-    nuget Fable.SimpleHttp
-    nuget Feliz.Router
-    nuget FSharp.Core
-    nuget Fable.Core
-    nuget Fable.Elmish.React
-    nuget Fable.React
-    nuget Zanaptak.TypedCssClasses
+    nuget Fable.Browser.MediaQueryList ~> 1
+    nuget Fable.Elmish ~> 3
+    nuget Fable.Elmish.Debugger ~> 3
+    nuget Fable.Elmish.HMR ~> 4
+    nuget Fable.Mocha ~> 2
+    nuget Fable.MochaPuppeteerRunner ~> 1
+    nuget Fable.Promise ~> 2
+    nuget Fable.SimpleHttp ~> 3
+    nuget Feliz ~> 1
+    nuget Feliz.Router ~> 2
+    nuget FSharp.Core ~> 4.7 lowest_matching: true
+    nuget Fable.Core ~> 3
+    nuget Fable.Elmish.React ~> 3
+    nuget Fable.React ~> 6
+    nuget Zanaptak.TypedCssClasses ~> 0
 
 group Build
-  framework >= net45
-  source https://api.nuget.org/v3/index.json
+	source https://api.nuget.org/v3/index.json
+	generate_load_scripts: true
 
-  nuget FAKE ~> 4.64.6
+	nuget Fake.Core.Target ~> 5
+	nuget Fake.Core.ReleaseNotes ~> 5
+	nuget Fake.DotNet.AssemblyInfoFile ~> 5
+	nuget Fake.DotNet.Cli ~> 5
+	nuget Fake.DotNet.Paket ~> 5
+	nuget Fake.IO.FileSystem ~> 5
+	nuget Fake.JavaScript.Npm ~> 5
+	nuget Fake.Tools.Git ~> 5
+	nuget FSharp.Core ~> 4.7
+    nuget FSharpLint.Core ~> 0

@@ -1,26 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <Description>Hooks for dead-simple data fetching with Feliz</Description>
-        <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
-        <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
-        <PackageIconUrl></PackageIconUrl>
-        <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
-        <Authors>Zaid Ajaj</Authors>
-        <Version>1.1.1</Version>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Allow for input argument in React.useDeferredCallback</PackageReleaseNotes>
-    </PropertyGroup>
-    <ItemGroup>
-        <Compile Include="UseDeferred.fs" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Feliz\Feliz.fsproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Update="FSharp.Core" Version="4.7.0" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="UseDeferred.fs" />
+    <None Include="paket.references" />
+    <None Include="paket.template" />
+    <None Include="RELEASE_NOTES.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

@@ -1,0 +1,11 @@
+﻿type project
+authors Jonas Bösch, Zaid Ajaj
+description
+    useMediaQuery hooks to build responsive websites
+language
+    F#
+tags
+    fsharp, fable, react, html
+files
+    *.fsproj ==> fable
+    *.fs ==> fable

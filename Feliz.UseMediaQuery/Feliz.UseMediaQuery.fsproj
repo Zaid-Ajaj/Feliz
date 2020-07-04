@@ -1,26 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageVersion>0.1</PackageVersion>
-        <Authors>Jonas Bösch, Zaid Ajaj</Authors>
-        <Description>useMediaQuery hooks to build responsive websites </Description>
-        <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
-        <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
-        <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
-        <Compile Include="UseMediaQuery.fs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Fable.Browser.MediaQueryList" Version="1.1.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Feliz\Feliz.fsproj" />
-    </ItemGroup>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="UseMediaQuery.fs" />
+    <None Include="paket.references" />
+    <None Include="paket.template" />
+    <None Include="RELEASE_NOTES.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

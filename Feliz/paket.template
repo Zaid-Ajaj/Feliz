@@ -1,0 +1,12 @@
+﻿type project
+authors Zaid Ajaj
+description
+    A fresh retake of the base React DSL used within Elmish applications, optimized for happiness
+language
+    F#
+tags
+    fsharp, fable, react, html
+files
+    *.fsproj ==> fable
+    *.fs ==> fable
+    *.js ==> fable

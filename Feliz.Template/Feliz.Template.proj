@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Feliz application template with proper configuration and a unit test project</Description>
@@ -42,4 +43,5 @@
       <PackagePath>Content\</PackagePath>
     </Content>
   </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
