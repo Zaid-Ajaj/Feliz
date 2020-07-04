@@ -204,3 +204,6 @@ tests.js.map
 dist
 .local-chromium
 1.bundle.js
+
+# JetBrains Rider
+.idea
