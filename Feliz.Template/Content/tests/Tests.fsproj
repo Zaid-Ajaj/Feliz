@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="Tests.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\src\App.fsproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Fable.Mocha" Version="2.8.0" />
-  </ItemGroup>
-  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Tests.fs" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\src\App.fsproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Fable.Mocha" Version="2.8.0" />
+    </ItemGroup>
 </Project>
