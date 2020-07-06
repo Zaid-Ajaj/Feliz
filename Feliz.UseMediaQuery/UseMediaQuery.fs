@@ -5,6 +5,9 @@ open Browser
 open Browser.Types
 open Feliz
 
+open Fable.Core
+open Fable.Core.JsInterop
+
 [<RequireQualifiedAccess>]
 type ScreenSize =
     | Mobile
@@ -21,7 +24,7 @@ type Breakpoints = {
 }
 
 [<RequireQualifiedAccess>]
-module Breakpoints = 
+module Breakpoints =
     let defaults = {
         MobileLandscape = 576
         Tablet = 768
@@ -38,26 +41,38 @@ let private makeQueries breakpoints =
 
 [<AutoOpen>]
 module UseMediaQueryExtension =
+     [<Emit("($0).addListener($1)")>]
+     let private addListener mqList fn = jsNative
+
+     [<Emit("($0).removeListener($1)")>]
+     let private removeListener mqList fn = jsNative
+
      type React with
-        /// A hook for media queries, this hook will force a component 
-        /// to re-render when the specified media query changes.  
-        static member useMediaQuery (query: string) =
-            let (mq, setMq) = React.useState(fun () -> window.matchMedia(query))
+        /// A hook for media queries, this hook will force a component
+        /// to re-render when the specified media query changes.
+        static member useMediaQuery (mediaQuery: string) =
+            let (mq, setMq) =
+                React.useState(fun _ -> window.matchMedia(mediaQuery).matches)
 
             React.useEffect(fun () ->
-                mq.addEventListener("change", fun e ->
-                    let mqEvent = unbox<MediaQueryList>(e)
-                    setMq mqEvent)
-                {new IDisposable with
-                     member this.Dispose() =
-                        mq.removeEventListener("change", fun _ -> ())}
+                let mediaQueryList = window.matchMedia(mediaQuery)
+                let handler = fun _ ->
+                        setMq(mediaQueryList.matches)
 
-            , [| query :> obj |])
+                handler ()
+                addListener mediaQueryList handler
 
-            mq.matches
+                let ret =
+                    {new IDisposable with
+                        member this.Dispose() =
+                            removeListener mediaQueryList handler}
+                ret
+            , [| mediaQuery :> obj |])
 
-        /// A hook for responsive design, this hook will force a component 
-        /// to re-render the components on resize.  
+            mq
+
+        /// A hook for responsive design, this hook will force a component
+        /// to re-render the components on resize.
         /// Returns a discriminated union with the new width.
         static member useResponsive(?breakpoints: Breakpoints) =
             let breakpoints = Option.defaultValue Breakpoints.defaults breakpoints
