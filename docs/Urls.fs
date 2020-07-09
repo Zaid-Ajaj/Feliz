@@ -87,7 +87,6 @@ let [<Literal>] UseEffect = "UseEffect"
 let [<Literal>] UseReducer = "UseReducer"
 let [<Literal>] UseState = "UseState"
 let [<Literal>] UseElmish = "UseElmish"
-let [<Literal>] UseMediaQuery = "UseMediaQuery"
 
 // ____________________________________________________
 
@@ -106,6 +105,8 @@ let [<Literal>] Hooks = "Hooks"
 
 let [<Literal>] UseDeferred = "UseDeferred"
 // UseElmish
+let [<Literal>] UseListener = "UseListener"
+let [<Literal>] UseMediaQuery = "UseMediaQuery"
 let [<Literal>] UseWorker = "UseWorker"
 
 // __________________________
@@ -120,10 +121,10 @@ let [<Literal>] Router = "Router"
 
 let [<Literal>] Visualizations = "Visualizations"
 
-let [<Literal>] RoughViz = "RoughViz"
 let [<Literal>] PigeonMaps = "PigeonMaps"
 let [<Literal>] Plotly = "Plotly"
 // Recharts
+let [<Literal>] RoughViz = "RoughViz"
 
 // __________________________
 
