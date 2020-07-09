@@ -494,8 +494,9 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                 nestedMenuList "Hooks" [ Urls.Hooks ] [
                     nestedMenuItem "Feliz.UseDeferred" [ Urls.UseDeferred ]
                     nestedMenuItem "Feliz.UseElmish" [ Urls.UseElmish ]
-                    nestedMenuItem "Feliz.UseWorker" [ Urls.UseWorker ]
+                    nestedMenuItem "Feliz.UseListener" [ Urls.UseListener ]
                     nestedMenuItem "Feliz.UseMediaQuery" [ Urls.UseMediaQuery ]
+                    nestedMenuItem "Feliz.UseWorker" [ Urls.UseWorker ]
                 ]
 
                 nestedMenuList "Components" [ Urls.Components ] [
@@ -691,8 +692,9 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         match res with
         | [ Urls.UseDeferred ] -> lazyView MarkdownLoader.load [ "Feliz.UseDeferred"; "Index.md" ]
         | [ Urls.UseElmish ] -> lazyView MarkdownLoader.load [ "Feliz.UseElmish"; "Index.md" ]
-        | [ Urls.UseWorker ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseWorker" ]
+        | [ Urls.UseListener ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseListener" ]
         | [ Urls.UseMediaQuery ] -> lazyView MarkdownLoader.load [ "Feliz.UseMediaQuery"; "Index.md" ]
+        | [ Urls.UseWorker ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseWorker" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Components ] (Some res) ->
         match res with
