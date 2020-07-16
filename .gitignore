@@ -204,6 +204,7 @@ tests.js.map
 dist
 .local-chromium
 1.bundle.js
+.paket/load
 
 # JetBrains Rider
 .idea

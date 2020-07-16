@@ -415,6 +415,7 @@ let focusInputExample = React.functionComponent(fun () ->
 
     Html.div [
         Html.input [
+            prop.style [ style.caretColor.red ]
             prop.ref inputRef
             prop.type'.text
         ]
