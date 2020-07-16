@@ -343,12 +343,12 @@ type style =
     static member inline lineHeight(size: ICssUnit) = Interop.mkStyle "lineHeight" size
     /// Sets the background color of an element.
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
-    /// Sets the color of the insertion caret, the visible marker where the next character typed will be inserted. 
+    /// Sets the color of the insertion caret, the visible marker where the next character typed will be inserted.
     ///
-    /// This is sometimes referred to as the text input cursor. The caret appears in elements such as <input> or 
-    /// those with the contenteditable attribute. The caret is typically a thin vertical line that flashes to 
+    /// This is sometimes referred to as the text input cursor. The caret appears in elements such as <input> or
+    /// those with the contenteditable attribute. The caret is typically a thin vertical line that flashes to
     /// help make it more noticeable. By default, it is black, but its color can be altered with this property.
-    static member inline caretColor (color: string) = Interop.mkStyle "caret-color" color
+    static member inline caretColor (color: string) = Interop.mkStyle "caretColor" color
     /// Sets the foreground color value of an element's text and text decorations, and sets the
     /// `currentcolor` value. `currentcolor` may be used as an indirect value on other properties
     /// and is the default for other color properties, such as border-color.
@@ -849,7 +849,7 @@ module style =
     type whitespace =
         /// Sequences of whitespace will collapse into a single whitespace. Text will wrap when necessary. This is default.
         static member inline normal = Interop.mkStyle "whiteSpace" "normal"
-        /// Sequences of whitespace will collapse into a single whitespace. Text will never wrap to the next line. 
+        /// Sequences of whitespace will collapse into a single whitespace. Text will never wrap to the next line.
         /// The text continues on the same line until a `<br>` tag is encountered.
         static member inline nowrap = Interop.mkStyle "whiteSpace" "nowrap"
         /// Whitespace is preserved by the browser. Text will only wrap on line breaks. Acts like the <pre> tag in HTML.
@@ -879,12 +879,12 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "wordBreak" "inherit"
 
     [<Erase>]
-    type scrollBehavior = 
+    type scrollBehavior =
         /// Allows a straight jump "scroll effect" between elements within the scrolling box. This is default
         static member inline auto = Interop.mkStyle "scrollBehavior" "auto"
         /// Allows a smooth animated "scroll effect" between elements within the scrolling box.
         static member inline smooth = Interop.mkStyle "scrollBehavior" "smooth"
-        /// Sets this property to its default value. 
+        /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "scrollBehavior" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "scrollBehavior" "inherit"
@@ -925,8 +925,8 @@ module style =
         static member inline hidden = Interop.mkStyle "visibility" "hidden"
         /// Default value. The element is visible.
         static member inline visible = Interop.mkStyle "visibility" "visible"
-        /// Only for table rows (`<tr>`), row groups (`<tbody>`), columns (`<col>`), column groups 
-        /// (`<colgroup>`). This value removes a row or column, but it does not affect the table layout. 
+        /// Only for table rows (`<tr>`), row groups (`<tbody>`), columns (`<col>`), column groups
+        /// (`<colgroup>`). This value removes a row or column, but it does not affect the table layout.
         /// The space taken up by the row or column will be available for other content.
         ///
         /// If collapse is used on other elements, it renders as "hidden"
@@ -938,7 +938,7 @@ module style =
 
     [<Erase>]
     type flexBasis =
-        /// Default value. The length is equal to the length of the flexible item. If the item has 
+        /// Default value. The length is equal to the length of the flexible item. If the item has
         /// no length specified, the length will be according to its content.
         static member inline auto = Interop.mkStyle "flexBasis" "auto"
         /// Sets this property to its default value.
@@ -1147,8 +1147,8 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "outlineWidth" "inherit"
 
     [<Erase>]
-    type listStyleType = 
-        /// Default value. The marker is a filled circle	
+    type listStyleType =
+        /// Default value. The marker is a filled circle
         static member inline disc = Interop.mkStyle "listStyleType" "disc"
         /// The marker is traditional Armenian numbering
         static member inline armenian = Interop.mkStyle "listStyleType" "armenian"
@@ -1386,7 +1386,7 @@ module style =
         ///
         /// This overload takes a floating number that goes from 0 to 1
         static member inline grayscale(value: double) = Interop.mkStyle "filter" ("grayscale(" + (unbox<string> value) + ")")
-        /// Applies a hue rotation on the image. The value defines the number of degrees around the color circle the image 
+        /// Applies a hue rotation on the image. The value defines the number of degrees around the color circle the image
         /// samples will be adjusted. 0deg is default, and represents the original image.
         ///
         /// **Note**: Maximum value is 360
@@ -1699,18 +1699,18 @@ module style =
 
     /// Defines the algorithm used to lay out table cells, rows, and columns.
     ///
-    /// **Tip:** The main benefit of table-layout: fixed; is that the table renders much faster. On large tables, 
-    /// users will not see any part of the table until the browser has rendered the whole table. So, if you use 
-    /// table-layout: fixed, users will see the top of the table while the browser loads and renders rest of the 
+    /// **Tip:** The main benefit of table-layout: fixed; is that the table renders much faster. On large tables,
+    /// users will not see any part of the table until the browser has rendered the whole table. So, if you use
+    /// table-layout: fixed, users will see the top of the table while the browser loads and renders rest of the
     /// table. This gives the impression that the page loads a lot quicker!
     [<Erase>]
     type tableLayout =
-        /// Browsers use an automatic table layout algorithm. The column width is set by the widest unbreakable 
+        /// Browsers use an automatic table layout algorithm. The column width is set by the widest unbreakable
         /// content in the cells. The content will dictate the layout
         static member inline auto = Interop.mkStyle "tableLayout" "auto"
-        /// Sets a fixed table layout algorithm. The table and column widths are set by the widths of table and col 
-        /// or by the width of the first row of cells. Cells in other rows do not affect column widths. If no widths 
-        /// are present on the first row, the column widths are divided equally across the table, regardless of content 
+        /// Sets a fixed table layout algorithm. The table and column widths are set by the widths of table and col
+        /// or by the width of the first row of cells. Cells in other rows do not affect column widths. If no widths
+        /// are present on the first row, the column widths are divided equally across the table, regardless of content
         /// inside the cells
         static member inline fixed' = Interop.mkStyle "tableLayout" "fixed"
         /// Sets this property to its default value.
@@ -1883,7 +1883,7 @@ module style =
         static member inline initial = Interop.mkStyle "outlineStyle" "initial"
         /// Inherits this property from its parent element
         static member inline inheritFromParent = Interop.mkStyle "outlineStyle" "inherit"
-        /// Resets to its inherited value if the property naturally inherits from its parent, 
+        /// Resets to its inherited value if the property naturally inherits from its parent,
         /// and to its initial value if not.
         static member inline unset = Interop.mkStyle "outlineStyle" "unset"
 
@@ -2466,161 +2466,161 @@ module style =
         static member inline black = Interop.mkStyle "borderColor" "#000000"
         static member inline transparent = Interop.mkStyle "borderColor" "transparent"
 
-    /// Sets the color of the insertion caret, the visible marker where the next character typed will be inserted. 
+    /// Sets the color of the insertion caret, the visible marker where the next character typed will be inserted.
     ///
-    /// This is sometimes referred to as the text input cursor. The caret appears in elements such as <input> or 
-    /// those with the contenteditable attribute. The caret is typically a thin vertical line that flashes to 
+    /// This is sometimes referred to as the text input cursor. The caret appears in elements such as <input> or
+    /// those with the contenteditable attribute. The caret is typically a thin vertical line that flashes to
     /// help make it more noticeable. By default, it is black, but its color can be altered with this property.
     [<Erase; RequireQualifiedAccess>]
     type caretColor =
-        /// The user agent selects an appropriate color for the caret. 
+        /// The user agent selects an appropriate color for the caret.
         ///
-        /// This is generally currentcolor, but the user agent may choose a different color to ensure good 
-        /// visibility and contrast with the surrounding content, taking into account the value of currentcolor, 
+        /// This is generally currentcolor, but the user agent may choose a different color to ensure good
+        /// visibility and contrast with the surrounding content, taking into account the value of currentcolor,
         /// the background, shadows, and other factors.
-        static member inline auto = Interop.mkStyle "caret-color" "auto"
-        static member inline indianRed = Interop.mkStyle "caret-color" "#CD5C5C"
-        static member inline lightCoral = Interop.mkStyle "caret-color" "#F08080"
-        static member inline salmon = Interop.mkStyle "caret-color" "#FA8072"
-        static member inline darkSalmon = Interop.mkStyle "caret-color" "#E9967A"
-        static member inline lightSalmon = Interop.mkStyle "caret-color" "#FFA07A"
-        static member inline crimson = Interop.mkStyle "caret-color" "#DC143C"
-        static member inline red = Interop.mkStyle "caret-color" "#FF0000"
-        static member inline fireBrick = Interop.mkStyle "caret-color" "#B22222"
-        static member inline darkred = Interop.mkStyle "caret-color" "#8B0000"
-        static member inline pink = Interop.mkStyle "caret-color" "#FFC0CB"
-        static member inline lightPink = Interop.mkStyle "caret-color" "#FFB6C1"
-        static member inline hotPink = Interop.mkStyle "caret-color" "#FF69B4"
-        static member inline deepPink = Interop.mkStyle "caret-color" "#FF1493"
-        static member inline mediumVioletRed = Interop.mkStyle "caret-color" "#C71585"
-        static member inline paleVioletRed = Interop.mkStyle "caret-color" "#DB7093"
-        static member inline coral = Interop.mkStyle "caret-color" "#FF7F50"
-        static member inline tomato = Interop.mkStyle "caret-color" "#FF6347"
-        static member inline orangeRed = Interop.mkStyle "caret-color" "#FF4500"
-        static member inline darkOrange = Interop.mkStyle "caret-color" "#FF8C00"
-        static member inline orange = Interop.mkStyle "caret-color" "#FFA500"
-        static member inline gold = Interop.mkStyle "caret-color" "#FFD700"
-        static member inline yellow = Interop.mkStyle "caret-color" "#FFFF00"
-        static member inline lightYellow = Interop.mkStyle "caret-color" "#FFFFE0"
-        static member inline limonChiffon = Interop.mkStyle "caret-color" "#FFFACD"
-        static member inline lightGoldenRodYellow = Interop.mkStyle "caret-color" "#FAFAD2"
-        static member inline papayaWhip = Interop.mkStyle "caret-color" "#FFEFD5"
-        static member inline moccasin = Interop.mkStyle "caret-color" "#FFE4B5"
-        static member inline peachPuff = Interop.mkStyle "caret-color" "#FFDAB9"
-        static member inline paleGoldenRod = Interop.mkStyle "caret-color" "#EEE8AA"
-        static member inline khaki = Interop.mkStyle "caret-color" "#F0E68C"
-        static member inline darkKhaki = Interop.mkStyle "caret-color" "#BDB76B"
-        static member inline lavender = Interop.mkStyle "caret-color" "#E6E6FA"
-        static member inline thistle = Interop.mkStyle "caret-color" "#D8BFD8"
-        static member inline plum = Interop.mkStyle "caret-color" "#DDA0DD"
-        static member inline violet = Interop.mkStyle "caret-color" "#EE82EE"
-        static member inline orchid = Interop.mkStyle "caret-color" "#DA70D6"
-        static member inline fuchsia = Interop.mkStyle "caret-color" "#FF00FF"
-        static member inline magenta = Interop.mkStyle "caret-color" "#FF00FF"
-        static member inline mediumOrchid = Interop.mkStyle "caret-color" "#BA55D3"
-        static member inline mediumPurple = Interop.mkStyle "caret-color" "#9370DB"
-        static member inline rebeccaPurple = Interop.mkStyle "caret-color" "#663399"
-        static member inline blueViolet = Interop.mkStyle "caret-color" "#8A2BE2"
-        static member inline darkViolet = Interop.mkStyle "caret-color" "#9400D3"
-        static member inline darkOrchid = Interop.mkStyle "caret-color" "#9932CC"
-        static member inline darkMagenta = Interop.mkStyle "caret-color" "#8B008B"
-        static member inline purple = Interop.mkStyle "caret-color" "#800080"
-        static member inline indigo = Interop.mkStyle "caret-color" "#4B0082"
-        static member inline slateBlue = Interop.mkStyle "caret-color" "#6A5ACD"
-        static member inline darkSlateBlue = Interop.mkStyle "caret-color" "#483D8B"
-        static member inline mediumSlateBlue = Interop.mkStyle "caret-color" "#7B68EE"
-        static member inline greenYellow = Interop.mkStyle "caret-color" "#ADFF2F"
-        static member inline chartreuse = Interop.mkStyle "caret-color" "#7FFF00"
-        static member inline lawnGreen = Interop.mkStyle "caret-color" "#7CFC00"
-        static member inline lime = Interop.mkStyle "caret-color" "#00FF00"
-        static member inline limeGreen = Interop.mkStyle "caret-color" "#32CD32"
-        static member inline paleGreen = Interop.mkStyle "caret-color" "#98FB98"
-        static member inline lightGreen = Interop.mkStyle "caret-color" "#90EE90"
-        static member inline mediumSpringGreen = Interop.mkStyle "caret-color" "#00FA9A"
-        static member inline springGreen = Interop.mkStyle "caret-color" "#00FF7F"
-        static member inline mediumSeaGreen = Interop.mkStyle "caret-color" "#3CB371"
-        static member inline seaGreen = Interop.mkStyle "caret-color" "#2E8B57"
-        static member inline forestGreen = Interop.mkStyle "caret-color" "#228B22"
-        static member inline green = Interop.mkStyle "caret-color" "#008000"
-        static member inline darkGreen = Interop.mkStyle "caret-color" "#006400"
-        static member inline yellowGreen = Interop.mkStyle "caret-color" "#9ACD32"
-        static member inline oliveDrab = Interop.mkStyle "caret-color" "#6B8E23"
-        static member inline olive = Interop.mkStyle "caret-color" "#808000"
-        static member inline darkOliveGreen = Interop.mkStyle "caret-color" "#556B2F"
-        static member inline mediumAquamarine = Interop.mkStyle "caret-color" "#66CDAA"
-        static member inline darkSeaGreen = Interop.mkStyle "caret-color" "#8FBC8B"
-        static member inline lightSeaGreen = Interop.mkStyle "caret-color" "#20B2AA"
-        static member inline darkCyan = Interop.mkStyle "caret-color" "#008B8B"
-        static member inline teal = Interop.mkStyle "caret-color" "#008080"
-        static member inline aqua = Interop.mkStyle "caret-color" "#00FFFF"
-        static member inline cyan = Interop.mkStyle "caret-color" "#00FFFF"
-        static member inline lightCyan = Interop.mkStyle "caret-color" "#E0FFFF"
-        static member inline paleTurqouise = Interop.mkStyle "caret-color" "#AFEEEE"
-        static member inline aquaMarine = Interop.mkStyle "caret-color" "#7FFFD4"
-        static member inline turqouise = Interop.mkStyle "caret-color" "#AFEEEE"
-        static member inline mediumTurqouise = Interop.mkStyle "caret-color" "#48D1CC"
-        static member inline darkTurqouise = Interop.mkStyle "caret-color" "#00CED1"
-        static member inline cadetBlue = Interop.mkStyle "caret-color" "#5F9EA0"
-        static member inline steelBlue = Interop.mkStyle "caret-color" "#4682B4"
-        static member inline lightSteelBlue = Interop.mkStyle "caret-color" "#B0C4DE"
-        static member inline powederBlue = Interop.mkStyle "caret-color" "#B0E0E6"
-        static member inline lightBlue = Interop.mkStyle "caret-color" "#ADD8E6"
-        static member inline skyBlue = Interop.mkStyle "caret-color" "#87CEEB"
-        static member inline lightSkyBlue = Interop.mkStyle "caret-color" "#87CEFA"
-        static member inline deepSkyBlue = Interop.mkStyle "caret-color" "#00BFFF"
-        static member inline dodgerBlue = Interop.mkStyle "caret-color" "#1E90FF"
-        static member inline cornFlowerBlue = Interop.mkStyle "caret-color" "#6495ED"
-        static member inline royalBlue = Interop.mkStyle "caret-color" "#4169E1"
-        static member inline blue = Interop.mkStyle "caret-color" "#0000FF"
-        static member inline mediumBlue = Interop.mkStyle "caret-color" "#0000CD"
-        static member inline darkBlue = Interop.mkStyle "caret-color" "#00008B"
-        static member inline navy = Interop.mkStyle "caret-color" "#000080"
-        static member inline midnightBlue = Interop.mkStyle "caret-color" "#191970"
-        static member inline cornSilk = Interop.mkStyle "caret-color" "#FFF8DC"
-        static member inline blanchedAlmond = Interop.mkStyle "caret-color" "#FFEBCD"
-        static member inline bisque = Interop.mkStyle "caret-color" "#FFE4C4"
-        static member inline navajoWhite = Interop.mkStyle "caret-color" "#FFDEAD"
-        static member inline wheat = Interop.mkStyle "caret-color" "#F5DEB3"
-        static member inline burlyWood = Interop.mkStyle "caret-color" "#DEB887"
-        static member inline tan = Interop.mkStyle "caret-color" "#D2B48C"
-        static member inline rosyBrown = Interop.mkStyle "caret-color" "#BC8F8F"
-        static member inline sandyBrown = Interop.mkStyle "caret-color" "#F4A460"
-        static member inline goldenRod = Interop.mkStyle "caret-color" "#DAA520"
-        static member inline darkGoldenRod = Interop.mkStyle "caret-color" "#B8860B"
-        static member inline peru = Interop.mkStyle "caret-color" "#CD853F"
-        static member inline chocolate = Interop.mkStyle "caret-color" "#D2691E"
-        static member inline saddleBrown = Interop.mkStyle "caret-color" "#8B4513"
-        static member inline sienna = Interop.mkStyle "caret-color" "#A0522D"
-        static member inline brown = Interop.mkStyle "caret-color" "#A52A2A"
-        static member inline maroon = Interop.mkStyle "caret-color" "#A52A2A"
-        static member inline white = Interop.mkStyle "caret-color" "#FFFFFF"
-        static member inline snow = Interop.mkStyle "caret-color" "#FFFAFA"
-        static member inline honeyDew = Interop.mkStyle "caret-color" "#F0FFF0"
-        static member inline mintCream = Interop.mkStyle "caret-color" "#F5FFFA"
-        static member inline azure = Interop.mkStyle "caret-color" "#F0FFFF"
-        static member inline aliceBlue = Interop.mkStyle "caret-color" "#F0F8FF"
-        static member inline ghostWhite = Interop.mkStyle "caret-color" "#F8F8FF"
-        static member inline whiteSmoke = Interop.mkStyle "caret-color" "#F5F5F5"
-        static member inline seaShell = Interop.mkStyle "caret-color" "#FFF5EE"
-        static member inline beige = Interop.mkStyle "caret-color" "#F5F5DC"
-        static member inline oldLace = Interop.mkStyle "caret-color" "#FDF5E6"
-        static member inline floralWhite = Interop.mkStyle "caret-color" "#FFFAF0"
-        static member inline ivory = Interop.mkStyle "caret-color" "#FFFFF0"
-        static member inline antiqueWhite = Interop.mkStyle "caret-color" "#FAEBD7"
-        static member inline linen = Interop.mkStyle "caret-color" "#FAF0E6"
-        static member inline lavenderBlush = Interop.mkStyle "caret-color" "#FFF0F5"
-        static member inline mistyRose = Interop.mkStyle "caret-color" "#FFE4E1"
-        static member inline gainsBoro = Interop.mkStyle "caret-color" "#DCDCDC"
-        static member inline lightGray = Interop.mkStyle "caret-color" "#D3D3D3"
-        static member inline silver = Interop.mkStyle "caret-color" "#C0C0C0"
-        static member inline darkGray = Interop.mkStyle "caret-color" "#A9A9A9"
-        static member inline gray = Interop.mkStyle "caret-color" "#808080"
-        static member inline dimGray = Interop.mkStyle "caret-color" "#696969"
-        static member inline lightSlateGray = Interop.mkStyle "caret-color" "#778899"
-        static member inline slateGray = Interop.mkStyle "caret-color" "#708090"
-        static member inline darkSlateGray = Interop.mkStyle "caret-color" "#2F4F4F"
-        static member inline black = Interop.mkStyle "caret-color" "#000000"
-        static member inline transparent = Interop.mkStyle "caret-color" "transparent"
+        static member inline auto = Interop.mkStyle "caretColor" "auto"
+        static member inline indianRed = Interop.mkStyle "caretColor" "#CD5C5C"
+        static member inline lightCoral = Interop.mkStyle "caretColor" "#F08080"
+        static member inline salmon = Interop.mkStyle "caretColor" "#FA8072"
+        static member inline darkSalmon = Interop.mkStyle "caretColor" "#E9967A"
+        static member inline lightSalmon = Interop.mkStyle "caretColor" "#FFA07A"
+        static member inline crimson = Interop.mkStyle "caretColor" "#DC143C"
+        static member inline red = Interop.mkStyle "caretColor" "#FF0000"
+        static member inline fireBrick = Interop.mkStyle "caretColor" "#B22222"
+        static member inline darkred = Interop.mkStyle "caretColor" "#8B0000"
+        static member inline pink = Interop.mkStyle "caretColor" "#FFC0CB"
+        static member inline lightPink = Interop.mkStyle "caretColor" "#FFB6C1"
+        static member inline hotPink = Interop.mkStyle "caretColor" "#FF69B4"
+        static member inline deepPink = Interop.mkStyle "caretColor" "#FF1493"
+        static member inline mediumVioletRed = Interop.mkStyle "caretColor" "#C71585"
+        static member inline paleVioletRed = Interop.mkStyle "caretColor" "#DB7093"
+        static member inline coral = Interop.mkStyle "caretColor" "#FF7F50"
+        static member inline tomato = Interop.mkStyle "caretColor" "#FF6347"
+        static member inline orangeRed = Interop.mkStyle "caretColor" "#FF4500"
+        static member inline darkOrange = Interop.mkStyle "caretColor" "#FF8C00"
+        static member inline orange = Interop.mkStyle "caretColor" "#FFA500"
+        static member inline gold = Interop.mkStyle "caretColor" "#FFD700"
+        static member inline yellow = Interop.mkStyle "caretColor" "#FFFF00"
+        static member inline lightYellow = Interop.mkStyle "caretColor" "#FFFFE0"
+        static member inline limonChiffon = Interop.mkStyle "caretColor" "#FFFACD"
+        static member inline lightGoldenRodYellow = Interop.mkStyle "caretColor" "#FAFAD2"
+        static member inline papayaWhip = Interop.mkStyle "caretColor" "#FFEFD5"
+        static member inline moccasin = Interop.mkStyle "caretColor" "#FFE4B5"
+        static member inline peachPuff = Interop.mkStyle "caretColor" "#FFDAB9"
+        static member inline paleGoldenRod = Interop.mkStyle "caretColor" "#EEE8AA"
+        static member inline khaki = Interop.mkStyle "caretColor" "#F0E68C"
+        static member inline darkKhaki = Interop.mkStyle "caretColor" "#BDB76B"
+        static member inline lavender = Interop.mkStyle "caretColor" "#E6E6FA"
+        static member inline thistle = Interop.mkStyle "caretColor" "#D8BFD8"
+        static member inline plum = Interop.mkStyle "caretColor" "#DDA0DD"
+        static member inline violet = Interop.mkStyle "caretColor" "#EE82EE"
+        static member inline orchid = Interop.mkStyle "caretColor" "#DA70D6"
+        static member inline fuchsia = Interop.mkStyle "caretColor" "#FF00FF"
+        static member inline magenta = Interop.mkStyle "caretColor" "#FF00FF"
+        static member inline mediumOrchid = Interop.mkStyle "caretColor" "#BA55D3"
+        static member inline mediumPurple = Interop.mkStyle "caretColor" "#9370DB"
+        static member inline rebeccaPurple = Interop.mkStyle "caretColor" "#663399"
+        static member inline blueViolet = Interop.mkStyle "caretColor" "#8A2BE2"
+        static member inline darkViolet = Interop.mkStyle "caretColor" "#9400D3"
+        static member inline darkOrchid = Interop.mkStyle "caretColor" "#9932CC"
+        static member inline darkMagenta = Interop.mkStyle "caretColor" "#8B008B"
+        static member inline purple = Interop.mkStyle "caretColor" "#800080"
+        static member inline indigo = Interop.mkStyle "caretColor" "#4B0082"
+        static member inline slateBlue = Interop.mkStyle "caretColor" "#6A5ACD"
+        static member inline darkSlateBlue = Interop.mkStyle "caretColor" "#483D8B"
+        static member inline mediumSlateBlue = Interop.mkStyle "caretColor" "#7B68EE"
+        static member inline greenYellow = Interop.mkStyle "caretColor" "#ADFF2F"
+        static member inline chartreuse = Interop.mkStyle "caretColor" "#7FFF00"
+        static member inline lawnGreen = Interop.mkStyle "caretColor" "#7CFC00"
+        static member inline lime = Interop.mkStyle "caretColor" "#00FF00"
+        static member inline limeGreen = Interop.mkStyle "caretColor" "#32CD32"
+        static member inline paleGreen = Interop.mkStyle "caretColor" "#98FB98"
+        static member inline lightGreen = Interop.mkStyle "caretColor" "#90EE90"
+        static member inline mediumSpringGreen = Interop.mkStyle "caretColor" "#00FA9A"
+        static member inline springGreen = Interop.mkStyle "caretColor" "#00FF7F"
+        static member inline mediumSeaGreen = Interop.mkStyle "caretColor" "#3CB371"
+        static member inline seaGreen = Interop.mkStyle "caretColor" "#2E8B57"
+        static member inline forestGreen = Interop.mkStyle "caretColor" "#228B22"
+        static member inline green = Interop.mkStyle "caretColor" "#008000"
+        static member inline darkGreen = Interop.mkStyle "caretColor" "#006400"
+        static member inline yellowGreen = Interop.mkStyle "caretColor" "#9ACD32"
+        static member inline oliveDrab = Interop.mkStyle "caretColor" "#6B8E23"
+        static member inline olive = Interop.mkStyle "caretColor" "#808000"
+        static member inline darkOliveGreen = Interop.mkStyle "caretColor" "#556B2F"
+        static member inline mediumAquamarine = Interop.mkStyle "caretColor" "#66CDAA"
+        static member inline darkSeaGreen = Interop.mkStyle "caretColor" "#8FBC8B"
+        static member inline lightSeaGreen = Interop.mkStyle "caretColor" "#20B2AA"
+        static member inline darkCyan = Interop.mkStyle "caretColor" "#008B8B"
+        static member inline teal = Interop.mkStyle "caretColor" "#008080"
+        static member inline aqua = Interop.mkStyle "caretColor" "#00FFFF"
+        static member inline cyan = Interop.mkStyle "caretColor" "#00FFFF"
+        static member inline lightCyan = Interop.mkStyle "caretColor" "#E0FFFF"
+        static member inline paleTurqouise = Interop.mkStyle "caretColor" "#AFEEEE"
+        static member inline aquaMarine = Interop.mkStyle "caretColor" "#7FFFD4"
+        static member inline turqouise = Interop.mkStyle "caretColor" "#AFEEEE"
+        static member inline mediumTurqouise = Interop.mkStyle "caretColor" "#48D1CC"
+        static member inline darkTurqouise = Interop.mkStyle "caretColor" "#00CED1"
+        static member inline cadetBlue = Interop.mkStyle "caretColor" "#5F9EA0"
+        static member inline steelBlue = Interop.mkStyle "caretColor" "#4682B4"
+        static member inline lightSteelBlue = Interop.mkStyle "caretColor" "#B0C4DE"
+        static member inline powederBlue = Interop.mkStyle "caretColor" "#B0E0E6"
+        static member inline lightBlue = Interop.mkStyle "caretColor" "#ADD8E6"
+        static member inline skyBlue = Interop.mkStyle "caretColor" "#87CEEB"
+        static member inline lightSkyBlue = Interop.mkStyle "caretColor" "#87CEFA"
+        static member inline deepSkyBlue = Interop.mkStyle "caretColor" "#00BFFF"
+        static member inline dodgerBlue = Interop.mkStyle "caretColor" "#1E90FF"
+        static member inline cornFlowerBlue = Interop.mkStyle "caretColor" "#6495ED"
+        static member inline royalBlue = Interop.mkStyle "caretColor" "#4169E1"
+        static member inline blue = Interop.mkStyle "caretColor" "#0000FF"
+        static member inline mediumBlue = Interop.mkStyle "caretColor" "#0000CD"
+        static member inline darkBlue = Interop.mkStyle "caretColor" "#00008B"
+        static member inline navy = Interop.mkStyle "caretColor" "#000080"
+        static member inline midnightBlue = Interop.mkStyle "caretColor" "#191970"
+        static member inline cornSilk = Interop.mkStyle "caretColor" "#FFF8DC"
+        static member inline blanchedAlmond = Interop.mkStyle "caretColor" "#FFEBCD"
+        static member inline bisque = Interop.mkStyle "caretColor" "#FFE4C4"
+        static member inline navajoWhite = Interop.mkStyle "caretColor" "#FFDEAD"
+        static member inline wheat = Interop.mkStyle "caretColor" "#F5DEB3"
+        static member inline burlyWood = Interop.mkStyle "caretColor" "#DEB887"
+        static member inline tan = Interop.mkStyle "caretColor" "#D2B48C"
+        static member inline rosyBrown = Interop.mkStyle "caretColor" "#BC8F8F"
+        static member inline sandyBrown = Interop.mkStyle "caretColor" "#F4A460"
+        static member inline goldenRod = Interop.mkStyle "caretColor" "#DAA520"
+        static member inline darkGoldenRod = Interop.mkStyle "caretColor" "#B8860B"
+        static member inline peru = Interop.mkStyle "caretColor" "#CD853F"
+        static member inline chocolate = Interop.mkStyle "caretColor" "#D2691E"
+        static member inline saddleBrown = Interop.mkStyle "caretColor" "#8B4513"
+        static member inline sienna = Interop.mkStyle "caretColor" "#A0522D"
+        static member inline brown = Interop.mkStyle "caretColor" "#A52A2A"
+        static member inline maroon = Interop.mkStyle "caretColor" "#A52A2A"
+        static member inline white = Interop.mkStyle "caretColor" "#FFFFFF"
+        static member inline snow = Interop.mkStyle "caretColor" "#FFFAFA"
+        static member inline honeyDew = Interop.mkStyle "caretColor" "#F0FFF0"
+        static member inline mintCream = Interop.mkStyle "caretColor" "#F5FFFA"
+        static member inline azure = Interop.mkStyle "caretColor" "#F0FFFF"
+        static member inline aliceBlue = Interop.mkStyle "caretColor" "#F0F8FF"
+        static member inline ghostWhite = Interop.mkStyle "caretColor" "#F8F8FF"
+        static member inline whiteSmoke = Interop.mkStyle "caretColor" "#F5F5F5"
+        static member inline seaShell = Interop.mkStyle "caretColor" "#FFF5EE"
+        static member inline beige = Interop.mkStyle "caretColor" "#F5F5DC"
+        static member inline oldLace = Interop.mkStyle "caretColor" "#FDF5E6"
+        static member inline floralWhite = Interop.mkStyle "caretColor" "#FFFAF0"
+        static member inline ivory = Interop.mkStyle "caretColor" "#FFFFF0"
+        static member inline antiqueWhite = Interop.mkStyle "caretColor" "#FAEBD7"
+        static member inline linen = Interop.mkStyle "caretColor" "#FAF0E6"
+        static member inline lavenderBlush = Interop.mkStyle "caretColor" "#FFF0F5"
+        static member inline mistyRose = Interop.mkStyle "caretColor" "#FFE4E1"
+        static member inline gainsBoro = Interop.mkStyle "caretColor" "#DCDCDC"
+        static member inline lightGray = Interop.mkStyle "caretColor" "#D3D3D3"
+        static member inline silver = Interop.mkStyle "caretColor" "#C0C0C0"
+        static member inline darkGray = Interop.mkStyle "caretColor" "#A9A9A9"
+        static member inline gray = Interop.mkStyle "caretColor" "#808080"
+        static member inline dimGray = Interop.mkStyle "caretColor" "#696969"
+        static member inline lightSlateGray = Interop.mkStyle "caretColor" "#778899"
+        static member inline slateGray = Interop.mkStyle "caretColor" "#708090"
+        static member inline darkSlateGray = Interop.mkStyle "caretColor" "#2F4F4F"
+        static member inline black = Interop.mkStyle "caretColor" "#000000"
+        static member inline transparent = Interop.mkStyle "caretColor" "transparent"
 
     /// Sets the foreground color value of an element's text and text decorations, and sets the
     /// `currentcolor` value. `currentcolor` may be used as an indirect value on other properties
