@@ -3,6 +3,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
+        <ProjectReference Include="..\Feliz.UseElmish\Feliz.UseElmish.fsproj" />
         <ProjectReference Include="..\Feliz\Feliz.fsproj" />
         <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
         <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
