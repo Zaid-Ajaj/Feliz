@@ -507,6 +507,43 @@ module OptionalDispose =
             ]
         ])
 
+module RefDispose =
+    let refDispose = React.functionComponent(fun (input: {| onDispose: System.IDisposable |}) ->
+        React.useEffectOnce(fun () -> input.onDispose)
+        
+        Html.div [
+            prop.testId "dispose-inner"
+        ])
+
+    let render = React.functionComponent(fun () ->
+        let disposedCount,setDisposedCount = React.useState 0
+        let disposedCountRef = React.useRef 0
+        let disposeElement,setDisposeElement = React.useState false
+
+        let setDisposedCount = 
+            React.useCallbackRef(fun () ->
+                disposedCountRef.current <- disposedCountRef.current + 1
+                setDisposedCount(disposedCountRef.current)
+            )
+
+        let disposalOne = React.useRef(Some { new System.IDisposable with member _.Dispose () = setDisposedCount() })
+        let disposalTwo = React.useRef(Some { new System.IDisposable with member _.Dispose () = setDisposedCount() })
+
+        let multipleDispose = React.createDisposable(disposalOne, disposalTwo)
+
+        Html.div [
+            Html.div [
+                prop.testId "disposed-count"
+                prop.textf "%i" disposedCount
+            ]
+            if not disposeElement then
+                refDispose {| onDispose = multipleDispose |}
+            Html.button [
+                prop.testId "dispose-button"
+                prop.onClick <| fun _ -> setDisposeElement (not disposeElement)
+            ]
+        ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -825,6 +862,19 @@ let felizTests = testList "Feliz Tests" [
                 |> Async.AwaitPromise
 
         Expect.equal (render.getByTestId("was-disposed").innerText) "false" "Should not have been disposed"
+    }
+
+    testReactAsync "Can dispose of multiple IDisposable option refs" <| async {
+        let render = RTL.render(RefDispose.render())
+
+        Expect.equal (render.getByTestId("disposed-count").innerText) "0" "Should not be disposed yet"
+
+        render.getByTestId("dispose-button").click()
+
+        do! 
+            RTL.waitFor <| fun () -> 
+                Expect.equal (render.getByTestId("disposed-count").innerText) "2" "Should have been disposed" 
+            |> Async.AwaitPromise
     }
 ]
 
