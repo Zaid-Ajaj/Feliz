@@ -82,3 +82,5 @@ type length =
     static member inline percent(value: double) : ICssUnit = unbox ((unbox<string>value) + "%")
     /// The browser calculates the length.
     static member inline auto : ICssUnit = unbox "auto"
+    /// calculated length, frequency, angle, time, percentage, number or integer
+    static member calc (value:string) : ICssUnit = unbox ("calc(" + (unbox<string>value) + ")")
