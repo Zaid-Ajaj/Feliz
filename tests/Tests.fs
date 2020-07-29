@@ -544,6 +544,41 @@ module RefDispose =
             ]
         ])
 
+module UseElmish =
+    open Elmish
+    open Feliz.UseElmish
+
+    type State = 
+        { Count: int }
+
+        interface System.IDisposable with
+            member _.Dispose () = ()
+
+    type Msg =
+        | Increment
+
+    let init = 0, Cmd.none
+
+    let update msg state =
+        match msg with
+        | Increment -> state + 1, Cmd.none
+        
+    let render = React.functionComponent(fun () ->
+        let state,dispatch = React.useElmish(init, update, [||])
+
+        Html.div [
+            Html.h1 [
+                prop.testId "count"
+                prop.text state
+            ]
+    
+            Html.button [
+                prop.text "Increment"
+                prop.onClick (fun _ -> dispatch Increment)
+                prop.testId "increment"
+            ]
+        ])
+
 let felizTests = testList "Feliz Tests" [
 
     testCase "Html elements can be rendered" <| fun _ ->
@@ -874,6 +909,19 @@ let felizTests = testList "Feliz Tests" [
         do! 
             RTL.waitFor <| fun () -> 
                 Expect.equal (render.getByTestId("disposed-count").innerText) "2" "Should have been disposed" 
+            |> Async.AwaitPromise
+    }
+
+    testReactAsync "useElmish works" <| async {
+        let render = RTL.render(UseElmish.render())
+
+        Expect.equal (render.getByTestId("count").innerText) "0" "Should be initial state"
+
+        render.getByTestId("increment").click()
+
+        do! 
+            RTL.waitFor <| fun () -> 
+                Expect.equal (render.getByTestId("count").innerText) "1" "Should have been incremented" 
             |> Async.AwaitPromise
     }
 ]

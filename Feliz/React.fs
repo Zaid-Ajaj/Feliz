@@ -57,30 +57,6 @@ type React =
     /// Creates a disposable instance by providing the implementation of the dispose member.
     static member createDisposable(dispose: unit -> unit) =
         { new IDisposable with member _.Dispose() = dispose() }
-    /// Creates a disposable instance by merging multiple IDisposables.
-    static member inline createDisposable([<ParamArray>] disposables: IDisposable []) =
-        React.createDisposable(fun () ->
-            disposables
-            |> Array.iter (fun d -> d.Dispose())
-        )
-    /// Creates a disposable instance by merging multiple IDisposable options.
-    static member inline createDisposable([<ParamArray>] disposables: IDisposable option []) =
-        React.createDisposable(fun () ->
-            disposables
-            |> Array.iter (Option.iter (fun d -> d.Dispose()))
-        )
-    /// Creates a disposable instance by merging multiple IDisposable refs.
-    static member inline createDisposable([<ParamArray>] disposables: IRefValue<IDisposable> []) =
-        React.createDisposable(fun () ->
-            disposables
-            |> Array.iter (fun d -> d.current.Dispose())
-        )
-    /// Creates a disposable instance by merging multiple IDisposable refs.
-    static member inline createDisposable([<ParamArray>] disposables: IRefValue<IDisposable option> []) =
-        React.createDisposable(fun () ->
-            disposables
-            |> Array.iter (fun d -> d.current |> Option.iter (fun d -> d.Dispose()))
-        )
         
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
     static member inline fragment xs = Fable.React.Helpers.fragment [] xs
@@ -525,5 +501,30 @@ type React =
 [<AutoOpen>]
 module ReactOverloadMagic =
     type React with
+        /// Creates a disposable instance by merging multiple IDisposables.
+        static member inline createDisposable([<ParamArray>] disposables: IDisposable []) =
+            React.createDisposable(fun () ->
+                disposables
+                |> Array.iter (fun d -> d.Dispose())
+            )
+        /// Creates a disposable instance by merging multiple IDisposable options.
+        static member inline createDisposable([<ParamArray>] disposables: IDisposable option []) =
+            React.createDisposable(fun () ->
+                disposables
+                |> Array.iter (Option.iter (fun d -> d.Dispose()))
+            )
+        /// Creates a disposable instance by merging multiple IDisposable refs.
+        static member inline createDisposable([<ParamArray>] disposables: IRefValue<IDisposable> []) =
+            React.createDisposable(fun () ->
+                disposables
+                |> Array.iter (fun d -> d.current.Dispose())
+            )
+        /// Creates a disposable instance by merging multiple IDisposable refs.
+        static member inline createDisposable([<ParamArray>] disposables: IRefValue<IDisposable option> []) =
+            React.createDisposable(fun () ->
+                disposables
+                |> Array.iter (fun d -> d.current |> Option.iter (fun d -> d.Dispose()))
+            )
+        
         /// The `useState` hook that create a state variable for React function components.
         static member useState<'t>(initial: 't) = Interop.reactApi.useState<'t,'t>(initial)
