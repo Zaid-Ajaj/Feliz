@@ -1307,7 +1307,12 @@ type prop =
     /// It either defines a text path along which the characters of a text are rendered, or a motion
     /// path along which a referenced element is animated.
     static member inline path (path: string) = Interop.mkAttr "path" path
-
+    /// The part global attribute contains a space-separated list of the part names of the element.
+    /// Part names allows CSS to select and style specific elements in a shadow tree
+    static member inline part(value: string) = Interop.mkAttr "part" value
+    /// The part global attribute contains a space-separated list of the part names of the element.
+    /// Part names allows CSS to select and style specific elements in a shadow tree
+    static member inline part(values: #seq<string>) = Interop.mkAttr "part" (String.concat " " values)
     /// Specifies a total length for the path, in user units.
     ///
     /// This value is then used to calibrate the browser's distance calculations with those of the
