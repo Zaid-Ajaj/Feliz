@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>0.1.0</PackageVersion>
+    <Authors>Cody Johnson, Zaid Ajaj</Authors>
+    <Description>Adds easy to use delayed rendering</Description>
+    <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
+    <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
+    <Compile Include="Delay.fs" />
+    <Compile Include="Templates.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fable.Browser.MediaQueryList" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+  </ItemGroup>
+
+</Project>
