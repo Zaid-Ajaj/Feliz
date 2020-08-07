@@ -1955,24 +1955,42 @@ module style =
         /// Defines a 2D translation.
         static member inline translate(x: int, y: int) =
             Interop.mkStyle "transform" (
+                "translate(" + (unbox<string> x) + "px," + (unbox<string> y) + "px)"
+            )
+        /// Defines a 2D translation.
+        static member inline translate(x: ICssUnit, y: ICssUnit) =
+            Interop.mkStyle "transform" (
                 "translate(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
             )
 
-
-        /// Defines that there should be no transformation.
+        /// Defines a 3D translation.
         static member inline translate3D(x: int, y: int, z: int) =
+            Interop.mkStyle "transform" (
+                "translate3d(" + (unbox<string> x) + "px," + (unbox<string> y) + "px," + (unbox<string> z) + "px)"
+            )
+        /// Defines a 3D translation.
+        static member inline translate3D(x: ICssUnit, y: ICssUnit, z: ICssUnit) =
             Interop.mkStyle "transform" (
                 "translate3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
             )
 
         /// Defines a translation, using only the value for the X-axis.
         static member inline translateX(x: int) =
+            Interop.mkStyle "transform" ("translateX(" + (unbox<string> x) + "px)")
+        /// Defines a translation, using only the value for the X-axis.
+        static member inline translateX(x: ICssUnit) =
             Interop.mkStyle "transform" ("translateX(" + (unbox<string> x) + ")")
         /// Defines a translation, using only the value for the Y-axis
         static member inline translateY(y: int) =
+            Interop.mkStyle "transform" ("translateY(" + (unbox<string> y) + "px)")
+        /// Defines a translation, using only the value for the Y-axis
+        static member inline translateY(y: ICssUnit) =
             Interop.mkStyle "transform" ("translateY(" + (unbox<string> y) + ")")
         /// Defines a 3D translation, using only the value for the Z-axis
         static member inline translateZ(z: int) =
+            Interop.mkStyle "transform" ("translateZ(" + (unbox<string> z) + "px)")
+        /// Defines a 3D translation, using only the value for the Z-axis
+        static member inline translateZ(z: ICssUnit) =
             Interop.mkStyle "transform" ("translateZ(" + (unbox<string> z) + ")")
 
         /// Defines a 2D scale transformation.

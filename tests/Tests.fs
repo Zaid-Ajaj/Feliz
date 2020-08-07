@@ -340,7 +340,7 @@ let memoCompTestAreEqualWithKey = React.memo((fun (input: {| count: int |}) ->
 let memoCompTestAreEqualWithKeyDiff = React.functionComponent(fun () ->
     let count,setCount = React.useState 0
 
-    React.useEffect(fun () -> 
+    React.useEffect(fun () ->
         async {
             do! Async.Sleep 25
             if count < 10 then setCount (count + 1)
@@ -464,7 +464,7 @@ module TokenCancellation =
         React.useLayoutEffectOnce(fun () ->
             async {
                 do! Async.Sleep 100
-                      
+
                 if not input.failTest then
                     setResultText "Disposed"
                     setRenderChild false
@@ -481,7 +481,7 @@ module TokenCancellation =
 module OptionalDispose =
     let optionalDispose = React.functionComponent(fun (input: {| onDispose: System.IDisposable option |}) ->
         React.useEffectOnce(fun () -> input.onDispose)
-        
+
         Html.div [
             prop.testId "dispose-inner"
         ])
@@ -510,7 +510,7 @@ module OptionalDispose =
 module RefDispose =
     let refDispose = React.functionComponent(fun (input: {| onDispose: System.IDisposable |}) ->
         React.useEffectOnce(fun () -> input.onDispose)
-        
+
         Html.div [
             prop.testId "dispose-inner"
         ])
@@ -520,7 +520,7 @@ module RefDispose =
         let disposedCountRef = React.useRef 0
         let disposeElement,setDisposeElement = React.useState false
 
-        let setDisposedCount = 
+        let setDisposedCount =
             React.useCallbackRef(fun () ->
                 disposedCountRef.current <- disposedCountRef.current + 1
                 setDisposedCount(disposedCountRef.current)
@@ -548,7 +548,7 @@ module UseElmish =
     open Elmish
     open Feliz.UseElmish
 
-    type State = 
+    type State =
         { Count: int }
 
         interface System.IDisposable with
@@ -562,7 +562,7 @@ module UseElmish =
     let update msg state =
         match msg with
         | Increment -> state + 1, Cmd.none
-        
+
     let render = React.functionComponent(fun () ->
         let state,dispatch = React.useElmish(init, update, [||])
 
@@ -571,7 +571,7 @@ module UseElmish =
                 prop.testId "count"
                 prop.text state
             ]
-    
+
             Html.button [
                 prop.text "Increment"
                 prop.onClick (fun _ -> dispatch Increment)
@@ -696,6 +696,110 @@ let felizTests = testList "Feliz Tests" [
         Expect.equal "22px" (getStyle "fontSize" container) "Font size is used correctly"
         Expect.equal "italic" (getStyle "fontStyle" container) "Font style is used correctly"
 
+    testReact "Individual translate(int) functions render correctly" <| fun _ ->
+        let render = RTL.render(Html.div [
+            Html.div [
+                prop.testId "test-translateX"
+                prop.style [ style.transform.translateX 1 ]
+            ]
+            Html.div [
+                prop.testId "test-translateY"
+                prop.style [ style.transform.translateY 2 ]
+            ]
+            Html.div [
+                prop.testId "test-translateZ"
+                prop.style [ style.transform.translateZ 3 ]
+            ]
+            Html.div [
+                prop.testId "test-translate"
+                prop.style [ style.transform.translate(11, 22) ]
+            ]
+            Html.div [
+                prop.testId "test-translate3D"
+                prop.style [ style.transform.translate3D(111, 222, 333) ]
+            ]
+        ])
+
+        let getTransform (id:string) = getStyle<string> "transform" (render.getByTestId id)
+        Expect.equal (getTransform "test-translateX") "translateX(1px)" "translateX should render"
+        Expect.equal (getTransform "test-translateY") "translateY(2px)" "translateY should render"
+        Expect.equal (getTransform "test-translateZ") "translateZ(3px)" "translateZ should render"
+        Expect.equal (getTransform "test-translate") "translate(11px, 22px)" "translate should render"
+        Expect.equal (getTransform "test-translate3D") "translate3d(111px, 222px, 333px)" "translate3D should render"
+
+    testReact "Individual translate(ICssUnit) functions render correctly" <| fun _ ->
+        let render = RTL.render(Html.div [
+            Html.div [
+                prop.testId "test-translateX"
+                prop.style [ style.transform.translateX (length.em 1) ]
+            ]
+            Html.div [
+                prop.testId "test-translateY"
+                prop.style [ style.transform.translateY (length.em 2) ]
+            ]
+            Html.div [
+                prop.testId "test-translateZ"
+                prop.style [ style.transform.translateZ (length.em 3) ]
+            ]
+            Html.div [
+                prop.testId "test-translate"
+                prop.style [ style.transform.translate(length.em 11, length.em 22) ]
+            ]
+            Html.div [
+                prop.testId "test-translate3D"
+                prop.style [ style.transform.translate3D(length.em 111, length.em 222, length.em 333) ]
+            ]
+        ])
+
+        let getTransform (id:string) = getStyle<string> "transform" (render.getByTestId id)
+        Expect.equal (getTransform "test-translateX") "translateX(1em)" "translateX should render"
+        Expect.equal (getTransform "test-translateY") "translateY(2em)" "translateY should render"
+        Expect.equal (getTransform "test-translateZ") "translateZ(3em)" "translateZ should render"
+        Expect.equal (getTransform "test-translate") "translate(11em, 22em)" "translate should render"
+        Expect.equal (getTransform "test-translate3D") "translate3d(111em, 222em, 333em)" "translate3D should render"
+
+    testReact "Combined translate(int) functions render correctly" <| fun _ ->
+        let render = RTL.render(Html.div [
+            prop.testId "test-combined-translate"
+            prop.style [
+                style.transform [
+                    transform.translateX 1
+                    transform.translateY 2
+                    transform.translateZ 3
+                    transform.translate(11, 22)
+                    transform.translate3D(111, 222, 333)
+                ]
+            ]
+        ])
+
+        let renderedTransform = getStyle<string> "transform" (render.getByTestId "test-combined-translate")
+        Expect.isTrue (renderedTransform.Contains "translateX(1px)") "translateX should render"
+        Expect.isTrue (renderedTransform.Contains "translateY(2px)") "translateY should render"
+        Expect.isTrue (renderedTransform.Contains "translateZ(3px)") "translateZ should render"
+        Expect.isTrue (renderedTransform.Contains "translate(11px, 22px)") "translate should render"
+        Expect.isTrue (renderedTransform.Contains "translate3d(111px, 222px, 333px)") "translate3D should render"
+
+    testReact "Combined translate(ICssUnit) functions render correctly" <| fun _ ->
+        let render = RTL.render(Html.div [
+            prop.testId "test-combined-translate"
+            prop.style [
+                style.transform [
+                    transform.translateX (length.em 1)
+                    transform.translateY (length.em 2)
+                    transform.translateZ (length.em 3)
+                    transform.translate(length.em 11, length.em 22)
+                    transform.translate3D(length.em 111, length.em 222, length.em 333)
+                ]
+            ]
+        ])
+
+        let renderedTransform = getStyle<string> "transform" (render.getByTestId "test-combined-translate")
+        Expect.isTrue (renderedTransform.Contains "translateX(1em)") "translateX should render"
+        Expect.isTrue (renderedTransform.Contains "translateY(2em)") "translateY should render"
+        Expect.isTrue (renderedTransform.Contains "translateZ(3em)") "translateZ should render"
+        Expect.isTrue (renderedTransform.Contains "translate(11em, 22em)") "translate should render"
+        Expect.isTrue (renderedTransform.Contains "translate3d(111em, 222em, 333em)") "translate3D should render"
+
     testReactAsync "useCallbackRef gets updated values without re-rendering" <| async {
         let render = RTL.render(callbackRef())
         let buttonField = render.getByTestId "Button"
@@ -787,8 +891,8 @@ let felizTests = testList "Feliz Tests" [
 
         do! Async.Sleep 100
 
-        do! 
-            RTL.waitFor <| fun () -> 
+        do!
+            RTL.waitFor <| fun () ->
                 Expect.equal renderCount.innerText "3" "Renders three times due to areEqual and withKey evals"
             |> Async.AwaitPromise
     }
@@ -849,22 +953,22 @@ let felizTests = testList "Feliz Tests" [
 
     testReactAsync "useCancellationToken works correctly" <| async {
         let render = RTL.render(TokenCancellation.main({| failTest = false |}))
-    
+
         do! Async.Sleep 600
-    
-        do! 
-            RTL.waitFor <| fun () -> 
+
+        do!
+            RTL.waitFor <| fun () ->
                 Expect.equal (render.getByTestId "useTokenCancellation").innerText "Disposed" "Cancels all subsequent re-renders and calls the disposal function"
             |> Async.AwaitPromise
     }
-    
+
     testReactAsync "useCancellationToken works correctly - failure case" <| async {
         let render = RTL.render(TokenCancellation.main({| failTest = true |}))
-    
+
         do! Async.Sleep 600
-    
+
         do!
-            RTL.waitFor <| fun () -> 
+            RTL.waitFor <| fun () ->
                 Expect.equal (render.getByTestId "useTokenCancellation").innerText "Failed" "Cancels all subsequent re-renders and calls the disposal function"
             |> Async.AwaitPromise
     }
@@ -876,9 +980,9 @@ let felizTests = testList "Feliz Tests" [
 
         render.getByTestId("dispose-button").click()
 
-        do! 
-            RTL.waitFor <| fun () -> 
-                Expect.equal (render.getByTestId("was-disposed").innerText) "true" "Should have been disposed" 
+        do!
+            RTL.waitFor <| fun () ->
+                Expect.equal (render.getByTestId("was-disposed").innerText) "true" "Should have been disposed"
             |> Async.AwaitPromise
     }
 
@@ -890,9 +994,9 @@ let felizTests = testList "Feliz Tests" [
         render.getByTestId("dispose-button").click()
 
         let innerElem = render.queryByTestId("dispose-inner")
-        
+
         if innerElem.IsSome then
-            do! 
+            do!
                 RTL.waitForElementToBeRemoved(fun () -> render.queryByTestId("dispose-inner"))
                 |> Async.AwaitPromise
 
@@ -906,9 +1010,9 @@ let felizTests = testList "Feliz Tests" [
 
         render.getByTestId("dispose-button").click()
 
-        do! 
-            RTL.waitFor <| fun () -> 
-                Expect.equal (render.getByTestId("disposed-count").innerText) "2" "Should have been disposed" 
+        do!
+            RTL.waitFor <| fun () ->
+                Expect.equal (render.getByTestId("disposed-count").innerText) "2" "Should have been disposed"
             |> Async.AwaitPromise
     }
 
@@ -919,9 +1023,9 @@ let felizTests = testList "Feliz Tests" [
 
         render.getByTestId("increment").click()
 
-        do! 
-            RTL.waitFor <| fun () -> 
-                Expect.equal (render.getByTestId("count").innerText) "1" "Should have been incremented" 
+        do!
+            RTL.waitFor <| fun () ->
+                Expect.equal (render.getByTestId("count").innerText) "1" "Should have been incremented"
             |> Async.AwaitPromise
     }
 ]
