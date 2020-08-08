@@ -123,14 +123,15 @@ Target "PublishElmishComponents" (publish "./Feliz.ElmishComponents")
 
 Target "PatchFeliz" <| fun _ ->
     [ publish libPath
-      publish "./Feliz.Recharts"
+      publish "./Feliz.Markdown"
       publish "./Feliz.PigeonMaps"
       publish "./Feliz.Popover"
+      publish "./Feliz.Recharts"
+      publish "./Feliz.RoughViz"
       publish "./Feliz.Template"
-      publish "./Feliz.UseElmish"
-      publish "./Feliz.ElmishComponents"
       publish "./Feliz.UseDeferred"
-      publish "./Feliz.Markdown" ]
+      publish "./Feliz.UseElmish"
+      publish "./Feliz.UseMediaQuery" ]
    |> List.iter (fun target -> target())
 
 Target "Compile" <| fun _ ->

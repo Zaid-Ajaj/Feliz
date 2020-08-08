@@ -9,10 +9,10 @@
     </PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.10.1</Version>
+    <Version>1.11.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Add inline to length.calc</PackageReleaseNotes>
+    <PackageReleaseNotes>Added fontDisplay and float props. Fixes translate styling.</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>

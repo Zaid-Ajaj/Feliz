@@ -13,6 +13,7 @@ open Feliz.Router
 open Fable.Core.JsInterop
 open Fable.SimpleHttp
 open Zanaptak.TypedCssClasses
+open Feliz.UseElmish
 
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
 type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
@@ -78,7 +79,6 @@ let roughBarChart = React.functionComponent(fun () ->
         barChart.highlight color.lightGreen
     ])
 
-
 let roughHorizontalBarChart = React.functionComponent(fun () ->
     RoughViz.horizontalBarChart [
         barChart.title "Fruit Sales"
@@ -109,9 +109,9 @@ let dynamicRoughChart = React.functionComponent(fun () ->
         let nextData = List.append data [ nextPoint ]
         setData nextData
 
-    let barClicked (pointIndex: int) = 
+    let barClicked (pointIndex: int) =
         let (label, value) = List.item pointIndex data
-        setTitle (sprintf "Clicked %s: %f" label value) 
+        setTitle (sprintf "Clicked %s: %f" label value)
 
     Html.div [
 
@@ -189,8 +189,6 @@ let samples = [
     "pigoenmaps-map-closebutton", Samples.PigeonMaps.MarkerWithCloseButton.citiesMap()
     "pigeonmaps-map-stamenterrain", Samples.PigeonMaps.CustomProviders.pigeonMap
     "popover-basic-sample", Samples.Popover.Basic.sample
-    "elmish-components-counter", Samples.ElmishComponents.application
-    "elmish-components-dispose", Samples.ElmishComponents.WithDispose.application
     "focus-input-example", Examples.focusInputExample()
     "forward-ref-example", Examples.forwardRefParent()
     "use-imperative-handle", Examples.forwardRefImperativeParent()
@@ -295,7 +293,6 @@ let renderMarkdown = React.functionComponent(fun (input: {| path: string; conten
     ])
 
 module MarkdownLoader =
-    open Feliz.ElmishComponents
 
     type State =
         | Initial
@@ -331,18 +328,20 @@ module MarkdownLoader =
         | Loaded (Error (status, _)) ->
             State.LoadedMarkdown (sprintf "Status %d: could not load markdown" status), Cmd.none
 
-    let render path (state: State) dispatch =
+    let load' = React.functionComponent("LoadMarkdown", fun (props: {| path: string list |}) ->
+        let (state, dispatch) = React.useElmish(init props.path, update, [| box props.path |])
         match state with
         | Initial -> Html.none
         | Loading -> centeredSpinner
-        | LoadedMarkdown content -> renderMarkdown {| path = (resolvePath path); content = content |}
+        | LoadedMarkdown content -> renderMarkdown {| path = (resolvePath props.path); content = content |}
         | Errored error ->
             Html.h1 [
                 prop.style [ style.color.crimson ]
                 prop.text error
             ]
+    )
 
-    let load (path: string list) = React.elmishComponent("LoadMarkdown", init path, update, render path, key = resolvePath path)
+    let load (path: string list) = load' {| path = path |}
 
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
@@ -740,7 +739,6 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
     | PathPrefix [ Urls.Tests ] (Some res) ->
         match res with
         | [ Urls.CallbackRef ] -> Tests.runCallbackTests()
-        | [ Urls.ElmishComponents ] -> Samples.ElmishComponents.ReplacementTests.counterSwitcher()
         | [ Urls.FileUpload ] -> Tests.fileUpload()
         | [ Urls.ForwardRef ] -> Examples.forwardRefParent()
         | [ Urls.KeyboardKey ] -> Tests.keyboardKey()

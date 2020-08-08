@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Authors>Jonas Bösch, Zaid Ajaj</Authors>
     <Description>useMediaQuery hooks to build responsive websites </Description>
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
     <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
-    <PackageReleaseNotes>Use proper (downgraded to v4.7.0) FSharp.Core version</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Feliz dependency</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

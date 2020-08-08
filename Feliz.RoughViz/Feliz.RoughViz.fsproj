@@ -6,10 +6,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>1.1.0</Version>
+        <Version>1.2.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Add interactive bars with click handlers</PackageReleaseNotes>
+        <PackageReleaseNotes>Update Feliz</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="BarChart.fs" />
