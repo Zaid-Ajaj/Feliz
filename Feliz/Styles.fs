@@ -974,6 +974,19 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "flexWrap" "inherit"
 
+    /// places an element on the left or right side of its container, allowing text and 
+    /// inline elements to wrap around it. The element is removed from the normal flow 
+    /// of the page, though still remaining a part of the flow (in contrast to absolute 
+    /// positioning).
+    [<Erase>]
+    type float =
+        /// The element must float on the left side of its containing block.
+        static member inline left = Interop.mkStyle "float" "left"
+        /// The element must float on the right side of its containing block.
+        static member inline right = Interop.mkStyle "float" "right"
+        /// The element must not float.
+        static member inline none = Interop.mkStyle "float" "none"
+
     [<Erase>]
     type fontKerning =
         /// Default. The browser determines whether font kerning should be applied or not
