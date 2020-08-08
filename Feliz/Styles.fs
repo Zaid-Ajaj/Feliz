@@ -987,6 +987,22 @@ module style =
         /// The element must not float.
         static member inline none = Interop.mkStyle "float" "none"
 
+    /// Determines how a font face is displayed based on whether and when it is downloaded and ready to use.
+    [<Erase>]
+    type fontDisplay =
+        /// The font display strategy is defined by the user agent.
+        ///
+        /// Default value
+        static member inline auto = Interop.mkStyle "fontDisplay" "auto"
+        /// Gives the font face a short block period and an infinite swap period.
+        static member inline block = Interop.mkStyle "fontDisplay" "block"    
+        /// Gives the font face an extremely small block period and an infinite swap period.
+        static member inline swap = Interop.mkStyle "fontDisplay" "swap"    
+        /// Gives the font face an extremely small block period and a short swap period.
+        static member inline fallback = Interop.mkStyle "fontDisplay" "fallback"    
+        /// Gives the font face an extremely small block period and no swap period.
+        static member inline optional = Interop.mkStyle "fontDisplay" "optional"    
+
     [<Erase>]
     type fontKerning =
         /// Default. The browser determines whether font kerning should be applied or not
@@ -1968,24 +1984,42 @@ module style =
         /// Defines a 2D translation.
         static member inline translate(x: int, y: int) =
             Interop.mkStyle "transform" (
+                "translate(" + (unbox<string> x) + "px," + (unbox<string> y) + "px)"
+            )
+        /// Defines a 2D translation.
+        static member inline translate(x: ICssUnit, y: ICssUnit) =
+            Interop.mkStyle "transform" (
                 "translate(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
             )
 
-
-        /// Defines that there should be no transformation.
+        /// Defines a 3D translation.
         static member inline translate3D(x: int, y: int, z: int) =
+            Interop.mkStyle "transform" (
+                "translate3d(" + (unbox<string> x) + "px," + (unbox<string> y) + "px," + (unbox<string> z) + "px)"
+            )
+        /// Defines a 3D translation.
+        static member inline translate3D(x: ICssUnit, y: ICssUnit, z: ICssUnit) =
             Interop.mkStyle "transform" (
                 "translate3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
             )
 
         /// Defines a translation, using only the value for the X-axis.
         static member inline translateX(x: int) =
+            Interop.mkStyle "transform" ("translateX(" + (unbox<string> x) + "px)")
+        /// Defines a translation, using only the value for the X-axis.
+        static member inline translateX(x: ICssUnit) =
             Interop.mkStyle "transform" ("translateX(" + (unbox<string> x) + ")")
         /// Defines a translation, using only the value for the Y-axis
         static member inline translateY(y: int) =
+            Interop.mkStyle "transform" ("translateY(" + (unbox<string> y) + "px)")
+        /// Defines a translation, using only the value for the Y-axis
+        static member inline translateY(y: ICssUnit) =
             Interop.mkStyle "transform" ("translateY(" + (unbox<string> y) + ")")
         /// Defines a 3D translation, using only the value for the Z-axis
         static member inline translateZ(z: int) =
+            Interop.mkStyle "transform" ("translateZ(" + (unbox<string> z) + "px)")
+        /// Defines a 3D translation, using only the value for the Z-axis
+        static member inline translateZ(z: ICssUnit) =
             Interop.mkStyle "transform" ("translateZ(" + (unbox<string> z) + ")")
 
         /// Defines a 2D scale transformation.

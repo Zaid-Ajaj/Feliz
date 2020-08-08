@@ -24,24 +24,42 @@ type transform =
     /// Defines a 2D translation.
     static member inline translate(x: int, y: int) =
         unbox<ITransformProperty> (
+            "translate(" + (unbox<string> x) + "px," + (unbox<string> y) + "px)"
+        )
+    /// Defines a 2D translation.
+    static member inline translate(x: ICssUnit, y: ICssUnit) =
+        unbox<ITransformProperty> (
             "translate(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
         )
 
-
-    /// Defines that there should be no transformation.
+    /// Defines a 3D translation.
     static member inline translate3D(x: int, y: int, z: int) =
+        unbox<ITransformProperty> (
+            "translate3d(" + (unbox<string> x) + "px," + (unbox<string> y) + "px," + (unbox<string> z) + "px)"
+        )
+    /// Defines a 3D translation.
+    static member inline translate3D(x: ICssUnit, y: ICssUnit, z: ICssUnit) =
         unbox<ITransformProperty> (
             "translate3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
         )
 
     /// Defines a translation, using only the value for the X-axis.
     static member inline translateX(x: int) =
+        unbox<ITransformProperty> ("translateX(" + (unbox<string> x) + "px)")
+    /// Defines a translation, using only the value for the X-axis.
+    static member inline translateX(x: ICssUnit) =
         unbox<ITransformProperty> ("translateX(" + (unbox<string> x) + ")")
     /// Defines a translation, using only the value for the Y-axis
     static member inline translateY(y: int) =
+        unbox<ITransformProperty> ("translateY(" + (unbox<string> y) + "px)")
+    /// Defines a translation, using only the value for the Y-axis
+    static member inline translateY(y: ICssUnit) =
         unbox<ITransformProperty> ("translateY(" + (unbox<string> y) + ")")
     /// Defines a 3D translation, using only the value for the Z-axis
     static member inline translateZ(z: int) =
+        unbox<ITransformProperty> ("translateZ(" + (unbox<string> z) + "px)")
+    /// Defines a 3D translation, using only the value for the Z-axis
+    static member inline translateZ(z: ICssUnit) =
         unbox<ITransformProperty> ("translateZ(" + (unbox<string> z) + ")")
 
     /// Defines a 2D scale transformation.
