@@ -974,6 +974,22 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "flexWrap" "inherit"
 
+    /// Determines how a font face is displayed based on whether and when it is downloaded and ready to use.
+    [<Erase>]
+    type fontDisplay =
+        /// The font display strategy is defined by the user agent.
+        ///
+        /// Default value
+        static member inline auto = Interop.mkStyle "fontDisplay" "auto"
+        /// Gives the font face a short block period and an infinite swap period.
+        static member inline block = Interop.mkStyle "fontDisplay" "block"    
+        /// Gives the font face an extremely small block period and an infinite swap period.
+        static member inline swap = Interop.mkStyle "fontDisplay" "swap"    
+        /// Gives the font face an extremely small block period and a short swap period.
+        static member inline fallback = Interop.mkStyle "fontDisplay" "fallback"    
+        /// Gives the font face an extremely small block period and no swap period.
+        static member inline optional = Interop.mkStyle "fontDisplay" "optional"    
+
     [<Erase>]
     type fontKerning =
         /// Default. The browser determines whether font kerning should be applied or not
