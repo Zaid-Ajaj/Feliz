@@ -69,8 +69,8 @@ module PropHelpers =
             | true, true when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey && ev.shiftKey -> handler ev
             | true, false when pressedKey.ToLower() = ev.key.ToLower() && ev.ctrlKey -> handler ev
             | false, true when pressedKey.ToLower() = ev.key.ToLower() && ev.shiftKey -> handler ev
-            | false, false -> if pressedKey.ToLower() = ev.key.ToLower() then handler ev
-            | _, _ -> ignore()
+            | false, false when pressedKey.ToLower() = ev.key.ToLower() -> handler ev
+            | _, _ -> ()
 
     let createPointsFloat (coordinates: seq<float * float>) =
         coordinates
@@ -90,7 +90,7 @@ module PropHelpers =
                 cmds
                 |> Seq.map (unbox<seq<string>> >> String.concat ",")
                 |> String.concat " "
-                |> sprintf "%s %s" (unbox<string> cmdType))
+                |> fun res -> (unbox<string> cmdType) + " " + res)
         |> String.concat System.Environment.NewLine
 
     let createSvgPathInt (path: seq<char * (int list list)>) =
@@ -101,7 +101,7 @@ module PropHelpers =
                 cmds
                 |> Seq.map (unbox<seq<string>> >> String.concat ",")
                 |> String.concat " "
-                |> sprintf "%s %s" (unbox<string> cmdType))
+                |> fun res -> (unbox<string> cmdType) + " " + res)
         |> String.concat System.Environment.NewLine
 
 /// Represents the native Html properties.

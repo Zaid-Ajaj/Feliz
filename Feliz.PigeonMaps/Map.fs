@@ -75,17 +75,26 @@ module map =
         static member openStreetMap : IReactProperty =
             "provider" ==> fun x y z dpr ->
                 let s = fromCharCode (x + y + z)
-                sprintf "https://%s.tile.openstreetmap.org/%d/%d/%d.png" s (unbox z) (unbox x) (unbox y)
+
+                "https://" + s + ".tile.openstreetmap.org/" + 
+                (unbox<string> z) + "/" + (unbox<string> x) + 
+                "/" + (unbox<string> y) + ".png"
             |> unbox
 
         static member stamenToner : IReactProperty =
             "provider" ==> fun x y z dpr ->
                 let size = if dpr >= 2 then "@2x" else ""
-                sprintf "https://stamen-tiles.a.ssl.fastly.net/toner/%d/%d/%d%s.png" (unbox z) (unbox x) (unbox y) size
+
+                "https://stamen-tiles.a.ssl.fastly.net/toner/" + 
+                (unbox<string> z) + "/" + (unbox<string> x) + "/" + 
+                (unbox<string> y) + size + ".png"
             |> unbox
 
         static member stamenTerrain : IReactProperty =
             "provider" ==> fun x y z dpr ->
                 let size = if dpr >= 2 then "@2x" else ""
-                sprintf "https://stamen-tiles.a.ssl.fastly.net/terrain/%d/%d/%d%s.png" (unbox z) (unbox x) (unbox y) size
+
+                "https://stamen-tiles.a.ssl.fastly.net/terrain/" + 
+                (unbox<string> z) + "/" + (unbox<string> x) + "/" + 
+                (unbox<string> y) + size + ".png"
             |> unbox
