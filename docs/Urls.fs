@@ -113,6 +113,7 @@ let [<Literal>] UseWorker = "UseWorker"
 
 // Components
 
+let [<Literal>] Delay = "Delay"
 let [<Literal>] ElmishComponents = "ElmishComponents"
 let [<Literal>] Popover = "Popover"
 let [<Literal>] Router = "Router"

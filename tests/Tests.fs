@@ -1035,6 +1035,7 @@ let main (args: string []) =
     let allTests = testList "All Tests" [
         felizTests
         PropHelperTests.propHelpersTests
+        DelayTests.delayTests
     ]
 
     Mocha.runTests (testSequenced allTests)

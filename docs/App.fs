@@ -207,6 +207,12 @@ let samples = [
     "rough-bar-chart", roughBarChart()
     "rough-horizontal-bar-chart", roughHorizontalBarChart()
     "dynamic-rough-chart", dynamicRoughChart()
+    "delay-simple", DelayedComponent.render {| load = DelayExamples.simpleDelay |}
+    "delay-fallback", DelayedComponent.render {| load = DelayExamples.delayWithCustomFallback |}
+    "delay-nested", DelayedComponent.render {| load = DelayExamples.nestedDelays |}
+    "delay-suspense", DelayedComponent.render {| load = DelayExamples.delaySuspense |}
+    "delay-template", DelayedComponent.render {| load = DelayExamples.renderDelayTemplate |}
+    "delay-suspense-template", DelayedComponent.render {| load = DelayExamples.renderDelaySuspenseTemplate |}   
 ]
 
 let githubPath (rawPath: string) =
@@ -499,6 +505,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                 ]
 
                 nestedMenuList "Components" [ Urls.Components ] [
+                    nestedMenuItem "Feliz.Delay" [ Urls.Delay ]
                     nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
                     nestedMenuItem "Feliz.Popover" [ Urls.Popover ]
                     nestedMenuItem "Feliz.Router" [ Urls.Router ]
@@ -697,6 +704,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Components ] (Some res) ->
         match res with
+        | [ Urls.Delay ] -> lazyView MarkdownLoader.load [ "Feliz.Delay"; "Index.md" ]
         | [ Urls.ElmishComponents ] -> lazyView MarkdownLoader.load [ "Feliz"; "ElmishComponents.md" ]
         | [ Urls.Popover ] -> lazyView MarkdownLoader.load [ "Popover"; "README.md" ]
         | [ Urls.Router ] -> lazyView MarkdownLoader.load [ readme "Zaid-Ajaj" "Feliz.Router" ]

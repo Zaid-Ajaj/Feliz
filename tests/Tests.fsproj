@@ -3,6 +3,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
+        <ProjectReference Include="..\Feliz.Delay\Feliz.Delay.fsproj" />
         <ProjectReference Include="..\Feliz.UseElmish\Feliz.UseElmish.fsproj" />
         <ProjectReference Include="..\Feliz\Feliz.fsproj" />
         <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
@@ -16,6 +17,7 @@
         <Compile Include="Utilities.fs" />
         <Compile Include="CodeSplitting.fs" />
         <Compile Include="PropHelpersTests.fs" />
+        <Compile Include="Delay.fs" />
         <Compile Include="Tests.fs" />
     </ItemGroup>
     <ItemGroup>
