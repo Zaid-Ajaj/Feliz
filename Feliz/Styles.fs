@@ -1234,7 +1234,7 @@ module style =
         /// No image will be displayed. Instead, the list-style-type property will define what type of list marker will be rendered. This is default
         static member inline none = Interop.mkStyle "listStyleImage" "none"
         /// The path to the image to be used as a list-item marker
-        static member inline url (path: string) = Interop.mkStyle "listStyleImage" (sprintf "url('%s')" path)
+        static member inline url (path: string) = Interop.mkStyle "listStyleImage" ("url('" + path + "')")
         /// Sets this property to its default value.
         ///
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial

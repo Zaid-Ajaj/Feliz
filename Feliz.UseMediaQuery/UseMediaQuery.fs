@@ -1,12 +1,8 @@
 ﻿module Feliz.UseMediaQuery
 
-open System
 open Browser
-open Browser.Types
-open Feliz
-
 open Fable.Core
-open Fable.Core.JsInterop
+open Feliz
 
 [<RequireQualifiedAccess>]
 type ScreenSize =
@@ -32,11 +28,14 @@ module Breakpoints =
         WideScreen = 1216
     }
 
+let inline private maxWidth (breakpoint: int) = 
+    "(max-width: " + (unbox<string> breakpoint) + "px)"
+
 let private makeQueries breakpoints =
-    let mobileQuery = sprintf "(max-width: %ipx)" breakpoints.MobileLandscape
-    let mobileLandscapeQuery = sprintf "(max-width: %ipx)" breakpoints.Tablet
-    let tabletQuery = sprintf "(max-width: %ipx)" breakpoints.Desktop
-    let desktopQuery = sprintf "(max-width: %ipx)" breakpoints.WideScreen
+    let mobileQuery = maxWidth breakpoints.MobileLandscape
+    let mobileLandscapeQuery = maxWidth breakpoints.Tablet
+    let tabletQuery = maxWidth breakpoints.Desktop
+    let desktopQuery = maxWidth breakpoints.WideScreen
     mobileQuery, mobileLandscapeQuery, tabletQuery, desktopQuery
 
 [<AutoOpen>]
@@ -51,22 +50,17 @@ module UseMediaQueryExtension =
         /// A hook for media queries, this hook will force a component
         /// to re-render when the specified media query changes.
         static member useMediaQuery (mediaQuery: string) =
-            let (mq, setMq) =
-                React.useState(fun _ -> window.matchMedia(mediaQuery).matches)
+            let mq, setMq = React.useState(fun () -> window.matchMedia(mediaQuery).matches)
 
             React.useEffect(fun () ->
                 let mediaQueryList = window.matchMedia(mediaQuery)
-                let handler = fun _ ->
-                        setMq(mediaQueryList.matches)
+                let handler = fun () -> setMq mediaQueryList.matches
 
-                handler ()
+                handler()
+                
                 addListener mediaQueryList handler
 
-                let ret =
-                    {new IDisposable with
-                        member this.Dispose() =
-                            removeListener mediaQueryList handler}
-                ret
+                React.createDisposable(fun () -> removeListener mediaQueryList handler)
             , [| mediaQuery :> obj |])
 
             mq
@@ -81,6 +75,7 @@ module UseMediaQueryExtension =
             let lx = React.useMediaQuery l
             let tx = React.useMediaQuery t
             let dx = React.useMediaQuery d
+
             match mx, lx, tx, dx with
             | true, _, _, _ -> ScreenSize.Mobile
             | _, true, _, _ -> ScreenSize.MobileLandscape
