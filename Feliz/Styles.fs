@@ -979,7 +979,7 @@ module style =
     /// of the page, though still remaining a part of the flow (in contrast to absolute 
     /// positioning).
     [<Erase>]
-    type float =
+    type float' =
         /// The element must float on the left side of its containing block.
         static member inline left = Interop.mkStyle "float" "left"
         /// The element must float on the right side of its containing block.
