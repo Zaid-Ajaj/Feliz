@@ -84,7 +84,3 @@ type length =
     static member inline auto : ICssUnit = unbox "auto"
     /// calculated length, frequency, angle, time, percentage, number or integer
     static member inline calc(value:string) : ICssUnit = unbox ("calc(" + (unbox<string>value) + ")")
-    /// There are times a unit is not appropriate, like an svg's translate.
-    static member inline nounit(value:int) : ICssUnit = unbox (unbox<string>value)
-    /// There are times a unit is not appropriate, like an svg's translate.
-    static member inline nounit(value:double) : ICssUnit = unbox (unbox<string>value)
