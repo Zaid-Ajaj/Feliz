@@ -8,6 +8,9 @@ type ReactDOM =
     static member render(element: unit -> Fable.React.ReactElement, container: Browser.Types.HTMLElement) =
         ReactDOM.render(element(), container)
 
+    [<Import("createPortal", "react-dom")>]
+    static member createPortal (element : Fable.React.ReactElement, container : Browser.Types.HTMLElement) : Fable.React.ReactElement = jsNative
+
 /// The ReactDOMServer object enables you to render components to static markup.
 type ReactDOMServer =
     [<Import("renderToString", "react-dom/server")>]

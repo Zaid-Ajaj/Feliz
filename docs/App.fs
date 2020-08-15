@@ -151,6 +151,7 @@ let samples = [
     "simple-components", Examples.ReactComponents.simple
     "multiple-state-variables", Examples.multipleStateVariables()
     "hover-animations", Examples.animationSample
+    "portals", Examples.portalsSample
     "stateful-counter", Examples.ReactComponents.counter()
     "effectful-tab-counter", DelayedComponent.render {| load = Examples.effectfulTabCounter |}
     "effectful-async", DelayedComponent.render {| load = Examples.asyncEffect |}
@@ -483,6 +484,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Components with Effects" [ Urls.EffectfulComponents ]
                     nestedMenuItem "Subscriptions with Effects" [ Urls.SubscriptionsWithEffects ]
                     nestedMenuItem "Context Propagation" [ Urls.ContextPropagation ]
+                    nestedMenuItem "Portals" [ Urls.Portals ]
                     nestedMenuItem "Hover Animations" [ Urls.HoverAnimations ]
                     nestedMenuItem "Using References" [ Urls.Refs ]
                     nestedMenuItem "Common Pitfalls" [ Urls.CommonPitfalls ]
@@ -603,6 +605,7 @@ let reactExamples (currentPath: string list) =
     | [ Urls.EffectfulComponents ] -> [ "EffectfulComponents.md" ]
     | [ Urls.SubscriptionsWithEffects ] -> [ "SubscriptionsWithEffects.md" ]
     | [ Urls.ContextPropagation ] -> [ "ContextPropagation.md" ]
+    | [ Urls.Portals ] -> [ "Portals.md" ]
     | [ Urls.HoverAnimations ] -> [ "HoverAnimations.md" ]
     | [ Urls.Refs ] -> [ "UsingReferences.md" ]
     | [ Urls.Components ] -> [ "Components.md" ]
