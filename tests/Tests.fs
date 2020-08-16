@@ -69,6 +69,11 @@ let useEffectEveryRender = React.functionComponent(fun (props: {| effectTriggere
         ]
     ])
 
+let portal = React.functionComponent(fun (props: {| child: ReactElement; id: string |}) ->
+    let root = document.getElementById(props.id)
+    ReactDOM.createPortal(props.child, root)
+)
+
 let useLayoutEffectEveryRender = React.functionComponent(fun (props: {| effectTriggered: unit -> unit |}) ->
     let (count, setCount) = React.useState(0)
     React.useLayoutEffect(fun _ -> props.effectTriggered())
@@ -622,6 +627,18 @@ let felizTests = testList "Feliz Tests" [
         Expect.equal "1" count.innerText "After one click, the count becomes 11"
         RTL.userEvent.click(increment)
         Expect.equal "2" count.innerText "After another click, the count becomes 12"
+
+    testReact "React portal works" <| fun _ ->
+        let portalContainer = document.createElement("div")
+        let portalId = System.Guid.NewGuid().ToString()
+        portalContainer.setAttribute("id", portalId)
+        document.body.appendChild(portalContainer) |> ignore
+        Expect.equal 0 portalContainer.children.length "Portal container starts empty"
+        let count = counter {| initialCount = 10 |}
+        let render = RTL.render(portal {| child = count; id = portalId |})
+        let count = render.getByTestId "count"
+        Expect.equal "10" count.innerText "Initial count is rendered"
+        Expect.equal 1 portalContainer.children.length "Portal container contains component"
 
     testReact "React.useEffectOnce(unit -> unit) executes onece" <| fun _ ->
         let mutable effectCount = 0

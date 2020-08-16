@@ -313,6 +313,42 @@ let animationSample =
         animationsOnHover [ Html.p "So smooth" ]
     ]
 
+let portalsPopup = React.functionComponent(fun () ->
+    Html.div [
+        prop.style [
+            style.position.absolute
+            style.top 10
+            style.right 10
+            style.padding 10
+            style.backgroundColor.lightGreen
+        ]
+        prop.children [
+            Html.p [
+                prop.text "Portals can be used to escape the parent component."
+            ]
+        ]
+    ]
+)
+
+let portalsPortal' = React.functionComponent(fun (props: {| content: ReactElement |}) ->
+    let root = Browser.Dom.document.getElementById("root")
+    ReactDOM.createPortal(props.content, root)
+)
+
+let portalsPortal content = portalsPortal' {| content = content |}
+
+let portalsContainer = React.functionComponent(fun () ->
+    Html.div [
+        prop.style [
+            style.padding 10
+            style.overflow.hidden
+        ]
+        prop.children [ portalsPopup() |> portalsPortal ]
+    ]
+)
+
+let portalsSample = portalsContainer()
+
 module ReactComponents =
     type Greeting = { Name: string option }
     let greeting = React.functionComponent(fun (props: Greeting) ->
