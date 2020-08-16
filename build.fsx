@@ -48,6 +48,8 @@ let cleanCacheDirs() =
       testsPath </> "obj"
       libPath </> "bin"
       libPath </> "obj"
+      "Feliz.Delay" </> "bin"
+      "Feliz.Delay" </> "obj"
       "Feliz.Popover" </> "bin"
       "Feliz.Popover" </> "obj"
       "Feliz.Markdown" </> "bin"
@@ -56,6 +58,14 @@ let cleanCacheDirs() =
       "Feliz.PigeonMaps" </> "obj"
       "Feliz.Template" </> "bin"
       "Feliz.Template" </> "obj"
+      "Feliz.Recharts" </> "bin"
+      "Feliz.Recharts" </> "obj"
+      "Feliz.UseDeferred" </> "bin"
+      "Feliz.UseDeferred" </> "obj"
+      "Feliz.UseElmish" </> "bin"
+      "Feliz.UseElmish" </> "obj"
+      "Feliz.UseMediaQuery" </> "bin"
+      "Feliz.UseMediaQuery" </> "obj"
       "Feliz.ElmishComponents" </> "bin"
       "Feliz.ElmishComponents" </> "obj" ]
     |> CleanDirs
@@ -132,7 +142,8 @@ Target "PatchFeliz" <| fun _ ->
       publish "./Feliz.Template"
       publish "./Feliz.UseDeferred"
       publish "./Feliz.UseElmish"
-      publish "./Feliz.UseMediaQuery" ]
+      publish "./Feliz.UseMediaQuery"
+      publish "./Feliz.Delay" ]
    |> List.iter (fun target -> target())
 
 Target "Compile" <| fun _ ->

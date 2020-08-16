@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>0.1.0</PackageVersion>
+    <PackageVersion>0.2.0</PackageVersion>
     <Authors>Cody Johnson, Zaid Ajaj</Authors>
     <Description>Adds easy to use delayed rendering</Description>
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
     <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Feliz dependency</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

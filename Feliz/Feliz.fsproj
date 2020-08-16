@@ -9,10 +9,10 @@
     </PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.12.1</Version>
+    <Version>1.13.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Fix float shadowing by style.float</PackageReleaseNotes>
+    <PackageReleaseNotes>Add ReactDOM.createPortal and fix prop.tranform for SVG elements</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>

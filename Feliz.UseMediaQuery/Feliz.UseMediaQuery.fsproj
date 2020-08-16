@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.2.0</PackageVersion>
+    <PackageVersion>1.3.0</PackageVersion>
     <Authors>Jonas Bösch, Zaid Ajaj</Authors>
     <Description>useMediaQuery hooks to build responsive websites </Description>
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
     <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
-    <PackageReleaseNotes>Remove usage of slow sprintf functions</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Feliz dependency</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
