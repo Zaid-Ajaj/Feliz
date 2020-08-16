@@ -1770,7 +1770,10 @@ type prop =
         Interop.mkAttr "transform" (unbox<string> transform)
     /// Defines a list of transform definitions that are applied to an element and the element's children.
     static member inline transform (transforms: seq<ITransformProperty>) =
-        Interop.mkAttr "transform" (unbox<seq<string>> transforms |> String.concat " ")
+        let unitList = [ "px" ; "deg" ]
+        let removeUnits (s : string) =
+            List.fold (fun (ins:string) toReplace -> ins.Replace(toReplace,"")) s unitList
+        Interop.mkAttr "transform" (unbox<seq<string>> transforms |> Seq.map removeUnits |> String.concat " ")
 
     /// Sets the `type` attribute for the element.
     static member inline type' (value: string) = Interop.mkAttr "type" value

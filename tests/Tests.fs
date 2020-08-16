@@ -758,26 +758,62 @@ let felizTests = testList "Feliz Tests" [
         Expect.equal (getTransform "test-translate") "translate(11em, 22em)" "translate should render"
         Expect.equal (getTransform "test-translate3D") "translate3d(111em, 222em, 333em)" "translate3D should render"
 
-    testReact "Combined translate(int) functions render correctly" <| fun _ ->
+    testReact "Combined translate functions render correctly for style.transform" <| fun _ ->
         let render = RTL.render(Html.div [
             prop.testId "test-combined-translate"
             prop.style [
                 style.transform [
                     transform.translateX 1
-                    transform.translateY 2
-                    transform.translateZ 3
-                    transform.translate(11, 22)
-                    transform.translate3D(111, 222, 333)
+                    transform.translateY 2.2
+                    transform.translateZ (length.em 3.3)
+                    transform.translate(11,22)
+                    transform.translate3D(111,222,333)
                 ]
             ]
         ])
-
         let renderedTransform = getStyle<string> "transform" (render.getByTestId "test-combined-translate")
         Expect.isTrue (renderedTransform.Contains "translateX(1px)") "translateX should render"
-        Expect.isTrue (renderedTransform.Contains "translateY(2px)") "translateY should render"
-        Expect.isTrue (renderedTransform.Contains "translateZ(3px)") "translateZ should render"
+        Expect.isTrue (renderedTransform.Contains "translateY(2.2px)") "translateY should render"
+        Expect.isTrue (renderedTransform.Contains "translateZ(3.3em)") "translateZ should render"
         Expect.isTrue (renderedTransform.Contains "translate(11px, 22px)") "translate should render"
         Expect.isTrue (renderedTransform.Contains "translate3d(111px, 222px, 333px)") "translate3D should render"
+
+    testReact "Combined translate(int) functions render correctly for prop.transform" <| fun _ ->
+        let render = RTL.render(Html.g [
+            prop.testId "test-combined-translate"
+            prop.transform [
+                    transform.translateX 1
+                    transform.translateY 2
+                    transform.translateZ (length.px 3)
+                    transform.translate(11, 22)
+                    transform.translate3D(111, 222, 333)
+            ]
+        ])
+        let renderedTransform = (render.getByTestId "test-combined-translate").getAttribute "transform"
+        Expect.isTrue (renderedTransform.Contains "translateX(1)") "translateX should render"
+        Expect.isTrue (renderedTransform.Contains "translateY(2)") "translateY should render"
+        Expect.isTrue (renderedTransform.Contains "translateZ(3)") "translateZ should render"
+        Expect.isTrue (renderedTransform.Contains "translate(11,22)") "translate should render"
+        Expect.isTrue (renderedTransform.Contains "translate3d(111,222,333)") "translate3D should render"
+
+    testReact "Combined translate(float) functions render correctly for prop.transform" <| fun _ ->
+        let render = RTL.render(Html.g [
+            prop.testId "test-combined-translate"
+            prop.transform [
+                    transform.translateX 1.1
+                    transform.translateY 2.2
+                    transform.translateZ (length.px 3.3)
+                    transform.translate(11.1, 22.2)
+                    transform.translate3D(111.1, 222.2, 333.3)
+            ]
+        ])
+
+        let renderedTransform = (render.getByTestId "test-combined-translate").getAttribute "transform"
+        Expect.isTrue (renderedTransform.Contains "translateX(1.1)") "translateX should render"
+        Expect.isTrue (renderedTransform.Contains "translateY(2.2)") "translateY should render"
+        Expect.isTrue (renderedTransform.Contains "translateZ(3.3)") "translateZ should render"
+        Expect.isTrue (renderedTransform.Contains "translate(11.1,22.2)") "translate should render"
+        Expect.isTrue (renderedTransform.Contains "translate3d(111.1,222.2,333.3)") "translate3D should render"
 
     testReact "Combined translate(ICssUnit) functions render correctly" <| fun _ ->
         let render = RTL.render(Html.div [
