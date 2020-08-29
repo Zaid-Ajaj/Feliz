@@ -1,6 +1,7 @@
 ﻿namespace Feliz
 
-module lang =
+/// Language codes
+module locale =
     /// Afrikaans (Namibia)
     let [<Literal>] afNA = "af-NA"
     /// Afrikaans (South Africa)
