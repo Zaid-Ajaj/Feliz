@@ -1,10 +1,7 @@
-FSharp.Core
+Fable.Browser.Dom
 Fable.Core
 Fable.Elmish.React
 Fable.React
 Fable.SimpleHttp
+FSharp.Core
 Zanaptak.TypedCssClasses
-
-File: Router.fs Feliz.Router
-File: PromiseRejectionEvent.fs Feliz.UseListener
-File: Listener.fs Feliz.UseListener

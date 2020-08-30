@@ -4,26 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\paket-files\Shmew\Fable.Jester\src\Fable.ReactTestingLibrary\Types.fs">
-      <Paket>True</Paket>
-      <Link>Fable.ReactTestingLibrary/Types.fs</Link>
-    </Compile>
-    <Compile Include="..\paket-files\Shmew\Fable.Jester\src\Fable.ReactTestingLibrary\Bindings.fs">
-      <Paket>True</Paket>
-      <Link>Fable.ReactTestingLibrary/Bindings.fs</Link>
-    </Compile>
-    <Compile Include="..\paket-files\Shmew\Fable.Jester\src\Fable.ReactTestingLibrary\Interop.fs">
-      <Paket>True</Paket>
-      <Link>Fable.ReactTestingLibrary/Interop.fs</Link>
-    </Compile>
-    <Compile Include="..\paket-files\Shmew\Fable.Jester\src\Fable.ReactTestingLibrary\Events.fs">
-      <Paket>True</Paket>
-      <Link>Fable.ReactTestingLibrary/Events.fs</Link>
-    </Compile>
-    <Compile Include="..\paket-files\Shmew\Fable.Jester\src\Fable.ReactTestingLibrary\RTL.fs">
-      <Paket>True</Paket>
-      <Link>Fable.ReactTestingLibrary/RTL.fs</Link>
-    </Compile>
     <ProjectReference Include="..\Feliz.Delay\Feliz.Delay.fsproj" />
     <ProjectReference Include="..\Feliz.UseElmish\Feliz.UseElmish.fsproj" />
     <ProjectReference Include="..\Feliz\Feliz.fsproj" />
@@ -34,6 +14,11 @@
     <ProjectReference Include="..\Feliz.ElmishComponents\Feliz.ElmishComponents.fsproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fable.ReactTestingLibrary\Types.fs" />
+    <Compile Include="Fable.ReactTestingLibrary\Interop.fs" />
+    <Compile Include="Fable.ReactTestingLibrary\Bindings.fs" />
+    <Compile Include="Fable.ReactTestingLibrary\Events.fs" />
+    <Compile Include="Fable.ReactTestingLibrary\RTL.fs" />
     <Compile Include="Utilities.fs" />
     <Compile Include="CodeSplitting.fs" />
     <Compile Include="PropHelpersTests.fs" />
