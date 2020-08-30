@@ -1,14 +1,12 @@
 module App
 
 open Browser.Dom
-open Browser.Types
 open Elmish
 open Elmish.React
 open Feliz
 open Feliz.Recharts
 open Feliz.Markdown
 open Feliz.PigeonMaps
-open Feliz.UseDeferred
 open Feliz.Router
 open Fable.Core.JsInterop
 open Fable.SimpleHttp

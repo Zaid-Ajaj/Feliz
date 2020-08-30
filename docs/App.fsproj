@@ -4,9 +4,20 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\paket-files\Shmew\Feliz.UseListener\src\Feliz.UseListener\PromiseRejectionEvent.fs">
+      <Paket>True</Paket>
+      <Link>Feliz.UseListener/PromiseRejectionEvent.fs</Link>
+    </Compile>
+    <Compile Include="..\paket-files\Shmew\Feliz.UseListener\src\Feliz.UseListener\Listener.fs">
+      <Paket>True</Paket>
+      <Link>Feliz.UseListener/Listener.fs</Link>
+    </Compile>
+    <Compile Include="..\paket-files\Zaid-Ajaj\Feliz.Router\src\Router.fs">
+      <Paket>True</Paket>
+      <Link>Feliz.Router/Router.fs</Link>
+    </Compile>
     <ProjectReference Include="..\Feliz.Delay\Feliz.Delay.fsproj" />
     <ProjectReference Include="..\Feliz.UseMediaQuery\Feliz.UseMediaQuery.fsproj" />
-    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
     <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
     <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
     <ProjectReference Include="..\Feliz.PigeonMaps\Feliz.PigeonMaps.fsproj" />
@@ -14,6 +25,7 @@
     <ProjectReference Include="..\Feliz.UseDeferred\Feliz.UseDeferred.fsproj" />
     <ProjectReference Include="..\Feliz.UseElmish\Feliz.UseElmish.fsproj" />
     <ProjectReference Include="..\Feliz.RoughViz\Feliz.RoughViz.fsproj" />
+    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Urls.fs" />
@@ -50,6 +62,7 @@
     <Compile Include="DelayExamples.fs" />
     <Compile Include="Tests.fs" />
     <Compile Include="App.fs" />
+    <None Include="paket.references" />
   </ItemGroup>
   <PropertyGroup>
     <NpmDependencies>
