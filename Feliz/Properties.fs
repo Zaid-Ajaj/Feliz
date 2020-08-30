@@ -462,7 +462,7 @@ type prop =
     static member inline content (value: string) = Interop.mkAttr "content" value
 
     /// Indicates whether the element's content is editable.
-    static member inline contentEditable (value: bool) = Interop.mkAttr "contenteditable" value
+    static member inline contentEditable (value: bool) = Interop.mkAttr "contentEditable" value
 
     /// If true, the browser will offer controls to allow the user to control video playback,
     /// including volume, seeking, and pause/resume playback.
