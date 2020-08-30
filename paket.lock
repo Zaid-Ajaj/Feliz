@@ -32,6 +32,9 @@ NUGET
       Fable.Elmish (>= 3.0) - restriction: >= netstandard2.0
       Fable.React (>= 5.1) - restriction: >= netstandard2.0
       FSharp.Core (>= 4.6.2) - restriction: >= netstandard2.0
+    Fable.Mocha (2.9.1)
+      Fable.Core (>= 3.0) - restriction: >= netstandard2.0
+      FSharp.Core (>= 4.7) - restriction: >= netstandard2.0
     Fable.React (7.0.1)
       Fable.Browser.Dom (>= 2.0.1) - restriction: >= netstandard2.0
       Fable.Core (>= 3.1.5) - restriction: >= netstandard2.0
@@ -45,11 +48,17 @@ NUGET
     Zanaptak.TypedCssClasses (0.4)
       FSharp.Core (>= 4.3.4) - restriction: >= netstandard2.0
 GITHUB
-  remote: Zaid-Ajaj/Feliz.Router
-    src/Router.fs (3d3e882bcd3fbf8dff9d5470928734b644dc9a4d)
+  remote: Shmew/Fable.Jester
+    src/Fable.ReactTestingLibrary/Bindings.fs (8949a7a8e430d719c822c2f7a1019b4fe3b92513)
+    src/Fable.ReactTestingLibrary/Events.fs (8949a7a8e430d719c822c2f7a1019b4fe3b92513)
+    src/Fable.ReactTestingLibrary/Interop.fs (8949a7a8e430d719c822c2f7a1019b4fe3b92513)
+    src/Fable.ReactTestingLibrary/RTL.fs (8949a7a8e430d719c822c2f7a1019b4fe3b92513)
+    src/Fable.ReactTestingLibrary/Types.fs (8949a7a8e430d719c822c2f7a1019b4fe3b92513)
   remote: Shmew/Feliz.UseListener
     src/Feliz.UseListener/Listener.fs (d883476e3a4208e707fa6ee2d28b9cc881f515ea)
     src/Feliz.UseListener/PromiseRejectionEvent.fs (d883476e3a4208e707fa6ee2d28b9cc881f515ea)
+  remote: Zaid-Ajaj/Feliz.Router
+    src/Router.fs (3d3e882bcd3fbf8dff9d5470928734b644dc9a4d)
 GROUP Build
 RESTRICTION: >= net45
 NUGET

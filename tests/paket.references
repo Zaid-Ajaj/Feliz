@@ -1,0 +1,9 @@
+Fable.Browser.Dom
+Fable.Mocha
+FSharp.Core
+
+File: Types.fs Fable.ReactTestingLibrary
+File: Bindings.fs Fable.ReactTestingLibrary
+File: Interop.fs Fable.ReactTestingLibrary
+File: Events.fs Fable.ReactTestingLibrary
+File: RTL.fs Fable.ReactTestingLibrary

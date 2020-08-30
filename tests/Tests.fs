@@ -883,7 +883,7 @@ let felizTests = testList "Feliz Tests" [
         let loader = render.getByTestId("loading")
 
         Expect.isTrue (loader.innerText = "Loading") "Loading element is displayed"
-        Expect.isTrue (render.queryByTestId("async-load", true).IsNone) "Code-split element is not displayed"
+        Expect.isTrue (render.queryByTestId("async-load", [ queryOption.exact true ]).IsNone) "Code-split element is not displayed"
 
         do!
             RTL.waitForElementToBeRemoved((fun () -> render.queryByTestId("loading")), [
@@ -956,7 +956,7 @@ let felizTests = testList "Feliz Tests" [
 
         Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "val3 is set via default value"
 
-        select.userEvent.toggleSelectOptions(["1";"2"])
+        select.userEvent.selectOptions(["1";"2"])
 
         Expect.isTrue (RTL.screen.getByTestId("val1") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val1 option"
         Expect.isTrue (RTL.screen.getByTestId("val2") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val2 option"
@@ -968,7 +968,7 @@ let felizTests = testList "Feliz Tests" [
 
         Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "val3 is set via default value"
 
-        select.userEvent.toggleSelectOptions(["1";"2"])
+        select.userEvent.selectOptions(["1";"2"])
 
         Expect.isFalse (RTL.screen.getByTestId("val1") |> unbox<Browser.Types.HTMLOptionElement>).selected "Setting val1 option is ignored"
         Expect.isFalse (RTL.screen.getByTestId("val2") |> unbox<Browser.Types.HTMLOptionElement>).selected "Setting val2 option is ignored"
@@ -980,7 +980,7 @@ let felizTests = testList "Feliz Tests" [
 
         Expect.isTrue (RTL.screen.getByTestId("val3") |> unbox<Browser.Types.HTMLOptionElement>).selected "val3 is set via default value"
 
-        select.userEvent.toggleSelectOptions(["1";"2"])
+        select.userEvent.selectOptions(["1";"2"])
 
         Expect.isTrue (RTL.screen.getByTestId("val1") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val1 option"
         Expect.isTrue (RTL.screen.getByTestId("val2") |> unbox<Browser.Types.HTMLOptionElement>).selected "Correctly sets val2 option"

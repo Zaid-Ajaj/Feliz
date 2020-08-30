@@ -2,16 +2,25 @@ group Main
     source https://api.nuget.org/v3/index.json
     storage:none
 
-    nuget Fable.SimpleHttp
-    nuget FSharp.Core
+    nuget Fable.Browser.Dom
     nuget Fable.Core
     nuget Fable.Elmish.React
+    nuget Fable.Mocha
     nuget Fable.React
+    nuget Fable.SimpleHttp
+    nuget FSharp.Core
     nuget Zanaptak.TypedCssClasses
+    
+    github Shmew/Fable.Jester:8949a7a8e430d719c822c2f7a1019b4fe3b92513 src/Fable.ReactTestingLibrary/Types.fs
+    github Shmew/Fable.Jester:8949a7a8e430d719c822c2f7a1019b4fe3b92513 src/Fable.ReactTestingLibrary/Bindings.fs
+    github Shmew/Fable.Jester:8949a7a8e430d719c822c2f7a1019b4fe3b92513 src/Fable.ReactTestingLibrary/Events.fs
+    github Shmew/Fable.Jester:8949a7a8e430d719c822c2f7a1019b4fe3b92513 src/Fable.ReactTestingLibrary/Interop.fs
+    github Shmew/Fable.Jester:8949a7a8e430d719c822c2f7a1019b4fe3b92513 src/Fable.ReactTestingLibrary/RTL.fs
 
-    github Zaid-Ajaj/Feliz.Router:3d3e882bcd3fbf8dff9d5470928734b644dc9a4d src/Router.fs
     github Shmew/Feliz.UseListener:d883476e3a4208e707fa6ee2d28b9cc881f515ea src/Feliz.UseListener/PromiseRejectionEvent.fs
     github Shmew/Feliz.UseListener:d883476e3a4208e707fa6ee2d28b9cc881f515ea src/Feliz.UseListener/Listener.fs
+
+    github Zaid-Ajaj/Feliz.Router:3d3e882bcd3fbf8dff9d5470928734b644dc9a4d src/Router.fs
 
 group Build
   framework >= net45
