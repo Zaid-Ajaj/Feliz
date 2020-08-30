@@ -52,8 +52,9 @@ module Delay =
     [<EditorBrowsable(EditorBrowsableState.Never)>]
     #if FABLE_COMPILER
     let inline delaySuspenseComp (input: DelaySuspenseProps) =
-    #endif
+    #else
     let delaySuspenseComp (input: DelaySuspenseProps) =
+    #endif
         #if DEBUG
         if input.children.IsEmpty then 
             JS.console.error("No elements provided to React.delayedSuspense!", input)
