@@ -13,7 +13,7 @@ export const useEffect = getDisposable => {
 }
 
 export const useEffectWithDeps = (getDisposable, deps) => {
-    useLayoutEffectReact(() => {
+    useEffectReact(() => {
         const disposable = getDisposable()
         return () => {
             disposable.Dispose();
@@ -31,7 +31,7 @@ export const useLayoutEffect = getDisposable => {
 }
 
 export const useLayoutEffectWithDeps = (getDisposable, deps) => {
-    useEffectReact(() => {
+    useLayoutEffectReact(() => {
         const disposable = getDisposable()
         return () => {
             disposable.Dispose();

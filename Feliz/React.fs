@@ -16,7 +16,7 @@ module internal ReactInterop =
 [<EditorBrowsable(EditorBrowsableState.Never);Erase>]
 [<RequireQualifiedAccess>]
 module Helpers =
-    let inline optDispose (disposeOption: IDisposable option) =
+    let inline optDispose (disposeOption: #IDisposable option) =
         { new IDisposable with member _.Dispose () = disposeOption |> Option.iter (fun d -> d.Dispose()) }
 
 type internal Internal() =
@@ -78,35 +78,48 @@ type React =
     /// This effect has no dependencies which means the effect is re-executed on every re-render.
     /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
     /// for the dependencies: `React.useEffect(disposableEffect, [| |])`.
-    static member useEffect(effect: unit -> IDisposable) : unit = ReactInterop.useEffect(effect)
+    static member useEffect(effect: unit -> #IDisposable) : unit = ReactInterop.useEffect(effect)
     /// The `useEffect` hook that creates a disposable effect for React function components
     /// This effect has no dependencies which means the effect is re-executed on every re-render.
     /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
     /// for the dependencies: `React.useEffect(disposableEffect, [| |])`.
-    static member inline useEffect(effect: unit -> IDisposable option) = React.useEffect(effect >> Helpers.optDispose)
+    static member inline useEffect(effect: unit -> #IDisposable option) = React.useEffect(effect >> Helpers.optDispose)
     /// The `useEffect` hook that creates a disposable effect for React function components.
     /// This effect takes a array of *dependencies*.
     /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
     /// you have to explicitly provide an empty array for the dependencies: `React.useEffect(effect, [| |])`.
-    static member useEffect(effect: unit -> IDisposable, dependencies: obj []) : unit = ReactInterop.useEffectWithDeps effect dependencies
+    static member useEffect(effect: unit -> #IDisposable, dependencies: obj []) : unit = ReactInterop.useEffectWithDeps effect dependencies
     /// The `useEffect` hook that creates a disposable effect for React function components.
     /// This effect takes a array of *dependencies*.
     /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
     /// you have to explicitly provide an empty array for the dependencies: `React.useEffect(effect, [| |])`.
-    static member inline useEffect(effect: unit -> IDisposable option, dependencies: obj []) = React.useEffect(effect >> Helpers.optDispose, dependencies)
+    static member inline useEffect(effect: unit -> #IDisposable option, dependencies: obj []) = React.useEffect(effect >> Helpers.optDispose, dependencies)
 
     /// The `useLayoutEffect` hook that creates a disposable effect for React function components
     /// This effect has no dependencies which means the effect is re-executed on every re-render.
     /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
     /// for the dependencies: `React.useLayoutEffect(disposableEffect, [| |])`.
     /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
-    static member useLayoutEffect(effect: unit -> IDisposable) : unit = ReactInterop.useLayoutEffect(effect)
+    static member useLayoutEffect(effect: unit -> #IDisposable) : unit = ReactInterop.useLayoutEffect(effect)
+    /// The `useLayoutEffect` hook that creates a disposable effect for React function components
+    /// This effect has no dependencies which means the effect is re-executed on every re-render.
+    /// To make the effect run once (for example you subscribe once to web sockets) then provide an empty array
+    /// for the dependencies: `React.useLayoutEffect(disposableEffect, [| |])`.
+    /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+    static member inline useLayoutEffect(effect: unit -> #IDisposable option) = React.useLayoutEffect(effect >> Helpers.optDispose)
     /// The `useLayoutEffect` hook that creates a disposable effect for React function components.
     /// This effect takes a array of *dependencies*.
     /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
     /// you have to explicitly provide an empty array for the dependencies: `React.useLayoutEffect(effect, [| |])`.
     /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
-    static member useLayoutEffect(effect: unit -> IDisposable, dependencies: obj []) : unit = ReactInterop.useLayoutEffectWithDeps effect dependencies
+    static member useLayoutEffect(effect: unit -> #IDisposable, dependencies: obj []) : unit = ReactInterop.useLayoutEffectWithDeps effect dependencies
+    /// The `useLayoutEffect` hook that creates a disposable effect for React function components.
+    /// This effect takes a array of *dependencies*.
+    /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
+    /// you have to explicitly provide an empty array for the dependencies: `React.useLayoutEffect(effect, [| |])`.
+    /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+    static member inline useLayoutEffect(effect: unit -> #IDisposable option, dependencies: obj []) = 
+        React.useLayoutEffect(effect >> Helpers.optDispose, dependencies)
     /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
     /// This effect is executed on every (re)render
     static member useLayoutEffect(effect: unit -> unit) = 
@@ -117,15 +130,19 @@ type React =
 
     /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
     static member useLayoutEffect(effect: unit -> unit, dependencies: obj []) = 
-        ReactInterop.useLayoutEffect
+        ReactInterop.useLayoutEffectWithDeps
             (fun _ ->
                 effect()
                 React.createDisposable(ignore))
+            dependencies
 
-    static member useLayoutEffectOnce(effect: unit -> unit) = 
+    static member inline useLayoutEffectOnce(effect: unit -> unit) = 
          React.useLayoutEffect(effect, [| |])
 
-    static member useLayoutEffectOnce(effect: unit -> IDisposable) = 
+    static member inline useLayoutEffectOnce(effect: unit -> #IDisposable) = 
+        React.useLayoutEffect(effect, [| |])
+
+    static member inline useLayoutEffectOnce(effect: unit -> #IDisposable option) = 
         React.useLayoutEffect(effect, [| |])
 
     /// React hook to define and use an effect only once when a function component renders for the first time.
@@ -135,11 +152,11 @@ type React =
 
     /// React hook to define and use a disposable effect only once when a function component renders for the first time.
     /// This an alias for `React.useEffect(effect, [| |])` which explicitly provide an empty array for the dependencies of the effect which means the effect will only run once.
-    static member useEffectOnce(effect: unit -> IDisposable) =
+    static member useEffectOnce(effect: unit -> #IDisposable) =
         React.useEffect(effect, [| |])
     /// React hook to define and use a disposable effect only once when a function component renders for the first time.
     /// This an alias for `React.useEffect(effect, [| |])` which explicitly provide an empty array for the dependencies of the effect which means the effect will only run once.
-    static member useEffectOnce(effect: unit -> IDisposable option) =
+    static member useEffectOnce(effect: unit -> #IDisposable option) =
         React.useEffect(effect >> Helpers.optDispose, [| |])
 
     /// The `useEffect` hook that creates an effect for React function components.
@@ -502,25 +519,25 @@ type React =
 module ReactOverloadMagic =
     type React with
         /// Creates a disposable instance by merging multiple IDisposables.
-        static member inline createDisposable([<ParamArray>] disposables: IDisposable []) =
+        static member inline createDisposable([<ParamArray>] disposables: #IDisposable []) =
             React.createDisposable(fun () ->
                 disposables
                 |> Array.iter (fun d -> d.Dispose())
             )
         /// Creates a disposable instance by merging multiple IDisposable options.
-        static member inline createDisposable([<ParamArray>] disposables: IDisposable option []) =
+        static member inline createDisposable([<ParamArray>] disposables: #IDisposable option []) =
             React.createDisposable(fun () ->
                 disposables
                 |> Array.iter (Option.iter (fun d -> d.Dispose()))
             )
         /// Creates a disposable instance by merging multiple IDisposable refs.
-        static member inline createDisposable([<ParamArray>] disposables: IRefValue<IDisposable> []) =
+        static member inline createDisposable([<ParamArray>] disposables: IRefValue<#IDisposable> []) =
             React.createDisposable(fun () ->
                 disposables
                 |> Array.iter (fun d -> d.current.Dispose())
             )
         /// Creates a disposable instance by merging multiple IDisposable refs.
-        static member inline createDisposable([<ParamArray>] disposables: IRefValue<IDisposable option> []) =
+        static member inline createDisposable([<ParamArray>] disposables: IRefValue<#IDisposable option> []) =
             React.createDisposable(fun () ->
                 disposables
                 |> Array.iter (fun d -> d.current |> Option.iter (fun d -> d.Dispose()))

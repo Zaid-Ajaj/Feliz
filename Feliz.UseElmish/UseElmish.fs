@@ -83,18 +83,32 @@ module UseElmishExtensions =
 
             let dispatch = React.useCallbackRef(dispatch)
 
-            React.useEffectOnce(fun () -> getDisposable state.current)
+            React.useEffect((fun () -> 
+                React.createDisposable(fun () -> 
+                    getDisposable state.current 
+                    |> Option.iter (fun o -> o.Dispose())
+                )
+            ), dependencies)
 
             React.useEffect((fun () ->
                 state.current <- fst init
                 setChildState()
 
                 snd init
-                |> List.iter (fun sub -> sub dispatch)), dependencies)
+                |> List.iter (fun sub -> sub dispatch)
+            ), dependencies)
 
             React.useEffect(fun () -> ring.current.Pop() |> Option.iter dispatch)
 
             (childState, dispatch)
 
+        static member inline useElmish<'State,'Msg> (init: 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>) =
+            React.useElmish(init, update, [||])
+
         static member useElmish<'State,'Msg> (init: unit -> 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>, dependencies: obj[]) =
-            React.useElmish(init(), update, dependencies)
+            let init = React.useMemo(init, dependencies)
+
+            React.useElmish(init, update, dependencies)
+
+        static member inline useElmish<'State,'Msg> (init: unit -> 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>) =
+            React.useElmish(init, update, [||])
