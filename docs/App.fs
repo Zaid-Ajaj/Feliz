@@ -1,14 +1,12 @@
 module App
 
 open Browser.Dom
-open Browser.Types
 open Elmish
 open Elmish.React
 open Feliz
 open Feliz.Recharts
 open Feliz.Markdown
 open Feliz.PigeonMaps
-open Feliz.UseDeferred
 open Feliz.Router
 open Fable.Core.JsInterop
 open Fable.SimpleHttp
@@ -787,9 +785,9 @@ let render' = React.functionComponent(fun (input: {| state: State; dispatch: Msg
             prop.children [ main {| state = input.state; dispatch = dispatch |} ]
         ]
 
-    Router.router [
-        Router.onUrlChanged (UrlChanged >> dispatch)
-        Router.application application
+    React.router [
+        router.onUrlChanged (UrlChanged >> dispatch)
+        router.children application
     ])
 
 let render (state: State) dispatch = render' {| state = state; dispatch = dispatch |}

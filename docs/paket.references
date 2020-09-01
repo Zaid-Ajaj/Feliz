@@ -1,7 +1,7 @@
-FSharp.Core
+Fable.Browser.Dom
 Fable.Core
 Fable.Elmish.React
 Fable.React
-Feliz.Router
-Zanaptak.TypedCssClasses
 Fable.SimpleHttp
+FSharp.Core
+Zanaptak.TypedCssClasses

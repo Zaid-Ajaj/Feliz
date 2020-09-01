@@ -2,14 +2,15 @@ group Main
     source https://api.nuget.org/v3/index.json
     storage:none
 
-    nuget Fable.SimpleHttp
-    nuget Feliz.Router
-    nuget FSharp.Core
+    nuget Fable.Browser.Dom
     nuget Fable.Core
     nuget Fable.Elmish.React
+    nuget Fable.Mocha
     nuget Fable.React
+    nuget Fable.SimpleHttp
+    nuget FSharp.Core
     nuget Zanaptak.TypedCssClasses
-
+    
 group Build
   framework >= net45
   source https://api.nuget.org/v3/index.json

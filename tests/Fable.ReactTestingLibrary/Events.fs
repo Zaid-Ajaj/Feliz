@@ -182,10 +182,6 @@ module event =
         static member capturingPhase = Interop.mkEventAttr "eventPhase" 1
         static member none = Interop.mkEventAttr "eventPhase" 0
 
-    // REMOVE THESE
-    let test = unbox<Browser.Types.Event> ""
-    
-
 type animationEvent =
     inherit event
     static member animationName (value: string) = Interop.mkAnimationEventAttr "animationName" value

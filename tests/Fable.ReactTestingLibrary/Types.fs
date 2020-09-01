@@ -8,11 +8,19 @@ module Types =
     type IPrettyDOMOption = interface end
     type IPrettyDOMOptions = interface end
     type IPrettyDOMThemeOption = interface end
-    type IRenderOption = interface end
-    type IRenderOptions = interface end
     type IWaitOption = interface end
     type IWaitOptions = interface end
     
+    [<AutoOpen>]
+    module Queries =
+        type IRoleMatcherOption = interface end
+        type ITextMatcherOption = interface end
+        type ILabelTextMatcherOption = inherit ITextMatcherOption
+        type IMatcherOption = 
+            inherit ILabelTextMatcherOption
+            inherit ITextMatcherOption
+            inherit IRoleMatcherOption
+
     [<AutoOpen>]
     module Events =
         type ICompositionEventProperty = interface end
