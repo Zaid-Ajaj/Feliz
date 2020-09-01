@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <PackageReference Include="Fable.MochaPuppeteerRunner" Version="1.2.0" />
-    <PackageReference Update="FSharp.Core" Version="4.7.0" />
   </ItemGroup>
 
 </Project>
