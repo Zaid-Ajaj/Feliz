@@ -1441,7 +1441,7 @@ type prop =
     /// given, is void.
     ///
     /// Use this attribute only if the href attribute is present.
-    static member inline rel (value: string) = Interop.mkAttr "rel" string
+    static member inline rel (value: string) = Interop.mkAttr "rel" value
 
     /// Indicates whether this element is required to fill out or not.
     static member inline required (value: bool) = Interop.mkAttr "required" value
@@ -1455,7 +1455,7 @@ type prop =
     /// If no value is provided, the output will only be available for re-use as the implicit
     /// input into the next filter primitive if that filter primitive provides no value for
     /// its in attribute.
-    static member inline result (value: string) = Interop.mkAttr "result" string
+    static member inline result (value: string) = Interop.mkAttr "result" value
 
     /// Sets the aria role
     ///
@@ -3392,8 +3392,14 @@ module prop =
         static member inline alternate = Interop.mkAttr "rel" "alternate"
         /// Provides a link to the author of the document.
         static member inline author = Interop.mkAttr "rel" "author"
+        /// Permalink for the nearest ancestor section.
+        static member inline bookmark = Interop.mkAttr "rel" "bookmark"
+        /// Preferred URL for the current document.
+        static member inline canonical = Interop.mkAttr "rel" "canonical"
         /// Specifies that the browser should preemptively perform DNS resolution for the target resource's origin.
         static member inline dnsPrefetch = Interop.mkAttr "rel" "dns-prefetch"
+        /// The referenced document is not part of the same site as the current document.
+        static member inline external = Interop.mkAttr "rel" "external"
         /// Provides a link to a help document. Example: <link rel="help" href="/help/">
         static member inline help = Interop.mkAttr "rel" "help"
         /// Imports an icon to represent the document.
@@ -3402,8 +3408,23 @@ module prop =
         static member inline icon = Interop.mkAttr "rel" "icon"
         /// Provides a link to copyright information for the document.
         static member inline license = Interop.mkAttr "rel" "license"
-        /// Provides a link to the next document in the series
+        /// Web app manifest.
+        static member inline manifest = Interop.mkAttr "rel" "manifest"
+        /// Tells to browser to preemptively fetch the script and store it in the document's module map for later 
+        /// evaluation. Optionally, the module's dependencies can be fetched as well.
+        static member inline modulepreload = Interop.mkAttr "rel" "modulepreload"
+        /// Provides a link to the next document in the series.
         static member inline next = Interop.mkAttr "rel" "next"
+        /// Indicates that the current document's original author or publisher does not endorse the referenced document.
+        static member inline nofollow = Interop.mkAttr "rel" "nofollow"
+        /// Creates a top-level browsing context that is not an auxiliary browsing context if the hyperlink would create 
+        /// either of those, to begin with (i.e., has an appropriate target attribute value).
+        static member inline noopener = Interop.mkAttr "rel" "noopener"
+        /// No Referer header will be included. Additionally, has the same effect as noopener.
+        static member inline noreferrer = Interop.mkAttr "rel" "noreferrer"
+        /// Creates an auxiliary browsing context if the hyperlink would otherwise create a top-level browsing context 
+        /// that is not an auxiliary browsing context (i.e., has "_blank" as target attribute value).
+        static member inline opener = Interop.mkAttr "rel" "opener"
         /// Provides the address of the pingback server that handles pingbacks to the current document.
         static member inline pingback = Interop.mkAttr "rel" "pingback"
         /// Specifies that the browser should preemptively connect to the target resource's origin.
@@ -3427,6 +3448,8 @@ module prop =
         static member inline search = Interop.mkAttr "rel" "search"
         /// Imports a style sheet.
         static member inline stylesheet = Interop.mkAttr "rel" "stylesheet"
+        /// Gives a tag (identified by the given address) that applies to the current document.
+        static member inline tag = Interop.mkAttr "rel" "tag"
 
     /// Indicates the number of times an animation will take place.
     [<Erase>]
