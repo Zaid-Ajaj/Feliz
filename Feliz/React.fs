@@ -11,7 +11,7 @@ module internal ReactInterop =
     let useEffect (effect: obj) : unit =  import "useEffect" "./ReactInterop.js"
     let useEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useEffectWithDeps" "./ReactInterop.js"
     let useLayoutEffect (effect: obj) : unit =  import "useLayoutEffect" "./ReactInterop.js"
-    let useLayoutEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useLayoutEffectWithDeps" "./ReactInterop.js" 
+    let useLayoutEffectWithDeps (effect:  obj) (deps: obj) : unit = import "useLayoutEffectWithDeps" "./ReactInterop.js"
 
 [<EditorBrowsable(EditorBrowsableState.Never);Erase>]
 [<RequireQualifiedAccess>]
@@ -57,7 +57,7 @@ type React =
     /// Creates a disposable instance by providing the implementation of the dispose member.
     static member createDisposable(dispose: unit -> unit) =
         { new IDisposable with member _.Dispose() = dispose() }
-        
+
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
     static member inline fragment xs = Fable.React.Helpers.fragment [] xs
 
@@ -118,31 +118,31 @@ type React =
     /// Whenever any of these dependencies change, the effect is re-executed. To execute the effect only once,
     /// you have to explicitly provide an empty array for the dependencies: `React.useLayoutEffect(effect, [| |])`.
     /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
-    static member inline useLayoutEffect(effect: unit -> #IDisposable option, dependencies: obj []) = 
+    static member inline useLayoutEffect(effect: unit -> #IDisposable option, dependencies: obj []) =
         React.useLayoutEffect(effect >> Helpers.optDispose, dependencies)
     /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
     /// This effect is executed on every (re)render
-    static member useLayoutEffect(effect: unit -> unit) = 
+    static member useLayoutEffect(effect: unit -> unit) =
         ReactInterop.useLayoutEffect
             (fun _ ->
                 effect()
                 React.createDisposable(ignore))
 
     /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
-    static member useLayoutEffect(effect: unit -> unit, dependencies: obj []) = 
+    static member useLayoutEffect(effect: unit -> unit, dependencies: obj []) =
         ReactInterop.useLayoutEffectWithDeps
             (fun _ ->
                 effect()
                 React.createDisposable(ignore))
             dependencies
 
-    static member inline useLayoutEffectOnce(effect: unit -> unit) = 
+    static member inline useLayoutEffectOnce(effect: unit -> unit) =
          React.useLayoutEffect(effect, [| |])
 
-    static member inline useLayoutEffectOnce(effect: unit -> #IDisposable) = 
+    static member inline useLayoutEffectOnce(effect: unit -> #IDisposable) =
         React.useLayoutEffect(effect, [| |])
 
-    static member inline useLayoutEffectOnce(effect: unit -> #IDisposable option) = 
+    static member inline useLayoutEffectOnce(effect: unit -> #IDisposable option) =
         React.useLayoutEffect(effect, [| |])
 
     /// React hook to define and use an effect only once when a function component renders for the first time.
@@ -181,11 +181,11 @@ type React =
             dependencies
 
     /// Can be used to display a label for custom hooks in React DevTools.
-    static member useDebugValue(value: string) = 
+    static member useDebugValue(value: string) =
         ReactInterop.useDebugValueWithFormatter(value, id)
 
     /// Can be used to display a label for custom hooks in React DevTools.
-    static member useDebugValue(value: 't, formatter: 't -> string) = 
+    static member useDebugValue(value: 't, formatter: 't -> string) =
         ReactInterop.useDebugValueWithFormatter(value, formatter)
 
     /// <summary>
@@ -378,14 +378,14 @@ type React =
     ///
     /// This hook should only be used for (like a dispatch) functions that are not used to provide information during render.
     ///
-    /// This is not a complete replacement for the `useCallback` hook. It returns a callback that does not need explicit 
+    /// This is not a complete replacement for the `useCallback` hook. It returns a callback that does not need explicit
     /// dependency declarations and never causes a re-render.
     /// </summary>
     /// <param name='callback'>The function call.</param>
     static member useCallbackRef(callback: ('a -> 'b)) =
         let lastRenderCallbackRef = React.useRef(callback)
-        
-        let callbackRef = 
+
+        let callbackRef =
             React.useCallback((fun (arg: 'a) ->
                 lastRenderCallbackRef.current(arg)
             ), [||])
@@ -398,10 +398,16 @@ type React =
         callbackRef
 
     /// <summary>
+    /// Just like React.useState except that the updater function uses the previous state of the state variable as input and allows you to compute the next value using it.
+    /// This is extremely useful in cases where defining helpers functions inside the definition of a React function component would actually cache the initial value (because they become closures) during first render as opposed to using the current value after multiple render cycles.
+    /// </summary>
+    static member useStateWithUpdater (initial: 't) : ('t * (('t -> 't) -> unit)) = import "useState" "react"
+
+    /// <summary>
     /// Forwards a given ref, allowing you to pass it further down to a child.
     /// </summary>
     /// <param name='render'>A render function that returns an element.</param>
-    static member forwardRef(render: ('props * IRefValue<'t> -> ReactElement)) : ('props * IRefValue<'t> -> ReactElement) = 
+    static member forwardRef(render: ('props * IRefValue<'t> -> ReactElement)) : ('props * IRefValue<'t> -> ReactElement) =
         let forwardRefType = Interop.reactApi.forwardRef(Func<'props,IRefValue<'t>,ReactElement> (fun props ref -> render(props,ref)))
         fun (props, ref) ->
             Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
@@ -411,20 +417,20 @@ type React =
     /// </summary>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns an element.</param>
-    static member forwardRef(name: string, render: ('props * IRefValue<'t> -> ReactElement)) : ('props * IRefValue<'t> -> ReactElement) = 
+    static member forwardRef(name: string, render: ('props * IRefValue<'t> -> ReactElement)) : ('props * IRefValue<'t> -> ReactElement) =
         let forwardRefType = Interop.reactApi.forwardRef(Func<'props,IRefValue<'t>,ReactElement> (fun props ref -> render(props,ref)))
         render?displayName <- name
         fun (props, ref) ->
             Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
 
     /// <summary>
-    /// Highlights potential problems in an application by enabling additional checks 
+    /// Highlights potential problems in an application by enabling additional checks
     /// and warnings for descendants. As well as double rendering function components.
     ///
-    /// This *does not do anything* in production mode. You do not need to hide it 
+    /// This *does not do anything* in production mode. You do not need to hide it
     /// with compiler directives.
     /// </summary>
-    /// <param name='children'>The elements that will be rendered with additional 
+    /// <param name='children'>The elements that will be rendered with additional
     /// checks and warnings.</param>
     static member strictMode(children: ReactElement list) =
         Interop.reactApi.createElement(Interop.reactApi.StrictMode, None, children)
@@ -459,7 +465,7 @@ type React =
         Interop.reactApi.createElement(Interop.reactApi.lazy'(dynamicImport),props)
 
     /// <summary>
-    /// Lets you specify a loading indicator whenever a child element is not yet ready 
+    /// Lets you specify a loading indicator whenever a child element is not yet ready
     /// to render.
     ///
     /// Currently this is only usable with `React.lazy'`.
@@ -468,7 +474,7 @@ type React =
     static member suspense(children: ReactElement list) =
         Interop.reactApi.createElement(Interop.reactApi.Suspense, {| fallback = Html.none |} |> JsInterop.toPlainJsObj, children)
     /// <summary>
-    /// Lets you specify a loading indicator whenever a child element is not yet ready 
+    /// Lets you specify a loading indicator whenever a child element is not yet ready
     /// to render.
     ///
     /// Currently this is only usable with `React.lazy'`.
@@ -488,7 +494,7 @@ type React =
         Interop.reactApi.useImperativeHandleNoDeps ref createHandle
 
     /// <summary>
-    /// Lets you specify a loading indicator whenever a child element is not yet ready 
+    /// Lets you specify a loading indicator whenever a child element is not yet ready
     /// to render.
     ///
     /// Currently this is only usable with `React.lazy'`.
@@ -505,9 +511,9 @@ type React =
     static member inline useCancellationToken () =
         let cts = React.useRef(new System.Threading.CancellationTokenSource())
         let token = React.useRef(cts.current.Token)
-        
+
         React.useEffectOnce(fun () ->
-            React.createDisposable(fun () -> 
+            React.createDisposable(fun () ->
                 cts.current.Cancel()
                 cts.current.Dispose()
             )
@@ -542,6 +548,6 @@ module ReactOverloadMagic =
                 disposables
                 |> Array.iter (fun d -> d.current |> Option.iter (fun d -> d.Dispose()))
             )
-        
+
         /// The `useState` hook that create a state variable for React function components.
         static member useState<'t>(initial: 't) = Interop.reactApi.useState<'t,'t>(initial)
