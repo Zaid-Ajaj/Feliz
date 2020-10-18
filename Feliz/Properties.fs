@@ -989,7 +989,7 @@ type prop =
     static member inline min (value: int) = Interop.mkAttr "min" value
 
     /// Defines the minimum number of characters allowed in the element.
-    static member inline minLength (value: int) = Interop.mkAttr "minlength" value
+    static member inline minLength (value: int) = Interop.mkAttr "minLength" value
 
     /// Indicates whether multiple values can be entered in an input of the type email or file.
     static member inline multiple (value: bool) = Interop.mkAttr "multiple" value
@@ -1341,7 +1341,7 @@ type prop =
     /// Indicating that the video is to be played "inline", that is within the element's playback area.
     ///
     /// Note that the absence of this attribute does not imply that the video will always be played in fullscreen.
-    static member inline playsInline (value: bool) = Interop.mkAttr "playsinline" value
+    static member inline playsInline (value: bool) = Interop.mkAttr "playsInline" value
 
     /// Contains a space-separated list of URLs to which, when the hyperlink is followed,
     /// POST requests with the body PING will be sent by the browser (in the background).
@@ -3410,19 +3410,19 @@ module prop =
         static member inline license = Interop.mkAttr "rel" "license"
         /// Web app manifest.
         static member inline manifest = Interop.mkAttr "rel" "manifest"
-        /// Tells to browser to preemptively fetch the script and store it in the document's module map for later 
+        /// Tells to browser to preemptively fetch the script and store it in the document's module map for later
         /// evaluation. Optionally, the module's dependencies can be fetched as well.
         static member inline modulepreload = Interop.mkAttr "rel" "modulepreload"
         /// Provides a link to the next document in the series.
         static member inline next = Interop.mkAttr "rel" "next"
         /// Indicates that the current document's original author or publisher does not endorse the referenced document.
         static member inline nofollow = Interop.mkAttr "rel" "nofollow"
-        /// Creates a top-level browsing context that is not an auxiliary browsing context if the hyperlink would create 
+        /// Creates a top-level browsing context that is not an auxiliary browsing context if the hyperlink would create
         /// either of those, to begin with (i.e., has an appropriate target attribute value).
         static member inline noopener = Interop.mkAttr "rel" "noopener"
         /// No Referer header will be included. Additionally, has the same effect as noopener.
         static member inline noreferrer = Interop.mkAttr "rel" "noreferrer"
-        /// Creates an auxiliary browsing context if the hyperlink would otherwise create a top-level browsing context 
+        /// Creates an auxiliary browsing context if the hyperlink would otherwise create a top-level browsing context
         /// that is not an auxiliary browsing context (i.e., has "_blank" as target attribute value).
         static member inline opener = Interop.mkAttr "rel" "opener"
         /// Provides the address of the pingback server that handles pingbacks to the current document.
