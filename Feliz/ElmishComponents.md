@@ -1,5 +1,7 @@
 # Feliz.ElmishComponents  [![Nuget](https://img.shields.io/nuget/v/Feliz.ElmishComponents.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.ElmishComponents)
 
+> Please note: Feliz.ElmishComponenets has been deprecated in favor of Feliz.UseElmish hook. Read more information on [GitHub issue](https://github.com/Zaid-Ajaj/Feliz/issues/263#issuecomment-705370349).
+
 Feliz can be used and integrated into your Elmish application inside the `render` functions just like any other React binding. However, the Elm(ish) componentization techniques are known to require quite some boilerplate code in the application, especially when it comes to data and event communication between parent and child components.
 
 Feliz includes a library called `Feliz.ElmishComponents` that enables you to build lightweight Elmish components using `init`, `update` and `render` as standalone React components.
