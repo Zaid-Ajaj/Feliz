@@ -82,7 +82,7 @@ open Feliz
 open Feliz.RoughViz
 
 let dynamicRoughChart = React.functionComponent(fun () ->
-    let (data, setData) = React.useState [
+    let (data, setData) = React.useStateWithUpdater [
         ("point1", 70.0)
         ("point2", 40.0)
         ("point3", 65.0)
@@ -92,12 +92,11 @@ let dynamicRoughChart = React.functionComponent(fun () ->
 
     let title, setTitle = React.useState "Random Data Points"
 
-    let addDataPoint() =
-        let pointCount = List.length data
+    let addDataPoint() = setData <| fun previousState ->
+        let pointCount = List.length previousState
         let pointLabel = "point" + string (pointCount + 1)
         let nextPoint = (pointLabel, System.Random().NextDouble() * 100.0)
-        let nextData = List.append data [ nextPoint ]
-        setData nextData
+        List.append previousState [ nextPoint ]
 
     let barClicked (pointIndex: int) =
         let (label, value) = List.item pointIndex data

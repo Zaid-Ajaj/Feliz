@@ -7,7 +7,8 @@
         "publish-docs": "npm run build && node publish.js",
         "test:live": "webpack-dev-server --config webpack.tests.js",
         "pretest": "webpack --config webpack.tests.js",
-        "test": "dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj"
+        "test": "dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj",
+        "start:nagareyama": "dotnet tool restore && dotnet fable watch docs --run webpack-dev-server --config webpack.nagareyama.js"
     },
     "repository": {
         "type": "git",

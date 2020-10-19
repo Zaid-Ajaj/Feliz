@@ -208,3 +208,4 @@ dist
 
 # JetBrains Rider
 .idea
+*.fs.js
