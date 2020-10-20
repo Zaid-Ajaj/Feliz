@@ -209,3 +209,4 @@ dist
 # JetBrains Rider
 .idea
 *.fs.js
+0.bundle.js
