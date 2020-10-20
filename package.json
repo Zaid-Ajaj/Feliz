@@ -8,8 +8,8 @@
         "test:live": "webpack-dev-server --config webpack.tests.js",
         "pretest": "webpack --config webpack.tests.js",
         "test": "dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj",
-        "start:nagareyama": "dotnet tool restore && dotnet fable watch docs --run webpack-dev-server --config webpack.nagareyama.js",
-        "build:nagareyama": "dotnet tool restore && dotnet fable docs --run webpack --config webpack.nagareyama.js --mode production"
+        "start:nagareyama": "dotnet tool restore && dotnet fable watch docs --forcePkgs --exclude Feliz.CompilerPlugins --run webpack-dev-server --config webpack.nagareyama.js",
+        "build:nagareyama": "dotnet tool restore && dotnet fable docs --forcePkgs --exclude Feliz.CompilerPlugins --run webpack --config webpack.nagareyama.js --mode production"
     },
     "repository": {
         "type": "git",

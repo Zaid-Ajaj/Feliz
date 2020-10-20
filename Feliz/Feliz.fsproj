@@ -40,4 +40,7 @@
     <Compile Include="ReactDOM.fs" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Feliz.CompilerPlugins\Feliz.CompilerPlugins.fsproj" />
+  </ItemGroup>
 </Project>

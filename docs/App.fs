@@ -52,7 +52,6 @@ let update msg state =
         | [ ] -> { state with CurrentTab = [ ] }, Cmd.none
         | _ -> { state with CurrentTab = tabs }, Cmd.none
 
-
 open Feliz.RoughViz
 
 let fruitSales = [
@@ -64,6 +63,81 @@ let fruitSales = [
     ("Bananas", 10.0)
     ("Mango", 6.4)
 ]
+
+[<ReactComponent>]
+let counter() =
+    let (count, setCount) = React.useState 0
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
+
+        Html.h1 count
+    ]
+
+[<ReactComponent>]
+let counterWithInput (initialCount: int) =
+    let (count, setCount) = React.useState initialCount
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
+
+        Html.h1 count
+    ]
+
+[<ReactComponent>]
+let counterWithAnonRecord (props: {| initial : int |}) =
+    let (count, setCount) = React.useState props.initial
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
+
+        Html.h1 count
+    ]
+
+[<ReactComponent>]
+let counters(show: bool) =
+    Html.div [
+        counter()
+        counterWithInput 10
+        if show then counterWithAnonRecord {| initial = 20 |}
+    ]
+
+[<ReactComponent>]
+let countersWithConditionals(show: bool) =
+    Html.div [|
+        counter()
+        counterWithInput 10
+        counterWithAnonRecord {| initial = 30 |}
+    |]
+
+let counterCaller = React.functionComponent(fun () -> counters(true))
 
 let roughBarChart = React.functionComponent(fun () ->
     RoughViz.barChart [

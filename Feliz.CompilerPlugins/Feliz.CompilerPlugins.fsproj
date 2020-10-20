@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Zaid Ajaj</Authors>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="AstUtils.fs" />
+    <Compile Include="ReactComponent.fs" />
+    <Compile Include="IntrinsicElementPrimitive.fs" />
+    <Compile Include="IntrinsicElementChildren.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fable.AST" Version="3.0.0-nagareyama-alpha-002" />
+  </ItemGroup>
+</Project>
