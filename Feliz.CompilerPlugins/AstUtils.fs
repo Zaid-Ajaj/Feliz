@@ -26,6 +26,22 @@ let makeStrConst (x: string) =
 
 let nullValue = Fable.Expr.Value(Fable.ValueKind.Null(Fable.Type.Any), None)
 
+let emitJs macro args  =
+    let callInfo: Fable.CallInfo =
+        { ThisArg = None
+          Args = args
+          SignatureArgTypes = []
+          HasSpread = false
+          IsJsConstructor = false
+          CallMemberInfo = None }
+
+    let emitInfo : Fable.AST.Fable.EmitInfo =
+        { Macro = macro
+          IsJsStatement = false
+          CallInfo = callInfo }
+
+    Fable.Expr.Emit(emitInfo, Fable.Type.Any, None)
+
 let rec flattenList (head: Fable.Expr) (tail: Fable.Expr) =
     [
         yield head;
@@ -48,10 +64,10 @@ let makeImport selector path =
                    Path = makeStrConst path
                    IsCompilerGenerated = true }, Fable.Any, None)
 
-let isRecord (fableType: Fable.Type) =
+let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     match fableType with
     | Fable.Type.AnonymousRecordType _ -> true
-    | Fable.Type.DeclaredType (entity, genericArgs) -> false
+    | Fable.Type.DeclaredType (entity, genericArgs) -> compiler.GetEntity(entity).IsFSharpRecord
     | _ -> false
 
 let makeCall callee args =
@@ -60,7 +76,8 @@ let makeCall callee args =
           Args = args
           SignatureArgTypes = []
           HasSpread = false
-          IsJsConstructor = false }
+          IsJsConstructor = false
+          CallMemberInfo = None }
     Fable.Call(callee, callInfo, Fable.Any, None)
 
 type MemberInfo(?info: Fable.MemberInfo,

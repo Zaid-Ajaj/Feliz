@@ -3,7 +3,7 @@ namespace Feliz
 open Fable
 open Fable.AST
 
-type IntrinsicElementPrimitiveAttribute(tagName:string) =
+type PrimitiveElementAttribute(tagName:string) =
     inherit MemberDeclarationPluginAttribute()
     override _.FableMinimumVersion = "3.0"
 

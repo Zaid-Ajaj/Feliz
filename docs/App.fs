@@ -121,12 +121,35 @@ let counterWithAnonRecord (props: {| initial : int |}) =
         Html.h1 count
     ]
 
+type CounterRecordProps = { initial: int; show: bool }
+
+[<ReactComponent>]
+let counterWithRecord (props: CounterRecordProps) =
+    let (count, setCount) = React.useState props.initial
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
+
+        if props.show then Html.h1 count
+    ]
+
 [<ReactComponent>]
 let counters(show: bool) =
     Html.div [
         counter()
         counterWithInput 10
-        if show then counterWithAnonRecord {| initial = 20 |}
+        counterWithAnonRecord {| initial = 20 |}
+        counterWithRecord { initial = 10; show = true }
+        // Examples.counterExternal()
     ]
 
 [<ReactComponent>]

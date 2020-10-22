@@ -376,6 +376,18 @@ module ReactComponents =
             ]
         ]
 
+[<ReactComponent>]
+let counterExternal() =
+    let (count, setCount) = React.useState 0
+
+    Html.div [
+        Html.h1 count
+        Html.button [
+            prop.text "Increment"
+            prop.onClick (fun _ -> setCount(count + 1))
+        ]
+    ]
+
 let counter = React.functionComponent(fun () ->
     let (count, setCount) = React.useState 0
 

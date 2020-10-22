@@ -9,7 +9,7 @@ type ReactComponentAttribute() =
     override _.FableMinimumVersion = "3.0"
 
     /// <summary>Transforms call-site into createElement calls</summary>
-    override _.TransformCall(logger, memb, expr) =
+    override _.TransformCall(compiler, memb, expr) =
         let membArgs = memb.CurriedParameterGroups |> List.concat
         match expr with
         | Fable.Call(callee, info, typeInfo, range) when List.length membArgs = List.length info.Args ->
@@ -18,7 +18,7 @@ type ReactComponentAttribute() =
                 | Fable.Expr.IdentExpr ident -> Fable.Expr.IdentExpr { ident with Name = AstUtils.capitalize ident.Name }
                 | _ -> callee
 
-            if info.Args.Length = 1 && AstUtils.isRecord info.Args.[0].Type then
+            if info.Args.Length = 1 && AstUtils.isRecord compiler info.Args.[0].Type then
                 // F# Component { Value = 1 }
                 // JSX <Component Value={1} />
                 // JS createElement(Component, { Value: 1 })
@@ -38,15 +38,15 @@ type ReactComponentAttribute() =
             AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; propsObj]
         | _ -> expr
 
-    override this.Transform(logger, decl) =
+    override this.Transform(compiler, decl) =
         if decl.Info.IsValue || decl.Info.IsGetter || decl.Info.IsSetter then
             // Invalid attribute usage
             let errorMessage = sprintf "Expecting a function declation for %s when using [<ReactComponent>]" decl.Name
-            logger.LogWarning(errorMessage, ?range=decl.Body.Range)
+            compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else
             // TODO: make sure isRecord works with records
-            if decl.Args.Length = 1 && AstUtils.isRecord decl.Args.[0].Type then
+            if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args.[0].Type then
                 // do not rewrite components accepting records as input
                 { decl with Name = AstUtils.capitalize decl.Name }
             else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then
