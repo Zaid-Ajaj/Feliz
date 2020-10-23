@@ -961,6 +961,8 @@ type prop =
     static member inline max (value: float) = Interop.mkAttr "max" value
     /// Indicates the maximum value allowed.
     static member inline max (value: int) = Interop.mkAttr "max" value
+    /// Indicates the maximum value allowed.
+    static member inline max (value: DateTime) = Interop.mkAttr "max" (value.ToString("yyyy-MM-dd"))
 
     /// Defines the maximum number of characters allowed in the element.
     static member inline maxLength (value: int) = Interop.mkAttr "maxLength" value
