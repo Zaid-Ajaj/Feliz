@@ -185,16 +185,11 @@ type Html =
 
     /// The `<div>` tag defines a division or a section in an HTML document
     static member inline div xs = Interop.createElement "div" xs
-    [<PrimitiveElement "div">]
-    static member div (value: float) = Interop.reactElementWithChild "div" value
-    [<PrimitiveElement "div">]
-    static member div (value: int) = Interop.reactElementWithChild "div" value
-    [<PrimitiveElement "div">]
-    static member div (value: ReactElement) = Interop.reactElementWithChild "div" value
-    [<PrimitiveElement "div">]
-    static member div (value: string) = Interop.reactElementWithChild "div" value
-    [<PrimitiveElementWithChildren "div">]
-    static member div (children: #seq<ReactElement>) = Interop.reactElementWithChildren "div" children
+    static member inline div (value: float) = Interop.reactElementWithChild "div" value
+    static member inline div (value: int) = Interop.reactElementWithChild "div" value
+    static member inline div (value: ReactElement) = Interop.reactElementWithChild "div" value
+    static member inline div (value: string) = Interop.reactElementWithChild "div" value
+    static member inline div (children: #seq<ReactElement>) = Interop.reactElementWithChildren "div" children
 
     static member inline dl xs = Interop.createElement "dl" xs
     static member inline dl (children: #seq<ReactElement>) = Interop.reactElementWithChildren "dl" children
@@ -321,17 +316,11 @@ type Html =
     static member inline g (children: #seq<ReactElement>) = Interop.reactElementWithChildren "g" children
 
     static member inline h1 xs = Interop.createElement "h1" xs
-    [<PrimitiveElement "h1">]
-    static member h1 (value: float) = Interop.reactElementWithChild "h1" value
-    [<PrimitiveElement "h1">]
-    static member h1 (value: int) = Interop.reactElementWithChild "h1" value
-    [<PrimitiveElement "h1">]
-    static member h1 (value: ReactElement) = Interop.reactElementWithChild "h1" value
-    [<PrimitiveElement "h1">]
-    static member h1 (value: string) = Interop.reactElementWithChild "h1" value
-    [<PrimitiveElementWithChildren "h1">]
+    static member inline h1 (value: float) = Interop.reactElementWithChild "h1" value
+    static member inline h1 (value: int) = Interop.reactElementWithChild "h1" value
+    static member inline h1 (value: ReactElement) = Interop.reactElementWithChild "h1" value
+    static member inline h1 (value: string) = Interop.reactElementWithChild "h1" value
     static member h1 (children: #seq<ReactElement>) = Interop.reactElementWithChildren "h1" children
-
     static member inline h2 xs = Interop.createElement "h2" xs
     static member inline h2 (value: float) =  Interop.reactElementWithChild "h2" value
     static member inline h2 (value: int) =  Interop.reactElementWithChild "h2" value
