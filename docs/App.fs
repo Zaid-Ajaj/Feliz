@@ -169,6 +169,7 @@ let counters(show: bool) =
         counterWithRecord { initial = 10; show = true }
         counterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
         counterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
+        Examples.counterExternal()
     ]
 
 [<ReactComponent>]

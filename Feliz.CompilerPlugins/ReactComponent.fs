@@ -15,8 +15,25 @@ type ReactComponentAttribute() =
         | Fable.Call(callee, info, typeInfo, range) when List.length membArgs = List.length info.Args ->
             let callee =
                 match callee with
-                | Fable.Expr.IdentExpr ident -> Fable.Expr.IdentExpr { ident with Name = AstUtils.capitalize ident.Name }
-                | _ -> callee
+                | Fable.Expr.IdentExpr ident ->
+                    // capitalize same-file references
+                    Fable.Expr.IdentExpr { ident with Name = AstUtils.capitalize ident.Name }
+                | Fable.Expr.Import(importInfo, fableType, sourceLocation) ->
+                    // capitalize component imports from different modules/files
+                    let selector =
+                        match importInfo.Selector with
+                        | Fable.Expr.IdentExpr ident ->
+                            Fable.Expr.IdentExpr { ident with Name = AstUtils.capitalize ident.Name }
+                        | Fable.Expr.Value (Fable.ValueKind.StringConstant ident, sourceLoc) ->
+                            let modifiedIdent = AstUtils.capitalize ident
+                            Fable.Expr.Value (Fable.ValueKind.StringConstant modifiedIdent, sourceLoc)
+                        | _ ->
+                            importInfo.Selector
+
+                    let modifiedImportInfo = { importInfo with Selector = selector }
+                    Fable.Expr.Import(modifiedImportInfo, fableType, sourceLocation)
+                | _ ->
+                    callee
 
             if info.Args.Length = 1 && AstUtils.isRecord compiler info.Args.[0].Type then
                 // F# Component { Value = 1 }
@@ -25,7 +42,7 @@ type ReactComponentAttribute() =
                 if AstUtils.recordHasField "Key" compiler info.Args.[0].Type then
                     // However, when the key property is upper-case (which is common in record fields)
                     // then we should rewrite it
-                    let modifiedRecord = AstUtils.emitJs "((value) => { value.key = value.Key; return value; })($0)" [info.Args.[0]]
+                    let modifiedRecord = AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args.[0]]
                     AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; modifiedRecord]
                 else
                     AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; info.Args.[0]]
@@ -40,7 +57,6 @@ type ReactComponentAttribute() =
                 |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
                 |> AstUtils.objExpr
 
-            // TODO: Detect usage of an input called `children` anc spread it into the component
             AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; propsObj]
         | _ -> expr
 
