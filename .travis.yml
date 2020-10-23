@@ -1,8 +1,7 @@
 language: csharp
-mono: 5.2.0
-dotnet: 2.1.300
-dist: trusty
+dist: xenial
 sudo: required
+dotnet: 3.1.300
 addons:
   apt:
     sources:
