@@ -142,6 +142,24 @@ let counterWithRecord (props: CounterRecordProps) =
         if props.show then Html.h1 count
     ]
 
+type KeyedCounterProps = { Key: string; Name: string }
+
+[<ReactComponent>]
+let counterWithKeyedRecord (props: KeyedCounterProps) =
+    let (count, setCount) = React.useState 0
+    Html.div [
+        Html.h1 count
+    ]
+
+type LowerKeyedCounterProps = { key: string; Name: string }
+
+[<ReactComponent>]
+let counterWithLowercaseKeyedRecord (props: LowerKeyedCounterProps) =
+    let (count, setCount) = React.useState 0
+    Html.div [
+        Html.h1 count
+    ]
+
 [<ReactComponent>]
 let counters(show: bool) =
     Html.div [
@@ -149,7 +167,8 @@ let counters(show: bool) =
         counterWithInput 10
         counterWithAnonRecord {| initial = 20 |}
         counterWithRecord { initial = 10; show = true }
-        // Examples.counterExternal()
+        counterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
+        counterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
     ]
 
 [<ReactComponent>]

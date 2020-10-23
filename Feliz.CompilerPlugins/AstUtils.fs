@@ -70,6 +70,20 @@ let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     | Fable.Type.DeclaredType (entity, genericArgs) -> compiler.GetEntity(entity).IsFSharpRecord
     | _ -> false
 
+
+let recordHasField name (compiler: PluginHelper) (fableType: Fable.Type) =
+    match fableType with
+    | Fable.Type.AnonymousRecordType (fieldNames, genericArgs) ->
+        fieldNames
+        |> Array.exists (fun field -> field = name)
+
+    | Fable.Type.DeclaredType (entity, genericArgs) ->
+        compiler.GetEntity(entity).FSharpFields
+        |> List.exists (fun field -> field.Name = name)
+
+    | _ ->
+        false
+
 let makeCall callee args =
     let callInfo: Fable.CallInfo =
         { ThisArg = None

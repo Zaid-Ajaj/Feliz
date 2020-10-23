@@ -22,7 +22,13 @@ type ReactComponentAttribute() =
                 // F# Component { Value = 1 }
                 // JSX <Component Value={1} />
                 // JS createElement(Component, { Value: 1 })
-                AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; info.Args.[0]]
+                if AstUtils.recordHasField "Key" compiler info.Args.[0].Type then
+                    // However, when the key property is upper-case (which is common in record fields)
+                    // then we should rewrite it
+                    let modifiedRecord = AstUtils.emitJs "((value) => { value.key = value.Key; return value; })($0)" [info.Args.[0]]
+                    AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; modifiedRecord]
+                else
+                    AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; info.Args.[0]]
             elif info.Args.Length = 1 && info.Args.[0].Type = Fable.Type.Unit then
                 // F# Component()
                 // JSX <Component />
