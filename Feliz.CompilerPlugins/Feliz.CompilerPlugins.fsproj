@@ -1,6 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Description>Provides compile-time transformation for React components</Description>
+    <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Zaid-Ajaj/Feliz</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>fsharp;fable;react;html</PackageTags>
+    <Authors>Zaid Ajaj</Authors>
+    <Version>0.1.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AstUtils.fs" />
@@ -9,6 +18,6 @@
     <Compile Include="PrimitiveElementWithChildren.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.AST" Version="3.0.0-nagareyama-alpha-003" />
+    <PackageReference Include="Fable.AST" Version="3.0.0-nagareyama-beta-001" />
   </ItemGroup>
 </Project>

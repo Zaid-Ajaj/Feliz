@@ -59,9 +59,9 @@ let rec flattenList (head: Fable.Expr) (tail: Fable.Expr) =
             yield! [ ]
     ]
 
-let makeImport selector path =
-    Fable.Import({ Selector = makeStrConst selector
-                   Path = makeStrConst path
+let makeImport (selector: string) (path: string) =
+    Fable.Import({ Selector = selector
+                   Path = path
                    IsCompilerGenerated = true }, Fable.Any, None)
 
 let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =

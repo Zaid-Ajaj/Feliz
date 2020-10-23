@@ -9,7 +9,8 @@
         "pretest": "webpack --config webpack.tests.js",
         "test": "dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj",
         "start:nagareyama": "dotnet tool restore && dotnet fable watch docs --forcePkgs --exclude Feliz.CompilerPlugins --run webpack-dev-server --config webpack.nagareyama.js",
-        "build:nagareyama": "dotnet tool restore && dotnet fable docs --forcePkgs --exclude Feliz.CompilerPlugins --run webpack --config webpack.nagareyama.js --mode production"
+        "build:nagareyama": "dotnet tool restore && dotnet fable docs --forcePkgs --exclude Feliz.CompilerPlugins --run webpack --config webpack.nagareyama.js --mode production",
+        "test:nagareyama": "dotnet tool restore && dotnet fable tests --exclude Feliz.CompilerPlugins --run webpack --config webpack.nagareyama.tests.js --mode production && dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj"
     },
     "repository": {
         "type": "git",

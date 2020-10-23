@@ -26,5 +26,6 @@ os: Visual Studio 2017
 build_script:
   - cmd: build.cmd Build
   - cmd: npm test
+  - cmd: npm run test:nagareyama
 
 test: off

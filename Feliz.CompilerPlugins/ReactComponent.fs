@@ -20,16 +20,7 @@ type ReactComponentAttribute() =
                     Fable.Expr.IdentExpr { ident with Name = AstUtils.capitalize ident.Name }
                 | Fable.Expr.Import(importInfo, fableType, sourceLocation) ->
                     // capitalize component imports from different modules/files
-                    let selector =
-                        match importInfo.Selector with
-                        | Fable.Expr.IdentExpr ident ->
-                            Fable.Expr.IdentExpr { ident with Name = AstUtils.capitalize ident.Name }
-                        | Fable.Expr.Value (Fable.ValueKind.StringConstant ident, sourceLoc) ->
-                            let modifiedIdent = AstUtils.capitalize ident
-                            Fable.Expr.Value (Fable.ValueKind.StringConstant modifiedIdent, sourceLoc)
-                        | _ ->
-                            importInfo.Selector
-
+                    let selector = AstUtils.capitalize importInfo.Selector
                     let modifiedImportInfo = { importInfo with Selector = selector }
                     Fable.Expr.Import(modifiedImportInfo, fableType, sourceLocation)
                 | _ ->
@@ -40,7 +31,7 @@ type ReactComponentAttribute() =
                 // JSX <Component Value={1} />
                 // JS createElement(Component, { Value: 1 })
                 if AstUtils.recordHasField "Key" compiler info.Args.[0].Type then
-                    // However, when the key property is upper-case (which is common in record fields)
+                    // When the key property is upper-case (which is common in record fields)
                     // then we should rewrite it
                     let modifiedRecord = AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args.[0]]
                     AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; modifiedRecord]
