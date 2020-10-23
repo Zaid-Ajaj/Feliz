@@ -1,167 +1,318 @@
 module Urls
 
-let [<Literal>] Feliz = "Feliz"
+[<Literal>]
+let Feliz = "Feliz"
 
-let [<Literal>] Aliasing = "Aliasing"
-let [<Literal>] ConditionalStyling = "ConditionalStyling"
-let [<Literal>] Contributing = "Contributing"
-let [<Literal>] Installation = "Installation"
-let [<Literal>] Overview = "Overview"
-let [<Literal>] ProjectTemplate = "ProjectTemplate"
-let [<Literal>] Syntax = "Syntax"
-let [<Literal>] TypeSafeCss = "TypeSafeCss"
-let [<Literal>] TypeSafeStyling = "TypeSafeStyling"
-let [<Literal>] UseWithElmish = "UseWithElmish"
+[<Literal>]
+let Aliasing = "Aliasing"
+
+[<Literal>]
+let ConditionalStyling = "ConditionalStyling"
+
+[<Literal>]
+let Contributing = "Contributing"
+
+[<Literal>]
+let Installation = "Installation"
+
+[<Literal>]
+let Overview = "Overview"
+
+[<Literal>]
+let ProjectTemplate = "ProjectTemplate"
+
+[<Literal>]
+let Syntax = "Syntax"
+
+[<Literal>]
+let TypeSafeCss = "TypeSafeCss"
+
+[<Literal>]
+let TypeSafeStyling = "TypeSafeStyling"
+
+[<Literal>]
+let UseWithElmish = "UseWithElmish"
 
 // ____________________________________________________
 // Shared Urls
 
-let [<Literal>] Components = "Components"
-let [<Literal>] Refs = "Refs"
+[<Literal>]
+let Components = "Components"
+
+[<Literal>]
+let Refs = "Refs"
+
+[<Literal>]
+let Inputs = "Inputs"
 
 // ____________________________________________________
 
-let [<Literal>] Recharts = "Recharts"
+[<Literal>]
+let Recharts = "Recharts"
 
 // Shared
-let [<Literal>] ResponsiveFullWidth = "ResponsiveFullWidth"
+[<Literal>]
+let ResponsiveFullWidth = "ResponsiveFullWidth"
 
 // __________________________
 
-let [<Literal>] AreaCharts = "AreaCharts"
+[<Literal>]
+let AreaCharts = "AreaCharts"
 
-let [<Literal>] AreaChartFillByValue = "AreaChartFillByValue"
-let [<Literal>] AreaChartOptionalValues = "AreaChartOptionalValues"
-let [<Literal>] SimpleAreaChart = "SimpleAreaChart"
-let [<Literal>] StackedAreaChart = "StackedAreaChart"
-let [<Literal>] SynchronizedAreaChart = "SynchronizedAreaChart"
-let [<Literal>] TinyAreaChart = "TinyAreaChart"
+[<Literal>]
+let AreaChartFillByValue = "AreaChartFillByValue"
 
-// __________________________
+[<Literal>]
+let AreaChartOptionalValues = "AreaChartOptionalValues"
 
-let [<Literal>] LineCharts = "LineCharts"
+[<Literal>]
+let SimpleAreaChart = "SimpleAreaChart"
 
-let [<Literal>] BiaxialLineChart = "BiaxialLineChart"
-let [<Literal>] CustomizedLabelLineChart = "CustomizedLabelLineChart"
-let [<Literal>] LineChartOptionalValues = "LineChartOptionalValues"
-let [<Literal>] SimpleLineChart = "SimpleLineChart"
+[<Literal>]
+let StackedAreaChart = "StackedAreaChart"
 
-// __________________________
+[<Literal>]
+let SynchronizedAreaChart = "SynchronizedAreaChart"
 
-let [<Literal>] BarCharts = "BarCharts"
-
-let [<Literal>] MixBarChart = "MixBarChart"
-let [<Literal>] PositiveAndNegative = "PositiveAndNegative"
-let [<Literal>] SimpleBarChart = "SimpleBarChart"
-let [<Literal>] StackedBarChart = "StackedBarChart"
-let [<Literal>] TinyBarChart = "TinyBarChart"
+[<Literal>]
+let TinyAreaChart = "TinyAreaChart"
 
 // __________________________
 
-let [<Literal>] PieCharts = "PieCharts"
+[<Literal>]
+let LineCharts = "LineCharts"
 
-let [<Literal>] CustomizedLabelPieChart = "CustomizedLabelPieChart"
-let [<Literal>] StraightAngle = "StraightAngle"
-let [<Literal>] TwoLevelPieChart = "TwoLevelPieChart"
+[<Literal>]
+let BiaxialLineChart = "BiaxialLineChart"
+
+[<Literal>]
+let CustomizedLabelLineChart = "CustomizedLabelLineChart"
+
+[<Literal>]
+let LineChartOptionalValues = "LineChartOptionalValues"
+
+[<Literal>]
+let SimpleLineChart = "SimpleLineChart"
+
+// __________________________
+
+[<Literal>]
+let BarCharts = "BarCharts"
+
+[<Literal>]
+let MixBarChart = "MixBarChart"
+
+[<Literal>]
+let PositiveAndNegative = "PositiveAndNegative"
+
+[<Literal>]
+let SimpleBarChart = "SimpleBarChart"
+
+[<Literal>]
+let StackedBarChart = "StackedBarChart"
+
+[<Literal>]
+let TinyBarChart = "TinyBarChart"
+
+// __________________________
+
+[<Literal>]
+let PieCharts = "PieCharts"
+
+[<Literal>]
+let CustomizedLabelPieChart = "CustomizedLabelPieChart"
+
+[<Literal>]
+let StraightAngle = "StraightAngle"
+
+[<Literal>]
+let TwoLevelPieChart = "TwoLevelPieChart"
 
 // ____________________________________________________
 
-let [<Literal>] React = "React"
+[<Literal>]
+let React = "React"
 
-let [<Literal>] CodeSplitting = "CodeSplitting"
-let [<Literal>] CommonPitfalls = "CommonPitfalls"
+[<Literal>]
+let CodeSplitting = "CodeSplitting"
+
+[<Literal>]
+let CommonPitfalls = "CommonPitfalls"
 // Components
-let [<Literal>] ContextPropagation = "ContextPropagation"
-let [<Literal>] EffectfulComponents = "EffectfulComponents"
-let [<Literal>] HoverAnimations = "HoverAnimations"
-let [<Literal>] NotJustFunctions = "NotJustFunctions"
-let [<Literal>] Portals = "Portals"
-let [<Literal>] ReactApiSupport = "ReactApiSupport"
-let [<Literal>] RenderStaticHtml = "RenderStaticHtml"
-let [<Literal>] Standalone = "Standalone"
-let [<Literal>] StatefulComponents = "StatefulComponents"
-let [<Literal>] StatelessComponents = "StatelessComponents"
-let [<Literal>] StrictMode = "StrictMode"
-let [<Literal>] SubscriptionsWithEffects = "SubscriptionsWithEffects"
-let [<Literal>] UseContext = "UseContext"
-let [<Literal>] UseEffect = "UseEffect"
-let [<Literal>] UseReducer = "UseReducer"
-let [<Literal>] UseState = "UseState"
-let [<Literal>] UseElmish = "UseElmish"
+[<Literal>]
+let ContextPropagation = "ContextPropagation"
+
+[<Literal>]
+let EffectfulComponents = "EffectfulComponents"
+
+[<Literal>]
+let HoverAnimations = "HoverAnimations"
+
+[<Literal>]
+let NotJustFunctions = "NotJustFunctions"
+
+[<Literal>]
+let Portals = "Portals"
+
+[<Literal>]
+let ReactApiSupport = "ReactApiSupport"
+
+[<Literal>]
+let RenderStaticHtml = "RenderStaticHtml"
+
+[<Literal>]
+let Standalone = "Standalone"
+
+[<Literal>]
+let StatefulComponents = "StatefulComponents"
+
+[<Literal>]
+let StatelessComponents = "StatelessComponents"
+
+[<Literal>]
+let StrictMode = "StrictMode"
+
+[<Literal>]
+let SubscriptionsWithEffects = "SubscriptionsWithEffects"
+
+[<Literal>]
+let UseContext = "UseContext"
+
+[<Literal>]
+let UseEffect = "UseEffect"
+
+[<Literal>]
+let UseReducer = "UseReducer"
+
+[<Literal>]
+let UseState = "UseState"
+
+[<Literal>]
+let UseElmish = "UseElmish"
 
 // ____________________________________________________
 
-let [<Literal>] Ecosystem = "Ecosystem"
+[<Literal>]
+let Ecosystem = "Ecosystem"
 
 // __________________________
 
-let [<Literal>] UIFrameworks = "UIFrameworks"
+[<Literal>]
+let UIFrameworks = "UIFrameworks"
 
-let [<Literal>] Bulma = "Bulma"
-let [<Literal>] Mui = "Mui"
+[<Literal>]
+let Bulma = "Bulma"
+
+[<Literal>]
+let Mui = "Mui"
 
 // __________________________
 
-let [<Literal>] Hooks = "Hooks"
+[<Literal>]
+let Hooks = "Hooks"
 
-let [<Literal>] UseDeferred = "UseDeferred"
+[<Literal>]
+let UseDeferred = "UseDeferred"
 // UseElmish
-let [<Literal>] UseListener = "UseListener"
-let [<Literal>] UseMediaQuery = "UseMediaQuery"
-let [<Literal>] UseWorker = "UseWorker"
+[<Literal>]
+let UseListener = "UseListener"
+
+[<Literal>]
+let UseMediaQuery = "UseMediaQuery"
+
+[<Literal>]
+let UseWorker = "UseWorker"
 
 // __________________________
 
 // Components
 
-let [<Literal>] Delay = "Delay"
-let [<Literal>] ElmishComponents = "ElmishComponents"
-let [<Literal>] Popover = "Popover"
-let [<Literal>] Router = "Router"
+[<Literal>]
+let Delay = "Delay"
+
+[<Literal>]
+let ElmishComponents = "ElmishComponents"
+
+[<Literal>]
+let Popover = "Popover"
+
+[<Literal>]
+let Router = "Router"
 
 // __________________________
 
-let [<Literal>] Visualizations = "Visualizations"
+[<Literal>]
+let Visualizations = "Visualizations"
 
-let [<Literal>] PigeonMaps = "PigeonMaps"
-let [<Literal>] Plotly = "Plotly"
+[<Literal>]
+let PigeonMaps = "PigeonMaps"
+
+[<Literal>]
+let Plotly = "Plotly"
 // Recharts
-let [<Literal>] RoughViz = "RoughViz"
+[<Literal>]
+let RoughViz = "RoughViz"
 
 // __________________________
 
-let [<Literal>] Testing = "Testing"
+[<Literal>]
+let Testing = "Testing"
 
 // _____________
 
-let [<Literal>] Frameworks = "Frameworks"
+[<Literal>]
+let Frameworks = "Frameworks"
 
-let [<Literal>] Jest = "Jest"
-let [<Literal>] Mocha = "Mocha"
+[<Literal>]
+let Jest = "Jest"
+
+[<Literal>]
+let Mocha = "Mocha"
 
 // _____________
 
-let [<Literal>] Utilities = "Utilities"
+[<Literal>]
+let Utilities = "Utilities"
 
-let [<Literal>] RTL = "RTL"
-let [<Literal>] FastCheck = "FastCheck"
+[<Literal>]
+let RTL = "RTL"
+
+[<Literal>]
+let FastCheck = "FastCheck"
 
 // __________________________
 
-let [<Literal>] Misc = "Misc"
+[<Literal>]
+let Misc = "Misc"
 
-let [<Literal>] Felizia = "Felizia"
-let [<Literal>] Recoil = "Recoil"
-let [<Literal>] SignalR = "SignalR"
-let [<Literal>] SweetAlert = "SweetAlert"
-let [<Literal>] ViewEngine = "ViewEngine"
+[<Literal>]
+let Felizia = "Felizia"
+
+[<Literal>]
+let Recoil = "Recoil"
+
+[<Literal>]
+let SignalR = "SignalR"
+
+[<Literal>]
+let SweetAlert = "SweetAlert"
+
+[<Literal>]
+let ViewEngine = "ViewEngine"
 
 // ____________________________________________________
 
-let [<Literal>] Tests = "Tests"
+[<Literal>]
+let Tests = "Tests"
 
-let [<Literal>] CallbackRef = "CallbackRef"
+[<Literal>]
+let CallbackRef = "CallbackRef"
 // ElmishComponents
-let [<Literal>] FileUpload = "FileUpload"
-let [<Literal>] ForwardRef = "ForwardRef"
-let [<Literal>] KeyboardKey = "KeyboardKey"
+[<Literal>]
+let FileUpload = "FileUpload"
+
+[<Literal>]
+let ForwardRef = "ForwardRef"
+
+[<Literal>]
+let KeyboardKey = "KeyboardKey"

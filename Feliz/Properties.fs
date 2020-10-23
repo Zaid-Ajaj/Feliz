@@ -5,6 +5,7 @@ open Fable.Core.JsInterop
 open Fable.Core
 open Feliz.Styles
 open System.ComponentModel
+open System
 
 [<StringEnum; RequireQualifiedAccess>]
 type AriaDropEffect =
@@ -987,6 +988,8 @@ type prop =
     static member inline min (value: float) = Interop.mkAttr "min" value
     /// Indicates the minimum value allowed.
     static member inline min (value: int) = Interop.mkAttr "min" value
+    /// Indicates the minimum value allowed.
+    static member inline min (value: DateTime) = Interop.mkAttr "min" (value.ToString("yyyy-MM-dd"))
 
     /// Defines the minimum number of characters allowed in the element.
     static member inline minLength (value: int) = Interop.mkAttr "minLength" value
