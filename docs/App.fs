@@ -173,7 +173,7 @@ let counters(show: bool) =
     ]
 
 [<ReactComponent>]
-let countersWithConditionals(show: bool) =
+let countersWithConditionals (show: bool) (more: int) =
     Html.div [|
         counter()
         counterWithInput 10
@@ -181,6 +181,10 @@ let countersWithConditionals(show: bool) =
     |]
 
 let counterCaller = React.functionComponent(fun () -> counters(true))
+
+let partiallyAppied = countersWithConditionals true
+
+let withMore = partiallyAppied 42
 
 let roughBarChart = React.functionComponent(fun () ->
     RoughViz.barChart [
