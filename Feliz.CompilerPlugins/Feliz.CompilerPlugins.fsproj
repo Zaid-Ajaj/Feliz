@@ -6,10 +6,10 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Update AST version</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AstUtils.fs" />
@@ -18,6 +18,6 @@
     <Compile Include="PrimitiveElementWithChildren.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.AST" Version="3.0.0-nagareyama-beta-001" />
+    <PackageReference Include="Fable.AST" Version="3.0.0-nagareyama-beta-002" />
   </ItemGroup>
 </Project>

@@ -4,9 +4,11 @@ open Fable
 open Fable.AST
 
 /// <summary>Transforms a function into a React function component. Make sure the function is defined at the module level</summary>
-type ReactComponentAttribute() =
+type ReactComponentAttribute(exportDefault: bool) =
     inherit MemberDeclarationPluginAttribute()
     override _.FableMinimumVersion = "3.0"
+
+    new() = ReactComponentAttribute(exportDefault=false)
 
     /// <summary>Transforms call-site into createElement calls</summary>
     override _.TransformCall(compiler, memb, expr) =
@@ -49,7 +51,9 @@ type ReactComponentAttribute() =
                 |> AstUtils.objExpr
 
             AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; propsObj]
-        | _ -> expr
+        | _ ->
+            // return expression as is when it is not a call expression
+            expr
 
     override this.Transform(compiler, decl) =
         if decl.Info.IsValue || decl.Info.IsGetter || decl.Info.IsSetter then
@@ -61,10 +65,10 @@ type ReactComponentAttribute() =
             // TODO: make sure isRecord works with records
             if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args.[0].Type then
                 // do not rewrite components accepting records as input
-                { decl with Name = AstUtils.capitalize decl.Name }
+                { decl with Name = AstUtils.capitalize decl.Name; ExportDefault = exportDefault }
             else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then
                 // remove arguments from functions requiring unit as input
-                { decl with Args = [ ]; Name = AstUtils.capitalize decl.Name }
+                { decl with Args = [ ]; Name = AstUtils.capitalize decl.Name; ExportDefault = exportDefault }
             else
             // rewrite all other arguments into getters of a single props object
             // TODO: transform any callback into into useCallback(callback) to stabilize reference
@@ -81,4 +85,5 @@ type ReactComponentAttribute() =
             { decl with
                 Args = [propsArg]
                 Body = body
-                Name = AstUtils.capitalize decl.Name }
+                Name = AstUtils.capitalize decl.Name
+                ExportDefault = exportDefault }

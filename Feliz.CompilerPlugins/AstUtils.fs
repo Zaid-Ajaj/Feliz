@@ -125,6 +125,7 @@ let objValue (k, v): Fable.MemberDecl =
         Body = v
         UsedNames = Set.empty
         Info = MemberInfo(isValue=true)
+        ExportDefault = false
     }
 
 
