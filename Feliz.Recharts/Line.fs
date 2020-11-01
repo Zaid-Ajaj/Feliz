@@ -6,72 +6,72 @@ open Fable.Core
 
 [<Erase>]
 type line =
-    static member inline name(value: string) = Interop.mkAttr "name" value
-    static member inline dataKey (value: string) = Interop.mkAttr "dataKey" value
-    static member inline dataKey (f: 'a -> string) = Interop.mkAttr "dataKey" f
-    static member inline dataKey (f: 'a -> int) = Interop.mkAttr "dataKey" f
-    static member inline dataKey (f: 'a -> float) = Interop.mkAttr "dataKey" f
-    static member inline dataKey (f: 'a -> string option) = Interop.mkAttr "dataKey" f
-    static member inline dataKey (f: 'a -> int option) = Interop.mkAttr "dataKey" f
-    static member inline dataKey (f: 'a -> float option) = Interop.mkAttr "dataKey" f
-    static member inline stroke (value: string) = Interop.mkAttr "stroke" value
-    static member inline fill (value: string) = Interop.mkAttr "fill" value
-    static member inline xAxisId (value: string) = Interop.mkAttr "xAxisId" value
-    static member inline yAxisId (value: string) = Interop.mkAttr "yAxisId" value
-    static member inline xAxisId (value: int) = Interop.mkAttr "xAxisId" value
-    static member inline yAxisId (value: int) = Interop.mkAttr "yAxisId" value
-    static member inline strokeDasharray([<ParamArray>] values: int []) = Interop.mkAttr "strokeDasharray" (values |> Array.map string |> String.concat " ")
-    static member inline monotone = Interop.mkAttr "type" "monotone"
-    static member inline basis = Interop.mkAttr "type" "basis"
-    static member inline basisClosed = Interop.mkAttr "type" "basisClosed"
-    static member inline basisOpen = Interop.mkAttr "type" "basisOpen"
-    static member inline linear = Interop.mkAttr "type" "linear"
-    static member inline linearClosed = Interop.mkAttr "type" "linearClosed"
-    static member inline natural = Interop.mkAttr "type" "natural"
-    static member inline monotoneX = Interop.mkAttr "type" "monotoneX"
-    static member inline step = Interop.mkAttr "type" "step"
-    static member inline stepBefore = Interop.mkAttr "type" "stepBefore"
-    static member inline stepAfter = Interop.mkAttr "type" "stepAfter"
-    static member inline monotoneY = Interop.mkAttr "type" "monotoneY"
-    static member inline connectNulls (value : bool) = Interop.mkAttr "connectNulls" value
-    static member inline dot(value: bool) = Interop.mkAttr "dot" value
-    static member inline dot(render: IDotProperties<'a> -> ReactElement) = Interop.mkAttr "dot" render
-    static member inline activeDot(value: bool) = Interop.mkAttr "activeDot" value
-    static member inline activeDot(render: IDotProperties<'a> -> ReactElement) = Interop.mkAttr "activeDot" render
-    static member inline label(value: string) = Interop.mkAttr "label" value
-    static member inline label(value: int) = Interop.mkAttr "label" value
-    static member inline label(value: float) = Interop.mkAttr "label" value
-    static member inline label(value: ReactElement) = Interop.mkAttr "label" value
-    static member inline label(value: ILabelProperties -> ReactElement) = Interop.mkAttr "label" value
+    static member inline name(value: string) = Interop.mkLineAttr "name" value
+    static member inline dataKey (value: string) = Interop.mkLineAttr "dataKey" value
+    static member inline dataKey (f: 'a -> string) = Interop.mkLineAttr "dataKey" f
+    static member inline dataKey (f: 'a -> int) = Interop.mkLineAttr "dataKey" f
+    static member inline dataKey (f: 'a -> float) = Interop.mkLineAttr "dataKey" f
+    static member inline dataKey (f: 'a -> string option) = Interop.mkLineAttr "dataKey" f
+    static member inline dataKey (f: 'a -> int option) = Interop.mkLineAttr "dataKey" f
+    static member inline dataKey (f: 'a -> float option) = Interop.mkLineAttr "dataKey" f
+    static member inline stroke (value: string) = Interop.mkLineAttr "stroke" value
+    static member inline fill (value: string) = Interop.mkLineAttr "fill" value
+    static member inline xAxisId (value: string) = Interop.mkLineAttr "xAxisId" value
+    static member inline yAxisId (value: string) = Interop.mkLineAttr "yAxisId" value
+    static member inline xAxisId (value: int) = Interop.mkLineAttr "xAxisId" value
+    static member inline yAxisId (value: int) = Interop.mkLineAttr "yAxisId" value
+    static member inline strokeDasharray([<ParamArray>] values: int []) = Interop.mkLineAttr "strokeDasharray" (values |> Array.map string |> String.concat " ")
+    static member inline monotone = Interop.mkLineAttr "type" "monotone"
+    static member inline basis = Interop.mkLineAttr "type" "basis"
+    static member inline basisClosed = Interop.mkLineAttr "type" "basisClosed"
+    static member inline basisOpen = Interop.mkLineAttr "type" "basisOpen"
+    static member inline linear = Interop.mkLineAttr "type" "linear"
+    static member inline linearClosed = Interop.mkLineAttr "type" "linearClosed"
+    static member inline natural = Interop.mkLineAttr "type" "natural"
+    static member inline monotoneX = Interop.mkLineAttr "type" "monotoneX"
+    static member inline step = Interop.mkLineAttr "type" "step"
+    static member inline stepBefore = Interop.mkLineAttr "type" "stepBefore"
+    static member inline stepAfter = Interop.mkLineAttr "type" "stepAfter"
+    static member inline monotoneY = Interop.mkLineAttr "type" "monotoneY"
+    static member inline connectNulls (value : bool) = Interop.mkLineAttr "connectNulls" value
+    static member inline dot(value: bool) = Interop.mkLineAttr "dot" value
+    static member inline dot(render: IDotProperties<'a> -> ReactElement) = Interop.mkLineAttr "dot" render
+    static member inline activeDot(value: bool) = Interop.mkLineAttr "activeDot" value
+    static member inline activeDot(render: IDotProperties<'a> -> ReactElement) = Interop.mkLineAttr "activeDot" render
+    static member inline label(value: string) = Interop.mkLineAttr "label" value
+    static member inline label(value: int) = Interop.mkLineAttr "label" value
+    static member inline label(value: float) = Interop.mkLineAttr "label" value
+    static member inline label(value: ReactElement) = Interop.mkLineAttr "label" value
+    static member inline label(value: ILabelProperties -> ReactElement) = Interop.mkLineAttr "label" value
     /// If set false, animation of area will be disabled.
-    static member inline isAnimationActive (value: bool) = Interop.mkAttr "isAnimationActive" value
+    static member inline isAnimationActive (value: bool) = Interop.mkLineAttr "isAnimationActive" value
     /// Specifies when the animation should begin, the unit of this option is ms.
-    static member inline animationBegin (value: int) = Interop.mkAttr "animationBegin" value
+    static member inline animationBegin (value: int) = Interop.mkLineAttr "animationBegin" value
     /// Specifies the duration of animation, the unit of this option is ms. Default is `1500ms`.
-    static member inline animationDuration (value: int) = Interop.mkAttr "animationDuration" value
+    static member inline animationDuration (value: int) = Interop.mkLineAttr "animationDuration" value
     /// Specifies the duration of animation. Default is `1500ms`.
-    static member inline animationDuration (value: TimeSpan) = Interop.mkAttr "animationDuration" value.TotalMilliseconds
+    static member inline animationDuration (value: TimeSpan) = Interop.mkLineAttr "animationDuration" value.TotalMilliseconds
 
 [<Erase>]
 module line =
     [<Erase>]
     type legendType =
-        static member inline line = Interop.mkAttr "legendType" "line"
-        static member inline square = Interop.mkAttr "legendType" "square"
-        static member inline rect = Interop.mkAttr "legendType" "rect"
-        static member inline circle = Interop.mkAttr "legendType" "circle"
-        static member inline cross = Interop.mkAttr "legendType" "cross"
-        static member inline diamond = Interop.mkAttr "legendType" "diamond"
-        static member inline star = Interop.mkAttr "legendType" "star"
-        static member inline triangle = Interop.mkAttr "legendType" "triangle"
-        static member inline wye = Interop.mkAttr "legendType" "wye"
-        static member inline none = Interop.mkAttr "legendType" "none"
+        static member inline line = Interop.mkLineAttr "legendType" "line"
+        static member inline square = Interop.mkLineAttr "legendType" "square"
+        static member inline rect = Interop.mkLineAttr "legendType" "rect"
+        static member inline circle = Interop.mkLineAttr "legendType" "circle"
+        static member inline cross = Interop.mkLineAttr "legendType" "cross"
+        static member inline diamond = Interop.mkLineAttr "legendType" "diamond"
+        static member inline star = Interop.mkLineAttr "legendType" "star"
+        static member inline triangle = Interop.mkLineAttr "legendType" "triangle"
+        static member inline wye = Interop.mkLineAttr "legendType" "wye"
+        static member inline none = Interop.mkLineAttr "legendType" "none"
 
     /// The type of easing function. Default is `ease`.
     [<Erase>]
     type animationEasing =
-        static member inline ease = Interop.mkAttr "animationEasing" "ease"
-        static member inline easeIn = Interop.mkAttr "animationEasing" "ease-in"
-        static member inline easeOut = Interop.mkAttr "animationEasing" "ease-out"
-        static member inline easeInOut = Interop.mkAttr "animationEasing" "ease-in-out"
-        static member inline linear = Interop.mkAttr "animationEasing" "linear"
+        static member inline ease = Interop.mkLineAttr "animationEasing" "ease"
+        static member inline easeIn = Interop.mkLineAttr "animationEasing" "ease-in"
+        static member inline easeOut = Interop.mkLineAttr "animationEasing" "ease-out"
+        static member inline easeInOut = Interop.mkLineAttr "animationEasing" "ease-in-out"
+        static member inline linear = Interop.mkLineAttr "animationEasing" "linear"

@@ -1,6 +1,5 @@
 namespace Feliz.Recharts
 
-open Feliz
 open Fable.Core
 
 [<Erase>]
@@ -92,10 +91,113 @@ type ChartMouseEvent<'label, 'payload> =
     abstract chartX : int
     abstract chartY : int
 
-module Interop =
-    [<Emit("Object.keys($0)")>]
-    let internal objectKeys (x: obj) = jsNative
-    let objectHas (keys: string list) (x: obj) =
-        objectKeys(x)
-        |> Seq.toList
-        |> (=) keys
+[<Erase>]
+type IAreaProperty = interface end
+
+[<Erase>]
+type IAreaChartProperty = interface end
+
+[<Erase>]
+type IBarChartProperty = interface end
+
+[<Erase>]
+type IBarProperty = interface end
+
+[<Erase>]
+type IBrushProperty = interface end
+
+[<Erase>]
+type IXAxisProperty = interface end
+
+[<Erase>]
+type IYAxisProperty = interface end
+
+[<Erase>]
+type IZAxisProperty = interface end
+
+[<Erase>]
+type ITooltipProperty = interface end
+
+[<Erase>]
+type ILegendProperty = interface end
+
+[<Erase>]
+type ICellProperty = interface end
+
+[<Erase>]
+type ILabelListProperty = interface end
+
+[<Erase>]
+type ILabelProperty = interface end
+
+[<Erase>]
+type ISectorProperty = interface end
+
+[<Erase>]
+type ILineProperty = interface end
+
+[<Erase>]
+type ILineChartProperty = interface end
+
+[<Erase>]
+type ICartesianGridProperty = interface end
+
+[<Erase>]
+type ICartesianAxisProperty = interface end
+
+[<Erase>]
+type IResponsiveContainerProperty = interface end
+
+[<Erase>]
+type IComposedChartProperty = interface end
+
+[<Erase>]
+type IReferenceLineProperty = interface end
+
+[<Erase>]
+type IReferenceAreaProperty = interface end
+
+[<Erase>]
+type IReferenceDotProperty = interface end
+
+[<Erase>]
+type IPieProperty = interface end
+
+[<Erase>]
+type IPieChartProperty = interface end
+
+[<Erase>]
+type IRadarProperty = interface end
+
+[<Erase>]
+type IRadarChartProperty = interface end
+
+[<Erase>]
+type IRadialBarChartProperty = interface end
+
+[<Erase>]
+type IRadialBarProperty = interface end
+
+[<Erase>]
+type IScatterChartProperty = interface end
+
+[<Erase>]
+type IScatterProperty = interface end
+
+[<Erase>]
+type IPolarAngleAxisProperty = interface end
+
+[<Erase>]
+type IPolarGridProperty = interface end
+
+[<Erase>]
+type IPolarRadiusAxisProperty = interface end
+
+[<Erase>]
+type IFunnelChartProperty = interface end
+
+[<Erase>]
+type IFunnelProperty = interface end
+
+[<Erase>]
+type IErrorBarProperty = interface end
