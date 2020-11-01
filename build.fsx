@@ -120,6 +120,7 @@ let publish projectPath = fun () ->
     run dotnetCli pushCmd projectPath
 
 Target "PublishFeliz" (publish libPath)
+Target "PublishCompilerPlugins" (publish "./Feliz.CompilerPlugins")
 Target "PublishRecharts" (publish "./Feliz.Recharts")
 Target "PublishRoughViz" (publish "./Feliz.RoughViz")
 Target "PublishPigeonMaps" (publish "./Feliz.PigeonMaps")

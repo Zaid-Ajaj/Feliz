@@ -12,19 +12,16 @@ cache:
 
 # Install scripts. (runs after repo cloning)
 install:
-  # install latest dotnet core 3 preview
-  - cmd: choco install dotnetcore-sdk --pre
+  # install latest dotnet core sdk
+  - cmd: choco install dotnetcore-sdk
   # Get the latest stable version of Node.js
   - ps: Install-Product node $env:nodejs_version
-  # # Update npm
-  # # There seems to be issues with npm 5.4 in Windows
-  # # See https://github.com/npm/npm/issues/18380
-  # - npm install -g npm@6.1.0
 
 os: Visual Studio 2017
 
 build_script:
   - cmd: build.cmd Build
   - cmd: npm test
+  - cmd: npm run test:nagareyama
 
 test: off

@@ -52,7 +52,6 @@ let update msg state =
         | [ ] -> { state with CurrentTab = [ ] }, Cmd.none
         | _ -> { state with CurrentTab = tabs }, Cmd.none
 
-
 open Feliz.RoughViz
 
 let fruitSales = [
@@ -64,6 +63,128 @@ let fruitSales = [
     ("Bananas", 10.0)
     ("Mango", 6.4)
 ]
+
+[<ReactComponent>]
+let counter() =
+    let (count, setCount) = React.useState 0
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
+
+        Html.h1 count
+    ]
+
+[<ReactComponent>]
+let counterWithInput (initialCount: int) =
+    let (count, setCount) = React.useState initialCount
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
+
+        Html.h1 count
+    ]
+
+[<ReactComponent>]
+let counterWithAnonRecord (props: {| initial : int |}) =
+    let (count, setCount) = React.useState props.initial
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
+
+        Html.h1 count
+    ]
+
+type CounterRecordProps = { initial: int; show: bool }
+
+[<ReactComponent>]
+let counterWithRecord (props: CounterRecordProps) =
+    let (count, setCount) = React.useState props.initial
+    Html.div [
+        Html.button [
+            prop.style [ style.marginRight 5 ]
+            prop.onClick (fun _ -> setCount(count + 1))
+            prop.text "Increment"
+        ]
+
+        Html.button [
+            prop.style [ style.marginLeft 5 ]
+            prop.onClick (fun _ -> setCount(count - 1))
+            prop.text "Decrement"
+        ]
+
+        if props.show then Html.h1 count
+    ]
+
+type KeyedCounterProps = { Key: string; Name: string }
+
+[<ReactComponent>]
+let counterWithKeyedRecord (props: KeyedCounterProps) =
+    let (count, setCount) = React.useState 0
+    Html.div [
+        Html.h1 count
+    ]
+
+type LowerKeyedCounterProps = { key: string; Name: string }
+
+[<ReactComponent>]
+let counterWithLowercaseKeyedRecord (props: LowerKeyedCounterProps) =
+    let (count, setCount) = React.useState 0
+    Html.div [
+        Html.h1 count
+    ]
+
+[<ReactComponent>]
+let counters(show: bool) =
+    Html.div [
+        counter()
+        counterWithInput 10
+        counterWithAnonRecord {| initial = 20 |}
+        counterWithRecord { initial = 10; show = true }
+        counterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
+        counterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
+        Examples.counterExternal()
+    ]
+
+[<ReactComponent>]
+let countersWithConditionals (show: bool) (more: int) =
+    Html.div [|
+        counter()
+        counterWithInput 10
+        counterWithAnonRecord {| initial = 30 |}
+    |]
+
+let counterCaller = React.functionComponent(fun () -> counters(true))
+
+let partiallyAppied = countersWithConditionals true
+
+let withMore = partiallyAppied 42
 
 let roughBarChart = React.functionComponent(fun () ->
     RoughViz.barChart [
