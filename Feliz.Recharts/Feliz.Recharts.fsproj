@@ -18,6 +18,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Types.fs" />
+        <Compile Include="Interop.fs" />
         <Compile Include="Brush.fs" />
         <Compile Include="Cell.fs" />
         <Compile Include="XAxis.fs" />

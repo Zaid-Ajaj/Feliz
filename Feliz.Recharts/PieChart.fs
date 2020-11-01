@@ -7,18 +7,19 @@ open Fable.Core.JsInterop
 [<Erase>]
 type pieChart =
     /// If any two categorical charts(LineChart, AreaChart, BarChart, ComposedChart) have the same syncId, these two charts can sync the position tooltip, and the startIndex, endIndex of Brush.
-    static member inline syncId (value: string) = Interop.mkAttr "syncId" value
+    static member inline syncId (value: string) = Interop.mkPieChartAttr "syncId" value
     /// The width of chart container.
-    static member inline width (value: int) = Interop.mkAttr "width" value
+    static member inline width (value: int) = Interop.mkPieChartAttr "width" value
     /// The height of chart container.
-    static member inline height (value: int) = Interop.mkAttr "height" value
+    static member inline height (value: int) = Interop.mkPieChartAttr "height" value
     /// The source data, in which each element is an object.
-    static member inline data (values: seq<'a>) = Interop.mkAttr "data" (Seq.toArray values)
+    static member inline data (values: seq<'a>) = Interop.mkPieChartAttr "data" (Seq.toArray values)
     /// The source data, in which each element is an object.
-    static member inline data (values: 'a list) = Interop.mkAttr "data" (List.toArray values)
+    static member inline data (values: 'a list) = Interop.mkPieChartAttr "data" (List.toArray values)
     /// The source data, in which each element is an object.
-    static member inline data (values: 'a array) = Interop.mkAttr "data" values
-    static member inline children (elements: ReactElement list) = prop.children elements
+    static member inline data (values: 'a array) = Interop.mkPieChartAttr "data" values
+    static member inline children (elements: ReactElement list) = Interop.mkPieChartAttr "children" (prop.children elements)
+
     /// The sizes of whitespace around the container.
     ///
     /// Default value `{ top: 5, right: 5, bottom: 5, left: 5 }`
@@ -30,4 +31,4 @@ type pieChart =
                   "left" ==> Option.defaultValue 0 left
                   "bottom" ==> Option.defaultValue 0 bottom ]
 
-        Interop.mkAttr "margin" margin
+        Interop.mkPieChartAttr "margin" margin

@@ -7,11 +7,11 @@ open Fable.Core.JsInterop
 [<Erase>]
 type barChart =
     /// If any two categorical charts(LineChart, AreaChart, BarChart, ComposedChart) have the same syncId, these two charts can sync the position tooltip, and the startIndex, endIndex of Brush.
-    static member inline syncId (value: string) = Interop.mkAttr "syncId" value
+    static member inline syncId (value: string) = Interop.mkBarChartAttr "syncId" value
     /// The width of chart container.
-    static member inline width (value: int) = Interop.mkAttr "width" value
+    static member inline width (value: int) = Interop.mkBarChartAttr "width" value
     /// The height of chart container.
-    static member inline height (value: int) = Interop.mkAttr "height" value
+    static member inline height (value: int) = Interop.mkBarChartAttr "height" value
     /// The source data, in which each element is an object.
     ///
     /// Format
@@ -19,7 +19,7 @@ type barChart =
     /// [{ name: 'a', value: 12 }]
     /// [{ name: 'a', value: [5, 12] }]
     ///```
-    static member inline data (values: seq<'a>) = Interop.mkAttr "data" (Seq.toArray values)
+    static member inline data (values: seq<'a>) = Interop.mkBarChartAttr "data" (Seq.toArray values)
     /// The source data, in which each element is an object.
     ///
     /// Format
@@ -27,7 +27,7 @@ type barChart =
     /// [{ name: 'a', value: 12 }]
     /// [{ name: 'a', value: [5, 12] }]
     ///```
-    static member inline data (values: 'a list) = Interop.mkAttr "data" (List.toArray values)
+    static member inline data (values: 'a list) = Interop.mkBarChartAttr "data" (List.toArray values)
     /// The source data, in which each element is an object.
     ///
     /// Format
@@ -35,8 +35,9 @@ type barChart =
     /// [{ name: 'a', value: 12 }]
     /// [{ name: 'a', value: [5, 12] }]
     ///```
-    static member inline data (values: 'a array) = Interop.mkAttr "data" values
-    static member inline children (elements: ReactElement list) = prop.children elements
+    static member inline data (values: 'a array) = Interop.mkBarChartAttr "data" values
+    static member inline children (elements: ReactElement list) = Interop.mkBarChartAttr "children" (prop.children elements)
+
     /// The sizes of whitespace around the container.
     ///
     /// Default value `{ top: 5, right: 5, bottom: 5, left: 5 }`
@@ -48,56 +49,56 @@ type barChart =
             "bottom" ==> Option.defaultValue 0 bottom
         ]
 
-        Interop.mkAttr "margin" margin
+        Interop.mkBarChartAttr "margin" margin
     /// The gap between two bar categories.
-    static member inline barCategoryGap (value: int) = Interop.mkAttr "barCategoryGap" value
+    static member inline barCategoryGap (value: int) = Interop.mkBarChartAttr "barCategoryGap" value
     /// The gap between two bar categories
-    static member inline barCategoryGap (value: float) = Interop.mkAttr "barCategoryGap" value
+    static member inline barCategoryGap (value: float) = Interop.mkBarChartAttr "barCategoryGap" value
     /// The gap between two bar categories
-    static member inline barCategoryGapPercentage (value: int) = Interop.mkAttr "barCategoryGap" (unbox<string>value + "%")
+    static member inline barCategoryGapPercentage (value: int) = Interop.mkBarChartAttr "barCategoryGap" (unbox<string>value + "%")
     /// The gap between two bars in the same category. Default is 4.
-    static member inline barGap (value: int) = Interop.mkAttr "barGap" value
-    static member inline barGap (value: float) = Interop.mkAttr "barGap" value
+    static member inline barGap (value: int) = Interop.mkBarChartAttr "barGap" value
+    static member inline barGap (value: float) = Interop.mkBarChartAttr "barGap" value
     /// The gap between two bars in the same category.
-    static member inline barGapPercentage (value: int) = Interop.mkAttr "barGap" (unbox<string>value + "%")
-    static member inline barGapPercentage (value: float) = Interop.mkAttr "barGap" (unbox<string>value + "%")
-    static member inline barSize (value: int) = Interop.mkAttr "barSize" value
-    static member inline barSize (value: float) = Interop.mkAttr "barSize" value
+    static member inline barGapPercentage (value: int) = Interop.mkBarChartAttr "barGap" (unbox<string>value + "%")
+    static member inline barGapPercentage (value: float) = Interop.mkBarChartAttr "barGap" (unbox<string>value + "%")
+    static member inline barSize (value: int) = Interop.mkBarChartAttr "barSize" value
+    static member inline barSize (value: float) = Interop.mkBarChartAttr "barSize" value
     /// The maximum width of all the bars in a horizontal BarChart, or maximum height in a vertical BarChart.
-    static member inline maxBarSize (value: int) = Interop.mkAttr "maxBarSize" value
+    static member inline maxBarSize (value: int) = Interop.mkBarChartAttr "maxBarSize" value
     /// If false set, stacked items will be rendered left to right. If true set, stacked items will be rendered right to left. (Render direction affects SVG layering, not x position.)
-    static member inline reverseStackOrder (value: bool) = Interop.mkAttr "reverseStackOrder" value
+    static member inline reverseStackOrder (value: bool) = Interop.mkBarChartAttr "reverseStackOrder" value
     static member inline onClick (handler: ChartMouseEvent<'label, 'payload> -> unit) =
-        Interop.mkAttr "onClick" <|
+        Interop.mkBarChartAttr "onClick" <|
             fun eventArgs ->
                 if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
                 then ignore()
                 else handler eventArgs
 
     static member inline onMouseEnter (handler: ChartMouseEvent<'label, 'payload> -> unit) =
-        Interop.mkAttr "onMouseEnter" <|
+        Interop.mkBarChartAttr "onMouseEnter" <|
             fun eventArgs ->
                 if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
                 then ignore()
                 else handler eventArgs
 
     static member inline onMouseMove (handler: ChartMouseEvent<'label, 'payload> -> unit) =
-        Interop.mkAttr "onMouseMove" <|
+        Interop.mkBarChartAttr "onMouseMove" <|
             fun eventArgs ->
                 if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
                 then ignore()
                 else handler eventArgs
 
-    static member inline onMouseLeave (handler: unit -> unit) = Interop.mkAttr "onMouseLeave" handler
+    static member inline onMouseLeave (handler: unit -> unit) = Interop.mkBarChartAttr "onMouseLeave" handler
     static member inline onMouseUp (handler: ChartMouseEvent<'label, 'payload> -> unit) =
-        Interop.mkAttr "onMouseUp" <|
+        Interop.mkBarChartAttr "onMouseUp" <|
             fun eventArgs ->
                 if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
                 then ignore()
                 else handler eventArgs
 
     static member inline onMouseDown (handler: ChartMouseEvent<'label, 'payload> -> unit) =
-        Interop.mkAttr "onMouseDown" <|
+        Interop.mkBarChartAttr "onMouseDown" <|
             fun eventArgs ->
                 if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
                 then ignore()
@@ -107,14 +108,14 @@ module barChart =
     [<Erase>]
     /// The layout of area in the chart.
     type layout =
-        static member inline horizontal = Interop.mkAttr "layout" "horizontal"
-        static member inline vertical = Interop.mkAttr "layout" "vertical"
+        static member inline horizontal = Interop.mkBarChartAttr "layout" "horizontal"
+        static member inline vertical = Interop.mkBarChartAttr "layout" "vertical"
 
     [<Erase>]
     /// The type of offset function used to generate the lower and upper values in the series array.  Default is `none`.
     type stackOffset =
-        static member inline expand = Interop.mkAttr "stackOffset" "expand"
-        static member inline none = Interop.mkAttr "stackOffset" "none"
-        static member inline wiggle = Interop.mkAttr "stackOffset" "wiggle"
-        static member inline silhouette = Interop.mkAttr "stackOffset" "silhouette"
-        static member inline sign = Interop.mkAttr "stackOffset" "sign"
+        static member inline expand = Interop.mkBarChartAttr "stackOffset" "expand"
+        static member inline none = Interop.mkBarChartAttr "stackOffset" "none"
+        static member inline wiggle = Interop.mkBarChartAttr "stackOffset" "wiggle"
+        static member inline silhouette = Interop.mkBarChartAttr "stackOffset" "silhouette"
+        static member inline sign = Interop.mkBarChartAttr "stackOffset" "sign"
