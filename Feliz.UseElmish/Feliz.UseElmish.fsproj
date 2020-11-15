@@ -6,10 +6,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>1.4.1</Version>
+        <Version>1.5.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Fix IDisposable overloads</PackageReleaseNotes>
+        <PackageReleaseNotes>Update Feliz dependency, use [Hook]</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="UseElmish.fs" />
@@ -21,7 +21,7 @@
         <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Update="FSharp.Core" Version="4.7.0" />
+        <PackageReference Update="FSharp.Core" Version="4.7.2" />
         <PackageReference Include="Fable.Promise" Version="2.0.0" />
         <PackageReference Include="Fable.Elmish" Version="3.0.6" />
     </ItemGroup>

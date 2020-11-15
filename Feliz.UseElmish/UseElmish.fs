@@ -56,12 +56,13 @@ module UseElmishExtensions =
         | _ -> None
 
     type React with
+        [<Hook>]
         static member useElmish<'State,'Msg> (init: 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>, dependencies: obj[]) =
             let state = React.useRef(fst init)
             let ring = React.useRef(RingBuffer(10))
             let childState, setChildState = React.useState(fst init)
             let token = React.useCancellationToken()
-            let setChildState () = 
+            let setChildState () =
                 JS.setTimeout(fun () ->
                     if not token.current.IsCancellationRequested then
                         setChildState state.current
@@ -83,9 +84,9 @@ module UseElmishExtensions =
 
             let dispatch = React.useCallbackRef(dispatch)
 
-            React.useEffect((fun () -> 
-                React.createDisposable(fun () -> 
-                    getDisposable state.current 
+            React.useEffect((fun () ->
+                React.createDisposable(fun () ->
+                    getDisposable state.current
                     |> Option.iter (fun o -> o.Dispose())
                 )
             ), dependencies)
@@ -102,13 +103,16 @@ module UseElmishExtensions =
 
             (childState, dispatch)
 
+        [<Hook>]
         static member inline useElmish<'State,'Msg> (init: 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>) =
             React.useElmish(init, update, [||])
 
+        [<Hook>]
         static member useElmish<'State,'Msg> (init: unit -> 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>, dependencies: obj[]) =
             let init = React.useMemo(init, dependencies)
 
             React.useElmish(init, update, dependencies)
 
+        [<Hook>]
         static member inline useElmish<'State,'Msg> (init: unit -> 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>) =
             React.useElmish(init, update, [||])

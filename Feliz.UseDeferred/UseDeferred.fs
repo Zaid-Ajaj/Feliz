@@ -60,6 +60,7 @@ open Feliz
 [<AutoOpen>]
 module ReactHookExtensions =
     type React with
+        [<Hook>]
         static member useDeferred(operation: Async<'T>, dependencies: obj array) =
             let (deferred, setDeferred) = React.useState(Deferred.HasNotStartedYet)
             let token = React.useCancellationToken()
@@ -79,6 +80,7 @@ module ReactHookExtensions =
 
             deferred
 
+        [<Hook>]
         static member useDeferredCallback(operation: 'TIn -> Async<'TOut>, setDeferred: Deferred<'TOut> -> unit) =
             let cancellationToken = React.useRef(new System.Threading.CancellationTokenSource())
             let executeOperation arg = async {
@@ -104,9 +106,10 @@ module ReactHookExtensions =
 
             start
 
+        [<Hook>]
         static member useDeferredParallel<'T, 'U, 'Key when 'Key : comparison>(deferred: Deferred<'T>, map: 'T -> ('Key * Async<'U>) list) =
-            let (data, setData) = React.useState(Map.empty)
-            let addData = React.useCallbackRef(fun (key, value) -> setData(Map.add key value data))
+            let (data, setData) = React.useStateWithUpdater(Map.empty)
+            let addData = React.useCallbackRef(fun (key, value) -> setData(fun prev -> Map.add key value prev))
             let token = React.useCancellationToken()
             let mapKeyedOperatons (operations: ('Key * Async<'U>) list) = [
                 for (key, operation) in operations do

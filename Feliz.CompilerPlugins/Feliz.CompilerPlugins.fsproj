@@ -6,14 +6,15 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Update AST version</PackageReleaseNotes>
+    <PackageReleaseNotes>Implement [Hook] Attribute</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AstUtils.fs" />
     <Compile Include="ReactComponent.fs" />
+    <Compile Include="Hook.fs" />
     <Compile Include="PrimitiveElement.fs" />
     <Compile Include="PrimitiveElementWithChildren.fs" />
   </ItemGroup>
