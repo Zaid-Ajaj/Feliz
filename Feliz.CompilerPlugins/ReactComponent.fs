@@ -61,6 +61,11 @@ type ReactComponentAttribute(exportDefault: bool) =
             let errorMessage = sprintf "Expecting a function declation for %s when using [<ReactComponent>]" decl.Name
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
+        else if not (AstUtils.isReactElement decl.Body.Type) then
+            // output of a React function component must be a ReactElement
+            let errorMessage = sprintf "Expected function %s to return a ReactElement when using [<ReactComponent>]" decl.Name
+            compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
+            decl
         else
             // TODO: make sure isRecord works with records
             if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args.[0].Type then

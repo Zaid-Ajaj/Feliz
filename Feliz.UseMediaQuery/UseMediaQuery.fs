@@ -28,7 +28,7 @@ module Breakpoints =
         WideScreen = 1216
     }
 
-let inline private maxWidth (breakpoint: int) = 
+let inline private maxWidth (breakpoint: int) =
     "(max-width: " + (unbox<string> breakpoint) + "px)"
 
 let private makeQueries breakpoints =
@@ -49,6 +49,7 @@ module UseMediaQueryExtension =
      type React with
         /// A hook for media queries, this hook will force a component
         /// to re-render when the specified media query changes.
+        [<Hook>]
         static member useMediaQuery (mediaQuery: string) =
             let mq, setMq = React.useState(fun () -> window.matchMedia(mediaQuery).matches)
 
@@ -57,7 +58,7 @@ module UseMediaQueryExtension =
                 let handler = fun () -> setMq mediaQueryList.matches
 
                 handler()
-                
+
                 addListener mediaQueryList handler
 
                 React.createDisposable(fun () -> removeListener mediaQueryList handler)
@@ -68,6 +69,7 @@ module UseMediaQueryExtension =
         /// A hook for responsive design, this hook will force a component
         /// to re-render the components on resize.
         /// Returns a discriminated union with the new width.
+        [<Hook>]
         static member useResponsive(?breakpoints: Breakpoints) =
             let breakpoints = Option.defaultValue Breakpoints.defaults breakpoints
             let m, l, t, d = makeQueries breakpoints
