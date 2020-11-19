@@ -77,8 +77,8 @@ Target "Clean" <| fun _ ->
 Target "InstallNpmPackages" (fun _ ->
   printfn "Node version:"
   run nodeTool "--version" __SOURCE_DIRECTORY__
-  run "npm" "--version" __SOURCE_DIRECTORY__
-  run "npm" "install" __SOURCE_DIRECTORY__
+  run npmTool "--version" __SOURCE_DIRECTORY__
+  run npmTool "install" __SOURCE_DIRECTORY__
 )
 
 Target "Start" <| fun _ ->
