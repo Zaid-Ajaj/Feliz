@@ -11,6 +11,7 @@ module Interop =
     let reactElement (name: string) (props: 'a) : ReactElement = import "createElement" "react"
     let mkAttr (key: string) (value: obj) : IReactProperty = unbox (key, value)
     let mkStyle (key: string) (value: obj) : IStyleAttribute = unbox (key, value)
+    let svgAttribute (key: string) (value: obj) : ISvgAttribute = unbox (key, value)
     let inline reactElementWithChild (name: string) (child: 'a) =
         reactElement name (createObj [ "children" ==> [| child |] ])
     let inline reactElementWithChildren (name: string) (children: #seq<ReactElement>) =

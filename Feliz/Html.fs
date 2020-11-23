@@ -103,11 +103,13 @@ type Html =
     static member inline cite (value: ReactElement) = Interop.reactElementWithChild "cite" value
     static member inline cite (value: string) = Interop.reactElementWithChild "cite" value
     static member inline cite (children: #seq<ReactElement>) = Interop.reactElementWithChildren "cite" children
-
+    [<Obsolete "Html.circle is obsolete, use Svg.circle instead">]
     static member inline circle xs = Interop.createElement "circle" xs
+    [<Obsolete "Html.circle is obsolete, use Svg.circle instead">]
     static member inline circle (children: #seq<ReactElement>) = Interop.reactElementWithChildren "circle" children
-
+    [<Obsolete "Html.clipPath is obsolete, use Svg.clipPath instead">]
     static member inline clipPath xs = Interop.createElement "clipPath" xs
+    [<Obsolete "Html.clipPath is obsolete, use Svg.clipPath instead">]
     static member inline clipPath (children: #seq<ReactElement>) = Interop.reactElementWithChildren "clipPath" children
 
     static member inline code xs = Interop.createElement "code" xs
@@ -150,10 +152,10 @@ type Html =
     static member inline dd (value: ReactElement) = Interop.reactElementWithChild "dd" value
     static member inline dd (value: string) = Interop.reactElementWithChild "dd" value
     static member inline dd (children: #seq<ReactElement>) = Interop.reactElementWithChildren "dd" children
-
+    [<Obsolete "Html.defs is obsolete, use Svg.defs instead">]
     static member inline defs xs = Interop.createElement "defs" xs
+    [<Obsolete "Html.defs is obsolete, use Svg.defs instead">]
     static member inline defs (children: #seq<ReactElement>) = Interop.reactElementWithChildren "defs" children
-
     static member inline del xs = Interop.createElement "del" xs
     static member inline del (value: float) = Interop.reactElementWithChild "del" value
     static member inline del (value: int) = Interop.reactElementWithChild "del" value
@@ -164,11 +166,15 @@ type Html =
     static member inline details xs = Interop.createElement "details" xs
     static member inline details (children: #seq<ReactElement>) = Interop.reactElementWithChildren "details" children
 
+    [<Obsolete "Html.desc is obsolete, use Svg.desc instead">]
     static member inline desc xs = Interop.createElement "desc" xs
+    [<Obsolete "Html.desc is obsolete, use Svg.desc instead">]
     static member inline desc (value: float) = Interop.reactElementWithChild "desc" value
+    [<Obsolete "Html.desc is obsolete, use Svg.desc instead">]
     static member inline desc (value: int) = Interop.reactElementWithChild "desc" value
+    [<Obsolete "Html.desc is obsolete, use Svg.desc instead">]
     static member inline desc (value: string) = Interop.reactElementWithChild "desc" value
-
+        
     static member inline dfn xs = Interop.createElement "ins" xs
     static member inline dfn (value: float) = Interop.reactElementWithChild "dfn" value
     static member inline dfn (value: int) = Interop.reactElementWithChild "dfn" value
@@ -201,7 +207,9 @@ type Html =
     static member inline dt (value: string) = Interop.reactElementWithChild "dt" value
     static member inline dt (children: #seq<ReactElement>) = Interop.reactElementWithChildren "dt" children
 
+    [<Obsolete "Html.ellipse is obsolete, use Svg.ellipse instead">]
     static member inline ellipse xs = Interop.createElement "ellipse" xs
+    [<Obsolete "Html.ellipse is obsolete, use Svg.ellipse instead">]
     static member inline ellipse (children: #seq<ReactElement>) = Interop.reactElementWithChildren "ellipse" children
 
     static member inline em xs = Interop.createElement "em" xs
@@ -212,82 +220,106 @@ type Html =
     static member inline em (children: #seq<ReactElement>) = Interop.reactElementWithChildren "em" children
 
     static member inline embed xs = Interop.createElement "embed" xs
-
+    [<Obsolete "Html.feBlend is obsolete, use Svg.feBlend instead">]
     static member inline feBlend xs = Interop.createElement "feBlend" xs
+    [<Obsolete "Html.feBlend is obsolete, use Svg.feBlend instead">]
     static member inline feBlend (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feBlend" children
-
+    [<Obsolete "Html.feColorMatrix is obsolete, use Svg.feColorMatrix instead">]
     static member inline feColorMatrix xs = Interop.createElement "feColorMatrix" xs
+    [<Obsolete "Html.feColorMatrix is obsolete, use Svg.feColorMatrix instead">]
     static member inline feColorMatrix (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feColorMatrix" children
-
+    [<Obsolete "Html.feComponentTransfer is obsolete, use Svg.feComponentTransfer instead">]
     static member inline feComponentTransfer xs = Interop.createElement "feComponentTransfer" xs
+    [<Obsolete "Html.feComponentTransfer is obsolete, use Svg.feComponentTransfer instead">]
     static member inline feComponentTransfer (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feComponentTransfer" children
-
+    [<Obsolete "Html.feComposite is obsolete, use Svg.feComposite instead">]
     static member inline feComposite xs = Interop.createElement "feComposite" xs
+    [<Obsolete "Html.feComposite is obsolete, use Svg.feComposite instead">]
     static member inline feComposite (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feComposite" children
-
+    [<Obsolete "Html.feConvolveMatrix is obsolete, use Svg.feConvolveMatrix instead">]
     static member inline feConvolveMatrix xs = Interop.createElement "feConvolveMatrix" xs
+    [<Obsolete "Html.feConvolveMatrix is obsolete, use Svg.feConvolveMatrix instead">]
     static member inline feConvolveMatrix (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feConvolveMatrix" children
-
+    [<Obsolete "Html.feDiffuseLighting is obsolete, use Svg.feDiffuseLighting instead">]
     static member inline feDiffuseLighting xs = Interop.createElement "feDiffuseLighting" xs
+    [<Obsolete "Html.feDiffuseLighting is obsolete, use Svg.feDiffuseLighting instead">]
     static member inline feDiffuseLighting (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feDiffuseLighting" children
-
+    [<Obsolete "Html.feDisplacementMap is obsolete, use Svg.feDisplacementMap instead">]
     static member inline feDisplacementMap xs = Interop.createElement "feDisplacementMap" xs
+    [<Obsolete "Html.feDisplacementMap is obsolete, use Svg.feDisplacementMap instead">]
     static member inline feDisplacementMap (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feDisplacementMap" children
-
+    [<Obsolete "Html.feDistantLight is obsolete, use Svg.feDistantLight instead">]
     static member inline feDistantLight xs = Interop.createElement "feDistantLight" xs
+    [<Obsolete "Html.feDistantLight is obsolete, use Svg.feDistantLight instead">]
     static member inline feDistantLight (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feDistantLight" children
-
+    [<Obsolete "Html.feDropShadow is obsolete, use Svg.feDropShadow instead">]
     static member inline feDropShadow xs = Interop.createElement "feDropShadow" xs
+    [<Obsolete "Html.feDropShadow is obsolete, use Svg.feDropShadow instead">]
     static member inline feDropShadow (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feDropShadow" children
-
+    [<Obsolete "Html.feFlood is obsolete, use Svg.feFlood instead">]
     static member inline feFlood xs = Interop.createElement "feFlood" xs
+    [<Obsolete "Html.feFlood is obsolete, use Svg.feFlood instead">]
     static member inline feFlood (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFlood" children
-
+    [<Obsolete "Html.feFuncA is obsolete, use Svg.feFuncA instead">]
     static member inline feFuncA xs = Interop.createElement "feFuncA" xs
+    [<Obsolete "Html.feFuncA is obsolete, use Svg.feFuncA instead">]
     static member inline feFuncA (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFuncA" children
-
+    [<Obsolete "Html.feFuncB is obsolete, use Svg.feFuncB instead">]
     static member inline feFuncB xs = Interop.createElement "feFuncB" xs
+    [<Obsolete "Html.feFuncB is obsolete, use Svg.feFuncB instead">]
     static member inline feFuncB (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFuncB" children
-
+    [<Obsolete "Html.feFuncG is obsolete, use Svg.feFuncG instead">]
     static member inline feFuncG xs = Interop.createElement "feFuncG" xs
+    [<Obsolete "Html.feFuncG is obsolete, use Svg.feFuncG instead">]
     static member inline feFuncG (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFuncG" children
-
+    [<Obsolete "Html.feFuncR is obsolete, use Svg.feFuncR instead">]
     static member inline feFuncR xs = Interop.createElement "feFuncR" xs
+    [<Obsolete "Html.feFuncR is obsolete, use Svg.feFuncR instead">]
     static member inline feFuncR (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feFuncR" children
-
+    [<Obsolete "Html.feGaussianBlur is obsolete, use Svg.feGaussianBlur instead">]
     static member inline feGaussianBlur xs = Interop.createElement "feGaussianBlur" xs
+    [<Obsolete "Html.feGaussianBlur is obsolete, use Svg.feGaussianBlur instead">]
     static member inline feGaussianBlur (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feGaussianBlur" children
-
+    [<Obsolete "Html.feImage is obsolete, use Svg.feImage instead">]
     static member inline feImage xs = Interop.createElement "feImage" xs
+    [<Obsolete "Html.feImage is obsolete, use Svg.feImage instead">]
     static member inline feImage (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feImage" children
-
+    [<Obsolete "Html.feMerge is obsolete, use Svg.feMerge instead">]
     static member inline feMerge xs = Interop.createElement "feMerge" xs
+    [<Obsolete "Html.feMerge is obsolete, use Svg.feMerge instead">]
     static member inline feMerge (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feMerge" children
-
+    [<Obsolete "Html.feMergeNode is obsolete, use Svg.feMergeNode instead">]
     static member inline feMergeNode xs = Interop.createElement "feMergeNode" xs
+    [<Obsolete "Html.feMergeNode is obsolete, use Svg.feMergeNode instead">]
     static member inline feMergeNode (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feMergeNode" children
-
+    [<Obsolete "Html.feMorphology is obsolete, use Svg.feMorphology instead">]
     static member inline feMorphology xs = Interop.createElement "feMorphology" xs
+    [<Obsolete "Html.feMorphology is obsolete, use Svg.feMorphology instead">]
     static member inline feMorphology (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feMorphology" children
-
+    [<Obsolete "Html.feOffset is obsolete, use Svg.feOffset instead">]
     static member inline feOffset xs = Interop.createElement "feOffset" xs
+    [<Obsolete "Html.feOffset is obsolete, use Svg.feOffset instead">]
     static member inline feOffset (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feOffset" children
-
+    [<Obsolete "Html.fePointLight is obsolete, use Svg.fePointLight instead">]
     static member inline fePointLight xs = Interop.createElement "fePointLight" xs
+    [<Obsolete "Html.fePointLight is obsolete, use Svg.fePointLight instead">]
     static member inline fePointLight (children: #seq<ReactElement>) = Interop.reactElementWithChildren "fePointLight" children
-
+    [<Obsolete "Html.feSpecularLighting is obsolete, use Svg.feSpecularLighting instead">]
     static member inline feSpecularLighting xs = Interop.createElement "feSpecularLighting" xs
+    [<Obsolete "Html.feSpecularLighting is obsolete, use Svg.feSpecularLighting instead">]
     static member inline feSpecularLighting (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feSpecularLighting" children
-
+    [<Obsolete "Html.feSpotLight is obsolete, use Svg.feSpotLight instead">]
     static member inline feSpotLight xs = Interop.createElement "feSpotLight" xs
+    [<Obsolete "Html.feSpotLight is obsolete, use Svg.feSpotLight instead">]
     static member inline feSpotLight (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feSpotLight" children
-
+    [<Obsolete "Html.feTile is obsolete, use Svg.feTile instead">]
     static member inline feTile xs = Interop.createElement "feTile" xs
+    [<Obsolete "Html.feTile is obsolete, use Svg.feTile instead">]
     static member inline feTile (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feTile" children
-
+    [<Obsolete "Html.feTurbulence is obsolete, use Svg.feTurbulence instead">]
     static member inline feTurbulence xs = Interop.createElement "feTurbulence" xs
+    [<Obsolete "Html.feTurbulence is obsolete, use Svg.feTurbulence instead">] 
     static member inline feTurbulence (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feTurbulence" children
-
     static member inline fieldSet xs = Interop.createElement "fieldset" xs
     static member inline fieldSet (children: #seq<ReactElement>) = Interop.reactElementWithChildren "fieldset" children
 
@@ -296,23 +328,26 @@ type Html =
 
     static member inline figure xs = Interop.createElement "figure" xs
     static member inline figure (children: #seq<ReactElement>) = Interop.reactElementWithChildren "figure" children
-
+    [<Obsolete "Html.filter is obsolete, use Svg.filter instead">]
     static member inline filter xs = Interop.createElement "filter" xs
+    [<Obsolete "Html.filter is obsolete, use Svg.filter instead">]
     static member inline filter (children: #seq<ReactElement>) = Interop.reactElementWithChildren "filter" children
 
     static member inline footer xs = Interop.createElement "footer" xs
     static member inline footer (children: #seq<ReactElement>) = Interop.reactElementWithChildren "footer" children
-
-    static member inline foreignObject xs = Interop.createElement "feGaussianBlur" xs
-    static member inline foreignObject (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feGaussianBlur" children
+    [<Obsolete "Html.foreignObject is obsolete, use Svg.foreignObject instead">]
+    static member inline foreignObject xs = Interop.createElement "foreignObject" xs
+    [<Obsolete "Html.foreignObject is obsolete, use Svg.foreignObject instead">]
+    static member inline foreignObject (children: #seq<ReactElement>) = Interop.reactElementWithChildren "foreignObject" children
 
     static member inline form xs = Interop.createElement "form" xs
     static member inline form (children: #seq<ReactElement>) = Interop.reactElementWithChildren "form" children
 
     [<Obsolete("Html.fragment is obsolete, use React.fragment instead. This function will be removed in the coming v1.0 release")>]
     static member inline fragment xs = Fable.React.Helpers.fragment [] xs
-
+    [<Obsolete "Html.g is obsolete, use Svg.g instead">]
     static member inline g xs = Interop.createElement "g" xs
+    [<Obsolete "Html.g is obsolete, use Svg.g instead">]
     static member inline g (children: #seq<ReactElement>) = Interop.reactElementWithChildren "g" children
 
     static member inline h1 xs = Interop.createElement "h1" xs
@@ -377,11 +412,11 @@ type Html =
     static member inline iframe xs = Interop.createElement "iframe" xs
 
     static member inline img xs = Interop.createElement "img" xs
-
+    /// SVG Image element, not to be confused with HTML img alias.
     static member inline image xs = Interop.createElement "image" xs
     /// SVG Image element, not to be confused with HTML img alias.
     static member inline image (children: #seq<ReactElement>) = Interop.reactElementWithChildren "image" children
-
+     
     static member inline input xs = Interop.createElement "input" xs
 
     static member inline ins xs = Interop.createElement "ins" xs
@@ -421,11 +456,13 @@ type Html =
     static member inline li (value: ReactElement) = Interop.reactElementWithChild "li" value
     static member inline li (value: string) = Interop.reactElementWithChild "li" value
     static member inline li (children: #seq<ReactElement>) = Interop.reactElementWithChildren "li" children
-
+    [<Obsolete "Html.line is obsolete, use Svg.line instead">]
     static member inline line xs = Interop.createElement "line" xs
+    [<Obsolete "Html.line is obsolete, use Svg.line instead">]
     static member inline line (children: #seq<ReactElement>) = Interop.reactElementWithChildren "line" children
-
+    [<Obsolete "Html.linearGradient is obsolete, use Svg.linearGradient instead">]
     static member inline linearGradient xs = Interop.createElement "linearGradient" xs
+    [<Obsolete "Html.linearGradient is obsolete, use Svg.linearGradient instead">]
     static member inline linearGradient (children: #seq<ReactElement>) = Interop.reactElementWithChildren "linearGradient" children
 
     static member inline link xs = Interop.createElement "link" xs
@@ -449,12 +486,14 @@ type Html =
     static member inline mark (value: ReactElement) = Interop.reactElementWithChild "mark" value
     static member inline mark (value: string) = Interop.reactElementWithChild "mark" value
     static member inline mark (children: #seq<ReactElement>) = Interop.reactElementWithChildren "mark" children
-
+    [<Obsolete "Html.marker is obsolete, use Svg.marker instead">]
     static member inline marker xs = Interop.createElement "marker" xs
+    [<Obsolete "Html.marker is obsolete, use Svg.marker instead">]
     static member inline marker (children: #seq<ReactElement>) = Interop.reactElementWithChildren "marker" children
-
-    static member inline mask xs = Interop.createElement "marker" xs
-    static member inline mask (children: #seq<ReactElement>) = Interop.reactElementWithChildren "marker" children
+    [<Obsolete "Html.mask is obsolete, use Svg.mask instead">]
+    static member inline mask xs = Interop.createElement "mask" xs
+    [<Obsolete "Html.mask is obsolete, use Svg.mask instead">]
+    static member inline mask (children: #seq<ReactElement>) = Interop.reactElementWithChildren "mask" children
 
     static member inline meta xs = Interop.createElement "meta" xs
 
@@ -467,10 +506,10 @@ type Html =
     static member inline meter (value: ReactElement) = Interop.reactElementWithChild "meter" value
     static member inline meter (value: string) = Interop.reactElementWithChild "meter" value
     static member inline meter (children: #seq<ReactElement>) = Interop.reactElementWithChildren "meter" children
-
+    [<Obsolete "Html.mpath is obsolte, use Svg.mpath instead">]
     static member inline mpath xs = Interop.createElement "mpath" xs
+    [<Obsolete "Html.mpath is obsolte, use Svg.mpath instead">]
     static member inline mpath (children: #seq<ReactElement>) = Interop.reactElementWithChildren "mpath" children
-
     static member inline nav xs = Interop.createElement "nav" xs
     static member inline nav (children: #seq<ReactElement>) = Interop.reactElementWithChildren "nav" children
 
@@ -521,22 +560,24 @@ type Html =
     static member inline paragraph (children: #seq<ReactElement>) = Interop.reactElementWithChildren "p" children
 
     static member inline param xs = Interop.createElement "param" xs
-
+    [<Obsolete "Html.path is obsolete, use Svg.path instead">]
     static member inline path xs = Interop.createElement "path" xs
+    [<Obsolete "Html.path is obsolete, use Svg.path instead">]
     static member inline path (children: #seq<ReactElement>) = Interop.reactElementWithChildren "path" children
-
+    [<Obsolete "Html.pattern is obsolete, use Svg.pattern instead">]
     static member inline pattern xs = Interop.createElement "pattern" xs
+    [<Obsolete "Html.pattern is obsolete, use Svg.pattern instead">]
     static member inline pattern (children: #seq<ReactElement>) = Interop.reactElementWithChildren "pattern" children
-
     static member inline picture xs = Interop.createElement "picture" xs
     static member inline picture (children: #seq<ReactElement>) = Interop.reactElementWithChildren "picture" children
-
+    [<Obsolete "Html.polygon is obsolete, use Svg.polygon instead">]
     static member inline polygon xs = Interop.createElement "polygon" xs
+    [<Obsolete "Html.polygon is obsolete, use Svg.polygon instead">]
     static member inline polygon (children: #seq<ReactElement>) = Interop.reactElementWithChildren "polygon" children
-
+    [<Obsolete "Html.polyline is obsolete, use Svg.polyline instead">]
     static member inline polyline xs = Interop.createElement "polyline" xs
+    [<Obsolete "Html.polyline is obsolete, use Svg.polyline instead">]
     static member inline polyline (children: #seq<ReactElement>) = Interop.reactElementWithChildren "polyline" children
-
     static member inline pre xs = Interop.createElement "pre" xs
     static member inline pre (value: bool) = Interop.reactElementWithChild "pre" value
     static member inline pre (value: float) = Interop.reactElementWithChild "pre" value
@@ -550,8 +591,9 @@ type Html =
 
     static member inline q xs = Interop.createElement "q" xs
     static member inline q (children: #seq<ReactElement>) = Interop.reactElementWithChildren "q" children
-
+    [<Obsolete "Html.radialGradient is obsolete, use Svg.radialGradient instead">]
     static member inline radialGradient xs = Interop.createElement "radialGradient" xs
+    [<Obsolete "Html.radialGradient is obsolete, use Svg.radialGradient instead">]
     static member inline radialGradient (children: #seq<ReactElement>) = Interop.reactElementWithChildren "radialGradient" children
 
     static member inline rb xs = Interop.createElement "rb" xs
@@ -560,8 +602,9 @@ type Html =
     static member inline rb (value: ReactElement) = Interop.reactElementWithChild "rb" value
     static member inline rb (value: string) = Interop.reactElementWithChild "rb" value
     static member inline rb (children: #seq<ReactElement>) = Interop.reactElementWithChildren "rb" children
-
+    [<Obsolete "Html.rect is obsolete, use Svg.rect instead">]
     static member inline rect xs = Interop.createElement "rect" xs
+    [<Obsolete "Html.rect is obsolete, use Svg.rect instead">]
     static member inline rect (children: #seq<ReactElement>) = Interop.reactElementWithChildren "rect" children
 
     static member inline rp xs = Interop.createElement "rp" xs
@@ -614,8 +657,9 @@ type Html =
 
     static member inline select xs = Interop.createElement "select" xs
     static member inline select (children: #seq<ReactElement>) = Interop.reactElementWithChildren "select" children
-
+    [<Obsolete "Html.set is obsolete, use Svg.set instead">]
     static member inline set xs = Interop.createElement "set" xs
+    [<Obsolete "Html.set is obsolete, use Svg.set instead">]
     static member inline set (children: #seq<ReactElement>) = Interop.reactElementWithChildren "set" children
 
     static member inline small xs = Interop.createElement "small" xs
@@ -633,8 +677,9 @@ type Html =
     static member inline span (value: ReactElement) = Interop.reactElementWithChild "span" value
     static member inline span (value: string) = Interop.reactElementWithChild "span" value
     static member inline span (children: #seq<ReactElement>) = Interop.reactElementWithChildren "span" children
-
+    [<Obsolete "Html.stop is obsolete, use Svg.stop instead">]
     static member inline stop xs = Interop.createElement "stop" xs
+    [<Obsolete "Html.stop is obsolete, use Svg.stop instead">]
     static member inline stop (children: #seq<ReactElement>) = Interop.reactElementWithChildren "stop" children
 
     static member inline strong xs = Interop.createElement "strong" xs
@@ -668,13 +713,17 @@ type Html =
     static member inline sup (value: string) = Interop.reactElementWithChild "sup" value
     static member inline sup (children: #seq<ReactElement>) = Interop.reactElementWithChildren "sup" children
 
+    [<Obsolete "Html.svg is obsolete, use Svg.svg instead where Svg is the entry point to all SVG related elements">]
     static member inline svg xs = Interop.createElement "svg" xs
+    [<Obsolete "Html.svg is obsolete, use Svg.svg instead where Svg is the entry point to all SVG related elements">]
     static member inline svg (children: #seq<ReactElement>) = Interop.reactElementWithChildren "svg" children
-
+    [<Obsolete "Html.switch is obsolete, use Svg.switch instead">]
     static member inline switch xs = Interop.createElement "switch" xs
+    [<Obsolete "Html.switch is obsolete, use Svg.switch instead">]
     static member inline switch (children: #seq<ReactElement>) = Interop.reactElementWithChildren "switch" children
-
+    [<Obsolete "Html.symbol is obsolete, use Svg.symbol instead">]
     static member inline symbol xs = Interop.createElement "symbol" xs
+    [<Obsolete "Html.symbol is obsolete, use Svg.symbol instead">]
     static member inline symbol (children: #seq<ReactElement>) = Interop.reactElementWithChildren "symbol" children
 
     static member inline table xs = Interop.createElement "table" xs
@@ -705,6 +754,7 @@ type Html =
     static member inline template xs = Interop.createElement "template" xs
     static member inline template (children: #seq<ReactElement>) = Interop.reactElementWithChildren "template" children
 
+    [<Obsolete "Html.text is obsolete for creating <text> SVG elements. Use Svg.text instead">]
     static member inline text xs = Interop.createElement "text" xs
     static member inline text (value: float) : ReactElement = unbox value
     static member inline text (value: int) : ReactElement = unbox value
@@ -715,8 +765,9 @@ type Html =
 
     static member inline textarea xs = Interop.createElement "textarea" xs
     static member inline textarea (children: #seq<ReactElement>) = Interop.reactElementWithChildren "textarea" children
-
+    [<Obsolete "Html.textPath is obsolete, use Svg.textPath instead">]
     static member inline textPath xs = Interop.createElement "textPath" xs
+    [<Obsolete "Html.textPath is obsolete, use Svg.textPath instead">]
     static member inline textPath (children: #seq<ReactElement>) = Interop.reactElementWithChildren "textPath" children
 
     static member inline tfoot xs = Interop.createElement "tfoot" xs
@@ -735,19 +786,23 @@ type Html =
     static member inline time xs = Interop.createElement "time" xs
     static member inline time (children: #seq<ReactElement>) = Interop.reactElementWithChildren "time" children
 
+    [<Obsolete "Html.title is obsolete for creating <title> SVG elements, use Svg.title instead">]
     static member inline title xs = Interop.createElement "title" xs
     static member inline title (value: float) = Interop.reactElementWithChild "title" value
     static member inline title (value: int) = Interop.reactElementWithChild "title" value
     static member inline title (value: ReactElement) = Interop.reactElementWithChild "title" value
+    [<Obsolete "Html.title is obsolete for creating <title> SVG elements, use Svg.title instead">]
     static member inline title (value: string) = Interop.reactElementWithChild "title" value
+    [<Obsolete "Html.title is obsolete for creating <title> SVG elements, use Svg.title instead">]
     static member inline title (children: #seq<ReactElement>) = Interop.reactElementWithChildren "title" children
 
     static member inline tr xs = Interop.createElement "tr" xs
     static member inline tr (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tr" children
 
     static member inline track xs = Interop.createElement "track" xs
-
+    [<Obsolete "Html.tspan is obsolete, use Svg.tsapn instead">]
     static member inline tspan xs = Interop.createElement "tspan" xs
+    [<Obsolete "Html.tspan is obsolete, use Svg.tsapn instead">]
     static member inline tspan (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tspan" children
 
     static member inline u xs = Interop.createElement "u" xs
@@ -762,10 +817,10 @@ type Html =
 
     static member inline unorderedList xs = Interop.createElement "ul" xs
     static member inline unorderedList (children: #seq<ReactElement>) = Interop.reactElementWithChildren "ul" children
-
+    [<Obsolete "Html.use is obsolete, use Svg.use instead">]
     static member inline use' xs = Interop.createElement "use" xs
+    [<Obsolete "Html.use is obsolete, use Svg.use instead">]
     static member inline use' (children: #seq<ReactElement>) = Interop.reactElementWithChildren "use" children
-
     static member inline var xs = Interop.createElement "var" xs
     static member inline var (value: float) = Interop.reactElementWithChild "var" value
     static member inline var (value: int) = Interop.reactElementWithChild "var" value
@@ -775,8 +830,9 @@ type Html =
 
     static member inline video xs = Interop.createElement "video" xs
     static member inline video (children: #seq<ReactElement>) = Interop.reactElementWithChildren "video" children
-
+    [<Obsolete "Html.view is obsolete, use Svg.view instead">]
     static member inline view xs = Interop.createElement "view" xs
+    [<Obsolete "Html.view is obsolete, use Svg.view instead">]
     static member inline view (children: #seq<ReactElement>) = Interop.reactElementWithChildren "view" children
 
     static member inline wbr xs = Interop.createElement "wbr" xs

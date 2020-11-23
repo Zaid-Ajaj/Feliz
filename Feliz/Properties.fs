@@ -125,9 +125,11 @@ type prop =
 
     /// Controls the amplitude of the gamma function of a component transfer element when
     /// its type attribute is gamma.
+    [<Obsolete "prop.amplitude is obsolete, use svg.amplitude instead">]
     static member inline amplitude (value: float) = Interop.mkAttr "amplitude" value
     /// Controls the amplitude of the gamma function of a component transfer element when
     /// its type attribute is gamma.
+    [<Obsolete "prop.amplitude is obsolete, use svg.amplitude instead">]
     static member inline amplitude (value: int) = Interop.mkAttr "amplitude" value
 
     /// Identifies the currently active descendant of a `composite` widget.
@@ -364,6 +366,7 @@ type prop =
 
     /// Indicates the name of the CSS property or attribute of the target element
     /// that is going to be changed during an animation.
+    [<Obsolete "prop.attributeName is obsolete, use svg.attributeName instead">]
     static member inline attributeName (value: string) = Interop.mkAttr "attributeName" value
 
     /// Indicates whether controls in this form can by default have their values
@@ -378,28 +381,36 @@ type prop =
 
     /// Specifies the direction angle for the light source on the XY plane (clockwise),
     /// in degrees from the x axis.
+    [<Obsolete "prop.azimuth is obsolete, use svg.azimuth instead">]
     static member inline azimuth (value: float) = Interop.mkAttr "azimuth" value
     /// Specifies the direction angle for the light source on the XY plane (clockwise),
     /// in degrees from the x axis.
+    [<Obsolete "prop.azimuth is obsolete, use svg.azimuth instead">]
     static member inline azimuth (value: int) = Interop.mkAttr "azimuth" value
 
     /// Represents the base frequency parameter for the noise function of the
     /// <feTurbulence> filter primitive.
+    [<Obsolete "prop.baseFrequency is obsolete, use svg.baseFrequency instead">]
     static member inline baseFrequency (value: float) = Interop.mkAttr "baseFrequency" value
     /// Represents the base frequency parameter for the noise function of the
     /// <feTurbulence> filter primitive.
+    [<Obsolete "prop.baseFrequency is obsolete, use svg.baseFrequency instead">]
     static member inline baseFrequency (value: int) = Interop.mkAttr "baseFrequency" value
     /// Represents the base frequency parameter for the noise function of the
     /// <feTurbulence> filter primitive.
+    [<Obsolete "prop.baseFrequency is obsolete, use svg.baseFrequency instead">]
     static member inline baseFrequency (horizontal: float, vertical: float) = Interop.mkAttr "baseFrequency" (unbox<string> horizontal  + "," + unbox<string> vertical)
     /// Represents the base frequency parameter for the noise function of the
     /// <feTurbulence> filter primitive.
+    [<Obsolete "prop.baseFrequency is obsolete, use svg.baseFrequency instead">]
     static member inline baseFrequency (horizontal: float, vertical: int) = Interop.mkAttr "baseFrequency" (unbox<string> horizontal  + "," + unbox<string> vertical)
     /// Represents the base frequency parameter for the noise function of the
     /// <feTurbulence> filter primitive.
+    [<Obsolete "prop.baseFrequency is obsolete, use svg.baseFrequency instead">]
     static member inline baseFrequency (horizontal: int, vertical: float) = Interop.mkAttr "baseFrequency" (unbox<string> horizontal  + "," + unbox<string> vertical)
     /// Represents the base frequency parameter for the noise function of the
     /// <feTurbulence> filter primitive.
+    [<Obsolete "prop.baseFrequency is obsolete, use svg.baseFrequency instead">]
     static member inline baseFrequency (horizontal: int, vertical: int) = Interop.mkAttr "baseFrequency" (unbox<string> horizontal  + "," + unbox<string> vertical)
 
     /// Defines when an animation should begin or when an element should be discarded.
@@ -477,38 +488,47 @@ type prop =
     /// The SVG cx attribute define the x-axis coordinate of a center point.
     ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
+    [<Obsolete "prop.cx is obsolete, use svg.cx instead">]
     static member inline cx (value: float) = Interop.mkAttr "cx" value
     /// The SVG cx attribute define the x-axis coordinate of a center point.
     ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
+    [<Obsolete "prop.cx is obsolete, use svg.cx instead">]
     static member inline cx (value: ICssUnit) = Interop.mkAttr "cx" value
     /// The SVG cx attribute define the x-axis coordinate of a center point.
     ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
+    [<Obsolete "prop.cx is obsolete, use svg.cx instead">]
     static member inline cx (value: int) = Interop.mkAttr "cx" value
 
     /// The SVG cy attribute define the y-axis coordinate of a center point.
     ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
+    [<Obsolete "prop.cx is obsolete, use svg.cx instead">]
     static member inline cy (value: float) = Interop.mkAttr "cy" value
     /// The SVG cy attribute define the y-axis coordinate of a center point.
     ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
+    [<Obsolete "prop.cx is obsolete, use svg.cx instead">]
     static member inline cy (value: ICssUnit) = Interop.mkAttr "cy" value
     /// The SVG cy attribute define the y-axis coordinate of a center point.
     ///
     /// Three elements are using this attribute: <circle>, <ellipse>, and <radialGradient>
+    [<Obsolete "prop.cx is obsolete, use svg.cx instead">]
     static member inline cy (value: int) = Interop.mkAttr "cy" value
 
     /// Defines a SVG path to be drawn.
+    [<Obsolete "prop.d is obsolete, use svg.d instead">]
     static member inline d (path: seq<char * (float list list)>) =
         PropHelpers.createSvgPathFloat path
         |> Interop.mkAttr "d"
     /// Defines a SVG path to be drawn.
+    [<Obsolete "prop.d is obsolete, use svg.d instead">]
     static member inline d (path: seq<char * (int list list)>) =
         PropHelpers.createSvgPathInt path
         |> Interop.mkAttr "d"
     /// Defines a SVG path to be drawn.
+    [<Obsolete "prop.d is obsolete, use svg.d instead">]
     static member inline d (path: string) = Interop.mkAttr "d" path
 
     /// Sets the inner Html content of the element.
@@ -2046,7 +2066,7 @@ type prop =
 
 module prop =
     /// Controls whether or not an animation is cumulative.
-    [<Erase>]
+    [<Erase; Obsolete "prop.accumulate is obsolete, use svg.accumulate instead">]
     type accumulate =
         /// Specifies that repeat iterations are not cumulative.
         static member inline none = Interop.mkAttr "accumulate" "none"
@@ -2055,7 +2075,7 @@ module prop =
         static member inline sum = Interop.mkAttr "accumulate" "sum"
 
     /// Controls whether or not an animation is additive.
-    [<Erase>]
+    [<Erase; Obsolete "prop.additive is obsolete, use svg.additive instead">]
     type additive =
         /// Specifies that the animation will override the underlying value of
         /// the attribute and other lower priority animations.
@@ -2065,7 +2085,7 @@ module prop =
         static member inline sum = Interop.mkAttr "additive" "sum"
 
     /// Controls whether or not an animation is additive.
-    [<Erase>]
+    [<Erase; Obsolete "prop.alignmentBaseline is obsolete, use svg.alignmentBaseline instead">]
     type alignmentBaseline =
         /// Uses the dominant baseline choice of the parent. Matches the box’s
         /// corresponding baseline to that of its parent.
