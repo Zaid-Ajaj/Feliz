@@ -31,6 +31,7 @@
         "webpack-dev-server": "^3.11.0"
     },
     "dependencies": {
+        "@inocan/rough-viz": "^1.2.0",
         "pigeon-maps": "^0.15.0",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
@@ -38,7 +39,6 @@
         "react-markdown": "^4.3.1",
         "react-popover": "^0.5.10",
         "recharts": "^1.8.5",
-        "rough-viz": "^1.0.6",
         "use-resize-observer": "^6.1.0"
     }
 }
