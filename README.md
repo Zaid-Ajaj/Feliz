@@ -1,6 +1,6 @@
 # Feliz [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz) [![Build status](https://ci.appveyor.com/api/projects/status/yqinhayy1pgfcubp/branch/master?svg=true)](https://ci.appveyor.com/project/Zaid-Ajaj/feliz/branch/master)
 
-A fresh retake of the base React DSL to build React applications, optimized for happiness.
+A fresh retake of the React API in Fable, optimized for happiness.
 
 Here is how it looks like:
 
@@ -9,7 +9,8 @@ module App
 
 open Feliz
 
-let counter = React.functionComponent(fun () ->
+[<ReactComponent>]
+let counter() =
     let (count, setCount) = React.useState(0)
     Html.div [
         Html.button [
@@ -25,11 +26,11 @@ let counter = React.functionComponent(fun () ->
         ]
 
         Html.h1 count
-    ])
+    ]
 
 open Browser.Dom
 
-ReactDOM.render(counter, document.getElementById "root")
+ReactDOM.render(counter(), document.getElementById "root")
 ```
 
 ### Features
@@ -44,6 +45,10 @@ ReactDOM.render(counter, document.getElementById "root")
  - **Compatible** with [Femto](https://github.com/Zaid-Ajaj/Femto).
  - Approximately **Zero** bundle size increase where everything function body is erased from the generated javascript unless you actually use said function.
 
+
 ### Documentation
 
+> Improvements to Fable 3 with respect to Feliz are currently WIP! Please hold tight until we update it and publish a migration guide.
+
 Feliz has extensive documentation at [https://zaid-ajaj.github.io/Feliz](https://zaid-ajaj.github.io/Feliz) with live examples along side code samples, check them out and if you have any question, let us know!
+

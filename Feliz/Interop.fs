@@ -8,7 +8,11 @@ open Feliz.ReactApi
 [<RequireQualifiedAccess>]
 module Interop =
     let reactApi : IReactApi = importDefault "react"
+    #if FABLE_COMPILER_3
+    let inline reactElement (name: string) (props: 'a) : ReactElement = import "createElement" "react"
+    #else
     let reactElement (name: string) (props: 'a) : ReactElement = import "createElement" "react"
+    #endif
     let mkAttr (key: string) (value: obj) : IReactProperty = unbox (key, value)
     let mkStyle (key: string) (value: obj) : IStyleAttribute = unbox (key, value)
     let inline reactElementWithChild (name: string) (child: 'a) =

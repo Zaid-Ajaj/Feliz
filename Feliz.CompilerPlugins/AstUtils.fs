@@ -72,7 +72,7 @@ let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
 
 let isReactElement (fableType: Fable.Type) =
     match fableType with
-    | Fable.Type.DeclaredType (entity, genericArgs) -> entity.QualifiedName.EndsWith "ReactElement"
+    | Fable.Type.DeclaredType (entity, genericArgs) -> entity.FullName.EndsWith "ReactElement"
     | _ -> false
 
 let recordHasField name (compiler: PluginHelper) (fableType: Fable.Type) =

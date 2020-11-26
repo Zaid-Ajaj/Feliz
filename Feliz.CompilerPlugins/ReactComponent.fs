@@ -3,6 +3,10 @@
 open Fable
 open Fable.AST
 
+// Tell Fable to scan for plugins in this assembly
+[<assembly:ScanForPlugins>]
+do()
+
 /// <summary>Transforms a function into a React function component. Make sure the function is defined at the module level</summary>
 type ReactComponentAttribute(exportDefault: bool) =
     inherit MemberDeclarationPluginAttribute()
@@ -55,7 +59,7 @@ type ReactComponentAttribute(exportDefault: bool) =
             // return expression as is when it is not a call expression
             expr
 
-    override this.Transform(compiler, decl) =
+    override this.Transform(compiler, file, decl) =
         if decl.Info.IsValue || decl.Info.IsGetter || decl.Info.IsSetter then
             // Invalid attribute usage
             let errorMessage = sprintf "Expecting a function declation for %s when using [<ReactComponent>]" decl.Name
@@ -85,7 +89,7 @@ type ReactComponentAttribute(exportDefault: bool) =
                     let getter = Fable.Get(Fable.IdentExpr propsArg, getterKind, Fable.Any, None)
                     (arg, getter)::bindings)
                 |> List.rev
-                |> fun bindings -> Fable.Let(bindings, decl.Body)
+                |> List.fold (fun body (k,v) -> Fable.Let(k, v, body)) decl.Body
 
             { decl with
                 Args = [propsArg]

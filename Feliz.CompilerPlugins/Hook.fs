@@ -31,7 +31,7 @@ type HookAttribute() =
         | _ ->
             expr
 
-    override this.Transform(compiler, decl) =
+    override this.Transform(compiler, file, decl) =
         if decl.Info.IsValue || decl.Info.IsGetter || decl.Info.IsSetter then
             // Invalid attribute usage
             let errorMessage = sprintf "Expecting a function declation for %s when using [<Hook>]" decl.Name
