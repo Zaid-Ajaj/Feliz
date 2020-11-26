@@ -258,7 +258,7 @@ type style =
     /// space in the flex container should be assigned to the item (the flex grow factor).
     static member inline flexGrow (value: int) = Interop.mkStyle "flexGrow" value
     /// Sets the width of each individual grid column in pixels.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: 199.5px 99.5px 99.5px;
@@ -271,7 +271,7 @@ type style =
         let addPixels = fun x -> x + "px"
         Interop.mkStyle "gridTemplateColumns" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
     /// Sets the width of each individual grid column in pixels.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: 199.5px 99.5px 99.5px;
@@ -284,7 +284,7 @@ type style =
         let addPixels = fun x -> x + "px"
         Interop.mkStyle "gridTemplateColumns" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
     /// Sets the width of each individual grid column in pixels.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: 100px 200px 100px;
@@ -297,7 +297,7 @@ type style =
         let addPixels = fun x -> x + "px"
         Interop.mkStyle "gridTemplateColumns" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
     /// Sets the width of each individual grid column in pixels.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: 100px 200px 100px;
@@ -310,7 +310,7 @@ type style =
         let addPixels = fun x -> x + "px"
         Interop.mkStyle "gridTemplateColumns" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
     /// Sets the width of each individual grid column.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: 1fr 1fr 2fr;
@@ -322,7 +322,7 @@ type style =
     static member inline gridTemplateColumns(value: ICssUnit list) =
         Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string list> value))
     /// Sets the width of each individual grid column.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: 1fr 1fr 2fr;
@@ -335,7 +335,7 @@ type style =
         Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string[]> value))
     /// Sets the width of each individual grid column. It can also name the lines between them
     /// There can be multiple names for the same line
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: [first-line] auto [first-line-end second-line-start] 100px [second-line-end];
@@ -354,7 +354,7 @@ type style =
         Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string list>value))
     /// Sets the width of each individual grid column. It can also name the lines between them
     /// There can be multiple names for the same line
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: [first-line] auto [first-line-end second-line-start] 100px [second-line-end];
@@ -372,7 +372,7 @@ type style =
     static member inline gridTemplateColumns(value: IGridTemplateItem[]) =
         Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string[]>value))
     /// Sets the width of a number of grid columns to the defined width in pixels
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: repeat(3, 99.5px);
@@ -388,7 +388,7 @@ type style =
             (unbox<string>size) + "px)"
         )
     /// Sets the width of a number of grid columns to the defined width in pixels
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: repeat(3, 100px);
@@ -404,7 +404,7 @@ type style =
             (unbox<string>size) + "px)"
         )
     /// Sets the width of a number of grid columns to the defined width
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: repeat(3, 1fr);
@@ -420,7 +420,7 @@ type style =
             (unbox<string>size) + ")"
         )
     /// Sets the width of a number of grid columns to the defined width in pixels, as well as naming the lines between them
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: repeat(3, 1.5px [col-start]);
@@ -437,7 +437,7 @@ type style =
             areaName + "])"
         )
     /// Sets the width of a number of grid columns to the defined width in pixels, as well as naming the lines between them
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: repeat(3, 10px [col-start]);
@@ -454,12 +454,12 @@ type style =
             areaName + "])"
         )
     /// Sets the width of a number of grid columns to the defined width, as well as naming the lines between them
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-columns: repeat(3, 1fr [col-start]);
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateColumns (3, length.fr 1, "col-start")
     /// ```
@@ -471,12 +471,12 @@ type style =
             areaName + "])"
         )
     /// Sets the width of a number of grid rows to the defined width in pixels
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: 99.5px 199.5px 99.5px;
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateRows [99.5; 199.5; 99.5]
     /// ```
@@ -484,12 +484,12 @@ type style =
         let addPixels = (fun x -> x + "px")
         Interop.mkStyle "gridTemplateRows" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
     /// Sets the width of a number of grid rows to the defined width in pixels
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: 99.5px 199.5px 99.5px;
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateRows [|99.5; 199.5; 99.5|]
     /// ```
@@ -497,12 +497,12 @@ type style =
         let addPixels = (fun x -> x + "px")
         Interop.mkStyle "gridTemplateRows" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
     /// Sets the width of a number of grid rows to the defined width
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: 100px 200px 100px;
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateRows [100, 200, 100]
     /// ```
@@ -510,12 +510,12 @@ type style =
         let addPixels = (fun x -> x + "px")
         Interop.mkStyle "gridTemplateRows" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
     /// Sets the width of a number of grid rows to the defined width in pixels
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: 100px 200px 100px;
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateRows [|100; 200; 100|]
     /// ```
@@ -523,36 +523,36 @@ type style =
         let addPixels = (fun x -> x + "px")
         Interop.mkStyle "gridTemplateRows" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
     /// Sets the width of a number of grid rows to the defined width
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: 1fr 10% 250px auto;
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateRows [length.fr 1; length.percent 10; length.px 250; length.auto]
     /// ```
     static member inline gridTemplateRows(value: ICssUnit list) =
         Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string list> value))
     /// Sets the width of a number of grid rows to the defined width
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: 1fr 10% 250px auto;
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateRows [|length.fr 1; length.percent 10; length.px 250; length.auto|]
     /// ```
     static member inline gridTemplateRows(value: ICssUnit[]) =
         Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string[]> value))
     /// Sets the width of a number of grid rows to the defined width as well as naming the spaces between
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: [row-1-start] 1fr [row-1-end row-2-start] 1fr [row-2-end];
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateRows [
     ///     grid.namedLine "row-1-start"
@@ -565,12 +565,12 @@ type style =
     static member inline gridTemplateRows(value: IGridTemplateItem list) =
         Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string list>value))
     /// Sets the width of a number of grid rows to the defined width as well as naming the spaces between
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: [row-1-start] 1fr [row-1-end row-2-start] 1fr [row-2-end];
-    /// ``` 
-    /// **F#
+    /// ```
+    /// **F#**
     /// ```f#
     /// style.gridTemplateRows [|
     ///     grid.namedLine "row-1-start"
@@ -583,7 +583,7 @@ type style =
     static member inline gridTemplateRows(value: IGridTemplateItem[]) =
         Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string[]>value))
     /// Sets the width of a number of grid rows to the defined width in pixels
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: repeat(3, 199.5);
@@ -599,7 +599,7 @@ type style =
             (unbox<string>size) + "px)"
         )
     /// Sets the width of a number of grid rows to the defined width in pixels
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: repeat(3, 100px);
@@ -615,7 +615,7 @@ type style =
             (unbox<string>size) + "px)"
         )
     /// Sets the width of a number of grid rows to the defined width
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: repeat(3, 10%);
@@ -631,7 +631,7 @@ type style =
             (unbox<string>size) + ")"
         )
     /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: repeat(3, 75.5, [row]);
@@ -648,7 +648,7 @@ type style =
             areaName + "])"
         )
     /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: repeat(3, 100px, [row]);
@@ -665,7 +665,7 @@ type style =
             areaName + "])"
         )
     /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-rows: repeat(3, 10%, [row]);
@@ -682,7 +682,7 @@ type style =
             areaName + "])"
         )
     /// 2D representation of grid layout as blocks with names
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-areas:
@@ -704,7 +704,7 @@ type style =
         let block = String.concat "\n" lines
         Interop.mkStyle "gridTemplateAreas" block
     /// 2D representation of grid layout as blocks with names
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-areas:
@@ -726,7 +726,7 @@ type style =
         let block = String.concat "\n" lines
         Interop.mkStyle "gridTemplateAreas" block
     /// One-dimensional alternative to the nested list. For column-based layouts
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-areas: 'first second third fourth';
@@ -739,7 +739,7 @@ type style =
         let block = (String.concat " ") value
         Interop.mkStyle "gridTemplateAreas" ("'" + block + "'")
     /// One-dimensional alternative to the nested list. For column-based layouts
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template-areas: 'first second third fourth';
@@ -753,7 +753,7 @@ type style =
         Interop.mkStyle "gridTemplateAreas" ("'" + block + "'")
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the columns.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// column-gap: 1.5px;
@@ -766,7 +766,7 @@ type style =
         Interop.mkStyle "columnGap" (unbox<string> value + "px")
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the columns.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// column-gap: 10px;
@@ -779,7 +779,7 @@ type style =
         Interop.mkStyle "columnGap" (unbox<string> value + "px")
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the columns.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// column-gap: 1em;
@@ -792,7 +792,7 @@ type style =
         Interop.mkStyle "columnGap" value
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// row-gap: 2.5px;
@@ -805,7 +805,7 @@ type style =
         Interop.mkStyle "rowGap" (unbox<string> value + "px")
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// row-gap: 10px;
@@ -818,7 +818,7 @@ type style =
         Interop.mkStyle "rowGap" (unbox<string> value + "px")
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows.
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// row-gap: 1em;
@@ -831,9 +831,9 @@ type style =
         Interop.mkStyle "rowGap" value
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 1em 2em;
@@ -849,9 +849,9 @@ type style =
         )
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 1em 3.5px;
@@ -867,9 +867,9 @@ type style =
         )
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 1em 10px;
@@ -885,9 +885,9 @@ type style =
         )
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 10px 1em;
@@ -903,9 +903,9 @@ type style =
         )
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 10px 1.5px;
@@ -921,9 +921,9 @@ type style =
         )
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 10px 15px;
@@ -939,9 +939,9 @@ type style =
         )
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 2.5px 15%;
@@ -957,9 +957,9 @@ type style =
         )
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 1.5px 1.5px;
@@ -975,9 +975,9 @@ type style =
         )
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
-    /// 
+    ///
     /// _Shorthand for `rowGap` and `columnGap`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// gap: 1.5px 10px;
@@ -997,8 +997,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-column-start: col2;
@@ -1014,10 +1014,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// When there are multiple named lines with the same name, you can specify which one by count
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column-start: col 2;
@@ -1034,8 +1034,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-column-start: 2;
@@ -1051,8 +1051,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-column-start: span odd-col;
@@ -1068,8 +1068,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-column-end: col-2;
@@ -1085,10 +1085,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _When there are multiple named lines with the same name, you can specify which one by count_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column-end: odd-col 2;
@@ -1105,8 +1105,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-column-end: 2;
@@ -1122,8 +1122,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-column-end: span 2;
@@ -1139,8 +1139,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-row-start: col2;
@@ -1156,8 +1156,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-row-start: col 2;
@@ -1174,8 +1174,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-row-start: 2;
@@ -1191,8 +1191,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-row-start: span odd-col;
@@ -1208,8 +1208,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-row-end: col-2;
@@ -1225,10 +1225,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _When there are multiple named lines with the same name, you can specify which one by count_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row-end: odd-col 2;
@@ -1245,8 +1245,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-row-end: 2;
@@ -1262,8 +1262,8 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// **CSS**
     /// ```css
     /// grid-row-end: span 2;
@@ -1280,10 +1280,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: col-2 / col-4;
@@ -1301,10 +1301,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: col-2 / 4;
@@ -1322,10 +1322,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: col-2 / span 2;
@@ -1343,10 +1343,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: 1/ col-4;
@@ -1364,10 +1364,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: 1 / 3;
@@ -1385,10 +1385,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: 1 / span 2;
@@ -1406,10 +1406,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: span 2 / col-3;
@@ -1427,10 +1427,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: span 2 / 4;
@@ -1448,10 +1448,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-column: span 2 / span 3;
@@ -1469,10 +1469,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: row-2 / row-4;
@@ -1490,10 +1490,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: row-2 / 4;
@@ -1511,10 +1511,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: row-2 / span "odd-row";
@@ -1532,10 +1532,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: 2 / row-3;
@@ -1553,10 +1553,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: 2 / 4;
@@ -1574,10 +1574,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: 2 / span 3;
@@ -1595,10 +1595,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: span 2 / "row-4";
@@ -1616,10 +1616,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: span 2 / 3;
@@ -1637,10 +1637,10 @@ type style =
     /// - a numbered line
     /// - span until a named line was hit
     /// - span over a specified number of lines
-    /// 
-    /// 
+    ///
+    ///
     /// _Shorthand for `gridRowStart` and `gridRowEnds`_
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-row: span 2 / span 3;
@@ -1652,7 +1652,7 @@ type style =
     static member inline gridRow(start: IGridSpan, end': IGridSpan) =
         Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Sets the named grid area the item is placed in
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-area: header;
@@ -1664,9 +1664,9 @@ type style =
     static member inline gridArea(value: string) =
         Interop.mkStyle "gridArea" value
     /// Shorthand for `grid-template-areas`, `grid-template-columns` and `grid-template-rows`.
-    /// 
+    ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template
-    /// 
+    ///
     /// **CSS**
     /// ```css
     /// grid-template:  [header-top] 'a a a'      [header-bottom]
@@ -2398,9 +2398,9 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "flexWrap" "inherit"
 
-    /// Places an element on the left or right side of its container, allowing text and 
-    /// inline elements to wrap around it. The element is removed from the normal flow 
-    /// of the page, though still remaining a part of the flow (in contrast to absolute 
+    /// Places an element on the left or right side of its container, allowing text and
+    /// inline elements to wrap around it. The element is removed from the normal flow
+    /// of the page, though still remaining a part of the flow (in contrast to absolute
     /// positioning).
     [<Erase>]
     type float' =
@@ -2419,13 +2419,13 @@ module style =
         /// Default value
         static member inline auto = Interop.mkStyle "fontDisplay" "auto"
         /// Gives the font face a short block period and an infinite swap period.
-        static member inline block = Interop.mkStyle "fontDisplay" "block"    
+        static member inline block = Interop.mkStyle "fontDisplay" "block"
         /// Gives the font face an extremely small block period and an infinite swap period.
-        static member inline swap = Interop.mkStyle "fontDisplay" "swap"    
+        static member inline swap = Interop.mkStyle "fontDisplay" "swap"
         /// Gives the font face an extremely small block period and a short swap period.
-        static member inline fallback = Interop.mkStyle "fontDisplay" "fallback"    
+        static member inline fallback = Interop.mkStyle "fontDisplay" "fallback"
         /// Gives the font face an extremely small block period and no swap period.
-        static member inline optional = Interop.mkStyle "fontDisplay" "optional"    
+        static member inline optional = Interop.mkStyle "fontDisplay" "optional"
 
     [<Erase>]
     type fontKerning =

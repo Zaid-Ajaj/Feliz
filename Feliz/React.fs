@@ -35,6 +35,9 @@ type internal Internal() =
         )
         : 'props -> Fable.React.ReactElement =
             name |> Option.iter (fun name -> renderElement?displayName <- name)
+            #if FABLE_COMPILER_3
+            Browser.Dom.console.warn("Feliz: using React.functionComponent in Fable 3 is obsolete, please consider using the [<ReactComponent>] attribute instead which makes Feliz output better Javascript code that is compatible with react-refresh")
+            #endif
             fun props ->
                 let props = props |> propsWithKey withKey
                 Interop.reactApi.createElement(renderElement, props)
