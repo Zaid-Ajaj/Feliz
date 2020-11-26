@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A fresh retake of the React API in Fable, optimized for happiness</Description>
@@ -34,6 +34,7 @@
     <Compile Include="TextDecorationStyle.fs" />
     <Compile Include="TextDecorationLine.fs" />
     <Compile Include="TransitionProperty.fs" />
+    <Compile Include="GridTypes.fs" />
     <Compile Include="Styles.fs" />
     <Compile Include="Html.fs" />
     <Compile Include="React.fs" />

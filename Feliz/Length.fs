@@ -84,3 +84,6 @@ type length =
     static member inline auto : ICssUnit = unbox "auto"
     /// calculated length, frequency, angle, time, percentage, number or integer
     static member inline calc(value:string) : ICssUnit = unbox ("calc(" + (unbox<string>value) + ")")
+    /// Relative to width of the grid layout in correlation with the other fr's in the grid
+    static member inline fr(value: int) : ICssUnit = unbox ((unbox<string>value) + "fr")
+    
