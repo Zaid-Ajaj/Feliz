@@ -121,10 +121,8 @@ let counterWithAnonRecord (props: {| initial : int |}) =
         Html.h1 count
     ]
 
-type CounterRecordProps = { initial: int; show: bool }
-
 [<ReactComponent>]
-let counterWithRecord (props: CounterRecordProps) =
+let counterWithRecord (props: Examples.CounterRecordProps) =
     let (count, setCount) = React.useState props.initial
     Html.div [
         Html.button [

@@ -2,6 +2,7 @@
 
 open Fable
 open Fable.AST
+open Fable.AST.Fable
 
 // Tell Fable to scan for plugins in this assembly
 [<assembly:ScanForPlugins>]
@@ -71,8 +72,43 @@ type ReactComponentAttribute(exportDefault: bool) =
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else
-            // TODO: make sure isRecord works with records
             if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args.[0].Type then
+                // check whether the record type is defined in this file
+                // trigger warning if that is case
+                let definedInThisFile =
+                    file.Declarations
+                    |> List.tryPick (fun declaration ->
+                        match declaration with
+                        | Declaration.ClassDeclaration classDecl ->
+                            let classEntity = compiler.GetEntity(classDecl.Entity)
+                            match decl.Args.[0].Type with
+                            | Fable.Type.DeclaredType (entity, genericArgs) ->
+                                let declaredEntity = compiler.GetEntity(entity)
+                                if classEntity.IsFSharpRecord && declaredEntity.FullName = classEntity.FullName
+                                then Some declaredEntity.FullName
+                                else None
+
+                            | _ -> None
+                        | _ -> None
+                    )
+
+                match definedInThisFile with
+                | Some recordTypeName ->
+                    let errorMsg = String.concat "" [
+                        sprintf "Function component '%s' is using a record type '%s' as an input parameter which is defined in the *same* file. " decl.Name recordTypeName
+                        "This happens to break React tooling like react-refresh and hot module reloading. "
+                        "To fix this issue, the record type must be defined in another module in a *different* file. "
+                        "Another way to fix the issue is to use an anonymous record instead or use multiple simpler values as input parameters. "
+                        "Future versions of [<ReactComponent>] might not emit this warning anymore, in which case you can assume that the issue if fixed. "
+                        "To learn more about the issue, see https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/258"
+                    ]
+
+                    compiler.LogWarning(errorMsg, ?range=decl.Body.Range)
+
+                | None ->
+                    // nothing to report
+                    ignore()
+
                 // do not rewrite components accepting records as input
                 { decl with Name = AstUtils.capitalize decl.Name; ExportDefault = exportDefault }
             else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then

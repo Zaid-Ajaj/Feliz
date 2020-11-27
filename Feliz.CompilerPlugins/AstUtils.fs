@@ -70,6 +70,11 @@ let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     | Fable.Type.DeclaredType (entity, genericArgs) -> compiler.GetEntity(entity).IsFSharpRecord
     | _ -> false
 
+let isAnonymousRecord (fableType: Fable.Type) =
+    match fableType with
+    | Fable.Type.AnonymousRecordType  _ -> true
+    | _ -> false
+
 let isReactElement (fableType: Fable.Type) =
     match fableType with
     | Fable.Type.DeclaredType (entity, genericArgs) -> entity.FullName.EndsWith "ReactElement"
