@@ -6,7 +6,7 @@ group Main
     nuget Fable.Core
     nuget Fable.Elmish.React
     nuget Fable.Mocha
-    nuget Fable.React
+    nuget Fable.React.Types
     nuget Fable.SimpleHttp
     nuget FSharp.Core
     nuget Zanaptak.TypedCssClasses

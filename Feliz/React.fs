@@ -62,14 +62,14 @@ type React =
         { new IDisposable with member _.Dispose() = dispose() }
 
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
-    static member inline fragment xs = Fable.React.Helpers.fragment [] xs
+    static member inline fragment xs = Interop.reactElementWithChildren "fragment" xs
 
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
-    static member inline keyedFragment(key: int, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    static member inline keyedFragment(key: int, xs) = Interop.createElement "fragment" [ Interop.mkAttr "key" (string key); Interop.mkAttr "children" xs ]
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
-    static member inline keyedFragment(key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    static member inline keyedFragment(key: string, xs) = Interop.createElement "fragment" [ Interop.mkAttr "key" key; Interop.mkAttr "children" xs ]
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
-    static member inline keyedFragment(key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
+    static member inline keyedFragment(key: System.Guid, xs) = Interop.createElement "fragment" [ Interop.mkAttr "key" (string key); Interop.mkAttr "children" xs ]
 
     /// The `useState` hook that create a state variable for React function components from a initialization function.
     [<Hook>]

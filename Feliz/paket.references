@@ -1,3 +1,4 @@
 FSharp.Core
 Fable.Core
-Fable.React
+Fable.React.Types
+Fable.Browser.Dom
