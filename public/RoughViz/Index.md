@@ -11,7 +11,7 @@ femto install Feliz.RoughViz
 Manual installation:
 ```
 dotnet add package Feliz.RoughViz
-npm install --save rough-viz
+npm install --save @inocan/rough-viz
 ```
 
 ### Bar Chart
@@ -71,6 +71,32 @@ let roughHorizontalBarChart = React.functionComponent(fun () ->
         barChart.axisFontSize 18
         barChart.fillStyle.crossHatch
         barChart.highlight color.lightGreen
+    ])
+```
+
+### Pie Chart
+
+```fsharp:rough-pie-chart
+open Feliz
+open Feliz.RoughViz
+
+let fruitSales = [
+    ("Oranges", 5.0)
+    ("Apples", 8.2)
+    ("Strawberry", 10.0)
+    ("Peach", 2.0)
+    ("Pineapple", 17.0)
+    ("Bananas", 10.0)
+    ("Mango", 6.4)
+]
+
+let roughPieChart = React.functionComponent(fun () ->
+    RoughViz.pieChart [
+        pieChart.title "Fruit Sales"
+        pieChart.data fruitSales
+        pieChart.roughness 3
+        pieChart.fillStyle.crossHatch
+        pieChart.highlight color.lightGreen
     ])
 ```
 

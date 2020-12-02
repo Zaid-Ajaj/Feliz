@@ -208,6 +208,15 @@ let roughHorizontalBarChart = React.functionComponent(fun () ->
         barChart.highlight color.lightGreen
     ])
 
+let roughPieChart = React.functionComponent(fun () ->
+    RoughViz.pieChart [
+        pieChart.title "Fruit Sales"
+        pieChart.data fruitSales
+        pieChart.roughness 3
+        pieChart.fillStyle.crossHatch
+        pieChart.highlight color.lightGreen
+    ])
+
 let dynamicRoughChart = React.functionComponent(fun () ->
     let (data, setData) = React.useStateWithUpdater [
         ("point1", 70.0)
@@ -323,6 +332,7 @@ let samples = [
     "use-responsive-custom", DelayedComponent.render {| load = UseMediaQueryExamples.useResponsiveCustomBreakpointsExample |}
     "rough-bar-chart", roughBarChart()
     "rough-horizontal-bar-chart", roughHorizontalBarChart()
+    "rough-pie-chart", roughPieChart()
     "dynamic-rough-chart", dynamicRoughChart()
     "delay-simple", DelayedComponent.render {| load = DelayExamples.simpleDelay |}
     "delay-fallback", DelayedComponent.render {| load = DelayExamples.delayWithCustomFallback |}

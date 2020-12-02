@@ -22,6 +22,7 @@ module internal Interop =
     let objectAssign (x: obj) (y: obj) = jsNative
     let createBarChart (config: obj) : unit = import "createBarChart" "./createChart.js"
     let createHorizontalBarChart (config: obj) : unit = import "createHorizontalBarChart" "./createChart.js"
+    let createPieChart (config: obj) : unit = import "createPieChart" "./createChart.js"
     [<Emit("new ResizeObserver($0)")>]
     let createResizeObserver(handler: IObserverEntry array -> unit) : IResizeObserver = jsNative
 
@@ -31,6 +32,7 @@ module RoughViz =
     type private ChartType =
         | Bar
         | HorizontalBar
+        | Pie
 
     let private buildChart = React.functionComponent("RoughViz", fun (props: {| chartType: ChartType; config: obj list |}) ->
         let elementId = React.useRef("RoughViz" + (Guid.NewGuid().ToString().Substring(10)))
@@ -53,6 +55,7 @@ module RoughViz =
                 match props.chartType with
                 | Bar -> Interop.createBarChart config
                 | HorizontalBar -> Interop.createHorizontalBarChart config
+                | Pie -> Interop.createPieChart config
 
                 observer.current.observe element
 
@@ -110,3 +113,5 @@ module RoughViz =
     let barChart (properties: IBarChartProperty list) = buildChart {| chartType = Bar; config = unbox properties |}
 
     let horizontalBarChart (properties: IBarChartProperty list) = buildChart {| chartType = HorizontalBar; config = unbox properties |}
+
+    let pieChart (properties: IPieChartProperty list) = buildChart {| chartType = Pie; config = unbox properties |}

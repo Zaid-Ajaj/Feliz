@@ -13,6 +13,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="BarChart.fs" />
+        <Compile Include="PieChart.fs" />
         <Compile Include="RoughViz.fs" />
     </ItemGroup>
     <ItemGroup>
@@ -20,7 +21,7 @@
     </ItemGroup>
     <PropertyGroup>
         <NpmDependencies>
-            <NpmPackage Name="rough-viz" Version="&gt;= 1.0.6 &lt; 2.0.0" ResolutionStrategy="max" />
+            <NpmPackage Name="@inocan/rough-viz" Version="&gt;= 1.2.0 &lt; 2.0.0" ResolutionStrategy="max" />
         </NpmDependencies>
     </PropertyGroup>
     <ItemGroup>
