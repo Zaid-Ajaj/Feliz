@@ -70,6 +70,9 @@ let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     | Fable.Type.DeclaredType (entity, genericArgs) -> compiler.GetEntity(entity).IsFSharpRecord
     | _ -> false
 
+let isPascalCase (input: string) = not (String.IsNullOrWhiteSpace input) && List.contains input.[0] ['A' .. 'Z']
+let isCamelCase (input: string) = not (isPascalCase input)
+
 let isAnonymousRecord (fableType: Fable.Type) =
     match fableType with
     | Fable.Type.AnonymousRecordType  _ -> true
@@ -138,11 +141,14 @@ let objValue (k, v): Fable.MemberDecl =
     }
 
 
-let objExpr kvs =
-    Fable.ObjectExpr(List.map objValue kvs, Fable.Any, None)
-
+let objExpr kvs = Fable.ObjectExpr(List.map objValue kvs, Fable.Any, None)
 
 let capitalize (input: string) =
     if String.IsNullOrWhiteSpace input
     then ""
     else input.First().ToString().ToUpper() + String.Join("", input.Skip(1))
+
+let camelCase (input: string) =
+    if String.IsNullOrWhiteSpace input
+    then ""
+    else input.First().ToString().ToLower() + String.Join("", input.Skip(1))

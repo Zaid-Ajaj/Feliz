@@ -65,7 +65,7 @@ let fruitSales = [
 ]
 
 [<ReactComponent>]
-let counter() =
+let Counter() =
     let (count, setCount) = React.useState 0
     Html.div [
         Html.button [
@@ -84,7 +84,10 @@ let counter() =
     ]
 
 [<ReactComponent>]
-let counterWithInput (initialCount: int) =
+let View() = Examples.View()
+
+[<ReactComponent>]
+let CounterWithInput (initialCount: int) =
     let (count, setCount) = React.useState initialCount
     Html.div [
         Html.button [
@@ -103,7 +106,7 @@ let counterWithInput (initialCount: int) =
     ]
 
 [<ReactComponent>]
-let counterWithAnonRecord (props: {| initial : int |}) =
+let CounterWithAnonRecord (props: {| initial : int |}) =
     let (count, setCount) = React.useState props.initial
     Html.div [
         Html.button [
@@ -122,7 +125,7 @@ let counterWithAnonRecord (props: {| initial : int |}) =
     ]
 
 [<ReactComponent>]
-let counterWithRecord (props: Examples.CounterRecordProps) =
+let CounterWithRecord (props: Examples.CounterRecordProps) =
     let (count, setCount) = React.useState props.initial
     Html.div [
         Html.button [
@@ -143,7 +146,7 @@ let counterWithRecord (props: Examples.CounterRecordProps) =
 type KeyedCounterProps = { Key: string; Name: string }
 
 [<ReactComponent>]
-let counterWithKeyedRecord (props: KeyedCounterProps) =
+let CounterWithKeyedRecord (props: KeyedCounterProps) =
     let (count, setCount) = React.useState 0
     Html.div [
         Html.h1 count
@@ -152,35 +155,35 @@ let counterWithKeyedRecord (props: KeyedCounterProps) =
 type LowerKeyedCounterProps = { key: string; Name: string }
 
 [<ReactComponent>]
-let counterWithLowercaseKeyedRecord (props: LowerKeyedCounterProps) =
+let CounterWithLowercaseKeyedRecord (props: LowerKeyedCounterProps) =
     let (count, setCount) = React.useState 0
     Html.div [
         Html.h1 count
     ]
 
 [<ReactComponent>]
-let counters(show: bool) =
+let Counters(show: bool) =
     Html.div [
-        counter()
-        counterWithInput 10
-        counterWithAnonRecord {| initial = 20 |}
-        counterWithRecord { initial = 10; show = true }
-        counterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
-        counterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
-        Examples.counterExternal()
+        Counter()
+        CounterWithInput 10
+        CounterWithAnonRecord {| initial = 20 |}
+        CounterWithRecord { initial = 10; show = true }
+        CounterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
+        CounterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
+        Examples.CounterExternal()
     ]
 
 [<ReactComponent>]
-let countersWithConditionals (show: bool) (more: int) =
+let CountersWithConditionals (show: bool) (more: int) =
     Html.div [|
-        counter()
-        counterWithInput 10
-        counterWithAnonRecord {| initial = 30 |}
+        Counter()
+        CounterWithInput 10
+        CounterWithAnonRecord {| initial = 30 |}
     |]
 
-let counterCaller = React.functionComponent(fun () -> counters(true))
+let counterCaller = React.functionComponent(fun () -> Counters(true))
 
-let partiallyAppied = countersWithConditionals true
+let partiallyAppied = CountersWithConditionals true
 
 let withMore = partiallyAppied 42
 

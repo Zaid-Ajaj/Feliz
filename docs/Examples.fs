@@ -378,8 +378,10 @@ module ReactComponents =
             ]
         ]
 
+let View() = Html.h1 "My view"
+
 [<ReactComponent>]
-let counterExternal() =
+let CounterExternal() =
     let (count, setCount) = React.useState 0
 
     Html.div [

@@ -20,19 +20,6 @@ type ReactComponentAttribute(exportDefault: bool) =
         let membArgs = memb.CurriedParameterGroups |> List.concat
         match expr with
         | Fable.Call(callee, info, typeInfo, range) when List.length membArgs = List.length info.Args ->
-            let callee =
-                match callee with
-                | Fable.Expr.IdentExpr ident ->
-                    // capitalize same-file references
-                    Fable.Expr.IdentExpr { ident with Name = AstUtils.capitalize ident.Name }
-                | Fable.Expr.Import(importInfo, fableType, sourceLocation) ->
-                    // capitalize component imports from different modules/files
-                    let selector = AstUtils.capitalize importInfo.Selector
-                    let modifiedImportInfo = { importInfo with Selector = selector }
-                    Fable.Expr.Import(modifiedImportInfo, fableType, sourceLocation)
-                | _ ->
-                    callee
-
             if info.Args.Length = 1 && AstUtils.isRecord compiler info.Args.[0].Type then
                 // F# Component { Value = 1 }
                 // JSX <Component Value={1} />
@@ -72,6 +59,10 @@ type ReactComponentAttribute(exportDefault: bool) =
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else
+            if (AstUtils.isCamelCase decl.Name) then
+                compiler.LogWarning(sprintf "React function component '%s' is written in camelCase format. Please consider declaring it in PascalCase (i.e. '%s') to follow conventions of React applications and allow tools such as react-refresh to pick it up." decl.Name (AstUtils.capitalize decl.Name))
+
+            // do not rewrite components accepting records as input
             if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args.[0].Type then
                 // check whether the record type is defined in this file
                 // trigger warning if that is case
@@ -89,16 +80,19 @@ type ReactComponentAttribute(exportDefault: bool) =
                                 else None
 
                             | _ -> None
-                        | _ -> None
+
+                        | Declaration.ActionDeclaration action ->
+                            None
+                        | _ ->
+                            None
                     )
 
                 match definedInThisFile with
                 | Some recordTypeName ->
                     let errorMsg = String.concat "" [
-                        sprintf "Function component '%s' is using a record type '%s' as an input parameter which is defined in the *same* file. " decl.Name recordTypeName
+                        sprintf "Function component '%s' is using a record type '%s' as an input parameter. " decl.Name recordTypeName
                         "This happens to break React tooling like react-refresh and hot module reloading. "
-                        "To fix this issue, the record type must be defined in another module in a *different* file. "
-                        "Another way to fix the issue is to use an anonymous record instead or use multiple simpler values as input parameters. "
+                        "To fix this issue, consider using use an anonymous record instead or use multiple simpler values as input parameters"
                         "Future versions of [<ReactComponent>] might not emit this warning anymore, in which case you can assume that the issue if fixed. "
                         "To learn more about the issue, see https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/258"
                     ]
@@ -109,15 +103,14 @@ type ReactComponentAttribute(exportDefault: bool) =
                     // nothing to report
                     ignore()
 
-                // do not rewrite components accepting records as input
-                { decl with Name = AstUtils.capitalize decl.Name; ExportDefault = exportDefault }
+                { decl with ExportDefault = exportDefault }
             else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then
                 // remove arguments from functions requiring unit as input
-                { decl with Args = [ ]; Name = AstUtils.capitalize decl.Name; ExportDefault = exportDefault }
+                { decl with Args = [ ]; ExportDefault = exportDefault }
             else
             // rewrite all other arguments into getters of a single props object
             // TODO: transform any callback into into useCallback(callback) to stabilize reference
-            let propsArg = AstUtils.makeIdent (sprintf "%sProps" decl.Name)
+            let propsArg = AstUtils.makeIdent (sprintf "%sInputProps" (AstUtils.camelCase decl.Name))
             let body =
                 ([], decl.Args) ||> List.fold (fun bindings arg ->
                     // TODO: detect usage of "key" and emit warning
@@ -130,5 +123,4 @@ type ReactComponentAttribute(exportDefault: bool) =
             { decl with
                 Args = [propsArg]
                 Body = body
-                Name = AstUtils.capitalize decl.Name
                 ExportDefault = exportDefault }
