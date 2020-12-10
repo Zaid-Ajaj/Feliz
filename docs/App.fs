@@ -181,6 +181,24 @@ let CountersWithConditionals (show: bool) (more: int) =
         CounterWithAnonRecord {| initial = 30 |}
     |]
 
+// ok
+[<ReactComponent>]
+let MyComponent (label: string, value: string, onChange: string -> Unit) =
+  Html.textf "Value: %s" value
+// ok
+[<ReactComponent>]
+let MyComponent4 (value: string, onChange: string -> Unit) =
+  React.fragment [
+    MyComponent ("Name", value, onChange)
+  ]
+
+
+[<ReactComponent>]
+let MyComponent2 (value: string, onChange: string -> Unit) =
+  MyComponent ("Name", value, onChange)
+
+let myComponent2 = MyComponent2("", fun _ -> ())
+
 let counterCaller = React.functionComponent(fun () -> Counters(true))
 
 let partiallyAppied = CountersWithConditionals true

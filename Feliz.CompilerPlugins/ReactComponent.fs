@@ -28,21 +28,21 @@ type ReactComponentAttribute(exportDefault: bool) =
                     // When the key property is upper-case (which is common in record fields)
                     // then we should rewrite it
                     let modifiedRecord = AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args.[0]]
-                    AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; modifiedRecord]
+                    AstUtils.createElement [callee; modifiedRecord]
                 else
-                    AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; info.Args.[0]]
+                    AstUtils.createElement [callee; info.Args.[0]]
             elif info.Args.Length = 1 && info.Args.[0].Type = Fable.Type.Unit then
                 // F# Component()
                 // JSX <Component />
                 // JS createElement(Component, null)
-                AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; AstUtils.nullValue]
+                AstUtils.createElement [callee; AstUtils.nullValue]
             else
             let propsObj =
                 List.zip membArgs info.Args
                 |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
                 |> AstUtils.objExpr
 
-            AstUtils.makeCall (AstUtils.makeImport "createElement" "react") [callee; propsObj]
+            AstUtils.createElement [callee; propsObj]
         | _ ->
             // return expression as is when it is not a call expression
             expr
@@ -55,7 +55,7 @@ type ReactComponentAttribute(exportDefault: bool) =
             decl
         else if not (AstUtils.isReactElement decl.Body.Type) then
             // output of a React function component must be a ReactElement
-            let errorMessage = sprintf "Expected function %s to return a ReactElement when using [<ReactComponent>]" decl.Name
+            let errorMessage = sprintf "Expected function %s to return a ReactElement when using [<ReactComponent>]. Instead it returns %A" decl.Name decl.Body.Type
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else
@@ -108,19 +108,19 @@ type ReactComponentAttribute(exportDefault: bool) =
                 // remove arguments from functions requiring unit as input
                 { decl with Args = [ ]; ExportDefault = exportDefault }
             else
-            // rewrite all other arguments into getters of a single props object
-            // TODO: transform any callback into into useCallback(callback) to stabilize reference
-            let propsArg = AstUtils.makeIdent (sprintf "%sInputProps" (AstUtils.camelCase decl.Name))
-            let body =
-                ([], decl.Args) ||> List.fold (fun bindings arg ->
-                    // TODO: detect usage of "key" and emit warning
-                    let getterKind = Fable.ByKey(Fable.ExprKey(AstUtils.makeStrConst arg.DisplayName))
-                    let getter = Fable.Get(Fable.IdentExpr propsArg, getterKind, Fable.Any, None)
-                    (arg, getter)::bindings)
-                |> List.rev
-                |> List.fold (fun body (k,v) -> Fable.Let(k, v, body)) decl.Body
+                // rewrite all other arguments into getters of a single props object
+                // TODO: transform any callback into into useCallback(callback) to stabilize reference
+                let propsArg = AstUtils.makeIdent (sprintf "%sInputProps" (AstUtils.camelCase decl.Name))
+                let body =
+                    ([], decl.Args) ||> List.fold (fun bindings arg ->
+                        // TODO: detect usage of "key" and emit warning
+                        let getterKind = Fable.ByKey(Fable.ExprKey(AstUtils.makeStrConst arg.DisplayName))
+                        let getter = Fable.Get(Fable.IdentExpr propsArg, getterKind, Fable.Any, None)
+                        (arg, getter)::bindings)
+                    |> List.rev
+                    |> List.fold (fun body (k,v) -> Fable.Let(k, v, body)) decl.Body
 
-            { decl with
-                Args = [propsArg]
-                Body = body
-                ExportDefault = exportDefault }
+                { decl with
+                    Args = [propsArg]
+                    Body = body
+                    ExportDefault = exportDefault }

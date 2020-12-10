@@ -106,6 +106,27 @@ let makeCall callee args =
           CallMemberInfo = None }
     Fable.Call(callee, callInfo, Fable.Any, None)
 
+let createElement args =
+    let callee = makeImport "createElement" "react"
+    let callInfo: Fable.CallInfo =
+        { ThisArg = None
+          Args = args
+          SignatureArgTypes = []
+          HasSpread = false
+          IsJsConstructor = false
+          CallMemberInfo = None }
+
+    // make sure it returns the correct type of ReactElement
+    let expressionType =
+        let ref : Fable.EntityRef = {
+            FullName = "Fable.React.ReactElement";
+            Path = Fable.EntityPath.SourcePath "/"
+        }
+
+        Fable.Type.DeclaredType(ref, [ ])
+
+    Fable.Call(callee, callInfo, expressionType, None)
+
 type MemberInfo(?info: Fable.MemberInfo,
                 ?isValue: bool) =
     let infoOr f v =
