@@ -136,41 +136,41 @@ type style =
     static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(top: ICssUnit, right: int) =
+    static member inline padding(vertical: ICssUnit, horizontal: int) =
         Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string>right) + "px"
+            (unbox<string> vertical) + " " +
+            (unbox<string> horizontal) + "px"
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: ICssUnit, right: int, bottom: int) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string> right) + "px " +
+            (unbox<string> horizontal) + "px " +
             (unbox<string> bottom) + "px"
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: int) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: ICssUnit, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
-            (unbox<string>bottom) + "px"
+            (unbox<string> horizontal) + " " +
+            (unbox<string> bottom) + "px"
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: ICssUnit, bottom: ICssUnit) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
+            (unbox<string> horizontal) + " " +
             (unbox<string> bottom)
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: ICssUnit, right: int, bottom: ICssUnit) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: int, bottom: ICssUnit) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string> right) + "px " +
+            (unbox<string> horizontal) + "px " +
             (unbox<string> bottom)
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
@@ -187,31 +187,33 @@ type style =
     static member inline padding(top: ICssUnit, right: int, bottom: int, left: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string>right) + "px " +
-            (unbox<string>bottom) + "px " +
-            (unbox<string>left) + "px"
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
         )
-    /// Sets the padding area on two sides of an element. It is a shorthand for padding-top and padding-right.
-    static member inline padding(top: int, right: ICssUnit) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(vertical: int, horizontal: ICssUnit) =
         Interop.mkStyle "padding" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right)
+            (unbox<string> vertical) + "px " +
+            (unbox<string> horizontal)
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
     static member inline padding(value: int) = Interop.mkStyle "padding" value
-    /// Sets the padding area on two sides of an element. It is a shorthand for padding-top and padding-right.
-    static member inline padding(top: int, right: int) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(vertical: int, horizontal: int) =
         Interop.mkStyle "padding" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right) + "px"
+            (unbox<string> vertical) + "px " +
+            (unbox<string> horizontal) + "px"
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: int, right: int, bottom: int) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, horizontal: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
-            (unbox<string> right) + "px " +
+            (unbox<string> horizontal) + "px " +
             (unbox<string> bottom) + "px"
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
