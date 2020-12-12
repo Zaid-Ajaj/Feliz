@@ -2656,6 +2656,7 @@ module style =
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
         static member inline inheritFromParent = Interop.mkStyle "listStyleType" "inherit"
 
+    [<Erase>]
     type listStyleImage =
         /// No image will be displayed. Instead, the list-style-type property will define what type of list marker will be rendered. This is default
         static member inline none = Interop.mkStyle "listStyleImage" "none"
@@ -3551,13 +3552,13 @@ module style =
     [<Erase>]
     type emptyCells =
         /// Display borders on empty cells. This is default
-        static member show = Interop.mkStyle "emptyCells" "show"
+        static member inline show = Interop.mkStyle "emptyCells" "show"
         /// Hide borders on empty cells
-        static member hide = Interop.mkStyle "emptyCells" "hide"
+        static member inline hide = Interop.mkStyle "emptyCells" "hide"
         /// Sets this property to its default value
-        static member initial = Interop.mkStyle "emptyCells" "initial"
+        static member inline initial = Interop.mkStyle "emptyCells" "initial"
         /// Inherits this property from its parent element
-        static member inheritFromParent = Interop.mkStyle "emptyCells" "inherit"
+        static member inline inheritFromParent = Interop.mkStyle "emptyCells" "inherit"
 
 
     /// Sets whether or not the animation should play in reverse on alternate cycles.
