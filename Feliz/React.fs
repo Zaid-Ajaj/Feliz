@@ -589,3 +589,7 @@ module ReactOverloadMagic =
         /// The `useState` hook that create a state variable for React function components.
         [<Hook>]
         static member useState<'t>(initial: 't) = Interop.reactApi.useState<'t,'t>(initial)
+
+
+        [<Hook>]
+        static member useStateWithUpdater<'t>(initializer: unit -> 't): ('t * (('t -> 't) -> unit)) = import "useState" "react"
