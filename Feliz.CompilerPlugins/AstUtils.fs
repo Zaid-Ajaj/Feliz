@@ -59,6 +59,14 @@ let rec flattenList (head: Fable.Expr) (tail: Fable.Expr) =
             yield! [ ]
     ]
 
+let reactElementType =
+    let ref : Fable.EntityRef = {
+        FullName = "Fable.React.ReactElement";
+        Path = Fable.EntityPath.SourcePath "/"
+    }
+
+    Fable.Type.DeclaredType(ref, [ ])
+
 let makeImport (selector: string) (path: string) =
     Fable.Import({ Selector = selector
                    Path = path
@@ -104,6 +112,7 @@ let makeCall callee args =
           HasSpread = false
           IsJsConstructor = false
           CallMemberInfo = None }
+
     Fable.Call(callee, callInfo, Fable.Any, None)
 
 let createElement args =
@@ -126,6 +135,8 @@ let createElement args =
         Fable.Type.DeclaredType(ref, [ ])
 
     Fable.Call(callee, callInfo, expressionType, None)
+
+let emptyReactElement = Fable.Expr.Value(Fable.Null(reactElementType), None)
 
 type MemberInfo(?info: Fable.MemberInfo,
                 ?isValue: bool) =

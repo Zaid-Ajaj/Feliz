@@ -9,17 +9,25 @@ open Fable.AST.Fable
 do()
 
 /// <summary>Transforms a function into a React function component. Make sure the function is defined at the module level</summary>
-type ReactComponentAttribute(exportDefault: bool) =
+type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string) =
     inherit MemberDeclarationPluginAttribute()
     override _.FableMinimumVersion = "3.0"
-
     new() = ReactComponentAttribute(exportDefault=false)
+    new(exportDefault: bool) = ReactComponentAttribute(exportDefault=exportDefault,?import=None, ?from=None)
+    new(import: string, from: string) = ReactComponentAttribute(exportDefault=false,import=import, from=from)
 
     /// <summary>Transforms call-site into createElement calls</summary>
-    override _.TransformCall(compiler, memb, expr) =
+    override this.TransformCall(compiler, memb, expr) =
         let membArgs = memb.CurriedParameterGroups |> List.concat
         match expr with
         | Fable.Call(callee, info, typeInfo, range) when List.length membArgs = List.length info.Args ->
+            let reactComponent =
+                match import, from with
+                | Some importedMember, Some externalModule ->
+                    AstUtils.makeImport importedMember externalModule
+                | _ ->
+                    callee
+
             if info.Args.Length = 1 && AstUtils.isRecord compiler info.Args.[0].Type then
                 // F# Component { Value = 1 }
                 // JSX <Component Value={1} />
@@ -28,21 +36,21 @@ type ReactComponentAttribute(exportDefault: bool) =
                     // When the key property is upper-case (which is common in record fields)
                     // then we should rewrite it
                     let modifiedRecord = AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args.[0]]
-                    AstUtils.createElement [callee; modifiedRecord]
+                    AstUtils.createElement [reactComponent; modifiedRecord]
                 else
-                    AstUtils.createElement [callee; info.Args.[0]]
+                    AstUtils.createElement [reactComponent; info.Args.[0]]
             elif info.Args.Length = 1 && info.Args.[0].Type = Fable.Type.Unit then
                 // F# Component()
                 // JSX <Component />
                 // JS createElement(Component, null)
-                AstUtils.createElement [callee; AstUtils.nullValue]
+                AstUtils.createElement [reactComponent; AstUtils.nullValue]
             else
             let propsObj =
                 List.zip membArgs info.Args
                 |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
                 |> AstUtils.objExpr
 
-            AstUtils.createElement [callee; propsObj]
+            AstUtils.createElement [reactComponent; propsObj]
         | _ ->
             // return expression as is when it is not a call expression
             expr
@@ -59,6 +67,12 @@ type ReactComponentAttribute(exportDefault: bool) =
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else
+            let emptyDeclarationBodyWhenImported (decl: MemberDecl) =
+                if import.IsSome && from.IsSome then
+                    { decl with Body = AstUtils.emptyReactElement }
+                else
+                    decl
+
             if (AstUtils.isCamelCase decl.Name) then
                 compiler.LogWarning(sprintf "React function component '%s' is written in camelCase format. Please consider declaring it in PascalCase (i.e. '%s') to follow conventions of React applications and allow tools such as react-refresh to pick it up." decl.Name (AstUtils.capitalize decl.Name))
 
@@ -92,7 +106,7 @@ type ReactComponentAttribute(exportDefault: bool) =
                     let errorMsg = String.concat "" [
                         sprintf "Function component '%s' is using a record type '%s' as an input parameter. " decl.Name recordTypeName
                         "This happens to break React tooling like react-refresh and hot module reloading. "
-                        "To fix this issue, consider using use an anonymous record instead or use multiple simpler values as input parameters"
+                        "To fix this issue, consider using use an anonymous record instead or use multiple simpler values as input parameters (can be tupled)"
                         "Future versions of [<ReactComponent>] might not emit this warning anymore, in which case you can assume that the issue if fixed. "
                         "To learn more about the issue, see https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/258"
                     ]
@@ -103,10 +117,12 @@ type ReactComponentAttribute(exportDefault: bool) =
                     // nothing to report
                     ignore()
 
-                { decl with ExportDefault = exportDefault }
+                { decl with ExportDefault = defaultArg exportDefault false }
+                |> emptyDeclarationBodyWhenImported
             else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then
                 // remove arguments from functions requiring unit as input
-                { decl with Args = [ ]; ExportDefault = exportDefault }
+                { decl with Args = [ ]; ExportDefault = defaultArg exportDefault false }
+                |> emptyDeclarationBodyWhenImported
             else
                 // rewrite all other arguments into getters of a single props object
                 // TODO: transform any callback into into useCallback(callback) to stabilize reference
@@ -123,4 +139,5 @@ type ReactComponentAttribute(exportDefault: bool) =
                 { decl with
                     Args = [propsArg]
                     Body = body
-                    ExportDefault = exportDefault }
+                    ExportDefault = defaultArg exportDefault false }
+                |> emptyDeclarationBodyWhenImported

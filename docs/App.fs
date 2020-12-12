@@ -12,6 +12,7 @@ open Fable.Core.JsInterop
 open Fable.SimpleHttp
 open Zanaptak.TypedCssClasses
 open Feliz.UseElmish
+open Fable.Core
 
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
 type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
@@ -161,6 +162,12 @@ let CounterWithLowercaseKeyedRecord (props: LowerKeyedCounterProps) =
         Html.h1 count
     ]
 
+//[<ReactComponent(import="Hello", from="external-module")>]
+//let Hello (className: string) (children: ReactElement []) = Html.none
+
+[<ReactComponent(exportDefault=true)>]
+let HelloExported (className: string) (children: ReactElement []) = Html.none
+
 [<ReactComponent>]
 let Counters(show: bool) =
     Html.div [
@@ -171,6 +178,9 @@ let Counters(show: bool) =
         CounterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
         CounterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
         Examples.CounterExternal()
+        //Hello "fsharp" [|
+        //    Html.text "content"
+        //|]
     ]
 
 [<ReactComponent>]

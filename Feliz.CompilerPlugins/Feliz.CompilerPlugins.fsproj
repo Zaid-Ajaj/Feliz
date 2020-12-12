@@ -6,10 +6,10 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Correctly identify the expression type of the created expressions when constructing React components</PackageReleaseNotes>
+    <PackageReleaseNotes>Implement [ReactComponent(import={member}, from={module})] combination</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AstUtils.fs" />
@@ -20,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fable.AST" Version="3.0.0" />
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 </Project>
