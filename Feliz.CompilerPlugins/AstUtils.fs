@@ -135,6 +135,7 @@ let createElement args =
 
     Fable.Call(callee, callInfo, reactElementType, None)
 
+let emptyReactElement = Fable.Expr.Value(Fable.Null(reactElementType), None)
 
 type MemberInfo(?info: Fable.MemberInfo,
                 ?isValue: bool) =
