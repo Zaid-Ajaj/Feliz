@@ -3962,14 +3962,14 @@ module prop =
     /// Indicates how the control wraps text.
     [<Erase>]
     type wrap =
-        /// The browser ensures that all line breaks in the value consist of a CR+LF pair, 
+        /// The browser ensures that all line breaks in the value consist of a CR+LF pair,
         /// but does not insert any additional line breaks.
         static member inline soft = Interop.mkAttr "wrap" "soft"
-        /// The browser automatically inserts line breaks (CR+LF) 
-        /// so that each line has no more than the width of the control; 
+        /// The browser automatically inserts line breaks (CR+LF)
+        /// so that each line has no more than the width of the control;
         /// the cols attribute must also be specified for this to take effect.
         static member inline hard = Interop.mkAttr "wrap" "hard"
-        /// Like soft but changes appearance to white-space: pre 
+        /// Like soft but changes appearance to white-space: pre
         /// so line segments exceeding cols are not wrapped and the `<textarea>` becomes horizontally scrollable.
         /// WARNING: This API has not been standardized.
         static member inline off = Interop.mkAttr "wrap" "off"

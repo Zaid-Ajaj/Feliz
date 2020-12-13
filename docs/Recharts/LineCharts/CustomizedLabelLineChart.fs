@@ -17,16 +17,14 @@ let data = [
 ]
 
 let renderCustomLabel (input: ILabelProperties) =
-    Html.text [
-        prop.style [
-            style.fill color.black
-        ]
-        prop.x(input.x)
-        prop.y(input.y)
-        prop.textAnchor.middle
-        prop.dy(-4)
-        prop.fontSize 10
-        prop.text input.value
+    Svg.text [
+        svg.x(input.x)
+        svg.y(input.y)
+        svg.textAnchor.middle
+        svg.dy(-4)
+        svg.fontSize 10
+        svg.fill color.black
+        svg.text input.value
     ]
 
 let chart = React.functionComponent(fun () -> [

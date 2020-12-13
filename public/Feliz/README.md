@@ -9,7 +9,8 @@ module App
 
 open Feliz
 
-let counter = React.functionComponent(fun () ->
+[<ReactComponent>]
+let Counter() =
     let (count, setCount) = React.useState(0)
     Html.div [
         Html.button [
@@ -25,11 +26,11 @@ let counter = React.functionComponent(fun () ->
         ]
 
         Html.h1 count
-    ])
+    ]
 
 open Browser.Dom
 
-ReactDOM.render(counter, document.getElementById "root")
+ReactDOM.render(Counter(), document.getElementById "root")
 ```
 
 ### Features

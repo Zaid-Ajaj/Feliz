@@ -65,6 +65,7 @@ let fruitSales = [
     ("Mango", 6.4)
 ]
 
+#if FABLE_COMPILER_3
 [<ReactComponent>]
 let Counter() =
     let (count, setCount) = React.useState 0
@@ -214,6 +215,7 @@ let counterCaller = React.functionComponent(fun () -> Counters(true))
 let partiallyAppied = CountersWithConditionals true
 
 let withMore = partiallyAppied 42
+#endif
 
 let roughBarChart = React.functionComponent(fun () ->
     RoughViz.barChart [

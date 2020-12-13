@@ -2722,7 +2722,7 @@ module style =
         static member inline initial = Interop.mkStyle "textDecorationLine" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "textDecorationLine" "inherit"
-
+         
     [<Erase>]
     type textDecoration =
         static member inline none = Interop.mkStyle "textDecoration" "none"

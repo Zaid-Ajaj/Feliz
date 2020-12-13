@@ -28,15 +28,13 @@ let renderCustomLabel (input: IPieLabelProperties) =
     let x = (input.cx + radius * cos (-input.midAngle * radian))
     let y = (input.cy + radius * sin (-input.midAngle * radian))
 
-    Html.text [
-        prop.style [
-            style.fill color.white
-        ]
-        prop.x x
-        prop.y y
-        prop.dominantBaseline.central
-        if x > input.cx then prop.textAnchor.startOfText else prop.textAnchor.endOfText
-        prop.text (sprintf "%.0f%%" (100. * input.percent))
+    Svg.text [
+        svg.fill color.white
+        svg.x x
+        svg.y y
+        svg.dominantBaseline.central
+        if x > input.cx then svg.textAnchor.startOfText else svg.textAnchor.endOfText
+        svg.text (sprintf "%.0f%%" (100. * input.percent))
     ]
 
 let chart = React.functionComponent <| fun () ->
