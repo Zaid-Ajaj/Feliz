@@ -581,15 +581,6 @@ type prop =
     /// in this case it would have no effect.
     static member inline defer (value: bool) = Interop.mkAttr "defer" value
 
-    /// Represents the kd value in the Phong lighting model.
-    ///
-    /// In SVG, this can be any non-negative number.
-    static member inline diffuseConstant (value: float) = Interop.mkAttr "diffuseConstant" value
-    /// Represents the kd value in the Phong lighting model.
-    ///
-    /// In SVG, this can be any non-negative number.
-    static member inline diffuseConstant (value: int) = Interop.mkAttr "diffuseConstant" value
-
     /// Sets the directionality of the element.
     static member inline dirName (value: string) = Interop.mkAttr "dirName" value
 
@@ -627,17 +618,6 @@ type prop =
     /// SVG attribute to indicate a shift along the y-axis on the position of an element or its content.
     static member inline dy (value: int) = Interop.mkAttr "dy" value
 
-    /// SVG attribute that specifies the direction angle for the light source from the XY plane towards
-    /// the Z-axis, in degrees.
-    ///
-    /// Note that the positive Z-axis points towards the viewer of the content.
-    static member inline elevation (value: float) = Interop.mkAttr "elevation" value
-    /// SVG attribute that specifies the direction angle for the light source from the XY plane towards
-    /// the Z-axis, in degrees.
-    ///
-    /// Note that the positive Z-axis points towards the viewer of the content.
-    static member inline elevation (value: int) = Interop.mkAttr "elevation" value
-
     /// Defines an end value for the animation that can constrain the active duration.
     static member inline end' (value: string) = Interop.mkAttr "end" value
     /// Defines an end value for the animation that can constrain the active duration.
@@ -650,18 +630,6 @@ type prop =
 
     /// Defines the files that will be uploaded when using an input element of the file type.
     static member inline files (value: FileList) = Interop.mkAttr "files" value
-
-    /// SVG attribute to define the opacity of the paint server (color, gradient, pattern, etc) applied to a shape.
-    static member inline fillOpacity (value: float) = Interop.mkAttr "fillOpacity" value
-    /// SVG attribute to define the opacity of the paint server (color, gradient, pattern, etc) applied to a shape.
-    static member inline fillOpacity (value: int) = Interop.mkAttr "fillOpacity" value
-
-    /// SVG attribute to define the size of the font from baseline to baseline when multiple
-    /// lines of text are set solid in a multiline layout environment.
-    static member inline fontSize (value: float) = Interop.mkAttr "fontSize" value
-    /// SVG attribute to define the size of the font from baseline to baseline when multiple
-    /// lines of text are set solid in a multiline layout environment.
-    static member inline fontSize (value: int) = Interop.mkAttr "fontSize" value
 
     /// A space-separated list of other elements’ ids, indicating that those elements contributed input
     /// values to (or otherwise affected) the calculation.
@@ -676,95 +644,6 @@ type prop =
     /// if the <meter> element is being used as a form-associated element, such as one displaying a
     /// range corresponding to an <input type="number">.
     static member inline form (value: string) = Interop.mkAttr "form" value
-
-    /// Indicates the initial value of the attribute that will be modified during the animation.
-    ///
-    /// When used with the `to` attribute, the animation will change the modified attribute from
-    /// the from value to the to value.
-    ///
-    /// When used with the `by` attribute, the animation will change the attribute relatively
-    /// from the from value by the value specified in by.
-    static member inline from (value: float) = Interop.mkAttr "from" value
-    /// Indicates the initial value of the attribute that will be modified during the animation.
-    ///
-    /// When used with the `to` attribute, the animation will change the modified attribute from
-    /// the from value to the to value.
-    ///
-    /// When used with the `by` attribute, the animation will change the attribute relatively
-    /// from the from value by the value specified in by.
-    static member inline from (values: seq<float>) = Interop.mkAttr "from" (values |> unbox<seq<string>> |> String.concat " ")
-    /// Indicates the initial value of the attribute that will be modified during the animation.
-    ///
-    /// When used with the `to` attribute, the animation will change the modified attribute from
-    /// the from value to the to value.
-    ///
-    /// When used with the `by` attribute, the animation will change the attribute relatively
-    /// from the from value by the value specified in by.
-    static member inline from (value: int) = Interop.mkAttr "from" value
-    /// Indicates the initial value of the attribute that will be modified during the animation.
-    ///
-    /// When used with the `to` attribute, the animation will change the modified attribute from
-    /// the from value to the to value.
-    ///
-    /// When used with the `by` attribute, the animation will change the attribute relatively
-    /// from the from value by the value specified in by.
-    static member inline from (values: seq<int>) = Interop.mkAttr "from" (values |> unbox<seq<string>> |> String.concat " ")
-    /// Indicates the initial value of the attribute that will be modified during the animation.
-    ///
-    /// When used with the `to` attribute, the animation will change the modified attribute from
-    /// the from value to the to value.
-    ///
-    /// When used with the `by` attribute, the animation will change the attribute relatively
-    /// from the from value by the value specified in by.
-    static member inline from (value: string) = Interop.mkAttr "from" value
-    /// Indicates the initial value of the attribute that will be modified during the animation.
-    ///
-    /// When used with the `to` attribute, the animation will change the modified attribute from
-    /// the from value to the to value.
-    ///
-    /// When used with the `by` attribute, the animation will change the attribute relatively
-    /// from the from value by the value specified in by.
-    static member inline from (values: seq<string>) = Interop.mkAttr "from" (values |> String.concat " ")
-
-    /// Defines the radius of the focal point for the radial gradient.
-    static member inline fr (value: float) = Interop.mkAttr "fr" value
-    /// Defines the radius of the focal point for the radial gradient.
-    static member inline fr (value: int) = Interop.mkAttr "fr" value
-    /// Defines the radius of the focal point for the radial gradient.
-    static member inline fr (value: ICssUnit) = Interop.mkAttr "fr" value
-
-    /// Defines the x-axis coordinate of the focal point for a radial gradient.
-    static member inline fx (value: float) = Interop.mkAttr "fx" value
-    /// Defines the x-axis coordinate of the focal point for a radial gradient.
-    static member inline fx (value: int) = Interop.mkAttr "fx" value
-    /// Defines the x-axis coordinate of the focal point for a radial gradient.
-    static member inline fx (value: ICssUnit) = Interop.mkAttr "fx" value
-
-    /// Defines the y-axis coordinate of the focal point for a radial gradient.
-    static member inline fy (value: float) = Interop.mkAttr "fy" value
-    /// Defines the y-axis coordinate of the focal point for a radial gradient.
-    static member inline fy (value: int) = Interop.mkAttr "fy" value
-    /// Defines the y-axis coordinate of the focal point for a radial gradient.
-    static member inline fy (value: ICssUnit) = Interop.mkAttr "fy" value
-
-    /// Defines an optional additional transformation from the gradient coordinate system
-    /// onto the target coordinate system (i.e., userSpaceOnUse or objectBoundingBox).
-    ///
-    /// This allows for things such as skewing the gradient. This additional transformation
-    /// matrix is post-multiplied to (i.e., inserted to the right of) any previously defined
-    /// transformations, including the implicit transformation necessary to convert from object
-    /// bounding box units to user space.
-    static member inline gradientTransform (transform: ITransformProperty) =
-        Interop.mkAttr "gradientTransform" (unbox<string> transform)
-    /// Defines optional additional transformation(s) from the gradient coordinate system
-    /// onto the target coordinate system (i.e., userSpaceOnUse or objectBoundingBox).
-    ///
-    /// This allows for things such as skewing the gradient. This additional transformation
-    /// matrix is post-multiplied to (i.e., inserted to the right of) any previously defined
-    /// transformations, including the implicit transformation necessary to convert from object
-    /// bounding box units to user space.
-    static member inline gradientTransform (transforms: seq<ITransformProperty>) =
-        Interop.mkAttr "gradientTransform" (unbox<seq<string>> transforms |> String.concat " ")
 
     /// Prevents rendering of given element, while keeping child elements, e.g. script elements, active.
     static member inline hidden (value: bool) = Interop.mkAttr "hidden" value
@@ -830,54 +709,11 @@ type prop =
     /// has been delivered free of unexpected manipulation.
     static member inline integrity (value: string) = Interop.mkAttr "integrity" value
 
-    /// Defines the intercept of the linear function of color component transfers when the type
-    /// attribute is set to linear.
-    static member inline intercept (value: float) = Interop.mkAttr "intercept" value
-    /// Defines the intercept of the linear function of color component transfers when the type
-    /// attribute is set to linear.
-    static member inline intercept (value: int) = Interop.mkAttr "intercept" value
-
     /// Sets the checked attribute for an element.
     static member inline isChecked (value: bool) = Interop.mkAttr "checked" value
 
     /// Sets the open attribute for an element.
     static member inline isOpen (value: bool) = Interop.mkAttr "open" value
-
-    /// Defines one of the values to be used within the the arithmetic operation of the
-    /// <feComposite> filter primitive.
-    static member inline k1 (value: float) = Interop.mkAttr "k1" value
-    /// Defines one of the values to be used within the the arithmetic operation of the
-    /// <feComposite> filter primitive.
-    static member inline k1 (value: int) = Interop.mkAttr "k1" value
-
-    /// Defines one of the values to be used within the the arithmetic operation of the
-    /// <feComposite> filter primitive.
-    static member inline k2 (value: float) = Interop.mkAttr "k2" value
-    /// Defines one of the values to be used within the the arithmetic operation of the
-    /// <feComposite> filter primitive.
-    static member inline k2 (value: int) = Interop.mkAttr "k2" value
-
-    /// Defines one of the values to be used within the the arithmetic operation of the
-    /// <feComposite> filter primitive.
-    static member inline k3 (value: float) = Interop.mkAttr "k3" value
-    /// Defines one of the values to be used within the the arithmetic operation of the
-    /// <feComposite> filter primitive.
-    static member inline k3 (value: int) = Interop.mkAttr "k3" value
-
-    /// Defines one of the values to be used within the the arithmetic operation of the
-    /// <feComposite> filter primitive.
-    static member inline k4 (value: float) = Interop.mkAttr "k4" value
-    /// Defines one of the values to be used within the the arithmetic operation of the
-    /// <feComposite> filter primitive.
-    static member inline k4 (value: int) = Interop.mkAttr "k4" value
-
-    /// Defines the list of numbers that make up the kernel matrix for the
-    /// <feConvolveMatrix> element.
-    static member inline kernelMatrix (values: seq<float>) = Interop.mkAttr "kernelMatrix" (values |> unbox<seq<string>> |> String.concat " ")
-    /// Defines the list of numbers that make up the kernel matrix for the
-    /// <feConvolveMatrix> element.
-    static member inline kernelMatrix (values: seq<int>) = Interop.mkAttr "kernelMatrix" (values |> unbox<seq<string>>  |> String.concat " ")
-
     /// A special string attribute you need to include when creating arrays of elements.
     /// Keys help React identify which items have changed, are added, or are removed.
     /// Keys should be given to the elements inside an array to give the elements a stable identity.
@@ -1037,16 +873,6 @@ type prop =
     /// it transmits a policy. It is critical to provide a nonce that cannot be guessed
     /// as bypassing a resource's policy is otherwise trivial.
     static member inline nonce (value: string) = Interop.mkAttr "nonce" value
-
-    /// Defines the number of octaves for the noise function of the <feTurbulence> primitive.
-    static member inline numOctaves (value: int) = Interop.mkAttr "numOctaves" value
-
-    /// SVG attribute to define where the gradient color will begin or end.
-    static member inline offset (value: float) = Interop.mkAttr "offset" value
-    /// SVG attribute to define where the gradient color will begin or end.
-    static member inline offset (value: ICssUnit) = Interop.mkAttr "offset" value
-    /// SVG attribute to define where the gradient color will begin or end.
-    static member inline offset (value: int) = Interop.mkAttr "offset" value
 
     /// Fires when a media event is aborted.
     static member inline onAbort (handler: Event -> unit) = Interop.mkAttr "onAbort" handler
@@ -1301,37 +1127,6 @@ type prop =
     /// Indicates the minimum value allowed.
     static member inline order (values: seq<int>) = Interop.mkAttr "order" (values |> unbox<seq<string>> |> String.concat " ")
 
-    /// Represents the ideal vertical position of the overline.
-    ///
-    /// The overline position is expressed in the font's coordinate system.
-    static member inline overlinePosition (value: float) = Interop.mkAttr "overline-position" value
-    /// Represents the ideal vertical position of the overline.
-    ///
-    /// The overline position is expressed in the font's coordinate system.
-    static member inline overlinePosition (value: int) = Interop.mkAttr "overline-position" value
-
-    /// Represents the ideal thickness of the overline.
-    ///
-    /// The overline thickness is expressed in the font's coordinate system.
-    static member inline overlineThickness (value: float) = Interop.mkAttr "overline-thickness" value
-    /// Represents the ideal thickness of the overline.
-    ///
-    /// The overline thickness is expressed in the font's coordinate system.
-    static member inline overlineThickness (value: int) = Interop.mkAttr "overline-thickness" value
-
-    /// It either defines a text path along which the characters of a text are rendered, or a motion
-    /// path along which a referenced element is animated.
-    static member inline path (path: seq<char * (float list list)>) =
-        PropHelpers.createSvgPathFloat path
-        |> Interop.mkAttr "path"
-    /// It either defines a text path along which the characters of a text are rendered, or a motion
-    /// path along which a referenced element is animated.
-    static member inline path (path: seq<char * (int list list)>) =
-        PropHelpers.createSvgPathInt path
-        |> Interop.mkAttr "path"
-    /// It either defines a text path along which the characters of a text are rendered, or a motion
-    /// path along which a referenced element is animated.
-    static member inline path (path: string) = Interop.mkAttr "path" path
     /// The part global attribute contains a space-separated list of the part names of the element.
     /// Part names allows CSS to select and style specific elements in a shadow tree
     static member inline part(value: string) = Interop.mkAttr "part" value
@@ -1379,78 +1174,6 @@ type prop =
     /// Typically used for tracking.
     static member inline ping (urls: #seq<string>) = Interop.mkAttr "ping" (urls |> String.concat " ")
 
-    /// Defines a list of points.
-    ///
-    /// Each point is defined by a pair of numbers representing a X and a Y coordinate in
-    /// the user coordinate system.
-    static member inline points (coordinates: seq<float * float>) =
-        PropHelpers.createPointsFloat(coordinates)
-        |> Interop.mkAttr "points"
-    /// Defines a list of points.
-    ///
-    /// Each point is defined by a pair of numbers representing a X and a Y coordinate in
-    /// the user coordinate system.
-    static member inline points (coordinates: seq<int * int>) =
-        PropHelpers.createPointsInt(coordinates)
-        |> Interop.mkAttr "points"
-    /// Defines a list of points.
-    ///
-    /// Each point is defined by a pair of numbers representing a X and a Y coordinate in
-    /// the user coordinate system.
-    static member inline points (coordinates: string) = Interop.mkAttr "points"
-
-    /// Represents the x location in the coordinate system established by attribute primitiveUnits
-    /// on the <filter> element of the point at which the light source is pointing.
-    static member inline pointsAtX (value: float) = Interop.mkAttr "pointsAtX" value
-    /// Represents the x location in the coordinate system established by attribute primitiveUnits
-    /// on the <filter> element of the point at which the light source is pointing.
-    static member inline pointsAtX (value: int) = Interop.mkAttr "pointsAtX" value
-
-    /// Represents the y location in the coordinate system established by attribute primitiveUnits
-    /// on the <filter> element of the point at which the light source is pointing.
-    static member inline pointsAtY (value: float) = Interop.mkAttr "pointsAtY" value
-    /// Represents the y location in the coordinate system established by attribute primitiveUnits
-    /// on the <filter> element of the point at which the light source is pointing.
-    static member inline pointsAtY (value: int) = Interop.mkAttr "pointsAtY" value
-
-    /// Represents the y location in the coordinate system established by attribute primitiveUnits
-    /// on the <filter> element of the point at which the light source is pointing, assuming that,
-    /// in the initial local coordinate system, the positive z-axis comes out towards the person
-    /// viewing the content and assuming that one unit along the z-axis equals one unit in x and y.
-    static member inline pointsAtZ (value: float) = Interop.mkAttr "pointsAtZ" value
-    /// Represents the y location in the coordinate system established by attribute primitiveUnits
-    /// on the <filter> element of the point at which the light source is pointing, assuming that,
-    /// in the initial local coordinate system, the positive z-axis comes out towards the person
-    /// viewing the content and assuming that one unit along the z-axis equals one unit in x and y.
-    static member inline pointsAtZ (value: int) = Interop.mkAttr "pointsAtZ" value
-
-    /// Indicates how a <feConvolveMatrix> element handles alpha transparency.
-    static member inline preserveAlpha (value: bool) = Interop.mkAttr "preserveAlpha" value
-
-    /// A URL for an image to be shown while the video is downloading. If this attribute isn't specified, nothing
-    /// is displayed until the first frame is available, then the first frame is shown as the poster frame.
-    static member inline poster (value: string) = Interop.mkAttr "poster" value
-
-    /// SVG attribute to define the radius of a circle.
-    static member inline r (value: float) = Interop.mkAttr "r" value
-    /// SVG attribute to define the radius of a circle.
-    static member inline r (value: ICssUnit) = Interop.mkAttr "r" value
-    /// SVG attribute to define the radius of a circle.
-    static member inline r (value: int) = Interop.mkAttr "r" value
-
-    /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (value: float) = Interop.mkAttr "radius" value
-    /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (value: int) = Interop.mkAttr "radius" value
-    /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (xRadius: float, yRadius: float) = Interop.mkAttr "radius" (unbox<string> xRadius  + "," + unbox<string> yRadius)
-    /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (xRadius: float, yRadius: int) = Interop.mkAttr "radius" (unbox<string> xRadius  + "," + unbox<string> yRadius)
-    /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (xRadius: int, yRadius: float) = Interop.mkAttr "radius" (unbox<string> xRadius  + "," + unbox<string> yRadius)
-    /// Represents the radius (or radii) for the operation on a given <feMorphology> filter primitive.
-    static member inline radius (xRadius: int, yRadius: int) = Interop.mkAttr "radius" (unbox<string> xRadius  + "," + unbox<string> yRadius)
-
     /// Indicates whether the element can be edited.
     static member inline readOnly (value: bool) = Interop.mkAttr "readOnly" value
 
@@ -1493,55 +1216,11 @@ type prop =
     /// Defines the number of rows a table cell should span over.
     static member inline rowSpan (value: int) = Interop.mkAttr "rowSpan" value
 
-    /// The SVG rx attribute defines a radius on the x-axis.
-    ///
-    /// Two elements are using this attribute: <ellipse>, and <rect>
-    static member inline rx (value: float) = Interop.mkAttr "rx" value
-    /// The SVG rx attribute defines a radius on the x-axis.
-    ///
-    /// Two elements are using this attribute: <ellipse>, and <rect>
-    static member inline rx (value: ICssUnit) = Interop.mkAttr "rx" value
-    /// The SVG rx attribute defines a radius on the x-axis.
-    ///
-    /// Two elements are using this attribute: <ellipse>, and <rect>
-    static member inline rx (value: int) = Interop.mkAttr "rx" value
-
-    /// The SVG ry attribute defines a radius on the y-axis.
-    ///
-    /// Two elements are using this attribute: <ellipse>, and <rect>
-    static member inline ry (value: float) = Interop.mkAttr "ry" value
-    /// The SVG ry attribute defines a radius on the y-axis.
-    ///
-    /// Two elements are using this attribute: <ellipse>, and <rect>
-    static member inline ry (value: ICssUnit) = Interop.mkAttr "ry" value
-    /// The SVG ry attribute defines a radius on the y-axis.
-    ///
-    /// Two elements are using this attribute: <ellipse>, and <rect>
-    static member inline ry (value: int) = Interop.mkAttr "ry" value
-
     /// Applies extra restrictions to the content in the frame.
     ///
     /// The value of the attribute can either be empty to apply all restrictions,
     /// or space-separated tokens to lift particular restrictions
     static member inline sandbox (values: #seq<string>) = Interop.mkAttr "sandbox" (values |> String.concat " ")
-
-    /// Defines the displacement scale factor to be used on a <feDisplacementMap> filter primitive.
-    ///
-    /// The amount is expressed in the coordinate system established by the primitiveUnits attribute
-    /// on the <filter> element.
-    static member inline scale (value: float) = Interop.mkAttr "scale" value
-    /// Defines the displacement scale factor to be used on a <feDisplacementMap> filter primitive.
-    ///
-    /// The amount is expressed in the coordinate system established by the primitiveUnits attribute
-    /// on the <filter> element.
-    static member inline scale (value: int) = Interop.mkAttr "scale" value
-
-    /// Represents the starting number for the pseudo random number generator of the <feTurbulence>
-    /// filter primitive.
-    static member inline seed (value: float) = Interop.mkAttr "seed" value
-    /// Represents the starting number for the pseudo random number generator of the <feTurbulence>
-    /// filter primitive.
-    static member inline seed (value: int) = Interop.mkAttr "seed" value
 
     /// Defines a value which will be selected on page load.
     static member inline selected (value: bool) = Interop.mkAttr "selected" value
@@ -1583,24 +1262,6 @@ type prop =
     /// Defines whether the element may be checked for spelling errors.
     static member inline spellcheck (value: bool) = Interop.mkAttr "spellcheck" value
 
-    /// Controls the ratio of reflection of the specular lighting.
-    ///
-    /// It represents the ks value in the Phong lighting model. The bigger the value the stronger the reflection.
-    static member inline specularConstant (value: float) = Interop.mkAttr "specularConstant" value
-    /// Controls the ratio of reflection of the specular lighting.
-    ///
-    /// It represents the ks value in the Phong lighting model. The bigger the value the stronger the reflection.
-    static member inline specularConstant (value: int) = Interop.mkAttr "specularConstant" value
-
-    /// For <feSpecularLighting>, specularExponent defines the exponent value for the specular term.
-    ///
-    /// For <feSpotLight>, specularExponent defines the exponent value controlling the focus for the light source.
-    static member inline specularExponent (value: float) = Interop.mkAttr "specularExponent" value
-    /// For <feSpecularLighting>, specularExponent defines the exponent value for the specular term.
-    ///
-    /// For <feSpotLight>, specularExponent defines the exponent value controlling the focus for the light source.
-    static member inline specularExponent (value: int) = Interop.mkAttr "specularExponent" value
-
     /// The URL of the embeddable content.
     static member inline src (value: string) = Interop.mkAttr "src" value
 
@@ -1614,73 +1275,15 @@ type prop =
 
     /// Defines the first number if other than 1.
     static member inline start (value: string) = Interop.mkAttr "start" value
-
-    /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (value: float) = Interop.mkAttr "stdDeviation" value
-    /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (value: int) = Interop.mkAttr "stdDeviation" value
-    /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (xAxis: float, yAxis: float) = Interop.mkAttr "stdDeviation" (unbox<string> xAxis  + "," + unbox<string> yAxis)
-    /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (xAxis: float, yAxis: int) = Interop.mkAttr "stdDeviation" (unbox<string> xAxis  + "," + unbox<string> yAxis)
-    /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (xAxis: int, yAxis: float) = Interop.mkAttr "stdDeviation" (unbox<string> xAxis  + "," + unbox<string> yAxis)
-    /// Defines the standard deviation for the blur operation.
-    static member inline stdDeviation (xAxis: int, yAxis: int) = Interop.mkAttr "stdDeviation" (unbox<string> xAxis  + "," + unbox<string> yAxis)
-
     /// Indicates the stepping interval.
     static member inline step (value: float) = Interop.mkAttr "step" value
     /// Indicates the stepping interval.
     static member inline step (value: int) = Interop.mkAttr "step" value
     /// The slot global attribute assigns a slot in a shadow DOM shadow tree to an element: An element with a slot attribute is assigned to the slot created by the slot element whose name attribute's value matches that slot attribute's value.
     static member inline slot(value: string) = Interop.mkAttr "slot" value
-    /// SVG attribute to indicate what color to use at a gradient stop.
-    static member inline stopColor (value: string) = Interop.mkAttr "stopColor" value
-
-    /// SVG attribute to define the opacity of a given color gradient stop.
-    static member inline stopOpacity (value: float) = Interop.mkAttr "stopOpacity" value
-    /// SVG attribute to define the opacity of a given color gradient stop.
-    static member inline stopOpacity (value: int) = Interop.mkAttr "stopOpacity" value
-
-    /// Represents the ideal vertical position of the strikethrough.
-    ///
-    /// The strikethrough position is expressed in the font's coordinate system.
-    static member inline strikethroughPosition (value: float) = Interop.mkAttr "strikethrough-position" value
-    /// Represents the ideal vertical position of the strikethrough.
-    ///
-    /// The strikethrough position is expressed in the font's coordinate system.
-    static member inline strikethroughPosition (value: int) = Interop.mkAttr "strikethrough-position" value
-
-    /// Represents the ideal vertical position of the strikethrough.
-    ///
-    /// The strikethrough position is expressed in the font's coordinate system.
-    static member inline strikethroughThickness (value: float) = Interop.mkAttr "strikethrough-thickness" value
-    /// Represents the ideal thickness of the strikethrough.
-    ///
-    /// The strikethrough thickness is expressed in the font's coordinate system.
-    static member inline strikethroughThickness (value: int) = Interop.mkAttr "strikethrough-thickness" value
-
-    /// SVG attribute to define the color (or any SVG paint servers like gradients or patterns) used to paint the outline of the shape.
-    static member inline stroke (color: string) = Interop.mkAttr "stroke" color
-
-    /// SVG attribute to define the width of the stroke to be applied to the shape.
-    static member inline strokeWidth (value: float) = Interop.mkAttr "strokeWidth" value
-    /// SVG attribute to define the width of the stroke to be applied to the shape.
-    static member inline strokeWidth (value: ICssUnit) = Interop.mkAttr "strokeWidth" value
-    /// SVG attribute to define the width of the stroke to be applied to the shape.
-    static member inline strokeWidth (value: int) = Interop.mkAttr "strokeWidth" value
 
     static member inline style (properties: #IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
 
-    /// Represents the height of the surface for a light filter primitive.
-    static member inline surfaceScale (value: float) = Interop.mkAttr "surfaceScale" value
-    /// Represents the height of the surface for a light filter primitive.
-    static member inline surfaceScale (value: int) = Interop.mkAttr "surfaceScale" value
-
-    /// Represents a list of supported language tags.
-    ///
-    /// This list is matched against the language defined in the user preferences.
-    static member inline systemLanguage (value: string) = Interop.mkAttr "systemLanguage" value
 
     /// The `tabindex` global attribute indicates that its element can be focused,
     /// and where it participates in sequential keyboard navigation (usually with the Tab key, hence the name).
@@ -1688,26 +1291,6 @@ type prop =
 
     /// Controls browser behavior when opening a link.
     static member inline target (frameName: string) = Interop.mkAttr "target" frameName
-
-    /// Determines the positioning in horizontal direction of the convolution matrix relative to a
-    /// given target pixel in the input image.
-    ///
-    /// The leftmost column of the matrix is column number zero.
-    ///
-    /// The value must be such that:
-    ///
-    /// 0 <= targetX < orderX.
-    static member inline targetX (index: int) = Interop.mkAttr "targetX" index
-
-    /// Determines the positioning in vertical direction of the convolution matrix relative to a
-    /// given target pixel in the input image.
-    ///
-    /// The topmost row of the matrix is row number zero.
-    ///
-    /// The value must be such that:
-    ///
-    /// 0 <= targetY < orderY.
-    static member inline targetY (index: int) = Interop.mkAttr "targetY" index
 
     /// A shorthand for using prop.custom("data-testid", value). Useful for referencing elements when testing React code.
     static member inline testId(value: string) = Interop.mkAttr "data-testid" value
@@ -1721,23 +1304,6 @@ type prop =
 
     /// Defines the text content of the element. Alias for `children [ Html.text (sprintf ...) ]`
     static member inline textf fmt = Printf.kprintf prop.text fmt
-
-    /// Specifies the width of the space into which the text will draw.
-    ///
-    /// The user agent will ensure that the text does not extend farther than that distance, using the method or methods
-    /// specified by the lengthAdjust attribute.
-    static member inline textLength (value: float) = Interop.mkAttr "textLength" value
-    /// Specifies the width of the space into which the text will draw.
-    ///
-    /// The user agent will ensure that the text does not extend farther than that distance, using the method or methods
-    /// specified by the lengthAdjust attribute.
-    static member inline textLength (value: ICssUnit) = Interop.mkAttr "textLength" value
-    /// Specifies the width of the space into which the text will draw.
-    ///
-    /// The user agent will ensure that the text does not extend farther than that distance, using the method or methods
-    /// specified by the lengthAdjust attribute.
-    static member inline textLength (value: int) = Interop.mkAttr "textLength" value
-
     /// The title global attribute contains text representing advisory information related to the element it belongs to.
     static member inline title (value: string) = Interop.mkAttr "title" value
 
@@ -2417,91 +1983,9 @@ module prop =
         /// The first letter of each word defaults to a capital letter; all other letters default to lowercase
         static member inline words = Interop.mkAttr "autoCapitalize" "words"
 
-    /// Specifies the interpolation mode for the animation.
-    [<Erase>]
-    type calcMode =
-        /// Specifies that the animation function will jump from one value to the next
-        /// without any interpolation.
-        static member inline discrete = Interop.mkAttr "calcMode" "discrete"
-        /// Simple linear interpolation between values is used to calculate the animation
-        /// function. Except for <animateMotion>, this is the default value.
-        static member inline linear = Interop.mkAttr "calcMode" "linear"
-        /// Defines interpolation to produce an even pace of change across the animation.
-        ///
-        /// This is only supported for values that define a linear numeric range, and for
-        /// which some notion of "distance" between points can be calculated (e.g. position,
-        /// width, height, etc.).
-        ///
-        /// If paced is specified, any keyTimes or keySplines will be ignored.
-        ///
-        /// For <animateMotion>, this is the default value.
-        static member inline paced = Interop.mkAttr "calcMode" "paced"
-        /// Interpolates from one value in the values list to the next according to a time
-        /// function defined by a cubic Bézier spline.
-        ///
-        /// The points of the spline are defined in the keyTimes attribute, and the control
-        /// points for each interval are defined in the keySplines attribute.
-        static member inline spline = Interop.mkAttr "calcMode" "spline"
-
     [<Erase>]
     type charset =
         static member inline utf8 = Interop.mkAttr "charset" "UTF-8"
-
-    /// Indicates which coordinate system to use for the contents of the <clipPath> element.
-    [<Erase>]
-    type clipPath =
-        /// Indicates that all coordinates inside the <clipPath> element refer to the user
-        /// coordinate system as defined when the clipping path was created.
-        static member inline userSpaceOnUse = Interop.mkAttr "clipPath" "userSpaceOnUse"
-        /// Indicates that all coordinates inside the <clipPath> element are relative to
-        /// the bounding box of the element the clipping path is applied to.
-        ///
-        /// It means that the origin of the coordinate system is the top left corner of the
-        /// object bounding box and the width and height of the object bounding box are
-        /// considered to have a length of 1 unit value.
-        static member inline objectBoundingBox = Interop.mkAttr "clipPath" "objectBoundingBox"
-
-    /// Indicates which coordinate system to use for the contents of the <clipPath> element.
-    [<Erase>]
-    type clipRule =
-        /// Determines the "insideness" of a point in the shape by drawing a ray from that
-        /// point to infinity in any direction and counting the number of path segments
-        /// from the given shape that the ray crosses.
-        ///
-        /// If this number is odd, the point is inside; if even, the point is outside.
-        static member inline evenodd = Interop.mkAttr "clip-rule" "evenodd"
-        static member inline inheritFromParent = Interop.mkAttr "clip-rule" "inherit"
-        /// Determines the "insideness" of a point in the shape by drawing a ray from that
-        /// point to infinity in any direction, and then examining the places where a
-        /// segment of the shape crosses the ray.
-        static member inline nonzero = Interop.mkAttr "clip-rule" "nonzero"
-
-    /// Specifies the color space for gradient interpolations, color animations, and
-    /// alpha compositing.
-    [<Erase>]
-    type colorInterpolation =
-        /// Indicates that the user agent can choose either the sRGB or linearRGB spaces
-        /// for color interpolation. This option indicates that the author doesn't require
-        /// that color interpolation occur in a particular color space.
-        static member inline auto = Interop.mkAttr "color-interpolation" "auto"
-        /// Indicates that color interpolation should occur in the linearized RGB color
-        /// space as described in the sRGB specification.
-        static member inline linearRGB = Interop.mkAttr "color-interpolation" "linearRGB"
-        /// Indicates that color interpolation should occur in the sRGB color space.
-        static member inline sRGB = Interop.mkAttr "color-interpolation" "sRGB"
-
-    /// Specifies the color space for imaging operations performed via filter effects.
-    [<Erase>]
-    type colorInterpolationFilters =
-        /// Indicates that the user agent can choose either the sRGB or linearRGB spaces
-        /// for color interpolation. This option indicates that the author doesn't require
-        /// that color interpolation occur in a particular color space.
-        static member inline auto = Interop.mkAttr "color-interpolation-filters" "auto"
-        /// Indicates that color interpolation should occur in the linearized RGB color
-        /// space as described in the sRGB specification.
-        static member inline linearRGB = Interop.mkAttr "color-interpolation-filters" "linearRGB"
-        /// Indicates that color interpolation should occur in the sRGB color space.
-        static member inline sRGB = Interop.mkAttr "color-interpolation-filters" "sRGB"
 
     /// A set of values specifying the coordinates of the hot-spot region.
     ///
@@ -2551,100 +2035,6 @@ module prop =
         static member inline ltr = Interop.mkAttr "dir" "ltr"
         /// Right to left - for languages that are written from right to left.
         static member inline rtl = Interop.mkAttr "dir" "rtl"
-
-    /// The `dominantBaseline` attribute specifies the dominant baseline, which is the baseline used to align the box’s text
-    /// and inline-level contents. It also indicates the default alignment baseline of any boxes participating in baseline
-    /// alignment in the box’s alignment context. It is used to determine or re-determine a scaled-baseline-table. A
-    /// scaled-baseline-table is a compound value with three components: a baseline-identifier for the dominant-baseline, a
-    /// baseline-table and a baseline-table font-size. Some values of the property re-determine all three values; other only
-    /// re-establish the baseline-table font-size. When the initial value, auto, would give an undesired result, this property
-    /// can be used to explicitly set the desired scaled-baseline-table.
-    /// If there is no baseline table in the nominal font or if the baseline table lacks an entry for the desired baseline,
-    /// then the browser may use heuristics to determine the position of the desired baseline.
-    [<Erase>]
-    type dominantBaseline =
-        /// The baseline-identifier for the dominant-baseline is set to be alphabetic, the derived baseline-table is constructed
-        /// using the alphabetic baseline-table in the font, and the baseline-table font-size is changed to the value of the
-        /// font-size attribute on this element.
-        static member inline alphabetic = Interop.mkAttr "dominantBaseline" "alphabetic"
-        /// If this property occurs on a <text> element, then the computed value depends on the value of the writing-mode attribute.
-        ///
-        /// If the writing-mode is horizontal, then the value of the dominant-baseline component is alphabetic, else if the writing-mode
-        /// is vertical, then the value of the dominant-baseline component is central.
-        ///
-        /// If this property occurs on a <tspan>, <tref>,
-        /// <altGlyph> or <textPath> element, then the dominant-baseline and the baseline-table components remain the same as those of
-        /// the parent text content element.
-        ///
-        /// If the computed baseline-shift value actually shifts the baseline, then the baseline-table
-        /// font-size component is set to the value of the font-size attribute on the element on which the dominant-baseline attribute
-        /// occurs, otherwise the baseline-table font-size remains the same as that of the element.
-        ///
-        /// If there is no parent text content
-        /// element, the scaled-baseline-table value is constructed as above for <text> elements.
-        static member inline auto = Interop.mkAttr "dominantBaseline" "auto"
-        /// The baseline-identifier for the dominant-baseline is set to be central. The derived baseline-table is constructed from the
-        /// defined baselines in a baseline-table in the font. That font baseline-table is chosen using the following priority order of
-        /// baseline-table names: ideographic, alphabetic, hanging, mathematical. The baseline-table font-size is changed to the value
-        /// of the font-size attribute on this element.
-        static member inline central = Interop.mkAttr "dominantBaseline" "central"
-        /// The baseline-identifier for the dominant-baseline is set to be hanging, the derived baseline-table is constructed using the
-        /// hanging baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size attribute on
-        /// this element.
-        static member inline hanging = Interop.mkAttr "dominantBaseline" "hanging"
-        /// The baseline-identifier for the dominant-baseline is set to be ideographic, the derived baseline-table is constructed using
-        /// the ideographic baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size
-        /// attribute on this element.
-        static member inline ideographic = Interop.mkAttr "dominantBaseline" "ideographic"
-        /// The baseline-identifier for the dominant-baseline is set to be mathematical, the derived baseline-table is constructed using
-        /// the mathematical baseline-table in the font, and the baseline-table font-size is changed to the value of the font-size
-        /// attribute on this element.
-        static member inline mathematical = Interop.mkAttr "dominantBaseline" "mathematical"
-        /// The baseline-identifier for the dominant-baseline is set to be middle. The derived baseline-table is constructed from the
-        /// defined baselines in a baseline-table in the font. That font baseline-table is chosen using the following priority order
-        /// of baseline-table names: alphabetic, ideographic, hanging, mathematical. The baseline-table font-size is changed to the value
-        /// of the font-size attribute on this element.
-        static member inline middle = Interop.mkAttr "dominantBaseline" "middle"
-        /// The baseline-identifier for the dominant-baseline is set to be text-after-edge. The derived baseline-table is constructed
-        /// from the defined baselines in a baseline-table in the font. The choice of which font baseline-table to use from the
-        /// baseline-tables in the font is browser dependent. The baseline-table font-size is changed to the value of the font-size
-        /// attribute on this element.
-        static member inline textAfterEdge = Interop.mkAttr "dominantBaseline" "text-after-edge"
-        /// The baseline-identifier for the dominant-baseline is set to be text-before-edge. The derived baseline-table is constructed
-        /// from the defined baselines in a baseline-table in the font. The choice of which baseline-table to use from the baseline-tables
-        /// in the font is browser dependent. The baseline-table font-size is changed to the value of the font-size attribute on this element.
-        static member inline textBeforeEdge = Interop.mkAttr "dominantBaseline" "text-before-edge"
-        /// This value uses the top of the em box as the baseline.
-        static member inline textTop = Interop.mkAttr "dominantBaseline" "text-top"
-
-    /// Indicates the simple duration of an animation.
-    [<Erase>]
-    type dur =
-        /// This value specifies the length of the simple duration.
-        static member inline clockValue (duration: System.TimeSpan) =
-            PropHelpers.createClockValue(duration)
-            |> Interop.mkAttr "dur"
-        /// This value specifies the simple duration as indefinite.
-        static member inline indefinite = Interop.mkAttr "dur" "indefinite"
-        /// This value specifies the simple duration as the intrinsic media duration.
-        ///
-        /// This is only valid for elements that define media.
-        static member inline media = Interop.mkAttr "dur" "media"
-
-    /// Determines how to extend the input image as necessary with color values so
-    /// that the matrix operations can be applied when the kernel is positioned at
-    /// or near the edge of the input image.
-    [<Erase>]
-    type edgeMode =
-        /// Indicates that the input image is extended along each of its borders as
-        /// necessary by duplicating the color values at the given edge of the input image.
-        static member inline duplicate = Interop.mkAttr "edgeMode" "duplicate"
-        /// Indicates that the input image is extended with pixel values of zero for
-        /// R, G, B and A.
-        static member inline none = Interop.mkAttr "edgeMode" "none"
-        /// Indicates that the input image is extended by taking the color values
-        /// from the opposite edge of the image.
-        static member inline wrap = Interop.mkAttr "edgeMode" "wrap"
 
     /// Defines the final state of the SVG animation.
     [<Erase>]
@@ -3885,53 +3275,6 @@ module prop =
         /// Opens the linked document in the full body of the window.
         static member inline top = Interop.mkAttr "target" "_top"
 
-    /// The `text-anchor` attribute is used to align (start-, middle- or
-    /// end-alignment) a string of pre-formatted text or auto-wrapped text where
-    /// the wrapping area is determined from the `inline-size` property relative
-    /// to a given point. It is not applicable to other types of auto-wrapped
-    /// text. For those cases you should use `text-align`. For multi-line text,
-    /// the alignment takes place for each line.
-    ///
-    /// The `text-anchor` attribute is applied to each individual text chunk
-    /// within a given `<text>` element. Each text chunk has an initial current
-    /// text position, which represents the point in the user coordinate system
-    /// resulting from (depending on context) application of the `x` and `y`
-    /// attributes on the `<text>` element, any `x` or `y` attribute values on a
-    /// `<tspan>`, `<tref>` or `<altGlyph>` element assigned explicitly to the
-    /// first rendered character in a text chunk, or determination of the
-    /// initial current text position for a `<textPath>` element.
-    [<Erase>]
-    type textAnchor =
-        /// The rendered characters are shifted such that the end of the
-        /// resulting rendered text (final current text position before applying
-        /// the `text-anchor` property) is at the initial current text position.
-        /// For an element with a `direction` property value of `ltr` (typical
-        /// for most European languages), the right side of the text is rendered
-        /// at the initial text position. For an element with a `direction`
-        /// property value of `rtl` (typical for Arabic and Hebrew), the left
-        /// side of the text is rendered at the initial text position. For an
-        /// element with a vertical primary text direction (often typical for
-        /// Asian text), the bottom of the text is rendered at the initial text
-        /// position.
-        static member inline endOfText = Interop.mkAttr "textAnchor" "end"
-        /// The rendered characters are aligned such that the middle of the text
-        /// string is at the current text position. (For text on a path,
-        /// conceptually the text string is first laid out in a straight line.
-        /// The midpoint between the start of the text string and the end of the
-        /// text string is determined. Then, the text string is mapped onto the
-        /// path with this midpoint placed at the current text position.)
-        static member inline middle = Interop.mkAttr "textAnchor" "middle"
-        /// The rendered characters are aligned such that the start of the text
-        /// string is at the initial current text position. For an element with
-        /// a `direction` property value of `ltr` (typical for most European
-        /// languages), the left side of the text is rendered at the initial
-        /// text position. For an element with a `direction` property value of
-        /// `rtl` (typical for Arabic and Hebrew), the right side of the text is
-        /// rendered at the initial text position. For an element with a
-        /// vertical primary text direction (often typical for Asian text), the
-        /// top side of the text is rendered at the initial text position.
-        static member inline startOfText = Interop.mkAttr "textAnchor" "start"
-
     [<Erase>]
     type type' =
         /// Defines a clickable button (mostly used with a JavaScript code to activate a script)
@@ -3982,46 +3325,14 @@ module prop =
     /// Indicates how the control wraps text.
     [<Erase>]
     type wrap =
-        /// The browser ensures that all line breaks in the value consist of a CR+LF pair, 
+        /// The browser ensures that all line breaks in the value consist of a CR+LF pair,
         /// but does not insert any additional line breaks.
         static member inline soft = Interop.mkAttr "wrap" "soft"
-        /// The browser automatically inserts line breaks (CR+LF) 
-        /// so that each line has no more than the width of the control; 
+        /// The browser automatically inserts line breaks (CR+LF)
+        /// so that each line has no more than the width of the control;
         /// the cols attribute must also be specified for this to take effect.
         static member inline hard = Interop.mkAttr "wrap" "hard"
-        /// Like soft but changes appearance to white-space: pre 
+        /// Like soft but changes appearance to white-space: pre
         /// so line segments exceeding cols are not wrapped and the `<textarea>` becomes horizontally scrollable.
         /// WARNING: This API has not been standardized.
         static member inline off = Interop.mkAttr "wrap" "off"
-
-    /// Indicates which color channel from in2 to use to displace the pixels in in along the x-axis.
-    [<Erase>]
-    type xChannelSelector =
-        /// Specifies that the alpha channel of the input image defined in in2 will be used to displace
-        /// the pixels of the input image defined in in along the x-axis.
-        static member inline A = Interop.mkAttr "xChannelSelector" "A"
-        /// Specifies that the blue color channel of the input image defined in in2 will be used to
-        /// displace the pixels of the input image defined in in along the x-axis.
-        static member inline B = Interop.mkAttr "xChannelSelector" "B"
-        /// Specifies that the green color channel of the input image defined in in2 will be used to
-        /// displace the pixels of the input image defined in in along the x-axis.
-        static member inline G = Interop.mkAttr "xChannelSelector" "G"
-        /// Specifies that the red color channel of the input image defined in in2 will be used to
-        /// displace the pixels of the input image defined in in along the x-axis.
-        static member inline R = Interop.mkAttr "xChannelSelector" "R"
-
-    /// Indicates which color channel from in2 to use to displace the pixels in in along the y-axis.
-    [<Erase>]
-    type yChannelSelector =
-        /// Specifies that the alpha channel of the input image defined in in2 will be used to displace
-        /// the pixels of the input image defined in in along the y-axis.
-        static member inline A = Interop.mkAttr "yChannelSelector" "A"
-        /// Specifies that the blue color channel of the input image defined in in2 will be used to
-        /// displace the pixels of the input image defined in in along the y-axis.
-        static member inline B = Interop.mkAttr "yChannelSelector" "B"
-        /// Specifies that the green color channel of the input image defined in in2 will be used to
-        /// displace the pixels of the input image defined in in along the y-axis.
-        static member inline G = Interop.mkAttr "yChannelSelector" "G"
-        /// Specifies that the red color channel of the input image defined in in2 will be used to
-        /// displace the pixels of the input image defined in in along the y-axis.
-        static member inline R = Interop.mkAttr "yChannelSelector" "R"

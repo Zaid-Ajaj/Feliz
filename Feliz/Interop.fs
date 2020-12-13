@@ -18,3 +18,5 @@ module Interop =
         reactElement name (createObj [ "children" ==> reactApi.Children.toArray (Array.ofSeq children) ])
     let inline createElement name (properties: IReactProperty list) : ReactElement =
         reactElement name (createObj !!properties)
+    let inline createSvgElement name (properties: ISvgAttribute list) : ReactElement =
+        reactElement name (createObj !!properties)

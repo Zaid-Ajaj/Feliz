@@ -35,12 +35,13 @@
     <Compile Include="TextDecorationLine.fs" />
     <Compile Include="TransitionProperty.fs" />
     <Compile Include="Styles.fs" />
+    <Compile Include="Svg.fs" />
     <Compile Include="Html.fs" />
     <Compile Include="React.fs" />
     <Compile Include="ReactDOM.fs" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Feliz.CompilerPlugins\Feliz.CompilerPlugins.fsproj" />
   </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

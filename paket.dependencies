@@ -1,6 +1,7 @@
 group Main
     source https://api.nuget.org/v3/index.json
     storage:none
+    lowest_matching: true
 
     nuget Fable.Browser.Dom
     nuget Fable.Core
@@ -8,7 +9,7 @@ group Main
     nuget Fable.Mocha
     nuget Fable.React
     nuget Fable.SimpleHttp
-    nuget FSharp.Core
+    nuget FSharp.Core ~> 4.7.2
     nuget Zanaptak.TypedCssClasses
     
 group Build
