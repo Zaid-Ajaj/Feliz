@@ -12,6 +12,7 @@ open Fable.Core.JsInterop
 open Fable.SimpleHttp
 open Zanaptak.TypedCssClasses
 open Feliz.UseElmish
+open Fable.Core
 
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
 type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", Naming.PascalCase>
@@ -65,7 +66,7 @@ let fruitSales = [
 ]
 
 [<ReactComponent>]
-let counter() =
+let Counter() =
     let (count, setCount) = React.useState 0
     Html.div [
         Html.button [
@@ -84,7 +85,10 @@ let counter() =
     ]
 
 [<ReactComponent>]
-let counterWithInput (initialCount: int) =
+let View() = Examples.View()
+
+[<ReactComponent>]
+let CounterWithInput (initialCount: int) =
     let (count, setCount) = React.useState initialCount
     Html.div [
         Html.button [
@@ -103,7 +107,7 @@ let counterWithInput (initialCount: int) =
     ]
 
 [<ReactComponent>]
-let counterWithAnonRecord (props: {| initial : int |}) =
+let CounterWithAnonRecord (props: {| initial : int |}) =
     let (count, setCount) = React.useState props.initial
     Html.div [
         Html.button [
@@ -121,10 +125,8 @@ let counterWithAnonRecord (props: {| initial : int |}) =
         Html.h1 count
     ]
 
-type CounterRecordProps = { initial: int; show: bool }
-
 [<ReactComponent>]
-let counterWithRecord (props: CounterRecordProps) =
+let CounterWithRecord (props: Examples.CounterRecordProps) =
     let (count, setCount) = React.useState props.initial
     Html.div [
         Html.button [
@@ -145,7 +147,7 @@ let counterWithRecord (props: CounterRecordProps) =
 type KeyedCounterProps = { Key: string; Name: string }
 
 [<ReactComponent>]
-let counterWithKeyedRecord (props: KeyedCounterProps) =
+let CounterWithKeyedRecord (props: KeyedCounterProps) =
     let (count, setCount) = React.useState 0
     Html.div [
         Html.h1 count
@@ -154,35 +156,62 @@ let counterWithKeyedRecord (props: KeyedCounterProps) =
 type LowerKeyedCounterProps = { key: string; Name: string }
 
 [<ReactComponent>]
-let counterWithLowercaseKeyedRecord (props: LowerKeyedCounterProps) =
+let CounterWithLowercaseKeyedRecord (props: LowerKeyedCounterProps) =
     let (count, setCount) = React.useState 0
     Html.div [
         Html.h1 count
     ]
 
+//[<ReactComponent(import="Hello", from="external-module")>]
+//let Hello (className: string) (children: ReactElement []) = Html.none
+
+[<ReactComponent(exportDefault=true)>]
+let HelloExported (className: string) (children: ReactElement []) = Html.none
+
 [<ReactComponent>]
-let counters(show: bool) =
+let Counters(show: bool) =
     Html.div [
-        counter()
-        counterWithInput 10
-        counterWithAnonRecord {| initial = 20 |}
-        counterWithRecord { initial = 10; show = true }
-        counterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
-        counterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
-        Examples.counterExternal()
+        Counter()
+        CounterWithInput 10
+        CounterWithAnonRecord {| initial = 20 |}
+        CounterWithRecord { initial = 10; show = true }
+        CounterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
+        CounterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
+        Examples.CounterExternal()
+        //Hello "fsharp" [|
+        //    Html.text "content"
+        //|]
     ]
 
 [<ReactComponent>]
-let countersWithConditionals (show: bool) (more: int) =
+let CountersWithConditionals (show: bool) (more: int) =
     Html.div [|
-        counter()
-        counterWithInput 10
-        counterWithAnonRecord {| initial = 30 |}
+        Counter()
+        CounterWithInput 10
+        CounterWithAnonRecord {| initial = 30 |}
     |]
 
-let counterCaller = React.functionComponent(fun () -> counters(true))
+// ok
+[<ReactComponent>]
+let MyComponent (label: string, value: string, onChange: string -> Unit) =
+  Html.textf "Value: %s" value
+// ok
+[<ReactComponent>]
+let MyComponent4 (value: string, onChange: string -> Unit) =
+  React.fragment [
+    MyComponent ("Name", value, onChange)
+  ]
 
-let partiallyAppied = countersWithConditionals true
+
+[<ReactComponent>]
+let MyComponent2 (value: string, onChange: string -> Unit) =
+  MyComponent ("Name", value, onChange)
+
+let myComponent2 = MyComponent2("", fun _ -> ())
+
+let counterCaller = React.functionComponent(fun () -> Counters(true))
+
+let partiallyAppied = CountersWithConditionals true
 
 let withMore = partiallyAppied 42
 
@@ -208,6 +237,15 @@ let roughHorizontalBarChart = React.functionComponent(fun () ->
         barChart.axisFontSize 18
         barChart.fillStyle.crossHatch
         barChart.highlight color.lightGreen
+    ])
+
+let roughPieChart = React.functionComponent(fun () ->
+    RoughViz.pieChart [
+        pieChart.title "Fruit Sales"
+        pieChart.data fruitSales
+        pieChart.roughness 3
+        pieChart.fillStyle.crossHatch
+        pieChart.highlight color.lightGreen
     ])
 
 let dynamicRoughChart = React.functionComponent(fun () ->
@@ -325,6 +363,7 @@ let samples = [
     "use-responsive-custom", DelayedComponent.render {| load = UseMediaQueryExamples.useResponsiveCustomBreakpointsExample |}
     "rough-bar-chart", roughBarChart()
     "rough-horizontal-bar-chart", roughHorizontalBarChart()
+    "rough-pie-chart", roughPieChart()
     "dynamic-rough-chart", dynamicRoughChart()
     "delay-simple", DelayedComponent.render {| load = DelayExamples.simpleDelay |}
     "delay-fallback", DelayedComponent.render {| load = DelayExamples.delayWithCustomFallback |}

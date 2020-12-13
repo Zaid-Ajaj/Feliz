@@ -6,13 +6,14 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>1.4.0</Version>
+        <Version>1.5.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Update Feliz dependency</PackageReleaseNotes>
+        <PackageReleaseNotes>Add PieChart support</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="BarChart.fs" />
+        <Compile Include="PieChart.fs" />
         <Compile Include="RoughViz.fs" />
     </ItemGroup>
     <ItemGroup>
@@ -20,7 +21,7 @@
     </ItemGroup>
     <PropertyGroup>
         <NpmDependencies>
-            <NpmPackage Name="rough-viz" Version="&gt;= 1.0.6 &lt; 2.0.0" ResolutionStrategy="max" />
+            <NpmPackage Name="@inocan/rough-viz" Version="&gt;= 1.2.0 &lt; 2.0.0" ResolutionStrategy="max" />
         </NpmDependencies>
     </PropertyGroup>
     <ItemGroup>

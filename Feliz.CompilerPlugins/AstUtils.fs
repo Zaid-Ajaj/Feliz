@@ -59,6 +59,14 @@ let rec flattenList (head: Fable.Expr) (tail: Fable.Expr) =
             yield! [ ]
     ]
 
+let reactElementType =
+    let ref : Fable.EntityRef = {
+        FullName = "Fable.React.ReactElement";
+        Path = Fable.EntityPath.SourcePath "/"
+    }
+
+    Fable.Type.DeclaredType(ref, [ ])
+
 let makeImport (selector: string) (path: string) =
     Fable.Import({ Selector = selector
                    Path = path
@@ -70,9 +78,25 @@ let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     | Fable.Type.DeclaredType (entity, genericArgs) -> compiler.GetEntity(entity).IsFSharpRecord
     | _ -> false
 
+let isPropertyList (compiler: PluginHelper) (fableType: Fable.Type) =
+    match fableType with
+    | Fable.Type.List(genericArg) ->
+        match genericArg with
+        | Fable.Type.DeclaredType (entity, genericArgs) -> entity.FullName.EndsWith "IReactProperty"
+        | _ -> false
+    | _ -> false
+
+let isPascalCase (input: string) = not (String.IsNullOrWhiteSpace input) && List.contains input.[0] ['A' .. 'Z']
+let isCamelCase (input: string) = not (isPascalCase input)
+
+let isAnonymousRecord (fableType: Fable.Type) =
+    match fableType with
+    | Fable.Type.AnonymousRecordType  _ -> true
+    | _ -> false
+
 let isReactElement (fableType: Fable.Type) =
     match fableType with
-    | Fable.Type.DeclaredType (entity, genericArgs) -> entity.QualifiedName.EndsWith "ReactElement"
+    | Fable.Type.DeclaredType (entity, genericArgs) -> entity.FullName.EndsWith "ReactElement"
     | _ -> false
 
 let recordHasField name (compiler: PluginHelper) (fableType: Fable.Type) =
@@ -96,7 +120,21 @@ let makeCall callee args =
           HasSpread = false
           IsJsConstructor = false
           CallMemberInfo = None }
+
     Fable.Call(callee, callInfo, Fable.Any, None)
+
+let createElement args =
+    let callee = makeImport "createElement" "react"
+    let callInfo: Fable.CallInfo =
+        { ThisArg = None
+          Args = args
+          SignatureArgTypes = []
+          HasSpread = false
+          IsJsConstructor = false
+          CallMemberInfo = None }
+
+    Fable.Call(callee, callInfo, reactElementType, None)
+
 
 type MemberInfo(?info: Fable.MemberInfo,
                 ?isValue: bool) =
@@ -133,11 +171,14 @@ let objValue (k, v): Fable.MemberDecl =
     }
 
 
-let objExpr kvs =
-    Fable.ObjectExpr(List.map objValue kvs, Fable.Any, None)
-
+let objExpr kvs = Fable.ObjectExpr(List.map objValue kvs, Fable.Any, None)
 
 let capitalize (input: string) =
     if String.IsNullOrWhiteSpace input
     then ""
     else input.First().ToString().ToUpper() + String.Join("", input.Skip(1))
+
+let camelCase (input: string) =
+    if String.IsNullOrWhiteSpace input
+    then ""
+    else input.First().ToString().ToLower() + String.Join("", input.Skip(1))

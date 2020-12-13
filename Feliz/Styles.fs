@@ -136,41 +136,41 @@ type style =
     static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(top: ICssUnit, right: int) =
+    static member inline padding(vertical: ICssUnit, horizontal: int) =
         Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string>right) + "px"
+            (unbox<string> vertical) + " " +
+            (unbox<string> horizontal) + "px"
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: ICssUnit, right: int, bottom: int) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string> right) + "px " +
+            (unbox<string> horizontal) + "px " +
             (unbox<string> bottom) + "px"
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: int) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: ICssUnit, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
-            (unbox<string>bottom) + "px"
+            (unbox<string> horizontal) + " " +
+            (unbox<string> bottom) + "px"
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: ICssUnit, bottom: ICssUnit) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
+            (unbox<string> horizontal) + " " +
             (unbox<string> bottom)
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: ICssUnit, right: int, bottom: ICssUnit) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: int, bottom: ICssUnit) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string> right) + "px " +
+            (unbox<string> horizontal) + "px " +
             (unbox<string> bottom)
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
@@ -187,31 +187,33 @@ type style =
     static member inline padding(top: ICssUnit, right: int, bottom: int, left: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + " " +
-            (unbox<string>right) + "px " +
-            (unbox<string>bottom) + "px " +
-            (unbox<string>left) + "px"
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
         )
-    /// Sets the padding area on two sides of an element. It is a shorthand for padding-top and padding-right.
-    static member inline padding(top: int, right: ICssUnit) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(vertical: int, horizontal: ICssUnit) =
         Interop.mkStyle "padding" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right)
+            (unbox<string> vertical) + "px " +
+            (unbox<string> horizontal)
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
     static member inline padding(value: int) = Interop.mkStyle "padding" value
-    /// Sets the padding area on two sides of an element. It is a shorthand for padding-top and padding-right.
-    static member inline padding(top: int, right: int) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(vertical: int, horizontal: int) =
         Interop.mkStyle "padding" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right) + "px"
+            (unbox<string> vertical) + "px " +
+            (unbox<string> horizontal) + "px"
         )
-    /// Sets the padding area on three sides of an element. It is a shorthand for padding-top,
-    /// padding-right, and padding-bottom.
-    static member inline padding(top: int, right: int, bottom: int) =
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, horizontal: int, bottom: int) =
         Interop.mkStyle "padding" (
             (unbox<string> top) + "px " +
-            (unbox<string> right) + "px " +
+            (unbox<string> horizontal) + "px " +
             (unbox<string> bottom) + "px"
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
@@ -257,6 +259,1430 @@ type style =
     /// Sets the flex grow factor of a flex item main size. It specifies how much of the remaining
     /// space in the flex container should be assigned to the item (the flex grow factor).
     static member inline flexGrow (value: int) = Interop.mkStyle "flexGrow" value
+    /// Sets the width of each individual grid column in pixels.
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 199.5px 99.5px 99.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [199.5;99.5;99.5]
+    /// ```
+    static member inline gridTemplateColumns(value: float list) =
+        let addPixels = fun x -> x + "px"
+        Interop.mkStyle "gridTemplateColumns" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
+    /// Sets the width of each individual grid column in pixels.
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 199.5px 99.5px 99.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [|199.5;99.5;99.5|]
+    /// ```
+    static member inline gridTemplateColumns(value: float[]) =
+        let addPixels = fun x -> x + "px"
+        Interop.mkStyle "gridTemplateColumns" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
+    /// Sets the width of each individual grid column in pixels.
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 100px 200px 100px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [100; 200; 100]
+    /// ```
+    static member inline gridTemplateColumns(value: int list) =
+        let addPixels = fun x -> x + "px"
+        Interop.mkStyle "gridTemplateColumns" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
+    /// Sets the width of each individual grid column in pixels.
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 100px 200px 100px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [|100; 200; 100|]
+    /// ```
+    static member inline gridTemplateColumns(value: int[]) =
+        let addPixels = fun x -> x + "px"
+        Interop.mkStyle "gridTemplateColumns" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
+    /// Sets the width of each individual grid column.
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 1fr 1fr 2fr;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [length.fr 1; length.fr 1; length.fr 2]
+    /// ```
+    static member inline gridTemplateColumns(value: ICssUnit list) =
+        Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string list> value))
+    /// Sets the width of each individual grid column.
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: 1fr 1fr 2fr;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// gridTemplateColumns: [|length.fr 1; length.fr 1; length.fr 2|]
+    /// ```
+    static member inline gridTemplateColumns(value: ICssUnit[]) =
+        Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string[]> value))
+    /// Sets the width of each individual grid column. It can also name the lines between them
+    /// There can be multiple names for the same line
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: [first-line] auto [first-line-end second-line-start] 100px [second-line-end];
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns [
+    ///     grid.namedLine "first-line"
+    ///     grid.templateWidth length.auto
+    ///     grid.namedLines ["first-line-end second-line-start"]
+    ///     grid.templateWidth 100
+    ///     grid.namedLine "second-line-end"
+    /// ]
+    /// ```
+    static member inline gridTemplateColumns(value: IGridTemplateItem list) =
+        Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string list>value))
+    /// Sets the width of each individual grid column. It can also name the lines between them
+    /// There can be multiple names for the same line
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: [first-line] auto [first-line-end second-line-start] 100px [second-line-end];
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns [|
+    ///     grid.namedLine "first-line"
+    ///     grid.templateWidth length.auto
+    ///     grid.namedLines [|"first-line-end second-line-start"|]
+    ///     grid.templateWidth 100
+    ///     grid.namedLine "second-line-end"
+    /// |]
+    /// ```
+    static member inline gridTemplateColumns(value: IGridTemplateItem[]) =
+        Interop.mkStyle "gridTemplateColumns" (String.concat " " (unbox<string[]>value))
+    /// Sets the width of a number of grid columns to the defined width in pixels
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: repeat(3, 99.5px);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (3, 99.5)
+    /// ```
+    static member inline gridTemplateColumns(count: int, size: float) =
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px)"
+        )
+    /// Sets the width of a number of grid columns to the defined width in pixels
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: repeat(3, 100px);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (3, 100)
+    /// ```
+    static member inline gridTemplateColumns(count: int, size: int) =
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px)"
+        )
+    /// Sets the width of a number of grid columns to the defined width
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: repeat(3, 1fr);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (3, length.fr 1)
+    /// ```
+    static member inline gridTemplateColumns(count: int, size: ICssUnit) =
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + ")"
+        )
+    /// Sets the width of a number of grid columns to the defined width in pixels, as well as naming the lines between them
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: repeat(3, 1.5px [col-start]);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (3, 1.5, "col-start")
+    /// ```
+    static member inline gridTemplateColumns(count: int, size: float, areaName: string) =
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px [" +
+            areaName + "])"
+        )
+    /// Sets the width of a number of grid columns to the defined width in pixels, as well as naming the lines between them
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: repeat(3, 10px [col-start]);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (3, 10, "col-start")
+    /// ```
+    static member inline gridTemplateColumns(count: int, size: int, areaName: string) =
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px [" +
+            areaName + "])"
+        )
+    /// Sets the width of a number of grid columns to the defined width, as well as naming the lines between them
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-columns: repeat(3, 1fr [col-start]);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (3, length.fr 1, "col-start")
+    /// ```
+    static member inline gridTemplateColumns(count: int, size: ICssUnit, areaName: string) =
+        Interop.mkStyle "gridTemplateColumns" (
+            "repeat(" +
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + " [" +
+            areaName + "])"
+        )
+    /// Sets the width of a number of grid rows to the defined width in pixels
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: 99.5px 199.5px 99.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows [99.5; 199.5; 99.5]
+    /// ```
+    static member inline gridTemplateRows(value: float list) =
+        let addPixels = (fun x -> x + "px")
+        Interop.mkStyle "gridTemplateRows" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
+    /// Sets the width of a number of grid rows to the defined width in pixels
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: 99.5px 199.5px 99.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows [|99.5; 199.5; 99.5|]
+    /// ```
+    static member inline gridTemplateRows(value: float[]) =
+        let addPixels = (fun x -> x + "px")
+        Interop.mkStyle "gridTemplateRows" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
+    /// Sets the width of a number of grid rows to the defined width
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: 100px 200px 100px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows [100, 200, 100]
+    /// ```
+    static member inline gridTemplateRows(value: int list) =
+        let addPixels = (fun x -> x + "px")
+        Interop.mkStyle "gridTemplateRows" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
+    /// Sets the width of a number of grid rows to the defined width in pixels
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: 100px 200px 100px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows [|100; 200; 100|]
+    /// ```
+    static member inline gridTemplateRows(value: int[]) =
+        let addPixels = (fun x -> x + "px")
+        Interop.mkStyle "gridTemplateRows" ((Array.map addPixels >> String.concat " ") (unbox<string[]> value))
+    /// Sets the width of a number of grid rows to the defined width
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: 1fr 10% 250px auto;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows [length.fr 1; length.percent 10; length.px 250; length.auto]
+    /// ```
+    static member inline gridTemplateRows(value: ICssUnit list) =
+        Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string list> value))
+    /// Sets the width of a number of grid rows to the defined width
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: 1fr 10% 250px auto;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows [|length.fr 1; length.percent 10; length.px 250; length.auto|]
+    /// ```
+    static member inline gridTemplateRows(value: ICssUnit[]) =
+        Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string[]> value))
+    /// Sets the width of a number of grid rows to the defined width as well as naming the spaces between
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: [row-1-start] 1fr [row-1-end row-2-start] 1fr [row-2-end];
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows [
+    ///     grid.namedLine "row-1-start"
+    ///     grid.templateWidth (length.fr 1)
+    ///     grid.namedLines ["row-1-end"; "row-2-start"]
+    ///     grid.templateWidth (length.fr 1)
+    ///     grid.namedLine "row-2-end"
+    /// ]
+    /// ```
+    static member inline gridTemplateRows(value: IGridTemplateItem list) =
+        Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string list>value))
+    /// Sets the width of a number of grid rows to the defined width as well as naming the spaces between
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: [row-1-start] 1fr [row-1-end row-2-start] 1fr [row-2-end];
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows [|
+    ///     grid.namedLine "row-1-start"
+    ///     grid.templateWidth (length.fr 1)
+    ///     grid.namedLines [|"row-1-end"; "row-2-start"|]
+    ///     grid.templateWidth (length.fr 1)
+    ///     grid.namedLine "row-2-end"
+    /// |]
+    /// ```
+    static member inline gridTemplateRows(value: IGridTemplateItem[]) =
+        Interop.mkStyle "gridTemplateRows" (String.concat " " (unbox<string[]>value))
+    /// Sets the width of a number of grid rows to the defined width in pixels
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: repeat(3, 199.5);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (3, 199.5)
+    /// ```
+    static member inline gridTemplateRows(count: int, size: float) =
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px)"
+        )
+    /// Sets the width of a number of grid rows to the defined width in pixels
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: repeat(3, 100px);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (3, 100)
+    /// ```
+    static member inline gridTemplateRows(count: int, size: int) =
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px)"
+        )
+    /// Sets the width of a number of grid rows to the defined width
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: repeat(3, 10%);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (3, length.percent 10)
+    /// ```
+    static member inline gridTemplateRows(count: int, size: ICssUnit) =
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + ")"
+        )
+    /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: repeat(3, 75.5, [row]);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (3, 75.5, "row")
+    /// ```
+    static member inline gridTemplateRows(count: int, size: float, areaName: string) =
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px [" +
+            areaName + "])"
+        )
+    /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: repeat(3, 100px, [row]);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (3, 100, "row")
+    /// ```
+    static member inline gridTemplateRows(count: int, size: int, areaName: string) =
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + "px [" +
+            areaName + "])"
+        )
+    /// Sets the width of a number of grid rows to the defined width in pixels as well as naming the spaces between
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-rows: repeat(3, 10%, [row]);
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (3, length.percent 10, "row")
+    /// ```
+    static member inline gridTemplateRows(count: int, size: ICssUnit, areaName: string) =
+        Interop.mkStyle "gridTemplateRows" (
+            "repeat("+
+            (unbox<string>count) + ", " +
+            (unbox<string>size) + " [" +
+            areaName + "])"
+        )
+    /// 2D representation of grid layout as blocks with names
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-areas:
+    ///     'header header header header'
+    ///     'nav nav . sidebar'
+    ///     'footer footer footer footer';
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateAreas [
+    ///     ["header"; "header"; "header"; "header" ]
+    ///     ["nav"   ; "nav"   ; "."     ; "sidebar"]
+    ///     ["footer"; "footer"; "footer"; "footer" ]
+    /// ]
+    /// ```
+    static member inline gridTemplateAreas(value: string list list) =
+        let wrapLine = (fun x -> "'" + x + "'")
+        let lines = List.map (String.concat " " >> wrapLine) value
+        let block = String.concat "\n" lines
+        Interop.mkStyle "gridTemplateAreas" block
+    /// 2D representation of grid layout as blocks with names
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-areas:
+    ///     'header header header header'
+    ///     'nav nav . sidebar'
+    ///     'footer footer footer footer';
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateAreas [|
+    ///     [|"header"; "header"; "header"; "header" |]
+    ///     [|"nav"   ; "nav"   ; "."     ; "sidebar"|]
+    ///     [|"footer"; "footer"; "footer"; "footer" |]
+    /// |]
+    /// ```
+    static member inline gridTemplateAreas(value: string[][]) =
+        let wrapLine = (fun x -> "'" + x + "'")
+        let lines = Array.map (String.concat " " >> wrapLine) value
+        let block = String.concat "\n" lines
+        Interop.mkStyle "gridTemplateAreas" block
+    /// One-dimensional alternative to the nested list. For column-based layouts
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-areas: 'first second third fourth';
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateAreas ["first"; "second"; "third"; "fourth"]
+    /// ```
+    static member inline gridTemplateAreas(value: string list) =
+        let block = (String.concat " ") value
+        Interop.mkStyle "gridTemplateAreas" ("'" + block + "'")
+    /// One-dimensional alternative to the nested list. For column-based layouts
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template-areas: 'first second third fourth';
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateAreas [|"first"; "second"; "third"; "fourth"|]
+    /// ```
+    static member inline gridTemplateAreas(value: string[]) =
+        let block = (String.concat " ") value
+        Interop.mkStyle "gridTemplateAreas" ("'" + block + "'")
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the columns.
+    ///
+    /// **CSS**
+    /// ```css
+    /// column-gap: 1.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.columnGap 1.5
+    /// ```
+    static member inline columnGap(value: float) =
+        Interop.mkStyle "columnGap" (unbox<string> value + "px")
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the columns.
+    ///
+    /// **CSS**
+    /// ```css
+    /// column-gap: 10px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.columnGap 10
+    /// ```
+    static member inline columnGap(value: int) =
+        Interop.mkStyle "columnGap" (unbox<string> value + "px")
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the columns.
+    ///
+    /// **CSS**
+    /// ```css
+    /// column-gap: 1em;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.columnGap (length.em 1)
+    /// ```
+    static member inline columnGap(value: ICssUnit) =
+        Interop.mkStyle "columnGap" value
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows.
+    ///
+    /// **CSS**
+    /// ```css
+    /// row-gap: 2.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.rowGap 2.5
+    /// ```
+    static member inline rowGap(value: float) =
+        Interop.mkStyle "rowGap" (unbox<string> value + "px")
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows.
+    ///
+    /// **CSS**
+    /// ```css
+    /// row-gap: 10px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.rowGap 10
+    /// ```
+    static member inline rowGap(value: int) =
+        Interop.mkStyle "rowGap" (unbox<string> value + "px")
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows.
+    ///
+    /// **CSS**
+    /// ```css
+    /// row-gap: 1em;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.rowGap (length.em 1)
+    /// ```
+    static member inline rowGap(value: ICssUnit) =
+        Interop.mkStyle "rowGap" value
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 1em 2em;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (length.em 1, length.em 2)
+    /// ```
+    static member inline gap(rowGap: ICssUnit, columnGap: ICssUnit) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + " " +
+            (unbox<string> columnGap)
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 1em 3.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (length.em 1, 3.5)
+    /// ```
+    static member inline gap(rowGap: ICssUnit, columnGap: float) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + " " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 1em 10px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (length.em 1, 10)
+    /// ```
+    static member inline gap(rowGap: ICssUnit, columnGap: int) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + " " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 10px 1em;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (10, length.em 1)
+    /// ```
+    static member inline gap(rowGap: int, columnGap: ICssUnit) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap)
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 10px 1.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (10, 1.5)
+    /// ```
+    static member inline gap(rowGap: int, columnGap: float) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 10px 15px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (10, 15)
+    /// ```
+    static member inline gap(rowGap: int, columnGap: int) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 2.5px 15%;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (2.5, length.percent 15)
+    /// ```
+    static member inline gap(rowGap: float, columnGap: ICssUnit) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap)
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 1.5px 1.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (1.5, 1.5)
+    /// ```
+    static member inline gap(rowGap: float, columnGap: float) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 1.5px 10px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (1.5, 10)
+    /// ```
+    static member inline gap(rowGap: float, columnGap: int) =
+        Interop.mkStyle "gap" (
+            (unbox<string> rowGap) + "px " +
+            (unbox<string> columnGap) + "px"
+        )
+    /// Sets where an item in the grid starts
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column-start: col2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumnStart "col2"
+    /// ```
+    static member inline gridColumnStart(value: string) = Interop.mkStyle "gridColumnStart" value
+    /// Sets where an item in the grid starts
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// When there are multiple named lines with the same name, you can specify which one by count
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column-start: col 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumnStart ("col", 2)
+    /// ```
+    static member inline gridColumnStart(value: string, count: int) =
+        Interop.mkStyle "gridColumnStart" (value + " " + (unbox<string>count))
+    /// Sets where an item in the grid starts
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column-start: 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumnStart 2
+    /// ```
+    static member inline gridColumnStart(value: int) = Interop.mkStyle "gridColumnStart" value
+    /// Sets where an item in the grid starts
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column-start: span odd-col;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumnStart (gridColumn.span "odd-col")
+    /// ```
+    static member inline gridColumnStart(value: IGridSpan) = Interop.mkStyle "gridColumnStart" value
+    /// Sets where an item in the grid ends
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column-end: col-2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumnEnd "col-2"
+    /// ```
+    static member inline gridColumnEnd(value: string) = Interop.mkStyle "gridColumnEnd" value
+    /// Sets where an item in the grid ends
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _When there are multiple named lines with the same name, you can specify which one by count_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column-end: odd-col 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumnEnd ("odd-col", 2)
+    /// ```
+    static member inline gridColumnEnd(value: string, count: int) =
+        Interop.mkStyle "gridColumnEnd" (value + " " + (unbox<string> count))
+    /// Sets where an item in the grid ends
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column-end: 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumnEnd 2
+    /// ```
+    static member inline gridColumnEnd(value: int) = Interop.mkStyle "gridColumnEnd" value
+    /// Sets where an item in the grid ends
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column-end: span 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumnEnd (gridColumn.span 2)
+    /// ```
+    static member inline gridColumnEnd(value: IGridSpan) = Interop.mkStyle "gridColumnEnd" value
+    /// Sets where an item in the grid starts
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row-start: col2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRowStart "col2"
+    /// ```
+    static member inline gridRowStart(value: string) = Interop.mkStyle "gridRowStart" value
+    /// Sets where an item in the grid starts
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row-start: col 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRowStart ("col", 2)
+    /// ```
+    static member inline gridRowStart(value: string, count: int) =
+        Interop.mkStyle "gridRowStart" (value + " " + (unbox<string>count))
+    /// Sets where an item in the grid starts
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row-start: 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRowStart 2
+    /// ```
+    static member inline gridRowStart(value: int) = Interop.mkStyle "gridRowStart" value
+    /// Sets where an item in the grid starts
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row-start: span odd-col;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRowStart (gridRow.span "odd-col")
+    /// ```
+    static member inline gridRowStart(value: IGridSpan) = Interop.mkStyle "gridRowStart" value
+    /// Sets where an item in the grid ends
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row-end: col-2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRowEnd "col-2"
+    /// ```
+    static member inline gridRowEnd(value: string) = Interop.mkStyle "gridRowEnd" value
+    /// Sets where an item in the grid ends
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _When there are multiple named lines with the same name, you can specify which one by count_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row-end: odd-col 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRowEnd ("odd-col", 2)
+    /// ```
+    static member inline gridRowEnd(value: string, count: int) =
+        Interop.mkStyle "gridRowEnd" (value + " " + (unbox<string> count))
+    /// Sets where an item in the grid ends
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row-end: 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRowEnd 2
+    /// ```
+    static member inline gridRowEnd(value: int) = Interop.mkStyle "gridRowEnd" value
+    /// Sets where an item in the grid ends
+    /// The value can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row-end: span 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRowEnd (gridRow.span 2)
+    /// ```
+    static member inline gridRowEnd(value: IGridSpan) = Interop.mkStyle "gridRowEnd" value
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: col-2 / col-4;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn ("col-2", "col-4")
+    /// ```
+    static member inline gridColumn(start: string, end': string) =
+        Interop.mkStyle "gridColumn" (start + " / " + end')
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: col-2 / 4;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn ("col-2", 4)
+    /// ```
+    static member inline gridColumn(start: string, end': int) =
+        Interop.mkStyle "gridColumn" (start + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: col-2 / span 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn ("col-2", gridColumn.span 2)
+    /// ```
+    static member inline gridColumn(start: string, end': IGridSpan) =
+        Interop.mkStyle "gridColumn" (start + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: 1/ col-4;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn (1, "col-4")
+    /// ```
+    static member inline gridColumn(start: int, end': string) =
+        Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + end')
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: 1 / 3;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn (1, 3)
+    /// ```
+    static member inline gridColumn(start: int, end': int) =
+        Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: 1 / span 2;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn (1, gridColumn.span 2)
+    /// ```
+    static member inline gridColumn(start: int, end': IGridSpan) =
+        Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: span 2 / col-3;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn (gridColumn.span 2, "col-3")
+    /// ```
+    static member inline gridColumn(start: IGridSpan, end': string) =
+        Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + end')
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: span 2 / 4;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn (gridColumn.span 2, 4)
+    /// ```
+    static member inline gridColumn(start: IGridSpan, end': int) =
+        Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridColumnStart` and `gridColumnEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-column: span 2 / span 3;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridColumn (gridColumn.span 2, gridColumn.span 3)
+    /// ```
+    static member inline gridColumn(start: IGridSpan, end': IGridSpan) =
+        Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: row-2 / row-4;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow ("row-2", "row-4")
+    /// ```
+    static member inline gridRow(start: string, end': string) =
+        Interop.mkStyle "gridRow" (start + " / " + end')
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: row-2 / 4;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow ("row-2", 4)
+    /// ```
+    static member inline gridRow(start: string, end': int) =
+        Interop.mkStyle "gridRow" (start + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: row-2 / span "odd-row";
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow ("row-2", gridRow.span 2)
+    /// ```
+    static member inline gridRow(start: string, end': IGridSpan) =
+        Interop.mkStyle "gridRow" (start + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: 2 / row-3;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow (2, "row-3")
+    /// ```
+    static member inline gridRow(start: int, end': string) =
+        Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + end')
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: 2 / 4;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow (2, 4)
+    /// ```
+    static member inline gridRow(start: int, end': int) =
+        Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: 2 / span 3;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow (2, gridRow.span 3)
+    /// ```
+    static member inline gridRow(start: int, end': IGridSpan) =
+        Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: span 2 / "row-4";
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow (gridRow.span 2, "row-4")
+    /// ```
+    static member inline gridRow(start: IGridSpan, end': string) =
+        Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + end')
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: span 2 / 3;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow (gridRow.span 2, 3)
+    /// ```
+    static member inline gridRow(start: IGridSpan, end': int) =
+        Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Determines a grid item’s location within the grid by referring to specific grid lines.
+    /// start is the line where the item begins, end' is the line where it ends.
+    /// They can be one of the following options:
+    /// - a named line
+    /// - a numbered line
+    /// - span until a named line was hit
+    /// - span over a specified number of lines
+    ///
+    ///
+    /// _Shorthand for `gridRowStart` and `gridRowEnds`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-row: span 2 / span 3;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridRow (gridRow.span 2, gridRow.span 3)
+    /// ```
+    static member inline gridRow(start: IGridSpan, end': IGridSpan) =
+        Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Sets the named grid area the item is placed in
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-area: header;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridArea "header"
+    /// ```
+    static member inline gridArea(value: string) =
+        Interop.mkStyle "gridArea" value
+    /// Shorthand for `grid-template-areas`, `grid-template-columns` and `grid-template-rows`.
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template:  [header-top] 'a a a'      [header-bottom]
+    ///                   [main-top] 'b b b' 1fr  [main-bottom]
+    ///                              / auto 1fr auto;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplate "[header-top] 'a a a'      [header-bottom] " +
+    ///                      "[main-top] 'b b b' 1fr  [main-bottom] " +
+    ///                                "/ auto 1fr auto"
+    /// ```
+    static member inline gridTemplate(value: string) =
+        Interop.mkStyle "gridTemplate" value
     /// Sets the length of time a transition animation should take to complete. By default, the
     /// value is 0s, meaning that no animation will occur.
     static member inline transitionDuration(timespan: TimeSpan) =
@@ -974,9 +2400,9 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "flexWrap" "inherit"
 
-    /// Places an element on the left or right side of its container, allowing text and 
-    /// inline elements to wrap around it. The element is removed from the normal flow 
-    /// of the page, though still remaining a part of the flow (in contrast to absolute 
+    /// Places an element on the left or right side of its container, allowing text and
+    /// inline elements to wrap around it. The element is removed from the normal flow
+    /// of the page, though still remaining a part of the flow (in contrast to absolute
     /// positioning).
     [<Erase>]
     type float' =
@@ -995,13 +2421,13 @@ module style =
         /// Default value
         static member inline auto = Interop.mkStyle "fontDisplay" "auto"
         /// Gives the font face a short block period and an infinite swap period.
-        static member inline block = Interop.mkStyle "fontDisplay" "block"    
+        static member inline block = Interop.mkStyle "fontDisplay" "block"
         /// Gives the font face an extremely small block period and an infinite swap period.
-        static member inline swap = Interop.mkStyle "fontDisplay" "swap"    
+        static member inline swap = Interop.mkStyle "fontDisplay" "swap"
         /// Gives the font face an extremely small block period and a short swap period.
-        static member inline fallback = Interop.mkStyle "fontDisplay" "fallback"    
+        static member inline fallback = Interop.mkStyle "fontDisplay" "fallback"
         /// Gives the font face an extremely small block period and no swap period.
-        static member inline optional = Interop.mkStyle "fontDisplay" "optional"    
+        static member inline optional = Interop.mkStyle "fontDisplay" "optional"
 
     [<Erase>]
     type fontKerning =
@@ -1230,6 +2656,7 @@ module style =
         /// See example https://www.w3schools.com/cssref/playit.asp?filename=playcss_text-align&preval=initial
         static member inline inheritFromParent = Interop.mkStyle "listStyleType" "inherit"
 
+    [<Erase>]
     type listStyleImage =
         /// No image will be displayed. Instead, the list-style-type property will define what type of list marker will be rendered. This is default
         static member inline none = Interop.mkStyle "listStyleImage" "none"
@@ -2125,13 +3552,13 @@ module style =
     [<Erase>]
     type emptyCells =
         /// Display borders on empty cells. This is default
-        static member show = Interop.mkStyle "emptyCells" "show"
+        static member inline show = Interop.mkStyle "emptyCells" "show"
         /// Hide borders on empty cells
-        static member hide = Interop.mkStyle "emptyCells" "hide"
+        static member inline hide = Interop.mkStyle "emptyCells" "hide"
         /// Sets this property to its default value
-        static member initial = Interop.mkStyle "emptyCells" "initial"
+        static member inline initial = Interop.mkStyle "emptyCells" "initial"
         /// Inherits this property from its parent element
-        static member inheritFromParent = Interop.mkStyle "emptyCells" "inherit"
+        static member inline inheritFromParent = Interop.mkStyle "emptyCells" "inherit"
 
 
     /// Sets whether or not the animation should play in reverse on alternate cycles.

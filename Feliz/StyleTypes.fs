@@ -43,3 +43,7 @@ type ICssUnit = interface end
 type ITransitionProperty = interface end
 
 type ITransformProperty = interface end
+
+type IGridSpan = interface end
+
+type IGridTemplateItem = interface end
