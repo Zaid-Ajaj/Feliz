@@ -95,7 +95,6 @@ match state with
 ```fs
 prop.className "button" // => "button"
 prop.className [ "btn"; "btn-primary" ] // => "btn btn-primary"
-prop.className [ true, "conditional"; false, "falsy"; true, "class" ] // => "conditional class"
 ```
 
 The property `className` has overloads to combine a list of classes into a single class, convenient when your classes are bound to values so that you do not need to concatenate them yourself.

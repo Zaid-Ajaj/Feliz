@@ -367,8 +367,8 @@ module ReactComponents =
         ]
     ]
 
-    [<ReactComponent>]
-    let counter() =
+
+    let counter = React.functionComponent(fun () ->
         let (count, setCount) = React.useState(0)
         Html.div [
             Html.h1 count
@@ -376,10 +376,11 @@ module ReactComponents =
                 prop.text "Increment"
                 prop.onClick (fun _ -> setCount(count + 1))
             ]
-        ]
+        ])
 
 let View() = Html.h1 "My view"
 
+#if FABLE_COMPILER_3
 [<ReactComponent>]
 let CounterExternal() =
     let (count, setCount) = React.useState 0
@@ -391,6 +392,7 @@ let CounterExternal() =
             prop.onClick (fun _ -> setCount(count + 1))
         ]
     ]
+#endif
 
 let counter = React.functionComponent(fun () ->
     let (count, setCount) = React.useState 0

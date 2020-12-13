@@ -9,7 +9,7 @@ paket add Feliz --project ./project/path
 ```
 Then you need to install the corresponding npm dependencies. In case of Feliz, these are `react` and `react-dom`
 ```bash
-npm install react@16.9.0 react-dom@16.9.0
+npm install react@17.0.1 react-dom@17.0.1
 ```
 
 ### Use Femto
