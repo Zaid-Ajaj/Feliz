@@ -78,6 +78,14 @@ let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     | Fable.Type.DeclaredType (entity, genericArgs) -> compiler.GetEntity(entity).IsFSharpRecord
     | _ -> false
 
+let isPropertyList (compiler: PluginHelper) (fableType: Fable.Type) =
+    match fableType with
+    | Fable.Type.List(genericArg) ->
+        match genericArg with
+        | Fable.Type.DeclaredType (entity, genericArgs) -> entity.FullName.EndsWith "IReactProperty"
+        | _ -> false
+    | _ -> false
+
 let isPascalCase (input: string) = not (String.IsNullOrWhiteSpace input) && List.contains input.[0] ['A' .. 'Z']
 let isCamelCase (input: string) = not (isPascalCase input)
 
@@ -125,18 +133,8 @@ let createElement args =
           IsJsConstructor = false
           CallMemberInfo = None }
 
-    // make sure it returns the correct type of ReactElement
-    let expressionType =
-        let ref : Fable.EntityRef = {
-            FullName = "Fable.React.ReactElement";
-            Path = Fable.EntityPath.SourcePath "/"
-        }
+    Fable.Call(callee, callInfo, reactElementType, None)
 
-        Fable.Type.DeclaredType(ref, [ ])
-
-    Fable.Call(callee, callInfo, expressionType, None)
-
-let emptyReactElement = Fable.Expr.Value(Fable.Null(reactElementType), None)
 
 type MemberInfo(?info: Fable.MemberInfo,
                 ?isValue: bool) =
