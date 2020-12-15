@@ -1,4 +1,4 @@
-module internal Feliz.AstUtils
+module Feliz.AstUtils
 
 open Fable
 open Fable.AST

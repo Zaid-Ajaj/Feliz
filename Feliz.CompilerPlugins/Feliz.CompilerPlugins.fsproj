@@ -6,10 +6,10 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Implement [ReactComponent(import={member}, from={module})] combination</PackageReleaseNotes>
+    <PackageReleaseNotes>Expose AstUtils module</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AstUtils.fs" />
