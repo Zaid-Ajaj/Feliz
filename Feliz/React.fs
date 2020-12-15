@@ -70,7 +70,8 @@ type React =
     static member inline keyedFragment(key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
     static member inline keyedFragment(key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
-
+    /// Placeholder empty React element to be used when importing external React components with the [<ReactComponent>] attribute
+    static member inline imported() = Html.none
     /// The `useState` hook that create a state variable for React function components from a initialization function.
     [<Hook>]
     static member useState<'t>(initializer: unit -> 't) = Interop.reactApi.useState<unit -> 't,'t>(initializer)

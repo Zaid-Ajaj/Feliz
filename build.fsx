@@ -121,6 +121,7 @@ let publish projectPath = fun () ->
 
 Target "PublishFeliz" (publish libPath)
 Target "PublishCompilerPlugins" (publish "./Feliz.CompilerPlugins")
+Target "PublishSvelteComponent" (publish "./Feliz.SvelteComponent")
 Target "PublishSvelte" (publish "./Feliz.Svelte")
 Target "PublishRecharts" (publish "./Feliz.Recharts")
 Target "PublishRoughViz" (publish "./Feliz.RoughViz")
