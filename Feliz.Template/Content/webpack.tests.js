@@ -1,22 +1,24 @@
 // Template for webpack.config.js in Fable projects
-// Find latest version in https://github.com/fable-compiler/webpack-config-template
-
 // In most cases, you'll only need to edit the CONFIG object (after dependencies)
 // See below if you need better fine-tuning of Webpack options
 
-// Dependencies. Also required: core-js, fable-loader, fable-compiler, @babel/core,
+// Dependencies. Also required: core-js, @babel/core,
 // @babel/preset-env, babel-loader
 var path = require("path");
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const Dotenv = require('dotenv-webpack');
+const { patchGracefulFileSystem } = require("./webpack.common.js");
+patchGracefulFileSystem();
 
 var CONFIG = {
     // The tags to include the generated JS and CSS will be automatically injected in the HTML template
     // See https://github.com/jantimon/html-webpack-plugin
     indexHtmlTemplate: "./tests/index.html",
-    fsharpEntry: "./tests/Tests.fsproj",
-    outputDir: "./deploy",
+    fsharpEntry: "./tests/Tests.fs.js",
+    outputDir: "./dist",
     assetsDir: "./public",
     devServerPort: 8085,
     // When using webpack-dev-server, you may need to redirect some calls
@@ -50,6 +52,12 @@ var commonPlugins = [
     new HtmlWebpackPlugin({
         filename: 'index.html',
         template: resolve(CONFIG.indexHtmlTemplate)
+    }),
+
+    new Dotenv({
+        path: "./.env",
+        silent: false,
+        systemvars: true
     })
 ];
 
@@ -81,7 +89,11 @@ module.exports = {
         },
     },
     plugins: commonPlugins.concat([
-        new CopyWebpackPlugin([{ from: resolve(CONFIG.assetsDir) }]),
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: resolve(CONFIG.assetsDir) }
+            ]
+        }),
     ]),
 
     resolve: {
@@ -110,21 +122,34 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.fs(x|proj)?$/,
-                use: {
-                    loader: "fable-loader",
-                    options: {
-                        babel: CONFIG.babel
-                    }
-                }
-            },
-            {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: CONFIG.babel
-                },
+                }
+            },
+            {
+                test: /\.(sass|scss|css)$/,
+                use: [
+                    isProduction
+                        ? MiniCssExtractPlugin.loader
+                        : 'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: { implementation: require("sass") }
+                    }
+                ],
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/,
+                use: ["file-loader"]
             }
         ]
     }

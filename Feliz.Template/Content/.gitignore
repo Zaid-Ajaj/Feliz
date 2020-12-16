@@ -202,3 +202,4 @@ out
 .fable
 .vs
 .ionide
+*.fs.js

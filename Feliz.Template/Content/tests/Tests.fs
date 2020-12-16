@@ -1,16 +1,13 @@
 module Tests
 
 open Fable.Mocha
-open App
+
+let add x y = x + y
 
 let appTests = testList "App tests" [
-    testCase "update function works" <| fun _ ->
-        // Simplified update that ignore commands/effects
-        let update state msg = fst (App.update msg state)
-        let initialState = { Count = 0 }
-        let incomingMsgs =  [ Increment; Increment; Decrement ]
-        let updatedState = List.fold update initialState incomingMsgs
-        Expect.equal 1 updatedState.Count "Expected updated state to be 1"
+    testCase "add works" <| fun _ ->
+        let result = add 2 3
+        Expect.equal result 5 "Result must be 5"
 ]
 
 let allTests = testList "All" [
