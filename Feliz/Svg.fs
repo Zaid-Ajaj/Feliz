@@ -136,6 +136,21 @@ type Svg =
     static member inline view (children: #seq<ReactElement>) = Interop.reactElementWithChildren "view" children
 
 type svg =
+        /// Specifies a CSS class for this element.
+    static member inline className (value: string) = Interop.mkAttr "className" value
+    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
+    ///
+    /// `svg.className [ "one"; "two" ]`
+    ///
+    /// is the same as
+    ///
+    /// `svg.className "one two"`
+    static member inline className (names: seq<string>) = Interop.mkAttr "className" (String.concat " " names)
+
+    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
+    ///
+    /// `svg.classes [ "one"; "two" ]` => `svg.className "one two"`
+    static member inline classes (names: seq<string>) = Interop.mkAttr "className" (String.concat " " names)
     static member inline id (value: string) = Interop.svgAttribute "id" value
     /// Defines the number of octaves for the noise function of the <feTurbulence> primitive.
     static member inline numOctaves (value: int) = Interop.svgAttribute "numOctaves" value
@@ -375,6 +390,43 @@ type svg =
     /// <feMerge>, <feMorphology>, <feOffset>, <feSpecularLighting>, <feTile>, <feTurbulence>, <filter>,
     /// <mask>, <pattern>
     static member inline height (value: int) = Interop.svgAttribute "height" value
+    /// Defines the position and dimension, in user space, of an SVG viewport.
+    static member inline viewBox (minX: int, minY: int, width: int, height: int) =
+        Interop.mkAttr "viewBox" (
+            (unbox<string> minX) + " " +
+            (unbox<string> minY) + " " +
+            (unbox<string> width) + " " +
+            (unbox<string> height)
+        )
+
+    /// Set visible area of the SVG image.
+    static member inline viewPort (x: int, y: int, height: int, width: int) =
+        Interop.mkAttr "viewport" (
+            (unbox<string> x) + " " +
+            (unbox<string> y) + " " +
+            (unbox<string> height) + " " +
+            (unbox<string> width)
+        )
+
+    /// Represents the height of the viewport into which the <marker> is to be fitted when it is
+    /// rendered according to the viewBox and preserveAspectRatio attributes.
+    static member inline markerHeight (value: float) = Interop.mkAttr "markerHeight" value
+    /// Represents the height of the viewport into which the <marker> is to be fitted when it is
+    /// rendered according to the viewBox and preserveAspectRatio attributes.
+    static member inline markerHeight (value: int) = Interop.mkAttr "markerHeight" value
+    /// Represents the height of the viewport into which the <marker> is to be fitted when it is
+    /// rendered according to the viewBox and preserveAspectRatio attributes.
+    static member inline markerHeight (value: ICssUnit) = Interop.mkAttr "markerHeight" value
+
+    /// Represents the width of the viewport into which the <marker> is to be fitted when it is
+    /// rendered according to the viewBox and preserveAspectRatio attributes.
+    static member inline markerWidth (value: float) = Interop.mkAttr "markerWidth" value
+    /// Represents the width of the viewport into which the <marker> is to be fitted when it is
+    /// rendered according to the viewBox and preserveAspectRatio attributes.
+    static member inline markerWidth (value: int) = Interop.mkAttr "markerWidth" value
+    /// Represents the width of the viewport into which the <marker> is to be fitted when it is
+    /// rendered according to the viewBox and preserveAspectRatio attributes.
+    static member inline markerWidth (value: ICssUnit) = Interop.mkAttr "markerWidth" value
     /// Specifies the width of elements listed here. For all other elements, use the CSS height property.
     ///
     /// HTML: <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>

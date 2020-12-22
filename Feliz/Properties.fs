@@ -936,27 +936,6 @@ type prop =
     /// maximum value (high attribute and max attribute, respectively), if any are specified.
     /// If unspecified, or if less than the minimum value, the low value is equal to the minimum value.
     static member inline low (value: int) = Interop.mkAttr "low" value
-
-    /// Represents the height of the viewport into which the <marker> is to be fitted when it is
-    /// rendered according to the viewBox and preserveAspectRatio attributes.
-    static member inline markerHeight (value: float) = Interop.mkAttr "markerHeight" value
-    /// Represents the height of the viewport into which the <marker> is to be fitted when it is
-    /// rendered according to the viewBox and preserveAspectRatio attributes.
-    static member inline markerHeight (value: int) = Interop.mkAttr "markerHeight" value
-    /// Represents the height of the viewport into which the <marker> is to be fitted when it is
-    /// rendered according to the viewBox and preserveAspectRatio attributes.
-    static member inline markerHeight (value: ICssUnit) = Interop.mkAttr "markerHeight" value
-
-    /// Represents the width of the viewport into which the <marker> is to be fitted when it is
-    /// rendered according to the viewBox and preserveAspectRatio attributes.
-    static member inline markerWidth (value: float) = Interop.mkAttr "markerWidth" value
-    /// Represents the width of the viewport into which the <marker> is to be fitted when it is
-    /// rendered according to the viewBox and preserveAspectRatio attributes.
-    static member inline markerWidth (value: int) = Interop.mkAttr "markerWidth" value
-    /// Represents the width of the viewport into which the <marker> is to be fitted when it is
-    /// rendered according to the viewBox and preserveAspectRatio attributes.
-    static member inline markerWidth (value: ICssUnit) = Interop.mkAttr "markerWidth" value
-
     /// Indicates the maximum value allowed.
     static member inline max (value: float) = Interop.mkAttr "max" value
     /// Indicates the maximum value allowed.
@@ -1898,22 +1877,6 @@ type prop =
     /// list of numbers for a color matrix, which is interpreted differently depending on the
     /// type of color change to be performed.
     static member inline values (values: seq<string>) = Interop.mkAttr "values" (values |> String.concat " ")
-
-    /// Defines the position and dimension, in user space, of an SVG viewport.
-    static member inline viewBox (minX: int, minY: int, width: int, height: int) =
-        Interop.mkAttr "viewBox" (
-            (unbox<string> minX) + " " +
-            (unbox<string> minY) + " " +
-            (unbox<string> width) + " " +
-            (unbox<string> height))
-
-    /// Set visible area of the SVG image.
-    static member inline viewPort (x: int, y: int, height: int, width: int) =
-        Interop.mkAttr "viewport"
-          ((unbox<string> x) + " " +
-           (unbox<string> y) + " " +
-           (unbox<string> height) + " " +
-           (unbox<string> width))
 
     /// Specifies the width of elements listed here. For all other elements, use the CSS height property.
     ///
