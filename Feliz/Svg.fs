@@ -375,6 +375,24 @@ type svg =
     /// <feMerge>, <feMorphology>, <feOffset>, <feSpecularLighting>, <feTile>, <feTurbulence>, <filter>,
     /// <mask>, <pattern>
     static member inline height (value: int) = Interop.svgAttribute "height" value
+    /// Specifies the width of elements listed here. For all other elements, use the CSS height property.
+    ///
+    /// HTML: <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>
+    ///
+    /// SVG: <feBlend>, <feColorMatrix>, <feComponentTransfer>, <feComposite>, <feConvolveMatrix>,
+    /// <feDiffuseLighting>, <feDisplacementMap>, <feDropShadow>, <feFlood>, <feGaussianBlur>, <feImage>,
+    /// <feMerge>, <feMorphology>, <feOffset>, <feSpecularLighting>, <feTile>, <feTurbulence>, <filter>,
+    /// <mask>, <pattern>
+    static member inline width (value: float) = Interop.svgAttribute "width" value
+    /// Specifies the width of elements listed here. For all other elements, use the CSS height property.
+    ///
+    /// HTML: <canvas>, <embed>, <iframe>, <img>, <input>, <object>, <video>
+    ///
+    /// SVG: <feBlend>, <feColorMatrix>, <feComponentTransfer>, <feComposite>, <feConvolveMatrix>,
+    /// <feDiffuseLighting>, <feDisplacementMap>, <feDropShadow>, <feFlood>, <feGaussianBlur>, <feImage>,
+    /// <feMerge>, <feMorphology>, <feOffset>, <feSpecularLighting>, <feTile>, <feTurbulence>, <filter>,
+    /// <mask>, <pattern>
+    static member inline width (value: int) = Interop.svgAttribute "width" value
     /// The URL of a linked resource.
     static member inline href (value: string) = Interop.svgAttribute "href" value
     /// Defines the intercept of the linear function of color component transfers when the type
