@@ -3648,6 +3648,38 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "position" "inherit"
 
+    /// Sets how the total width and height of an element is calculated.
+    [<Erase>]   
+    type boxSizing =
+        /// Default value. The width and height properties include the content, but does not include the padding, border, or margin.
+        static member inline contentBox = Interop.mkStyle "boxSizing" "contentBox"
+        /// The width and height properties include the content, padding, and border, but do not include the margin. Note that padding and border will be inside of the box.
+        static member inline borderBox = Interop.mkStyle "boxSizing" "borderBox"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "boxSizing" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "boxSizing" "inherit"
+
+    /// Sets whether an element is resizable, and if so, in which directions.
+    [<Erase>]
+    type resize =
+        /// Default value. The element offers no user-controllable method for resizing it.
+        static member inline none = Interop.mkStyle "resize" "none"
+        /// The element displays a mechanism for allowing the user to resize it, which may be resized both horizontally and vertically.
+        static member inline both = Interop.mkStyle "resize" "both"
+        /// The element displays a mechanism for allowing the user to resize it in the horizontal direction.
+        static member inline horizontal = Interop.mkStyle "resize" "horizontal"
+        /// The element displays a mechanism for allowing the user to resize it in the vertical direction.
+        static member inline vertical = Interop.mkStyle "resize" "vertical"
+        /// The element displays a mechanism for allowing the user to resize it in the block direction (either horizontally or vertically, depending on the writing-mode and direction value).
+        static member inline block = Interop.mkStyle "resize" "block"
+        /// The element displays a mechanism for allowing the user to resize it in the inline direction (either horizontally or vertically, depending on the writing-mode and direction value).
+        static member inline inline' = Interop.mkStyle "resize" "inline"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "resize" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "resize" "inherit"
+
     /// Sets the background color of an element.
     [<Erase; RequireQualifiedAccess>]
     type backgroundColor =
