@@ -3652,9 +3652,9 @@ module style =
     [<Erase>]   
     type boxSizing =
         /// Default value. The width and height properties include the content, but does not include the padding, border, or margin.
-        static member inline contentBox = Interop.mkStyle "boxSizing" "contentBox"
+        static member inline contentBox = Interop.mkStyle "boxSizing" "content-box"
         /// The width and height properties include the content, padding, and border, but do not include the margin. Note that padding and border will be inside of the box.
-        static member inline borderBox = Interop.mkStyle "boxSizing" "borderBox"
+        static member inline borderBox = Interop.mkStyle "boxSizing" "border-box"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "boxSizing" "initial"
         /// Inherits this property from its parent element.
