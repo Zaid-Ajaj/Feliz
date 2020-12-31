@@ -436,7 +436,7 @@ type svg =
     ///
     /// Each point is defined by a pair of numbers representing a X and a Y coordinate in
     /// the user coordinate system.
-    static member inline points (coordinates: string) = Interop.svgAttribute "points"
+    static member inline points (coordinates: string) = Interop.svgAttribute "points" coordinates
 
     /// Represents the x location in the coordinate system established by attribute primitiveUnits
     /// on the <filter> element of the point at which the light source is pointing.
@@ -676,6 +676,13 @@ type svg =
         let removeUnits (s : string) =
             List.fold (fun (ins:string) toReplace -> ins.Replace(toReplace,"")) s unitList
         Interop.svgAttribute "transform" (unbox<seq<string>> transforms |> String.concat " ")
+    /// Specifies the XML Namespace of the document.
+    ///
+    /// Default value is "http://www.w3.org/2000/svg".
+    ///
+    /// This is required in documents parsed with XML parsers, and optional in text/html documents.
+    static member inline xmlns(ns: string) =
+        Interop.svgAttribute "xmlns" ns
 
 module svg =
     [<Erase>]
