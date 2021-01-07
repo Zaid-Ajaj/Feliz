@@ -2715,13 +2715,13 @@ module prop =
     /// Provides a hint to browsers as to the type of virtual keyboard configuration to use when editing this element or its contents.
     [<Erase>]
     type inputMode =
-        static member inline decimal = Interop.mkAttr "inputmode" "decimal"
-        static member inline email = Interop.mkAttr "inputmode" "email"
-        static member inline none = Interop.mkAttr "inputmode" "none"
-        static member inline numeric = Interop.mkAttr "inputmode" "numeric"
-        static member inline search = Interop.mkAttr "inputmode" "search"
-        static member inline tel = Interop.mkAttr "inputmode" "tel"
-        static member inline url = Interop.mkAttr "inputmode" "url"
+        static member inline decimal = Interop.mkAttr "inputMode" "decimal"
+        static member inline email = Interop.mkAttr "inputMode" "email"
+        static member inline none = Interop.mkAttr "inputMode" "none"
+        static member inline numeric = Interop.mkAttr "inputMode" "numeric"
+        static member inline search = Interop.mkAttr "inputMode" "search"
+        static member inline tel = Interop.mkAttr "inputMode" "tel"
+        static member inline url = Interop.mkAttr "inputMode" "url"
 
     /// How the text track is meant to be used.
     [<Erase>]
