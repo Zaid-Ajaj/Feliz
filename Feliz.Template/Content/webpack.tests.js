@@ -13,55 +13,56 @@ const Dotenv = require('dotenv-webpack');
 const { patchGracefulFileSystem } = require("./webpack.common.js");
 patchGracefulFileSystem();
 
-var CONFIG = {
-    // The tags to include the generated JS and CSS will be automatically injected in the HTML template
-    // See https://github.com/jantimon/html-webpack-plugin
-    indexHtmlTemplate: "./tests/index.html",
-    fsharpEntry: "./tests/Tests.fs.js",
-    outputDir: "./dist",
-    assetsDir: "./public",
-    devServerPort: 8085,
-    // When using webpack-dev-server, you may need to redirect some calls
-    // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
-    devServerProxy: undefined,
-    // Use babel-preset-env to generate JS compatible with most-used browsers.
-    // More info at https://babeljs.io/docs/en/next/babel-preset-env.html
-    babel: {
-        presets: [
-            // In case interop is used with React/Jsx components, this React preset would be required
-            ["@babel/preset-react"],
-            ["@babel/preset-env", {
-                "targets": "> 0.25%, not dead",
-                "modules": false,
-                // This adds polyfills when needed. Requires core-js dependency.
-                // See https://babeljs.io/docs/en/babel-preset-env#usebuiltins
-                "useBuiltIns": "usage",
-                "corejs": 3
-            }]
-        ],
+module.exports = (env, argv) => {
+    const isProduction = argv.mode === 'production'
+    const isDevelopment = argv.mode === 'development'
+    console.log("Bundling for " + (isProduction ? "production" : "development") + "...");
+
+    var CONFIG = {
+        // The tags to include the generated JS and CSS will be automatically injected in the HTML template
+        // See https://github.com/jantimon/html-webpack-plugin
+        indexHtmlTemplate: "./tests/index.html",
+        fsharpEntry: "./tests/Tests.fs.js",
+        outputDir: "./dist",
+        assetsDir: "./public",
+        devServerPort: 8085,
+        // When using webpack-dev-server, you may need to redirect some calls
+        // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
+        devServerProxy: undefined,
+        // Use babel-preset-env to generate JS compatible with most-used browsers.
+        // More info at https://babeljs.io/docs/en/next/babel-preset-env.html
+        babel: {
+            presets: [
+                // In case interop is used with React/Jsx components, this React preset would be required
+                ["@babel/preset-react"],
+                ["@babel/preset-env", {
+                    "targets": "> 0.25%, not dead",
+                    "modules": false,
+                    // This adds polyfills when needed. Requires core-js dependency.
+                    // See https://babeljs.io/docs/en/babel-preset-env#usebuiltins
+                    "useBuiltIns": "usage",
+                    "corejs": 3
+                }]
+            ],
+        }
     }
-}
 
-// If we're running the webpack-dev-server, assume we're in development mode
-var isProduction = !process.argv.find(v => v.indexOf('webpack-dev-server') !== -1);
-console.log("Bundling for " + (isProduction ? "production" : "development") + "...");
+    // The HtmlWebpackPlugin allows us to use a template for the index.html page
+    // and automatically injects <script> or <link> tags for generated bundles.
+    var commonPlugins = [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: resolve(CONFIG.indexHtmlTemplate)
+        }),
 
-// The HtmlWebpackPlugin allows us to use a template for the index.html page
-// and automatically injects <script> or <link> tags for generated bundles.
-var commonPlugins = [
-    new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: resolve(CONFIG.indexHtmlTemplate)
-    }),
+        new Dotenv({
+            path: "./.env",
+            silent: false,
+            systemvars: true
+        })
+    ];
 
-    new Dotenv({
-        path: "./.env",
-        silent: false,
-        systemvars: true
-    })
-];
-
-module.exports = {
+    return {
     // In development, bundle styles together with the code so they can also
     // trigger hot reloads. In production, put them in a separate CSS file.
     entry: {
@@ -71,9 +72,8 @@ module.exports = {
     // to prevent browser caching if code changes
     output: {
         path: resolve(CONFIG.outputDir),
-        filename: isProduction ? '[name].[hash].js' : '[name].js'
+        filename: isProduction ? '[name].[contenthash].js' : '[name].js'
     },
-    mode: isProduction ? "production" : "development",
     devtool: isProduction ? "source-map" : "eval-source-map",
     optimization: {
         // Split the code coming from npm packages into a different file.
@@ -153,7 +153,7 @@ module.exports = {
             }
         ]
     }
-};
+}};
 
 function resolve(filePath) {
     return path.isAbsolute(filePath) ? filePath : path.join(__dirname, filePath);
