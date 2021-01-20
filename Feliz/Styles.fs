@@ -3655,10 +3655,6 @@ module style =
         static member inline contentBox = Interop.mkStyle "boxSizing" "content-box"
         /// The width and height properties include the content, padding, and border, but do not include the margin. Note that padding and border will be inside of the box.
         static member inline borderBox = Interop.mkStyle "boxSizing" "border-box"
-        /// Sets this property to its default value.
-        static member inline initial = Interop.mkStyle "boxSizing" "initial"
-        /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "boxSizing" "inherit"
 
     /// Sets whether an element is resizable, and if so, in which directions.
     [<Erase>]
