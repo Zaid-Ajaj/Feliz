@@ -1,5 +1,6 @@
 ﻿namespace Feliz
 
+open Browser.Types
 open Fable.Core
 open Feliz.Styles
 
@@ -488,6 +489,128 @@ type svg =
     /// Defines the list of numbers that make up the kernel matrix for the
     /// <feConvolveMatrix> element.
     static member inline kernelMatrix (values: seq<int>) = Interop.svgAttribute "kernelMatrix" (values |> unbox<seq<string>>  |> String.concat " ")
+    /// Fires when a media event is aborted.
+    static member inline onAbort (handler: Event -> unit) = Interop.svgAttribute "onAbort" handler
+    /// Fires when animation is aborted.
+    static member inline onAnimationCancel (handler: AnimationEvent -> unit) = Interop.svgAttribute "onAnimationCancel" handler
+    /// Fires when animation ends.
+    static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.svgAttribute "onAnimationEnd" handler
+    /// Fires when animation iterates.
+    static member inline onAnimationIteration (handler: AnimationEvent -> unit) = Interop.svgAttribute "onAnimationIteration" handler
+    /// Fires the moment that the element loses focus.
+    static member inline onBlur (handler: FocusEvent -> unit) = Interop.svgAttribute "onBlur" handler
+    /// Fires when a user dismisses the current open dialog
+    static member inline onCancel (handler: Event -> unit) = Interop.svgAttribute "onCancel" handler
+    /// Fires when a file is ready to start playing (when it has buffered enough to begin).
+    static member inline onCanPlay (handler: Event -> unit) = Interop.svgAttribute "onCanPlay" handler
+    /// Fires when a file can be played all the way to the end without pausing for buffering
+    static member inline onCanPlayThrough (handler: Event -> unit) = Interop.svgAttribute "onCanPlayThrough" handler
+    /// Fires the moment when the value of the element is changed
+    static member inline onChange (handler: Event -> unit) = Interop.svgAttribute "onChange" handler
+    /// Fires on a mouse click on the element.
+    static member inline onClick (handler: MouseEvent -> unit) = Interop.svgAttribute "onClick" handler
+    /// Fires when a context menu is triggered.
+    static member inline onContextMenu (handler: MouseEvent -> unit) = Interop.svgAttribute "onContextMenu" handler
+    /// Fires when a TextTrack has changed the currently displaying cues.
+    static member inline onCueChange (handler: Event -> unit) = Interop.svgAttribute "onCueChange" handler
+    /// Fires when a mouse is double clicked on the element.
+    static member inline onDblClick (handler: MouseEvent -> unit) = Interop.svgAttribute "onDblClick" handler
+    /// Fires when the length of the media changes.
+    static member inline onDurationChange (handler: Event -> unit) = Interop.svgAttribute "onDurationChange" handler
+    /// Fires when the media has reached the end (a useful event for messages like "thanks for listening").
+    static member inline onEnded (handler: Event -> unit) = Interop.svgAttribute "onEnded" handler
+    /// Fires when an error occurs.
+    static member inline onError (handler: Event -> unit) = Interop.svgAttribute "onError" handler
+    /// Fires when an error occurs.
+    static member inline onError (handler: UIEvent -> unit) = Interop.svgAttribute "onError" handler
+    /// Fires the moment when the element gets focus.
+    static member inline onFocus (handler: FocusEvent -> unit) = Interop.svgAttribute "onFocus" handler
+    /// Fires when an element captures a pointer.
+    static member inline onGotPointerCapture (handler: PointerEvent -> unit) = Interop.svgAttribute "onGotPointerCapture" handler
+    /// Fires when an element gets user input.
+    static member inline onInput (handler: Event -> unit) = Interop.svgAttribute "onInput" handler
+    /// Fires when a submittable element has been checked for validaty and doesn't satisfy its constraints.
+    static member inline onInvalid (handler: Event -> unit) = Interop.svgAttribute "onInvalid" handler
+    /// Fires when a user presses a key.
+    static member inline onKeyDown (handler: KeyboardEvent -> unit) = Interop.svgAttribute "onKeyDown" handler
+    /// Fires when a user presses a key.
+    static member inline onKeyDown (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
+        PropHelpers.createOnKey(key, handler)
+        |> Interop.svgAttribute "onKeyDown"
+    /// Fires when a user presses a key.
+    static member inline onKeyPress (handler: KeyboardEvent -> unit) = Interop.svgAttribute "onKeyPress" handler
+    /// Fires when a user presses a key.
+    static member inline onKeyPress (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
+        PropHelpers.createOnKey(key, handler)
+        |> Interop.svgAttribute "onKeyPress"
+    /// Fires when a user releases a key.
+    static member inline onKeyUp (handler: KeyboardEvent -> unit) = Interop.svgAttribute "onKeyUp" handler
+    /// Fires when a user releases a key.
+    static member inline onKeyUp (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
+        PropHelpers.createOnKey(key, handler)
+        |> Interop.svgAttribute "onKeyUp"
+    /// Fires after the page is finished loading.
+    static member inline onLoad (handler: Event -> unit) = Interop.svgAttribute "onLoad" handler
+    /// Fires when media data is loaded.
+    static member inline onLoadedData (handler: Event -> unit) = Interop.svgAttribute "onLoadedData" handler
+    /// Fires when meta data (like dimensions and duration) are loaded.
+    static member inline onLoadedMetadata (handler: Event -> unit) = Interop.svgAttribute "onLoadedMetadata" handler
+    /// Fires when a request has completed, irrespective of its success.
+    static member inline onLoadEnd (handler: Event -> unit) = Interop.svgAttribute "onLoadEnd" handler
+    /// Fires when the resource begins to load before anything is actually loaded.
+    static member inline onLoadStart (handler: Event -> unit) = Interop.svgAttribute "onLoadStart" handler
+    /// Fires when a captured pointer is released.
+    static member inline onLostPointerCapture (handler: PointerEvent -> unit) = Interop.svgAttribute "onLostPointerCapture" handler
+    /// Fires when a mouse button is pressed down on an element.
+    static member inline onMouseDown (handler: MouseEvent -> unit) = Interop.svgAttribute "onMouseDown" handler
+    /// Fires when a pointer enters an element.
+    static member inline onMouseEnter (handler: MouseEvent -> unit) = Interop.svgAttribute "onMouseEnter" handler
+    /// Fires when a pointer leaves an element.
+    static member inline onMouseLeave (handler: MouseEvent -> unit) = Interop.svgAttribute "onMouseLeave" handler
+    /// Fires when the mouse pointer is moving while it is over an element.
+    static member inline onMouseMove (handler: MouseEvent -> unit) = Interop.svgAttribute "onMouseMove" handler
+    /// Fires when the mouse pointer moves out of an element.
+    static member inline onMouseOut (handler: MouseEvent -> unit) = Interop.svgAttribute "onMouseOut" handler
+    /// Fires when the mouse pointer moves over an element.
+    static member inline onMouseOver (handler: MouseEvent -> unit) = Interop.svgAttribute "onMouseOver" handler
+    /// Fires when a mouse button is released while it is over an element.
+    static member inline onMouseUp (handler: MouseEvent -> unit) = Interop.svgAttribute "onMouseUp" handler
+    /// Fires when the media is paused either by the user or programmatically.
+    static member inline onPause (handler: Event -> unit) = Interop.svgAttribute "onPause" handler
+    /// Fires when the media is ready to start playing.
+    static member inline onPlay (handler: Event -> unit) = Interop.svgAttribute "onPlay" handler
+    /// Fires when the media actually has started playing
+    static member inline onPlaying (handler: Event -> unit) = Interop.svgAttribute "onPlaying" handler
+    /// Fires when there are no more pointer events.
+    static member inline onPointerCancel (handler: PointerEvent -> unit) = Interop.svgAttribute "onPointerCancel" handler
+    /// Fires when a pointer becomes active.
+    static member inline onPointerDown (handler: PointerEvent -> unit) = Interop.svgAttribute "onPointerDown" handler
+    /// Fires when a pointer is moved into an elements boundaries or one of its descendants.
+    static member inline onPointerEnter (handler: PointerEvent -> unit) = Interop.svgAttribute "onPointerEnter" handler
+    /// Fires when a pointer is moved out of an elements boundaries.
+    static member inline onPointerLeave (handler: PointerEvent -> unit) = Interop.svgAttribute "onPointerLeave" handler
+    /// Fires when a pointer moves.
+    static member inline onPointerMove (handler: PointerEvent -> unit) = Interop.svgAttribute "onPointerMove" handler
+    /// Fires when a pointer is no longer in an elements boundaries, such as moving it, or after a `pointerUp` or `pointerCancel` event.
+    static member inline onPointerOut (handler: PointerEvent -> unit) = Interop.svgAttribute "onPointerOut" handler
+    /// Fires when a pointer is moved into an elements boundaries.
+    static member inline onPointerOver (handler: PointerEvent -> unit) = Interop.svgAttribute "onPointerOver" handler
+    /// Fires when a pointer is no longer active.
+    static member inline onPointerUp (handler: PointerEvent -> unit) = Interop.svgAttribute "onPointerUp" handler
+    /// Fires when the Reset button in a form is clicked.
+    static member inline onReset (handler: Event -> unit) = Interop.svgAttribute "onReset" handler
+    /// Fires when the window has been resized.
+    static member inline onResize (handler: UIEvent -> unit) = Interop.svgAttribute "onResize" handler
+    /// Fires when an element's scrollbar is being scrolled.
+    static member inline onScroll (handler: Event -> unit) = Interop.svgAttribute "onScroll" handler
+    /// Fires after some text has been selected in an element.
+    static member inline onSelect (handler: Event -> unit) = Interop.svgAttribute "onSelect" handler
+    /// Fires after some text has been selected in the user interface.
+    static member inline onSelect (handler: UIEvent -> unit) = Interop.svgAttribute "onSelect" handler
+    /// Fires when a form is submitted.
+    static member inline onSubmit (handler: Event -> unit) = Interop.svgAttribute "onSubmit" handler
+    /// Fires when the mouse wheel rolls up or down over an element.
+    static member inline onWheel (handler: WheelEvent -> unit) = Interop.svgAttribute "onWheel" handler
     /// Defines a list of points.
     ///
     /// Each point is defined by a pair of numbers representing a X and a Y coordinate in
