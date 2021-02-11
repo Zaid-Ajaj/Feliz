@@ -1071,6 +1071,36 @@ type prop =
     /// Fires on a mouse click on the element.
     static member inline onClick (handler: MouseEvent -> unit) = Interop.mkAttr "onClick" handler
 
+    /// Fires when a pointerDown event is triggered.
+    static member inline onPointerDown (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerDown" handler
+
+    /// Fires when a pointerMove event is triggered.
+    static member inline onPointerMove (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerMove" handler
+
+    /// Fires when a pointerUp event is triggered.
+    static member inline onPointerUp (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerUp" handler
+
+    /// Fires when a pointerCancel event is triggered.
+    static member inline onPointerCancel (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerCancel" handler
+
+    /// Fires when got pointer capture on the element.
+    static member inline onGotPointerCapture (handler: PointerEvent -> unit) = Interop.mkAttr "onGotPointerCapture" handler
+
+    /// Fires when pointer capture is lost.
+    static member inline onLostPointerCapture (handler: PointerEvent -> unit) = Interop.mkAttr "onLostPointerCapture" handler
+
+    /// Fires when a pointerEnter event is triggered.
+    static member inline onPointerEnter (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerEnter" handler
+
+    /// Fires when a pointerLeave event is triggered.
+    static member inline onPointerLeave (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerLeave" handler
+
+    /// Fires when a pointerOver event is triggered.
+    static member inline onPointerOver (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerOver" handler
+
+    /// Fires when a pointerOut event is triggered.
+    static member inline onPointerOut (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerOut" handler
+
     /// Fires when composition ends.
     static member inline onCompositionEnd (handler: CompositionEvent -> unit) = Interop.mkAttr "onCompositionEnd" handler
 
@@ -3410,19 +3440,19 @@ module prop =
         static member inline license = Interop.mkAttr "rel" "license"
         /// Web app manifest.
         static member inline manifest = Interop.mkAttr "rel" "manifest"
-        /// Tells to browser to preemptively fetch the script and store it in the document's module map for later 
+        /// Tells to browser to preemptively fetch the script and store it in the document's module map for later
         /// evaluation. Optionally, the module's dependencies can be fetched as well.
         static member inline modulepreload = Interop.mkAttr "rel" "modulepreload"
         /// Provides a link to the next document in the series.
         static member inline next = Interop.mkAttr "rel" "next"
         /// Indicates that the current document's original author or publisher does not endorse the referenced document.
         static member inline nofollow = Interop.mkAttr "rel" "nofollow"
-        /// Creates a top-level browsing context that is not an auxiliary browsing context if the hyperlink would create 
+        /// Creates a top-level browsing context that is not an auxiliary browsing context if the hyperlink would create
         /// either of those, to begin with (i.e., has an appropriate target attribute value).
         static member inline noopener = Interop.mkAttr "rel" "noopener"
         /// No Referer header will be included. Additionally, has the same effect as noopener.
         static member inline noreferrer = Interop.mkAttr "rel" "noreferrer"
-        /// Creates an auxiliary browsing context if the hyperlink would otherwise create a top-level browsing context 
+        /// Creates an auxiliary browsing context if the hyperlink would otherwise create a top-level browsing context
         /// that is not an auxiliary browsing context (i.e., has "_blank" as target attribute value).
         static member inline opener = Interop.mkAttr "rel" "opener"
         /// Provides the address of the pingback server that handles pingbacks to the current document.
