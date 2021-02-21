@@ -27,8 +27,14 @@ type SvelteComponentAttribute(from:string) =
                 // JS createElement(Component, null)
                 AstUtils.createElement [callee; AstUtils.nullValue]
             else
+            let unprovidedArgsLength = membArgs.Length - info.Args.Length 
+            let unprovidedArgs = 
+                AstUtils.emitJs "undefined" []
+                |> List.replicate unprovidedArgsLength
+
+            let allArgs = info.Args @ unprovidedArgs
             let propsObj =
-                List.zip membArgs info.Args
+                List.zip membArgs allArgs
                 |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
                 |> AstUtils.objExpr
 

@@ -20,7 +20,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
     override this.TransformCall(compiler, memb, expr) =
         let membArgs = memb.CurriedParameterGroups |> List.concat
         match expr with
-        | Fable.Call(callee, info, typeInfo, range) when List.length membArgs = List.length info.Args ->
+        | Fable.Call(callee, info, typeInfo, range) ->
             let reactComponent =
                 match import, from with
                 | Some importedMember, Some externalModule ->
@@ -45,8 +45,14 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 // JS createElement(Component, null)
                 AstUtils.createElement [reactComponent; AstUtils.nullValue]
             else
+            let unprovidedArgsLength = membArgs.Length - info.Args.Length 
+            let unprovidedArgs = 
+                AstUtils.emitJs "undefined" []
+                |> List.replicate unprovidedArgsLength
+
+            let allArgs = info.Args @ unprovidedArgs
             let propsObj =
-                List.zip membArgs info.Args
+                List.zip membArgs allArgs
                 |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
                 |> AstUtils.objExpr
 
