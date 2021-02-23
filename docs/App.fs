@@ -357,6 +357,7 @@ let samples = [
     "recharts-pie-twolevel", Samples.Recharts.PieCharts.TwoLevelPieChart.chart()
     "recharts-pie-straightangle", Samples.Recharts.PieCharts.StraightAngle.chart()
     "recharts-pie-customizedlabelpiechart", Samples.Recharts.PieCharts.CustomizedLabelPieChart.chart()
+    "recharts-radar-simpleradarchart", Samples.Recharts.RadarCharts.SimpleRadarChart.chart()
     "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
     "pigeonmaps-map-popover-hover", Samples.PigeonMaps.MarkerOverlaysOnHover.citiesMap()
@@ -749,6 +750,9 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                         nestedMenuItem "Straight Angle Pie Chart" [ Urls.StraightAngle ]
                         nestedMenuItem "Customized Label Pie Chart" [ Urls.CustomizedLabelPieChart ]
                     ]
+                    subNestedMenuList "Radar Charts" [ Urls.RadarCharts ] [
+                        nestedMenuItem "Simple Radar Chart" [ Urls.SimpleRadarChart ]                        
+                    ]
                 ]
             ]
         ]
@@ -831,6 +835,11 @@ let rechartsExamples (currentPath: string list) =
         | [ Urls.CustomizedLabelPieChart ] -> [ "CustomizedLabelPieChart.md" ]
         | _ -> []
         |> List.append [ Urls.PieCharts ]
+    | Urls.RadarCharts :: rest ->
+        match rest with
+        | [ Urls.SimpleRadarChart ] -> [ "SimpleRadarChart.md" ]
+        | _ -> []
+        |> List.append [ Urls.RadarCharts ]
     | _ -> []
     |> fun path -> [ Urls.Recharts ] @ path
 

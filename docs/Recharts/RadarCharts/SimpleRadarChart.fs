@@ -1,9 +1,5 @@
-# Feliz.Recharts - SimpleBarChart
-
-Taken from [Recharts - SimpleBarChart](https://recharts.org/en-US/examples/SimpleRadarChart)
-
-```fsharp:recharts-radar-simpleradarchart
-module App
+[<RequireQualifiedAccess>]
+module Samples.Recharts.RadarCharts.SimpleRadarChart
 
 open Feliz
 open Feliz.Recharts
@@ -39,9 +35,3 @@ let chart = React.functionComponent(fun () -> [
         ]
     ])
 ])
-
-
-open Browser.Dom
-
-ReactDOM.render(chart, document.getElementById "root")
-```
