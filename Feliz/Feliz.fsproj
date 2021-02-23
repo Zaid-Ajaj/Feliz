@@ -7,15 +7,10 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.33.0</Version>
+    <Version>1.34.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>
-      Event handlers for SVG elements.
-      Pointer events for HTML elements.
-      Fixed inputMode property.
-      Various small fixes.
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>Upgrade CompilerPlugins to provide optional arguments as undefined</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>
@@ -24,7 +19,7 @@
     </NpmDependencies>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
+    <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
     <Compile Include="Types.fs" />
     <Compile Include="Key.fs" />
     <Compile Include="StyleTypes.fs" />

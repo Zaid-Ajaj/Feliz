@@ -66,6 +66,16 @@ let fruitSales = [
 ]
 
 #if FABLE_COMPILER_3
+
+[<AbstractClass;Sealed>]
+type StaticComponents =
+  [<ReactComponent>]
+  static member Header (title: string, ?className: string) =
+    Html.h1 [
+      if className.IsSome then prop.className className.Value
+      prop.children [ Html.text title ]
+    ]
+
 [<ReactComponent>]
 let Counter() =
     let (count, setCount) = React.useState 0
@@ -215,6 +225,12 @@ let counterCaller = React.functionComponent(fun () -> Counters(true))
 let partiallyAppied = CountersWithConditionals true
 
 let withMore = partiallyAppied 42
+
+let appliedComponents = Html.div [
+    StaticComponents.Header("title")
+    StaticComponents.Header("title", "className")
+    StaticComponents.Header(className="first arg", title="second")
+]
 #endif
 
 let roughBarChart = React.functionComponent(fun () ->

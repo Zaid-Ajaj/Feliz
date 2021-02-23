@@ -6,10 +6,10 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>1.4.0</Version>
+        <Version>1.4.1</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReleaseNotes>Update Feliz dependency and use [Hook]</PackageReleaseNotes>
+        <PackageReleaseNotes>Remove generated JS artifacts from the nuget package</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="UseDeferred.fs" />
@@ -18,7 +18,7 @@
         <ProjectReference Include="..\Feliz\Feliz.fsproj" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
+        <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Update="FSharp.Core" Version="4.7.2" />
