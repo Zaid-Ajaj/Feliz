@@ -29,6 +29,7 @@ type bar =
     static member inline yAxisId (value: int) = Interop.mkBarAttr "yAxisId" value
     static member inline children (elements: ReactElement list) = Interop.mkBarAttr "children" (prop.children elements)
     static member inline children (elements: ReactElement seq) = Interop.mkBarAttr "children" (prop.children elements)
+    static member inline isAnimationActive (value: bool) = Interop.mkBarAttr "isAnimationActive" value
 
 module bar =
     [<Erase>]
