@@ -1868,7 +1868,7 @@ type style =
         )
     /// Set an element's left border.
     static member inline borderLeft(width: ICssUnit, style: IBorderStyle, color: string) =
-        Interop.mkStyle "borderBottom" (
+        Interop.mkStyle "borderLeft" (
             (unbox<string> width) + " " +
             (unbox<string> style) + " " +
             color
