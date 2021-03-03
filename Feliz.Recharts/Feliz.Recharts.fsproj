@@ -49,7 +49,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Feliz\Feliz.fsproj" />
     </ItemGroup>
-    <ItemGroup />
     <ItemGroup>
         <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
     </ItemGroup>
