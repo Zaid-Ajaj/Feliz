@@ -6,6 +6,14 @@ open Fable.Core
 
 [<Erase>]
 type line =
+    static member inline strokeWidth(value : int) = Interop.mkLineAttr "strokeWidth" value
+    /// The source data, in which each element is an object.
+    static member inline data (values: seq<'a>) = Interop.mkLineAttr "data" (Seq.toArray values)
+    /// The source data, in which each element is an object.
+    static member inline data (values: 'a list) = Interop.mkLineAttr "data" (List.toArray values)
+    /// The source data, in which each element is an object.
+    static member inline data (values: 'a array) = Interop.mkLineAttr "data" values
+
     static member inline name(value: string) = Interop.mkLineAttr "name" value
     static member inline dataKey (value: string) = Interop.mkLineAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkLineAttr "dataKey" f
