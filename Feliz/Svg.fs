@@ -1275,24 +1275,24 @@ module svg =
         /// Defines a 2D translation.
         static member inline translate(x: int, y: int) =
             Interop.svgAttribute "transform" (
-                "translate(" + (unbox<string> x) + "px," + (unbox<string> y) + "px)"
+                "translate(" + (unbox<string> x) + "," + (unbox<string> y) + ")"
             )
 
         /// Defines a 3D translation.
         static member inline translate3D(x: int, y: int, z: int) =
             Interop.svgAttribute "transform" (
-                "translate3d(" + (unbox<string> x) + "px," + (unbox<string> y) + "px," + (unbox<string> z) + "px)"
+                "translate3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
             )
 
         /// Defines a translation, using only the value for the X-axis.
         static member inline translateX(x: int) =
-            Interop.svgAttribute "transform" ("translateX(" + (unbox<string> x) + "px)")
+            Interop.svgAttribute "transform" ("translateX(" + (unbox<string> x) + ")")
         /// Defines a translation, using only the value for the Y-axis
         static member inline translateY(y: int) =
-            Interop.svgAttribute "transform" ("translateY(" + (unbox<string> y) + "px)")
+            Interop.svgAttribute "transform" ("translateY(" + (unbox<string> y) + ")")
         /// Defines a 3D translation, using only the value for the Z-axis
         static member inline translateZ(z: int) =
-            Interop.svgAttribute "transform" ("translateZ(" + (unbox<string> z) + "px)")
+            Interop.svgAttribute "transform" ("translateZ(" + (unbox<string> z) + ")")
         /// Defines a 2D scale transformation.
         static member inline scale(x: int, y: int) =
             Interop.svgAttribute "transform" (
