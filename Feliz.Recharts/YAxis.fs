@@ -6,6 +6,8 @@ open Fable.Core.JsInterop
 
 [<Erase>]
 type yAxis =
+    static member inline minTickGap(value : int) = Interop.mkYAxisAttr "minTickGap" value 
+
     /// The key of data displayed in the y-axis.
     static member inline dataKey (value: string) = Interop.mkYAxisAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkYAxisAttr "dataKey" f

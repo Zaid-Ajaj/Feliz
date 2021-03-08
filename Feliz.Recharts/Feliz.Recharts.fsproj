@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Description>Recharts bindings based on the Feliz API</Description>
         <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
@@ -23,6 +23,7 @@
         <Compile Include="Cell.fs" />
         <Compile Include="XAxis.fs" />
         <Compile Include="YAxis.fs" />
+        <Compile Include="Tooltip.fs" />
         <Compile Include="PolarAngleAxis.fs" />
         <Compile Include="PolarRadiusAxis.fs" />
         <Compile Include="AreaChart.fs" />
@@ -36,6 +37,7 @@
         <Compile Include="Area.fs" />
         <Compile Include="Pie.fs" />
         <Compile Include="Radar.fs" />
+        <Compile Include="ScatterChart.fs" />
         <Compile Include="CartesianGrid.fs" />
         <Compile Include="PolarGrid.fs" />
         <Compile Include="ResponsiveContainer.fs" />
