@@ -864,7 +864,7 @@ type prop =
     ///
     /// Keys only need to be unique among sibling elements in the same array. They don’t need to
     /// be unique across the whole application or even a single component.
-    static member inline key (value: System.Guid) = Interop.mkAttr "value" (unbox<string> value)
+    static member inline key (value: System.Guid) = Interop.mkAttr "key" (unbox<string> value)
     /// A special string attribute you need to include when creating arrays of elements. Keys help
     /// React identify which items have changed, are added, or are removed. Keys should be given
     /// to the elements inside an array to give the elements a stable identity.
