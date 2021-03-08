@@ -14,55 +14,52 @@ const Dotenv = require('dotenv-webpack');
 const { patchGracefulFileSystem } = require("./webpack.common.js");
 patchGracefulFileSystem();
 
-// If we're running the webpack-dev-server, assume we're in development mode
-var isProduction = !process.argv.find(v => v.indexOf('webpack-dev-server') !== -1);
+module.exports = (env, argv) => {
+    const isProduction = argv.mode === 'production'
+    const isDevelopment = argv.mode === 'development'
+    console.log("Bundling for " + (isProduction ? "production" : "development") + "...");
 
-const isDevelopment = !isProduction && process.env.NODE_ENV !== 'production';
-
-var CONFIG = {
-    // The tags to include the generated JS and CSS will be automatically injected in the HTML template
-    // See https://github.com/jantimon/html-webpack-plugin
-    indexHtmlTemplate: "./src/index.html",
-    fsharpEntry: "./src/Main.fs.js",
-    outputDir: "./dist",
-    assetsDir: "./public",
-    devServerPort: 8080,
-    // When using webpack-dev-server, you may need to redirect some calls
-    // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
-    devServerProxy: {
-        '/**': {
-            // assuming the suave server is running on port 8083
-            target: "http://localhost:5000",
-            changeOrigin: true
+    var CONFIG = {
+        // The tags to include the generated JS and CSS will be automatically injected in the HTML template
+        // See https://github.com/jantimon/html-webpack-plugin
+        indexHtmlTemplate: "./src/index.html",
+        fsharpEntry: "./src/Main.fs.js",
+        outputDir: "./dist",
+        assetsDir: "./public",
+        devServerPort: 8080,
+        // When using webpack-dev-server, you may need to redirect some calls
+        // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
+        devServerProxy: {
+            '/**': {
+                // assuming the suave server is running on port 8083
+                target: "http://localhost:5000",
+                changeOrigin: true
+            }
+        },
+        // Use babel-preset-env to generate JS compatible with most-used browsers.
+        // More info at https://babeljs.io/docs/en/next/babel-preset-env.html
+        babel: {
+            plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean),
+            presets: ["@babel/preset-env", "@babel/preset-react"]
         }
-    },
-    // Use babel-preset-env to generate JS compatible with most-used browsers.
-    // More info at https://babeljs.io/docs/en/next/babel-preset-env.html
-    babel: {
-        plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean),
-        presets: ["@babel/preset-env", "@babel/preset-react"]
     }
-}
+    
+    // The HtmlWebpackPlugin allows us to use a template for the index.html page
+    // and automatically injects <script> or <link> tags for generated bundles.
+    var commonPlugins = [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: resolve(CONFIG.indexHtmlTemplate)
+        }),
+    
+        new Dotenv({
+            path: "./.env",
+            silent: false,
+            systemvars: true
+        })
+    ];
 
-
-console.log("Bundling for " + (isProduction ? "production" : "development") + "...");
-
-// The HtmlWebpackPlugin allows us to use a template for the index.html page
-// and automatically injects <script> or <link> tags for generated bundles.
-var commonPlugins = [
-    new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: resolve(CONFIG.indexHtmlTemplate)
-    }),
-
-    new Dotenv({
-        path: "./.env",
-        silent: false,
-        systemvars: true
-    })
-];
-
-module.exports = {
+    return {
     // In development, bundle styles together with the code so they can also
     // trigger hot reloads. In production, put them in a separate CSS file.
     entry: {
@@ -72,9 +69,8 @@ module.exports = {
     // to prevent browser caching if code changes
     output: {
         path: resolve(CONFIG.outputDir),
-        filename: isProduction ? '[name].[hash].js' : '[name].js'
+        filename: isProduction ? '[name].[contenthash].js' : '[name].js'
     },
-    mode: isProduction ? "production" : "development",
     devtool: isProduction ? "source-map" : "eval-source-map",
     optimization: {
         // Split the code coming from npm packages into a different file.
@@ -181,7 +177,7 @@ module.exports = {
             }
         ]
     }
-};
+}};
 
 function resolve(filePath) {
     return path.isAbsolute(filePath) ? filePath : path.join(__dirname, filePath);
