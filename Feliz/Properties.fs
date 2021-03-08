@@ -1054,6 +1054,13 @@ type prop =
     /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element directly
     /// instead of extracting it from the event arguments.
     static member inline onChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
+    /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element as if it was a DateTime instance when using input.type.date since the used format either be yyyy-MM-dd or yyyy-MM-ddTHH:mm
+    static member inline onChange (handler: DateTime -> unit) =
+        Interop.mkAttr "onChange" (fun (ev: Event) ->
+            let value : string = !!ev.target?value
+            DateParsing.parse value
+            |> Option.iter handler
+        )
 
     /// Same as `onChange` but let's you deal with the `checked` value that has changed from the `input` element directly instead of extracting it from the event arguments.
     static member inline onCheckedChange (handler: bool -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?``checked``))
@@ -1072,10 +1079,10 @@ type prop =
 
     /// Fires when a context menu is triggered.
     static member inline onContextMenu (handler: MouseEvent -> unit) = Interop.mkAttr "onContextMenu" handler
-    
+
     /// Fires when a TextTrack has changed the currently displaying cues.
     static member inline onCueChange (handler: Event -> unit) = Interop.mkAttr "onCueChange" handler
-    
+
         /// Fires when the user copies the content of an element.
     static member inline onCopy (handler: ClipboardEvent -> unit) = Interop.mkAttr "onCopy" handler
 
@@ -1172,7 +1179,7 @@ type prop =
 
     /// Fires when a request has completed, irrespective of its success.
     static member inline onLoadEnd (handler: Event -> unit) = Interop.mkAttr "onLoadEnd" handler
-        
+
     /// Fires when the file begins to load before anything is actually loaded.
     static member inline onLoadStart (handler: Event -> unit) = Interop.mkAttr "onLoadStart" handler
 
@@ -1244,10 +1251,10 @@ type prop =
 
     /// Fires when the Reset button in a form is clicked.
     static member inline onReset (handler: Event -> unit) = Interop.mkAttr "onReset" handler
-    
+
     /// Fires when the window has been resized.
     static member inline onResize (handler: UIEvent -> unit) = Interop.mkAttr "onResize" handler
-    
+
     /// Fires when an element's scrollbar is being scrolled.
     static member inline onScroll (handler: Event -> unit) = Interop.mkAttr "onScroll" handler
 
@@ -1259,7 +1266,7 @@ type prop =
 
     /// Fires after some text has been selected in an element.
     static member inline onSelect (handler: Event -> unit) = Interop.mkAttr "onSelect" handler
-    
+
     /// Fires after some text has been selected in the user interface.
     static member inline onSelect (handler: UIEvent -> unit) = Interop.mkAttr "onSelect" handler
 
@@ -1853,20 +1860,21 @@ type prop =
     static member inline value (value: seq<int>) = Interop.mkAttr "value" (ResizeArray value)
     /// Sets the value of a React controlled component.
     static member inline value (value: seq<string>) = Interop.mkAttr "value" (ResizeArray value)
-
-    /// The value of the element, interpreted as a date, or null if conversion is not possible.
-    static member inline valueAsDate (value: System.DateTime) = Interop.mkAttr "valueAsDate" value
-    /// The value of the element, interpreted as a date, or null if conversion is not possible.
-    static member inline valueAsDate (value: System.DateTime option) = Interop.mkAttr "valueAsDate" value
-
-    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
-    static member inline valueAsNumber (value: float) = Interop.mkAttr "valueAsNumber" value
-    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
-    static member inline valueAsNumber (value: float option) = Interop.mkAttr "valueAsNumber" value
-    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
-    static member inline valueAsNumber (value: int) = Interop.mkAttr "valueAsNumber" value
-    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
-    static member inline valueAsNumber (value: int option) = Interop.mkAttr "valueAsNumber" value
+    /// The value of the element, interpreted as a date
+    static member inline value (value: System.DateTime, includeTime: bool) = 
+        if includeTime
+        then Interop.mkAttr "value" (value.ToString("yyyy-MM-ddThh:mm"))
+        else Interop.mkAttr "value" (value.ToString("yyyy-MM-dd"))
+    /// The value of the element, interpreted as a date
+    static member inline value (value: System.DateTime) = prop.value(value, includeTime=false)
+    /// The value of the element, interpreted as a date, or empty if there is no value.
+    static member inline value (value: System.DateTime option, includeTime: bool) =
+        match value with
+        | None -> Interop.mkAttr "value" ""
+        | Some date -> 
+            if includeTime  
+            then Interop.mkAttr "value" (date.ToString("yyyy-MM-ddThh:mm"))
+            else Interop.mkAttr "value" (date.ToString("yyyy-MM-dd"))
 
     /// `prop.ref` callback that sets the value of an input after DOM element is created.
     /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input value.

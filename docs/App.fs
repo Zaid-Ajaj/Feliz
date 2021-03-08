@@ -325,6 +325,7 @@ let samples = [
     "simple-components", Examples.ReactComponents.simple
     "multiple-state-variables", Examples.multipleStateVariables()
     "hover-animations", Examples.animationSample
+    "working-with-dates", Examples.dateInputsExample()
     "portals", Examples.portalsSample
     "stateful-counter", Examples.ReactComponents.counter()
     "effectful-tab-counter", DelayedComponent.render {| load = Examples.effectfulTabCounter |}
@@ -662,6 +663,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Context Propagation" [ Urls.ContextPropagation ]
                     nestedMenuItem "Portals" [ Urls.Portals ]
                     nestedMenuItem "Hover Animations" [ Urls.HoverAnimations ]
+                    nestedMenuItem "Working With Dates" [ Urls.WorkingWithDates ]
                     nestedMenuItem "Using References" [ Urls.Refs ]
                     nestedMenuItem "Common Pitfalls" [ Urls.CommonPitfalls ]
                     nestedMenuItem "Render Static Html" [ Urls.RenderStaticHtml ]
@@ -792,6 +794,7 @@ let reactExamples (currentPath: string list) =
     | [ Urls.RenderStaticHtml ] -> [ "RenderStaticHtml.md" ]
     | [ Urls.StrictMode ] -> [ "StrictMode.md" ]
     | [ Urls.CodeSplitting ] -> [ "CodeSplitting.md" ]
+    | [ Urls.WorkingWithDates ] -> [ "WorkingWithDates.md" ]
     | _ -> []
     |> fun path -> [ Urls.React ] @ path
 

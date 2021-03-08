@@ -6,7 +6,7 @@ Feliz includes a template that scaffolds a full-fledged frontend application in 
 
 Install the template into your dotnet project templates as follows
 ```
-dotnet new -i Feliz.Template::*
+dotnet new -i Feliz.Template
 ```
 Now you should be able to create a new Feliz project as follows:
 ```

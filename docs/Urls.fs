@@ -69,6 +69,7 @@ let [<Literal>] TwoLevelPieChart = "TwoLevelPieChart"
 let [<Literal>] RadarCharts = "RadarCharts"
 
 let [<Literal>] SimpleRadarChart = "SimpleRadarChart"
+let [<Literal>] WorkingWithDates = "WorkingWithDates"
 
 // ____________________________________________________
 

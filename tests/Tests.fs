@@ -608,6 +608,37 @@ let felizTests = testList "Feliz Tests" [
         let header = render.getByTestId "header"
         Expect.equal "Hello world" header.innerText "The content is correct"
 
+    testCase "Parsing standard dates works" <| fun _ ->
+        let validDates = [
+            "2020-01"
+            "2020-01-01"
+            "2020-01-01T20:20"
+            "2020-01-01T00:00"
+            "2020-01-01T59:59"
+        ]
+
+        let invalidDates = [
+            ""
+            "2020"
+            "2020-13-01"
+            "2020-01-35"
+            "2020-01-01T70:00"
+            "2020-01-01T20:60"
+        ]
+
+        let allValid =
+            validDates
+            |> List.map Feliz.DateParsing.parse
+            |> List.forall (fun parsedDate -> parsedDate.IsSome)
+
+        let allInvalid =
+            invalidDates
+            |> List.map Feliz.DateParsing.parse
+            |> List.forall (fun parsedDate -> parsedDate.IsNone)
+
+        Expect.isTrue allValid "Parsing worked in all cases where the date was valid"
+        Expect.isTrue allInvalid "Parsing did not work in all cases where the date was invalid"
+
     testReact "React function component works: counter example" <| fun _ ->
         let render = RTL.render(counter {| initialCount = 10 |})
         let count = render.getByTestId "count"
