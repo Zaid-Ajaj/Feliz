@@ -63,97 +63,115 @@ module.exports = (env, argv) => {
     ];
 
     return {
-    // In development, bundle styles together with the code so they can also
-    // trigger hot reloads. In production, put them in a separate CSS file.
-    entry: {
-        app: [resolve(CONFIG.fsharpEntry)]
-    },
-    // Add a hash to the output file name in production
-    // to prevent browser caching if code changes
-    output: {
-        path: resolve(CONFIG.outputDir),
-        filename: isProduction ? '[name].[contenthash].js' : '[name].js'
-    },
-    devtool: isProduction ? "source-map" : "eval-source-map",
-    optimization: {
-        // Split the code coming from npm packages into a different file.
-        // 3rd party dependencies change less often, let the browser cache them.
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /node_modules/,
-                    name: "vendors",
-                    chunks: "all"
+        // In development, bundle styles together with the code so they can also
+        // trigger hot reloads. In production, put them in a separate CSS file.
+        entry: {
+            app: [resolve(CONFIG.fsharpEntry)]
+        },
+        // Add a hash to the output file name in production
+        // to prevent browser caching if code changes
+        output: {
+            path: resolve(CONFIG.outputDir),
+            filename: isProduction ? '[name].[contenthash].js' : '[name].js'
+        },
+        devtool: isProduction ? "source-map" : "eval-source-map",
+        optimization: {
+            // Split the code coming from npm packages into a different file.
+            // 3rd party dependencies change less often, let the browser cache them.
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test: /node_modules/,
+                        name: "vendors",
+                        chunks: "all"
+                    }
                 }
+            },
+        },
+        plugins: commonPlugins.concat([
+            new CopyWebpackPlugin({
+                patterns: [
+                    { from: resolve(CONFIG.assetsDir) }
+                ]
+            }),
+        ]),
+
+        resolve: {
+            // See https://github.com/fable-compiler/Fable/issues/1490
+            symlinks: false,
+            modules: [resolve("./node_modules")],
+            alias: {
+                // Some old libraries still use an old specific version of core-js
+                // Redirect the imports of these libraries to the newer core-js
+                'core-js/es6': 'core-js/es'
             }
         },
-    },
-    plugins: commonPlugins.concat([
-        new CopyWebpackPlugin({
-            patterns: [
-                { from: resolve(CONFIG.assetsDir) }
-            ]
-        }),
-    ]),
-
-    resolve: {
-        // See https://github.com/fable-compiler/Fable/issues/1490
-        symlinks: false,
-        modules: [resolve("./node_modules")],
-        alias: {
-            // Some old libraries still use an old specific version of core-js
-            // Redirect the imports of these libraries to the newer core-js
-            'core-js/es6': 'core-js/es'
-        }
-    },
-    // Configuration for webpack-dev-server
-    devServer: {
-        publicPath: "/",
-        contentBase: resolve(CONFIG.assetsDir),
-        port: CONFIG.devServerPort,
-        proxy: CONFIG.devServerProxy,
-        hot: true,
-        inline: true
-    },
-    // - fable-loader: transforms F# into JS
-    // - babel-loader: transforms JS to old syntax (compatible with old browsers)
-    // - sass-loaders: transforms SASS/SCSS into JS
-    // - file-loader: Moves files referenced in the code (fonts, images) into output folder
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: CONFIG.babel
-                }
-            },
-            {
-                test: /\.(sass|scss|css)$/,
-                use: [
-                    isProduction
-                        ? MiniCssExtractPlugin.loader
-                        : 'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true
-                        }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: { implementation: require("sass") }
+        // Configuration for webpack-dev-server
+        devServer: {
+            publicPath: "/",
+            contentBase: resolve(CONFIG.assetsDir),
+            port: CONFIG.devServerPort,
+            proxy: CONFIG.devServerProxy,
+            hot: true,
+            inline: true
+        },
+        // - fable-loader: transforms F# into JS
+        // - babel-loader: transforms JS to old syntax (compatible with old browsers)
+        // - sass-loaders: transforms SASS/SCSS into JS
+        // - file-loader: Moves files referenced in the code (fonts, images) into output folder
+        module: {
+            rules: [
+                {
+                    test: /\.(js|jsx)$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: CONFIG.babel
                     }
-                ],
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/,
-                use: ["file-loader"]
-            }
-        ]
+                },
+                {
+                    test: /\.(sass|scss|css)$/,
+                    exclude: /global.scss/,
+                    use: [
+                        isProduction
+                            ? MiniCssExtractPlugin.loader
+                            : 'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: { implementation: require("sass") }
+                        }
+                    ],
+                },
+                {
+                    test: /\.(sass|scss|css)$/,
+                    include: /global.scss/,
+                    use: [
+                        isProduction
+                            ? MiniCssExtractPlugin.loader
+                            : 'style-loader',
+                        {
+                            loader: 'css-loader'
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: { implementation: require("sass") }
+                        }
+                    ],
+                },
+                {
+                    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/,
+                    use: ["file-loader"]
+                }
+            ]
+        }
     }
-}};
+};
 
 function resolve(filePath) {
     return path.isAbsolute(filePath) ? filePath : path.join(__dirname, filePath);

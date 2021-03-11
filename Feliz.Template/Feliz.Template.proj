@@ -8,13 +8,13 @@
     <PackageTags>fable;template;fsharp</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageType>Template</PackageType>
-    <Version>3.2.0</Version>
+    <Version>3.3.0</Version>
     <PackProjectInputFile>$(MSBuildProjectFullPath)</PackProjectInputFile>
     <NoBuild>true</NoBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <PackageReleaseNotes>Updated used Fable version</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix warning about finding the favicon and enable CSS modules in the test project</PackageReleaseNotes>
     <!-- https://github.com/dotnet/templating/issues/2350#issuecomment-610431461 -->
     <NoDefaultExcludes>true</NoDefaultExcludes>
   </PropertyGroup>

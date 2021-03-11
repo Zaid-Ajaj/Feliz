@@ -30,8 +30,9 @@ module.exports = (env, argv) => {
         // When using webpack-dev-server, you may need to redirect some calls
         // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
         devServerProxy: {
-            '/**': {
-                // assuming the suave server is running on port 8083
+            '/api*': {
+                // assuming the backend is running on port 5000
+                // so that every request starting with /api will be proxied here
                 target: "http://localhost:5000",
                 changeOrigin: true
             }
