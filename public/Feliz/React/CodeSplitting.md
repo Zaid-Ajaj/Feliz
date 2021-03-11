@@ -6,13 +6,13 @@ There are two components involved when implementing code splitting: `React.lazy'
 
 This function allows you to dynamically import a component from another file asynchronously.
 
-The benefit of this is it allows your bundler (such as webpack) to keep those files separate. The 
+The benefit of this is it allows your bundler (such as webpack) to keep those files separate. The
 benefit of this is that you get faster initial renders in your application.
 
 #### React.suspense
 
 This component allows you to provide children that if they are loading an element will be rendered
-as a placeholder while they load. 
+as a placeholder while they load.
 
 This works for anything in the child tree, so you could for example put `suspense` at the top of your
 application if you were so inclined.
@@ -89,8 +89,8 @@ let codeSplittingDelayed = React.functionComponent(fun () ->
             myNonCodeSplitComponent()
             React.suspense([
                 Html.div [
-                    React.lazy'((fun () -> 
-                        promise { 
+                    React.lazy'((fun () ->
+                        promise {
                             do! Promise.sleep 2000
                             return! asyncComponent
                         }

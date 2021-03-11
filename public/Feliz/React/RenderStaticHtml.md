@@ -6,7 +6,8 @@ Using Feliz, you can render static HTML as a string from a `ReactElement` using 
 ### `ReactDOMServer.renderToString()`
 
 ```fsharp:static-html
-let staticHtml = React.functionComponent(fun () ->
+[<ReactComponent>]
+let StaticHtml() =
     let html = Html.div [
         prop.style [ style.padding 20 ]
         prop.children [
@@ -15,16 +16,16 @@ let staticHtml = React.functionComponent(fun () ->
         ]
     ]
 
-
     Html.pre [
         Html.text (ReactDOMServer.renderToString html)
-    ])
+    ]
 ```
 
 ### `ReactDOMServer.renderToStaticMarkup()`
 
 ```fsharp:static-markup
-let staticMarkup = React.functionComponent(fun () ->
+[<ReactComponent>]
+let StaticMarkup() =
     let html = Html.div [
         prop.style [ style.padding 20 ]
         prop.children [
@@ -33,8 +34,7 @@ let staticMarkup = React.functionComponent(fun () ->
         ]
     ]
 
-
     Html.pre [
         Html.text (ReactDOMServer.renderToStaticMarkup html)
-    ])
+    ]
 ```

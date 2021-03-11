@@ -9,22 +9,15 @@ React components built with `React.functionComponent` have to defined at a *modu
 ```fsharp
 open Feliz
 
-type Greeting = { Name: string option }
+type GreetingProps = { Name: string option }
 
-// greeting : Greeting -> ReactElement
-let greeting = React.functionComponent(fun (props: Greeting) ->
+// greeting : GreetingProps -> ReactElement
+[<ReactComponent>]
+let Greeting(props: GreetingProps) =
     Html.div [
         Html.span "Hello, "
         Html.span (Option.defaultValue "World" props.Name)
-    ])
-```
-Components can also be given a name such that you can inspect them in the browser using React profiling tools, it is **highly** recommended you give React component these names.
-```fsharp
-let greeting = React.functionComponent("Greeting", fun (props: Greeting) ->
-    Html.div [
-        Html.span "Hello, "
-        Html.span (Option.defaultValue "World" props.Name)
-    ])
+    ]
 ```
 
 ### Using React components
@@ -35,38 +28,12 @@ Once you have defined a component like we did with `greeting` above, you can use
 Html.div [
     prop.className "content"
     prop.children [
-        greeting { Name = Some "John" }
-        greeting { Name = None }
+        Greeting { Name = Some "John" }
+        Greeting { Name = None }
     ]
 ]
 ```
 
-### Simplify Definition and Usage
-
-When building components, it is common to define the component then writing a function that instantiates that component as follows
-```fs
-module App
-
-open Feliz
-
-type Greeting = { Name: string option }
-
-let greeting' = React.functionComponent("Greeting", fun (props: Greeting) ->
-    Html.div [
-        Html.span "Hello, "
-        Html.span (Option.defaultValue "World" props.Name)
-    ])
-
-let greeting name = greeting' { Name = name }
-
-Html.div [
-    prop.className "content"
-    prop.children [
-        greeting (Some "John")
-        greeting None
-    ]
-]
-```
 
 ### Model-View-Update components
 
@@ -82,7 +49,8 @@ let update (state: State) = function
     | Increment -> { state with Count = state.Count + 1 }
     | Decrement -> { state with Count = state.Count - 1 }
 
-let counter = React.functionComponent("Counter", fun () ->
+[<ReactComponent>]
+let Counter() =
     let (state, dispatch) = React.useReducer(update, initialState)
     Html.div [
         Html.button [
@@ -96,5 +64,5 @@ let counter = React.functionComponent("Counter", fun () ->
         ]
 
         Html.h1 state.Count
-    ])
+    ]
 ```

@@ -14,9 +14,9 @@ React.useEffect : (unit -> unit) -> unit
 ```
 For example, let us have the same counter example and execute an effect that changes the title of the tab every time the count state changes:
 ```fsharp:effectful-tab-counter
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let TabCounter() =
     let (count, setCount) = React.useState(0)
-
     // execute this effect on every render cycle
     React.useEffect(fun () -> Browser.Dom.document.title <- sprintf "Count = %d" count)
 
@@ -26,7 +26,7 @@ React.functionComponent(fun () ->
             prop.text "Increment"
             prop.onClick (fun _ -> setCount(count + 1))
         ]
-    ])
+    ]
 ```
 
 See how the title of the page changes as you click on the "Increment" button.
@@ -44,7 +44,8 @@ See how the title of the page changes as you click on the "Increment" button.
 Here, you can have effects that make a HTTP request, subscribe to a web socket or initiate a timer only after the component has mounted, but not again when one of the state variables changes the value like in the example above. You can also say that the effect **"doesn't depend"** on any of the state variables or input properties.
 
 ```fsharp:effectful-async
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let EffectWithAsyncOnce() =
     let (isLoading, setLoading) = React.useState(false)
     let (content, setContent) = React.useState("")
 
@@ -61,7 +62,7 @@ React.functionComponent(fun () ->
         if isLoading
         then Html.h1 "Loading"
         else Html.h1 content
-    ])
+    ]
 ```
 Notice the signature of `React.useEffect`:
 ```fsharp
@@ -71,7 +72,8 @@ Where we used `obj array` as an empty array. This array determintes the **depend
 
 Likewise, you can use the short-hand `React.useEffectOnce` which calls `React.useEffect` with an empty dependencies array:
 ```fsharp:effectful-async-once
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let EffectWithAsyncOnce() =
     let (isLoading, setLoading) = React.useState(false)
     let (content, setContent) = React.useState("")
 
@@ -88,7 +90,7 @@ React.functionComponent(fun () ->
         if isLoading
         then Html.h1 "Loading"
         else Html.h1 content
-    ])
+    ]
 ```
 
 ### Effects re-executed when a state variable changes
@@ -100,7 +102,8 @@ In the following sample, we have a function component that simulates loading use
 ```fsharp:effectful-user-id
 let rnd = System.Random()
 
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let EffectsUsingDependencies() =
     let (isLoading, setLoading) = React.useState(false)
     let (content, setContent) = React.useState("")
     let (userId, setUserId) = React.useState(0)
@@ -135,5 +138,5 @@ React.functionComponent(fun () ->
             prop.text "Update User ID"
             prop.onClick (fun _ -> setUserId(rnd.Next(1, 100)))
         ]
-    ])
+    ]
 ```
