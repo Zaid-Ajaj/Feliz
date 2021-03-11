@@ -7,9 +7,8 @@ To define a component, use the `[<ReactComponent>]` attribute on top of a functi
 ```fsharp
 open Feliz
 
-// greeting : (name: string option) -> ReactElement
 [<ReactComponent>]
-let Greeting(name: string option) =
+let Greeting(name: string option) : ReactElement =
     Html.div [
         Html.span "Hello, "
         Html.span (Option.defaultValue "World" name)
@@ -24,13 +23,13 @@ Once you have defined a component like we did with `greeting` above, you can use
 Html.div [
     prop.className "content"
     prop.children [
-        Greeting None
         Greeting (Some "John")
+        Greeting None
     ]
 ]
 ```
 
-### Components As Atatic Functions
+### Components As Static Functions
 
 React components can also be defined as static members of a static class. The benefit of this approach is that you use _named_ parameters at call-site or implicitly optional parameters in the definition:
 ```fs
