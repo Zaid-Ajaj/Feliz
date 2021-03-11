@@ -2,21 +2,17 @@
 The simplest types of React components are those that are stateless: they don't internal have state and don't have any side-effects.
 
 ### Defining React Components
-To define a component, use `React.functionComponent` which for most components take a render function of type `'props -> ReactElement` as input where `'props` is a record type that defines the components' properties. The input type `'props` can also be an anonymous record.
-
-React components built with `React.functionComponent` have to defined at a *module-level* (i.e. not inside another function).
+To define a component, use the `[<ReactComponent>]` attribute on top of a function that returns `ReactElement`. React components built with have to defined at a *module-level* (i.e. not inside another function).
 
 ```fsharp
 open Feliz
 
-type GreetingProps = { Name: string option }
-
-// greeting : GreetingProps -> ReactElement
+// greeting : (name: string option) -> ReactElement
 [<ReactComponent>]
-let Greeting(props: GreetingProps) =
+let Greeting(name: string option) =
     Html.div [
         Html.span "Hello, "
-        Html.span (Option.defaultValue "World" props.Name)
+        Html.span (Option.defaultValue "World" name)
     ]
 ```
 
@@ -28,16 +24,38 @@ Once you have defined a component like we did with `greeting` above, you can use
 Html.div [
     prop.className "content"
     prop.children [
-        Greeting { Name = Some "John" }
-        Greeting { Name = None }
+        Greeting None
+        Greeting (Some "John")
     ]
 ]
 ```
 
+### Components As Atatic Functions
+
+React components can also be defined as static members of a static class. The benefit of this approach is that you use _named_ parameters at call-site or implicitly optional parameters in the definition:
+```fs
+open Feliz
+
+type Components() =
+    [<ReactComponent>]
+    static member Greeting(name: string, age: int) =
+        Html.div [
+            Html.span $"Hello, {name}! You are {age} years old"
+        ]
+
+Html.div [
+    prop.className "content"
+    prop.children [
+        // call-site is more readable because of the named parameters
+        Components.Greeting(name="Jane", age=20)
+        Components.Greeting(name="John", age=25)
+    ]
+]
+```
 
 ### Model-View-Update components
 
-You can use the built-in `React.useReducer` hook to build model-view-update style components inside your application:
+You can use the built-in `React.useReducer` hook to build simple model-view-update style components inside your application:
 ```fsharp:feliz-elmish-counter
 type State = { Count : int }
 
