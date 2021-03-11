@@ -14,7 +14,8 @@ Here you can see that after about a couple seconds the div is then rendered:
 open Feliz
 open Feliz.Delay
 
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let UseDelayExample() =
     React.delay [
         delay.waitFor 2000
 
@@ -22,7 +23,6 @@ React.functionComponent(fun () ->
             Html.text "Here I am!"
         ]
     ]
-)
 ```
 
 You can also specify your own fallback such as a loader:
@@ -31,7 +31,8 @@ You can also specify your own fallback such as a loader:
 open Feliz
 open Feliz.Delay
 
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let DelayWithFallback() =
     React.delay [
         delay.waitFor 2000
 
@@ -41,7 +42,6 @@ React.functionComponent(fun () ->
 
         delay.fallback centeredSpinner
     ]
-)
 ```
 
 In addition you can compose delayed components for customized handling based on time intervals:
@@ -50,7 +50,8 @@ In addition you can compose delayed components for customized handling based on 
 open Feliz
 open Feliz.Delay
 
-let delayWithCustomFallback = React.functionComponent(fun () ->
+[<ReactComponent>]
+let DelayWithCustomFallback() =
     React.delay [
         delay.waitFor 2000
 
@@ -59,9 +60,10 @@ let delayWithCustomFallback = React.functionComponent(fun () ->
         ]
 
         delay.fallback centeredSpinner
-    ])
+    ]
 
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let AnotherDelayWithCustomFallback() =
     React.delay [
         delay.waitFor 2000
 
@@ -73,7 +75,6 @@ React.functionComponent(fun () ->
             Html.text "Hanging out for a little bit..."
         ]
     ]
-)
 ```
 
 ### React.delaySuspense
@@ -89,7 +90,8 @@ Here you can see that the loader will not show until 500ms have passed:
 open Feliz
 open Feliz.Delay
 
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let DelaySuspense() =
     React.delaySuspense [
         delaySuspense.delay [
             delay.waitFor 500
@@ -98,12 +100,11 @@ React.functionComponent(fun () ->
                 centeredSpinner
             ]
         ]
-        
+
         delaySuspense.children [
             slowImport()
         ]
     ]
-)
 ```
 
 ### React.Templates.delay
@@ -120,19 +121,18 @@ open Feliz
 open Feliz.Delay
 open Feliz.Delay.Templates
 
-let myDelay = 
-    React.Templates.delay [ 
+let myDelay =
+    React.Templates.delay [
         delay.waitFor 2000
         delay.fallback [
             Html.text "Delay template!"
         ]
     ]
 
-React.functionComponent(fun () ->
-    myDelay [
-        Html.div "Here I am from the template!"
-    ]
-)
+[<ReactComponent>]
+let CustomDelay() = myDelay [
+    Html.div "Here I am from the template!"
+]
 ```
 
 ### React.Templates.delaySuspense
@@ -162,9 +162,8 @@ let myDelaySuspense =
         ]
     ]
 
-React.functionComponent(fun () ->
-    myDelaySuspense [
-        slowImport()
-    ]
-)
+[<ReactComponent>]
+let CustomDelay() = myDelaySuspense [
+    slowImport()
+]
 ```

@@ -4,10 +4,11 @@ Components can tremendously useful when they manage their internal state. This a
 
 State with React components is incorporated using [React Hooks](https://reactjs.org/docs/hooks-intro.html) which allow you to define state variables inside your functional components. A common hook to use with React is the `React.useState` hook.
 
-> It is recommended that you use hooks only inside the defintion of your `React.functionComponent` such that you could distinguish which parts of your application are simple functions and which parts are (stateful) components.
+> It is recommended that you use hooks only inside the defintion of your `[<ReactComponent>]` such that you could distinguish which parts of your application are simple functions and which parts are (stateful) components.
 
 ```fsharp:stateful-counter
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let Stateful() =
     let (count, setCount) = React.useState(0)
     Html.div [
         Html.h1 count
@@ -15,7 +16,7 @@ React.functionComponent(fun () ->
             prop.text "Increment"
             prop.onClick (fun _ -> setCount(count + 1))
         ]
-    ])
+    ]
 ```
 The hook `React.useState` is one of the most useful hooks which allows you to define a *state variable*. The syntax of `React.useState` follows:
 ```fs
@@ -35,7 +36,8 @@ When you call that function, the `value` will be updated and the component re-re
 
 A single component can keep track of multiple state variables at the same time. Here is an example
 ```fsharp:multiple-state-variables
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let MultipleVariables() =
     let (count, setCount) = React.useState(0)
     let (textColor, setTextColor) = React.useState(color.red)
 
@@ -59,7 +61,7 @@ React.functionComponent(fun () ->
             prop.text "Blue"
             prop.onClick (fun _ -> setTextColor(color.blue))
         ]
-    ])
+    ]
 ```
 
 ### Lazy State
@@ -68,13 +70,13 @@ React will call the initialization on every rerender, even if it's no longer nee
 In most cases this has no performance impact at all, however, in some cases where the
 initial value is very expensive this can cause an application to become unusable.
 
-You can ensure that expensive initialization functions only run once by passing in 
+You can ensure that expensive initialization functions only run once by passing in
 an initializer function into `React.useState`:
 
 ```fsharp:use-state-lazy
-let useStateNormal = React.functionComponent(fun () ->
+[<ReactComponent>]
+let UseStateNormal() =
     let count,setCount = React.useState (sortNumbers())
-
     Html.div [
         prop.classes [ Bulma.Box ]
         prop.children [
@@ -82,11 +84,11 @@ let useStateNormal = React.functionComponent(fun () ->
                 prop.text (sprintf "Normal Count: %i" count)
             ]
         ]
-    ])
+    ]
 
-let useStateLazy = React.functionComponent(fun () ->
+[<ReactComponent>]
+let UseStateLazy() =
     let count,setCount = React.useState (fun () -> sortNumbers())
- 
     Html.div [
         prop.classes [ Bulma.Box ]
         prop.children [
@@ -94,5 +96,5 @@ let useStateLazy = React.functionComponent(fun () ->
                 prop.text (sprintf "Lazy Count: %i" count)
             ]
         ]
-    ])
+    ]
 ```

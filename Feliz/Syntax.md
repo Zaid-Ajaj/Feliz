@@ -55,14 +55,14 @@ Input elements are dead simple to work with:
 ```fs
 Html.input [
     prop.className "input"
-    prop.valueOrDefault state.Crendentials.Password // string
+    prop.value state.Crendentials.Password // string
     prop.onChange (SetPassword >> dispatch) // (string -> unit)
     prop.type'.password
 ]
 
 Html.input [
     prop.className "input checkbox"
-    prop.valueOrDefault state.RememberMe // boolean
+    prop.value state.RememberMe // boolean
     prop.onChange (SetRememberMe >> dispatch) // (bool -> unit)
     prop.type'.checkbox
 ]
@@ -79,6 +79,8 @@ type onChange = bool -> unit
 type onChange = File -> unit
 // onChange for multiple file upload when prop.multiple true
 type onChange = File list -> unit
+// onChange for input elements where type=date or type=dateTimeLocal
+type onChange = DateTime -> unit
 ```
 
 ### The empty element

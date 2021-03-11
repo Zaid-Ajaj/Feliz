@@ -1,6 +1,6 @@
 # Not Just Functions
 
-In the previous section, we defined stateless components and used them like other UI elements. You might be wondering: "Well, isn't this `greeting` component the same as a *function* that just takes a record of type `Greeting` as input and returns `ReactElement`"?
+In the previous section, we defined stateless components and used them like other UI elements. You might be wondering: "Well, isn't this `Greeting` component the same as a *function* that just takes a record of type `Greeting` as input and returns `ReactElement`"?
 
 You would be *almost* right, even though the component is used as if it was a function, there is more to it on the React side of things. Since this is a component, React treats it as a single entity in the virtual DOM tree and can cache the output of the render function used in the component if the input properties haven't changed.
 
