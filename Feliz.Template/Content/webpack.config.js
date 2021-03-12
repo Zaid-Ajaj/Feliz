@@ -139,32 +139,12 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.(sass|scss|css)$/,
-                    exclude: /global.scss/,
                     use: [
                         isProduction
                             ? MiniCssExtractPlugin.loader
                             : 'style-loader',
                         {
                             loader: 'css-loader',
-                            options: {
-                                modules: true
-                            }
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: { implementation: require("sass") }
-                        }
-                    ],
-                },
-                {
-                    test: /\.(sass|scss|css)$/,
-                    include: /global.scss/,
-                    use: [
-                        isProduction
-                            ? MiniCssExtractPlugin.loader
-                            : 'style-loader',
-                        {
-                            loader: 'css-loader'
                         },
                         {
                             loader: 'sass-loader',
