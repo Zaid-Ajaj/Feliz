@@ -83,3 +83,12 @@ type Recharts =
         Interop.reactApi.createElement(import "Funnel" "recharts", createObj !!properties)
     static member inline errorBar (properties: IErrorBarProperty list) = 
         Interop.reactApi.createElement(import "ErrorBar" "recharts", createObj !!properties)
+
+
+module legend =
+
+    [<Erase>]
+    type verticalAlign =
+        static member inline top = Interop.mkAttr "verticalAlign" "top" :?> ILegendProperty
+        static member inline bottom = Interop.mkAttr "verticalAlign" "bottom" :?> ILegendProperty
+        static member inline left = Interop.mkAttr "verticalAlign" "left" :?> ILegendProperty

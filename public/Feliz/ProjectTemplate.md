@@ -6,7 +6,7 @@ Feliz includes a template that scaffolds a full-fledged frontend application in 
 
 Install the template into your dotnet project templates as follows
 ```
-dotnet new -i Feliz.Template::*
+dotnet new -i Feliz.Template
 ```
 Now you should be able to create a new Feliz project as follows:
 ```
@@ -29,13 +29,14 @@ After you have installed the template, you can run the follwing command to insta
 npm install
 ```
 Next, run this command to start the webpack-dev-server and see your app running at http://localhost:8080:
-```
+```bash
 npm run start
+npm start # for short
 ```
 View the `package.json` file and the `scripts` section to see other available scripts to run.
 
 
-### Troubleshooting: Firefox/Chrome console errors
+### Troubleshooting: potential Firefox/Chrome console errors
 
 The template assumes that you have installed Redux DevTools in the browser you are developing with, either Chrome or Firefox. If you haven't installed either, you get a number of console error logs where the application is trying to connect to these tools during development so you have to install these dev tools to get rid of the otherwise harmless but annoying logs:
 

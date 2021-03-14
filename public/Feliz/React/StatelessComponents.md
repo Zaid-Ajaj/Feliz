@@ -2,29 +2,17 @@
 The simplest types of React components are those that are stateless: they don't internal have state and don't have any side-effects.
 
 ### Defining React Components
-To define a component, use `React.functionComponent` which for most components take a render function of type `'props -> ReactElement` as input where `'props` is a record type that defines the components' properties. The input type `'props` can also be an anonymous record.
-
-React components built with `React.functionComponent` have to defined at a *module-level* (i.e. not inside another function).
+To define a component, use the `[<ReactComponent>]` attribute on top of a function that returns `ReactElement`. React components built with have to defined at a *module-level* (i.e. not inside another function).
 
 ```fsharp
 open Feliz
 
-type Greeting = { Name: string option }
-
-// greeting : Greeting -> ReactElement
-let greeting = React.functionComponent(fun (props: Greeting) ->
+[<ReactComponent>]
+let Greeting(name: string option) : ReactElement =
     Html.div [
         Html.span "Hello, "
-        Html.span (Option.defaultValue "World" props.Name)
-    ])
-```
-Components can also be given a name such that you can inspect them in the browser using React profiling tools, it is **highly** recommended you give React component these names.
-```fsharp
-let greeting = React.functionComponent("Greeting", fun (props: Greeting) ->
-    Html.div [
-        Html.span "Hello, "
-        Html.span (Option.defaultValue "World" props.Name)
-    ])
+        Html.span (Option.defaultValue "World" name)
+    ]
 ```
 
 ### Using React components
@@ -35,42 +23,38 @@ Once you have defined a component like we did with `greeting` above, you can use
 Html.div [
     prop.className "content"
     prop.children [
-        greeting { Name = Some "John" }
-        greeting { Name = None }
+        Greeting (Some "John")
+        Greeting None
     ]
 ]
 ```
 
-### Simplify Definition and Usage
+### Components As Static Functions
 
-When building components, it is common to define the component then writing a function that instantiates that component as follows
+React components can also be defined as static members of a static class. The benefit of this approach is that you use _named_ parameters at call-site or implicitly optional parameters in the definition:
 ```fs
-module App
-
 open Feliz
 
-type Greeting = { Name: string option }
-
-let greeting' = React.functionComponent("Greeting", fun (props: Greeting) ->
-    Html.div [
-        Html.span "Hello, "
-        Html.span (Option.defaultValue "World" props.Name)
-    ])
-
-let greeting name = greeting' { Name = name }
+type Components() =
+    [<ReactComponent>]
+    static member Greeting(name: string, age: int) =
+        Html.div [
+            Html.span $"Hello, {name}! You are {age} years old"
+        ]
 
 Html.div [
     prop.className "content"
     prop.children [
-        greeting (Some "John")
-        greeting None
+        // call-site is more readable because of the named parameters
+        Components.Greeting(name="Jane", age=20)
+        Components.Greeting(name="John", age=25)
     ]
 ]
 ```
 
 ### Model-View-Update components
 
-You can use the built-in `React.useReducer` hook to build model-view-update style components inside your application:
+You can use the built-in `React.useReducer` hook to build simple model-view-update style components inside your application:
 ```fsharp:feliz-elmish-counter
 type State = { Count : int }
 
@@ -82,7 +66,8 @@ let update (state: State) = function
     | Increment -> { state with Count = state.Count + 1 }
     | Decrement -> { state with Count = state.Count - 1 }
 
-let counter = React.functionComponent("Counter", fun () ->
+[<ReactComponent>]
+let Counter() =
     let (state, dispatch) = React.useReducer(update, initialState)
     Html.div [
         Html.button [
@@ -96,5 +81,5 @@ let counter = React.functionComponent("Counter", fun () ->
         ]
 
         Html.h1 state.Count
-    ])
+    ]
 ```

@@ -66,6 +66,16 @@ let fruitSales = [
 ]
 
 #if FABLE_COMPILER_3
+
+[<AbstractClass;Sealed>]
+type StaticComponents =
+  [<ReactComponent>]
+  static member Header (title: string, ?className: string) =
+    Html.h1 [
+      if className.IsSome then prop.className className.Value
+      prop.children [ Html.text title ]
+    ]
+
 [<ReactComponent>]
 let Counter() =
     let (count, setCount) = React.useState 0
@@ -215,6 +225,12 @@ let counterCaller = React.functionComponent(fun () -> Counters(true))
 let partiallyAppied = CountersWithConditionals true
 
 let withMore = partiallyAppied 42
+
+let appliedComponents = Html.div [
+    StaticComponents.Header("title")
+    StaticComponents.Header("title", "className")
+    StaticComponents.Header(className="first arg", title="second")
+]
 #endif
 
 let roughBarChart = React.functionComponent(fun () ->
@@ -309,6 +325,7 @@ let samples = [
     "simple-components", Examples.ReactComponents.simple
     "multiple-state-variables", Examples.multipleStateVariables()
     "hover-animations", Examples.animationSample
+    "working-with-dates", Examples.dateInputsExample()
     "portals", Examples.portalsSample
     "stateful-counter", Examples.ReactComponents.counter()
     "effectful-tab-counter", DelayedComponent.render {| load = Examples.effectfulTabCounter |}
@@ -341,6 +358,7 @@ let samples = [
     "recharts-pie-twolevel", Samples.Recharts.PieCharts.TwoLevelPieChart.chart()
     "recharts-pie-straightangle", Samples.Recharts.PieCharts.StraightAngle.chart()
     "recharts-pie-customizedlabelpiechart", Samples.Recharts.PieCharts.CustomizedLabelPieChart.chart()
+    "recharts-radar-simpleradarchart", Samples.Recharts.RadarCharts.SimpleRadarChart.chart()
     "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
     "pigeonmaps-map-popover-hover", Samples.PigeonMaps.MarkerOverlaysOnHover.citiesMap()
@@ -645,6 +663,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Context Propagation" [ Urls.ContextPropagation ]
                     nestedMenuItem "Portals" [ Urls.Portals ]
                     nestedMenuItem "Hover Animations" [ Urls.HoverAnimations ]
+                    nestedMenuItem "Working With Dates" [ Urls.WorkingWithDates ]
                     nestedMenuItem "Using References" [ Urls.Refs ]
                     nestedMenuItem "Common Pitfalls" [ Urls.CommonPitfalls ]
                     nestedMenuItem "Render Static Html" [ Urls.RenderStaticHtml ]
@@ -733,6 +752,9 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                         nestedMenuItem "Straight Angle Pie Chart" [ Urls.StraightAngle ]
                         nestedMenuItem "Customized Label Pie Chart" [ Urls.CustomizedLabelPieChart ]
                     ]
+                    subNestedMenuList "Radar Charts" [ Urls.RadarCharts ] [
+                        nestedMenuItem "Simple Radar Chart" [ Urls.SimpleRadarChart ]                        
+                    ]
                 ]
             ]
         ]
@@ -772,6 +794,7 @@ let reactExamples (currentPath: string list) =
     | [ Urls.RenderStaticHtml ] -> [ "RenderStaticHtml.md" ]
     | [ Urls.StrictMode ] -> [ "StrictMode.md" ]
     | [ Urls.CodeSplitting ] -> [ "CodeSplitting.md" ]
+    | [ Urls.WorkingWithDates ] -> [ "WorkingWithDates.md" ]
     | _ -> []
     |> fun path -> [ Urls.React ] @ path
 
@@ -815,6 +838,11 @@ let rechartsExamples (currentPath: string list) =
         | [ Urls.CustomizedLabelPieChart ] -> [ "CustomizedLabelPieChart.md" ]
         | _ -> []
         |> List.append [ Urls.PieCharts ]
+    | Urls.RadarCharts :: rest ->
+        match rest with
+        | [ Urls.SimpleRadarChart ] -> [ "SimpleRadarChart.md" ]
+        | _ -> []
+        |> List.append [ Urls.RadarCharts ]
     | _ -> []
     |> fun path -> [ Urls.Recharts ] @ path
 

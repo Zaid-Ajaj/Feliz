@@ -2,7 +2,8 @@
 
 Within function components, React allows us to use the so-called references. There references are just like state variables except that changes in their (mutable) values do not cause a re-render in the function component lifetime. These mutable values can be used to hold a reference to DOM elements and manipulate it on a low-level as opposed to using the declarative API. For example, you can use the focus of an input element by a click of a button:
 ```fs:focus-input-example
-let fullFocusInputExample = React.functionComponent(fun () ->
+[<ReactComponent>]
+let FullFocusInputExample() =
     // obtain a reference
     let inputRef = React.useRef(None)
 
@@ -23,7 +24,7 @@ let fullFocusInputExample = React.functionComponent(fun () ->
             prop.onClick (fun _ -> focusTextInput())
             prop.text "Focus Input"
         ]
-    ])
+    ]
 ```
 Here we use the `React.useRef` hook and provide it an initial value of `None` to get our `inputRef` which is of type `IRefValue<'t option>` at that point. Once you give `inputRef` to the input property `prop.ref`, the type of `inputRef` becomes more concrete and turns into `IRefValue<HTMLElement option>`. When we click on the button, the function `focusTextInput()` executes and makes the input element focused using the `focus()` function on that element but only after we unbox it into `HTMLInputElement` because otherwise a generic `HTMLElement` doesn't have that function.
 
@@ -38,7 +39,8 @@ React.useElementRef : unit -> IRefValue<HTMLElement option>
 ```
 Now the above example can be simplified into:
 ```fs
-let focusInputExample = React.functionComponent(fun () ->
+[<ReactComponent>]
+let FocusInputExample() =
     let inputRef = React.useInputRef()
     let focusTextInput() = inputRef.current |> Option.iter (fun inputElement -> inputElement.focus())
 
@@ -52,7 +54,7 @@ let focusInputExample = React.functionComponent(fun () ->
             prop.onClick (fun _ -> focusTextInput())
             prop.text "Focus Input"
         ]
-    ])
+    ]
 ```
 
 #### Forwarding Refs
@@ -78,7 +80,7 @@ let forwardRefParent = React.functionComponent(fun () ->
         Html.button [
             prop.text "Focus Input"
             prop.onClick <| fun ev ->
-                inputRef.current 
+                inputRef.current
                 |> Option.iter (fun elem -> elem.focus())
         ]
     ])
@@ -124,7 +126,7 @@ let forwardRefImperativeParent = React.functionComponent(fun () ->
         Html.button [
             prop.text "Focus Input"
             prop.onClick <| fun ev ->
-                ref.current 
+                ref.current
                 |> Option.iter (fun elem -> elem.focus())
         ]
     ])

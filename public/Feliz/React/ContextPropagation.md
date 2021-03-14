@@ -42,33 +42,37 @@ let themeContext = React.createContext(name="Theme", defaultValue=Theme.Light)
 ```
 ### Creating a Context provider
 ```fsharp
-let render (state: State) (dispatch: Msg -> unit) =
+[<ReactComponent>]
+let render (state: State, dispatch: Msg -> unit) =
     React.contextProvider(themeContext, state.Theme, React.fragment [
-        renderContent()
+        RenderContent()
     ])
 ```
 ### Requiring the value from within children:
 To get the value that was implicitly passed down from parent components, we use the `React.useContext` hook as follows:
 ```fsharp
-let renderNavbar = React.functionComponent("NavBar", fun () ->
+[<ReactComponent>]
+let RenderNavbar() =
     // theme : Theme
     let theme = React.useContext(themeContext)
     Html.nav [
         // render navbar
-    ])
+    ]
 
-let renderSidebar = React.functionComponent("Sidebar", fun () ->
+[<ReactComponent>]
+let RenderSidebar() =
     let theme = React.useContext(themeContext)
     Html.aside [
         // render sidebar
-    ])
+    ]
 
-let renderContent = React.functionComponent("Content", fun () ->
+[<ReactComponent>]
+let RenderContent() =
     let theme = React.useContext(themeContext)
     Html.div [
-        renderNavbar()
-        renderSidebar()
-    ])
+        RenderNavbar()
+        RenderSidebar()
+    ]
 ```
 ### Where to define these React contexts?
 

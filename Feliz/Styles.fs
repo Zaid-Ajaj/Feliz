@@ -1868,7 +1868,7 @@ type style =
         )
     /// Set an element's left border.
     static member inline borderLeft(width: ICssUnit, style: IBorderStyle, color: string) =
-        Interop.mkStyle "borderBottom" (
+        Interop.mkStyle "borderLeft" (
             (unbox<string> width) + " " +
             (unbox<string> style) + " " +
             color
@@ -3655,10 +3655,19 @@ module style =
         static member inline contentBox = Interop.mkStyle "boxSizing" "content-box"
         /// The width and height properties include the content, padding, and border, but do not include the margin. Note that padding and border will be inside of the box.
         static member inline borderBox = Interop.mkStyle "boxSizing" "border-box"
-        /// Sets this property to its default value.
-        static member inline initial = Interop.mkStyle "boxSizing" "initial"
-        /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "boxSizing" "inherit"
+
+    /// Sets under what circumstances (if any) a particular graphics element can become the target of pointer events.
+    [<Erase>]
+    type pointerEvents =
+        /// Default value. The element behaves as it would if the pointer-events property were not specified.
+        static member inline auto = Interop.mkStyle "pointerEvents" "auto"
+        /// The element is never the target of pointer events; however, pointer events may target its descendant elements if those descendants have pointer-events set to some other value.
+        static member inline none = Interop.mkStyle "pointerEvents" "none"
+        static member inline initial = Interop.mkStyle "pointerEvents" "initial"
+        /// Inherits this property from its parent element
+        static member inline inheritFromParent = Interop.mkStyle "pointerEvents" "inherit"
+        /// Resets to its inherited value if the property naturally inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "pointerEvents" "unset"
 
     /// Sets whether an element is resizable, and if so, in which directions.
     [<Erase>]

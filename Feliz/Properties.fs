@@ -864,7 +864,7 @@ type prop =
     ///
     /// Keys only need to be unique among sibling elements in the same array. They don’t need to
     /// be unique across the whole application or even a single component.
-    static member inline key (value: System.Guid) = Interop.mkAttr "value" (unbox<string> value)
+    static member inline key (value: System.Guid) = Interop.mkAttr "key" (unbox<string> value)
     /// A special string attribute you need to include when creating arrays of elements. Keys help
     /// React identify which items have changed, are added, or are removed. Keys should be given
     /// to the elements inside an array to give the elements a stable identity.
@@ -1010,6 +1010,9 @@ type prop =
     /// Fires when a media event is aborted.
     static member inline onAbort (handler: Event -> unit) = Interop.mkAttr "onAbort" handler
 
+    /// Fires when animation is aborted.
+    static member inline onAnimationCancel (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationCancel" handler
+
     /// Fires when animation ends.
     static member inline onAnimationEnd (handler: AnimationEvent -> unit) = Interop.mkAttr "onAnimationEnd" handler
 
@@ -1021,6 +1024,9 @@ type prop =
 
     /// Fires the moment that the element loses focus.
     static member inline onBlur (handler: FocusEvent -> unit) = Interop.mkAttr "onBlur" handler
+
+    /// Fires when a user dismisses the current open dialog
+    static member inline onCancel (handler: Event -> unit) = Interop.mkAttr "onCancel" handler
 
     /// Fires when a file is ready to start playing (when it has buffered enough to begin).
     static member inline onCanPlay (handler: Event -> unit) = Interop.mkAttr "onCanPlay" handler
@@ -1048,6 +1054,13 @@ type prop =
     /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element directly
     /// instead of extracting it from the event arguments.
     static member inline onChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
+    /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element as if it was a DateTime instance when using input.type.date since the used format either be yyyy-MM-dd or yyyy-MM-ddTHH:mm
+    static member inline onChange (handler: DateTime -> unit) =
+        Interop.mkAttr "onChange" (fun (ev: Event) ->
+            let value : string = !!ev.target?value
+            DateParsing.parse value
+            |> Option.iter handler
+        )
 
     /// Same as `onChange` but let's you deal with the `checked` value that has changed from the `input` element directly instead of extracting it from the event arguments.
     static member inline onCheckedChange (handler: bool -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?``checked``))
@@ -1067,14 +1080,17 @@ type prop =
     /// Fires when a context menu is triggered.
     static member inline onContextMenu (handler: MouseEvent -> unit) = Interop.mkAttr "onContextMenu" handler
 
-    /// Fires when the user copies the content of an element.
+    /// Fires when a TextTrack has changed the currently displaying cues.
+    static member inline onCueChange (handler: Event -> unit) = Interop.mkAttr "onCueChange" handler
+
+        /// Fires when the user copies the content of an element.
     static member inline onCopy (handler: ClipboardEvent -> unit) = Interop.mkAttr "onCopy" handler
 
     /// Fires when the user cuts the content of an element.
     static member inline onCut (handler: ClipboardEvent -> unit) = Interop.mkAttr "onCut" handler
 
     /// Fires when a mouse is double clicked on the element.
-    static member inline onDoubleClick (handler: MouseEvent -> unit) = Interop.mkAttr "onDoubleClick" handler
+    static member inline onDblClick (handler: MouseEvent -> unit) = Interop.mkAttr "onDblClick" handler
 
     /// Fires when an element is dragged.
     static member inline onDrag (handler: DragEvent -> unit) = Interop.mkAttr "onDrag" handler
@@ -1107,22 +1123,31 @@ type prop =
 
     static member inline onEncrypted (handler: Event -> unit) = Interop.mkAttr "onEncrypted" handler
 
-    /// Fires when the media has reach the end (a useful event for messages like "thanks for listening").
+    /// Fires when the media has reached the end (a useful event for messages like "thanks for listening").
     static member inline onEnded (handler: Event -> unit) = Interop.mkAttr "onEnded" handler
 
     /// Fires when an error occurs.
     static member inline onError (handler: Event -> unit) = Interop.mkAttr "onError" handler
 
+    /// Fires when an error occurs.
+    static member inline onError (handler: UIEvent -> unit) = Interop.mkAttr "onError" handler
+
     /// Fires the moment when the element gets focus.
     static member inline onFocus (handler: FocusEvent -> unit) = Interop.mkAttr "onFocus" handler
+
+    /// Fires when an element captures a pointer.
+    static member inline onGotPointerCapture (handler: PointerEvent -> unit) = Interop.mkAttr "onGotPointerCapture" handler
 
     /// Fires when an element gets user input.
     static member inline onInput (handler: Event -> unit) = Interop.mkAttr "onInput" handler
 
-    /// Fires when a user is pressing a key.
+    /// Fires when a submittable element has been checked for validaty and doesn't satisfy its constraints.
+    static member inline onInvalid (handler: Event -> unit) = Interop.mkAttr "onInvalid" handler
+
+    /// Fires when a user presses a key.
     static member inline onKeyDown (handler: KeyboardEvent -> unit) = Interop.mkAttr "onKeyDown" handler
 
-    /// Fires when a user pressing a key.
+    /// Fires when a user presses a key.
     static member inline onKeyDown (key: IKeyboardKey, handler: KeyboardEvent -> unit) =
         PropHelpers.createOnKey(key, handler)
         |> Interop.mkAttr "onKeyDown"
@@ -1152,8 +1177,14 @@ type prop =
     /// Fires when meta data (like dimensions and duration) are loaded.
     static member inline onLoadedMetadata (handler: Event -> unit) = Interop.mkAttr "onLoadedMetadata" handler
 
+    /// Fires when a request has completed, irrespective of its success.
+    static member inline onLoadEnd (handler: Event -> unit) = Interop.mkAttr "onLoadEnd" handler
+
     /// Fires when the file begins to load before anything is actually loaded.
     static member inline onLoadStart (handler: Event -> unit) = Interop.mkAttr "onLoadStart" handler
+
+    /// Fires when a captured pointer is released.
+    static member inline onLostPointerCapture (handler: PointerEvent -> unit) = Interop.mkAttr "onLostPointerCapture" handler
 
     /// Fires when a mouse button is pressed down on an element.
     static member inline onMouseDown (handler: MouseEvent -> unit) = Interop.mkAttr "onMouseDown" handler
@@ -1188,6 +1219,30 @@ type prop =
     /// Fires when the media actually has started playing
     static member inline onPlaying (handler: Event -> unit) = Interop.mkAttr "onPlaying" handler
 
+    /// Fires when there are no more pointer events.
+    static member inline onPointerCancel (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerCancel" handler
+
+    /// Fires when a pointer becomes active.
+    static member inline onPointerDown (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerDown" handler
+
+    /// Fires when a pointer is moved into an elements boundaries or one of its descendants.
+    static member inline onPointerEnter (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerEnter" handler
+
+    /// Fires when a pointer is moved out of an elements boundaries.
+    static member inline onPointerLeave (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerLeave" handler
+
+    /// Fires when a pointer moves.
+    static member inline onPointerMove (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerMove" handler
+
+    /// Fires when a pointer is no longer in an elements boundaries, such as moving it, or after a `pointerUp` or `pointerCancel` event.
+    static member inline onPointerOut (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerOut" handler
+
+    /// Fires when a pointer is moved into an elements boundaries.
+    static member inline onPointerOver (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerOver" handler
+
+    /// Fires when a pointer is no longer active.
+    static member inline onPointerUp (handler: PointerEvent -> unit) = Interop.mkAttr "onPointerUp" handler
+
     /// Fires when the browser is in the process of getting the media data.
     static member inline onProgress (handler: Event -> unit) = Interop.mkAttr "onProgress" handler
 
@@ -1197,8 +1252,11 @@ type prop =
     /// Fires when the Reset button in a form is clicked.
     static member inline onReset (handler: Event -> unit) = Interop.mkAttr "onReset" handler
 
+    /// Fires when the window has been resized.
+    static member inline onResize (handler: UIEvent -> unit) = Interop.mkAttr "onResize" handler
+
     /// Fires when an element's scrollbar is being scrolled.
-    static member inline onScroll (handler: UIEvent -> unit) = Interop.mkAttr "onScroll" handler
+    static member inline onScroll (handler: Event -> unit) = Interop.mkAttr "onScroll" handler
 
     /// Fires when the seeking attribute is set to false indicating that seeking has ended.
     static member inline onSeeked (handler: Event -> unit) = Interop.mkAttr "onSeeked" handler
@@ -1208,6 +1266,9 @@ type prop =
 
     /// Fires after some text has been selected in an element.
     static member inline onSelect (handler: Event -> unit) = Interop.mkAttr "onSelect" handler
+
+    /// Fires after some text has been selected in the user interface.
+    static member inline onSelect (handler: UIEvent -> unit) = Interop.mkAttr "onSelect" handler
 
     /// Fires when the browser is unable to fetch the media data for whatever reason.
     static member inline onStalled (handler: Event -> unit) = Interop.mkAttr "onStalled" handler
@@ -1799,20 +1860,21 @@ type prop =
     static member inline value (value: seq<int>) = Interop.mkAttr "value" (ResizeArray value)
     /// Sets the value of a React controlled component.
     static member inline value (value: seq<string>) = Interop.mkAttr "value" (ResizeArray value)
-
-    /// The value of the element, interpreted as a date, or null if conversion is not possible.
-    static member inline valueAsDate (value: System.DateTime) = Interop.mkAttr "valueAsDate" value
-    /// The value of the element, interpreted as a date, or null if conversion is not possible.
-    static member inline valueAsDate (value: System.DateTime option) = Interop.mkAttr "valueAsDate" value
-
-    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
-    static member inline valueAsNumber (value: float) = Interop.mkAttr "valueAsNumber" value
-    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
-    static member inline valueAsNumber (value: float option) = Interop.mkAttr "valueAsNumber" value
-    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
-    static member inline valueAsNumber (value: int) = Interop.mkAttr "valueAsNumber" value
-    /// The value of the element, interpreted as a time value, number, or NaN if conversion is impossible.
-    static member inline valueAsNumber (value: int option) = Interop.mkAttr "valueAsNumber" value
+    /// The value of the element, interpreted as a date
+    static member inline value (value: System.DateTime, includeTime: bool) = 
+        if includeTime
+        then Interop.mkAttr "value" (value.ToString("yyyy-MM-ddThh:mm"))
+        else Interop.mkAttr "value" (value.ToString("yyyy-MM-dd"))
+    /// The value of the element, interpreted as a date
+    static member inline value (value: System.DateTime) = prop.value(value, includeTime=false)
+    /// The value of the element, interpreted as a date, or empty if there is no value.
+    static member inline value (value: System.DateTime option, includeTime: bool) =
+        match value with
+        | None -> Interop.mkAttr "value" ""
+        | Some date -> 
+            if includeTime  
+            then Interop.mkAttr "value" (date.ToString("yyyy-MM-ddThh:mm"))
+            else Interop.mkAttr "value" (date.ToString("yyyy-MM-dd"))
 
     /// `prop.ref` callback that sets the value of an input after DOM element is created.
     /// Can be used instead of `prop.defaultValue` and `prop.value` props to override input value.
@@ -2715,13 +2777,13 @@ module prop =
     /// Provides a hint to browsers as to the type of virtual keyboard configuration to use when editing this element or its contents.
     [<Erase>]
     type inputMode =
-        static member inline decimal = Interop.mkAttr "inputmode" "decimal"
-        static member inline email = Interop.mkAttr "inputmode" "email"
-        static member inline none = Interop.mkAttr "inputmode" "none"
-        static member inline numeric = Interop.mkAttr "inputmode" "numeric"
-        static member inline search = Interop.mkAttr "inputmode" "search"
-        static member inline tel = Interop.mkAttr "inputmode" "tel"
-        static member inline url = Interop.mkAttr "inputmode" "url"
+        static member inline decimal = Interop.mkAttr "inputMode" "decimal"
+        static member inline email = Interop.mkAttr "inputMode" "email"
+        static member inline none = Interop.mkAttr "inputMode" "none"
+        static member inline numeric = Interop.mkAttr "inputMode" "numeric"
+        static member inline search = Interop.mkAttr "inputMode" "search"
+        static member inline tel = Interop.mkAttr "inputMode" "tel"
+        static member inline url = Interop.mkAttr "inputMode" "url"
 
     /// How the text track is meant to be used.
     [<Erase>]

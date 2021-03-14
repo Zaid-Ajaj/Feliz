@@ -58,6 +58,22 @@ type IXAxisTickProperties =
     abstract y : float
 
 [<Erase>]
+type ITickItem =
+    abstract value : obj
+    abstract coordinate : float
+    abstract index : int
+
+[<Erase>]
+type IPolarAngleAxisTickProperties =
+    abstract angleAxisId : string
+    abstract cx : float
+    abstract cy: float
+    abstract radius: float
+    abstract axisLineType : string
+    abstract orientation : string
+    abstract ticks : ITickItem array
+
+[<Erase>]
 type IPieLabelProperties =
     abstract cy : float
     abstract cx : float

@@ -2,17 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>0.3.0</PackageVersion>
+    <PackageVersion>0.3.1</PackageVersion>
     <Authors>Cody Johnson, Zaid Ajaj</Authors>
     <Description>Adds easy to use delayed rendering</Description>
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
     <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
-    <PackageReleaseNotes>Update Feliz dependency</PackageReleaseNotes>
+    <PackageReleaseNotes>Remove generated JS artifacts from the nuget package</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="*.fsproj; *.fs; *.js;" PackagePath="fable\" />
+    <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
     <Compile Include="Delay.fs" />
     <Compile Include="Templates.fs" />
   </ItemGroup>

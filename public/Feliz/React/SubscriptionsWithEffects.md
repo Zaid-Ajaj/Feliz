@@ -9,7 +9,8 @@ To use `React.useEffect` with a cleanup phase, we call one these function signat
 Where the first parameter of type `unit -> IDisposable` is the effect that returns `IDisposable` to signal that this effect has some cleanup code which runs after the component unmounts:
 
 ```fsharp:effectful-timer
-React.functionComponent(fun () ->
+[<ReactComponent>]
+let EffectfulTimer() =
     let (paused, setPaused) = React.useState(false)
     let (value, setValue) = React.useState(0)
 
@@ -34,7 +35,7 @@ React.functionComponent(fun () ->
             prop.onClick (fun _ -> setPaused(not paused))
             prop.text (if paused then "Resume" else "Pause")
         ]
-    ])
+    ]
 ```
 Here we are subscribing with the value `subscribeToTimer` of type `unit -> IDisposable`:
 ```fsharp
@@ -58,8 +59,8 @@ let subscribeToTimer() =
 A common scenario is executing a promise or async function based on some
 input or user event.
 
-When this component is unmounted, if you have a pending operation in-flight 
-this can cause errors. The way to fix this is to pass a `CancellationToken` 
+When this component is unmounted, if you have a pending operation in-flight
+this can cause errors. The way to fix this is to pass a `CancellationToken`
 to your async call so it is cancelled when that token is disposed.
 
 To make this easier you can use `React.useCancellationToken()` which will
@@ -70,31 +71,32 @@ if the component was unmounted).
 Here is an example of how you could use this:
 
 ```fsharp:effectful-usecancellationtoken
-let useToken = React.functionComponent(fun (input: {| failedCallback: unit -> unit |}) ->
+[<ReactComponent>]
+let UseToken(failedCallback: unit -> unit) =
     let token = React.useCancellationToken()
-
     React.useEffect(fun () ->
         async {
             do! Async.Sleep 4000
-            input.failedCallback()
+            failedCallback()
         }
         |> fun a -> Async.StartImmediate(a,token.current)
     )
 
-    Html.none)
+    Html.none
 
-let result = React.functionComponent(fun (input: {| text: string |}) -> Html.div input.text)
+[<ReactComponent>]
+let Result(text: string) = Html.div text
 
-let render = React.functionComponent(fun () ->
+[<ReactComponent>]
+let Main() =
     let renderChild,setRenderChild = React.useState true
     let resultText,setResultText = React.useState "Pending..."
 
     let setFailed = React.useCallbackRef <| fun () -> setResultText "You didn't cancel me in time!"
 
     Html.div [
-        if renderChild then
-            useToken {| failedCallback = setFailed |}
-        result {| text = resultText |}
+        if renderChild then UseToken(setFailed)
+        Result(resultText)
         Html.button [
             prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
             prop.disabled <| (resultText = "Disposed")
@@ -117,5 +119,5 @@ let render = React.functionComponent(fun () ->
                 |> Async.StartImmediate
             prop.text "Reset"
         ]
-    ])
+    ]
 ```

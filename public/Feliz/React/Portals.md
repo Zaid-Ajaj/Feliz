@@ -18,15 +18,15 @@ Usually, you use components by first creating an extra mount point outside of th
 Then you can create a reusable component `portal` to render a child component into the portal DOM root.
 
 ```fsharp:portals
-let portal' = React.functionComponent(fun (props: {| content: ReactElement |}) ->
-    let root = Browser.Dom.document.getElementById("root")
-    ReactDOM.createPortal(props.content, root)
-)
+open Browser.Dom
 
-/// Reusable portal component.
-let portal content = portal' {| content = content |}
+[<ReactComponent>]
+let Portal(content: ReactElement) =
+    let root = document.getElementById("root")
+    ReactDOM.createPortal(content, root)
 
-let portalsPopup = React.functionComponent(fun () ->
+[<ReactComponent>]
+let PortalsPopup() =
     Html.div [
         prop.style [
             style.position.absolute
@@ -41,15 +41,16 @@ let portalsPopup = React.functionComponent(fun () ->
             ]
         ]
     ]
-)
 
-let portalsContainer = React.functionComponent(fun () ->
+[<ReactComponent>]
+let PortalsContainer() =
     Html.div [
         prop.style [
             style.padding 10
             style.overflow.hidden
         ]
-        prop.children [ portalsPopup() |> portal ]
+        prop.children [
+            Portal(PortalsPopup())
+        ]
     ]
-)
 ```

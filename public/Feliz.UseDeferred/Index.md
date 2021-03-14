@@ -11,24 +11,25 @@ The first variant `React.useDeferred` is the simplest one as it takes an asynchr
 open Feliz
 open Feliz.UseDeferred
 
-React.functionComponent("BasicDeferred", fun () ->
+[<ReactComponent>]
+let BasicDeferred() =
     let loadData = async {
         do! Async.Sleep 1000
         return "Hello!"
     }
 
-    let data = React.useDeferred(loadData, [|  |])
+    let data = React.useDeferred(loadData, [| |])
 
     match data with
     | Deferred.HasNotStartedYet -> Html.none
     | Deferred.InProgress -> Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin"; "fa-2x" ] ]
     | Deferred.Failed error -> Html.div error.Message
     | Deferred.Resolved content -> Html.h1 content
-)
 ```
 The operation is executed immediately as soon as the component mounts. This makes an easy way to build components that only to fetch and present the data right away. However, when more control is required that is where `React.useDeferredCallback` comes into play as it allows you to control when the operation is executed and what you want to do with the data after it has finished loading. For example, the same component above can be reweritten in a more explicit fashion using `React.useDeferredCallback`:
 ```fsharp:use-deferred-v2
-React.functionComponent("BasicDeferred", fun () ->
+[<ReactComponent>]
+let BasicDeferred() =
     let loadData = async {
         do! Async.Sleep 1000
         return "Hello!"
@@ -45,7 +46,6 @@ React.functionComponent("BasicDeferred", fun () ->
     | Deferred.InProgress -> Html.i [ prop.className [ "fa"; "fa-refresh"; "fa-spin"; "fa-2x" ] ]
     | Deferred.Failed error -> Html.div error.Message
     | Deferred.Resolved content -> Html.h1 content
-)
 ```
 ### Advanced example with `React.useDeferredCallback`
 Here is a more complicated sample where it uses `React.useDeferredCallback` hook to implement a login form
@@ -60,7 +60,8 @@ let login username password = async {
     else return Error "Credentials incorrect"
 }
 
-let loginForm = React.functionComponent("LoginForm", fun () ->
+[<ReactComponent>]
+let LoginForm() =
     let (loginState, setLoginState) = React.useState(Deferred.HasNotStartedYet)
     let usernameRef = React.useInputRef()
     let passwordRef = React.useInputRef()
@@ -154,7 +155,8 @@ You can use `Async.Parallel` to create a single parallel asynchronous operation 
 The hook `React.useDeferredParallel` allows you to load multiple asynchronous operations in parallel while giving you fine-grained access to the state of *each* operation separately! The following example demonstrates how to load data that is dependent on another asynchronous operation which is common when you need to run requests that depend on each other:
 
 ```fsharp:parallel-deferred
-React.functionComponent("ParallelDeferred", fun () ->
+[<ReactComponent>]
+let ParallelDeferred() =
     let loadIds = async {
         do! Async.Sleep 1000
         return [ 1 .. 5 ]
@@ -184,5 +186,4 @@ React.functionComponent("ParallelDeferred", fun () ->
                 | Deferred.Resolved item -> Html.li item
             ])
         ]
-)
 ```
