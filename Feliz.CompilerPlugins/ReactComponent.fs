@@ -18,6 +18,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
 
     /// <summary>Transforms call-site into createElement calls</summary>
     override this.TransformCall(compiler, memb, expr) =
+        let reactElType = expr.Type
         let membArgs = memb.CurriedParameterGroups |> List.concat
         match expr with
         | Fable.Call(callee, info, typeInfo, range) ->
@@ -36,14 +37,14 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     // When the key property is upper-case (which is common in record fields)
                     // then we should rewrite it
                     let modifiedRecord = AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args.[0]]
-                    AstUtils.createElement [reactComponent; modifiedRecord]
+                    AstUtils.createElement reactElType [reactComponent; modifiedRecord]
                 else
-                    AstUtils.createElement [reactComponent; info.Args.[0]]
+                    AstUtils.createElement reactElType [reactComponent; info.Args.[0]]
             elif info.Args.Length = 1 && info.Args.[0].Type = Fable.Type.Unit then
                 // F# Component()
                 // JSX <Component />
                 // JS createElement(Component, null)
-                AstUtils.createElement [reactComponent; AstUtils.nullValue]
+                AstUtils.createElement reactElType [reactComponent; AstUtils.nullValue]
             else
             let unprovidedArgsLength = membArgs.Length - info.Args.Length 
             let unprovidedArgs = 
@@ -56,7 +57,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
                 |> AstUtils.objExpr
 
-            AstUtils.createElement [reactComponent; propsObj]
+            AstUtils.createElement reactElType [reactComponent; propsObj]
         | _ ->
             // return expression as is when it is not a call expression
             expr
@@ -75,7 +76,8 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
         else
             let emptyDeclarationBodyWhenImported (decl: MemberDecl) =
                 if import.IsSome && from.IsSome then
-                    { decl with Body = AstUtils.emptyReactElement }
+                    let reactElType = decl.Body.Type
+                    { decl with Body = AstUtils.emptyReactElement reactElType }
                 else
                     decl
 
