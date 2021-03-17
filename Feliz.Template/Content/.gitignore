@@ -203,3 +203,4 @@ out
 .vs
 .ionide
 *.fs.js
+*.fs.js.map

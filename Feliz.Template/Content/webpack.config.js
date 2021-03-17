@@ -124,11 +124,17 @@ module.exports = (env, argv) => {
             hot: true,
             inline: true
         },
+        // - source-map-loader: Allows Fable generated Source Maps to be hit https://github.com/MangelMaxime/fulma-demo/pull/43#issuecomment-756556346
         // - babel-loader: transforms JS to old syntax (compatible with old browsers)
         // - sass-loaders: transforms SASS/SCSS into JS
         // - file-loader: Moves files referenced in the code (fonts, images) into output folder
         module: {
             rules: [
+                {
+                    test: /\.js$/,
+                    enforce: "pre",
+                    use: ["source-map-loader"],
+                },
                 {
                     test: /\.(js|jsx)$/,
                     exclude: /node_modules/,
