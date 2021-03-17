@@ -46,8 +46,8 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 // JS createElement(Component, null)
                 AstUtils.createElement reactElType [reactComponent; AstUtils.nullValue]
             else
-            let unprovidedArgsLength = membArgs.Length - info.Args.Length 
-            let unprovidedArgs = 
+            let unprovidedArgsLength = membArgs.Length - info.Args.Length
+            let unprovidedArgs =
                 AstUtils.emitJs "undefined" []
                 |> List.replicate unprovidedArgsLength
 

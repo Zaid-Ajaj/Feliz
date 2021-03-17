@@ -8,13 +8,13 @@
     <PackageTags>fable;template;fsharp</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageType>Template</PackageType>
-    <Version>3.4.0</Version>
+    <Version>3.5.0</Version>
     <PackProjectInputFile>$(MSBuildProjectFullPath)</PackProjectInputFile>
     <NoBuild>true</NoBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <PackageReleaseNotes>Simplify CSS module rules and rely on defaults</PackageReleaseNotes>
+    <PackageReleaseNotes>Add debug configuration and update Feliz and Fable dependencies</PackageReleaseNotes>
     <!-- https://github.com/dotnet/templating/issues/2350#issuecomment-610431461 -->
     <NoDefaultExcludes>true</NoDefaultExcludes>
   </PropertyGroup>
