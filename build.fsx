@@ -102,8 +102,7 @@ let getEnvFromAllOrNone (s: string) =
 
 let publish projectPath = fun () ->
     [ projectPath </> "bin"
-      projectPath </> "obj"
-      projectPath </> "Content" </> "node_modules" ] |> CleanDirs
+      projectPath </> "obj" ] |> CleanDirs
     run dotnetCli "restore --no-cache" projectPath
     run dotnetCli "pack -c Release" projectPath
     let nugetKey =

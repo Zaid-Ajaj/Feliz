@@ -1,12 +1,13 @@
 module Main
 
 open Feliz
+open App
 open Browser.Dom
 open Fable.Core.JsInterop
 
-importAll "./styles/global.scss"
+importSideEffects "./styles/global.scss"
 
 ReactDOM.render(
-    App.HelloWorld(),
+    Components.HelloWorld(),
     document.getElementById "feliz-app"
 )

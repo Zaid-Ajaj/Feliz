@@ -2,10 +2,10 @@
     "private": true,
     "scripts": {
         "prestart": "dotnet tool restore",
-        "start": "dotnet fable watch ./src -s --run webpack serve --mode=development",
+        "start": "dotnet fable watch ./src -s --run webpack-dev-server",
         "prebuild": "dotnet tool restore",
-        "build": "dotnet fable ./src && webpack --mode=production",
-        "test:live": "dotnet fable watch tests --run webpack serve --mode=development --config ./webpack.tests.js",
+        "build": "dotnet fable ./src && webpack",
+        "test:live": "dotnet fable watch tests --run webpack-dev-server --config ./webpack.tests.js",
         "build:test": "dotnet fable tests && webpack --config webpack.tests.js",
         "pretest": "dotnet tool restore",
         "test": "dotnet fable tests --outDir dist/tests && mocha dist/tests -r esm"
@@ -39,8 +39,8 @@
         "source-map-loader": "^2.0.1",
         "style-loader": "^2.0.0",
         "terser": "^4.8.0",
-        "webpack": "^5.14.0",
-        "webpack-cli": "^4.3.1",
+        "webpack": "^4.44.2",
+        "webpack-cli": "^3.3.12",
         "webpack-dev-server": "^3.11.2"
     }
 }

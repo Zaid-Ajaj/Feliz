@@ -52,6 +52,8 @@ Html.div [
     Counter()
 ]
 ```
+When you need to trigger events from such an Elmish component, use React patterns where you pass a callback via the props instead of passing the `dispatch` function from the parent component. 
+
 ### Understading the dependencies array
 It is also important to understand the _dependencies array_ of the `React.useElmish` function
 ```fs
@@ -139,7 +141,7 @@ let Counter() =
         ]
     ]
 ```
-### Dispoing of resources
+### Disposing of resources
 
 Documentation/Samples WIP
 

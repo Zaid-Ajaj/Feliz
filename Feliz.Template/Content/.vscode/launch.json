@@ -5,22 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug firefox",
-            "type": "firefox",
-            "request": "launch",
-            "reAttach": true,
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}",
-            "skipFiles": [
-                "**/node_modules/**"
-            ]
-        },
-        {
             "name": "Debug chrome",
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}",
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/**"
+            ]
         }
     ]
 }
