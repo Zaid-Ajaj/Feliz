@@ -12,6 +12,7 @@ let [<Literal>] Syntax = "Syntax"
 let [<Literal>] TypeSafeCss = "TypeSafeCss"
 let [<Literal>] TypeSafeStyling = "TypeSafeStyling"
 let [<Literal>] UseWithElmish = "UseWithElmish"
+let [<Literal>] UsingJsx = "UsingJsx"
 
 // ____________________________________________________
 // Shared Urls

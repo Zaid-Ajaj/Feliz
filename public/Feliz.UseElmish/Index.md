@@ -1,6 +1,10 @@
 # Feliz.UseElmish [![Nuget](https://img.shields.io/nuget/v/Feliz.UseElmish.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.UseElmish)
 
-Build React components following the Elmish model to manage the state of the component. Written as a hook called `React.useElmish`.
+Besides being able to use Feliz in existing Elmish applications, you can also use Elmish as _part_ of your Feliz application. This is a different approach to building React components that use Elmish internally to manage the state the component but from the consumer's perspective, it is just another React component.
+
+This approach simplifies the original Elmish model where state is explicitly passed down to children and events are passed up to the parent components.
+
+The implementation of this approach is made possible using a React called `React.useElmish`. See the following examples of how to use it:
 
 ### Install into your project
 ```bash
@@ -52,7 +56,7 @@ Html.div [
     Counter()
 ]
 ```
-When you need to trigger events from such an Elmish component, use React patterns where you pass a callback via the props instead of passing the `dispatch` function from the parent component. 
+When you need to trigger events from such an Elmish component, use React patterns where you pass a callback via the props instead of passing the `dispatch` function from the parent component.
 
 ### Understading the dependencies array
 It is also important to understand the _dependencies array_ of the `React.useElmish` function

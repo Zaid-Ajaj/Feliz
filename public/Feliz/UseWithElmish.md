@@ -1,6 +1,6 @@
 # Use with Elmish
 
-Like any React binding, Feliz can be used in Elmish applications easily. You can use it in your `render` because functions in the `Html` module from Feliz return a compatible `ReactElement` that Elmish understands. Here is how a counter application looks like with Feliz and Elmish:
+Like any React binding, Feliz can be used in existing Elmish applications easily. You can use it in your `render` because functions in the `Html` module from Feliz return a compatible `ReactElement` that Elmish understands. Here is how a counter application looks like with Feliz and Elmish:
 
 ```fs
 module App

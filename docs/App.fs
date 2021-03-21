@@ -650,10 +650,10 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                 menuItem "React API Support" [ Urls.Feliz; Urls.ReactApiSupport ]
                 menuItem "Type-Safe Styling" [ Urls.Feliz; Urls.TypeSafeStyling ]
                 menuItem "Type-Safe CSS" [ Urls.Feliz; Urls.TypeSafeCss ]
+                menuItem "Using JSX" [ Urls.Feliz; Urls.UsingJsx ]
                 menuItem "Use with Elmish" [ Urls.Feliz; Urls.UseWithElmish ]
                 menuItem "React Elmish Components" [ Urls.Hooks; Urls.UseElmish ]
                 menuItem "Contributing" [ Urls.Feliz; Urls.Contributing ]
-                menuItem "Aliasing props" [ Urls.Feliz; Urls.Aliasing ]
                 nestedMenuList "React Components" [ Urls.Feliz; Urls.React ] [
                     nestedMenuItem "Stateless Components" [ Urls.StatelessComponents ]
                     nestedMenuItem "Not Just Functions" [ Urls.NotJustFunctions ]
@@ -669,6 +669,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Render Static Html" [ Urls.RenderStaticHtml ]
                     nestedMenuItem "Strict Mode" [ Urls.StrictMode ]
                     nestedMenuItem "Code Splitting" [ Urls.CodeSplitting ]
+                    nestedMenuItem "Aliasing props" [ Urls.Feliz; Urls.Aliasing ]
                 ]
                 menuLabel "Ecosystem"
                 nestedMenuList "UI Frameworks" [ Urls.UIFrameworks ] [
@@ -753,7 +754,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                         nestedMenuItem "Customized Label Pie Chart" [ Urls.CustomizedLabelPieChart ]
                     ]
                     subNestedMenuList "Radar Charts" [ Urls.RadarCharts ] [
-                        nestedMenuItem "Simple Radar Chart" [ Urls.SimpleRadarChart ]                        
+                        nestedMenuItem "Simple Radar Chart" [ Urls.SimpleRadarChart ]
                     ]
                 ]
             ]
@@ -869,6 +870,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | [ Urls.ProjectTemplate ] -> [ "ProjectTemplate.md" ]
         | [ Urls.Installation ] -> [ "Installation.md" ]
         | [ Urls.UseWithElmish ] -> [ "UseWithElmish.md" ]
+        | [ Urls.UsingJsx ] -> [ "UsingJsx.md" ]
         | [ Urls.Contributing ] -> [ "Contributing.md" ]
         | [ Urls.Syntax ] -> [ "Syntax.md" ]
         | [ Urls.ReactApiSupport ] -> [ "ReactApiSupport.md" ]
