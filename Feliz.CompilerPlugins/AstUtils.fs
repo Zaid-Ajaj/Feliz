@@ -17,6 +17,13 @@ let makeIdent name: Fable.Ident =
       IsMutable = false
       Range = None }
 
+let makeUniqueIdent (name: string) =
+    let hashToString (i: int) =
+        if i < 0
+        then "Z" + (abs i).ToString("X")
+        else i.ToString("X")
+    $"${name}{Guid.NewGuid().GetHashCode() |> hashToString}" |> makeIdent
+
 let makeValue r value =
     Fable.Value(value, r)
 
