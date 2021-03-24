@@ -32,22 +32,22 @@ let getOffset (data: Point list) =
 
 let getGradientDefinition (gradientId: string) (data: Point list) =
     let offset = getOffset data
-    Html.defs [
-        Html.linearGradient [
-            prop.id gradientId
-            prop.x1 0; prop.x2 0
-            prop.y1 0; prop.y2 1
-            prop.children [
-                Html.stop [
-                    prop.offset offset
-                    prop.stopColor "green"
-                    prop.stopOpacity 1.0
+    Svg.defs [
+        Svg.linearGradient [
+            svg.id gradientId
+            svg.x1 0; svg.x2 0
+            svg.y1 0; svg.y2 1
+            svg.children [
+                Svg.stop [
+                    svg.offset offset
+                    svg.stopColor "green"
+                    svg.stopOpacity 1.0
                 ]
 
-                Html.stop [
-                    prop.offset offset
-                    prop.stopColor "red"
-                    prop.stopOpacity 1.0
+                Svg.stop [
+                    svg.offset offset
+                    svg.stopColor "red"
+                    svg.stopOpacity 1.0
                 ]
             ]
         ]

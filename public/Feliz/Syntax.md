@@ -2,6 +2,8 @@
 
 Elements can take simple values as their only input such a string, a number, a single child element or a list of child elements.
 
+Learn how the standard HTML can be written in Feliz syntax using [Html2Feliz](https://thisfunctionaltom.github.io/Html2Feliz/)
+
 ```fs
 Html.h1 42
 
@@ -108,7 +110,7 @@ The events `prop.onKeyUp`, `prop.onKeyDown` and `onKeyPressed` are all of type `
 Html.input [
     prop.onKeyUp (key.enter, fun _ -> dispatch Login)
     prop.onChange (UsernameChanged >> dispatch)
-    prop.valueOrDefault state.Username
+    prop.value state.Username
 ]
 ```
 Notice the first properties `prop.onKeyUp (key.enter, fun _ -> dispatch Login)`. It takes two parameters: one is the key we are matching against and another which is of the same type as the default handlers, namely: `KeyboardEvent -> unit`. This enhanced API also allows you to easily match against combinations of keys such with `CTRL` and `SHIFT` as follows:

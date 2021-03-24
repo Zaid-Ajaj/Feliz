@@ -67,7 +67,7 @@ let fruitSales = [
 
 #if FABLE_COMPILER_3
 
-[<AbstractClass;Sealed>]
+[<AbstractClass;Sealed; Erase>]
 type StaticComponents =
   [<ReactComponent>]
   static member Header (title: string, ?className: string) =

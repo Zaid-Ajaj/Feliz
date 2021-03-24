@@ -19,20 +19,20 @@ let data = [
 
 
 let createGradient (id: string) color =
-    Html.linearGradient [
-        prop.id id
-        prop.x1 0; prop.x2 0
-        prop.y1 0; prop.y2 1
-        prop.children [
-            Html.stop [
-                prop.offset(length.percent 5)
-                prop.stopColor color
-                prop.stopOpacity 0.8
+    Svg.linearGradient [
+        svg.id id
+        svg.x1 0; svg.x2 0
+        svg.y1 0; svg.y2 1
+        svg.children [
+            Svg.stop [
+                svg.offset(length.percent 5)
+                svg.stopColor color
+                svg.stopOpacity 0.8
             ]
-            Html.stop [
-                prop.offset(length.percent 95)
-                prop.stopColor color
-                prop.stopOpacity 0.0
+            Svg.stop [
+                svg.offset(length.percent 95)
+                svg.stopColor color
+                svg.stopOpacity 0.0
             ]
         ]
     ]
@@ -44,7 +44,7 @@ let chart = React.functionComponent(fun () -> [
         areaChart.data data
         areaChart.margin(top=10, right=30)
         areaChart.children [
-            Html.defs [
+            Svg.defs [
                 createGradient "colorUv" "#8884d8"
                 createGradient "colorPv" "#82ca9d"
             ]

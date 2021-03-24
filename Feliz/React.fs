@@ -433,7 +433,9 @@ type React =
 
     /// <summary>
     /// Just like React.useState except that the updater function uses the previous state of the state variable as input and allows you to compute the next value using it.
-    /// This is extremely useful in cases where defining helpers functions inside the definition of a React function component would actually cache the initial value (because they become closures) during first render as opposed to using the current value after multiple render cycles.
+    /// This is useful in cases where defining helpers functions inside the definition of a React function component would actually cache the initial value (because they become closures) during first render as opposed to using the current value after multiple render cycles.
+    ///
+    /// Use this instead of React.useState when your state variable is a list, an array, a dictionary, a map or other complex structures.
     /// </summary>
     static member useStateWithUpdater (initial: 't) : ('t * (('t -> 't) -> unit)) = import "useState" "react"
 
@@ -470,15 +472,14 @@ type React =
         Interop.reactApi.createElement(Interop.reactApi.StrictMode, None, children)
 
     /// <summary>
-    /// Lets you define a component that is loaded dynamically. Which helps with code
-    /// splitting.
+    /// Lets you define a component that is loaded dynamically. Which helps with code splitting.
     /// </summary>
     /// <param name='dynamicImport'>
-    /// The dynamicImport of the component.
+    ///  The dynamicImport of the component.
     ///
-    /// Such as `let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"`.
+    ///  Such as `let asyncComponent : JS.Promise[unit -> ReactElement] = JsInterop.importDynamic "./CodeSplitting.fs"`.
     ///
-    /// Where you would then pass in `asyncComponent`.
+    ///  Where you would then pass in `asyncComponent`.
     /// </param>
     /// <param name="props">The props to be passed to the component.</param>
     static member lazy'<'t,'props>(dynamicImport: JS.Promise<'t>, props: 'props) =
@@ -490,7 +491,7 @@ type React =
     /// <param name='dynamicImport'>
     /// The dynamicImport of the component.
     ///
-    /// Such as `let asyncComponent : JS.Promise<unit -> ReactElement> = JsInterop.importDynamic "./CodeSplitting.fs"`.
+    /// Such as `let asyncComponent : JS.Promise[unit -> ReactElement] = JsInterop.importDynamic "./CodeSplitting.fs"`.
     ///
     /// Where you would then pass in `fun () -> asyncComponent`.
     /// </param>
