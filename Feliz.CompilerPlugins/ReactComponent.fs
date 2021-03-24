@@ -46,18 +46,25 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 // JS createElement(Component, null)
                 AstUtils.createElement reactElType [reactComponent; AstUtils.nullValue]
             else
-            let unprovidedArgsLength = membArgs.Length - info.Args.Length
-            let unprovidedArgs =
-                AstUtils.emitJs "undefined" []
-                |> List.replicate unprovidedArgsLength
+                let mutable keyBinding = None
 
-            let allArgs = info.Args @ unprovidedArgs
-            let propsObj =
-                List.zip membArgs allArgs
-                |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
-                |> AstUtils.objExpr
+                let propsObj =
+                    List.zip (List.take info.Args.Length membArgs) info.Args
+                    |> List.collect (fun (arg, expr) ->
+                        match arg.Name, expr with
+                        | Some "key", IdentExpr _ -> ["key", expr; "$key", expr]
+                        | Some "key", _ ->
+                            let keyIdent = AstUtils.makeUniqueIdent "key"
+                            keyBinding <- Some(keyIdent, expr)
+                            ["key", IdentExpr keyIdent; "$key", IdentExpr keyIdent]
+                        | Some name, _ -> [name, expr]
+                        | None, _ -> [])
+                    |> AstUtils.objExpr
 
-            AstUtils.createElement reactElType [reactComponent; propsObj]
+                let reactEl = AstUtils.createElement reactElType [reactComponent; propsObj]
+                match keyBinding with
+                | None -> reactEl
+                | Some(ident, value) -> Let(ident, value, reactEl)
         | _ ->
             // return expression as is when it is not a call expression
             expr
@@ -137,8 +144,8 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 let propsArg = AstUtils.makeIdent (sprintf "%sInputProps" (AstUtils.camelCase decl.Name))
                 let body =
                     ([], decl.Args) ||> List.fold (fun bindings arg ->
-                        // TODO: detect usage of "key" and emit warning
-                        let getterKind = Fable.ByKey(Fable.ExprKey(AstUtils.makeStrConst arg.DisplayName))
+                        let getterKey = if arg.DisplayName = "key" then "$key" else arg.DisplayName
+                        let getterKind = Fable.ByKey(Fable.ExprKey(AstUtils.makeStrConst getterKey))
                         let getter = Fable.Get(Fable.IdentExpr propsArg, getterKind, Fable.Any, None)
                         (arg, getter)::bindings)
                     |> List.rev
