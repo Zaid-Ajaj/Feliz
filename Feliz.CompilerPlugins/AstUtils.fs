@@ -22,7 +22,7 @@ let makeUniqueIdent (name: string) =
         if i < 0
         then "Z" + (abs i).ToString("X")
         else i.ToString("X")
-    $"${name}{Guid.NewGuid().GetHashCode() |> hashToString}" |> makeIdent
+    "$" + name + (Guid.NewGuid().GetHashCode() |> hashToString) |> makeIdent
 
 let makeValue r value =
     Fable.Value(value, r)
