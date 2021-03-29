@@ -1,10 +1,10 @@
 # Feliz.UseElmish [![Nuget](https://img.shields.io/nuget/v/Feliz.UseElmish.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.UseElmish)
 
-Besides being able to use Feliz in existing Elmish applications, you can also use Elmish as _part_ of your Feliz application. This is a different approach to building React components that use Elmish internally to manage the state the component but from the consumer's perspective, it is just another React component.
+Besides being able to use Feliz in existing Elmish applications, you can also use Elmish as _part_ of your Feliz application. This is a different approach to building standalone React components that use Elmish internally to manage the state of the component but from the perspective of the consumer, it is just another React component.
 
-This approach simplifies the original Elmish model where state is explicitly passed down to children and events are passed up to the parent components.
+This approach simplifies the original Elmish model where the application state is explicitly passed down in parts to children and events are passed up to the parent components.
 
-The implementation of this approach is made possible using a React called `React.useElmish`. See the following examples of how to use it:
+The implementation of this approach is made possible using a React hook called `React.useElmish`. The following examples demonstrate how to use it:
 
 ### Install into your project
 ```bash
@@ -50,11 +50,15 @@ open Browser.Dom
 
 ReactDOM.render(Counter(), document.getElementById "feliz-app")
 ```
-The difference here from full-fledged Elmish applications is that there is not "Elmish entry point" to run the component and manage its life-cycle. Instead, the `React.useElmish` hooks manages the Elmish life-cycle internally within the React component so that it can run standalone inside other React components:
+The difference here from a full-fledged Elmish applications is that there isn't an "Elmish entry point" to run the component and manage its life-cycle. Instead, the `React.useElmish` hooks manages the Elmish life-cycle internally within the React component so that it can run standalone inside other React components:
 ```fs
-Html.div [
-    Counter()
-]
+[<ReactComponent>]
+let Counters() =
+    Html.div [
+        Counter()
+        Counter()
+        Counter()
+    ]
 ```
 When you need to trigger events from such an Elmish component, use React patterns where you pass a callback via the props instead of passing the `dispatch` function from the parent component.
 

@@ -669,7 +669,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Render Static Html" [ Urls.RenderStaticHtml ]
                     nestedMenuItem "Strict Mode" [ Urls.StrictMode ]
                     nestedMenuItem "Code Splitting" [ Urls.CodeSplitting ]
-                    nestedMenuItem "Aliasing props" [ Urls.Feliz; Urls.Aliasing ]
+                    nestedMenuItem "Aliasing props" [ Urls.Aliasing ]
                 ]
                 menuLabel "Ecosystem"
                 nestedMenuList "UI Frameworks" [ Urls.UIFrameworks ] [
@@ -796,6 +796,7 @@ let reactExamples (currentPath: string list) =
     | [ Urls.StrictMode ] -> [ "StrictMode.md" ]
     | [ Urls.CodeSplitting ] -> [ "CodeSplitting.md" ]
     | [ Urls.WorkingWithDates ] -> [ "WorkingWithDates.md" ]
+    | [ Urls.Aliasing ] -> [ "AliasingProp.md" ]
     | _ -> []
     |> fun path -> [ Urls.React ] @ path
 
@@ -876,7 +877,6 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | [ Urls.ReactApiSupport ] -> [ "ReactApiSupport.md" ]
         | [ Urls.TypeSafeStyling ] -> [ "TypeSafeStyling.md" ]
         | [ Urls.TypeSafeCss ] -> [ "TypeSafeCss.md" ]
-        | [ Urls.Aliasing ] -> [ "AliasingProp.md" ]
         | [ Urls.ConditionalStyling ] -> [ "ConditionalStyling.md" ]
         | PathPrefix [ Urls.React ] (Some res) -> reactExamples res
         | _ -> []
