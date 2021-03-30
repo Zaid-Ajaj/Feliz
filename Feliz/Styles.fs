@@ -2318,7 +2318,7 @@ module style =
     [<Erase>]
     type overflow =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
-        static member inline visible = Interop.mkStyle "overflow" "visibile"
+        static member inline visible = Interop.mkStyle "overflow" "visible"
         /// The content is clipped - and no scrolling mechanism is provided.
         static member inline hidden = Interop.mkStyle "overflow" "hidden"
         /// The content is clipped and a scrolling mechanism is provided.
@@ -2333,7 +2333,7 @@ module style =
     [<Erase>]
     type overflowX =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
-        static member inline visible = Interop.mkStyle "overflowX" "visibile"
+        static member inline visible = Interop.mkStyle "overflowX" "visible"
         /// The content is clipped - and no scrolling mechanism is provided.
         static member inline hidden = Interop.mkStyle "overflowX" "hidden"
         /// The content is clipped and a scrolling mechanism is provided.
@@ -2481,7 +2481,7 @@ module style =
     [<Erase>]
     type overflowY =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
-        static member inline visible = Interop.mkStyle "overflowY" "visibile"
+        static member inline visible = Interop.mkStyle "overflowY" "visible"
         /// The content is clipped - and no scrolling mechanism is provided.
         static member inline hidden = Interop.mkStyle "overflowY" "hidden"
         /// The content is clipped and a scrolling mechanism is provided.
