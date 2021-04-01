@@ -37,7 +37,8 @@ let renderCustomLabel (input: IPieLabelProperties) =
         svg.text (sprintf "%.0f%%" (100. * input.percent))
     ]
 
-let chart = React.functionComponent <| fun () ->
+[<ReactComponent>]
+let PieChart() =
     let cells =
         data
         |> List.mapi (fun index _ ->
@@ -61,4 +62,8 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+
+open Browser.Dom
+
+ReactDOM.render(PieChart(), document.getElementById "root")
 ```

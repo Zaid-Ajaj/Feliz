@@ -29,7 +29,7 @@ let pigeonMap = PigeonMaps.map [
 
 ### Using event handlers: Map and Markers
 
-In the following example, you can click on the visibile markers to change the `center` of the map. The `zoom` state is also kept track of with every re-render cycle.
+In the following example, you can click on the visible markers to change the `center` of the map. The `zoom` state is also kept track of with every re-render cycle.
 
 ```fsharp:pigeonmaps-map-cities
 open Feliz

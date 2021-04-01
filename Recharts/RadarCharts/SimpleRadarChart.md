@@ -10,7 +10,7 @@ open Feliz.Recharts
 
 type Point = { subject: string; a: int; b: int; fullMark: int }
 
-let data = [ 
+let data = [
     { subject = "Math"; a = 120; b = 110; fullMark = 150 }
     { subject = "Chinese"; a = 98; b = 130; fullMark = 150 }
     { subject = "English"; a = 86; b = 130; fullMark = 150 }
@@ -19,8 +19,9 @@ let data = [
     { subject = "History"; a = 65; b = 85; fullMark = 150 }
 ]
 
-let chart = React.functionComponent(fun () -> [
-    Recharts.radarChart ([
+[<ReactComponent>]
+let Chart() =
+    Recharts.radarChart [
         radarChart.data data
         radarChart.width 400
         radarChart.height 300
@@ -37,11 +38,10 @@ let chart = React.functionComponent(fun () -> [
                 radar.fillOpacity 0.6
             ]
         ]
-    ])
-])
+    ]
 
 
 open Browser.Dom
 
-ReactDOM.render(chart, document.getElementById "root")
+ReactDOM.render(Chart(), document.getElementById "root")
 ```

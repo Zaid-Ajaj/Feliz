@@ -20,7 +20,8 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300; amt = 2100 }
 ]
 
-let chart = React.functionComponent(fun () ->
+[<ReactComponent>]
+let Chart() =
     Recharts.areaChart [
         areaChart.width 200
         areaChart.height 60
@@ -34,9 +35,9 @@ let chart = React.functionComponent(fun () ->
                 area.fill "#8884d8"
             ]
         ]
-    ])
+    ]
 
 open Browser.Dom
 
-ReactDOM.render(chart, document.getElementById "root")
+ReactDOM.render(Chart(), document.getElementById "root")
 ```

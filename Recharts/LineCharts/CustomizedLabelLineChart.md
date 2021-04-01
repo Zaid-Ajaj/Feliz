@@ -31,7 +31,8 @@ let renderCustomLabel (input: ILabelProperties) =
         svg.text input.value
     ]
 
-let chart = React.functionComponent(fun () ->
+[<ReactComponent>]
+let CustomizedLabelChart() =
     Recharts.lineChart [
         lineChart.width 500
         lineChart.height 300
@@ -56,9 +57,9 @@ let chart = React.functionComponent(fun () ->
                 line.stroke "#82ca9d"
             ]
         ]
-    ])
+    ]
 
 open Browser.Dom
 
-ReactDOM.render(chart, document.getElementById "root")
+ReactDOM.render(CustomizedLabelChart(), document.getElementById "root")
 ```
