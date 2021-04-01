@@ -29,7 +29,8 @@ let secondSerie = [
     { name = "D2"; value = 50 }
 ]
 
-let chart = React.functionComponent <| fun () ->
+[<ReactComponent>]
+let PieChart() =
     Recharts.pieChart [
         pieChart.height 400
         pieChart.width 400
@@ -54,4 +55,8 @@ let chart = React.functionComponent <| fun () ->
             ]
         ]
     ]
+
+open Browser.Dom
+
+ReactDOM.render(PieChart(), document.getElementById "root")
 ```

@@ -20,7 +20,8 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300 }
 ]
 
-let chart = React.functionComponent(fun () ->
+[<ReactComponent>]
+let Chart() =
     Html.div [
         Html.h4 "A demo of synchronized AreaCharts"
         Recharts.areaChart [
@@ -64,9 +65,9 @@ let chart = React.functionComponent(fun () ->
                 ]
             ]
         ]
-    ])
+    ]
 
 open Browser.Dom
 
-ReactDOM.render(chart, document.getElementById "root")
+ReactDOM.render(Chart(), document.getElementById "root")
 ```

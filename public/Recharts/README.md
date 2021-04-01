@@ -20,26 +20,27 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300 }
 ]
 
-let createGradient (id: string) (color: string) =
-    Html.linearGradient [
-        prop.id id
-        prop.x1 0; prop.x2 0
-        prop.y1 0; prop.y2 1
-        prop.children [
-            Html.stop [
-                prop.offset(length.percent 5)
-                prop.stopColor color
-                prop.stopOpacity 0.8
+let createGradient (id: string) color =
+    Svg.linearGradient [
+        svg.id id
+        svg.x1 0; svg.x2 0
+        svg.y1 0; svg.y2 1
+        svg.children [
+            Svg.stop [
+                svg.offset(length.percent 5)
+                svg.stopColor color
+                svg.stopOpacity 0.8
             ]
-            Html.stop [
-                prop.offset(length.percent 95)
-                prop.stopColor color
-                prop.stopOpacity 0.0
+            Svg.stop [
+                svg.offset(length.percent 95)
+                svg.stopColor color
+                svg.stopOpacity 0.0
             ]
         ]
     ]
 
-let sampleChart = React.functionComponent(fun () ->
+[<ReactComponent>]
+let SampleChart() =
     Recharts.areaChart [
         areaChart.width 730
         areaChart.height 250
@@ -71,9 +72,9 @@ let sampleChart = React.functionComponent(fun () ->
                 area.fill "url(#colorPv)"
             ]
         ]
-    ])
+    ]
 
 open Browser.Dom
 
-ReactDOM.render(sampleChart, document.getElementById "root")
+ReactDOM.render(SampleChart(), document.getElementById "root")
 ```

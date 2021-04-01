@@ -20,8 +20,8 @@ let data = [
     { name = "Page G"; uv = 3490; pv = 4300 }
 ]
 
-
-let chart = React.functionComponent(fun () ->
+[<ReactComponent>]
+let ResponsiveChart() =
     let responsiveChart =
         Recharts.lineChart [
             lineChart.data data
@@ -49,9 +49,9 @@ let chart = React.functionComponent(fun () ->
         responsiveContainer.width (length.percent 100)
         responsiveContainer.height 300
         responsiveContainer.chart responsiveChart
-    ])
+    ]
 
 open Browser.Dom
 
-ReactDOM.render(chart, document.getElementById "root")
+ReactDOM.render(ResponsiveChart(), document.getElementById "root")
 ```

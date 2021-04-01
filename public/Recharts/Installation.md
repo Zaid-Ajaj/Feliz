@@ -9,7 +9,7 @@ paket add Feliz.Recharts --project ./project/path
 ```
 Then you need to install the corresponding npm dependencies. In case of Feliz.Recharts, it is `recharts`
 ```bash
-npm install recharts@1.7.1
+npm install recharts@2.0.9
 ```
 
 ### Use Femto

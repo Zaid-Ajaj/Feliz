@@ -18,48 +18,50 @@ let data = [
     { name = "Page G"; uv = Some 3490 }
 ]
 
-let chart = React.functionComponent(fun () -> [
-    Recharts.lineChart [
-        lineChart.width 500
-        lineChart.height 300
-        lineChart.data data
-        lineChart.margin(top=10)
-        lineChart.children [
-            Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-            Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
-            Recharts.yAxis [ ]
-            Recharts.tooltip [ ]
-            Recharts.line [
-                line.monotone
-                line.connectNulls false
-                line.dataKey (fun point -> point.uv)
-                line.stroke "#8884d8"
-                line.fill "#8884d8"
+[<ReactComponent>]
+let OptionalValuesChart() =
+    React.fragment [
+        Recharts.lineChart [
+            lineChart.width 500
+            lineChart.height 300
+            lineChart.data data
+            lineChart.margin(top=10)
+            lineChart.children [
+                Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
+                Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
+                Recharts.yAxis [ ]
+                Recharts.tooltip [ ]
+                Recharts.line [
+                    line.monotone
+                    line.connectNulls false
+                    line.dataKey (fun point -> point.uv)
+                    line.stroke "#8884d8"
+                    line.fill "#8884d8"
+                ]
+            ]
+        ]
+        Recharts.lineChart [
+            lineChart.width 500
+            lineChart.height 300
+            lineChart.data data
+            lineChart.margin(top=20)
+            lineChart.children [
+                Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
+                Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
+                Recharts.yAxis [ ]
+                Recharts.tooltip [ ]
+                Recharts.line [
+                    line.monotone
+                    line.connectNulls true
+                    line.dataKey (fun point -> point.uv)
+                    line.stroke "#8884d8"
+                    line.fill "#8884d8"
+                ]
             ]
         ]
     ]
-    Recharts.lineChart [
-        lineChart.width 500
-        lineChart.height 300
-        lineChart.data data
-        lineChart.margin(top=20)
-        lineChart.children [
-            Recharts.cartesianGrid [ cartesianGrid.strokeDasharray(3, 3) ]
-            Recharts.xAxis [ xAxis.dataKey (fun point -> point.name) ]
-            Recharts.yAxis [ ]
-            Recharts.tooltip [ ]
-            Recharts.line [
-                line.monotone
-                line.connectNulls true
-                line.dataKey (fun point -> point.uv)
-                line.stroke "#8884d8"
-                line.fill "#8884d8"
-            ]
-        ]
-    ]
-])
 
 open Browser.Dom
 
-ReactDOM.render(chart, document.getElementById "root")
+ReactDOM.render(OptionalValuesChart(), document.getElementById "root")
 ```

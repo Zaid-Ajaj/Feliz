@@ -40,8 +40,8 @@ let createGradient (id: string) color =
         ]
     ]
 
-
-let chart = React.functionComponent(fun () ->
+[<ReactComponent>]
+let Chart() =
     let responsiveChart =
         Recharts.areaChart [
             areaChart.data data
@@ -76,9 +76,9 @@ let chart = React.functionComponent(fun () ->
         responsiveContainer.width (length.percent 100)
         responsiveContainer.height 300
         responsiveContainer.chart responsiveChart
-    ])
+    ]
 
 open Browser.Dom
 
-ReactDOM.render(chart, document.getElementById "root")
+ReactDOM.render(Chart(), document.getElementById "root")
 ```
