@@ -2195,6 +2195,69 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "boxShadow" "inherit"
 
     [<Erase>]
+    type width =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "width" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "width" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "width" "unset"
+
+        /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "width" "fit-content"
+
+        /// The intrinsic preferred width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "width" "max-content"
+
+        /// The intrinsic minimum width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "width" "min-content"
+
+    [<Erase>]
+    type minWidth =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "min-width" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "min-width" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "min-width" "unset"
+
+        /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "min-width" "fit-content"
+
+        /// The intrinsic preferred width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "min-width" "max-content"
+
+        /// The intrinsic minimum width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "min-width" "min-content"
+
+     [<Erase>]
+    type maxWidth =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "max-width" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "max-width" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "max-width" "unset"
+
+        /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "max-width" "fit-content"
+
+        /// The intrinsic preferred width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "max-width" "max-content"
+
+        /// The intrinsic minimum width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "max-width" "min-content"
+
+    [<Erase>]
     type height =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "height" "inherit"
