@@ -1328,46 +1328,46 @@ module svg =
             Interop.svgAttribute "transform" ("scaleZ(" + (unbox<string> z) + ")")
         /// Defines a 2D rotation, the angle is specified in the parameter.
         static member inline rotate(deg: int) =
-            Interop.svgAttribute "transform" ("rotate(" + (unbox<string> deg) + "deg)")
+            Interop.svgAttribute "transform" ("rotate(" + (unbox<string> deg) + ")")
         /// Defines a 2D rotation, the angle is specified in the parameter.
         static member inline rotate(deg: float) =
-            Interop.svgAttribute "transform" ("rotate(" + (unbox<string> deg) + "deg)")
+            Interop.svgAttribute "transform" ("rotate(" + (unbox<string> deg) + ")")
         /// Defines a 3D rotation along the X-axis.
         static member inline rotateX(deg: float) =
-            Interop.svgAttribute "transform" ("rotateX(" + (unbox<string> deg) + "deg)")
+            Interop.svgAttribute "transform" ("rotateX(" + (unbox<string> deg) + ")")
         /// Defines a 3D rotation along the X-axis.
         static member inline rotateX(deg: int) =
-            Interop.svgAttribute "transform" ("rotateX(" + (unbox<string> deg) + "deg)")
+            Interop.svgAttribute "transform" ("rotateX(" + (unbox<string> deg) + ")")
         /// Defines a 3D rotation along the Y-axis
         static member inline rotateY(deg: float) =
-            Interop.svgAttribute "transform" ("rotateY(" + (unbox<string> deg) + "deg)")
+            Interop.svgAttribute "transform" ("rotateY(" + (unbox<string> deg) + ")")
         /// Defines a 3D rotation along the Y-axis
         static member inline rotateY(deg: int) =
-            Interop.svgAttribute "transform" ("rotateY(" + (unbox<string> deg) + "deg)")
+            Interop.svgAttribute "transform" ("rotateY(" + (unbox<string> deg) + ")")
         /// Defines a 3D rotation along the Z-axis
         static member inline rotateZ(deg: float) =
-            Interop.svgAttribute "transform" ("rotateZ(" + (unbox<string> deg) + "deg)")
+            Interop.svgAttribute "transform" ("rotateZ(" + (unbox<string> deg) + ")")
         /// Defines a 3D rotation along the Z-axis
         static member inline rotateZ(deg: int) =
-            Interop.svgAttribute "transform" ("rotateZ(" + (unbox<string> deg) + "deg)")
+            Interop.svgAttribute "transform" ("rotateZ(" + (unbox<string> deg) + ")")
         /// Defines a 2D skew transformation along the X- and the Y-axis.
         static member inline skew(xAngle: int, yAngle: int) =
-            Interop.svgAttribute "transform" ("skew(" + (unbox<string> xAngle) + "deg," + (unbox<string> yAngle) + "deg)")
+            Interop.svgAttribute "transform" ("skew(" + (unbox<string> xAngle) + "," + (unbox<string> yAngle) + ")")
         /// Defines a 2D skew transformation along the X- and the Y-axis.
         static member inline skew(xAngle: float, yAngle: float) =
-            Interop.svgAttribute "transform" ("skew(" + (unbox<string> xAngle) + "deg," + (unbox<string> yAngle) + "deg)")
+            Interop.svgAttribute "transform" ("skew(" + (unbox<string> xAngle) + "," + (unbox<string> yAngle) + ")")
         /// Defines a 2D skew transformation along the X-axis
         static member inline skewX(xAngle: int) =
-            Interop.svgAttribute "transform" ("skewX(" + (unbox<string> xAngle) + "deg)")
+            Interop.svgAttribute "transform" ("skewX(" + (unbox<string> xAngle) + ")")
         /// Defines a 2D skew transformation along the X-axis
         static member inline skewX(xAngle: float) =
-            Interop.svgAttribute "transform" ("skewX(" + (unbox<string> xAngle) + "deg)")
+            Interop.svgAttribute "transform" ("skewX(" + (unbox<string> xAngle) + ")")
         /// Defines a 2D skew transformation along the Y-axis
         static member inline skewY(xAngle: int) =
-            Interop.svgAttribute "transform" ("skewY(" + (unbox<string> xAngle) + "deg)")
+            Interop.svgAttribute "transform" ("skewY(" + (unbox<string> xAngle) + ")")
         /// Defines a 2D skew transformation along the Y-axis
         static member inline skewY(xAngle: float) =
-            Interop.svgAttribute "transform" ("skewY(" + (unbox<string> xAngle) + "deg)")
+            Interop.svgAttribute "transform" ("skewY(" + (unbox<string> xAngle) + ")")
         /// Defines a perspective view for a 3D transformed element
         static member inline perspective(n: int) =
             Interop.svgAttribute "transform" ("perspective(" + (unbox<string> n) + ")")
