@@ -2195,6 +2195,69 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "boxShadow" "inherit"
 
     [<Erase>]
+    type width =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "width" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "width" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "width" "unset"
+
+        /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "width" "fit-content"
+
+        /// The intrinsic preferred width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "width" "max-content"
+
+        /// The intrinsic minimum width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "width" "min-content"
+
+    [<Erase>]
+    type minWidth =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "minWidth" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "minWidth" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "minWidth" "unset"
+
+        /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "minWidth" "fit-content"
+
+        /// The intrinsic preferred width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "minWidth" "max-content"
+
+        /// The intrinsic minimum width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "minWidth" "min-content"
+
+     [<Erase>]
+    type maxWidth =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "maxWidth" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "maxWidth" "initial"
+        /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "maxWidth" "unset"
+
+        /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline fitContent = Interop.mkStyle "maxWidth" "fit-content"
+
+        /// The intrinsic preferred width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline maxContent = Interop.mkStyle "maxWidth" "max-content"
+
+        /// The intrinsic minimum width.
+        [<Experimental("This is an experimental API that should not be used in production code.")>]
+        static member inline minContent = Interop.mkStyle "maxWidth" "min-content"
+
+    [<Erase>]
     type height =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "height" "inherit"
@@ -2218,44 +2281,44 @@ module style =
     [<Erase>]
     type minHeight =
         /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "min-height" "inherit"
+        static member inline inheritFromParent = Interop.mkStyle "minHeight" "inherit"
         /// Sets this property to its default value.
-        static member inline initial = Interop.mkStyle "min-height" "initial"
+        static member inline initial = Interop.mkStyle "minHeight" "initial"
         /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
-        static member inline unset = Interop.mkStyle "min-height" "unset"
+        static member inline unset = Interop.mkStyle "minHeight" "unset"
 
         /// The larger of either the intrinsic minimum height or the smaller of the intrinsic preferred height and the available height
         [<Experimental("This is an experimental API that should not be used in production code.")>]
-        static member inline fitContent = Interop.mkStyle "min-height" "fit-content"
+        static member inline fitContent = Interop.mkStyle "minHeight" "fit-content"
 
         /// The intrinsic preferred height.
         [<Experimental("This is an experimental API that should not be used in production code.")>]
-        static member inline maxContent = Interop.mkStyle "min-height" "max-content"
+        static member inline maxContent = Interop.mkStyle "minHeight" "max-content"
 
         /// The intrinsic minimum height.
         [<Experimental("This is an experimental API that should not be used in production code.")>]
-        static member inline minContent = Interop.mkStyle "min-height" "min-content"
+        static member inline minContent = Interop.mkStyle "minHeight" "min-content"
 
     [<Erase>]
     type maxHeight =
         /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "max-height" "inherit"
+        static member inline inheritFromParent = Interop.mkStyle "maxHeight" "inherit"
         /// Sets this property to its default value.
-        static member inline initial = Interop.mkStyle "max-height" "initial"
+        static member inline initial = Interop.mkStyle "maxHeight" "initial"
         /// Resets this property to its inherited value if it inherits from its parent, and to its initial value if not.
-        static member inline unset = Interop.mkStyle "max-height" "unset"
+        static member inline unset = Interop.mkStyle "maxHeight" "unset"
 
         /// The larger of either the intrinsic minimum height or the smaller of the intrinsic preferred height and the available height
         [<Experimental("This is an experimental API that should not be used in production code.")>]
-        static member inline fitContent = Interop.mkStyle "max-height" "fit-content"
+        static member inline fitContent = Interop.mkStyle "maxHeight" "fit-content"
 
         /// The intrinsic preferred height.
         [<Experimental("This is an experimental API that should not be used in production code.")>]
-        static member inline maxContent = Interop.mkStyle "max-height" "max-content"
+        static member inline maxContent = Interop.mkStyle "maxHeight" "max-content"
 
         /// The intrinsic minimum height.
         [<Experimental("This is an experimental API that should not be used in production code.")>]
-        static member inline minContent = Interop.mkStyle "max-height" "min-content"
+        static member inline minContent = Interop.mkStyle "maxHeight" "min-content"
 
     [<Erase>]
     type textJustify =
