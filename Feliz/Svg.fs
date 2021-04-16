@@ -862,13 +862,17 @@ type svg =
 
     /// Defines a list of transform definitions that are applied to an element and the element's children.
     static member inline transform (transform: ITransformProperty) =
-        Interop.svgAttribute "transform" (unbox<string> transform)
+        let removedUnit = (unbox<string> transform).Replace("px", "").Replace("deg", "")
+        Interop.svgAttribute "transform" removedUnit
     /// Defines a list of transform definitions that are applied to an element and the element's children.
     static member inline transform (transforms: seq<ITransformProperty>) =
-        let unitList = [ "px" ; "deg" ]
-        let removeUnits (s : string) =
-            List.fold (fun (ins:string) toReplace -> ins.Replace(toReplace,"")) s unitList
-        Interop.svgAttribute "transform" (unbox<seq<string>> transforms |> String.concat " ")
+        let removedUnits =
+            transforms
+            |> unbox<seq<string>>
+            |> Seq.map (fun transform -> transform.Replace("px", "").Replace("deg", ""))
+            |> String.concat " "
+
+        Interop.svgAttribute "transform" removedUnits
     /// Specifies the XML Namespace of the document.
     ///
     /// Default value is "http://www.w3.org/2000/svg".
