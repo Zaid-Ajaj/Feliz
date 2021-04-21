@@ -16,29 +16,30 @@ type SvelteComponentAttribute(from:string) =
 
     /// <summary>Transforms call-site into createElement calls</summary>
     override this.TransformCall(compiler, memb, expr) =
+        let reactElementType = expr.Type
         let membArgs = memb.CurriedParameterGroups |> List.concat
         match expr with
         | Fable.Call(callee, info, typeInfo, range) when List.length membArgs = List.length info.Args ->
             if info.Args.Length = 1 && AstUtils.isRecord compiler info.Args.[0].Type then
-                AstUtils.createElement [callee; info.Args.[0]]
+                AstUtils.createElement reactElementType [callee; info.Args.[0]]
             elif info.Args.Length = 1 && info.Args.[0].Type = Fable.Type.Unit then
                 // F# Component()
                 // JSX <Component />
                 // JS createElement(Component, null)
-                AstUtils.createElement [callee; AstUtils.nullValue]
+                AstUtils.createElement reactElementType [callee; AstUtils.nullValue]
             else
-            let unprovidedArgsLength = membArgs.Length - info.Args.Length 
-            let unprovidedArgs = 
-                AstUtils.emitJs "undefined" []
-                |> List.replicate unprovidedArgsLength
+                let unprovidedArgsLength = membArgs.Length - info.Args.Length 
+                let unprovidedArgs = 
+                    AstUtils.emitJs "undefined" []
+                    |> List.replicate unprovidedArgsLength
 
-            let allArgs = info.Args @ unprovidedArgs
-            let propsObj =
-                List.zip membArgs allArgs
-                |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
-                |> AstUtils.objExpr
+                let allArgs = info.Args @ unprovidedArgs
+                let propsObj =
+                    List.zip membArgs allArgs
+                    |> List.choose (fun (arg, expr) -> arg.Name |> Option.map (fun k -> k, expr))
+                    |> AstUtils.objExpr
 
-            AstUtils.createElement [callee; propsObj]
+                AstUtils.createElement reactElementType [callee; propsObj]
         | _ ->
             // return expression as is when it is not a call expression
             expr
