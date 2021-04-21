@@ -9,18 +9,21 @@ To use `React.useEffect` with a cleanup phase, we call one these function signat
 Where the first parameter of type `unit -> IDisposable` is the effect that returns `IDisposable` to signal that this effect has some cleanup code which runs after the component unmounts:
 
 ```fsharp:effectful-timer
+open Feliz
+open Fable.Core.JS
+
 [<ReactComponent>]
 let EffectfulTimer() =
     let (paused, setPaused) = React.useState(false)
     let (value, setValue) = React.useState(0)
 
     let subscribeToTimer() =
-        // start the ticking
-        let subscriptionId = setTimeout (fun _ -> if not paused then setValue (value + 1)) 1000
-        // return IDisposable with cleanup code
+        // start the timer
+        let subscriptionId = setInterval (fun _ -> if not paused then setValue (value + 1)) 1000
+        // return IDisposable with cleanup code that stops the timer
         { new IDisposable with member this.Dispose() = clearTimeout(subscriptionId) }
 
-    React.useEffect(subscribeToTimer)
+    React.useEffect(subscribeToTimer, [| box paused |])
 
     Html.div [
         Html.h1 value
@@ -40,9 +43,9 @@ let EffectfulTimer() =
 Here we are subscribing with the value `subscribeToTimer` of type `unit -> IDisposable`:
 ```fsharp
 let subscribeToTimer() =
-    // start the ticking
-    let subscriptionId = setTimeout (fun _ -> if not paused then setValue (value + 1)) 1000
-    // return IDisposable with cleanup code
+    // start the timer
+    let subscriptionId = setInterval (fun _ -> if not paused then setValue (value + 1)) 1000
+    // return IDisposable with cleanup code that stops the timer
     { new IDisposable with member this.Dispose() = clearTimeout(subscriptionId) }
 ```
 We return an `IDisposable` using an object expression but if you like functions more, you can use `React.createDisposable` which does exactly the same:
@@ -50,7 +53,7 @@ We return an `IDisposable` using an object expression but if you like functions 
 let subscribeToTimer() =
     // start the ticking
     let subscriptionId = setTimeout (fun _ -> if not paused then setValue (value + 1)) 1000
-    // return IDisposable with cleanup code
+    // return IDisposable with cleanup code that stops the timer
     React.createDisposable(fun _ -> clearTimeout subscriptionId)
 ```
 
