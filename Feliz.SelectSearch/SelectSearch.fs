@@ -1,28 +1,78 @@
 ﻿namespace Feliz.SelectSearch
 
+open System
 open Feliz
 open Fable.Core
 open Fable.Core.JsInterop
 
 type ISelectSearchAttribute = interface end
 
-module Interop =
-    [<Emit "Object.entries($0)">]
-    let objectEntries (x: obj) : (string * obj) array = jsNative
-
-[<Erase>]
-type SelectSearch() =
-    static member inline selectSearch (properties: ISelectSearchAttribute list) =
-        Interop.reactApi.createElement(importDefault "react-select-search", createObj !!properties)
-
 type SelectItem = { value: string; name: string; disabled: bool }
 
-type SelectGroup = { name: string; items: SelectItem list; disabled: bool }
+type SelectGroup = { name: string; items: SelectItem list }
 
 [<RequireQualifiedAccess>]
 type SelectOption =
     | Item of SelectItem
     | Group of SelectGroup
+
+module Interop =
+    [<Emit "Object.entries($0)">]
+    let objectEntries (x: obj) : (string * obj) array = jsNative
+    [<Emit "Object.assign({}, $0, $1)">]
+    let objectAssign (x: obj) (y: obj) : obj = jsNative
+    let createDefaultFilter (predicate: SelectItem -> string -> bool) =
+        System.Func<_,_>(fun (selectItems: obj[]) -> fun (searchQuery: string) ->
+            if String.IsNullOrWhiteSpace searchQuery then
+                selectItems
+            else
+                selectItems
+                |> Array.filter (fun jsItem ->
+                    let isGroup = jsItem?``type`` = "group"
+                    let item = {
+                        name = jsItem?name
+                        value = jsItem?value
+                        disabled = jsItem?disabled
+                    }
+                    isGroup || predicate item searchQuery
+                )
+                |> Array.map (fun jsItem ->
+                    let isGroup = jsItem?``type`` = "group"
+                    if isGroup then
+                        // return a new group with filtered items
+                        let groupItems : obj[] = jsItem?items
+                        let filteredItems =
+                            groupItems
+                            |> Array.filter (fun groupItem ->
+                                let item = {
+                                    name = groupItem?name
+                                    value = groupItem?value
+                                    disabled = groupItem?disabled
+                                }
+
+                                predicate item searchQuery
+                            )
+                        objectAssign jsItem (createObj [ "items" ==> filteredItems ])
+                    else
+                        jsItem
+                )
+        )
+    // provide a default filtering option
+    // when search is enabled with case-insensitive matching
+    // that takes groups into account
+    let defaultProps = {|
+        filterOptions = createDefaultFilter (fun item query ->
+            item.name.ToLower().Contains(query.Trim().ToLower())
+        )
+    |}
+
+[<Erase>]
+type SelectSearch() =
+    static member inline selectSearch (properties: ISelectSearchAttribute list) =
+        let inputProperties = createObj !!properties
+        Interop.reactApi.createElement(importDefault "react-select-search", Interop.objectAssign Interop.defaultProps inputProperties)
+
+
 
 [<StringEnum; RequireQualifiedAccess>]
 type SearchClasses =
@@ -67,7 +117,6 @@ type selectSearch =
             for group in groups -> createObj [
                 "type" ==> "group"
                 "name" ==> group.name
-                "disabled" ==> group.disabled
                 "items" ==> [|
                     for item in group.items -> createObj [
                         "value" ==> item.value
@@ -94,7 +143,6 @@ type selectSearch =
                     createObj [
                         "type" ==> "group"
                         "name" ==> group.name
-                        "disabled" ==> group.disabled
                         "items" ==> [|
                             for item in group.items -> createObj [
                                 "value" ==> item.value
@@ -154,19 +202,12 @@ type selectSearch =
 
         unbox<ISelectSearchAttribute> ("renderOption", internalHandler)
 
-    static member inline filterOptions (search: SelectItem array -> string -> SelectItem array) =
-        let handler (values: obj[]) (searchQuery: string) =
-            let items =
-                values
-                |> Array.map (fun jsItem -> {
-                    name = jsItem?name
-                    value = jsItem?value
-                    disabled = jsItem?disabled
-                })
-
-            search items searchQuery
-
-        unbox<ISelectSearchAttribute> ("filterOptions", handler)
+    /// <summary>
+    /// When search is enabled, this function allows to define how items are filtered.
+    /// By default, the built-in filtering checks whether the name of the select item contains input query (case-insensitive)
+    /// </summary>
+    static member filterOptions (predicate: SelectItem -> string -> bool) =
+        unbox<ISelectSearchAttribute> ("filterOptions", Interop.createDefaultFilter predicate)
 
 module selectSearch =
     importSideEffects "./SelectSearch.css"
@@ -176,8 +217,8 @@ module selectSearch =
         static member inline always = unbox<ISelectSearchAttribute> ("printOptions", "always")
         static member inline never = unbox<ISelectSearchAttribute> ("printOptions", "never")
         static member inline onFocus = unbox<ISelectSearchAttribute> ("printOptions", "on-focus")
-
     /// <summary>Disables/Enables autoComplete functionality in search field.</summary>
     type autoComplete =
         static member inline on = unbox<ISelectSearchAttribute> ("autoComplete", "on")
         static member inline off = unbox<ISelectSearchAttribute> ("autoComplete", "off")
+
