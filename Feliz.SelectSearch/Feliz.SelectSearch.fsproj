@@ -7,10 +7,10 @@
     <PackageIconUrl></PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Fix typo in the CSS module file name</PackageReleaseNotes>
+    <PackageReleaseNotes>Improved option, value and header customization. Remove CSS overrides. Added onChange for a list of values</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

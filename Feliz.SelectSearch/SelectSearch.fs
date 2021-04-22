@@ -1,4 +1,4 @@
-﻿namespace Feliz.SelectSearch
+﻿namespace Feliz.SelectSearchDev
 
 open System
 open Feliz
@@ -21,6 +21,8 @@ module Interop =
     let objectEntries (x: obj) : (string * obj) array = jsNative
     [<Emit "Object.assign({}, $0, $1)">]
     let objectAssign (x: obj) (y: obj) : obj = jsNative
+    [<Emit "Array.isArray($0)">]
+    let isArray (x: obj) : bool = jsNative
     let createDefaultFilter (predicate: SelectItem -> string -> bool) =
         System.Func<_,_>(fun (selectItems: obj[]) -> fun (searchQuery: string) ->
             if String.IsNullOrWhiteSpace searchQuery then
@@ -72,30 +74,22 @@ type SelectSearch() =
         let inputProperties = createObj !!properties
         Interop.reactApi.createElement(importDefault "react-select-search", Interop.objectAssign Interop.defaultProps inputProperties)
 
-
-
-[<StringEnum; RequireQualifiedAccess>]
-type SearchClasses =
-    | [<CompiledName "container">] Container
-    | [<CompiledName "value">] Value
-    | [<CompiledName "input">] Input
-    | [<CompiledName "select">] Select
-    | [<CompiledName "options">] Options
-    | [<CompiledName "option">] Option
-    | [<CompiledName "option">] Group
-    | [<CompiledName "group-header">] GroupHeader
-    | [<CompiledName "is-selected">] Selected
-    | [<CompiledName "is-highlighted">] Highlighted
-    | [<CompiledName "is-loading">] Loading
-    | [<CompiledName "has-focus">] HasFocus
-    with
-        [<Emit "$0">]
-        member self.ClassName = jsNative
-
 type OptionRendererProps = {
-    optionAttributes: IReactProperty seq
-    optionClassName: string
+    attributes: IReactProperty seq
+    className: string
     option: SelectItem
+    selected: bool
+    highlighted: bool
+}
+
+type ValueRendererProps = {
+    attributes: IReactProperty seq
+    focus: bool
+    disabled: bool
+    fetching: bool
+    search: string
+    displayValue: string
+    values: string list
 }
 
 type selectSearch =
@@ -175,32 +169,66 @@ type selectSearch =
     static member inline id (elementIdentifier: string) = unbox<ISelectSearchAttribute> ("id", elementIdentifier)
     /// <summary>Autofocus on select</summary>
     static member inline autoFocus (autoFocusOnSelect: bool) = unbox<ISelectSearchAttribute>("authoFocus", autoFocusOnSelect)
-    /// <summary>Set a base class name for the select</summary>
-    static member inline className (name: string) = unbox<ISelectSearchAttribute>("className", name)
-    /// <summary>Allows you to customize the default class names of the various elements</summary>
-    static member inline className (modifyClasses: SearchClasses -> string) = unbox<ISelectSearchAttribute>("className", modifyClasses)
     /// <summary>Set empty message for empty options list</summary>
     static member inline emptyMessage (message: string) = unbox<ISelectSearchAttribute> ("emptyMessage", message)
     /// <summary>Set empty message for empty options list</summary>
     static member inline emptyMessage (message: unit -> ReactElement) = unbox<ISelectSearchAttribute> ("emptyMessage", message)
     /// <summary>Function to receive and handle value changes.</summary>
     static member inline onChange (handler: string -> unit) =  unbox<ISelectSearchAttribute> ("onChange", handler)
+    static member inline onChange (handler: string list -> unit) =
+        let internalHandler (values: obj) =
+            if Interop.isArray values then
+                handler(Array.toList (unbox<string[]> values))
+            else
+                handler([ unbox<string> values ])
+        unbox<ISelectSearchAttribute> ("onChange", internalHandler)
     /// <summary>Focus callback.</summary>
     static member inline onFocus(handler: unit -> unit) = unbox<ISelectSearchAttribute> ("onFocus", handler)
     /// <summary>Blur callback.</summary>
-    static member inline onBlur(handler: unit -> unit) = unbox<ISelectSearchAttribute> ("onFocus", handler)
+    static member inline onBlur(handler: unit -> unit) = unbox<ISelectSearchAttribute> ("onBlur", handler)
+    /// <summary>Allows you to customize how each option is rendered</summary>
     static member inline renderOption (renderer: OptionRendererProps -> ReactElement) =
-
         let internalHandler = System.Func<obj, obj, obj, string, ReactElement>(fun props option snapshot classname ->
             let entries = Interop.objectEntries props
             renderer {
-                optionAttributes = unbox (Seq.toArray entries)
+                attributes = unbox (Seq.toArray entries)
+                className = classname
                 option = { name = option?name; value = option?Value; disabled = option?disabled }
-                optionClassName = classname
+                selected = unbox (snapshot?selected)
+                highlighted = unbox (snapshot?highlighted)
             }
         )
 
         unbox<ISelectSearchAttribute> ("renderOption", internalHandler)
+
+    /// <summary>Allows you to customize how the group header is render using the group name</summary>
+    static member inline renderGroupHeader(renderer : string -> ReactElement) =
+        unbox<ISelectSearchAttribute> ("renderGroupHeader", renderer)
+
+    /// <summary>Allows you to customize how the search bar is rendered</summary>
+    static member inline renderValue(renderer: ValueRendererProps -> ReactElement) =
+        let internalHandler = System.Func<obj, obj, obj, ReactElement>(fun props snapshot selectedValue ->
+            let entries = Interop.objectEntries props
+            let values =
+                if Interop.isArray (unbox(snapshot?value)) then
+                    Array.toList (unbox<string[]> (snapshot?value))
+                elif String.IsNullOrWhiteSpace (unbox(snapshot?value)) then
+                    []
+                else
+                    [unbox<string> (snapshot?value)]
+
+            renderer {
+                attributes = unbox entries
+                focus = unbox(snapshot?focus)
+                disabled = unbox(snapshot?disabled)
+                fetching = unbox(snapshot?fetching)
+                search = unbox(snapshot?search)
+                displayValue = unbox(snapshot?displayValue)
+                values = values
+            }
+        )
+
+        unbox<ISelectSearchAttribute> ("renderValue", internalHandler)
 
     /// <summary>
     /// When search is enabled, this function allows to define how items are filtered.
