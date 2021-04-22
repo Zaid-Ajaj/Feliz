@@ -22,7 +22,20 @@ module.exports = function (evn, argv) {
                 {
                     test: /\.fs(x|proj)?$/,
                     use: "fable-loader"
-                }
+                },
+                {
+                    test: /\.(sass|scss|css)$/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: { implementation: require("sass") }
+                        }
+                    ],
+                },
             ]
         }
     };
