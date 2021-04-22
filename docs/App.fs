@@ -12,6 +12,7 @@ open Fable.Core.JsInterop
 open Fable.SimpleHttp
 open Zanaptak.TypedCssClasses
 open Feliz.UseElmish
+open Feliz.SelectSearch
 open Fable.Core
 
 type Bulma = CssClasses<"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css", Naming.PascalCase>
@@ -266,6 +267,206 @@ let roughPieChart = React.functionComponent(fun () ->
         pieChart.highlight color.lightGreen
     ])
 
+let basicDropdown = React.functionComponent(fun () ->
+    let (selectedValue, setSelectedValue) = React.useState<string option>(None)
+
+    Html.div [
+        prop.style [ style.width 400 ]
+        prop.children [
+            SelectSearch.selectSearch [
+                selectSearch.placeholder "Select a language"
+                selectSearch.onChange (fun value -> setSelectedValue(Some value))
+                selectSearch.options [
+                    { value = "en-GB"; name = "English"; disabled = false }
+                    { value = "fr-FR"; name = "French"; disabled = false }
+                    { value = "nl-NL"; name = "Dutch"; disabled = false }
+                ]
+            ]
+
+            match selectedValue with
+            | None -> Html.h3 "No value selected"
+            | Some value -> Html.h3 (sprintf "Selected value '%s'" value)
+        ]
+    ])
+
+let searchabeDropdown = React.functionComponent(fun () ->
+    let (selectedValue, setSelectedValue) = React.useState<string option>(None)
+
+    Html.div [
+        prop.style [ style.width 400 ]
+        prop.children [
+            SelectSearch.selectSearch [
+                selectSearch.placeholder "Select a language"
+                selectSearch.search true
+                selectSearch.onChange (fun value -> setSelectedValue(Some value))
+                selectSearch.options [
+                    { value = "en-GB"; name = "English"; disabled = false }
+                    { value = "fr-FR"; name = "French"; disabled = false }
+                    { value = "nl-NL"; name = "Dutch"; disabled = false }
+                ]
+            ]
+
+            match selectedValue with
+            | None -> Html.h3 "No value selected"
+            | Some value -> Html.h3 (sprintf "Selected value '%s'" value)
+        ]
+    ])
+
+let addedDisbaledValuesInDropdown = React.functionComponent(fun () ->
+    let (selectedValue, setSelectedValue) = React.useState<string option>(None)
+
+    Html.div [
+        prop.style [ style.width 400 ]
+        prop.children [
+            SelectSearch.selectSearch [
+                selectSearch.placeholder "Select a language"
+                selectSearch.search true
+                selectSearch.onChange (fun value -> setSelectedValue(Some value))
+                selectSearch.options [
+                    { value = "en-GB"; name = "English"; disabled = true }
+                    { value = "fr-FR"; name = "French"; disabled = false }
+                    { value = "nl-NL"; name = "Dutch"; disabled = false }
+                ]
+            ]
+
+            match selectedValue with
+            | None -> Html.h3 "No value selected"
+            | Some value -> Html.h3 (sprintf "Selected value '%s'" value)
+        ]
+    ])
+
+let customizedSearchInDropdown = React.functionComponent(fun () ->
+    let (selectedValue, setSelectedValue) = React.useState<string option>(None)
+
+    Html.div [
+        prop.style [ style.width 400 ]
+        prop.children [
+            SelectSearch.selectSearch [
+                selectSearch.placeholder "Select a language"
+                selectSearch.search true
+                selectSearch.onChange (fun value -> setSelectedValue(Some value))
+                selectSearch.filterOptions (fun item searchQuery -> not item.disabled && item.name.StartsWith searchQuery)
+                selectSearch.options [
+                    { value = "en-GB"; name = "English"; disabled = true }
+                    { value = "fr-FR"; name = "French"; disabled = false }
+                    { value = "nl-NL"; name = "Dutch"; disabled = false }
+                ]
+            ]
+
+            match selectedValue with
+            | None -> Html.h3 "No value selected"
+            | Some value -> Html.h3 (sprintf "Selected value '%s'" value)
+        ]
+    ])
+
+let selectMultipleValuesFromDropDown = React.functionComponent(fun () ->
+    let (selectedValues, setSelectedValues) = React.useState<string list> [ ]
+
+    Html.div [
+        prop.style [ style.width 400 ]
+        prop.children [
+            match selectedValues with
+            | [ ] -> Html.h3 "No values selected"
+            | values -> Html.h3 (sprintf "Selected values [%s]" (String.concat ", " values))
+
+            SelectSearch.selectSearch [
+                selectSearch.value selectedValues
+                selectSearch.placeholder "Select a language"
+                selectSearch.multiple true
+                selectSearch.printOptions.onFocus
+                selectSearch.onChange (fun values -> setSelectedValues values)
+                selectSearch.options [
+                    { value = "en-GB"; name = "English"; disabled = false }
+                    { value = "fr-FR"; name = "French"; disabled = false }
+                    { value = "nl-NL"; name = "Dutch"; disabled = false }
+                ]
+            ]
+        ]
+    ])
+
+let groupedOptionsInDropdown = React.functionComponent(fun () ->
+    Html.div [
+        prop.style [ style.width 400 ]
+        prop.children [
+            SelectSearch.selectSearch [
+                selectSearch.placeholder "Choose food category"
+                selectSearch.search true
+                selectSearch.options [
+                    SelectOption.Group {
+                        name = "Asian"
+                        items = [
+                            { value = "sushi"; name = "Sushi"; disabled = false }
+                            { value = "ramen"; name = "Ramen"; disabled = false }
+                        ]
+                    }
+
+                    SelectOption.Group {
+                        name = "Italian"
+                        items = [
+                            { value = "pasta"; name = "Pasta"; disabled = false }
+                            { value = "pizza"; name = "Pizza"; disabled = false }
+                        ]
+                    }
+                ]
+            ]
+        ]
+    ])
+
+let customizedButtonsInDropdown = React.functionComponent(fun () ->
+    let imageUrlByValue = function
+    | "sushi" -> "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/California_Sushi_%2826571101885%29.jpg/1200px-California_Sushi_%2826571101885%29.jpg"
+    | "ramen" -> "https://www.24kitchen.nl/files/styles/social_media_share/public/2019-02/24K_Job%26Perry_HIGHRes_Snelle_Japanse_Ramen_met_misogehakt_en_een_eitje_L_NOLOGO-1.jpg?itok=YD85hSCT"
+    | "pasta" -> "https://www.24kitchen.nl/files/styles/social_media_share/public/2018-09/Screen%20Shot%202018-09-11%20at%2016.46.22.png?itok=5uoIHWGg"
+    |  _ -> "https://www.oetker.nl/Recipe/Recipes/oetker.nl/nl-nl/miscallaneous/image-thumb__97330__RecipeDetailsLightBox/pizza-caprese.jpg"
+
+    Html.div [
+        prop.style [ style.width 400 ]
+        prop.children [
+            SelectSearch.selectSearch [
+                selectSearch.placeholder "Choose food category"
+                selectSearch.search true
+                selectSearch.options [
+                    SelectOption.Group {
+                        name = "Asian"
+                        items = [
+                            { value = "sushi"; name = "Sushi"; disabled = false }
+                            { value = "ramen"; name = "Ramen"; disabled = false }
+                        ]
+                    }
+
+                    SelectOption.Group {
+                        name = "Italian"
+                        items = [
+                            { value = "pasta"; name = "Pasta"; disabled = false }
+                            { value = "pizza"; name = "Pizza"; disabled = false }
+                        ]
+                    }
+                ]
+
+                selectSearch.renderOption (fun properties ->
+                    Browser.Dom.console.log(properties)
+                    Html.button [
+                        yield! properties.attributes
+                        prop.className properties.className
+                        prop.children [
+                            Html.img [
+                                prop.style [
+                                    style.marginRight 10
+                                    style.borderRadius 16
+                                ]
+                                prop.height 32
+                                prop.width 38
+                                prop.src (imageUrlByValue properties.option.value)
+                            ]
+
+                            Html.span properties.option.name
+                        ]
+                    ]
+                )
+            ]
+        ]
+    ])
+
 let dynamicRoughChart = React.functionComponent(fun () ->
     let (data, setData) = React.useStateWithUpdater [
         ("point1", 70.0)
@@ -336,6 +537,13 @@ let samples = [
     "effectful-usecancellationtoken", DelayedComponent.render {| load = Examples.TokenCancellation.render |}
     "static-html", Examples.staticHtml()
     "static-markup", Examples.staticMarkup()
+    "basic-select-search", basicDropdown()
+    "searchable-dropdown", searchabeDropdown()
+    "dropdown-with-disabled-values", addedDisbaledValuesInDropdown()
+    "customized-search-in-dropdown", customizedSearchInDropdown()
+    "multiple-values-from-dropdown", selectMultipleValuesFromDropDown()
+    "grouped-options-in-dropdown", groupedOptionsInDropdown()
+    "customized-buttons-in-dropdown", customizedButtonsInDropdown()
     "strict-mode", DelayedComponent.render {| load = Examples.strictModeExample |}
     "recharts-main", Samples.Recharts.AreaCharts.Main.chart()
     "recharts-area-simpleareachart", Samples.Recharts.AreaCharts.SimpleAreaChart.chart()
@@ -689,6 +897,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     nestedMenuItem "Feliz.Delay" [ Urls.Delay ]
                     nestedMenuItem "Feliz.ElmishComponents" [ Urls.ElmishComponents ]
                     nestedMenuItem "Feliz.Popover" [ Urls.Popover ]
+                    nestedMenuItem "Feliz.SelectSearch" [ Urls.SelectSearch ]
                     nestedMenuItem "Feliz.Router" [ Urls.Router ]
                 ]
 
@@ -899,6 +1108,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | [ Urls.Delay ] -> lazyView MarkdownLoader.load [ "Feliz.Delay"; "Index.md" ]
         | [ Urls.ElmishComponents ] -> lazyView MarkdownLoader.load [ "Feliz"; "ElmishComponents.md" ]
         | [ Urls.Popover ] -> lazyView MarkdownLoader.load [ "Popover"; "README.md" ]
+        | [ Urls.SelectSearch ] -> lazyView MarkdownLoader.load [ "SelectSearch";"README.md" ]
         | [ Urls.Router ] -> lazyView MarkdownLoader.load [ readme "Zaid-Ajaj" "Feliz.Router" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Visualizations ] (Some res) ->

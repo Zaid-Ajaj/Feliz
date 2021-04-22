@@ -13,6 +13,7 @@
     <ProjectReference Include="..\Feliz.UseDeferred\Feliz.UseDeferred.fsproj" />
     <ProjectReference Include="..\Feliz.UseElmish\Feliz.UseElmish.fsproj" />
     <ProjectReference Include="..\Feliz.RoughViz\Feliz.RoughViz.fsproj" />
+    <ProjectReference Include="..\Feliz.SelectSearch\Feliz.SelectSearch.fsproj" />
     <ProjectReference Include="..\Feliz\Feliz.fsproj" />
   </ItemGroup>
   <ItemGroup>

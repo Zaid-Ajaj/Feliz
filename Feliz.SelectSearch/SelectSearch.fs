@@ -1,4 +1,4 @@
-﻿namespace Feliz.SelectSearchDev
+﻿namespace Feliz.SelectSearch
 
 open System
 open Feliz
@@ -204,7 +204,7 @@ type selectSearch =
             renderer {
                 attributes = unbox (Seq.toArray entries)
                 className = classname
-                option = { name = option?name; value = option?Value; disabled = option?disabled }
+                option = { name = option?name; value = option?value; disabled = option?disabled }
                 selected = unbox (snapshot?selected)
                 highlighted = unbox (snapshot?highlighted)
             }

@@ -76,8 +76,9 @@
  * Options
  */
 .select-search__options {
-    list-style: none;
-    padding: 0;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /**
@@ -95,7 +96,7 @@
     display: block;
     height: 36px;
     width: 100%;
-    padding: 0 16px;
+    padding: 0 16px !important;
     background: #fff;
     border: none;
     outline: none;
@@ -103,6 +104,7 @@
     font-size: 14px;
     text-align: left;
     cursor: pointer;
+    margin: 0 !important;
 }
 
 .select-search--multiple .select-search__option {

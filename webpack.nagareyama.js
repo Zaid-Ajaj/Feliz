@@ -16,6 +16,23 @@ module.exports = function (evn, argv) {
         devServer: {
             contentBase: './public',
             port: 8080
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.(sass|scss|css)$/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: { implementation: require("sass") }
+                        }
+                    ],
+                },
+            ]
         }
     };
 }
