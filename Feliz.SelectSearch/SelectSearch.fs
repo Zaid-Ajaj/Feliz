@@ -174,7 +174,18 @@ type selectSearch =
     /// <summary>Set empty message for empty options list</summary>
     static member inline emptyMessage (message: unit -> ReactElement) = unbox<ISelectSearchAttribute> ("emptyMessage", message)
     /// <summary>Function to receive and handle value changes.</summary>
-    static member inline onChange (handler: string -> unit) =  unbox<ISelectSearchAttribute> ("onChange", handler)
+    static member inline onChange (handler: string -> unit) =
+        let internalHandler (values: obj) =
+            if Interop.isArray values then
+                let unboxed = unbox<string[]> values
+                if (unboxed.Length > 0)
+                then handler unboxed.[0]
+            else
+                let unboxed = unbox<string> values
+                if not (String.IsNullOrWhiteSpace unboxed)
+                then handler unboxed
+        unbox<ISelectSearchAttribute> ("onChange", handler)
+    /// <summary>Function to receive and handle value changes. Use this overload when multiple is set to true</summary>
     static member inline onChange (handler: string list -> unit) =
         let internalHandler (values: obj) =
             if Interop.isArray values then

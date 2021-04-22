@@ -7,10 +7,10 @@
     <PackageIconUrl></PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.4.0</Version>
+    <Version>1.5.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Improved option, value and header customization. Remove CSS overrides. Added onChange for a list of values</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix onChange overload for a single value when multiple is set to true</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
