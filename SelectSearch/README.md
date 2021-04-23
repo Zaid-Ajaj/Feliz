@@ -9,6 +9,8 @@ Using [Femto](https://github.com/Zaid-Ajaj/Femto)
 femto install Feliz.SelectSearch
 ```
 
+This library assumes you have a working CSS loader enabled because it imports the CSS assets internally.
+
 ### Basic drop down example
 
 ```fsharp:basic-select-search
@@ -91,6 +93,7 @@ SelectSearch.selectSearch [
         { value = "fr-FR"; name = "French"; disabled = false }
         { value = "nl-NL"; name = "Dutch"; disabled = false }
     ]
+]
 ```
 
 ### Selecting multiple values
