@@ -24,6 +24,7 @@ let [<Literal>] Refs = "Refs"
 
 let [<Literal>] Recharts = "Recharts"
 let [<Literal>] SelectSearch = "SelectSearch"
+let [<Literal>] Kawaii = "Kawaii"
 // Shared
 let [<Literal>] ResponsiveFullWidth = "ResponsiveFullWidth"
 
