@@ -515,7 +515,7 @@ type prop =
     static member inline dangerouslySetInnerHTML (content: string) = Interop.mkAttr "dangerouslySetInnerHTML" (createObj [ "__html" ==> content ])
 
     /// This attribute indicates the time and/or date of the element.
-    static member inline dateTime (value: string) = Interop.mkAttr "datetime" value
+    static member inline dateTime (value: string) = Interop.mkAttr "dateTime" value
 
     /// Sets the DOM defaultChecked value when initially rendered.
     ///
