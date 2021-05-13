@@ -52,6 +52,10 @@ type xAxis =
     static member inline unit (value: string) = Interop.mkXAxisAttr "unit" value
     static member inline name (value: string) = Interop.mkXAxisAttr "name" value
     static member inline tick (tickRenderer : IXAxisTickProperties -> ReactElement) = Interop.mkXAxisAttr "tick" tickRenderer
+    static member inline height (value: int) = Interop.mkXAxisAttr "height" value
+    static member inline height (value: float) = Interop.mkXAxisAttr "height" value
+    static member inline width (value: int) = Interop.mkXAxisAttr "width" value
+    static member inline width (value: float) = Interop.mkXAxisAttr "width" value
 
 module xAxis =
     [<Erase>]

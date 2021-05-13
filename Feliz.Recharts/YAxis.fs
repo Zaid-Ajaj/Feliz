@@ -48,6 +48,10 @@ type yAxis =
         Interop.mkYAxisAttr "padding" padding
     static member inline unit (value: string) = Interop.mkYAxisAttr "unit" value
     static member inline name (value: string) = Interop.mkYAxisAttr "name" value
+    static member inline height (value: int) = Interop.mkYAxisAttr "height" value
+    static member inline height (value: float) = Interop.mkYAxisAttr "height" value
+    static member inline width (value: int) = Interop.mkYAxisAttr "width" value
+    static member inline width (value: float) = Interop.mkYAxisAttr "width" value
 module yAxis =
     /// The orientation of axis. Default is `left`.
     [<Erase>]
