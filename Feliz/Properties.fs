@@ -1090,8 +1090,9 @@ type prop =
     static member inline onCut (handler: ClipboardEvent -> unit) = Interop.mkAttr "onCut" handler
 
     /// Fires when a mouse is double clicked on the element.
+    [<Obsolete "Use prop.onDoubleClick instead">]
     static member inline onDblClick (handler: MouseEvent -> unit) = Interop.mkAttr "onDoubleClick" handler
-    
+
     /// Fires when a mouse is double clicked on the element.
     static member inline onDoubleClick (handler: MouseEvent -> unit) = Interop.mkAttr "onDoubleClick" handler
 
@@ -1560,12 +1561,12 @@ type prop =
     static member inline scale (value: int) = Interop.mkAttr "scale" value
 
     /// Defines the cells that the header (defined in the <th>) element relates to. It may have the following values:
-    /// 
+    ///
     ///  - row: The header relates to all cells of the row it belongs to.
     ///  - col: The header relates to all cells of the column it belongs to.
     ///  - rowgroup: The header belongs to a rowgroup and relates to all of its cells. These cells can be placed to the right or the left of the header, depending on the value of the dir attribute in the <table> element.
     ///  - colgroup: The header belongs to a colgroup and relates to all of its cells.
-    /// If the scope attribute is not specified, or its value is not row, col, or rowgroup, or colgroup, then browsers automatically select the set of cells to which the header cell applies. 
+    /// If the scope attribute is not specified, or its value is not row, col, or rowgroup, or colgroup, then browsers automatically select the set of cells to which the header cell applies.
     static member inline scope (value: string) = Interop.mkAttr "scope" value
 
     /// Represents the starting number for the pseudo random number generator of the <feTurbulence>
@@ -1873,7 +1874,7 @@ type prop =
     /// Sets the value of a React controlled component.
     static member inline value (value: seq<string>) = Interop.mkAttr "value" (ResizeArray value)
     /// The value of the element, interpreted as a date
-    static member inline value (value: System.DateTime, includeTime: bool) = 
+    static member inline value (value: System.DateTime, includeTime: bool) =
         if includeTime
         then Interop.mkAttr "value" (value.ToString("yyyy-MM-ddThh:mm"))
         else Interop.mkAttr "value" (value.ToString("yyyy-MM-dd"))
@@ -1883,8 +1884,8 @@ type prop =
     static member inline value (value: System.DateTime option, includeTime: bool) =
         match value with
         | None -> Interop.mkAttr "value" ""
-        | Some date -> 
-            if includeTime  
+        | Some date ->
+            if includeTime
             then Interop.mkAttr "value" (date.ToString("yyyy-MM-ddThh:mm"))
             else Interop.mkAttr "value" (date.ToString("yyyy-MM-dd"))
 

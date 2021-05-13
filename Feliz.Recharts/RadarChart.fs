@@ -8,7 +8,7 @@ open Fable.Core.JsInterop
 type radarChart =
   static member inline data (values: seq<'a>) = Interop.mkRadarChartAttr "data" (Seq.toArray values)
   static member inline data (values: 'a list) = Interop.mkRadarChartAttr "data" (List.toArray values)
-  static member inline children (elements: ReactElement list) = Interop.mkRadarChartAttr "children" (prop.children elements)
+  static member inline children (elements: ReactElement list) = unbox<IRadarChartProperty> (prop.children elements)
   static member inline width (value: int) = Interop.mkRadarChartAttr "width" value
   static member inline height (value: int) = Interop.mkRadarChartAttr "height" value
   static member inline cy(value: float) = Interop.mkRadarChartAttr "cy" value

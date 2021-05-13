@@ -18,7 +18,7 @@ type pieChart =
     static member inline data (values: 'a list) = Interop.mkPieChartAttr "data" (List.toArray values)
     /// The source data, in which each element is an object.
     static member inline data (values: 'a array) = Interop.mkPieChartAttr "data" values
-    static member inline children (elements: ReactElement list) = Interop.mkPieChartAttr "children" (prop.children elements)
+    static member inline children (elements: ReactElement list) = unbox<IPieChartProperty> (prop.children elements)
 
     /// The sizes of whitespace around the container.
     ///

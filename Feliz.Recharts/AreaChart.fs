@@ -22,7 +22,7 @@ type areaChart =
     static member inline baseValue (value: int) = Interop.mkAreaChartAttr "baseValue" value
     /// The base value of area.
     static member inline baseValue (value: float) = Interop.mkAreaChartAttr "baseValue" value
-    static member inline children (elements: ReactElement list) = Interop.mkAreaChartAttr "children" (prop.children elements)
+    static member inline children (elements: ReactElement list) = unbox<IAreaChartProperty> (prop.children elements)
 
     /// The sizes of whitespace around the container.
     ///

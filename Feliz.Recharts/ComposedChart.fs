@@ -18,7 +18,7 @@ type composedChart =
     static member inline data (values: 'a list) = Interop.mkComposedChartAttr "data" (List.toArray values)
     /// The source data, in which each element is an object.
     static member inline data (values: 'a array) = Interop.mkComposedChartAttr "data" values
-    static member inline children (elements: ReactElement list) = Interop.mkComposedChartAttr "children" (prop.children elements)
+    static member inline children (elements: ReactElement list) = unbox<IComposedChartProperty> (prop.children elements)
 
     /// The sizes of whitespace around the container.
     ///

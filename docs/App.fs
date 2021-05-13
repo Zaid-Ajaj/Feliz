@@ -66,16 +66,22 @@ let fruitSales = [
     ("Mango", 6.4)
 ]
 
-#if FABLE_COMPILER_3
-
 [<AbstractClass;Sealed; Erase>]
 type StaticComponents =
-  [<ReactComponent>]
-  static member Header (title: string, ?className: string) =
-    Html.h1 [
-      if className.IsSome then prop.className className.Value
-      prop.children [ Html.text title ]
-    ]
+    [<ReactComponent>]
+    static member Header (title: string, ?className: string) =
+        Html.h1 [
+            if className.IsSome then prop.className className.Value
+            prop.children [ Html.text title ]
+        ]
+
+    [<ReactComponent>] // not required yet - but will be for auto complete controls, ...
+    static member BadToggle (isChecked: bool, onChange: bool -> unit, ?key: string) =
+        Html.input [
+            prop.type'.checkbox
+            prop.isChecked isChecked
+            prop.onChange (onChange)
+        ]
 
 [<ReactComponent>]
 let Counter() =
@@ -189,7 +195,7 @@ let Counters(show: bool) =
         CounterWithRecord { initial = 10; show = true }
         CounterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
         CounterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
-        Examples.CounterExternal()
+
         //Hello "fsharp" [|
         //    Html.text "content"
         //|]
@@ -231,8 +237,10 @@ let appliedComponents = Html.div [
     StaticComponents.Header("title")
     StaticComponents.Header("title", "className")
     StaticComponents.Header(className="first arg", title="second")
+    StaticComponents.BadToggle(isChecked=true, onChange=ignore)
+    StaticComponents.BadToggle(isChecked=true, onChange=ignore)
+    StaticComponents.BadToggle(isChecked=true, onChange=ignore, key="Hello")
 ]
-#endif
 
 let roughBarChart = React.functionComponent(fun () ->
     RoughViz.barChart [
