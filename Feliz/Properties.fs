@@ -1090,7 +1090,10 @@ type prop =
     static member inline onCut (handler: ClipboardEvent -> unit) = Interop.mkAttr "onCut" handler
 
     /// Fires when a mouse is double clicked on the element.
-    static member inline onDblClick (handler: MouseEvent -> unit) = Interop.mkAttr "onDblClick" handler
+    static member inline onDblClick (handler: MouseEvent -> unit) = Interop.mkAttr "onDoubleClick" handler
+    
+    /// Fires when a mouse is double clicked on the element.
+    static member inline onDoubleClick (handler: MouseEvent -> unit) = Interop.mkAttr "onDoubleClick" handler
 
     /// Fires when an element is dragged.
     static member inline onDrag (handler: DragEvent -> unit) = Interop.mkAttr "onDrag" handler
