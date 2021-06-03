@@ -1064,10 +1064,18 @@ type prop =
     
     /// Same as `onChange` that takes an event as input but instead let's you deal with the int changed from the `input` element directly
     /// instead of extracting it from the event arguments.
-    static member inline onChange (handler: int -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
+    static member inline onChange (handler: int -> unit) = 
+        Interop.mkAttr "onChange" (fun (ev: Event) -> 
+            if Interop.isTypeofNumber (!!ev.target?value)  
+            then handler (!!ev.target?value)
+        )     
     /// Same as `onChange` that takes an event as input but instead let's you deal with the float changed from the `input` element directly
     /// instead of extracting it from the event arguments.
-    static member inline onChange (handler: float -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
+    static member inline onChange (handler: float -> unit) = 
+        Interop.mkAttr "onChange" (fun (ev: Event) -> 
+            if Interop.isTypeofNumber (!!ev.target?value)  
+            then handler (!!ev.target?value)
+        )
 
     /// Same as `onChange` but let's you deal with the `checked` value that has changed from the `input` element directly instead of extracting it from the event arguments.
     static member inline onCheckedChange (handler: bool -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?``checked``))
