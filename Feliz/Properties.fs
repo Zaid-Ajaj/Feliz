@@ -1054,26 +1054,28 @@ type prop =
     /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element directly
     /// instead of extracting it from the event arguments.
     static member inline onChange (handler: string -> unit) = Interop.mkAttr "onChange" (fun (ev: Event) -> handler (!!ev.target?value))
-    /// Same as `onChange` that takes an event as input but instead let's you deal with the text changed from the `input` element as if it was a DateTime instance when using input.type.date since the used format either be yyyy-MM-dd or yyyy-MM-ddTHH:mm
+    /// Same as `onChange` that takes an event as input but instead lets you deal with the DateTime changed from the `input` element as if it was a DateTime instance when using input.type.date since the used format either be yyyy-MM-dd or yyyy-MM-ddTHH:mm
     static member inline onChange (handler: DateTime -> unit) =
         Interop.mkAttr "onChange" (fun (ev: Event) ->
             let value : string = !!ev.target?value
             DateParsing.parse value
             |> Option.iter handler
         )
-    
-    /// Same as `onChange` that takes an event as input but instead let's you deal with the int changed from the `input` element directly
+
+    /// Same as `onChange` that takes an event as input but instead lets you deal with the int changed from the `input` element directly when the type of the input is number
+    /// instead of extracting it from the event arguments. Fractional numbers are rounded to the nearest integral value.
+    static member inline onChange (handler: int -> unit) =
+        Interop.mkAttr "onChange" (fun (ev: Event) ->
+            if Interop.isTypeofNumber (!!ev.target?value) then
+                // round the value to get only integers
+                let value : double = !!ev.target?value
+                handler (unbox<int> (Math.Round value))
+        )
+    /// Same as `onChange` that takes an event as input but instead lets you deal with the float changed from the `input` element directly when the input type is a number
     /// instead of extracting it from the event arguments.
-    static member inline onChange (handler: int -> unit) = 
-        Interop.mkAttr "onChange" (fun (ev: Event) -> 
-            if Interop.isTypeofNumber (!!ev.target?value)  
-            then handler (!!ev.target?value)
-        )     
-    /// Same as `onChange` that takes an event as input but instead let's you deal with the float changed from the `input` element directly
-    /// instead of extracting it from the event arguments.
-    static member inline onChange (handler: float -> unit) = 
-        Interop.mkAttr "onChange" (fun (ev: Event) -> 
-            if Interop.isTypeofNumber (!!ev.target?value)  
+    static member inline onChange (handler: float -> unit) =
+        Interop.mkAttr "onChange" (fun (ev: Event) ->
+            if Interop.isTypeofNumber (!!ev.target?value)
             then handler (!!ev.target?value)
         )
 
