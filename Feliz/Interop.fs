@@ -78,3 +78,6 @@ module Interop =
         reactElement name (createObj !!properties)
     let inline createSvgElement name (properties: ISvgAttribute list) : ReactElement =
         reactElement name (createObj !!properties)
+
+    [<Emit "typeof $0 === 'number'">]
+    let isTypeofNumber (x: obj) : bool = jsNative
