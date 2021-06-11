@@ -1407,3 +1407,13 @@ module svg =
         /// Specifies that the red color channel of the input image defined in in2 will be used to
         /// displace the pixels of the input image defined in in along the y-axis.
         static member inline R = Interop.svgAttribute "yChannelSelector" "R"
+
+    [<Erase>]
+    type x =
+        static member inline percentage(value: float) = Interop.svgAttribute "x" (unbox<string> value + "%")
+        static member inline percentage(value: int) = Interop.svgAttribute "x" (unbox<string> value + "%")
+
+    [<Erase>]
+    type y =
+        static member inline percentage(value: float) = Interop.svgAttribute "y" (unbox<string> value + "%")
+        static member inline percentage(value: int) = Interop.svgAttribute "y" (unbox<string> value + "%")
