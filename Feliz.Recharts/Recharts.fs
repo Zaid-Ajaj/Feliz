@@ -89,6 +89,31 @@ module legend =
 
     [<Erase>]
     type verticalAlign =
-        static member inline top = Interop.mkAttr "verticalAlign" "top" :?> ILegendProperty
-        static member inline bottom = Interop.mkAttr "verticalAlign" "bottom" :?> ILegendProperty
-        static member inline left = Interop.mkAttr "verticalAlign" "left" :?> ILegendProperty
+        static member inline top = Interop.mkLegendAttr "verticalAlign" "top"
+        static member inline bottom = Interop.mkLegendAttr "verticalAlign" "bottom"
+        static member inline left = Interop.mkLegendAttr "verticalAlign" "left"
+        static member inline middle = Interop.mkLegendAttr "verticalAlign" "middle"
+
+    [<Erase>]
+    type iconType =
+        static member inline line = Interop.mkLegendAttr "iconType" "line"
+        static member inline plainline = Interop.mkLegendAttr "iconType" "plainline"
+        static member inline square = Interop.mkLegendAttr "iconType" "square"
+        static member inline rect = Interop.mkLegendAttr "iconType" "rect"
+        static member inline circle = Interop.mkLegendAttr "iconType" "circle"
+        static member inline cross = Interop.mkLegendAttr "iconType" "cross"
+        static member inline diamond = Interop.mkLegendAttr "iconType" "diamond"
+        static member inline star = Interop.mkLegendAttr "iconType" "star"
+        static member inline triangle = Interop.mkLegendAttr "iconType" "triangle"
+        static member inline wye = Interop.mkLegendAttr "iconType" "wye"
+
+    [<Erase>]
+    type align =
+        static member inline left = Interop.mkLegendAttr "align" "left"
+        static member inline center = Interop.mkLegendAttr "align" "center"
+        static member inline right = Interop.mkLegendAttr "align" "right"
+
+    [<Erase>]
+    type layout =
+        static member inline horizontal = Interop.mkLegendAttr "layout" "horizontal"
+        static member inline vertical = Interop.mkLegendAttr "layout" "vertical"
