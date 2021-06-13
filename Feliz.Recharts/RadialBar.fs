@@ -33,6 +33,6 @@ type radialBar =
     static member inline label(?position:Label.Position,?fill:string) =
         let label = createObj [
           "position" ==> position
-          "fill" ==> Option.defaultValue "" fill
+          "fill" ==> fill
         ]
         Interop.mkRadialBarAttr "label" label
