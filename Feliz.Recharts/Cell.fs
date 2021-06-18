@@ -18,3 +18,4 @@ type cell =
     static member inline fillOpacity (value: int) = Interop.mkCellAttr "fillOpacity" value
     static member inline fillOpacity (value: float) = Interop.mkCellAttr "fillOpacity" value
     static member inline cursor (value: string) = Interop.mkCellAttr "cursor" value
+    static member inline onClick (eventHandler: Browser.Types.MouseEvent -> unit) = Interop.mkCellAttr "onClick" eventHandler
