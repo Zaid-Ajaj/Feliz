@@ -16,8 +16,8 @@ type referenceArea =
     static member inline strokeOpacity (value: int) = Interop.mkReferenceAreaAttr "strokeOpacity" value
     static member inline strokeOpacity (value: float) = Interop.mkReferenceAreaAttr "strokeOpacity" value
     static member inline fill (value: string) = Interop.mkReferenceAreaAttr "fill" value
-    static member inline fillOpacity (value: int) = Interop.mkReferenceAreaAttr "fill" value
-    static member inline fillOpacity (value: float) = Interop.mkReferenceAreaAttr "fill" value
+    static member inline fillOpacity (value: int) = Interop.mkReferenceAreaAttr "fillOpacity" value
+    static member inline fillOpacity (value: float) = Interop.mkReferenceAreaAttr "fillOpacity" value
     /// The id of y-axis which is corresponding to the data.
     static member inline yAxisId (value: int) = Interop.mkReferenceAreaAttr "yAxisId" value
     /// A boundary value of the area. If the specified x-axis is a number axis, the type of x must be Number.
