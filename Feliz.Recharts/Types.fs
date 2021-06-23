@@ -103,7 +103,7 @@ type ChartMouseEvent<'label, 'payload> =
     abstract activeCoordinate : ChartCoordinate
     abstract activeLabel : 'label
     abstract activePayload : ChartDataPoint<'payload> array
-    abstract activeToolipIndex : int
+    abstract activeTooltipIndex : int
     abstract chartX : int
     abstract chartY : int
 
