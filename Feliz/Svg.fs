@@ -800,11 +800,18 @@ type svg =
 
     /// SVG attribute to define the color (or any SVG paint servers like gradients or patterns) used to paint the outline of the shape.
     static member inline stroke (color: string) = Interop.svgAttribute "stroke" color
+    
+    /// SVG attribute to define the pattern of dashes and gaps used to paint the outline of the shape.
+    static member inline strokeDasharray (value: int array) = Interop.svgAttribute "strokeDasharray" value
 
     /// SVG attribute to define the width of the stroke to be applied to the shape.
     static member inline strokeWidth (value: float) = Interop.svgAttribute "strokeWidth" value
     /// SVG attribute to define the width of the stroke to be applied to the shape.
     static member inline strokeWidth (value: int) = Interop.svgAttribute "strokeWidth" value
+    /// SVG attribute to define the opacity of the stroke to be applied to the shape.
+    static member inline strokeOpacity (value: float) = Interop.svgAttribute "strokeOpacity" value
+    /// SVG attribute to define the opacity of the stroke to be applied to the shape.
+    static member inline strokeOpacity (value: int) = Interop.svgAttribute "strokeOpacity" value
     /// Represents the height of the surface for a light filter primitive.
     static member inline surfaceScale (value: float) = Interop.svgAttribute "surfaceScale" value
     /// Represents the height of the surface for a light filter primitive.
