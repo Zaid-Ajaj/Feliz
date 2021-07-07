@@ -174,7 +174,7 @@ type Html =
     static member inline desc (value: int) = Interop.reactElementWithChild "desc" value
     [<Obsolete "Html.desc is obsolete, use Svg.desc instead">]
     static member inline desc (value: string) = Interop.reactElementWithChild "desc" value
-        
+
     static member inline dfn xs = Interop.createElement "ins" xs
     static member inline dfn (value: float) = Interop.reactElementWithChild "dfn" value
     static member inline dfn (value: int) = Interop.reactElementWithChild "dfn" value
@@ -318,7 +318,7 @@ type Html =
     static member inline feTile (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feTile" children
     [<Obsolete "Html.feTurbulence is obsolete, use Svg.feTurbulence instead">]
     static member inline feTurbulence xs = Interop.createElement "feTurbulence" xs
-    [<Obsolete "Html.feTurbulence is obsolete, use Svg.feTurbulence instead">] 
+    [<Obsolete "Html.feTurbulence is obsolete, use Svg.feTurbulence instead">]
     static member inline feTurbulence (children: #seq<ReactElement>) = Interop.reactElementWithChildren "feTurbulence" children
     static member inline fieldSet xs = Interop.createElement "fieldset" xs
     static member inline fieldSet (children: #seq<ReactElement>) = Interop.reactElementWithChildren "fieldset" children
@@ -416,7 +416,7 @@ type Html =
     static member inline image xs = Interop.createElement "image" xs
     /// SVG Image element, not to be confused with HTML img alias.
     static member inline image (children: #seq<ReactElement>) = Interop.reactElementWithChildren "image" children
-     
+
     static member inline input xs = Interop.createElement "input" xs
 
     static member inline ins xs = Interop.createElement "ins" xs
@@ -785,17 +785,12 @@ type Html =
 
     static member inline time xs = Interop.createElement "time" xs
     static member inline time (children: #seq<ReactElement>) = Interop.reactElementWithChildren "time" children
-
-    [<Obsolete "Html.title is obsolete for creating <title> SVG elements, use Svg.title instead">]
     static member inline title xs = Interop.createElement "title" xs
     static member inline title (value: float) = Interop.reactElementWithChild "title" value
     static member inline title (value: int) = Interop.reactElementWithChild "title" value
     static member inline title (value: ReactElement) = Interop.reactElementWithChild "title" value
-    [<Obsolete "Html.title is obsolete for creating <title> SVG elements, use Svg.title instead">]
     static member inline title (value: string) = Interop.reactElementWithChild "title" value
-    [<Obsolete "Html.title is obsolete for creating <title> SVG elements, use Svg.title instead">]
     static member inline title (children: #seq<ReactElement>) = Interop.reactElementWithChildren "title" children
-
     static member inline tr xs = Interop.createElement "tr" xs
     static member inline tr (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tr" children
 
