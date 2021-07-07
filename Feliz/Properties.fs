@@ -2570,12 +2570,12 @@ module prop =
         /// is sent (i.e. no cookie, X.509 certificate, or HTTP Basic authentication). If the server
         /// does not give credentials to the origin site (by not setting the Access-Control-Allow-Origin
         /// HTTP header) the resource will be tainted and its usage restricted.
-        static member inline anonymous = Interop.mkAttr "crossorigin" "anonymous"
+        static member inline anonymous = Interop.mkAttr "crossOrigin" "anonymous"
         /// A cross-origin request (i.e. with an Origin HTTP header) is performed along with a credential
         /// sent (i.e. a cookie, certificate, and/or HTTP Basic authentication is performed). If the server
         /// does not give credentials to the origin site (through Access-Control-Allow-Credentials HTTP
         /// header), the resource will be tainted and its usage restricted.
-        static member inline useCredentials = Interop.mkAttr "crossorigin" "use-credentials"
+        static member inline useCredentials = Interop.mkAttr "crossOrigin" "use-credentials"
 
     /// Indicates the directionality of the element's text.
     [<Erase>]
@@ -2726,21 +2726,21 @@ module prop =
         ///
         /// Content policies mostly specify allowed server origins and script endpoints which help guard against cross-site
         /// scripting attacks.
-        static member inline contentSecurityPolicy = Interop.mkAttr "http-equiv" "content-security-policy"
+        static member inline contentSecurityPolicy = Interop.mkAttr "httpEquiv" "content-security-policy"
         /// If specified, the content attribute must have the value "text/html; charset=utf-8".
         ///
         /// Note: Can only be used in documents served with a text/html MIME type — not in documents served with an XML MIME type.
-        static member inline contentType = Interop.mkAttr "http-equiv" "content-type"
+        static member inline contentType = Interop.mkAttr "httpEquiv" "content-type"
         /// Sets the name of the default CSS style sheet set.
-        static member inline defaultStyle = Interop.mkAttr "http-equiv" "default-style"
+        static member inline defaultStyle = Interop.mkAttr "httpEquiv" "default-style"
         /// This instruction specifies:
         ///
         /// The number of seconds until the page should be reloaded - only if the content attribute contains a positive integer.
         ///
         /// The number of seconds until the page should redirect to another - only if the content attribute contains a positive integer followed by the string ';url=', and a valid URL.
-        static member inline refresh = Interop.mkAttr "http-equiv" "refresh"
+        static member inline refresh = Interop.mkAttr "httpEquiv" "refresh"
         /// If specified, the content attribute must have the value "IE=edge". User agents are required to ignore this pragma.
-        static member inline xUaCompatible = Interop.mkAttr "http-equiv" "x-ua-compatible"
+        static member inline xUaCompatible = Interop.mkAttr "httpEquiv" "x-ua-compatible"
 
     /// Identifies input for the given filter primitive.
     [<Erase>]
