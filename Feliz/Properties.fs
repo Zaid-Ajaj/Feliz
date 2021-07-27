@@ -2478,6 +2478,15 @@ module prop =
         /// points for each interval are defined in the keySplines attribute.
         static member inline spline = Interop.mkAttr "calcMode" "spline"
 
+    /// Specifies that new files should be captured by the device
+    [<Erase>]
+    type capture =
+        /// The user-facing camera and/or microphone should be used.
+        static member inline user = Interop.mkAttr "capture" "user" 
+        ///
+        /// The outward-facing camera and/or microphone should be used
+        static member inline environment = Interop.mkAttr "capture" "environment" 
+
     [<Erase>]
     type charset =
         static member inline utf8 = Interop.mkAttr "charset" "UTF-8"
