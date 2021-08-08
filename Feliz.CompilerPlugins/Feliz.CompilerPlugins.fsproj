@@ -6,10 +6,10 @@
     <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.5.0</Version>
+    <Version>1.6.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Handle key being used as argument</PackageReleaseNotes>
+    <PackageReleaseNotes>Remove duplicate words in warning message</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AstUtils.fs" />

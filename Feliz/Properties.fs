@@ -1068,7 +1068,7 @@ type prop =
         Interop.mkAttr "onChange" (fun (ev: Event) ->
             // round the value to get only integers
             let value : double = !!ev.target?valueAsNumber
-            if value <> Double.NaN then
+            if not (isNullOrUndefined value) && value <> Double.NaN then
                 handler (unbox<int> (Math.Round value))
         )
     /// Same as `onChange` that takes an event as input but instead lets you deal with the float changed from the `input` element directly when the input type is a number
@@ -1076,7 +1076,7 @@ type prop =
     static member inline onChange (handler: float -> unit) =
         Interop.mkAttr "onChange" (fun (ev: Event) ->
             let value : double = !!ev.target?valueAsNumber
-            if value <> Double.NaN then
+            if not (isNullOrUndefined value) && value <> Double.NaN then
                 handler (value)
         )
 
@@ -2483,10 +2483,10 @@ module prop =
     [<Erase>]
     type capture =
         /// The user-facing camera and/or microphone should be used.
-        static member inline user = Interop.mkAttr "capture" "user" 
+        static member inline user = Interop.mkAttr "capture" "user"
         ///
         /// The outward-facing camera and/or microphone should be used
-        static member inline environment = Interop.mkAttr "capture" "environment" 
+        static member inline environment = Interop.mkAttr "capture" "environment"
 
     [<Erase>]
     type charset =
