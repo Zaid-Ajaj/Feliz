@@ -14,7 +14,7 @@ module Bulma =
     let [<Literal>] IsPrimary = "is-primary"
     // etc.
 ```
-This requires *a lot* of work and unsustainable amount of maintenance because you have to write a module per CSS framework and update it whenver the module changes.
+This requires *a lot* of work and an unsustainable amount of maintenance because you have to write a module per CSS framework and update it whenever the module changes.
 
 ### Typed CSS Classes to the rescue!
 
