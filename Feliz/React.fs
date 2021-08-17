@@ -446,7 +446,9 @@ type React =
     static member forwardRef(render: ('props * IRefValue<'t> -> ReactElement)) : ('props * IRefValue<'t> -> ReactElement) =
         let forwardRefType = Interop.reactApi.forwardRef(Func<'props,IRefValue<'t>,ReactElement> (fun props ref -> render(props,ref)))
         fun (props, ref) ->
-            Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
+            let propsObj = props |> JsInterop.toPlainJsObj
+            propsObj?ref <- ref
+            Interop.reactApi.createElement(forwardRefType, propsObj)
 
     /// <summary>
     /// Forwards a given ref, allowing you to pass it further down to a child.
@@ -457,7 +459,9 @@ type React =
         let forwardRefType = Interop.reactApi.forwardRef(Func<'props,IRefValue<'t>,ReactElement> (fun props ref -> render(props,ref)))
         render?displayName <- name
         fun (props, ref) ->
-            Interop.reactApi.createElement(forwardRefType, {| props = props; ref = ref |} |> JsInterop.toPlainJsObj)
+            let propsObj = props |> JsInterop.toPlainJsObj
+            propsObj?ref <- ref
+            Interop.reactApi.createElement(forwardRefType, propsObj)
 
     /// <summary>
     /// Highlights potential problems in an application by enabling additional checks
