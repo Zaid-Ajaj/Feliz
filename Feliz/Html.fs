@@ -795,9 +795,9 @@ type Html =
     static member inline tr (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tr" children
 
     static member inline track xs = Interop.createElement "track" xs
-    [<Obsolete "Html.tspan is obsolete, use Svg.tsapn instead">]
+    [<Obsolete "Html.tspan is obsolete, use Svg.tspan instead">]
     static member inline tspan xs = Interop.createElement "tspan" xs
-    [<Obsolete "Html.tspan is obsolete, use Svg.tsapn instead">]
+    [<Obsolete "Html.tspan is obsolete, use Svg.tspan instead">]
     static member inline tspan (children: #seq<ReactElement>) = Interop.reactElementWithChildren "tspan" children
 
     static member inline u xs = Interop.createElement "u" xs
