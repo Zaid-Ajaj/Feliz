@@ -631,6 +631,10 @@ type prop =
     /// Defines the files that will be uploaded when using an input element of the file type.
     static member inline files (value: FileList) = Interop.mkAttr "files" value
 
+    /// The fill attribute has two different meanings. For shapes and text it's a presentation attribute that defines the color
+    /// (or any SVG paint servers like gradients or patterns) used to paint the element; for animation it defines the final state of the animation.
+    member _.fill (color: string) = Interop.mkAttr "fill" value
+
     /// SVG attribute to define the opacity of the paint server (color, gradient, pattern, etc) applied to a shape.
     static member inline fillOpacity (value: float) = Interop.mkAttr "fillOpacity" value
     /// SVG attribute to define the opacity of the paint server (color, gradient, pattern, etc) applied to a shape.
