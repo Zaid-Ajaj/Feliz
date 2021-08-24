@@ -426,7 +426,7 @@ type prop =
     static member inline capture (value: bool) = Interop.mkAttr "capture" value
 
     /// This attribute declares the document's character encoding. Must be used in the meta tag.
-    static member inline charset (value: string) = Interop.mkAttr "charset" value
+    static member inline charset (value: string) = Interop.mkAttr "charSet" value
 
     /// Children of this React element.
     static member inline children (value: Fable.React.ReactElement) = Interop.mkAttr "children" value
