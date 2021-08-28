@@ -14,8 +14,9 @@ module UseElmishExtensions =
     type React with
         [<Hook>]
         static member useElmish<'State,'Msg> (init: 'State * Cmd<'Msg>, update: 'Msg -> 'State -> 'State * Cmd<'Msg>, dependencies: obj[]) =
-            let state = React.useRef(fst init)
             let childState, setChildState = React.useState(fst init)
+            let state = React.useRef(childState)
+            let isFirstRender = React.useRef(true)
             let token = React.useCancellationToken()
             let setChildState () =
                 JS.setTimeout(fun () ->
@@ -43,8 +44,12 @@ module UseElmishExtensions =
             ), dependencies)
 
             React.useEffect((fun () ->
-                state.current <- fst init
-                setChildState()
+                // don't unnecessarily reset childState on first render
+                if isFirstRender.current then
+                    isFirstRender.current <- false
+                else
+                    state.current <- fst init
+                    setChildState()
 
                 snd init
                 |> List.iter (fun sub -> sub dispatch)
