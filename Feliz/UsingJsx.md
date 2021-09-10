@@ -47,7 +47,7 @@ In the syntax of the `[<ReactComponent>]` attribute, the `import` parameter valu
 
 There are a couple of things to think about when writing these imports.
 
-First of all, the input properties of the component in JSX can be _destructured_ form. The following comnponent is an example of that where `title` is the destructured or unpacked property of the input object.
+First of all, the input properties of the component in JSX can be _destructured_ form. The following component is an example of that where `title` is the destructured or unpacked property of the input object.
 ```js
 export const About = ({ title }) => {
     // ...
