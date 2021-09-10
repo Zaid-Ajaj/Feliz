@@ -923,6 +923,9 @@ type prop =
     /// No light is projected outside the cone.
     static member inline limitingConeAngle (value: int) = Interop.mkAttr "limitingConeAngle" value
 
+    /// Value of the id attribute of the <c>datalist</c> of autocomplete options
+    static member inline list (value : string) = Interop.mkAttr "list" value
+
     /// If true, the browser will automatically seek back to the start upon reaching the end of the video.
     static member inline loop (value: bool) = Interop.mkAttr "loop" value
 
