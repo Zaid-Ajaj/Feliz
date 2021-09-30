@@ -47,7 +47,3 @@ type ITransformProperty = interface end
 type IGridSpan = interface end
 
 type IGridTemplateItem = interface end
-
-type IBreakProperty = interface end
-
-type IBreakInsideProperty = interface end
