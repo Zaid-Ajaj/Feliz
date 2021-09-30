@@ -31,6 +31,8 @@
     <Compile Include="Length.fs" />
     <Compile Include="Properties.fs" />
     <Compile Include="BorderStyle.fs" />
+    <Compile Include="BreakProperty.fs" />
+    <Compile Include="BreakInsideProperty.fs" />
     <Compile Include="TextDecorationStyle.fs" />
     <Compile Include="TextDecorationLine.fs" />
     <Compile Include="TransitionProperty.fs" />

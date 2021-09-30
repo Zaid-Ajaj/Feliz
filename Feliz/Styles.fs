@@ -2185,6 +2185,21 @@ type style =
     /// Sets the color of an SVG shape.
     static member inline fill (color: string) = Interop.mkStyle "fill" color
 
+    /// Sets the break-before property of an element.
+    ///
+    /// The break-before CSS property sets how page, column, or region breaks should behave before a generated box. If there is no generated box, the property is ignored.
+    static member inline breakBefore(breakStyle: IBreakProperty) = Interop.mkStyle "break-before" breakStyle
+
+    /// Sets the break-after property of an element.
+    ///
+    /// The break-after CSS property sets how page, column, or region breaks should behave after a generated box. If there is no generated box, the property is ignored.
+    static member inline breakAfter(breakStyle: IBreakProperty) = Interop.mkStyle "break-after" breakStyle
+
+    /// Sets the break-inside property of an element.
+    ///
+    /// The break-inside CSS property sets how page, column, or region breaks should behave inside a generated box. If there is no generated box, the property is ignored.
+    static member inline breakInside(breakStyle: IBreakInsideProperty) = Interop.mkStyle "break-inside" breakStyle
+
 [<Erase>]
 module style =
 
@@ -2785,7 +2800,7 @@ module style =
         static member inline initial = Interop.mkStyle "textDecorationLine" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "textDecorationLine" "inherit"
-         
+
     [<Erase>]
     type textDecoration =
         static member inline none = Interop.mkStyle "textDecoration" "none"
@@ -3712,7 +3727,7 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "position" "inherit"
 
     /// Sets how the total width and height of an element is calculated.
-    [<Erase>]   
+    [<Erase>]
     type boxSizing =
         /// Default value. The width and height properties include the content, but does not include the padding, border, or margin.
         static member inline contentBox = Interop.mkStyle "boxSizing" "content-box"
