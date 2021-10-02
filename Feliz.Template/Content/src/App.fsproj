@@ -9,7 +9,7 @@
         <Compile Include="Main.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Feliz" Version="1.52.0" />
+        <PackageReference Include="Feliz" Version="1.53.0" />
         <PackageReference Include="Feliz.Router" Version="3.8.0" />
         <PackageReference Include="Fable.DateFunctions" Version="3.7.0" />
     </ItemGroup>
