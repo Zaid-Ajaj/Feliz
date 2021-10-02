@@ -2785,7 +2785,7 @@ module style =
         static member inline initial = Interop.mkStyle "textDecorationLine" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "textDecorationLine" "inherit"
-         
+
     [<Erase>]
     type textDecoration =
         static member inline none = Interop.mkStyle "textDecoration" "none"
@@ -3712,7 +3712,7 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "position" "inherit"
 
     /// Sets how the total width and height of an element is calculated.
-    [<Erase>]   
+    [<Erase>]
     type boxSizing =
         /// Default value. The width and height properties include the content, but does not include the padding, border, or margin.
         static member inline contentBox = Interop.mkStyle "boxSizing" "content-box"
@@ -3751,6 +3751,111 @@ module style =
         static member inline initial = Interop.mkStyle "resize" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "resize" "inherit"
+
+    /// Sets the break-before property of an element.
+    ///
+    /// The break-before CSS property sets how page, column, or region breaks should behave before a generated box. If there is no generated box, the property is ignored.
+    [<Erase>]
+    type breakBefore =
+        /// Allows, but does not force, any break (page, column, or region) to be inserted right before the principal box.
+        static member inline auto = Interop.mkStyle "break-before" "auto"
+        /// Avoids any break (page, column, or region) from being inserted right before the principal box.
+        static member inline avoid = Interop.mkStyle "break-before" "avoid"
+        /// Forces a page break right after the principal box. The type of this break is that of the immediately-containing fragmentation context. If we are inside a multicol container then it would force a column break, inside paged media (but not inside a multicol container) a page break.
+        static member inline always = Interop.mkStyle "break-before" "always"
+        /// Forces a page break right after the principal box. Breaking through all possible fragmentation contexts. So a break inside a multicol container, which was inside a page container would force a column and page break.
+        static member inline all = Interop.mkStyle "break-before" "all"
+        /// Avoids any page break right before the principal box.
+        static member inline avoidPage = Interop.mkStyle "break-before" "avoid-page"
+        /// Forces a page break right before the principal box.
+        static member inline page = Interop.mkStyle "break-before" "page"
+        /// Forces one or two page breaks right before the principal box, whichever will make the next page into a left page.
+        static member inline left = Interop.mkStyle "break-before" "left"
+        /// Forces one or two page breaks right before the principal box, whichever will make the next page into a right page.
+        static member inline right = Interop.mkStyle "break-before" "right"
+        /// Forces one or two page breaks right before the principal box, whichever will make the next page into a recto page. (A recto page is a right page in a left-to-right spread or a left page in a right-to-left spread.)
+        static member inline recto = Interop.mkStyle "break-before" "recto"
+        /// Forces one or two page breaks right before the principal box, whichever will make the next page into a verso page. (A verso page is a left page in a left-to-right spread or a right page in a right-to-left spread.)
+        static member inline verso = Interop.mkStyle "break-before" "verso"
+        /// Avoids any column break right before the principal box.
+        static member inline avoidColumn = Interop.mkStyle "break-before" "avoid-column"
+        /// Forces a column break right before the principal box.
+        static member inline column = Interop.mkStyle "break-before" "column"
+        /// Avoids any region break right before the principal box.
+        static member inline avoidRegion = Interop.mkStyle "break-before" "avoid-region"
+        /// Forces a region break right before the principal box.
+        static member inline region = Interop.mkStyle "break-before" "region"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "break-before" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "break-before" "inherit"
+        /// Resets to its inherited value if the property naturally inherits from its parent,
+        /// and to its initial value if not.
+        static member inline unset = Interop.mkStyle "break-before" "unset"
+
+    /// Sets the break-after property of an element.
+    ///
+    /// The break-after CSS property sets how page, column, or region breaks should behave after a generated box. If there is no generated box, the property is ignored.
+    [<Erase>]
+    type breakAfter =
+        /// Allows, but does not force, any break (page, column, or region) to be inserted right after the principal box.
+        static member inline auto = Interop.mkStyle "break-after" "auto"
+        /// Avoids any break (page, column, or region) from being inserted right after the principal box.
+        static member inline avoid = Interop.mkStyle "break-after" "avoid"
+        /// Forces a page break right after the principal box. The type of this break is that of the immediately-containing fragmentation context. If we are inside a multicol container then it would force a column break, inside paged media (but not inside a multicol container) a page break.
+        static member inline always = Interop.mkStyle "break-after" "always"
+        /// Forces a page break right after the principal box. Breaking through all possible fragmentation contexts. So a break inside a multicol container, which was inside a page container would force a column and page break.
+        static member inline all = Interop.mkStyle "break-after" "all"
+        /// Avoids any page break right after the principal box.
+        static member inline avoidPage = Interop.mkStyle "break-after" "avoid-page"
+        /// Forces a page break right after the principal box.
+        static member inline page = Interop.mkStyle "break-after" "page"
+        /// Forces one or two page breaks right after the principal box, whichever will make the next page into a left page.
+        static member inline left = Interop.mkStyle "break-after" "left"
+        /// Forces one or two page breaks right after the principal box, whichever will make the next page into a right page.
+        static member inline right = Interop.mkStyle "break-after" "right"
+        /// Forces one or two page breaks right after the principal box, whichever will make the next page into a recto page. (A recto page is a right page in a left-to-right spread or a left page in a right-to-left spread.)
+        static member inline recto = Interop.mkStyle "break-after" "recto"
+        /// Forces one or two page breaks right after the principal box, whichever will make the next page into a verso page. (A verso page is a left page in a left-to-right spread or a right page in a right-to-left spread.)
+        static member inline verso = Interop.mkStyle "break-after" "verso"
+        /// Avoids any column break right after the principal box.
+        static member inline avoidColumn = Interop.mkStyle "break-after" "avoid-column"
+        /// Forces a column break right after the principal box.
+        static member inline column = Interop.mkStyle "break-after" "column"
+        /// Avoids any region break right after the principal box.
+        static member inline avoidRegion = Interop.mkStyle "break-after" "avoid-region"
+        /// Forces a region break right after the principal box.
+        static member inline region = Interop.mkStyle "break-after" "region"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "break-after" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "break-after" "inherit"
+        /// Resets to its inherited value if the property naturally inherits from its parent,
+        /// and to its initial value if not.
+        static member inline unset = Interop.mkStyle "break-after" "unset"
+    
+    /// Sets the break-inside property of an element.
+    ///
+    /// The break-inside CSS property sets how page, column, or region breaks should behave inside a generated box. If there is no generated box, the property is ignored.
+    [<Erase>]
+    type breakInside =
+        /// Allows, but does not force, any break (page, column, or region) to be inserted within the principal box.
+        static member inline auto = Interop.mkStyle "break-inside" "auto"
+        /// Avoids any break (page, column, or region) from being inserted within the principal box.
+        static member inline avoid = Interop.mkStyle "break-inside" "avoid"
+        /// Avoids any page break within the principal box.
+        static member inline avoidPage = Interop.mkStyle "break-inside" "avoid-page"
+        /// Avoids any column break within the principal box.
+        static member inline avoidColumn = Interop.mkStyle "break-inside" "avoid-column"
+        /// Avoids any region break within the principal box.
+        static member inline avoidRegion = Interop.mkStyle "break-inside" "avoid-region"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "break-inside" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "break-inside" "inherit"
+        /// Resets to its inherited value if the property naturally inherits from its parent,
+        /// and to its initial value if not.
+        static member inline unset = Interop.mkStyle "break-inside" "unset"
 
     /// Sets the background color of an element.
     [<Erase; RequireQualifiedAccess>]
