@@ -31,14 +31,14 @@ type private ElmishObservable<'State, 'Msg>() =
 module UseElmishExtensions =
     type React with
         [<Hook>]
-        static member useElmish(program: unit -> Program<unit, 'State, 'Msg, unit>) =
+        static member useElmish(program: unit -> Program<'arg, 'State, 'Msg, unit>, arg: 'arg) =
             // Don't use useMemo here because React doesn't guarantee it won't recreate it again
             let obs, _ = React.useState(fun () -> ElmishObservable())
 
             let state, setState = React.useState(fun () ->
                 program()
                 |> Program.withSetState obs.SetState
-                |> Program.run
+                |> Program.runWith arg
 
                 match obs.Value with
                 | None -> failwith "Elmish program has not initialized"
@@ -53,13 +53,15 @@ module UseElmishExtensions =
             obs.Subscribe(setState)
             state, obs.Dispatch
 
+        [<Hook>]
+        static member useElmish(program: unit -> Program<unit, 'State, 'Msg, unit>) =
+            React.useElmish(program, ())
+
+        static member useElmish(init, update, arg, ?dependencies: obj array) =
+            React.useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), arg)
+
         static member useElmish(init, update, ?dependencies: obj array) =
-            React.useElmish(fun () ->
-                let view _ _ = ()
-                Program.mkProgram init update view)
+            React.useElmish(fun () -> Program.mkProgram init update (fun _ _ -> ()))
 
         static member useElmish(initial, update, ?dependencies: obj array) =
-            React.useElmish(fun () ->
-                let view _ _ = ()
-                let init () = initial
-                Program.mkProgram init update view)
+            React.useElmish(fun () -> Program.mkProgram (fun () -> initial) update (fun _ _ -> ()))
