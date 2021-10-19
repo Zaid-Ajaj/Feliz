@@ -53,7 +53,13 @@ module UseElmishExtensions =
             obs.Subscribe(setState)
             state, obs.Dispatch
 
-        static member useElmish(update, init) =
+        static member useElmish(init, update, ?dependencies: obj array) =
             React.useElmish(fun () ->
                 let view _ _ = ()
+                Program.mkProgram init update view)
+
+        static member useElmish(initial, update, ?dependencies: obj array) =
+            React.useElmish(fun () ->
+                let view _ _ = ()
+                let init () = initial
                 Program.mkProgram init update view)
