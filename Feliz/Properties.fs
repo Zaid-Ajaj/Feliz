@@ -1608,7 +1608,7 @@ type prop =
     /// Sets the end index of the selected text.
     ///
     /// When there's no selection, this returns the offset of the character immediately following the current text input cursor position.
-    static member inline selectionEnd (value: int) = Interop.mkAttr "selectionStart" value
+    static member inline selectionEnd (value: int) = Interop.mkAttr "selectionEnd" value
 
     /// Sets the *visual* size of the control.
     ///
