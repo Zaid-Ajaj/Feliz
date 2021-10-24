@@ -129,7 +129,7 @@ let Counter() =
         // return IDisposable with cleanup code
         { new IDisposable with member this.Dispose() = clearTimeout(subscriptionId) }
 
-    React.useEffect(subscribeToTimer)
+    React.useEffect(subscribeToTimer, [| |])
 
     Html.div [
         Html.h1 (state.Count + localCount)
