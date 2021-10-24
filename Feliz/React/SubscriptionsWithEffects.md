@@ -15,11 +15,13 @@ open Fable.Core.JS
 [<ReactComponent>]
 let EffectfulTimer() =
     let (paused, setPaused) = React.useState(false)
-    let (value, setValue) = React.useState(0)
+    // using useStateWithUpdater instead of useState
+    // to avoid stale closures in React.useEffect
+    let (value, setValue) = React.useStateWithUpdater(0)
 
     let subscribeToTimer() =
         // start the timer
-        let subscriptionId = setInterval (fun _ -> if not paused then setValue (value + 1)) 1000
+        let subscriptionId = setInterval (fun _ -> if not paused then setValue (fun prev -> prev + 1)) 1000
         // return IDisposable with cleanup code that stops the timer
         { new IDisposable with member this.Dispose() = clearTimeout(subscriptionId) }
 
@@ -44,7 +46,7 @@ Here we are subscribing with the value `subscribeToTimer` of type `unit -> IDisp
 ```fsharp
 let subscribeToTimer() =
     // start the timer
-    let subscriptionId = setInterval (fun _ -> if not paused then setValue (value + 1)) 1000
+    let subscriptionId = setInterval (fun _ -> if not paused then setValue (fun prev -> prev  + 1)) 1000
     // return IDisposable with cleanup code that stops the timer
     { new IDisposable with member this.Dispose() = clearTimeout(subscriptionId) }
 ```
@@ -52,7 +54,7 @@ We return an `IDisposable` using an object expression but if you like functions 
 ```fsharp
 let subscribeToTimer() =
     // start the ticking
-    let subscriptionId = setTimeout (fun _ -> if not paused then setValue (value + 1)) 1000
+    let subscriptionId = setTimeout (fun _ -> if not paused then setValue (fun prev -> prev  + 1)) 1000
     // return IDisposable with cleanup code that stops the timer
     React.createDisposable(fun _ -> clearTimeout subscriptionId)
 ```
@@ -95,32 +97,35 @@ let Main() =
     let renderChild,setRenderChild = React.useState true
     let resultText,setResultText = React.useState "Pending..."
 
-    let setFailed = React.useCallbackRef <| fun () -> setResultText "You didn't cancel me in time!"
+    let setFailed = React.useCallbackRef(fun () -> setResultText "You didn't cancel me in time!")
 
     Html.div [
         if renderChild then UseToken(setFailed)
         Result(resultText)
         Html.button [
             prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
-            prop.disabled <| (resultText = "Disposed")
-            prop.onClick <| fun _ ->
+            prop.disabled(resultText = "Disposed")
+            prop.text "Dispose"
+            prop.onClick(fun _ ->
                 async {
                     setResultText "Disposed"
                     setRenderChild false
                 }
                 |> Async.StartImmediate
-            prop.text "Dispose"
+            )
         ]
+
         Html.button [
             prop.classes [ Bulma.Button; Bulma.HasBackgroundPrimary; Bulma.HasTextWhite ]
-            prop.disabled <| (renderChild && resultText = "Pending...")
-            prop.onClick <| fun _ ->
+            prop.disabled (renderChild && resultText = "Pending...")
+            prop.text "Reset"
+            prop.onClick(fun _ ->
                 async {
                     setResultText "Pending..."
                     setRenderChild true
                 }
                 |> Async.StartImmediate
-            prop.text "Reset"
+            )
         ]
     ]
 ```

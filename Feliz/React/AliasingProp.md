@@ -15,7 +15,8 @@ module App
 
 open Feliz
 
-let counter = React.functionComponent <| fun () ->
+[<ReactComponent>]
+let Counter() =
     let (count, setCount) = React.useState(0)
     Html.div [
         Html.h1 count
