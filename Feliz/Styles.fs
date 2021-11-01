@@ -1351,7 +1351,7 @@ type style =
     ///
     /// **CSS**
     /// ```css
-    /// grid-column: 1/ col-4;
+    /// grid-column: 1 / col-4;
     /// ```
     /// **F#**
     /// ```f#
@@ -1653,6 +1653,90 @@ type style =
     /// ```
     static member inline gridRow(start: IGridSpan, end': IGridSpan) =
         Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
+    /// Specifies the size of an implicitly-created grid row track
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-rows: 1fr;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoRows (length.fr 1)
+    /// ```
+    static member inline gridAutoRows(value: ICssUnit) =
+        Interop.mkStyle "gridAutoRows" (unbox<string> value)
+    /// Specifies the size of an implicitly-created grid row track
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-rows: 10px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoRows 10
+    /// ```
+    static member inline gridAutoRows(value: int) =
+        Interop.mkStyle "gridAutoRows" (unbox<string> value)
+    /// Specifies the size of an implicitly-created grid row track
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-rows: 50.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoRows 50.5
+    /// ```
+    static member inline gridAutoRows(value: float) =
+        Interop.mkStyle "gridAutoRows" (unbox<string> value)
+    /// Specifies the size of an implicitly-created grid column track
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-columns: 1fr;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoColumns (length.fr 1)
+    /// ```
+    static member inline gridAutoColumns(value: ICssUnit) =
+        Interop.mkStyle "gridAutoColumns" (unbox<string> value)
+    /// Specifies the size of an implicitly-created grid column track
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-columns: 10px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoColumns 10
+    /// ```
+    static member inline gridAutoColumns(value: int) =
+        Interop.mkStyle "gridAutoColumns" (unbox<string> value)
+    /// Specifies the size of an implicitly-created grid column track
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-columns: 50.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoColumns 50.5
+    /// ```
+    static member inline gridAutoColumns(value: float) =
+        Interop.mkStyle "gridAutoColumns" (unbox<string> value)
     /// Sets the named grid area the item is placed in
     ///
     /// **CSS**
@@ -4598,3 +4682,167 @@ module style =
         static member inline darkSlateGray = Interop.mkStyle "textDecorationColor" "#2F4F4F"
         static member inline black = Interop.mkStyle "textDecorationColor" "#000000"
         static member inline transparent = Interop.mkStyle "textDecorationColor" "transparent"
+
+    /// Controls how the auto-placement algorithm works, specifying exactly how auto-placed items get flowed into the grid
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow
+    [<Erase>]
+    type gridAutoFlow =
+        /// Default value. Items are placed by filling each row in turn, adding new rows as necessary
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-flow: row;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoFlow.row
+        /// ```
+        static member inline row = Interop.mkStyle "gridAutoFlow" "row"
+        /// Items are placed by filling each column in turn, adding new columns as necessary
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-flow: column;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoFlow.column
+        /// ```
+        static member inline column = Interop.mkStyle "gridAutoFlow" "column"
+        /// The "dense" algorithm attempts to fill in holes earlier in the grid, if smaller items come up later.
+        /// This may cause items to appear out-of-order, when doing so would fill in holes left by larger items.
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-flow: dense;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoFlow.dense
+        /// ```
+        static member inline dense = Interop.mkStyle "gridAutoFlow" "dense"
+        /// Items are placed by filling each row in turn, adding new rows as necessary.
+        /// The "dense" algorithm attempts to fill in holes earlier in the grid, if smaller items come up later.
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-flow: row dense;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoFlow.rowDense
+        /// ```
+        static member inline rowDense = Interop.mkStyle "gridAutoFlow" "row dense"
+        /// Items are placed by filling each column in turn, adding new columns as necessary.
+        /// The "dense" algorithm attempts to fill in holes earlier in the grid, if smaller items come up later.
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-flow: column dense;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoFlow.columnDense
+        /// ```
+        static member inline columnDense = Interop.mkStyle "gridAutoFlow" "column dense"
+
+    /// Specifies the size of an implicitly-created grid column track
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+    [<Erase>]
+    type gridAutoColumns =
+        /// Default value. The size of the columns is determined by the size of the container
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-columns: auto;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoColumns.auto
+        /// ```
+        static member inline auto = Interop.mkStyle "gridAutoColumns" "auto"
+        /// Represents the largest minimal content contribution of the grid items occupying the grid track
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-columns: min-content;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoColumns.minContent
+        /// ```
+        static member inline minContent = Interop.mkStyle "gridAutoColumns" "min-content"
+        /// Represents the largest maximal content contribution of the grid items occupying the grid track
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-columns: max-content;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoColumns.maxContent
+        /// ```
+        static member inline maxContent = Interop.mkStyle "gridAutoColumns" "max-content"
+    
+    /// Specifies the size of an implicitly-created grid row track
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
+    [<Erase>]
+    type gridAutoRows =
+        /// Default value. The size of the rows is determined by the size of the container
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-rows: auto;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoRows.auto
+        /// ```
+        static member inline auto = Interop.mkStyle "gridAutoRows" "auto"
+        /// Represents the largest minimal content contribution of the grid items occupying the grid track
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-rows: min-content;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoRows.minContent
+        /// ```
+        static member inline minContent = Interop.mkStyle "gridAutoRows" "min-content"
+        /// Represents the largest maximal content contribution of the grid items occupying the grid track
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-rows: max-content;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoRows.maxContent
+        /// ```
+        static member inline maxContent = Interop.mkStyle "gridAutoRows" "max-content"
