@@ -1987,6 +1987,29 @@ type style =
     /// Rounds the corners of an element's outer border edge. You can set a single radius to make
     /// circular corners, or two radii to make elliptical corners.
     static member inline borderRadius (radius: ICssUnit) = Interop.mkStyle "borderRadius" radius
+        /// top-left-and-bottom-right | top-right-and-bottom-left
+    static member inline borderRadius (topLeftAndBottomRight: int, topRightAndBottomLeft: int) =
+        Interop.mkStyle "borderRadius" (
+            (unbox<string> topLeftAndBottomRight) + "px " +
+            (unbox<string> topRightAndBottomLeft) + "px"
+        )
+
+    /// top-left | top-right-and-bottom-left | bottom-right
+    static member inline borderRadius (topLeft: int, topRightAndBottomLeft: int, bottomRight: int) =
+        Interop.mkStyle "borderRadius" (
+            (unbox<string> topLeft) + "px " +
+            (unbox<string> topRightAndBottomLeft) + "px " +
+            (unbox<string> bottomRight) + "px"
+        )
+
+    /// top-left | top-right | bottom-right | bottom-left
+    static member inline borderRadius (topLeft: int, topRight: int, bottomRight: int, bottomLeft: int) =
+        Interop.mkStyle "borderRadius" (
+            (unbox<string> topLeft) + "px " +
+            (unbox<string> topRight) + "px " +
+            (unbox<string> bottomRight) + "px " +
+            (unbox<string> bottomLeft) + "px"
+        )
     /// Sets the width of an element's border.
     static member inline borderWidth (top: int, right: int) =
         Interop.mkStyle "borderWidth" (
