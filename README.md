@@ -48,7 +48,4 @@ ReactDOM.render(Counter(), document.getElementById "root")
 
 ### Documentation
 
-> Documentation on the improvements implemented in Feliz with respect to Fable 3 are currently WIP! Please hold tight until we update it and publish a migration guide.
-
 Feliz has extensive documentation at [https://zaid-ajaj.github.io/Feliz](https://zaid-ajaj.github.io/Feliz) with live examples along side code samples, check them out and if you have any question, let us know!
-
