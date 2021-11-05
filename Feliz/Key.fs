@@ -1,15 +1,15 @@
 ﻿namespace Feliz
 
-type IKeyboardKey = interface end 
+type IKeyboardKey = interface end
 
 [<RequireQualifiedAccess>]
-module key = 
-    let private create (key: string) = 
+module key =
+    let private create (key: string) =
         unbox<IKeyboardKey> (key, false, false)
 
     let enter = create "Enter"
     let one = create "1"
-    let two = create "2" 
+    let two = create "2"
     let three = create "3"
     let four = create "4"
     let five = create "5"
@@ -38,7 +38,7 @@ module key =
     let l = create "l"
     let m = create "m"
     let n = create "n"
-    let o = create "p"
+    let o = create "o"
     let p = create "p"
     let q = create "q"
     let r = create "r"
@@ -51,18 +51,14 @@ module key =
     let y = create "y"
     let z = create "z"
 
-    let ctrl(key: IKeyboardKey) = 
-        let (a, _, c) = unbox key 
+    let ctrl(key: IKeyboardKey) =
+        let (a, _, c) = unbox key
         unbox<IKeyboardKey> (a, true, c)
 
     let shift(key: IKeyboardKey) =
-        let (a, b, _) = unbox key 
+        let (a, b, _) = unbox key
         unbox<IKeyboardKey> (a, b, true)
 
-    let ctrlAndShift(key: IKeyboardKey) = 
-        let (a, _, _) = unbox key 
+    let ctrlAndShift(key: IKeyboardKey) =
+        let (a, _, _) = unbox key
         unbox<IKeyboardKey> (a, true, true)
-
-
-
-
