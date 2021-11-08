@@ -3394,25 +3394,25 @@ module prop =
     [<Erase>]
     type referrerPolicy =
         /// The Referer header will not be sent.
-        static member inline noReferrer = Interop.mkAttr "referrerpolicy" "no-referrer"
+        static member inline noReferrer = Interop.mkAttr "referrerPolicy" "no-referrer"
         /// The Referer header will not be sent to origins without TLS (HTTPS).
-        static member inline noReferrerWhenDowngrade = Interop.mkAttr "referrerpolicy" "no-referrer-when-downgrade"
+        static member inline noReferrerWhenDowngrade = Interop.mkAttr "referrerPolicy" "no-referrer-when-downgrade"
         /// The sent referrer will be limited to the origin of the referring page: its scheme, host, and port.
-        static member inline origin = Interop.mkAttr "referrerpolicy" "origin"
+        static member inline origin = Interop.mkAttr "referrerPolicy" "origin"
         /// The referrer sent to other origins will be limited to the scheme, the host, and the port.
         /// Navigations on the same origin will still include the path.
-        static member inline originWhenCrossOrigin = Interop.mkAttr "referrerpolicy" "origin-when-cross-origin"
+        static member inline originWhenCrossOrigin = Interop.mkAttr "referrerPolicy" "origin-when-cross-origin"
         /// A referrer will be sent for same origin, but cross-origin requests will contain no referrer information.
-        static member inline sameOrigin = Interop.mkAttr "referrerpolicy" "same-origin"
+        static member inline sameOrigin = Interop.mkAttr "referrerPolicy" "same-origin"
         /// Only send the origin of the document as the referrer when the protocol security level stays the same
         /// (e.g. HTTPS→HTTPS), but don't send it to a less secure destination (e.g. HTTPS→HTTP).
-        static member inline strictOrigin = Interop.mkAttr "referrerpolicy" "strict-origin"
+        static member inline strictOrigin = Interop.mkAttr "referrerPolicy" "strict-origin"
         /// Send a full URL when performing a same-origin request, but only send the origin when the protocol security
         /// level stays the same (e.g.HTTPS→HTTPS), and send no header to a less secure destination (e.g. HTTPS→HTTP).
-        static member inline strictOriginWhenCrossOrigin = Interop.mkAttr "referrerpolicy" "strict-origin-when-cross-origin"
+        static member inline strictOriginWhenCrossOrigin = Interop.mkAttr "referrerPolicy" "strict-origin-when-cross-origin"
         /// The referrer will include the origin and the path (but not the fragment, password, or username). This value is unsafe,
         /// because it leaks origins and paths from TLS-protected resources to insecure origins.
-        static member inline unsafeUrl = Interop.mkAttr "referrerpolicy" "unsafe-url"
+        static member inline unsafeUrl = Interop.mkAttr "referrerPolicy" "unsafe-url"
 
     /// Defines the x coordinate of an element’s reference point.
     [<Erase>]
