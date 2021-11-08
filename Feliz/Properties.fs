@@ -2493,7 +2493,7 @@ module prop =
 
     [<Erase>]
     type charset =
-        static member inline utf8 = Interop.mkAttr "charset" "UTF-8"
+        static member inline utf8 = Interop.mkAttr "charSet" "UTF-8"
 
     /// Indicates which coordinate system to use for the contents of the <clipPath> element.
     [<Erase>]
