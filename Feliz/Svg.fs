@@ -97,8 +97,10 @@ type Svg =
     static member inline marker xs = Interop.createSvgElement "marker" xs
     /// The <marker> element defines the graphic that is to be used for drawing arrowheads or polymarkers on a given <path>, <line>, <polyline> or <polygon> element.
     static member inline marker (children: #seq<ReactElement>) = Interop.reactElementWithChildren "marker" children
-    static member inline mask xs = Interop.createSvgElement "marker" xs
-    static member inline mask (children: #seq<ReactElement>) = Interop.reactElementWithChildren "marker" children
+    /// The <mask> element defines an alpha mask for compositing the current object into the background. A mask is used/referenced using the mask attribute.
+    static member inline mask xs = Interop.createSvgElement "mask" xs
+    /// The <mask> element defines an alpha mask for compositing the current object into the background. A mask is used/referenced using the mask attribute.
+    static member inline mask (children: #seq<ReactElement>) = Interop.reactElementWithChildren "mask" children
     static member inline mpath xs = Interop.createSvgElement "mpath" xs
     static member inline mpath (children: #seq<ReactElement>) = Interop.reactElementWithChildren "mpath" children
     static member inline path xs = Interop.createSvgElement "path" xs
@@ -418,6 +420,9 @@ type svg =
     /// Represents the height of the viewport into which the <marker> is to be fitted when it is
     /// rendered according to the viewBox and preserveAspectRatio attributes.
     static member inline markerHeight (value: ICssUnit) = Interop.svgAttribute "markerHeight" value
+    
+    /// The mask presentation attribute binds a given <mask> element applying it to the element the attribute belongs to.
+    static member inline mask (value: string) = Interop.svgAttribute "mask" value
 
     /// Represents the width of the viewport into which the <marker> is to be fitted when it is
     /// rendered according to the viewBox and preserveAspectRatio attributes.
