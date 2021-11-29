@@ -121,8 +121,8 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     let errorMsg = String.concat "" [
                         sprintf "Function component '%s' is using a record type '%s' as an input parameter. " decl.Name recordTypeName
                         "This happens to break React tooling like react-refresh and hot module reloading. "
-                        "To fix this issue, consider using an anonymous record instead or multiple simpler values as input parameters (can be tupled)"
-                        "Future versions of [<ReactComponent>] might not emit this warning anymore, in which case you can assume that the issue if fixed. "
+                        "To fix this issue, consider using an anonymous record instead or multiple simpler values as input parameters (can be tupled). "
+                        "Future versions of [<ReactComponent>] might not emit this warning anymore, in which case you can assume that the issue is fixed. "
                         "To learn more about the issue, see https://github.com/pmmmwh/react-refresh-webpack-plugin/issues/258"
                     ]
 

@@ -62,22 +62,22 @@ type transform =
     /// Defines a translation, using only the value for the X-axis.
     static member inline translateX(x: ICssUnit) =
         unbox<ITransformProperty> ("translateX(" + (unbox<string> x) + ")")
-    /// Defines a translation, using only the value for the Y-axis
+    /// Defines a translation, using only the value for the Y-axis.
     static member inline translateY(y: int) =
         unbox<ITransformProperty> ("translateY(" + (unbox<string> y) + "px)")
-    /// Defines a translation, using only the value for the Y-axis
+    /// Defines a translation, using only the value for the Y-axis.
     static member inline translateY(y: float) =
         unbox<ITransformProperty> ("translateY(" + (unbox<string> y) + "px)")
-    /// Defines a translation, using only the value for the Y-axis
+    /// Defines a translation, using only the value for the Y-axis.
     static member inline translateY(y: ICssUnit) =
         unbox<ITransformProperty> ("translateY(" + (unbox<string> y) + ")")
-    /// Defines a 3D translation, using only the value for the Z-axis
+    /// Defines a 3D translation, using only the value for the Z-axis.
     static member inline translateZ(z: int) =
         unbox<ITransformProperty> ("translateZ(" + (unbox<string> z) + "px)")
-    /// Defines a 3D translation, using only the value for the Z-axis
+    /// Defines a 3D translation, using only the value for the Z-axis.
     static member inline translateZ(z: float) =
         unbox<ITransformProperty> ("translateZ(" + (unbox<string> z) + "px)")
-    /// Defines a 3D translation, using only the value for the Z-axis
+    /// Defines a 3D translation, using only the value for the Z-axis.
     static member inline translateZ(z: ICssUnit) =
         unbox<ITransformProperty> ("translateZ(" + (unbox<string> z) + ")")
 
@@ -104,12 +104,12 @@ type transform =
             "scale(" + (unbox<string> n) + ")"
         )
 
-    /// Defines a 3D scale transformation
+    /// Defines a 3D scale transformation.
     static member inline scale3D(x: int, y: int, z: int) =
         unbox<ITransformProperty> (
             "scale3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
         )
-    /// Defines a 3D scale transformation
+    /// Defines a 3D scale transformation.
     static member inline scale3D(x: float, y: float, z: float) =
         unbox<ITransformProperty> (
             "scale3d(" + (unbox<string> x) + "," + (unbox<string> y) + "," + (unbox<string> z) + ")"
@@ -128,10 +128,10 @@ type transform =
     /// Defines a scale transformation by giving a value for the Y-axis.
     static member inline scaleY(y: float) =
         unbox<ITransformProperty> ("scaleY(" + (unbox<string> y) + ")")
-    /// Defines a 3D translation, using only the value for the Z-axis
+    /// Defines a 3D translation, using only the value for the Z-axis.
     static member inline scaleZ(z: int) =
         unbox<ITransformProperty> ("scaleZ(" + (unbox<string> z) + ")")
-    /// Defines a 3D translation, using only the value for the Z-axis
+    /// Defines a 3D translation, using only the value for the Z-axis.
     static member inline scaleZ(z: float) =
         unbox<ITransformProperty> ("scaleZ(" + (unbox<string> z) + ")")
     /// Defines a 2D rotation, the angle is specified in the parameter.
@@ -146,16 +146,16 @@ type transform =
     /// Defines a 3D rotation along the X-axis.
     static member inline rotateX(deg: int) =
         unbox<ITransformProperty> ("rotateX(" + (unbox<string> deg) + "deg)")
-    /// Defines a 3D rotation along the Y-axis
+    /// Defines a 3D rotation along the Y-axis.
     static member inline rotateY(deg: float) =
         unbox<ITransformProperty> ("rotateY(" + (unbox<string> deg) + "deg)")
-    /// Defines a 3D rotation along the Y-axis
+    /// Defines a 3D rotation along the Y-axis.
     static member inline rotateY(deg: int) =
         unbox<ITransformProperty> ("rotateY(" + (unbox<string> deg) + "deg)")
-    /// Defines a 3D rotation along the Z-axis
+    /// Defines a 3D rotation along the Z-axis.
     static member inline rotateZ(deg: float) =
         unbox<ITransformProperty> ("rotateZ(" + (unbox<string> deg) + "deg)")
-    /// Defines a 3D rotation along the Z-axis
+    /// Defines a 3D rotation along the Z-axis.
     static member inline rotateZ(deg: int) =
         unbox<ITransformProperty> ("rotateZ(" + (unbox<string> deg) + "deg)")
     /// Defines a 2D skew transformation along the X- and the Y-axis.
@@ -164,18 +164,18 @@ type transform =
     /// Defines a 2D skew transformation along the X- and the Y-axis.
     static member inline skew(xAngle: float, yAngle: float) =
         unbox<ITransformProperty> ("skew(" + (unbox<string> xAngle) + "deg," + (unbox<string> yAngle) + "deg)")
-    /// Defines a 2D skew transformation along the X-axis
+    /// Defines a 2D skew transformation along the X-axis.
     static member inline skewX(xAngle: int) =
         unbox<ITransformProperty> ("skewX(" + (unbox<string> xAngle) + "deg)")
-    /// Defines a 2D skew transformation along the X-axis
+    /// Defines a 2D skew transformation along the X-axis.
     static member inline skewX(xAngle: float) =
         unbox<ITransformProperty> ("skewX(" + (unbox<string> xAngle) + "deg)")
-    /// Defines a 2D skew transformation along the Y-axis
+    /// Defines a 2D skew transformation along the Y-axis.
     static member inline skewY(xAngle: int) =
         unbox<ITransformProperty> ("skewY(" + (unbox<string> xAngle) + "deg)")
-    /// Defines a 2D skew transformation along the Y-axis
+    /// Defines a 2D skew transformation along the Y-axis.
     static member inline skewY(xAngle: float) =
         unbox<ITransformProperty> ("skewY(" + (unbox<string> xAngle) + "deg)")
-    /// Defines a perspective view for a 3D transformed element
+    /// Defines a perspective view for a 3D transformed element.
     static member inline perspective(n: int) =
         unbox<ITransformProperty> ("perspective(" + (unbox<string> n) + ")")
