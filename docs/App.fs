@@ -1178,7 +1178,7 @@ let main = React.functionComponent(fun (input: {| state: State; dispatch: Msg ->
             ]
 
             Html.div [
-                prop.className Bulma.Tile
+                prop.className [ Bulma.Tile; Bulma.Is10 ]
                 prop.style [ style.paddingTop 30 ]
                 prop.children [ content {| state = input.state; dispatch = dispatch |} ]
             ]
