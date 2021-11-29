@@ -25,9 +25,9 @@ module Config =
         then defaultValue
         else foundValue
 
-// Stylesheet API
-// let private stylehsheet = Stylesheet.load "./fancy.css"
-// stylesheet.["fancy-class"] which returns a string
+/// Stylesheet API
+/// let private stylehsheet = Stylesheet.load "./fancy.module.css"
+/// stylesheet.["fancy-class-name"] which returns a string
 module Stylesheet =
 
     type IStylesheet =
