@@ -1632,7 +1632,7 @@ type prop =
 
     /// This attribute contains a positive integer indicating the number of consecutive
     /// columns the <col> element spans. If not present, its default value is 1.
-    static member inline spam (value: int) = Interop.mkAttr "span" value
+    static member inline span (value: int) = Interop.mkAttr "span" value
 
     /// Defines whether the element may be checked for spelling errors.
     static member inline spellcheck (value: bool) = Interop.mkAttr "spellcheck" value
