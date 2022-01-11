@@ -47,3 +47,5 @@ type ITransformProperty = interface end
 type IGridSpan = interface end
 
 type IGridTemplateItem = interface end
+
+type IFilter = interface end
