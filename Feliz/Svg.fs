@@ -809,16 +809,37 @@ type svg =
     /// SVG attribute to define the pattern of dashes and gaps used to paint the outline of the shape.
     static member inline strokeDasharray (value: int array) = Interop.svgAttribute "strokeDasharray" value
 
+    /// SVG attribute to define the offset on the rendering of the associated dash array.
+    static member inline strokeDashoffset (value: int) = Interop.svgAttribute "strokeDashoffset" value
+
+    /// SVG attribute to define the  an offset on the rendering of the associated dash array
+    static member inline strokeDashoffset (value: float) = Interop.svgAttribute "strokeDashoffset" value
+
+    /// SVG attribute to define the shape to be used at the end of open subpaths when they are stroked.
+    static member inline strokeLineCap (value: string) = Interop.svgAttribute "strokeLinecap" value
+
+    /// SVG attribute to define the shape to be used at the end of open subpaths when they are stroked.
+    static member inline strokeLineJoin (value: string) = Interop.svgAttribute "strokeLinejoin" value
+
+    /// SVG attribute to define a limit on the ratio of the miter length to the stroke-width used to draw a miter join. 
+    /// When the limit is exceeded, the join is converted from a miter to a bevel.
+    static member inline strokeMitterLimit (value: int) = Interop.svgAttribute "strokeMiterlimit" value
+
     /// SVG attribute to define the width of the stroke to be applied to the shape.
     static member inline strokeWidth (value: float) = Interop.svgAttribute "strokeWidth" value
+
     /// SVG attribute to define the width of the stroke to be applied to the shape.
     static member inline strokeWidth (value: int) = Interop.svgAttribute "strokeWidth" value
+
     /// SVG attribute to define the opacity of the stroke to be applied to the shape.
     static member inline strokeOpacity (value: float) = Interop.svgAttribute "strokeOpacity" value
+
     /// SVG attribute to define the opacity of the stroke to be applied to the shape.
     static member inline strokeOpacity (value: int) = Interop.svgAttribute "strokeOpacity" value
+
     /// Represents the height of the surface for a light filter primitive.
     static member inline surfaceScale (value: float) = Interop.svgAttribute "surfaceScale" value
+
     /// Represents the height of the surface for a light filter primitive.
     static member inline surfaceScale (value: int) = Interop.svgAttribute "surfaceScale" value
 
@@ -892,6 +913,9 @@ type svg =
     /// This is required in documents parsed with XML parsers, and optional in text/html documents.
     static member inline xmlns(ns: string) =
         Interop.svgAttribute "xmlns" ns
+
+    /// Used to define a custom SVG attribute when one is missing.
+    static member inline custom(name: string, value: 't) = Interop.svgAttribute name value
 
 module svg =
     [<Erase>]
