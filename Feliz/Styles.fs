@@ -2315,11 +2315,9 @@ module style =
         static member inline fitContent = Interop.mkStyle "width" "fit-content"
 
         /// The intrinsic preferred width.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline maxContent = Interop.mkStyle "width" "max-content"
 
         /// The intrinsic minimum width.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline minContent = Interop.mkStyle "width" "min-content"
 
     [<Erase>]
@@ -2336,11 +2334,9 @@ module style =
         static member inline fitContent = Interop.mkStyle "minWidth" "fit-content"
 
         /// The intrinsic preferred width.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline maxContent = Interop.mkStyle "minWidth" "max-content"
 
         /// The intrinsic minimum width.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline minContent = Interop.mkStyle "minWidth" "min-content"
 
      [<Erase>]
@@ -2357,11 +2353,9 @@ module style =
         static member inline fitContent = Interop.mkStyle "maxWidth" "fit-content"
 
         /// The intrinsic preferred width.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline maxContent = Interop.mkStyle "maxWidth" "max-content"
 
         /// The intrinsic minimum width.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline minContent = Interop.mkStyle "maxWidth" "min-content"
 
     [<Erase>]
@@ -2378,11 +2372,9 @@ module style =
         static member inline fitContent = Interop.mkStyle "height" "fit-content"
 
         /// The intrinsic preferred height.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline maxContent = Interop.mkStyle "height" "max-content"
 
         /// The intrinsic minimum height.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline minContent = Interop.mkStyle "height" "min-content"
 
     [<Erase>]
@@ -2399,11 +2391,9 @@ module style =
         static member inline fitContent = Interop.mkStyle "minHeight" "fit-content"
 
         /// The intrinsic preferred height.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline maxContent = Interop.mkStyle "minHeight" "max-content"
 
         /// The intrinsic minimum height.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline minContent = Interop.mkStyle "minHeight" "min-content"
 
     [<Erase>]
@@ -2420,11 +2410,9 @@ module style =
         static member inline fitContent = Interop.mkStyle "maxHeight" "fit-content"
 
         /// The intrinsic preferred height.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline maxContent = Interop.mkStyle "maxHeight" "max-content"
 
         /// The intrinsic minimum height.
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline minContent = Interop.mkStyle "maxHeight" "min-content"
 
     [<Erase>]
