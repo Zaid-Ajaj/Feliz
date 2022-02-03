@@ -17,55 +17,235 @@ type style =
     /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
     /// margin-bottom, and margin-left.
     static member inline margin(value: int) = Interop.mkStyle "margin" value
-    /// Sets the margin area on two sides of an element. It is a shorthand for margin-top and margin-right.
-    static member inline margin(top: int, right: int) =
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(value: ICssUnit) = Interop.mkStyle "margin" value
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(vertical: int, horizontal: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> vertical) + "px " +
+            (unbox<string> horizontal) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(vertical: int, horizontal: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> vertical) + "px " +
+            (unbox<string> horizontal)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(vertical: ICssUnit, horizontal: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> vertical) + " " +
+            (unbox<string> horizontal) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(vertical: ICssUnit, horizontal: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> vertical) + " " +
+            (unbox<string> horizontal)
+        )
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
+    /// and margin-bottom.
+    static member inline margin(top: int, horizontal: int, bottom: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + "px " +
-            (unbox<string> right) + "px"
-        )
-    /// Sets the margin area on two sides of an element. It is a shorthand for margin-top and margin-right.
-    static member inline margin(top: ICssUnit, right: int) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + " " +
-            (unbox<string>right) + "px"
-        )
-    /// Sets the margin area on two sides of an element. It is a shorthand for margin-top and margin-right.
-    static member inline margin(top: ICssUnit, right: ICssUnit) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + " " +
-            (unbox<string>right)
+            (unbox<string> horizontal) + "px " +
+            (unbox<string> bottom) + "px"
         )
     /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
     /// and margin-bottom.
-    static member inline margin(top: ICssUnit, right: int, bottom: int) =
+    static member inline margin(top: int, horizontal: int, bottom: ICssUnit) =
         Interop.mkStyle "margin" (
-            (unbox<string> top) + " " +
-            (unbox<string>right) + "px " +
-            (unbox<string>bottom) + "px"
-        )
-    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
-    /// and margin-bottom.
-    static member inline margin(top: ICssUnit, right: ICssUnit, bottom: int) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
-            (unbox<string>bottom) + "px"
-        )
-    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
-    /// and margin-bottom.
-    static member inline margin(top: ICssUnit, right: ICssUnit, bottom: ICssUnit) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + " " +
-            (unbox<string> right) + " " +
+            (unbox<string> top) + "px " +
+            (unbox<string> horizontal) + "px " +
             (unbox<string> bottom)
         )
     /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
     /// and margin-bottom.
-    static member inline margin(top: ICssUnit, right: int, bottom: ICssUnit) =
+    static member inline margin(top: int, horizontal: ICssUnit, bottom: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> horizontal) + " " +
+            (unbox<string> bottom) + "px"
+        )
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
+    /// and margin-bottom.
+    static member inline margin(top: int, horizontal: ICssUnit, bottom: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> horizontal) + " " +
+            (unbox<string> bottom)
+        )
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
+    /// and margin-bottom.
+    static member inline margin(top: ICssUnit, horizontal: int, bottom: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> horizontal) + "px " +
+            (unbox<string> bottom) + "px"
+        )
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
+    /// and margin-bottom.
+    static member inline margin(top: ICssUnit, horizontal: int, bottom: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> horizontal) + "px " +
+            (unbox<string> bottom)
+        )
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
+    /// and margin-bottom.
+    static member inline margin(top: ICssUnit, horizontal: ICssUnit, bottom: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> horizontal) + " " +
+            (unbox<string> bottom) + "px"
+        )
+    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
+    /// and margin-bottom.
+    static member inline margin(top: ICssUnit, horizontal: ICssUnit, bottom: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> horizontal) + " " +
+            (unbox<string> bottom)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: int, bottom: int, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: int, bottom: int, left: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: int, bottom: ICssUnit, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: int, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: ICssUnit, bottom: int, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: ICssUnit, bottom: int, left: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: ICssUnit, bottom: ICssUnit, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: int, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: ICssUnit, right: int, bottom: int, left: int) =
         Interop.mkStyle "margin" (
             (unbox<string> top) + " " +
             (unbox<string> right) + "px " +
-            (unbox<string> bottom)
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: ICssUnit, right: int, bottom: int, left: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: ICssUnit, right: int, bottom: ICssUnit, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: ICssUnit, right: int, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: ICssUnit, right: ICssUnit, bottom: int, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: ICssUnit, right: ICssUnit, bottom: int, left: ICssUnit) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left)
+        )
+    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
+    /// margin-bottom, and margin-left.
+    static member inline margin(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: int) =
+        Interop.mkStyle "margin" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left) + "px"
         )
     /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
     /// margin-bottom, and margin-left.
@@ -76,40 +256,6 @@ type style =
             (unbox<string> bottom) + " " +
             (unbox<string> left)
         )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
-    /// margin-bottom, and margin-left.
-    static member inline margin(top: ICssUnit, right: int, bottom: int, left: int) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + " " +
-            (unbox<string>right) + "px " +
-            (unbox<string>bottom) + "px " +
-            (unbox<string>left) + "px"
-        )
-    /// Sets the margin area on two sides of an element. It is a shorthand for margin-top and margin-right.
-    static member inline margin(top: int, right: ICssUnit) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right)
-        )
-    /// Sets the margin area on three sides of an element. It is a shorthand for margin-top, margin-right
-    /// and margin-bottom.
-    static member inline margin(top: int, right: int, bottom: int) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right) + "px " +
-            (unbox<string> bottom) + "px"
-        )
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
-    /// margin-bottom, and margin-left.
-    static member inline margin(top: int, right: int, bottom: int, left: int) =
-        Interop.mkStyle "margin" (
-            (unbox<string> top) + "px " +
-            (unbox<string> right) + "px " +
-            (unbox<string> bottom) + "px " +
-            (unbox<string> left) + "px")
-    /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
-    /// margin-bottom, and margin-left.
-    static member inline margin(value: ICssUnit) = Interop.mkStyle "margin" value
     /// Sets the margin area on the left side of an element. A positive value places it farther from its
     /// neighbors, while a negative value places it closer.
     static member inline marginLeft(value: int) = Interop.mkStyle "marginLeft" value
@@ -136,10 +282,69 @@ type style =
     static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(value: int) = Interop.mkStyle "padding" value
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(value: ICssUnit) = Interop.mkStyle "padding" value
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(vertical: int, horizontal: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> vertical) + "px " +
+            (unbox<string> horizontal) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(vertical: int, horizontal: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> vertical) + "px " +
+            (unbox<string> horizontal)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
     static member inline padding(vertical: ICssUnit, horizontal: int) =
         Interop.mkStyle "padding" (
             (unbox<string> vertical) + " " +
             (unbox<string> horizontal) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(vertical: ICssUnit, horizontal: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> vertical) + " " +
+            (unbox<string> horizontal)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, horizontal: int, bottom: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> horizontal) + "px " +
+            (unbox<string> bottom) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, horizontal: int, bottom: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> horizontal) + "px " +
+            (unbox<string> bottom)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, horizontal: ICssUnit, bottom: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> horizontal) + " " +
+            (unbox<string> bottom) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, horizontal: ICssUnit, bottom: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> horizontal) + " " +
+            (unbox<string> bottom)
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
@@ -148,6 +353,14 @@ type style =
             (unbox<string> top) + " " +
             (unbox<string> horizontal) + "px " +
             (unbox<string> bottom) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, horizontal: int, bottom: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> horizontal) + "px " +
+            (unbox<string> bottom)
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
@@ -167,17 +380,72 @@ type style =
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(top: ICssUnit, horizontal: int, bottom: ICssUnit) =
+    static member inline padding(top: int, right: int, bottom: int, left: int) =
         Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
-            (unbox<string> horizontal) + "px " +
-            (unbox<string> bottom)
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
+    static member inline padding(top: int, right: int, bottom: int, left: ICssUnit) =
         Interop.mkStyle "padding" (
-            (unbox<string> top) + " " +
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, right: int, bottom: ICssUnit, left: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, right: int, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, right: ICssUnit, bottom: int, left: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, right: ICssUnit, bottom: int, left: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, right: ICssUnit, bottom: ICssUnit, left: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: int, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + "px " +
             (unbox<string> right) + " " +
             (unbox<string> bottom) + " " +
             (unbox<string> left)
@@ -193,41 +461,67 @@ type style =
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(vertical: int, horizontal: ICssUnit) =
+    static member inline padding(top: ICssUnit, right: int, bottom: int, left: ICssUnit) =
         Interop.mkStyle "padding" (
-            (unbox<string> vertical) + "px " +
-            (unbox<string> horizontal)
-        )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
-    /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(value: int) = Interop.mkStyle "padding" value
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
-    /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(vertical: int, horizontal: int) =
-        Interop.mkStyle "padding" (
-            (unbox<string> vertical) + "px " +
-            (unbox<string> horizontal) + "px"
-        )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
-    /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(top: int, horizontal: int, bottom: int) =
-        Interop.mkStyle "padding" (
-            (unbox<string> top) + "px " +
-            (unbox<string> horizontal) + "px " +
-            (unbox<string> bottom) + "px"
-        )
-    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
-    /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(top: int, right: int, bottom: int, left: int) =
-        Interop.mkStyle "padding" (
-            (unbox<string> top) + "px " +
+            (unbox<string> top) + " " +
             (unbox<string> right) + "px " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: int, bottom: ICssUnit, left: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: int, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + "px " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: int, left: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
             (unbox<string> bottom) + "px " +
             (unbox<string> left) + "px"
         )
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
-    static member inline padding(value: ICssUnit) = Interop.mkStyle "padding" value
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: int, left: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + "px " +
+            (unbox<string> left)
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: int) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left) + "px"
+        )
+    /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
+    /// padding-right, padding-bottom, and padding-left.
+    static member inline padding(top: ICssUnit, right: ICssUnit, bottom: ICssUnit, left: ICssUnit) =
+        Interop.mkStyle "padding" (
+            (unbox<string> top) + " " +
+            (unbox<string> right) + " " +
+            (unbox<string> bottom) + " " +
+            (unbox<string> left)
+        )
     /// Sets the height of the padding area on the bottom of an element.
     static member inline paddingBottom(value: int) = Interop.mkStyle "paddingBottom" value
     /// Sets the height of the padding area on the bottom of an element.
@@ -831,6 +1125,36 @@ type style =
     /// ```
     static member inline rowGap(value: ICssUnit) =
         Interop.mkStyle "rowGap" value
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 10px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap 10
+    /// ```
+    static member inline gap(gap: int) =
+        Interop.mkStyle "gap" ((unbox<string> gap) + "px ")
+    /// Specifies the size of the grid lines. You can think of it like
+    /// setting the width of the gutters between the rows/columns.
+    ///
+    /// _Shorthand for `rowGap` and `columnGap`_
+    ///
+    /// **CSS**
+    /// ```css
+    /// gap: 1em;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gap (length.em 1)
+    /// ```
+    static member inline gap(gap: ICssUnit) =
+        Interop.mkStyle "gap" (unbox<string> gap)
     /// Specifies the size of the grid lines. You can think of it like
     /// setting the width of the gutters between the rows/columns.
     ///
@@ -1921,7 +2245,7 @@ type style =
     ///  - An outline may be non-rectangular
     ///
     static member inline outlineOffset (offset:int) =
-        Interop.mkStyle "outlineWidth" ((unbox<string> offset) + "px")
+        Interop.mkStyle "outlineOffset" ((unbox<string> offset) + "px")
 
     /// The outline-offset property adds space between an outline and the edge or border of an element.
     ///
@@ -1934,7 +2258,7 @@ type style =
     ///  - An outline may be non-rectangular
     ///
     static member inline outlineOffset (offset:ICssUnit) =
-        Interop.mkStyle "outlineWidth" offset
+        Interop.mkStyle "outlineOffset" offset
 
     /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
     ///
@@ -2071,7 +2395,7 @@ type style =
     /// Rounds the corners of an element's outer border edge. You can set a single radius to make
     /// circular corners, or two radii to make elliptical corners.
     static member inline borderRadius (radius: ICssUnit) = Interop.mkStyle "borderRadius" radius
-        /// top-left-and-bottom-right | top-right-and-bottom-left
+    /// top-left-and-bottom-right | top-right-and-bottom-left
     static member inline borderRadius (topLeftAndBottomRight: int, topRightAndBottomLeft: int) =
         Interop.mkStyle "borderRadius" (
             (unbox<string> topLeftAndBottomRight) + "px " +
@@ -2674,86 +2998,390 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "wordWrap" "inherit"
 
+    /// The `align-self` CSS property overrides a grid or flex item's `align-items` value.
+    /// - In Grid, it aligns the item inside the grid area.
+    /// - In Flexbox, it aligns the item on the cross axis.
+    /// **Reference**: https://developer.mozilla.org/en-US/docs/Web/CSS/align-self
+    /// **Note**: The property doesn't apply to block-level boxes, or to table cells. If a flexbox item's cross-axis margin is auto, then align-self is ignored.
     [<Erase>]
     type alignSelf =
         /// Default. The element inherits its parent container's align-items property, or "stretch" if it has no parent container.
         static member inline auto = Interop.mkStyle "alignSelf" "auto"
-        /// The element is positioned to fit the container
-        static member inline stretch = Interop.mkStyle "alignSelf" "stretch"
-        /// The element is positioned at the center of the container
+        /// The effect of this keyword is dependent of the layout mode we are in:
+        /// - In absolutely-positioned layouts, the keyword behaves like start on replaced absolutely-positioned boxes, and as stretch on all other absolutely-positioned boxes.
+        /// - In static position of absolutely-positioned layouts, the keyword behaves as stretch.
+        /// - For flex items, the keyword behaves as stretch.
+        /// - For grid items, this keyword leads to a behavior similar to the one of stretch, except for boxes with an aspect ratio or an intrinsic sizes where it behaves like start.
+        /// - The property doesn't apply to block-level boxes, and to table cells.
+        static member inline normal = Interop.mkStyle "alignSelf" "normal"
+        
+        /// The flex item's margin box is centered within the line on the cross-axis.
+        /// If the cross-size of the item is larger than the flex container, it will overflow equally in both directions.
         static member inline center = Interop.mkStyle "alignSelf" "center"
-        /// The element is positioned at the beginning of the container
+        /// Put the item at the start
+        static member inline start = Interop.mkStyle "alignSelf" "start"
+        /// Put the item at the end
+        static member inline end' = Interop.mkStyle "alignSelf" "end"        
+        /// Aligns the items to be flush with the edge of the alignment container corresponding to the item's start side in the cross axis.
+        static member inline selfStart = Interop.mkStyle "alignSelf" "self-start"
+        /// Aligns the items to be flush with the edge of the alignment container corresponding to the item's end side in the cross axis.
+        static member inline selfEnd = Interop.mkStyle "alignSelf" "self-end"
+        /// The cross-start margin edge of the flex item is flushed with the cross-start edge of the line.
         static member inline flexStart = Interop.mkStyle "alignSelf" "flex-start"
-        /// The element is positioned at the end of the container
+        /// The cross-end margin edge of the flex item is flushed with the cross-end edge of the line.
         static member inline flexEnd = Interop.mkStyle "alignSelf" "flex-end"
-        /// The element is positioned at the baseline of the container
+        
+        /// Specifies participation in first- or last-baseline alignment:
+        /// aligns the alignment baseline of the box's first or last baseline set with the corresponding baseline
+        /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
         static member inline baseline = Interop.mkStyle "alignSelf" "baseline"
+        /// Specifies participation in first- or last-baseline alignment:
+        /// aligns the alignment baseline of the box's first or last baseline set with the corresponding baseline
+        /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
+        /// 
+        /// The fallback alignment for first baseline is start
+        static member inline firstBaseline = Interop.mkStyle "alignSelf" "first baseline"
+        /// Specifies participation in first- or last-baseline alignment:
+        /// aligns the alignment baseline of the box's first or last baseline set with the corresponding baseline
+        /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
+        /// 
+        /// The fallback alignment for last baseline is end
+        static member inline lastBaseline = Interop.mkStyle "alignSelf" "last baseline"
+        /// If the combined size of the items along the cross axis is less than the size of the alignment container
+        /// and the item is auto-sized, its size is increased equally (not proportionally),
+        /// while still respecting the constraints imposed by `max-height`/`max-width` (or equivalent functionality),
+        /// so that the combined size of all auto-sized items exactly fills the alignment container along the cross axis.
+        static member inline stretch = Interop.mkStyle "alignSelf" "stretch"
+        
         /// Sets this property to its default value
         static member inline initial = Interop.mkStyle "alignSelf" "initial"
         /// Inherits this property from its parent element
         static member inline inheritFromParent = Interop.mkStyle "alignSelf" "inherit"
+        static member inline revert = Interop.mkStyle "alignSelf" "revert"
+        static member inline unset = Interop.mkStyle "alignSelf" "unset"
 
+    /// The CSS `align-items` property sets the `align-self` value on all direct children as a group.
+    /// - In Grid Layout, it controls the alignment of items on the Block Axis within their grid area.
+    /// - In Flexbox, it controls the alignment of items on the Cross Axis.
+    /// **Reference**: https://developer.mozilla.org/en-US/docs/Web/CSS/align-items
     [<Erase>]
     type alignItems =
         /// Default. Items are stretched to fit the container
         static member inline stretch = Interop.mkStyle "alignItems" "stretch"
-        /// Items are positioned at the center of the container
+        /// The effect of this keyword is dependent of the layout mode we are in:
+        /// - In absolutely-positioned layouts, the keyword behaves like start on replaced absolutely-positioned boxes, and as stretch on all other absolutely-positioned boxes.
+        /// - In static position of absolutely-positioned layouts, the keyword behaves as stretch.
+        /// - For flex items, the keyword behaves as stretch.
+        /// - For grid items, this keyword leads to a behavior similar to the one of stretch, except for boxes with an aspect ratio or an intrinsic sizes where it behaves like start.
+        /// - The property doesn't apply to block-level boxes, and to table cells.
+        static member inline normal = Interop.mkStyle "alignItems" "normal"
+
+        /// The flex items' margin boxes are centered within the line on the cross-axis.
+        /// If the cross-size of an item is larger than the flex container, it will overflow equally in both directions.
         static member inline center = Interop.mkStyle "alignItems"  "center"
-        /// Items are positioned at the beginning of the container
+        /// The items are packed flush to each other toward the start edge of the alignment container in the appropriate axis.
+        static member inline start = Interop.mkStyle "alignItems" "start"
+        /// The items are packed flush to each other toward the end edge of the alignment container in the appropriate axis.
+        static member inline end' = Interop.mkStyle "alignItems" "end"
+        /// The cross-start margin edges of the flex items are flushed with the cross-start edge of the line.
         static member inline flexStart = Interop.mkStyle "alignItems" "flex-start"
-        /// Items are positioned at the end of the container
+        /// The cross-end margin edges of the flex items are flushed with the cross-end edge of the line.
         static member inline flexEnd = Interop.mkStyle "alignItems" "flex-end"
-        /// Items are positioned at the baseline of the container
+
+        /// All flex items are aligned such that their flex container baselines align.
+        /// The item with the largest distance between its cross-start margin edge and
+        /// its baseline is flushed with the cross-start edge of the line.
         static member inline baseline = Interop.mkStyle "alignItems" "baseline"
+        /// All flex items are aligned such that their flex container baselines align.
+        /// The item with the largest distance between its cross-start margin edge and
+        /// its baseline is flushed with the cross-start edge of the line.
+        static member inline firstBaseline = Interop.mkStyle "alignItems" "first baseline"
+        /// All flex items are aligned such that their flex container baselines align.
+        /// The item with the largest distance between its cross-start margin edge and
+        /// its baseline is flushed with the cross-start edge of the line.
+        static member inline lastBaseline = Interop.mkStyle "alignItems" "last baseline"
+
         /// Sets this property to its default value
         static member inline initial = Interop.mkStyle "alignItems"  "initial"
         /// Inherits this property from its parent element
         static member inline inheritFromParent = Interop.mkStyle "alignItems"  "inherit"
+        static member inline revert = Interop.mkStyle "alignItems"  "revert"
+        static member inline unset = Interop.mkStyle "alignItems"  "unset"
 
-    /// The `align-content` property modifies the behavior of the `flex-wrap` property.
-    /// It is similar to align-items, but instead of aligning flex items, it aligns flex lines.
-    ///
-    /// **Note**: There must be multiple lines of items for this property to have any effect!
+    /// The CSS `align-content` property sets the distribution of space between and around content items
+    /// along a flexbox's cross-axis or a grid's block axis.
+    /// **Reference**: https://developer.mozilla.org/en-US/docs/Web/CSS/align-content
+    /// **Note**: This property has no effect on single line flex containers (i.e. ones with `flex-wrap: nowrap`).
     ///
     /// **Tip**: Use the justify-content property to align the items on the main-axis (horizontally).
     [<Erase>]
     type alignContent =
-        /// Default value. Lines stretch to take up the remaining space.
-        static member inline stretch = Interop.mkStyle "alignContent" "stretch"
-        /// Lines are packed toward the center of the flex container.
+        /// Default value. The items are packed in their default position as if no `align-content` value was set.
+        static member inline normal = Interop.mkStyle "alignContent" "normal"
+        
+        /// The items are packed flush to each other in the center of the alignment container along the cross axis.
         static member inline center = Interop.mkStyle "alignContent" "center"
-        /// Lines are packed toward the start of the flex container.
+        /// The items are packed flush to each other against the start edge of the alignment container in the cross axis.
+        static member inline start = Interop.mkStyle "alignContent" "start"
+        /// The items are packed flush to each other against the end edge of the alignment container in the cross axis.
+        static member inline end' = Interop.mkStyle "alignContent" "end"
+        /// The items are packed flush to each other against the edge of the alignment container depending on the
+        /// flex container's cross-start side. This only applies to flex layout items.
+        /// For items that are not children of a flex container, this value is treated like `start`.
         static member inline flexStart = Interop.mkStyle "alignContent" "flex-start"
-        /// Lines are packed toward the end of the flex container.
+        /// The items are packed flush to each other against the edge of the alignment container depending on the
+        /// flex container's cross-end side. This only applies to flex layout items.
+        /// For items that are not children of a flex container, this value is treated like `end`.
         static member inline flexEnd = Interop.mkStyle "alignContent" "flex-end"
-        /// Lines are evenly distributed in the flex container.
+
+        /// Specifies participation in first- or last-baseline alignment: aligns the alignment
+        /// baseline of the box's first or last baseline set with the corresponding baseline
+        /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
+        static member inline baseline = Interop.mkStyle "alignContent" "baseline"
+        /// Specifies participation in first- or last-baseline alignment: aligns the alignment
+        /// baseline of the box's first or last baseline set with the corresponding baseline
+        /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
+        /// The fallback alignment for first baseline is start.
+        static member inline firstBaseline = Interop.mkStyle "alignContent" "first baseline"
+        /// Specifies participation in first- or last-baseline alignment: aligns the alignment
+        /// baseline of the box's first or last baseline set with the corresponding baseline
+        /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
+        /// The fallback alignment for last baseline is end.
+        static member inline lastBaseline = Interop.mkStyle "alignContent" "last baseline"
+
+        /// The items are evenly distributed within the alignment container along the cross axis.
+        /// The spacing between each pair of adjacent items is the same.
+        /// The first item is flush with the start edge of the alignment container in the cross axis,
+        /// and the last item is flush with the end edge of the alignment container in the cross axis.
         static member inline spaceBetween = Interop.mkStyle "alignContent" "space-between"
-        /// Lines are evenly distributed in the flex container, with half-size spaces on either end.
+        /// The items are evenly distributed within the alignment container along the cross axis.
+        /// The spacing between each pair of adjacent items is the same.
+        /// The empty space before the first and after the last item equals half of the space
+        /// between each pair of adjacent items.
         static member inline spaceAround = Interop.mkStyle "alignContent" "space-around"
+        /// The items are evenly distributed within the alignment container along the cross axis.
+        /// The spacing between each pair of adjacent items, the start edge and the first item,
+        /// and the end edge and the last item, are all exactly the same.
+        static member inline spaceEvenly = Interop.mkStyle "alignContent" "space-evenly"
+        /// If the combined size of the items along the cross axis is less than the size of the
+        /// alignment container, any auto-sized items have their size increased equally (not proportionally),
+        /// while still respecting the constraints imposed by `max-height`/`max-width` (or equivalent functionality),
+        /// so that the combined size exactly fills the alignment container along the cross axis.
+        static member inline stretch = Interop.mkStyle "alignContent" "stretch"
+
         static member inline initial = Interop.mkStyle "alignContent" "initial"
         static member inline inheritFromParent = Interop.mkStyle "alignContent" "inherit"
+        static member inline revert = Interop.mkStyle "alignContent" "revert"
+        static member inline unset = Interop.mkStyle "alignContent" "unset"
 
-    /// The justify-content property aligns the flexible container's items when the items do not use all available space on the main-axis (horizontally).
+    /// The CSS `justify-self` property sets the way a box is justified inside its alignment container along the appropriate axis.
+    /// The effect of this property is dependent of the layout mode we are in:
+    /// - In block-level layouts, it aligns an item inside its containing block on the inline axis.
+    /// - For absolutely-positioned elements, it aligns an item inside its containing block on the inline axis, accounting for the offset values of top, left, bottom, and right.
+    /// - In table cell layouts, this property is ignored
+    /// - In grid layouts, it aligns an item inside its grid area on the inline axis
+    /// - In flexbox layouts, this property is ignored
+    /// 
+    /// **Reference**: https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self
+    /// 
+    /// **Tip**: Use the align-items property to align the items vertically.
+    [<Erase>]
+    type justifySelf =
+        /// The value used is the value of the justify-items property of the parents box,
+        /// unless the box has no parent, or is absolutely positioned, in these cases, auto represents normal.
+        static member inline auto = Interop.mkStyle "justifySelf" "auto"
+        /// The effect of this keyword is dependent of the layout mode we are in:
+        /// - In block-level layouts, the keyword is a synonym of start.
+        /// - In absolutely-positioned layouts, the keyword behaves like start on replaced absolutely-positioned boxes, and as stretch on all other absolutely-positioned boxes.
+        /// - In table cell layouts, this keyword has no meaning as this property is ignored.
+        /// - In flexbox layouts, this keyword has no meaning as this property is ignored.
+        /// - In grid layouts, this keyword leads to a behavior similar to the one of stretch, except for boxes with an aspect ratio or an intrinsic sizes where it behaves like start.
+        static member inline normal = Interop.mkStyle "justifySelf" "normal"
+        /// If the combined size of the items is less than the size of the alignment container,
+        /// any auto-sized items have their size increased equally (not proportionally),
+        /// while still respecting the constraints imposed by `max-height`/`max-width` (or equivalent functionality),
+        /// so that the combined size exactly fills the alignment container.
+        static member inline stretch = Interop.mkStyle "justifySelf" "stretch"
+
+        /// Items are positioned at the center of the container
+        static member inline center = Interop.mkStyle "justifySelf" "center"
+        /// The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.
+        static member inline start = Interop.mkStyle "justifySelf" "start"
+        /// The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.
+        static member inline end' = Interop.mkStyle "justifySelf" "end"
+        /// The item is packed flush to the edge of the alignment container of the start side of the item, in the appropriate axis.
+        static member inline selfStart = Interop.mkStyle "justifySelf" "self-start"
+        /// The item is packed flush to the edge of the alignment container of the end side of the item, in the appropriate axis.
+        static member inline selfEnd = Interop.mkStyle "justifySelf" "self-end"
+        /// Equivalent to 'start'. Note that justify-self is ignored in Flexbox layouts.
+        static member inline flexStart = Interop.mkStyle "justifySelf" "flex-start"
+        /// Equivalent to 'end'. Note that justify-self is ignored in Flexbox layouts.
+        static member inline flexEnd = Interop.mkStyle "justifySelf" "flex-end"
+        /// Pack items from the left
+        static member inline left = Interop.mkStyle "justifySelf" "left"
+        /// Pack items from the right
+        static member inline right = Interop.mkStyle "justifySelf" "right"
+
+        /// Specifies participation in first- or last-baseline alignment:
+        /// aligns the alignment baseline of the box's first or last baseline set
+        /// with the corresponding baseline in the shared first or last baseline
+        /// set of all the boxes in its baseline-sharing group.
+        /// The fallback alignment for first baseline is start, the one for last baseline is end.
+        static member inline baseline = Interop.mkStyle "justifySelf" "baseline"
+        /// Specifies participation in first- or last-baseline alignment:
+        /// aligns the alignment baseline of the box's first or last baseline set
+        /// with the corresponding baseline in the shared first or last baseline
+        /// set of all the boxes in its baseline-sharing group.
+        /// The fallback alignment for `first baseline` is `start`.
+        static member inline firstBaseline = Interop.mkStyle "justifySelf" "first baseline"
+        /// Specifies participation in first- or last-baseline alignment:
+        /// aligns the alignment baseline of the box's first or last baseline set
+        /// with the corresponding baseline in the shared first or last baseline
+        /// set of all the boxes in its baseline-sharing group.
+        /// The fallback alignment for `last baseline` is `end`.
+        static member inline lastBaseline = Interop.mkStyle "justifySelf" "last baseline"
+
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "justifySelf" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "justifySelf" "inherit"
+        static member inline revert = Interop.mkStyle "justifySelf" "revert"
+        static member inline unset = Interop.mkStyle "justifySelf" "unset"
+
+    /// The CSS justify-items property defines the default justify-self for all items of the box,
+    /// giving them all a default way of justifying each box along the appropriate axis.
+    /// The effect of this property is dependent of the layout mode we are in:
+    /// - In block-level layouts, it aligns the items inside their containing block on the inline axis.
+    /// - For absolutely-positioned elements, it aligns the items inside their containing block on the inline axis, accounting for the offset values of top, left, bottom, and right.
+    /// - In table cell layouts, this property is ignored
+    /// - In flexbox layouts, this property is ignored
+    /// - In grid layouts, it aligns the items inside their grid areas on the inline axis
     ///
-    /// See https://www.w3schools.com/cssref/css3_pr_justify-content.asp for reference.
+    /// **Reference**: https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items
     ///
     /// **Tip**: Use the align-items property to align the items vertically.
     [<Erase>]
-    type justifyContent =
-        /// Default value. Items are positioned at the beginning of the container.
-        static member inline flexStart = Interop.mkStyle "justifyContent" "flex-start"
-        /// Items are positioned at the end of the container.
-        static member inline flexEnd = Interop.mkStyle "justifyContent" "flex-end"
-        /// Items are positioned at the center of the container
-        static member inline center = Interop.mkStyle "justifyContent" "center"
-        /// Items are positioned with space between the lines
-        static member inline spaceBetween = Interop.mkStyle "justifyContent" "space-between"
-        /// Items are positioned with space before, between, and after the lines.
-        static member inline spaceAround = Interop.mkStyle "justifyContent" "space-around"
+    type justifyItems =
+        /// The value used is the value of the justify-items property of the parents box,
+        /// unless the box has no parent, or is absolutely positioned, in these cases, auto represents `normal`.
+        static member inline auto = Interop.mkStyle "justifyItems" "auto"
+        /// The effect of this keyword is dependent of the layout mode we are in:
+        /// - In block-level layouts, the keyword is a synonym of start.
+        /// - In absolutely-positioned layouts, the keyword behaved like start on replaced absolutely-positioned boxes, and as stretch on all other absolutely-positioned boxes.
+        /// - In table cell layouts, this keyword has no meaning as this property is ignored.
+        /// - In flexbox layouts, this keyword has no meaning as this property is ignored.
+        /// - In grid layouts, this keyword leads to a behavior similar to the one of stretch, except for boxes with an aspect ratio or an intrinsic sizes where it behaves like `start`.
+        static member inline normal = Interop.mkStyle "justifyItems" "normal"
+        /// If the combined size of the items is less than the size of the alignment container,
+        /// any auto-sized items have their size increased equally (not proportionally),
+        /// while still respecting the constraints imposed by `max-height`/`max-width` (or equivalent functionality),
+        /// so that the combined size exactly fills the alignment container.
+        static member inline stretch = Interop.mkStyle "justifyItems" "stretch"
+
+        /// The items are packed flush to each other toward the center of the of the alignment container.
+        static member inline center = Interop.mkStyle "justifyItems" "center"
+        /// The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.
+        static member inline start = Interop.mkStyle "justifyItems" "start"
+        /// The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.
+        static member inline end' = Interop.mkStyle "justifyItems" "end"
+        /// Equivalent to 'start'. Note that justify-items is ignored in Flexbox layouts.
+        static member inline flexStart = Interop.mkStyle "justifyItems" "flex-start"
+        /// Equivalent to 'end'. Note that justify-items is ignored in Flexbox layouts.
+        static member inline flexEnd = Interop.mkStyle "justifyItems" "flex-end"
+        /// The item is packed flush to the edge of the alignment container of the start side of the item, in the appropriate axis.
+        static member inline selfStart = Interop.mkStyle "justifyItems" "self-start"
+        /// The item is packed flush to the edge of the alignment container of the end side of the item, in the appropriate axis.
+        static member inline selfEnd = Interop.mkStyle "justifyItems" "self-end"
+        /// The items are packed flush to each other toward the left edge of the alignment container.
+        /// If the property's axis is not parallel with the inline axis, this value behaves like `start`.
+        static member inline left = Interop.mkStyle "justifyItems" "left"
+        /// The items are packed flush to each other toward the right edge of the alignment container in the appropriate axis.
+        /// If the property's axis is not parallel with the inline axis, this value behaves like `start`.
+        static member inline right = Interop.mkStyle "justifyItems" "right"
+
+        /// Specifies participation in first- or last-baseline alignment: aligns the alignment baseline of the box's
+        /// first or last baseline set with the corresponding baseline in the shared first or last baseline set of all
+        /// the boxes in its baseline-sharing group.
+        static member inline baseline = Interop.mkStyle "justifyItems" "baseline"
+        /// Specifies participation in first- or last-baseline alignment: aligns the alignment baseline of the box's
+        /// first or last baseline set with the corresponding baseline in the shared first or last baseline set of all
+        /// the boxes in its baseline-sharing group.
+        /// The fallback alignment for `first baseline` is `start`.
+        static member inline firstBaseline = Interop.mkStyle "justifyItems" "first baseline"
+        /// Specifies participation in first- or last-baseline alignment: aligns the alignment baseline of the box's
+        /// first or last baseline set with the corresponding baseline in the shared first or last baseline set of all
+        /// the boxes in its baseline-sharing group.
+        /// The fallback alignment for `last baseline` is `end`.
+        static member inline lastBaseline = Interop.mkStyle "justifyItems" "last baseline"
+
         /// Sets this property to its default value.
-        static member inline initial = Interop.mkStyle "justifyContent" "initial"
+        static member inline initial = Interop.mkStyle "justifyItems" "initial"
         /// Inherits this property from its parent element.
-        static member inline inheritFromParent = Interop.mkStyle "justifyContent" "inherit"
+        static member inline inheritFromParent = Interop.mkStyle "justifyItems" "inherit"
+        static member inline revert = Interop.mkStyle "justifyItems" "revert"
+        static member inline unset = Interop.mkStyle "justifyItems" "unset"
+
+    /// The CSS `justify-content` property defines how the browser distributes space
+    /// between and around content items along the main-axis of a flex container,
+    /// and the inline axis of a grid container.
+    ///
+    /// **Reference**: https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content
+    /// **Note**: The alignment is done after the lengths and auto margins are applied, meaning that,
+    ///             if in a Flexbox layout there is at least one flexible element, with flex-grow different from 0,
+    ///             it will have no effect as there won't be any available space.
+    /// **Tip**: Use the align-items property to align the items vertically.
+    [<Erase>]
+    type justifyContent =
+        /// The items are packed in their default position as if no justify-content value was set.
+        /// This value behaves as `stretch` in grid and flex containers.
+        static member inline normal = Interop.mkStyle "justifyContent" "normal"
+
+        /// The items are packed flush to each other toward the center of the alignment container along the main axis.
+        static member inline center = Interop.mkStyle "justifyContent" "center"
+        /// The items are packed flush to each other toward the start edge of the alignment container in the main axis.
+        static member inline start = Interop.mkStyle "justifyContent" "start"
+        /// The items are packed flush to each other toward the end edge of the alignment container in the main axis.
+        static member inline end' = Interop.mkStyle "justifyContent" "end"
+        /// The items are packed flush to each other toward the edge of the alignment container depending on the flex container's
+        /// main-start side. This only applies to flex layout items.
+        /// For items that are not children of a flex container, this value is treated like `start`.
+        static member inline flexStart = Interop.mkStyle "justifyContent" "flex-start"
+        /// The items are packed flush to each other toward the edge of the alignment container depending on the flex container's
+        /// main-end side. This only applies to flex layout items.
+        /// For items that are not children of a flex container, this value is treated like `end`.
+        static member inline flexEnd = Interop.mkStyle "justifyContent" "flex-end"
+        /// The items are packed flush to each other toward the left edge of the alignment container.
+        /// If the property’s axis is not parallel with the inline axis, this value behaves like `start`.
+        static member inline left = Interop.mkStyle "justifyContent" "left"
+        /// The items are packed flush to each other toward the right edge of the alignment container in the appropriate axis.
+        /// If the property’s axis is not parallel with the inline axis, this value behaves like `start`.
+        static member inline right = Interop.mkStyle "justifyContent" "right"
+
+        /// The items are evenly distributed within the alignment container along the main axis.
+        /// The spacing between each pair of adjacent items is the same.
+        /// The first item is flush with the main-start edge, and the last item is flush with the main-end edge.
+        static member inline spaceBetween = Interop.mkStyle "justifyContent" "space-between"
+        /// The items are evenly distributed within the alignment container along the main axis.
+        /// The spacing between each pair of adjacent items is the same.
+        /// The empty space before the first and after the last item equals half of the space between each pair of adjacent items.
+        static member inline spaceAround = Interop.mkStyle "justifyContent" "space-around"
+        /// The items are evenly distributed within the alignment container along the main axis.
+        /// The spacing between each pair of adjacent items, the main-start edge and the first item,
+        /// and the main-end edge and the last item, are all exactly the same.
+        static member inline spaceEvenly = Interop.mkStyle "justifyContent" "space-evenly"
+        /// If the combined size of the items along the main axis is less than the size of the alignment container,
+        /// any auto-sized items have their size increased equally (not proportionally), while still respecting
+        /// the constraints imposed by max-height/max-width (or equivalent functionality),
+        /// so that the combined size exactly fills the alignment container along the main axis.
+        /// **Note**: stretch is not supported by flexible boxes (flexbox).
+        static member inline stretch = Interop.mkStyle "justifyContent" "stretch"
+
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "justifyItems" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "justifyItems" "inherit"
+        static member inline revert = Interop.mkStyle "justifyItems" "revert"
+        static member inline unset = Interop.mkStyle "justifyItems" "unset"
 
     /// An outline is a line around an element.
     /// It is displayed around the margin of the element. However, it is different from the border property.
@@ -2972,7 +3600,7 @@ module style =
         /// This overload takes a floating number that goes from 0 to 1
         static member inline contrast(value: double) = Interop.mkStyle "filter" ("contrast(" + (unbox<string> value) + ")")
         /// Applies a drop shadow effect.
-        static member inline dropShadow(horizontalOffset: int, verticalOffset: int, blur: int, spread: int,  color: string) =
+        static member inline dropShadow(horizontalOffset: int, verticalOffset: int, blur: int, spread: int, color: string) =
             Interop.mkStyle "filter" (
                 "drop-shadow(" +
                 (unbox<string> horizontalOffset) + "px " +
@@ -3058,8 +3686,8 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "filter" "inherit"
 
-    [<Erase>]
     /// Sets whether table borders should collapse into a single border or be separated as in standard HTML.
+    [<Erase>]
     type borderCollapse =
         /// Borders are separated; each cell will display its own borders. This is default.
         static member inline separate = Interop.mkStyle "borderCollapse" "separate"
@@ -3181,8 +3809,8 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "verticalAlign" "inherit"
 
-    [<Erase>]
     /// Specifies whether lines of text are laid out horizontally or vertically.
+    [<Erase>]
     type writingMode =
         /// Let the content flow horizontally from left to right, vertically from top to bottom
         static member inline horizontalTopBottom = Interop.mkStyle "writingMode" "horizontal-tb"
