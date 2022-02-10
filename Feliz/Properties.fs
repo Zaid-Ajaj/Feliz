@@ -1635,7 +1635,7 @@ type prop =
     static member inline span (value: int) = Interop.mkAttr "span" value
 
     /// Defines whether the element may be checked for spelling errors.
-    static member inline spellcheck (value: bool) = Interop.mkAttr "spellcheck" value
+    static member inline spellcheck (value: bool) = Interop.mkAttr "spellcheck" (string value)
 
     /// Controls the ratio of reflection of the specular lighting.
     ///
