@@ -8,6 +8,7 @@ module key =
         unbox<IKeyboardKey> (key, false, false)
 
     let enter = create "Enter"
+    let escape = create "Escape"
     let one = create "1"
     let two = create "2"
     let three = create "3"
