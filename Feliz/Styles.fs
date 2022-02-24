@@ -2441,6 +2441,24 @@ type style =
             (unbox<string> bottom) + "px " +
             (unbox<string> left) + "px"
         )
+
+    /// Sets the distance between the borders of adjacent table cells
+    static member inline borderSpacing (spacing: int) = Interop.mkStyle "borderSpacing" spacing
+    /// Sets the distance between the borders of adjacent table cells
+    static member inline borderSpacing (spacing: ICssUnit) = Interop.mkStyle "borderSpacing" spacing
+    /// Sets the distance between the borders of adjacent table cells
+    static member inline borderSpacing (horizontalSpacing: int, verticalSpacing: int) =
+        Interop.mkStyle "borderSpacing" (
+            (unbox<string> horizontalSpacing) + "px " +
+            (unbox<string> verticalSpacing) + "px"
+        )
+    /// Sets the distance between the borders of adjacent table cells
+    static member inline borderSpacing (horizontalSpacing: ICssUnit, verticalSpacing: ICssUnit) =
+        Interop.mkStyle "borderSpacing" (
+            (unbox<string> horizontalSpacing) +
+            (unbox<string> verticalSpacing)
+        )
+
     /// Sets one or more animations to apply to an element. Each name is an @keyframes at-rule that
     /// sets the property values for the animation sequence.
     static member inline animationName(keyframeName: string) = Interop.mkStyle "animationName" keyframeName
@@ -2615,6 +2633,11 @@ type style =
 
     /// Sets the color of an SVG shape.
     static member inline fill (color: string) = Interop.mkStyle "fill" color
+
+    /// Specifies extra inter-character space in addition to the default space between characters.
+    static member inline letterSpacing (value: int) = Interop.mkStyle "letterSpacing" value
+    /// Specifies extra inter-character space in addition to the default space between characters.
+    static member inline letterSpacing (value: ICssUnit) = Interop.mkStyle "letterSpacing" value
 
 [<Erase>]
 module style =
@@ -2981,10 +3004,49 @@ module style =
         static member inline normal = Interop.mkStyle "wordWrap" "normal"
         /// Allows unbreakable words to be broken
         static member inline breakWord = Interop.mkStyle "wordWrap" "break-word"
+        /// To prevent overflow, an otherwise unbreakable string of characters — like a long word or URL — may be broken
+        /// at any point if there are no otherwise-acceptable break points in the line.
+        static member inline anywhere = Interop.mkStyle "wordWrap" "anywhere"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "wordWrap" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "wordWrap" "inherit"
+
+    /// The overflow-wrap property applies to inline elements, setting whether the browser should insert line breaks
+    /// within an otherwise unbreakable string to prevent text from overflowing its line box.
+    [<Erase>]
+    type overflowWrap =
+        /// Break words only at allowed break points
+        static member inline normal = Interop.mkStyle "overflowWrap" "normal"
+        /// Allows unbreakable words to be broken
+        static member inline breakWord = Interop.mkStyle "overflowWrap" "break-word"
+        /// To prevent overflow, an otherwise unbreakable string of characters — like a long word or URL — may be broken
+        /// at any point if there are no otherwise-acceptable break points in the line.
+        static member inline anywhere = Interop.mkStyle "overflowWrap" "anywhere"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "overflowWrap" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "overflowWrap" "inherit"
+
+    /// Sets the horizontal spacing behavior between text characters.
+    [<Erase>]
+    type letterSpacing =
+        /// The normal letter spacing for the current font
+        static member inline normal = Interop.mkStyle "letterSpacing" "normal"
+        /// Allows unbreakable words to be broken
+        static member inline breakWord = Interop.mkStyle "letterSpacing" "break-word"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "letterSpacing" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "letterSpacing" "inherit"
+    
+    /// Sets the distance between the borders of adjacent table cells.
+    [<Erase>]
+    type borderSpacing =
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "borderSpacing" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "borderSpacing" "inherit"
 
     /// The `align-self` CSS property overrides a grid or flex item's `align-items` value.
     /// - In Grid, it aligns the item inside the grid area.
