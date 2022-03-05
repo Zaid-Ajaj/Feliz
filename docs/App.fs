@@ -162,6 +162,28 @@ let CounterWithRecord (props: Examples.CounterRecordProps) =
         if props.show then Html.h1 count
     ]
 
+type MoreExamples() = 
+    [<ReactComponent>]
+    static member CounterWithRecord (props: Examples.CounterRecordProps, ?showAge: bool) =
+        let showAge = defaultArg showAge false
+        let (count, setCount) = React.useState props.initial
+        Html.div [
+            Html.button [
+                prop.style [ style.marginRight 5 ]
+                prop.onClick (fun _ -> setCount(count + 1))
+                prop.text "Increment"
+            ]
+
+            Html.button [
+                prop.style [ style.marginLeft 5 ]
+                prop.onClick (fun _ -> setCount(count - 1))
+                prop.text "Decrement"
+            ]
+
+            if showAge then Html.h1 count
+        ]
+
+
 type KeyedCounterProps = { Key: string; Name: string }
 
 [<ReactComponent>]
@@ -195,6 +217,8 @@ let Counters(show: bool) =
         CounterWithRecord { initial = 10; show = true }
         CounterWithKeyedRecord { Key = "keyA"; Name = "Counter" }
         CounterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
+        MoreExamples.CounterWithRecord({ initial = 10; show = true })
+        MoreExamples.CounterWithRecord({ initial = 10; show = true }, true)
 
         //Hello "fsharp" [|
         //    Html.text "content"

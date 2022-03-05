@@ -58,6 +58,7 @@ let main (args: string[]) =
         // run tasks
         match args with 
         | [| "publish-feliz" |] -> publish feliz
+        | [| "publish-compiler-plugins" |] -> publish compilerPlugins
         | _ -> printfn "Unknown args: %A" args
         
         // exit succesfully

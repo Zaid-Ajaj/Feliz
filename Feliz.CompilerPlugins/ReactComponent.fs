@@ -15,7 +15,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
     new() = ReactComponentAttribute(exportDefault=false)
     new(exportDefault: bool) = ReactComponentAttribute(exportDefault=exportDefault,?import=None, ?from=None)
     new(import: string, from: string) = ReactComponentAttribute(exportDefault=false,import=import, from=from)
-
+ 
     /// <summary>Transforms call-site into createElement calls</summary>
     override this.TransformCall(compiler, memb, expr) =
         let reactElType = expr.Type
@@ -29,7 +29,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 | _ ->
                     callee
 
-            if info.Args.Length = 1 && AstUtils.isRecord compiler info.Args.[0].Type then
+            if List.length membArgs = info.Args.Length && info.Args.Length = 1 && AstUtils.isRecord compiler info.Args.[0].Type then
                 // F# Component { Value = 1 }
                 // JSX <Component Value={1} />
                 // JS createElement(Component, { Value: 1 })
