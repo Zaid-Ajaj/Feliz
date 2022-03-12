@@ -4,7 +4,8 @@ set -eu
 
 cd "$(dirname "$0")"
 
-PAKET_EXE=.paket/paket.exe
+DOTNET_EXE=dotnet.exe
+PAKET_EXE=$DOTNET_EXE paket
 FAKE_EXE=packages/build/FAKE/tools/FAKE.exe
 
 FSIARGS=""
@@ -27,6 +28,9 @@ run() {
     "$@"
   fi
 }
+
+echo "Executing Dotnet..."
+run $DOTNET_EXE tool restore
 
 echo "Executing Paket..."
 

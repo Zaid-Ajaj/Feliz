@@ -13,11 +13,11 @@ cache:
 # Install scripts. (runs after repo cloning)
 install:
   # install latest dotnet core sdk
-  - cmd: choco install dotnetcore-sdk
+  - cmd: choco install dotnet-sdk
   # Get the latest stable version of Node.js
   - ps: Install-Product node $env:nodejs_version
 
-os: Visual Studio 2017
+os: Visual Studio 2022
 
 build_script:
   - cmd: build.cmd Build
