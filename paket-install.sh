@@ -1,1 +1,1 @@
-mono .paket/paket.exe install
+dotnet paket install
