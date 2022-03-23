@@ -49,9 +49,11 @@ type xAxis =
         Interop.mkXAxisAttr "padding" padding
     static member inline tickMargin (value: int) = Interop.mkXAxisAttr "tickMargin" value
     static member inline tickMargin (value: float) = Interop.mkXAxisAttr "tickMargin" value
+    static member inline tickLine (value: bool) = Interop.mkXAxisAttr "tickLine" value
     static member inline unit (value: string) = Interop.mkXAxisAttr "unit" value
     static member inline name (value: string) = Interop.mkXAxisAttr "name" value
     static member inline tick (tickRenderer : IXAxisTickProperties -> ReactElement) = Interop.mkXAxisAttr "tick" tickRenderer
+    static member inline tick (value : obj) = Interop.mkXAxisAttr "tick" value
     static member inline height (value: int) = Interop.mkXAxisAttr "height" value
     static member inline height (value: float) = Interop.mkXAxisAttr "height" value
     static member inline width (value: int) = Interop.mkXAxisAttr "width" value
@@ -69,6 +71,12 @@ module xAxis =
         static member inline preserveStart = Interop.mkXAxisAttr "interval" "preserveStart"
         static member inline preserveEnd = Interop.mkXAxisAttr "interval" "preserveEnd"
         static member inline preserveStartEnd = Interop.mkXAxisAttr "interval" "preserveStartEnd"
+        
+    [<Erase>]
+    type textAnchor =
+        static member inline textAnchorStart = Interop.mkXAxisAttr "textAnchor" "start"
+        static member inline textAnchorEnd = Interop.mkXAxisAttr "textAnchor" "end"
+        static member inline textAnchorMiddle = Interop.mkXAxisAttr "textAnchor" "middle"
 
     [<Erase>]
     type scale =

@@ -2,6 +2,7 @@ namespace Feliz.Recharts
 
 open System
 open Fable.Core
+open Feliz
 open Fable.Core.JsInterop
 
 [<Erase>]
@@ -50,6 +51,8 @@ type area =
     static member inline stepAfter = Interop.mkAreaAttr "type" "stepAfter"
     static member inline monotoneY = Interop.mkAreaAttr "type" "monotoneY"
     static member inline stackId(value: string) = Interop.mkAreaAttr "stackId" value
+    static member inline dot(value: bool) = Interop.mkAreaAttr "dot" value
+    static member inline dot(render: IDotProperties<'a> -> ReactElement) = Interop.mkAreaAttr "dot" render
 
 [<Erase>]
 module area =
