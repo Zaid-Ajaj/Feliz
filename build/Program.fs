@@ -42,7 +42,10 @@ let publish projectDir =
         let nugetKey =
             match Environment.environVarOrNone "NUGET_KEY" with
             | Some nugetKey -> nugetKey
-            | None -> failwith "The Nuget API key must be set in a NUGET_KEY environmental variable"
+            | None -> 
+                printfn "The Nuget API key was not found in a NUGET_KEY environmental variable"
+                printf "Enter NUGET_KEY: "
+                Console.ReadLine()
 
         let nugetPath =
             Directory.GetFiles(path [ projectDir; "bin"; "Release" ])
@@ -58,6 +61,7 @@ let main (args: string[]) =
         // run tasks
         match args with 
         | [| "publish-feliz" |] -> publish feliz
+        | [| "publish-feliz-recharts" |] -> publish recharts
         | [| "publish-compiler-plugins" |] -> publish compilerPlugins
         | _ -> printfn "Unknown args: %A" args
         
