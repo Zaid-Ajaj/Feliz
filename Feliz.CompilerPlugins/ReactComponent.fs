@@ -9,13 +9,13 @@ open Fable.AST.Fable
 do()
 
 /// <summary>Transforms a function into a React function component. Make sure the function is defined at the module level</summary>
-type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string) =
+type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string, ?memo: bool) =
     inherit MemberDeclarationPluginAttribute()
     override _.FableMinimumVersion = "3.0"
     new() = ReactComponentAttribute(exportDefault=false)
     new(exportDefault: bool) = ReactComponentAttribute(exportDefault=exportDefault,?import=None, ?from=None)
     new(import: string, from: string) = ReactComponentAttribute(exportDefault=false,import=import, from=from)
- 
+
     /// <summary>Transforms call-site into createElement calls</summary>
     override this.TransformCall(compiler, memb, expr) =
         let reactElType = expr.Type
@@ -81,10 +81,17 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else
-            let emptyDeclarationBodyWhenImported (decl: MemberDecl) =
+            let emptyDeclarationBodyWhenImportedOrMemoized (decl: MemberDecl) =
                 if import.IsSome && from.IsSome then
                     let reactElType = decl.Body.Type
                     { decl with Body = AstUtils.emptyReactElement reactElType }
+
+                elif memo = Some true then
+                    let memoFn = AstUtils.makeImport "memo" "React"
+                    let info = AstUtils.MemberInfo(decl.Info, isValue=true)
+                    let body = Fable.Delegate(decl.Args, decl.Body, None)
+                    { decl with Info = info; Args = []; Body = AstUtils.makeCall memoFn [body] }
+
                 else
                     decl
 
@@ -133,11 +140,11 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     ignore()
 
                 { decl with ExportDefault = defaultArg exportDefault false }
-                |> emptyDeclarationBodyWhenImported
+                |> emptyDeclarationBodyWhenImportedOrMemoized
             else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then
                 // remove arguments from functions requiring unit as input
                 { decl with Args = [ ]; ExportDefault = defaultArg exportDefault false }
-                |> emptyDeclarationBodyWhenImported
+                |> emptyDeclarationBodyWhenImportedOrMemoized
             else
                 // rewrite all other arguments into getters of a single props object
                 // TODO: transform any callback into into useCallback(callback) to stabilize reference
@@ -155,4 +162,9 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     Args = [propsArg]
                     Body = body
                     ExportDefault = defaultArg exportDefault false }
-                |> emptyDeclarationBodyWhenImported
+                |> emptyDeclarationBodyWhenImportedOrMemoized
+
+type ReactMemoComponentAttribute(?exportDefault: bool) =
+    inherit ReactComponentAttribute(?exportDefault=exportDefault, ?import=None, ?from=None, memo=true)
+    new() = ReactMemoComponentAttribute(exportDefault=false)
+
