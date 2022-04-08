@@ -76,12 +76,12 @@ let RenderContent() =
 ```
 ### Where to define these React contexts?
 
-Since the order in which F# source files are compiled, it is necessary to define these contexts before the definition of the child components themselves to make them usable from these components:
+Since the order matters in which F# source files are compiled, it is necessary to define these contexts before the definition of the child components themselves to make them usable from these components:
 ```fsharp
 App.fsproj
   |
   | -- Types.fs
-  | -- Contexts.fs // <-- Contexts have to be defined at this point to access the
+  | -- Contexts.fs // <-- Contexts have to be defined at this point to access them
   | -- About.fs    //     But also to make them usable from the About, Home or App components
   | -- Home.fs
   | -- App.fs
