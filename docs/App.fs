@@ -183,6 +183,23 @@ type MoreExamples() =
             if showAge then Html.h1 count
         ]
 
+    [<ReactMemoComponent>]
+    static member Memoized (value: int) =
+        printfn "Rendering Memoized..."
+        Html.p (sprintf "Value: %i" value)
+
+    [<ReactComponent>]
+    static member Parent () =
+        printfn "Rendering Parent..."
+        let count, setCount = React.useState 0
+        React.fragment [
+            Html.button [
+                prop.onClick (fun _ -> setCount(count + 1))
+                prop.text "+"
+            ]
+            Html.p (sprintf "Count: %i" count)
+            MoreExamples.Memoized 5
+        ]
 
 type KeyedCounterProps = { Key: string; Name: string }
 
