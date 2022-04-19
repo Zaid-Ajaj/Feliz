@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{641:function(n,e,o){"use strict";o.r(e),o.d(e,"myCodeSplitComponent",(function(){return d}));var t=o(5),c=o(0);const d=Object(t.d)(()=>Object(c.createElement)("div",{children:"I was loaded asynchronously!"}));e.default=d}}]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{643:function(n,e,o){"use strict";o.r(e),o.d(e,"myCodeSplitComponent",(function(){return d}));var t=o(6),c=o(1);const d=Object(t.d)(()=>Object(c.createElement)("div",{children:"I was loaded asynchronously!"}));e.default=d}}]);
