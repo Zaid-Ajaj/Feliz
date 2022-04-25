@@ -4318,15 +4318,15 @@ module style =
     [<Erase>]
     type objectFit =
         /// The replaced content is scaled to maintain its aspect ratio while fitting within the element's content box. The entire object is made to fill the box, while preserving its aspect ratio, so the object will be "letterboxed" if its aspect ratio does not match the aspect ratio of the box.
-        static member inline contain = Interop.mkStyle "object-fit" "contain"
+        static member inline contain = Interop.mkStyle "objectFit" "contain"
         /// The replaced content is sized to maintain its aspect ratio while filling the element's entire content box. If the object's aspect ratio does not match the aspect ratio of its box, then the object will be clipped to fit.
-        static member inline cover = Interop.mkStyle "object-fit" "cover"
+        static member inline cover = Interop.mkStyle "objectFit" "cover"
         /// The replaced content is sized to fill the element's content box. The entire object will completely fill the box. If the object's aspect ratio does not match the aspect ratio of its box, then the object will be stretched to fit.
-        static member inline fill = Interop.mkStyle "object-fit" "fill"
+        static member inline fill = Interop.mkStyle "objectFit" "fill"
         /// The replaced content is not resized.
-        static member inline none = Interop.mkStyle "object-fit" "none"
+        static member inline none = Interop.mkStyle "objectFit" "none"
         /// The content is sized as if none or contain were specified, whichever would result in a smaller concrete object size.
-        static member inline scaleDown = Interop.mkStyle "object-fit" "scale-down"
+        static member inline scaleDown = Interop.mkStyle "objectFit" "scale-down"
     
     [<Erase>]
     type backgroundPosition =
