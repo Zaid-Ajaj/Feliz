@@ -1,14 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Description>Feliz binding for the rough-viz library</Description>
-        <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
-        <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
         <Version>1.5.1</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageReleaseNotes>Remove generated JS artifacts from the nuget package</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>

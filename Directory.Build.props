@@ -1,0 +1,10 @@
+<Project>
+    <PropertyGroup>
+        <PackageProjectUrl>https://zaid-ajaj.github.io/Feliz/</PackageProjectUrl>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1" PrivateAssets="all" />
+    </ItemGroup>
+</Project>

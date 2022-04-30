@@ -2,9 +2,6 @@
   <PropertyGroup>
     <Description>Feliz application template with proper configuration and a unit test project</Description>
     <Authors>Zaid Ajaj</Authors>
-    <PackageProjectUrl>https://github.com/Zaid-Ajaj/Feliz</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE.md</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz.git</RepositoryUrl>
     <PackageTags>fable;template;fsharp</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageType>Template</PackageType>

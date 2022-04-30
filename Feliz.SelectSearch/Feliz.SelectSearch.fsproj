@@ -2,14 +2,11 @@
 
   <PropertyGroup>
     <Description>react-select-search bindings based on the Feliz API</Description>
-    <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
-    <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
     <Version>1.6.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReleaseNotes>Fix option value when used in renderOption</PackageReleaseNotes>
   </PropertyGroup>
 
