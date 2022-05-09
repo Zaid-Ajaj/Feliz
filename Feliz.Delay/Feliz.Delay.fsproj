@@ -5,8 +5,6 @@
     <PackageVersion>0.3.1</PackageVersion>
     <Authors>Cody Johnson, Zaid Ajaj</Authors>
     <Description>Adds easy to use delayed rendering</Description>
-    <PackageLicenseUrl>https://github.com/Zaid-Ajaj/Feliz/blob/master/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/Zaid-Ajaj/Feliz</RepositoryUrl>
     <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
     <PackageReleaseNotes>Remove generated JS artifacts from the nuget package</PackageReleaseNotes>
   </PropertyGroup>
