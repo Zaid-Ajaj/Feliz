@@ -3,9 +3,9 @@
     <Description>Provides compile-time transformation for React components</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.8.0</Version>
+    <Version>1.9.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageReleaseNotes>Added ReactMemoComponent attribute</PackageReleaseNotes>
+    <PackageReleaseNotes>Make the Hook attribute check if and apply the "use" prefix only if necessary</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AstUtils.fs" />

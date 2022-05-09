@@ -16,11 +16,17 @@ type HookAttribute() =
             let callee =
                 match callee with
                 | Fable.Expr.IdentExpr ident ->
-                    // capitalize same-file references
-                    Fable.Expr.IdentExpr { ident with Name = "use" + ident.Name }
+                    if not (ident.Name.StartsWith "use") then
+                        Fable.Expr.IdentExpr { ident with Name = "use" + ident.Name }
+                    else 
+                        callee
                 | Fable.Expr.Import(importInfo, fableType, sourceLocation) ->
-                    // capitalize component imports from different modules/files
-                    let selector = "use" + importInfo.Selector
+                    // apply prefix "use" from hook imports from different modules/files
+                    let selector = 
+                        if not (importInfo.Selector.StartsWith "use") then
+                            "use" + importInfo.Selector
+                        else 
+                            importInfo.Selector
                     let modifiedImportInfo = { importInfo with Selector = selector }
                     Fable.Expr.Import(modifiedImportInfo, fableType, sourceLocation)
                 | _ ->
@@ -38,4 +44,9 @@ type HookAttribute() =
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else
-            { decl with Name = "use" + decl.Name }
+            if not (decl.Name.StartsWith "use") then 
+                // only apply "use" prefix if the declaration doesn't already have it
+                { decl with Name = "use" + decl.Name }
+            else 
+                // hook function already start with "use", keep it as-is
+                decl
