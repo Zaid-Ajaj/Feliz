@@ -39,3 +39,4 @@ module Interop =
     let inline mkPolarAngleAxisAttr (key: string) (value: obj) : IPolarAngleAxisProperty = unbox (key, value)
     let inline mkPolarRadiusAxisAttr (key: string) (value: obj) : IPolarRadiusAxisProperty = unbox (key, value)
     let inline mkPolarGridAttr (key:string) (value:obj) : IPolarGridProperty = unbox(key, value)
+    let inline mkTooltipAttr (key:string) (value:obj) : ITooltipProperty = unbox(key, value)
