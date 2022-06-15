@@ -932,6 +932,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                 nestedMenuList "UI Frameworks" [ Urls.UIFrameworks ] [
                     nestedMenuItem "Feliz.Bulma" [ Urls.Bulma ]
                     nestedMenuItem "Feliz.MaterialUI" [ Urls.Mui ]
+                    nestedMenuItem "Feliz.DaisyUI" [ Urls.Daisy ]
                 ]
 
                 nestedMenuList "Hooks" [ Urls.Hooks ] [
@@ -1144,6 +1145,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         match res with
         | [ Urls.Bulma ] -> lazyView MarkdownLoader.load [ readme "Dzoukr" "Feliz.Bulma" ]
         | [ Urls.Mui ] -> lazyView MarkdownLoader.load [ readme "cmeeren" "Feliz.MaterialUI" ]
+        | [ Urls.Daisy ] -> lazyView MarkdownLoader.load [ readme "Dzoukr" "Feliz.DaisyUI" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Hooks ] (Some res) ->
         match res with

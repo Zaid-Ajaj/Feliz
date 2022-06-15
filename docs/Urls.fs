@@ -108,6 +108,7 @@ let [<Literal>] UIFrameworks = "UIFrameworks"
 
 let [<Literal>] Bulma = "Bulma"
 let [<Literal>] Mui = "Mui"
+let [<Literal>] Daisy = "Daisy"
 
 // __________________________
 
