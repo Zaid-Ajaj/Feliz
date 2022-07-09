@@ -4,9 +4,9 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>3.12.0</Version>
+        <Version>3.14.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>Recharts tooltip properties fixes</PackageReleaseNotes>
+        <PackageReleaseNotes>Added strokeOpacity property to Line and angle property to XAxis</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>

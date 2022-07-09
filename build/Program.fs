@@ -61,7 +61,7 @@ let main (args: string[]) =
         // run tasks
         match args with 
         | [| "publish-feliz" |] -> publish feliz
-        | [| "publish-feliz-recharts" |] -> publish recharts
+        | [| "publish-recharts" |] -> publish recharts
         | [| "publish-compiler-plugins" |] -> publish compilerPlugins
         | [| "publish-select-search" |] -> publish selectSearch
         | _ -> printfn "Unknown args: %A" args
