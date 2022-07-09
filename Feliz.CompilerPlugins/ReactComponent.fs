@@ -87,7 +87,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     { decl with Body = AstUtils.emptyReactElement reactElType }
 
                 elif memo = Some true then
-                    let memoFn = AstUtils.makeImport "memo" "React"
+                    let memoFn = AstUtils.makeImport "memo" "react"
                     let info = AstUtils.MemberInfo(decl.Info, isValue=true)
                     let body = Fable.Delegate(decl.Args, decl.Body, None)
                     { decl with Info = info; Args = []; Body = AstUtils.makeCall memoFn [body] }
