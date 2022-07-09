@@ -23,6 +23,7 @@ type line =
     static member inline dataKey (f: 'a -> int option) = Interop.mkLineAttr "dataKey" f
     static member inline dataKey (f: 'a -> float option) = Interop.mkLineAttr "dataKey" f
     static member inline stroke (value: string) = Interop.mkLineAttr "stroke" value
+    static member inline strokeOpacity (value: float) = Interop.mkLineAttr "stroke-opacity" value
     static member inline fill (value: string) = Interop.mkLineAttr "fill" value
     static member inline xAxisId (value: string) = Interop.mkLineAttr "xAxisId" value
     static member inline yAxisId (value: string) = Interop.mkLineAttr "yAxisId" value

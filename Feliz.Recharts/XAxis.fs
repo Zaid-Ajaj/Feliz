@@ -37,6 +37,7 @@ type xAxis =
     static member inline tickCount (value: int) = Interop.mkXAxisAttr "tickCount" value
     static member inline domain (min : IAxisDomain, max: IAxisDomain) = Interop.mkXAxisAttr "domain" [| min; max |]
     static member inline interval (value: int) = Interop.mkXAxisAttr "interval" value
+    static member inline angle (value: float) = Interop.mkXAxisAttr "angle" value
     /// Specify the padding of x-axis. Default is `xAxis.padding(left=0, right=0)`.
     static member inline padding(?top: int, ?right: int, ?left: int, ?bottom: int) =
         let padding = createObj [
