@@ -2851,6 +2851,23 @@ module style =
         static member inline inheritFromParent = Interop.mkStyle "overflowX" "inherit"
 
     [<Erase>]
+    type textOrientation =
+        /// The characters are rotated 90° clockwise. This is the default value of this property.
+        static member inline mixed = Interop.mkStyle "textOrientation" "mixed"
+        /// The characters of horizontal scripts are laid out naturally (upright), as
+        /// well as the glyphs for vertical scripts. This property makes all the 
+        /// characters to be considered as left-to-right: the used value of direction is forced to be ltr.
+        static member inline upright = Interop.mkStyle "textOrientation" "upright"
+        /// The characters are laid out as they would be horizontally, but with the whole
+        /// line rotated 90° clockwise.
+        static member inline sideways = Interop.mkStyle "textOrientation" "sideways"
+        /// An alias to sideways that is kept for compatibility purposes.
+        static member inline sidewaysRight = Interop.mkStyle "textOrientation" "sideways-right"
+        /// It makes the property use its default value.
+        static member inline initial = Interop.mkStyle "textOrientation" "initial"
+        /// It inherits the property from its parents element.
+        static member inline inheritFromParent = Interop.mkStyle "textOrientation" "inherit"
+    [<Erase>]
     type visibility =
         /// The element is hidden (but still takes up space).
         static member inline hidden = Interop.mkStyle "visibility" "hidden"
