@@ -64,6 +64,7 @@ let main (args: string[]) =
         | [| "publish-recharts" |] -> publish recharts
         | [| "publish-compiler-plugins" |] -> publish compilerPlugins
         | [| "publish-select-search" |] -> publish selectSearch
+        | [| "publish-template" |] -> publish template
         | _ -> printfn "Unknown args: %A" args
         
         // exit succesfully
