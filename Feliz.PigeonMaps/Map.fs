@@ -1,5 +1,6 @@
 namespace Feliz.PigeonMaps
 
+open System
 open Feliz
 open Fable.Core
 open Fable.Core.JsInterop
@@ -63,7 +64,9 @@ type map =
     /// The z-index value for the meta warning. Defaults to 100
     static member inline warningZIndex (value: int) = Interop.mkAttr "warningZIndex" value
     static member inline onAnimationStart (handler: unit -> unit) = Interop.mkAttr "onAnimationStart" handler
+    [<Obsolete("Use onAnimationStop instead")>]
     static member inline onAnimationEnd (handler: unit -> unit) = Interop.mkAttr "onAnimationEnd" handler
+    static member inline onAnimationStop (handler: unit -> unit) = Interop.mkAttr "onAnimationStop" handler
     static member inline onClick (handler: IMapMouseEvent -> unit) = Interop.mkAttr "onClick" handler
     static member inline onBoundsChanged (handler: IMapBoundsChangedArgs -> unit) = Interop.mkAttr "onBoundsChanged" handler
 

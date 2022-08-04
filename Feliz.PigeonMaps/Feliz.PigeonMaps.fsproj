@@ -4,13 +4,13 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz;maps</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>2.5.0</Version>
+        <Version>2.6.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>Remove generated JS artifacts from the nuget package</PackageReleaseNotes>
+        <PackageReleaseNotes>Implement onAnimationStop and deprecate onAnimationEnd</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
-            <NpmPackage Name="pigeon-maps" Version="&gt;= 0.19.5 &lt; 1.0.0" ResolutionStrategy="Min" />
+            <NpmPackage Name="pigeon-maps" Version="&gt;= 0.21.0 &lt; 1.0.0" ResolutionStrategy="Min" />
         </NpmDependencies>
     </PropertyGroup>
     <ItemGroup>
