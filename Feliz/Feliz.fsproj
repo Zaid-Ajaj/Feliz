@@ -4,9 +4,9 @@
     <Description>A fresh retake of the React API in Fable, optimized for happiness</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.66.0</Version>
+    <Version>1.67.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageReleaseNotes>Added text-orientation property and fix property name of break-before/after/inside</PackageReleaseNotes>
+    <PackageReleaseNotes>Added download property for anchor tags</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
     <NpmDependencies>
