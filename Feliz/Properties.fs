@@ -593,6 +593,10 @@ type prop =
 
     /// This attribute, if present, indicates that the author intends the hyperlink to be used for downloading a resource.
     static member inline download (value: bool) = Interop.mkAttr "download" value
+    
+    /// This attribute, if present, indicates that the author intends the hyperlink to be used for downloading a resource.
+    /// The value specifies the default file name for use in labeling the resource in a local file system.
+    static member inline download (value: string) = Interop.mkAttr "download" value
 
     /// Indicates whether the the element can be dragged.
     static member inline draggable (value: bool) = Interop.mkAttr "draggable" value
