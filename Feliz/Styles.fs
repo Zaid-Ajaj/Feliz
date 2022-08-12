@@ -2638,7 +2638,27 @@ type style =
     static member inline letterSpacing (value: int) = Interop.mkStyle "letterSpacing" value
     /// Specifies extra inter-character space in addition to the default space between characters.
     static member inline letterSpacing (value: ICssUnit) = Interop.mkStyle "letterSpacing" value
-
+    
+    /// Sets the origin for an element's transformations.
+    /// The transform origin is the point around which a transformation is applied.
+    static member inline transformOrigin (xOffset: ITransformOrigin) =
+        Interop.mkStyle "transformOrigin" (unbox<string> xOffset)
+    /// Sets the origin for an element's transformations.
+    /// The transform origin is the point around which a transformation is applied.
+    static member inline transformOrigin (xOffset: ITransformOrigin, yOffset: ITransformOrigin) =
+        Interop.mkStyle "transformOrigin" (
+            unbox<string> xOffset + " " +
+            unbox<string> yOffset
+        ) 
+    /// Sets the origin for an element's transformations.
+    /// The transform origin is the point around which a transformation is applied.
+    static member inline transformOrigin (xOffset: ITransformOrigin, yOffset: ITransformOrigin, zOffset: ITransformOrigin) =
+        Interop.mkStyle "transformOrigin" (
+            unbox<string> xOffset + " " +
+            unbox<string> yOffset + " " +
+            unbox<string> zOffset
+        ) 
+    
 [<Erase>]
 module style =
 
@@ -4795,6 +4815,16 @@ module style =
         /// Resets to its inherited value if the property naturally inherits from its parent,
         /// and to its initial value if not.
         static member inline unset = Interop.mkStyle "breakInside" "unset"
+    
+    /// Sets the origin for an element's transformations.
+    /// The transform origin is the point around which a transformation is applied.
+    [<Erase>]
+    type transformOrigin =        
+        static member inline initial = Interop.mkStyle "transformOrigin" "initial"
+        static member inline inheritFromParent = Interop.mkStyle "transformOrigin" "inherit"
+        static member inline revert = Interop.mkStyle "transformOrigin" "revert"
+        static member inline revertLayer = Interop.mkStyle "transformOrigin" "revertLayer"
+        static member inline unset = Interop.mkStyle "transformOrigin" "unset"
 
     /// Sets the background color of an element.
     [<Erase; RequireQualifiedAccess>]
