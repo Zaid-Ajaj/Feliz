@@ -6,7 +6,7 @@ open Fable.AST
 /// <summary>Applies to custom defined React hooks to ensure the generated code starts with "use" in order for fast-refresh to pick it up</summary>
 type HookAttribute() =
     inherit MemberDeclarationPluginAttribute()
-    override _.FableMinimumVersion = "3.0"
+    override _.FableMinimumVersion = "4.0"
 
     /// <summary>Transforms call-site into createElement calls</summary>
     override _.TransformCall(compiler, memb, expr) =
@@ -38,7 +38,8 @@ type HookAttribute() =
             expr
 
     override this.Transform(compiler, file, decl) =
-        if decl.Info.IsValue || decl.Info.IsGetter || decl.Info.IsSetter then
+        let info = compiler.GetMember(decl.MemberRef)
+        if info.IsValue || info.IsGetter || info.IsSetter then
             // Invalid attribute usage
             let errorMessage = sprintf "Expecting a function declation for %s when using [<Hook>]" decl.Name
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)

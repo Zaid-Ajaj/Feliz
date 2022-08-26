@@ -11,7 +11,7 @@ do()
 /// <summary>Transforms a function into a React function component. Make sure the function is defined at the module level</summary>
 type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string, ?memo: bool) =
     inherit MemberDeclarationPluginAttribute()
-    override _.FableMinimumVersion = "3.0"
+    override _.FableMinimumVersion = "4.0"
     new() = ReactComponentAttribute(exportDefault=false)
     new(exportDefault: bool) = ReactComponentAttribute(exportDefault=exportDefault,?import=None, ?from=None)
     new(import: string, from: string) = ReactComponentAttribute(exportDefault=false,import=import, from=from)
@@ -70,7 +70,8 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
             expr
 
     override this.Transform(compiler, file, decl) =
-        if decl.Info.IsValue || decl.Info.IsGetter || decl.Info.IsSetter then
+        let info = compiler.GetMember(decl.MemberRef)
+        if info.IsValue || info.IsGetter || info.IsSetter then
             // Invalid attribute usage
             let errorMessage = sprintf "Expecting a function declation for %s when using [<ReactComponent>]" decl.Name
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
@@ -88,15 +89,24 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
 
                 elif memo = Some true then
                     let memoFn = AstUtils.makeImport "memo" "react"
-                    let info = AstUtils.MemberInfo(decl.Info, isValue=true)
-                    let body = Fable.Delegate(decl.Args, decl.Body, None)
-                    { decl with Info = info; Args = []; Body = AstUtils.makeCall memoFn [body] }
+                    let body = Fable.Delegate(decl.Args, decl.Body, None, Fable.Tags.empty)
+                    let info = // AstUtils.MemberInfo(decl.Info, isValue=true)
+                        { AstUtils.makeObjValueMemberInfo info.CompiledName body.Type with IsInstance = false }
+                        |> Fable.GeneratedValue
+                        |> Fable.GeneratedMemberRef
+
+                    { decl with MemberRef = info; Args = []; Body = AstUtils.makeCall memoFn [body] }
 
                 else
                     decl
 
             if (AstUtils.isCamelCase decl.Name) then
                 compiler.LogWarning(sprintf "React function component '%s' is written in camelCase format. Please consider declaring it in PascalCase (i.e. '%s') to follow conventions of React applications and allow tools such as react-refresh to pick it up." decl.Name (AstUtils.capitalize decl.Name))
+
+            let decl =
+                match exportDefault with
+                | Some true -> { decl with Tags = "export-default"::decl.Tags }
+                | Some false | None -> decl
 
             // do not rewrite components accepting records as input
             if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args.[0].Type then
@@ -139,11 +149,11 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     // nothing to report
                     ignore()
 
-                { decl with ExportDefault = defaultArg exportDefault false }
+                decl
                 |> emptyDeclarationBodyWhenImportedOrMemoized
             else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then
                 // remove arguments from functions requiring unit as input
-                { decl with Args = [ ]; ExportDefault = defaultArg exportDefault false }
+                { decl with Args = [ ] }
                 |> emptyDeclarationBodyWhenImportedOrMemoized
             else
                 // rewrite all other arguments into getters of a single props object
@@ -152,16 +162,13 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 let body =
                     ([], decl.Args) ||> List.fold (fun bindings arg ->
                         let getterKey = if arg.DisplayName = "key" then "$key" else arg.DisplayName
-                        let getterKind = Fable.ByKey(Fable.ExprKey(AstUtils.makeStrConst getterKey))
+                        let getterKind = Fable.ExprGet(AstUtils.makeStrConst getterKey)
                         let getter = Fable.Get(Fable.IdentExpr propsArg, getterKind, Fable.Any, None)
                         (arg, getter)::bindings)
                     |> List.rev
                     |> List.fold (fun body (k,v) -> Fable.Let(k, v, body)) decl.Body
 
-                { decl with
-                    Args = [propsArg]
-                    Body = body
-                    ExportDefault = defaultArg exportDefault false }
+                { decl with Args = [propsArg]; Body = body }
                 |> emptyDeclarationBodyWhenImportedOrMemoized
 
 type ReactMemoComponentAttribute(?exportDefault: bool) =

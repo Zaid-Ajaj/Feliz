@@ -15,7 +15,7 @@
     <Compile Include="PrimitiveElementWithChildren.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.AST" Version="3.0.0" />
+    <PackageReference Include="Fable.AST" Version="4.0.0-snake-island-alpha-001" />
     <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 </Project>
