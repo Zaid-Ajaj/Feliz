@@ -5,7 +5,7 @@ open Fable.AST
 
 //type PrimitiveElementWithChildrenAttribute(tagName:string) =
 //    inherit MemberDeclarationPluginAttribute()
-//    override _.FableMinimumVersion = "3.0"
+//    override _.FableMinimumVersion = "4.0"
 //
 //    member this.TransformChildren(args) =
 //        let element = AstUtils.makeStrConst tagName

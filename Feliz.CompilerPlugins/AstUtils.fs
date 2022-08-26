@@ -33,18 +33,21 @@ let makeStrConst (x: string) =
 
 let nullValue = Fable.Expr.Value(Fable.ValueKind.Null(Fable.Type.Any), None)
 
+let makeCallInfo args: Fable.CallInfo = {
+    ThisArg = None
+    Args = args
+    SignatureArgTypes = []
+    GenericArgs = []
+    MemberRef = None
+    Tags = []
+}
+
 let emitJs macro args  =
-    let callInfo: Fable.CallInfo =
-        { ThisArg = None
-          Args = args
-          SignatureArgTypes = []
-          HasSpread = false
-          IsJsConstructor = false
-          CallMemberInfo = None }
+    let callInfo = makeCallInfo args
 
     let emitInfo : Fable.AST.Fable.EmitInfo =
         { Macro = macro
-          IsJsStatement = false
+          IsStatement = false
           CallInfo = callInfo }
 
     Fable.Expr.Emit(emitInfo, Fable.Type.Any, None)
@@ -69,7 +72,7 @@ let rec flattenList (head: Fable.Expr) (tail: Fable.Expr) =
 let makeImport (selector: string) (path: string) =
     Fable.Import({ Selector = selector
                    Path = path
-                   IsCompilerGenerated = true }, Fable.Any, None)
+                   Kind = Fable.LibraryImport }, Fable.Any, None)
 
 let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     match fableType with
@@ -100,7 +103,7 @@ let isReactElement (fableType: Fable.Type) =
 
 let recordHasField name (compiler: PluginHelper) (fableType: Fable.Type) =
     match fableType with
-    | Fable.Type.AnonymousRecordType (fieldNames, genericArgs) ->
+    | Fable.Type.AnonymousRecordType (fieldNames, genericArgs, _isStruct) ->
         fieldNames
         |> Array.exists (fun field -> field = name)
 
@@ -112,65 +115,36 @@ let recordHasField name (compiler: PluginHelper) (fableType: Fable.Type) =
         false
 
 let makeCall callee args =
-    let callInfo: Fable.CallInfo =
-        { ThisArg = None
-          Args = args
-          SignatureArgTypes = []
-          HasSpread = false
-          IsJsConstructor = false
-          CallMemberInfo = None }
-
-    Fable.Call(callee, callInfo, Fable.Any, None)
+    Fable.Call(callee, makeCallInfo args, Fable.Any, None)
 
 let createElement reactElementType args =
     let callee = makeImport "createElement" "react"
-    let callInfo: Fable.CallInfo =
-        { ThisArg = None
-          Args = args
-          SignatureArgTypes = []
-          HasSpread = false
-          IsJsConstructor = false
-          CallMemberInfo = None }
-
-    Fable.Call(callee, callInfo, reactElementType, None)
+    Fable.Call(callee, makeCallInfo args, reactElementType, None)
 
 let emptyReactElement reactElementType =
     Fable.Expr.Value(Fable.Null(reactElementType), None)
 
-type MemberInfo(?info: Fable.MemberInfo,
-                ?isValue: bool) =
-    let infoOr f v =
-        match info with
-        | Some i -> f i
-        | None -> v
-    let argOrInfoOr arg f v =
-        match arg, info with
-        | Some arg, _ -> arg
-        | None, Some i -> f i
-        | None, None -> v
-    interface Fable.MemberInfo with
-        member _.IsValue = argOrInfoOr isValue (fun i -> i.IsValue) false
-        member _.Attributes = infoOr (fun i -> i.Attributes) Seq.empty
-        member _.HasSpread = infoOr (fun i -> i.HasSpread) false
-        member _.IsPublic = infoOr (fun i -> i.IsPublic) true
-        member _.IsInstance = infoOr (fun i -> i.IsInstance) true
-        member _.IsMutable = infoOr (fun i -> i.IsMutable) false
-        member _.IsGetter = infoOr (fun i -> i.IsGetter) false
-        member _.IsSetter = infoOr (fun i -> i.IsSetter) false
-        member _.IsEnumerator = infoOr (fun i -> i.IsEnumerator) false
-        member _.IsMangled = infoOr (fun i -> i.IsMangled) false
+let makeObjValueMemberInfo name typ: Fable.GeneratedMemberInfo = {
+    Name = name
+    ParamTypes = []
+    ReturnType = typ
+    IsInstance = true
+    HasSpread = false
+    IsMutable = false
+    DeclaringEntity = None
+}
 
-let objValue (k, v): Fable.MemberDecl =
+let objValue (k, v): Fable.ObjectExprMember =
     {
         Name = k
-        FullDisplayName = k
         Args = []
         Body = v
-        UsedNames = Set.empty
-        Info = MemberInfo(isValue=true)
-        ExportDefault = false
+        MemberRef =
+            makeObjValueMemberInfo k v.Type
+            |> Fable.GeneratedValue
+            |> Fable.GeneratedMemberRef
+        IsMangled = false
     }
-
 
 let objExpr kvs = Fable.ObjectExpr(List.map objValue kvs, Fable.Any, None)
 

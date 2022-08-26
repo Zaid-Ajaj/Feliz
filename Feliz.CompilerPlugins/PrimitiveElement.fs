@@ -5,7 +5,7 @@ open Fable.AST
 
 //type PrimitiveElementAttribute(tagName:string) =
 //    inherit MemberDeclarationPluginAttribute()
-//    override _.FableMinimumVersion = "3.0"
+//    override _.FableMinimumVersion = "4.0"
 //
 //    override _.TransformCall(logger, memb, expr) =
 //        match expr with
