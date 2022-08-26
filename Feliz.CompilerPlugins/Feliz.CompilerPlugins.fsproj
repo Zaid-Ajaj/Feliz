@@ -3,9 +3,9 @@
     <Description>Provides compile-time transformation for React components</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>1.10.0</Version>
+    <Version>2.0.0-prerelease-001</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageReleaseNotes>Fix ReactMemoComponent by importing react instead of React</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Fable AST to v4</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AstUtils.fs" />
