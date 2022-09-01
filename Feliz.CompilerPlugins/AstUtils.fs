@@ -70,9 +70,9 @@ let rec flattenList (head: Fable.Expr) (tail: Fable.Expr) =
     ]
 
 let makeImport (selector: string) (path: string) =
-    Fable.Import({ Selector = selector
-                   Path = path
-                   Kind = Fable.LibraryImport }, Fable.Any, None)
+    Fable.Import({ Selector = selector.Trim()
+                   Path = path.Trim()
+                   Kind = Fable.UserImport(false) }, Fable.Any, None)
 
 let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     match fableType with
