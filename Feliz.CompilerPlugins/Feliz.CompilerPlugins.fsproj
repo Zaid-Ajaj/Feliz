@@ -3,7 +3,7 @@
     <Description>Provides compile-time transformation for React components</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>2.0.0-prerelease-001</Version>
+    <Version>2.0.0-prerelease-002</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageReleaseNotes>Update Fable AST to v4</PackageReleaseNotes>
   </PropertyGroup>
