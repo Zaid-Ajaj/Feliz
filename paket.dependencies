@@ -7,10 +7,10 @@ group Main
     nuget Fable.Core
     nuget Fable.Elmish.React
     nuget Fable.Mocha
-    nuget Fable.React
+    nuget Fable.React.Types 18.0.0-beta-001 beta
     nuget Fable.SimpleHttp
     nuget Fable.Promise >= 3.1
-    nuget FSharp.Core >= 4.7.2
+    nuget FSharp.Core 4.7.2
     nuget Zanaptak.TypedCssClasses
 
 group Build

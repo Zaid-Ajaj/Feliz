@@ -24,7 +24,7 @@ module Basic =
             popover.disableTip
             popover.onOuterAction (fun _ -> toggleOpen(false))
             popover.children [
-                /// The content that this popover will orient itself around.
+                // The content that this popover will orient itself around.
                 Html.button [
                     prop.text "Open popover"
                     prop.onClick (fun _ -> toggleOpen(not popoverOpen))

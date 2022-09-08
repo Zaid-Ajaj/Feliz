@@ -3655,8 +3655,8 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "textOverflow" "inherit"
 
-    [<Erase>]
     /// Defines visual effects like blur and saturation to an element.
+    [<Erase>]
     type filters =
         static member inline private mkFilter value : IFilter = unbox value 
         /// Default value. Specifies no effects.

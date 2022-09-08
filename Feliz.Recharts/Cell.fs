@@ -5,8 +5,8 @@ open System
 open Fable.Core
 open Fable.Core.JsInterop
 
-[<Erase>]
 /// Cell can be wrapped by Pie, Bar, or RadialBar to specify attributes of each child. In Pie , for example, we can specify the attributes of each child node through data, but the props of Cell have higher priority.
+[<Erase>]
 type cell =
     static member inline key (value: string) = Interop.mkCellAttr "key" value
     static member inline key (value: Guid) = Interop.mkCellAttr "key" (string value)
