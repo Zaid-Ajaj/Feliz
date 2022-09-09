@@ -433,13 +433,6 @@ type Html =
     static member inline kbd (value: string) = Interop.reactElementWithChild "kbd" value
     static member inline kbd (children: #seq<ReactElement>) = Interop.reactElementWithChildren "kbd" children
 
-    // [<Obsolete("Html.keyedFragment is obsolete, use React.keyedFragment instead. This function will be removed in the coming v1.0 release")>]
-    // static member inline keyedFragment (key: int, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
-    // [<Obsolete("Html.keyedFragment is obsolete, use React.keyedFragment instead. This function will be removed in the coming v1.0 release")>]
-    // static member inline keyedFragment (key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
-    // [<Obsolete("Html.keyedFragment is obsolete, use React.keyedFragment instead. This function will be removed in the coming v1.0 release")>]
-    // static member inline keyedFragment (key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
-
     static member inline label xs = Interop.createElement "label" xs
     static member inline label (children: #seq<ReactElement>) = Interop.reactElementWithChildren "label" children
 
