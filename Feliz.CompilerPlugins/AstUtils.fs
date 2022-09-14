@@ -114,6 +114,10 @@ let recordHasField name (compiler: PluginHelper) (fableType: Fable.Type) =
     | _ ->
         false
 
+let memberName = function
+    | Fable.MemberRef(_,m) -> m.CompiledName
+    | Fable.GeneratedMemberRef m -> m.Info.Name
+
 let makeCall callee args =
     Fable.Call(callee, makeCallInfo args, Fable.Any, None)
 
@@ -124,11 +128,11 @@ let createElement reactElementType args =
 let emptyReactElement reactElementType =
     Fable.Expr.Value(Fable.Null(reactElementType), None)
 
-let makeObjValueMemberInfo name typ: Fable.GeneratedMemberInfo = {
+let makeMemberInfo isInstance typ name: Fable.GeneratedMemberInfo = {
     Name = name
     ParamTypes = []
     ReturnType = typ
-    IsInstance = true
+    IsInstance = isInstance
     HasSpread = false
     IsMutable = false
     DeclaringEntity = None
@@ -140,7 +144,7 @@ let objValue (k, v): Fable.ObjectExprMember =
         Args = []
         Body = v
         MemberRef =
-            makeObjValueMemberInfo k v.Type
+            makeMemberInfo true v.Type k
             |> Fable.GeneratedValue
             |> Fable.GeneratedMemberRef
         IsMangled = false

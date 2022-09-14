@@ -8,6 +8,39 @@ open Fable.AST.Fable
 [<assembly:ScanForPlugins>]
 do()
 
+module internal ReactComponentHelpers =
+    let injectReactImport body =
+        let body = match body with Fable.Sequential body -> body | _ -> [body]
+        Fable.Sequential [
+            AstUtils.makeImport "default as React" "react"
+            yield! body
+        ]
+
+    let applyImportOrMemo import from memo (decl: MemberDecl) =
+        match import, from, memo with
+        | Some _, Some _, _ ->
+            let reactElType = decl.Body.Type
+            { decl with Body = AstUtils.emptyReactElement reactElType }
+
+        | _, _, Some true ->
+            let memoFn = AstUtils.makeImport "memo" "react"
+            let body =
+                decl.Body
+                |> injectReactImport 
+                |> fun body -> [Fable.Delegate(decl.Args, body, None, Fable.Tags.empty)]
+                |> AstUtils.makeCall memoFn
+            // Change declaration kind from function to value
+            let info =
+                AstUtils.memberName decl.MemberRef
+                |> AstUtils.makeMemberInfo false body.Type
+                |> Fable.GeneratedValue
+                |> Fable.GeneratedMemberRef            
+            { decl with MemberRef = info; Args = []; Body = body }
+
+        | _ -> { decl with Body = injectReactImport decl.Body }
+
+open ReactComponentHelpers
+
 /// <summary>Transforms a function into a React function component. Make sure the function is defined at the module level</summary>
 type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string, ?memo: bool) =
     inherit MemberDeclarationPluginAttribute()
@@ -82,24 +115,6 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else
-            let emptyDeclarationBodyWhenImportedOrMemoized (decl: MemberDecl) =
-                if import.IsSome && from.IsSome then
-                    let reactElType = decl.Body.Type
-                    { decl with Body = AstUtils.emptyReactElement reactElType }
-
-                elif memo = Some true then
-                    let memoFn = AstUtils.makeImport "memo" "react"
-                    let body = Fable.Delegate(decl.Args, decl.Body, None, Fable.Tags.empty)
-                    let info = // AstUtils.MemberInfo(decl.Info, isValue=true)
-                        { AstUtils.makeObjValueMemberInfo info.CompiledName body.Type with IsInstance = false }
-                        |> Fable.GeneratedValue
-                        |> Fable.GeneratedMemberRef
-
-                    { decl with MemberRef = info; Args = []; Body = AstUtils.makeCall memoFn [body] }
-
-                else
-                    decl
-
             if (AstUtils.isCamelCase decl.Name) then
                 compiler.LogWarning(sprintf "React function component '%s' is written in camelCase format. Please consider declaring it in PascalCase (i.e. '%s') to follow conventions of React applications and allow tools such as react-refresh to pick it up." decl.Name (AstUtils.capitalize decl.Name))
 
@@ -150,11 +165,11 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     ignore()
 
                 decl
-                |> emptyDeclarationBodyWhenImportedOrMemoized
+                |> applyImportOrMemo import from memo
             else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then
                 // remove arguments from functions requiring unit as input
                 { decl with Args = [ ] }
-                |> emptyDeclarationBodyWhenImportedOrMemoized
+                |> applyImportOrMemo import from memo
             else
                 // rewrite all other arguments into getters of a single props object
                 // TODO: transform any callback into into useCallback(callback) to stabilize reference
@@ -169,7 +184,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     |> List.fold (fun body (k,v) -> Fable.Let(k, v, body)) decl.Body
 
                 { decl with Args = [propsArg]; Body = body }
-                |> emptyDeclarationBodyWhenImportedOrMemoized
+                |> applyImportOrMemo import from memo
 
 type ReactMemoComponentAttribute(?exportDefault: bool) =
     inherit ReactComponentAttribute(?exportDefault=exportDefault, ?import=None, ?from=None, memo=true)
