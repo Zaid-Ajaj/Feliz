@@ -10,8 +10,8 @@ do()
 
 module internal ReactComponentHelpers =
     let injectReactImport body =
-        let body = match body with Fable.Sequential body -> body | _ -> [body]
-        Fable.Sequential [
+        let body = match body with Sequential body -> body | _ -> [body]
+        Sequential [
             AstUtils.makeImport "default as React" "react"
             yield! body
         ]
@@ -27,14 +27,14 @@ module internal ReactComponentHelpers =
             let body =
                 decl.Body
                 |> injectReactImport 
-                |> fun body -> [Fable.Delegate(decl.Args, body, None, Fable.Tags.empty)]
+                |> fun body -> [Delegate(decl.Args, body, None, Tags.empty)]
                 |> AstUtils.makeCall memoFn
             // Change declaration kind from function to value
             let info =
                 AstUtils.memberName decl.MemberRef
                 |> AstUtils.makeMemberInfo false body.Type
-                |> Fable.GeneratedValue
-                |> Fable.GeneratedMemberRef            
+                |> GeneratedValue
+                |> GeneratedMemberRef
             { decl with MemberRef = info; Args = []; Body = body }
 
         | _ -> { decl with Body = injectReactImport decl.Body }
@@ -54,7 +54,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
         let reactElType = expr.Type
         let membArgs = memb.CurriedParameterGroups |> List.concat
         match expr with
-        | Fable.Call(callee, info, typeInfo, range) ->
+        | Call(callee, info, _typeInfo, _range) ->
             let reactComponent =
                 match import, from with
                 | Some importedMember, Some externalModule ->
@@ -62,18 +62,18 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 | _ ->
                     callee
 
-            if List.length membArgs = info.Args.Length && info.Args.Length = 1 && AstUtils.isRecord compiler info.Args.[0].Type then
+            if List.length membArgs = info.Args.Length && info.Args.Length = 1 && AstUtils.isRecord compiler info.Args[0].Type then
                 // F# Component { Value = 1 }
                 // JSX <Component Value={1} />
                 // JS createElement(Component, { Value: 1 })
-                if AstUtils.recordHasField "Key" compiler info.Args.[0].Type then
+                if AstUtils.recordHasField "Key" compiler info.Args[0].Type then
                     // When the key property is upper-case (which is common in record fields)
                     // then we should rewrite it
-                    let modifiedRecord = AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args.[0]]
+                    let modifiedRecord = AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args[0]]
                     AstUtils.createElement reactElType [reactComponent; modifiedRecord]
                 else
-                    AstUtils.createElement reactElType [reactComponent; info.Args.[0]]
-            elif info.Args.Length = 1 && info.Args.[0].Type = Fable.Type.Unit then
+                    AstUtils.createElement reactElType [reactComponent; info.Args[0]]
+            elif info.Args.Length = 1 && info.Args[0].Type = Type.Unit then
                 // F# Component()
                 // JSX <Component />
                 // JS createElement(Component, null)
@@ -124,7 +124,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 | Some false | None -> decl
 
             // do not rewrite components accepting records as input
-            if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args.[0].Type then
+            if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args[0].Type then
                 // check whether the record type is defined in this file
                 // trigger warning if that is case
                 let definedInThisFile =
@@ -133,8 +133,8 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                         match declaration with
                         | Declaration.ClassDeclaration classDecl ->
                             let classEntity = compiler.GetEntity(classDecl.Entity)
-                            match decl.Args.[0].Type with
-                            | Fable.Type.DeclaredType (entity, genericArgs) ->
+                            match decl.Args[0].Type with
+                            | Type.DeclaredType (entity, _genericArgs) ->
                                 let declaredEntity = compiler.GetEntity(entity)
                                 if classEntity.IsFSharpRecord && declaredEntity.FullName = classEntity.FullName
                                 then Some declaredEntity.FullName
@@ -142,7 +142,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
 
                             | _ -> None
 
-                        | Declaration.ActionDeclaration action ->
+                        | Declaration.ActionDeclaration _action ->
                             None
                         | _ ->
                             None
@@ -162,11 +162,11 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
 
                 | None ->
                     // nothing to report
-                    ignore()
+                    ()
 
                 decl
                 |> applyImportOrMemo import from memo
-            else if decl.Args.Length = 1 && decl.Args.[0].Type = Fable.Type.Unit then
+            else if decl.Args.Length = 1 && decl.Args[0].Type = Type.Unit then
                 // remove arguments from functions requiring unit as input
                 { decl with Args = [ ] }
                 |> applyImportOrMemo import from memo
@@ -177,11 +177,11 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 let body =
                     ([], decl.Args) ||> List.fold (fun bindings arg ->
                         let getterKey = if arg.DisplayName = "key" then "$key" else arg.DisplayName
-                        let getterKind = Fable.ExprGet(AstUtils.makeStrConst getterKey)
-                        let getter = Fable.Get(Fable.IdentExpr propsArg, getterKind, Fable.Any, None)
+                        let getterKind = ExprGet(AstUtils.makeStrConst getterKey)
+                        let getter = Get(IdentExpr propsArg, getterKind, Any, None)
                         (arg, getter)::bindings)
                     |> List.rev
-                    |> List.fold (fun body (k,v) -> Fable.Let(k, v, body)) decl.Body
+                    |> List.fold (fun body (k,v) -> Let(k, v, body)) decl.Body
 
                 { decl with Args = [propsArg]; Body = body }
                 |> applyImportOrMemo import from memo
