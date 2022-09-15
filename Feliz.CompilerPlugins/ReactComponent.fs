@@ -9,6 +9,15 @@ open Fable.AST.Fable
 do()
 
 module internal ReactComponentHelpers =
+    let (|ReactMemo|_|) = function
+        | Import({ Selector = "memo"; Path = "react" },_,_) as e -> Some e
+        | Get(Import({ Path = "react" },_,_),kind,_,_) as e ->
+            match kind with
+            | ExprGet(Value(StringConstant "memo",_)) -> Some e
+            | FieldGet i when i.Name = "memo" -> Some e
+            | _ -> None
+        | _ -> None
+
     let injectReactImport body =
         let body = match body with Sequential body -> body | _ -> [body]
         Sequential [
@@ -174,14 +183,23 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 // rewrite all other arguments into getters of a single props object
                 // TODO: transform any callback into into useCallback(callback) to stabilize reference
                 let propsArg = AstUtils.makeIdent (sprintf "%sInputProps" (AstUtils.camelCase decl.Name))
-                let body =
+                let propBindings =
                     ([], decl.Args) ||> List.fold (fun bindings arg ->
                         let getterKey = if arg.DisplayName = "key" then "$key" else arg.DisplayName
                         let getterKind = ExprGet(AstUtils.makeStrConst getterKey)
                         let getter = Get(IdentExpr propsArg, getterKind, Any, None)
                         (arg, getter)::bindings)
                     |> List.rev
-                    |> List.fold (fun body (k,v) -> Let(k, v, body)) decl.Body
+
+                let body =
+                    match decl.Body with
+                    // If the body is surrounded by a memo call we put the bindings within the call
+                    // because Fable will later move the surrounding function into memo
+                    | Call(ReactMemo reactMemo, ({ Args = arg::restArgs } as callInfo), t, r) ->
+                        let arg = propBindings |> List.fold (fun body (k,v) -> Let(k, v, body)) arg
+                        Call(reactMemo, { callInfo with Args = arg::restArgs }, t, r)
+                    | _ ->
+                        propBindings |> List.fold (fun body (k,v) -> Let(k, v, body)) decl.Body
 
                 { decl with Args = [propsArg]; Body = body }
                 |> applyImportOrMemo import from memo
