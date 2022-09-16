@@ -7,8 +7,8 @@ type Deferred<'T> =
     | Resolved of 'T
     | Failed of exn
 
-[<RequireQualifiedAccess>]
 /// Contains utility functions to work with value of the type Deferred<'T>
+[<RequireQualifiedAccess>]
 module Deferred =
     /// Returns whether the `Deferred<'T>` value has been started or not.
     let hasNotStartedYet = function

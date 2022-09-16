@@ -3,8 +3,8 @@
 open Fable.Core
 open Feliz.Styles
 
-[<Erase>]
 /// Specifies a number of specialized CSS units
+[<Erase>]
 type length =
     /// Pixels are (1px = 1/96th of 1in).
     ///

@@ -105,14 +105,14 @@ type barChart =
                 else handler eventArgs
 
 module barChart =
-    [<Erase>]
     /// The layout of area in the chart.
+    [<Erase>]
     type layout =
         static member inline horizontal = Interop.mkBarChartAttr "layout" "horizontal"
         static member inline vertical = Interop.mkBarChartAttr "layout" "vertical"
 
-    [<Erase>]
     /// The type of offset function used to generate the lower and upper values in the series array.  Default is `none`.
+    [<Erase>]
     type stackOffset =
         static member inline expand = Interop.mkBarChartAttr "stackOffset" "expand"
         static member inline none = Interop.mkBarChartAttr "stackOffset" "none"

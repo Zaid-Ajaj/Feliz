@@ -62,16 +62,24 @@ type React =
         { new IDisposable with member _.Dispose() = dispose() }
 
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
-    static member inline fragment xs = Fable.React.Helpers.fragment [] xs
+    static member inline fragment xs =
+        Fable.React.ReactBindings.React.createElement(Fable.React.ReactBindings.React.Fragment, obj(), xs)
 
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
-    static member inline keyedFragment(key: int, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    static member inline keyedFragment(key: int, xs) = // Fable.React.Helpers.fragment [ !!("key", key) ] xs
+        Fable.React.ReactBindings.React.createElement(Fable.React.ReactBindings.React.Fragment, createObj ["key" ==> key], xs)
+
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
-    static member inline keyedFragment(key: string, xs) = Fable.React.Helpers.fragment [ !!("key", key) ] xs
+    static member inline keyedFragment(key: string, xs) =
+        Fable.React.ReactBindings.React.createElement(Fable.React.ReactBindings.React.Fragment, createObj ["key" ==> key], xs)
+
     /// The `React.fragment` component lets you return multiple elements in your `render()` method without creating an additional DOM element.
-    static member inline keyedFragment(key: System.Guid, xs) = Fable.React.Helpers.fragment [ !!("key", string key) ] xs
+    static member inline keyedFragment(key: System.Guid, xs) =
+        Fable.React.ReactBindings.React.createElement(Fable.React.ReactBindings.React.Fragment, createObj ["key" ==> string key], xs)
+
     /// Placeholder empty React element to be used when importing external React components with the [<ReactComponent>] attribute.
     static member inline imported() = Html.none
+
     /// The `useState` hook that creates a state variable for React function components from an initialization function.
     [<Hook>]
     static member useState<'t>(initializer: unit -> 't) = Interop.reactApi.useState<unit -> 't,'t>(initializer)

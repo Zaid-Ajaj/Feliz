@@ -61,8 +61,8 @@ type xAxis =
     static member inline width (value: float) = Interop.mkXAxisAttr "width" value
 
 module xAxis =
-    [<Erase>]
     /// The orientation of axis. Default is `bottom`.
+    [<Erase>]
     type orientation =
         static member inline top = Interop.mkXAxisAttr "orientation" "top"
         static member inline bottom = Interop.mkXAxisAttr "orientation" "bottom"

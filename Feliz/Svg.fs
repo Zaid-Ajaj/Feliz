@@ -918,8 +918,8 @@ type svg =
     static member inline custom(name: string, value: 't) = Interop.svgAttribute name value
 
 module svg =
-    [<Erase>]
     /// Controls whether or not an animation is cumulative.
+    [<Erase>]
     type accumulate =
         /// Specifies that repeat iterations are not cumulative.
         static member inline none = Interop.svgAttribute "accumulate" "none"
