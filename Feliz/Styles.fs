@@ -2455,7 +2455,7 @@ type style =
     /// Sets the distance between the borders of adjacent table cells
     static member inline borderSpacing (horizontalSpacing: ICssUnit, verticalSpacing: ICssUnit) =
         Interop.mkStyle "borderSpacing" (
-            (unbox<string> horizontalSpacing) +
+            (unbox<string> horizontalSpacing) + " " +
             (unbox<string> verticalSpacing)
         )
 
