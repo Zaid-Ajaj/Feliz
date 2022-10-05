@@ -430,7 +430,7 @@ module ReactComponents =
 
 let View() = Html.h1 "My view"
 
-#if FABLE_COMPILER_3
+#if FABLE_COMPILER_3 || FABLE_COMPILER_4
 [<ReactComponent>]
 let CounterExternal() =
     let (count, setCount) = React.useState 0
@@ -602,7 +602,11 @@ let strictModeExample = React.functionComponent(fun () ->
         ]
         prop.children [
             React.strictMode [
-                Fable.React.Helpers.ofType<StrictModeWarning,obj,obj> "" []
+                Fable.React.ReactBindings.React.createElement(
+                    JsInterop.jsConstructor<StrictModeWarning>,
+                    null,
+                    []
+                )
             ]
         ]
     ])

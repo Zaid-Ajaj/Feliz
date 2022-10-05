@@ -10,7 +10,7 @@
         "test": "dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj",
         "start:nagareyama": "dotnet tool restore && dotnet fable watch docs --noCache --exclude Feliz.CompilerPlugins --run webpack-dev-server --config webpack.nagareyama.js",
         "build:nagareyama": "dotnet tool restore && dotnet fable docs --noCache --exclude Feliz.CompilerPlugins --run webpack --config webpack.nagareyama.js --mode production",
-        "test:nagareyama": "dotnet tool restore && dotnet fable tests --exclude Feliz.CompilerPlugins --run webpack --config webpack.nagareyama.tests.js --mode production && dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj"
+        "test:nagareyama": "dotnet tool restore && dotnet fable tests --exclude Feliz.CompilerPlugins --run webpack --config webpack.nagareyama.tests.js && dotnet run --project ./HeadlessTestsRunner/HeadlessTestsRunner.fsproj"
     },
     "repository": {
         "type": "git",
@@ -39,8 +39,8 @@
         "@inocan/rough-viz": "^1.2.0",
         "pigeon-maps": "^0.19.5",
         "prop-types": "^15.7.2",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
         "react-highlight": "^0.11.1",
         "react-markdown": "^4.3.1",
         "react-popover": "^0.5.10",
