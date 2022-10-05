@@ -12,7 +12,7 @@
         <Compile Include="UseElmish.fs" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+        <ProjectReference Include="..\Feliz.CompilerPlugins\Feliz.CompilerPlugins.fsproj" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
