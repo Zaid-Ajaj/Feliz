@@ -65,8 +65,9 @@ module private Util =
 
 open Util
 
+// Some tools expect hooks to always be prefixed with use-
+[<Erase; CompiledName("useReact")>]
 type React =
-    [<Hook>]
     static member useElmish(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, ?dependencies: obj array): 'Model * ('Msg -> unit) =
         // Don't use useMemo here because React doesn't guarantee it won't recreate it again
         let state, setState = useState(fun () -> ElmishState(program, arg, dependencies))
