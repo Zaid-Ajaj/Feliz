@@ -27,6 +27,7 @@ module Interop =
     let inline mkCellAttr (key: string) (value: obj) : ICellProperty = unbox (key, value)
     let inline mkComposedChartAttr (key: string) (value: obj) : IComposedChartProperty = unbox (key, value)
     let inline mkLabelAttr (key: string) (value: obj) : ILabelProperty = unbox (key, value)
+    let inline mkLabelListAttr (key: string) (value: obj) : ILabelListProperty = unbox (key, value)
     let inline mkLegendAttr (key: string) (value: obj) : ILegendProperty = unbox (key, value)
     let inline mkRadialBarChartAttr (key: string) (value: obj) : IRadialBarChartProperty = unbox (key, value)
     let inline mkRadialBarAttr (key: string) (value: obj) : IRadialBarProperty = unbox (key, value)
