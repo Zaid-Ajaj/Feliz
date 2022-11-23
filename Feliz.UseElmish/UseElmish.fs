@@ -6,7 +6,7 @@ open Elmish
 module private Util =
     type UseSyncExternalStoreSubscribe = delegate of (unit -> unit) -> (unit -> unit)
 
-    [<ImportMember("react")>]
+    [<ImportMember("use-sync-external-store/shim")>]
     let useSyncExternalStore(subscribe: UseSyncExternalStoreSubscribe, getSnapshot: unit -> 'Model): 'Model = jsNative
 
     [<ImportMember("react")>]

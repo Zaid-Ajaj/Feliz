@@ -8,6 +8,11 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageReleaseNotes>Use and accept a full Elmish program instead of re-implementing it</PackageReleaseNotes>
     </PropertyGroup>
+    <PropertyGroup>
+        <NpmDependencies>
+        <NpmPackage Name="use-sync-external-store" Version="&gt;= 1.0.0 &lt; 2.0.0" ResolutionStrategy="Max" />
+        </NpmDependencies>
+    </PropertyGroup>
     <ItemGroup>
         <Compile Include="UseElmish.fs" />
     </ItemGroup>

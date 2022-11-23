@@ -46,6 +46,7 @@
         "react-popover": "^0.5.10",
         "react-select-search": "^3.0.5",
         "recharts": "^2.0.9",
-        "use-resize-observer": "^6.1.0"
+        "use-resize-observer": "^6.1.0",
+        "use-sync-external-store": "^1.2.0"
     }
 }
