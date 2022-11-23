@@ -549,6 +549,7 @@ module RefDispose =
             ]
         ])
 
+#if FABLE_COMPILER_3 || FABLE_COMPILER_4
 module UseElmish =
     open Elmish
     open Feliz.UseElmish
@@ -605,6 +606,7 @@ module UseElmish =
             ]
             render {| subtitle = if count < 2 then "foo" else "bar" |}
         ])
+#endif
 
 let felizTests = testList "Feliz Tests" [
 
@@ -1122,6 +1124,7 @@ let felizTests = testList "Feliz Tests" [
             |> Async.AwaitPromise
     }
 
+#if FABLE_COMPILER_3 || FABLE_COMPILER_4
     testReactAsync "useElmish works" <| async {
         let render = RTL.render(UseElmish.render {| subtitle = "foo" |})
 
@@ -1175,6 +1178,7 @@ let felizTests = testList "Feliz Tests" [
                 Expect.equal (render.getByTestId("count").innerText) "0" "State should have been reset because dependency has changed"
             |> Async.AwaitPromise
     }
+#endif
 ]
 
 [<EntryPoint>]
