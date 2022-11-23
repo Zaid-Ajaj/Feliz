@@ -12,7 +12,7 @@ module private Util =
     [<ImportMember("react")>]
     let useState(init: unit -> 'State): 'State * ('State -> unit) = jsNative
 
-    type ElmishState<'Arg, 'Model, 'Msg when 'Arg : equality>(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, dependencies: obj[]) =
+    type ElmishState<'Arg, 'Model, 'Msg when 'Arg : equality>(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, dependencies: obj[] option) =
         // let guid = System.Guid.NewGuid()
         // do printfn "Creating %O..." guid
 
@@ -65,26 +65,22 @@ module private Util =
 
 open Util
 
-let useElmish(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, dependencies: obj array): 'Model * ('Msg -> unit) =
-    // Don't use useMemo here because React doesn't guarantee it won't recreate it again
-    let state, setState = useState(fun () -> ElmishState(program, arg, dependencies))
-    if state.IsOutdated(arg, dependencies) then
-        ElmishState(program, arg, dependencies) |> setState
-    useSyncExternalStore(state.Subscribe, fun () -> state.State)
-
 [<Erase>]
 type React =
-    static member inline useElmish(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, ?dependencies: obj array) =
-        useElmish(program, arg, defaultArg dependencies [||])
+    static member useElmish(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, ?dependencies: obj array): 'Model * ('Msg -> unit) =
+        let state, setState = useState(fun () -> ElmishState(program, arg, dependencies))
+        if state.IsOutdated(arg, dependencies) then
+            ElmishState(program, arg, dependencies) |> setState
+        useSyncExternalStore(state.Subscribe, fun () -> state.State)
 
     static member inline useElmish(program: unit -> Program<unit, 'Model, 'Msg, unit>, ?dependencies: obj array) =
-        useElmish(program, (), defaultArg dependencies [||])
+        React.useElmish(program, (), ?dependencies=dependencies)
 
     static member inline useElmish(init: 'Arg -> 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, arg: 'Arg, ?dependencies: obj array) =
-        useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), arg, defaultArg dependencies [||])
+        React.useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), arg, ?dependencies=dependencies)
 
     static member inline useElmish(init: unit -> 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, ?dependencies: obj array) =
-        useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), (), defaultArg dependencies [||])
+        React.useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), ?dependencies=dependencies)
 
     static member inline useElmish(init: 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, ?dependencies: obj array) =
-        useElmish((fun () -> Program.mkProgram (fun () -> init) update (fun _ _ -> ())), (), defaultArg dependencies [||])
+        React.useElmish((fun () -> Program.mkProgram (fun () -> init) update (fun _ _ -> ())), ?dependencies=dependencies)
