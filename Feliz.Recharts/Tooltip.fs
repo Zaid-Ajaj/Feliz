@@ -27,9 +27,9 @@ type tooltip =
     static member inline position (?x: int, ?y: int) = 
         let position = 
             match x, y with 
-            | None, None -> undefined 
-            | None, Some y -> undefined 
-            | Some x, None -> undefined
+            | None, None -> createObj [ "x" ==> 0; "y" ==> 0 ]
+            | None, Some _ -> createObj [ "x" ==> 0; "y" ==> 0 ]
+            | Some _, None -> createObj [ "x" ==> 0; "y" ==> 0 ]
             | Some x, Some y -> createObj [ "x" ==> x; "y" ==> y ]
         Interop.mkTooltipAttr "position" position
 
