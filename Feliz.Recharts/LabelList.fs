@@ -11,6 +11,7 @@ type labelList =
     /// 
     /// ie: labelList.dataKey (fun (d:{| name : string; data : int64 |}) -> d.name)
     static member inline dataKey (f: 'a -> string) = Interop.mkLabelListAttr "dataKey" (System.Func<_,_> f)
+    static member inline style (properties: #IStyleAttribute list) = Interop.mkLabelListAttr "style" (createObj !!properties)
 
 module labelList =
     [<Erase>]
