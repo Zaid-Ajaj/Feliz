@@ -115,7 +115,7 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
         let info = compiler.GetMember(decl.MemberRef)
         if info.IsValue || info.IsGetter || info.IsSetter then
             // Invalid attribute usage
-            let errorMessage = sprintf "Expecting a function declation for %s when using [<ReactComponent>]" decl.Name
+            let errorMessage = sprintf "Expecting a function declaration for %s when using [<ReactComponent>]" decl.Name
             compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
             decl
         else if not (AstUtils.isReactElement decl.Body.Type) then
