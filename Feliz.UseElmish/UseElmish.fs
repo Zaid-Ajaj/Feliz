@@ -1,91 +1,86 @@
-namespace Feliz.UseElmish
+module Feliz.UseElmish
 
-open Feliz
+open Fable.Core
 open Elmish
 
-[<AutoOpen>]
-module UseElmishExtensions =
-    type private ElmishObservable<'Model, 'Msg>() =
-        let mutable hasDisposedOnce = false
-        let mutable state: 'Model option = None
-        let mutable listener: ('Model -> unit) option = None
-        let mutable dispatcher: ('Msg -> unit) option = None
+module private Util =
+    type UseSyncExternalStoreSubscribe = delegate of (unit -> unit) -> (unit -> unit)
 
-        member _.Value = state
-        member _.HasDisposedOnce = hasDisposedOnce
+    [<ImportMember("use-sync-external-store/shim")>]
+    let useSyncExternalStore(subscribe: UseSyncExternalStoreSubscribe, getSnapshot: unit -> 'Model): 'Model = jsNative
 
-        member _.SetState (model: 'Model) (dispatch: 'Msg -> unit) =
-            state <- Some model
-            dispatcher <- Some dispatch
-            match listener with
-            | None -> ()
-            | Some listener -> listener model
+    [<ImportMember("react")>]
+    let useState(init: unit -> 'State): 'State * ('State -> unit) = jsNative
 
-        member _.Dispatch(msg) =
-            match dispatcher with
-            | None -> () // Error?
-            | Some dispatch -> dispatch msg
+    type ElmishState<'Arg, 'Model, 'Msg when 'Arg : equality>(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, dependencies: obj[] option) =
+        // let guid = System.Guid.NewGuid()
+        // do printfn "Creating %O..." guid
 
-        member _.Subscribe(f) =
-            match listener with
-            | Some _ -> ()
-            | None -> listener <- Some f
+        // React will run the subscribe function when the component is mounted and after each hot reload
+        // However we need to store the initial model here for two reasons:
+        // - It looks like useSyncExternalStore returns the state before running subscribe
+        // - We can restore the model after a hot reload
+        let program = program()
+        let mutable state, cmd =
+            let model, cmd = Program.init program arg
+            (model, fun (_: 'Msg) -> ()), cmd
 
-        /// Disposes state (and dispatcher) but keeps subscription
-        member _.DisposeState() =
-            match state with
-            | Some state ->
-                match box state with
-                | :? System.IDisposable as disp -> disp.Dispose()
-                | _ -> ()
-            | _ -> ()
-            dispatcher <- None
-            state <- None
-            hasDisposedOnce <- true
+        let subscribe = UseSyncExternalStoreSubscribe(fun callback ->
+            // printfn "Subscribing %O..." guid
+            let mutable dispose = false
 
-    let private runProgram (program: unit -> Program<'Arg, 'Model, 'Msg, unit>) (arg: 'Arg) (obs: ElmishObservable<'Model, 'Msg>) () =
-        program()
-        |> Program.withSetState obs.SetState
-        |> Program.runWith arg
+            let mapInit _init _arg =
+                let cmd' = cmd
+                // Don't run the original commands after hot reload
+                cmd <- Cmd.none
+                fst state, cmd'
 
-        match obs.Value with
-        | None -> failwith "Elmish program has not initialized"
-        | Some v -> v        
+            let mapTermination (predicate, terminate) =
+                (fun msg -> predicate msg || dispose),
+                (fun model ->
+                    // printfn "Terminating %O..." guid
+                    match box model with
+                    // Before Elmish 4 it was allowed to have disposable states as a hack for termination
+                    | :? System.IDisposable as disp -> disp.Dispose()
+                    | _ -> terminate model)
 
-    let disposeState (state: obj) =
-        match box state with
-        | :? System.IDisposable as disp -> disp.Dispose()
-        | _ -> ()
+            // Restart the program after each hot reload to get the proper dispatch reference
+            program
+            |> Program.map mapInit id id id id mapTermination
+            |> Program.withSetState (fun model dispatch ->
+                let oldModel = fst state
+                state <- model, dispatch
+                // Skip re-renders if model hasn't changed
+                if not(obj.ReferenceEquals(model, oldModel)) then
+                    callback())
+            |> Program.runWith arg
 
-    type React with
-        [<Hook>]
-        static member useElmish(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, ?dependencies: obj array) =
-            // Don't use useMemo here because React doesn't guarantee it won't recreate it again
-            let obs, _ = React.useState(fun () -> ElmishObservable<'Model, 'Msg>())
+            (fun () ->
+                // printfn "Unsubscribing %O..." guid
+                dispose <- true))
 
-            let state, setState = React.useState(runProgram program arg obs)
+        member _.State = state
+        member _.Subscribe = subscribe
+        member _.IsOutdated(arg', dependencies') = arg <> arg' || dependencies <> dependencies'
 
-            React.useEffect((fun () ->
-                if obs.HasDisposedOnce then
-                    runProgram program arg obs () |> setState
-                React.createDisposable(obs.DisposeState)
-            ), defaultArg dependencies [||])
+open Util
 
-            obs.Subscribe(setState)
-            state, obs.Dispatch
+[<Erase>]
+type React =
+    static member useElmish(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, ?dependencies: obj array): 'Model * ('Msg -> unit) =
+        let state, setState = useState(fun () -> ElmishState(program, arg, dependencies))
+        if state.IsOutdated(arg, dependencies) then
+            ElmishState(program, arg, dependencies) |> setState
+        useSyncExternalStore(state.Subscribe, fun () -> state.State)
 
-        [<Hook>]
-        static member useElmish(program: unit -> Program<unit, 'Model, 'Msg, unit>, ?dependencies: obj array) =
-            React.useElmish(program, (), ?dependencies=dependencies)
+    static member inline useElmish(program: unit -> Program<unit, 'Model, 'Msg, unit>, ?dependencies: obj array) =
+        React.useElmish(program, (), ?dependencies=dependencies)
 
-        [<Hook>]
-        static member useElmish(init: 'Arg -> 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, arg: 'Arg, ?dependencies: obj array) =
-            React.useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), arg, ?dependencies=dependencies)
+    static member inline useElmish(init: 'Arg -> 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, arg: 'Arg, ?dependencies: obj array) =
+        React.useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), arg, ?dependencies=dependencies)
 
-        [<Hook>]
-        static member useElmish(init: unit -> 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, ?dependencies: obj array) =
-            React.useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), ?dependencies=dependencies)
+    static member inline useElmish(init: unit -> 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, ?dependencies: obj array) =
+        React.useElmish((fun () -> Program.mkProgram init update (fun _ _ -> ())), ?dependencies=dependencies)
 
-        [<Hook>]
-        static member useElmish(init: 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, ?dependencies: obj array) =
-            React.useElmish((fun () -> Program.mkProgram (fun () -> init) update (fun _ _ -> ())), ?dependencies=dependencies)
+    static member inline useElmish(init: 'Model * Cmd<'Msg>, update: 'Msg -> 'Model -> 'Model * Cmd<'Msg>, ?dependencies: obj array) =
+        React.useElmish((fun () -> Program.mkProgram (fun () -> init) update (fun _ _ -> ())), ?dependencies=dependencies)

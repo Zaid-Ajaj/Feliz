@@ -8,17 +8,19 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageReleaseNotes>Use and accept a full Elmish program instead of re-implementing it</PackageReleaseNotes>
     </PropertyGroup>
+    <PropertyGroup>
+        <NpmDependencies>
+        <NpmPackage Name="use-sync-external-store" Version="&gt;= 1.0.0 &lt; 2.0.0" ResolutionStrategy="Max" />
+        </NpmDependencies>
+    </PropertyGroup>
     <ItemGroup>
         <Compile Include="UseElmish.fs" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Feliz\Feliz.fsproj" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Update="FSharp.Core" Version="4.7.2" />
-        <PackageReference Include="Fable.Elmish" Version="3.0.6" />
+        <PackageReference Include="Fable.Elmish" Version="4.0.0-beta-5" />
     </ItemGroup>
 </Project>
