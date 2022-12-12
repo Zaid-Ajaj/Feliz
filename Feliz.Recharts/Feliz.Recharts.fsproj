@@ -22,6 +22,7 @@
         <Compile Include="YAxis.fs" />
         <Compile Include="Tooltip.fs" />
         <Compile Include="Label.fs" />
+        <Compile Include="LabelList.fs" />
         <Compile Include="PolarAngleAxis.fs" />
         <Compile Include="PolarRadiusAxis.fs" />
         <Compile Include="AreaChart.fs" />

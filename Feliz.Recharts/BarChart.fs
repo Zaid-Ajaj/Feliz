@@ -103,6 +103,8 @@ type barChart =
                 if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
                 then ignore()
                 else handler eventArgs
+    
+    static member inline style (properties: #IStyleAttribute list) = Interop.mkBarChartAttr "style" (createObj !!properties)
 
 module barChart =
     /// The layout of area in the chart.
