@@ -3,10 +3,8 @@ namespace Feliz
 open Fable.Core
 
 type ReactDOM =
-    [<Import("render", "react-dom")>]
-    static member render(element: Fable.React.ReactElement, container: Browser.Types.HTMLElement) = jsNative
-    static member render(element: unit -> Fable.React.ReactElement, container: Browser.Types.HTMLElement) =
-        ReactDOM.render(element(), container)
+    [<Import("createRoot", "react-dom")>]
+    static member createRoot(container: Browser.Types.HTMLElement) : ReactApi.IReactRoot = jsNative
 
     [<Import("createPortal", "react-dom")>]
     static member createPortal (element : Fable.React.ReactElement, container : Browser.Types.HTMLElement) : Fable.React.ReactElement = jsNative
