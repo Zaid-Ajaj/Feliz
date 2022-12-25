@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>0.3.1</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>Cody Johnson, Zaid Ajaj</Authors>
     <Description>Adds easy to use delayed rendering</Description>
     <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
-    <PackageReleaseNotes>Remove generated JS artifacts from the nuget package</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Feiz to v2.0.0</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,9 +17,7 @@
 
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+    <PackageReference Include="Feliz" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

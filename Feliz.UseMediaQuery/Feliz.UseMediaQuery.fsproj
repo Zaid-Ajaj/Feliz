@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.4.1</PackageVersion>
+    <PackageVersion>1.5.0</PackageVersion>
     <Authors>Jonas Bösch, Zaid Ajaj</Authors>
     <Description>useMediaQuery hooks to build responsive websites </Description>
     <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
-    <PackageReleaseNotes>Remove generated JS artifacts from the nuget package</PackageReleaseNotes>
+    <PackageReleaseNotes>Depend on Feliz v1.68</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,9 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.2" />
+    <PackageReference Include="Feliz" Version="1.68.0" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
-  </ItemGroup>
-
 </Project>

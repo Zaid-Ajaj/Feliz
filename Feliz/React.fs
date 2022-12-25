@@ -142,6 +142,7 @@ type React =
     [<Hook>]
     static member inline useLayoutEffect(effect: unit -> #IDisposable option, dependencies: obj []) =
         React.useLayoutEffect(effect >> Helpers.optDispose, dependencies)
+
     /// The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
     /// This effect is executed on every (re)render
     [<Hook>]
@@ -176,18 +177,61 @@ type React =
     /// This is an alias for `React.useEffect(effect, [| |])` which explicitly provides an empty array for the dependencies of the effect which means the effect will only run once.
     [<Hook>]
     static member useEffectOnce(effect: unit -> unit) =
-        React.useEffect(effect, [| |])
+        let calledOnce = Interop.reactApi.useRefInternal false
+                
+        React.useEffect (fun () -> 
+            if calledOnce.current 
+            then ()
+            else
+                calledOnce.current <- true
+                effect()
+        , [||])
 
     /// React hook to define and use a disposable effect only once when a function component renders for the first time.
     /// This is an alias for `React.useEffect(effect, [| |])` which explicitly provides an empty array for the dependencies of the effect which means the effect will only run once.
     [<Hook>]
     static member useEffectOnce(effect: unit -> #IDisposable) =
-        React.useEffect(effect, [| |])
+        let destroyFunc = Interop.reactApi.useRefInternal None
+        let calledOnce = Interop.reactApi.useRefInternal false
+        let renderAfterCalled = Interop.reactApi.useRefInternal false
+
+        if calledOnce.current then
+            renderAfterCalled.current <- true
+
+        React.useEffect (fun () -> 
+            if calledOnce.current 
+            then None
+            else
+                calledOnce.current <- true
+                destroyFunc.current <- effect() |> Some
+
+                if renderAfterCalled.current
+                then destroyFunc.current
+                else None
+        , [||])
+
     /// React hook to define and use a disposable effect only once when a function component renders for the first time.
     /// This is an alias for `React.useEffect(effect, [| |])` which explicitly provide an empty array for the dependencies of the effect which means the effect will only run once.
     [<Hook>]
     static member useEffectOnce(effect: unit -> #IDisposable option) =
-        React.useEffect(effect >> Helpers.optDispose, [| |])
+        let destroyFunc = Interop.reactApi.useRefInternal None
+        let calledOnce = Interop.reactApi.useRefInternal false
+        let renderAfterCalled = Interop.reactApi.useRefInternal false
+
+        if calledOnce.current then
+            renderAfterCalled.current <- true
+
+        React.useEffect (fun () -> 
+            if calledOnce.current 
+            then None
+            else
+                calledOnce.current <- true
+                destroyFunc.current <- effect()
+
+                if renderAfterCalled.current
+                then destroyFunc.current
+                else None
+        , [||])
 
     /// The `useEffect` hook that creates an effect for React function components.
     /// This effect is executed *every time* the function component re-renders.
@@ -237,7 +281,7 @@ type React =
     ///
     /// Essentially, useRef is like a container that can hold a mutable value in its .current property.
     [<Hook>]
-    static member useRef(initialValue) = Interop.reactApi.useRef(initialValue)
+    static member useRef<'t>(initialValue: 't) = Interop.reactApi.useRefInternal(initialValue)
 
     /// A specialized version of React.useRef() that creates a reference to an input element.
     ///
@@ -247,7 +291,7 @@ type React =
 
     /// A specialized version of React.useRef() that creates a reference to a button element.
     [<Hook>]
-    static member useButtonRef() : IRefValue<HTMLButtonElement option> = React.useRef(None)
+    static member useButtonRef() : Fable.React.IRefValue<HTMLButtonElement option> = React.useRef(None)
 
     /// A specialized version of React.useRef() that creates a reference to a generic HTML element.
     ///

@@ -4,9 +4,9 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>1.6.0</Version>
+        <Version>2.1.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>Use and accept a full Elmish program instead of re-implementing it</PackageReleaseNotes>
+        <PackageReleaseNotes>Depend on Elmish v4 stable and accept a full Elmish program instead of re-implementing it</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
@@ -20,7 +20,7 @@
         <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Fable.Elmish" Version="4.0.0" />
         <PackageReference Update="FSharp.Core" Version="4.7.2" />
-        <PackageReference Include="Fable.Elmish" Version="4.0.0-beta-5" />
     </ItemGroup>
 </Project>

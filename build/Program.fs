@@ -22,7 +22,7 @@ let kawaii = project "Kawaii"
 let markdown = project "Markdown"
 let pigeonMaps = project "PigeonMaps"
 let popover = project "Popover"
-let recharts = project "Recharts"
+let recharts = project "Recharts" 
 let roughViz = project "RoughViz"
 let selectSearch = project "SelectSearch"
 let svelte = project "Svelte"
@@ -66,6 +66,16 @@ let main (args: string[]) =
         | [| "publish-select-search" |] -> publish selectSearch
         | [| "publish-pigeon-maps" |] -> publish pigeonMaps
         | [| "publish-template" |] -> publish template
+        | [| "publish-svelte" |] -> publish svelte
+        | [| "publish-svelte-component" |] -> publish svelteComponent
+        | [| "publish-popover" |] -> publish popover
+        | [| "publish-delay" |] -> publish delay
+        | [| "publish-kawaii" |] -> publish kawaii
+        | [| "publish-markdown" |] -> publish markdown
+        | [| "publish-rough-viz" |] -> publish roughViz
+        | [| "publish-use-deferred" |] -> publish useDeferred
+        | [| "publish-use-elmish" |] -> publish useElmish
+        | [| "publish-use-media-query" |] -> publish useMediaQuery
         | _ -> printfn "Unknown args: %A" args
         
         // exit succesfully

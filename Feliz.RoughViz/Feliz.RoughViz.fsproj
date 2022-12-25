@@ -4,17 +4,14 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>1.5.1</Version>
+        <Version>2.0.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>Remove generated JS artifacts from the nuget package</PackageReleaseNotes>
+        <PackageReleaseNotes>Update Feliz dependency to v2</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="BarChart.fs" />
         <Compile Include="PieChart.fs" />
         <Compile Include="RoughViz.fs" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Feliz\Feliz.fsproj" />
     </ItemGroup>
     <PropertyGroup>
         <NpmDependencies>
@@ -26,5 +23,6 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Update="FSharp.Core" Version="4.7.2" />
+        <PackageReference Include="Feliz" Version="2.0.0" />
     </ItemGroup>
 </Project>

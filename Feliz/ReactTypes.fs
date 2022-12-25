@@ -30,5 +30,5 @@ type IReactApi =
     abstract useImperativeHandleNoDeps<'t> : ref: Fable.React.IRefValue<'t> -> createHandle: (unit -> 't) -> unit
     abstract useMemo: createFunction: (unit -> 'a) -> dependencies: obj array -> 'a
     abstract useReducer: ('state -> 'msg -> 'state) -> 'state -> ('state * ('msg -> unit))
-    abstract useRef<'t> : initial: 't -> Fable.React.IRefValue<'t>
+    abstract useRefInternal<'t> : initial: 't -> Fable.React.IRefValue<'t>
     abstract useState<'t,'u> : initial:'t -> ('u * ('u -> unit))
