@@ -35,4 +35,7 @@ type IReactApi =
     abstract useState<'t,'u> : initial:'t -> ('u * ('u -> unit))
 
 type IReactRoot =
+    /// Renders the provided React element into the DOM in the supplied container.
     abstract render: ReactElement -> unit
+    /// Removes a mounted React component from the DOM and cleans up its event handlers and state.
+    abstract unmount : unit -> unit
