@@ -330,6 +330,7 @@ type React =
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='render'>A render function that returns an element.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
+    [<Obsolete "React.functionComponent is obsolete. Use [<ReactComponent>] attribute to automatically convert them to React components">]
     static member functionComponent(name: string, render: 'props -> ReactElement, ?withKey: 'props -> string) =
         Internal.functionComponent(render, name, ?withKey=withKey)
 
@@ -339,6 +340,7 @@ type React =
     /// </summary>
     /// <param name='render'>A render function that returns a list of elements.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
+    [<Obsolete "React.functionComponent is obsolete. Use [<ReactComponent>] attribute to automatically convert them to React components">]
     static member functionComponent(render: 'props -> #seq<ReactElement>, ?withKey: 'props -> string) =
         Internal.functionComponent(render >> React.fragment, ?withKey=withKey)
 
@@ -349,6 +351,7 @@ type React =
     /// <param name='render'>A render function that returns a list of elements.</param>
     /// <param name='name'>The component name to display in the React dev tools.</param>
     /// <param name='withKey'>A function to derive a component key from the props.</param>
+    [<Obsolete "React.functionComponent is obsolete. Use [<ReactComponent>] attribute to automatically convert them to React components">]
     static member functionComponent(name: string, render: 'props -> #seq<ReactElement>, ?withKey: 'props -> string) =
         Internal.functionComponent(render >> React.fragment, name, ?withKey=withKey)
 

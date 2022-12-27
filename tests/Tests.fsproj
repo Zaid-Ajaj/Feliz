@@ -11,7 +11,6 @@
     <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
     <ProjectReference Include="..\Feliz.PigeonMaps\Feliz.PigeonMaps.fsproj" />
     <ProjectReference Include="..\Feliz.Popover\Feliz.Popover.fsproj" />
-    <ProjectReference Include="..\Feliz.ElmishComponents\Feliz.ElmishComponents.fsproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fable.ReactTestingLibrary\Types.fs" />

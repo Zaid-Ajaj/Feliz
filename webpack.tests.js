@@ -8,35 +8,10 @@ module.exports = function (evn, argv) {
     return {
         mode: mode,
         devtool: isProduction ? false : "eval-source-map",
-        entry: './tests/Tests.fsproj',
+        entry: './tests/Tests.fs.js',
         output: {
             filename: 'tests.js',
             path: path.join(__dirname, './public-tests'),
-        },
-        devServer: {
-            contentBase: './public-tests',
-            port: 8080
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.fs(x|proj)?$/,
-                    use: "fable-loader"
-                },
-                {
-                    test: /\.(sass|scss|css)$/,
-                    use: [
-                        'style-loader',
-                        {
-                            loader: 'css-loader',
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: { implementation: require("sass") }
-                        }
-                    ],
-                },
-            ]
         }
     };
 }
