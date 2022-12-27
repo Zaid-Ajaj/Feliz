@@ -910,7 +910,8 @@ type prop =
     /// Helps define the language of an element: the language that non-editable elements are
     /// written in, or the language that the editable elements should be written in by the user.
     static member inline lang (value: string) = Interop.mkAttr "lang" value
-
+    /// Specifies a user-readable title of the element.
+    static member inline label (value: string) = Interop.mkAttr "label" value
     /// Defines the color of the light source for lighting filter primitives.
     static member inline lightingColor (value: string) = Interop.mkAttr "lighting-color" value
 

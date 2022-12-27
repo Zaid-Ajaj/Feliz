@@ -4,9 +4,9 @@
     <Description>A fresh retake of the React API in Fable, optimized for happiness</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageReleaseNotes>Implement ReactDOM.createRoot API and deprecate ReactDOM.render for React 18</PackageReleaseNotes>
+    <PackageReleaseNotes>Adds prop.label which specifies a user-readable title of the element.</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
