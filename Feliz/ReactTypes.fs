@@ -33,3 +33,6 @@ type IReactApi =
     [<Emit "$0.useRef($1)">]
     abstract useRefInternal<'t> : initial: 't -> Fable.React.IRefValue<'t>
     abstract useState<'t,'u> : initial:'t -> ('u * ('u -> unit))
+
+type IReactRoot =
+    abstract render: ReactElement -> unit
