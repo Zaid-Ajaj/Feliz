@@ -17,11 +17,11 @@ module text =
     type textAnchor =
         static member inline start = Interop.mkTextAttr "textAnchor" "start"
         static member inline middle = Interop.mkTextAttr "textAnchor" "middle"
-        static member inline end = Interop.mkTextAttr "textAnchor" "end"
-        static member inline inherit = Interop.mkTextAttr "textAnchor" "inherit"
+        static member inline end' = Interop.mkTextAttr "textAnchor" "end"
+        static member inline inherit' = Interop.mkTextAttr "textAnchor" "inherit"
 
     [<Erase>]
     type verticalAnchor =
         static member inline start = Interop.mkTextAttr "verticalAnchor" "start"
         static member inline middle = Interop.mkTextAttr "verticalAnchor" "middle"
-        static member inline end = Interop.mkTextAttr "verticalAnchor" "end"
+        static member inline end' = Interop.mkTextAttr "verticalAnchor" "end"

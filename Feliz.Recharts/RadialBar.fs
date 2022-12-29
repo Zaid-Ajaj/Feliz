@@ -30,7 +30,7 @@ type radialBar =
     static member inline fillOpacity (value: float) = Interop.mkRadialBarAttr "fillOpacity" value
 
     static member inline label(value: bool) = Interop.mkRadialBarAttr "label" value
-    static member inline label(?position:Label.Position,?fill:string) =
+    static member inline label(?position:label.position,?fill:string) =
         let label = createObj [
           "position" ==> position
           "fill" ==> fill

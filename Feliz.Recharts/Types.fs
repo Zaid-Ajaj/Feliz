@@ -221,6 +221,3 @@ type IErrorBarProperty = interface end
 [<Erase>]
 type ITextProperty = interface end
 
-[<Erase>]
-type IFunnelProperty = interface end
-
