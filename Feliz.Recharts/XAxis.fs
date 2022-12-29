@@ -59,6 +59,7 @@ type xAxis =
     static member inline height (value: float) = Interop.mkXAxisAttr "height" value
     static member inline width (value: int) = Interop.mkXAxisAttr "width" value
     static member inline width (value: float) = Interop.mkXAxisAttr "width" value
+    static member inline reversed (value: bool) = Interop.mkXAxisAttr "reversed" value
 
 module xAxis =
     /// The orientation of axis. Default is `bottom`.
@@ -78,6 +79,11 @@ module xAxis =
         static member inline textAnchorStart = Interop.mkXAxisAttr "textAnchor" "start"
         static member inline textAnchorEnd = Interop.mkXAxisAttr "textAnchor" "end"
         static member inline textAnchorMiddle = Interop.mkXAxisAttr "textAnchor" "middle"
+
+    [<Erase>]
+    type type' =
+        static member inline number = Interop.mkXAxisAttr "type" "number"
+        static member inline category = Interop.mkXAxisAttr "type" "category"
 
     [<Erase>]
     type scale =

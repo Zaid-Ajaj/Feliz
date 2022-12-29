@@ -12,6 +12,10 @@ type labelList =
     /// ie: labelList.dataKey (fun (d:{| name : string; data : int64 |}) -> d.name)
     static member inline dataKey (f: 'a -> string) = Interop.mkLabelListAttr "dataKey" (System.Func<_,_> f)
     static member inline style (properties: #IStyleAttribute list) = Interop.mkLabelListAttr "style" (createObj !!properties)
+    static member inline formatter (f: 'a -> string -> 'b -> 'c) = Interop.mkLabelListAttr "formatter" (System.Func<_,_,_,_> f)
+    static member inline offset (value: int) = Interop.mkLabelListAttr "offset" value
+    static member inline clockWise (value: string) = Interop.mkLabelListAttr "clockWise" value
+    static member inline id (value: string) = Interop.mkLabelListAttr "id" value
 
 module labelList =
     [<Erase>]
