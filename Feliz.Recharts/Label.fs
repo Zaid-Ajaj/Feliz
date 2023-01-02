@@ -36,3 +36,26 @@ module label =
         static member inline insideEnd = Interop.mkLabelAttr "position" "insideEnd"
         static member inline end' = Interop.mkLabelAttr "position" "end"
         static member inline center = Interop.mkLabelAttr "position" "center"
+
+[<Obsolete "Label.Position is deprecated. Please use label.position instead.">]
+module Label =
+    [<StringEnum;RequireQualifiedAccess>]
+    type Position =
+        | Top
+        | Left
+        | Right
+        | Bottom
+        | Inside
+        | Outside
+        | InsideLeft
+        | InsideRight
+        | InsideTop
+        | InsideBottom
+        | InsideTopLeft
+        | InsideBottomLeft
+        | InsideTopRight
+        | InsideBottomRight
+        | InsideStart
+        | InsideEnd
+        | End
+        | Center

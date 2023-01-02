@@ -83,3 +83,5 @@ type Recharts =
         Interop.reactApi.createElement(import "Funnel" "recharts", createObj !!properties)
     static member inline errorBar (properties: IErrorBarProperty list) = 
         Interop.reactApi.createElement(import "ErrorBar" "recharts", createObj !!properties)
+    static member inline text (properties: ITextProperty list) = 
+        Interop.reactApi.createElement(import "Text" "recharts", createObj !!properties)
