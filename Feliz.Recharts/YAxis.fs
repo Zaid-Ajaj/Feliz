@@ -52,6 +52,8 @@ type yAxis =
     static member inline height (value: float) = Interop.mkYAxisAttr "height" value
     static member inline width (value: int) = Interop.mkYAxisAttr "width" value
     static member inline width (value: float) = Interop.mkYAxisAttr "width" value
+    static member inline reversed (value: bool) = Interop.mkYAxisAttr "reversed" value
+
 module yAxis =
     /// The orientation of axis. Default is `left`.
     [<Erase>]
@@ -82,3 +84,8 @@ module yAxis =
         static member inline utc = Interop.mkYAxisAttr "scale" "utc"
         static member inline sequential = Interop.mkYAxisAttr "scale" "sequential"
         static member inline threshold = Interop.mkYAxisAttr "scale" "threshold"
+
+    [<Erase>]
+    type type' =
+        static member inline number = Interop.mkYAxisAttr "type" "number"
+        static member inline category = Interop.mkYAxisAttr "type" "category"

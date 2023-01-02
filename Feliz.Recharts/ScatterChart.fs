@@ -34,6 +34,15 @@ type scatter =
     /// The source data, in which each element is an object.
     static member inline data (values: 'a array) = Interop.mkScatterAttr "data" values 
     static member inline fill (color: string) = Interop.mkScatterAttr "fill" color 
+    static member inline margin (?top: int, ?right: int, ?bottom: int, ?left: int) = 
+        let margin = 
+            createObj [ 
+            "top" ==> Option.defaultValue 0 top
+            "right" ==> Option.defaultValue 0 right
+            "bottom" ==> Option.defaultValue 0 bottom
+            "left" ==> Option.defaultValue 0 left ]
+
+        Interop.mkScatterAttr "margin" margin
 
 [<Erase>]
 module scatter =

@@ -8,6 +8,7 @@ open Fable.Core.JsInterop
 [<Erase>]
 type bar =
     static member inline name(value: string) = Interop.mkBarAttr "name" value
+    static member inline name(value: int) = Interop.mkBarAttr "name" value
     static member inline dataKey (value: string) = Interop.mkBarAttr "dataKey" value
     static member inline dataKey (f: 'a -> string) = Interop.mkBarAttr "dataKey" f
     static member inline dataKey (f: 'a -> int) = Interop.mkBarAttr "dataKey" f
@@ -30,6 +31,49 @@ type bar =
     static member inline children (elements: ReactElement list) = Interop.mkBarAttr "children" (prop.children elements)
     static member inline children (elements: ReactElement seq) = Interop.mkBarAttr "children" (prop.children elements)
     static member inline isAnimationActive (value: bool) = Interop.mkBarAttr "isAnimationActive" value
+    static member inline barSize (value: int) = Interop.mkBarAttr "barSize" value
+    static member inline maxBarSize (value: int) = Interop.mkBarAttr "maxBarSize" value
+    static member inline minPointSize (value: int) = Interop.mkBarAttr "minPointSize" value
+    static member inline unit (value: string) = Interop.mkBarAttr "unit" value
+    static member inline unit (value: int) = Interop.mkBarAttr "unit" value
+    static member inline animationDuration (value: int) = Interop.mkBarAttr "animationDuration" value
+    /// Specifies the duration of animation. Default is `1500ms`.
+    static member inline animationDuration (value: TimeSpan) = Interop.mkBarAttr "animationDuration" value.TotalMilliseconds
+    static member inline onClick (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkBarAttr "onClick" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
+    static member inline onMouseEnter (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkBarAttr "onMouseEnter" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
+    static member inline onMouseMove (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkBarAttr "onMouseMove" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
+    static member inline onMouseLeave (handler: unit -> unit) = Interop.mkBarAttr "onMouseLeave" handler
+    static member inline onMouseUp (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkBarAttr "onMouseUp" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
+
+    static member inline onMouseDown (handler: ChartMouseEvent<'label, 'payload> -> unit) =
+        Interop.mkBarAttr "onMouseDown" <|
+            fun eventArgs ->
+                if isNullOrUndefined eventArgs || Interop.objectHas [ "isTooltipActive" ] eventArgs
+                then ignore()
+                else handler eventArgs
 
 module bar =
     [<Erase>]
