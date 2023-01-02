@@ -21,7 +21,7 @@ type legend =
                 "bottom" ==> Option.defaultValue 0 bottom ]
 
         Interop.mkLegendAttr "margin" margin
-    static member inline formatter (f: string -> 'a -> int) = Interop.mkLegendAttr "formatter" (System.Func<_,_,_> f)
+    static member inline formatter (f: string -> 'a -> int -> ReactElement) = Interop.mkLegendAttr "formatter" (System.Func<_,_,_,_> f)
     static member inline wrapperStyle (properties: #IStyleAttribute list) = Interop.mkLegendAttr "wrapperStyle" (createObj !!properties)
     static member inline onClick (handler: ChartMouseEvent<'label, 'payload> -> unit) =
         Interop.mkLegendAttr "onClick" <|
