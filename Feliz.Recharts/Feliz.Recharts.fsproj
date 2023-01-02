@@ -4,9 +4,9 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>4.0.0</Version>
+        <Version>4.1.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>Update to Feliz v2.0</PackageReleaseNotes>
+        <PackageReleaseNotes>Added ErrorBar, Funnel, Legend, and Text, along with some missing properties along the way</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
@@ -56,6 +56,6 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Update="FSharp.Core" Version="4.7.2" />
-        <PackageReference Include="Feliz" Version="2.0.0" />
+        <PackageReference Include="Feliz" Version="2.3.0" />
     </ItemGroup>
 </Project>
