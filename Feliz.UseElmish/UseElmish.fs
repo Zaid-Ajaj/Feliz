@@ -12,6 +12,12 @@ module private Util =
     [<ImportMember("react")>]
     let useState(init: unit -> 'State): 'State * ('State -> unit) = jsNative
 
+    [<ImportMember "react">]
+    let useEffect(effect: unit -> unit, dependencies: obj array) : unit = jsNative
+
+    [<Emit "setTimeout($0)">]
+    let setTimeout(callback: unit -> unit) : unit = jsNative
+
     type ElmishState<'Arg, 'Model, 'Msg when 'Arg : equality>(program: unit -> Program<'Arg, 'Model, 'Msg, unit>, arg: 'Arg, dependencies: obj[] option) =
         // let guid = System.Guid.NewGuid()
         // do printfn "Creating %O..." guid
@@ -21,9 +27,16 @@ module private Util =
         // - It looks like useSyncExternalStore returns the state before running subscribe
         // - We can restore the model after a hot reload
         let program = program()
+        // Keep track of messages are that dispach from the initial No-Op dispatch
+        // And dispatch them after the Elmish program has subscribed using the "real" dispatch
+        let queuedMessages = ResizeArray<'Msg>()
         let mutable state, cmd =
-            let model, cmd = Program.init program arg
-            (model, fun (_: 'Msg) -> ()), cmd
+            let mutable model, cmd = Program.init program arg
+            // Initial dispatch is a No-Op before the Elmish program has subscribed
+            // So here we store the messages and dispatch them after the Elmish program has subscribed
+            let initialDispatch (msg: 'Msg) = queuedMessages.Add msg
+            let subscribed = false
+            (model, initialDispatch, subscribed, queuedMessages), cmd
 
         let subscribe = UseSyncExternalStoreSubscribe(fun callback ->
             // printfn "Subscribing %O..." guid
@@ -33,7 +46,8 @@ module private Util =
                 let cmd' = cmd
                 // Don't run the original commands after hot reload
                 cmd <- Cmd.none
-                fst state, cmd'
+                let (model, _, _, _) = state
+                model, cmd'
 
             let mapTermination (predicate, terminate) =
                 (fun msg -> predicate msg || dispose),
@@ -48,8 +62,14 @@ module private Util =
             program
             |> Program.map mapInit id id id id mapTermination
             |> Program.withSetState (fun model dispatch ->
-                let oldModel = fst state
-                state <- model, dispatch
+                let (oldModel, _, _, _) = state
+                let subscribed = true
+                state <- model, dispatch, subscribed, queuedMessages
+                // Run queued messages after hot reload
+                if queuedMessages.Count > 0 then 
+                    for msg in queuedMessages do
+                        dispatch msg
+                    callback()
                 // Skip re-renders if model hasn't changed
                 if not(obj.ReferenceEquals(model, oldModel)) then
                     callback())
@@ -71,7 +91,15 @@ type React =
         let state, setState = useState(fun () -> ElmishState(program, arg, dependencies))
         if state.IsOutdated(arg, dependencies) then
             ElmishState(program, arg, dependencies) |> setState
-        useSyncExternalStore(state.Subscribe, fun () -> state.State)
+        let finalState, dispatch, subscribed, queuedMessages = useSyncExternalStore(state.Subscribe, fun () -> state.State)
+        // Run any queued messages that were dispatched before the Elmish program finished subscribing
+        useEffect((fun () -> 
+            if subscribed && queuedMessages.Count > 0 then 
+                for msg in queuedMessages do 
+                    setTimeout(fun () -> dispatch msg)
+                queuedMessages.Clear()
+        ), [| subscribed; queuedMessages |])
+        finalState, dispatch
 
     static member inline useElmish(program: unit -> Program<unit, 'Model, 'Msg, unit>, ?dependencies: obj array) =
         React.useElmish(program, (), ?dependencies=dependencies)

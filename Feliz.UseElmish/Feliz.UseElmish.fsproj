@@ -4,9 +4,9 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>2.1.0</Version>
+        <Version>2.2.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>Depend on Elmish v4 stable and accept a full Elmish program instead of re-implementing it</PackageReleaseNotes>
+        <PackageReleaseNotes>Queue messages dispatched before the Elmish program has subscribed, then dispatch them after the dispatch loop has started</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
