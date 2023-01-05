@@ -65,11 +65,6 @@ module private Util =
                 let (oldModel, _, _, _) = state
                 let subscribed = true
                 state <- model, dispatch, subscribed, queuedMessages
-                // Run queued messages after hot reload
-                if queuedMessages.Count > 0 then 
-                    for msg in queuedMessages do
-                        dispatch msg
-                    callback()
                 // Skip re-renders if model hasn't changed
                 if not(obj.ReferenceEquals(model, oldModel)) then
                     callback())

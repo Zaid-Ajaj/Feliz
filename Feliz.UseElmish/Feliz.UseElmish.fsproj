@@ -4,13 +4,13 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>2.2.0</Version>
+        <Version>2.3.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageReleaseNotes>Queue messages dispatched before the Elmish program has subscribed, then dispatch them after the dispatch loop has started</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
-        <NpmPackage Name="use-sync-external-store" Version="&gt;= 1.0.0 &lt; 2.0.0" ResolutionStrategy="Max" />
+            <NpmPackage Name="use-sync-external-store" Version="&gt;= 1.0.0 &lt; 2.0.0" ResolutionStrategy="Max" />
         </NpmDependencies>
     </PropertyGroup>
     <ItemGroup>
