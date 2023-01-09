@@ -5,9 +5,9 @@
     <PackageIconUrl></PackageIconUrl>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageReleaseNotes>Remove selectSearch.getOptions. It never worked</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to Feliz 2.3.0</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +25,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.2" />
-    <PackageReference Include="Feliz" Version="2.0.0" />
+    <PackageReference Include="Feliz" Version="2.3.0" />
   </ItemGroup>
 </Project>
