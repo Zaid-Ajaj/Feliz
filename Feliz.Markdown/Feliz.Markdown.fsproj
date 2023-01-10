@@ -4,7 +4,7 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>2.2.0</Version>
+        <Version>2.3.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <PropertyGroup>

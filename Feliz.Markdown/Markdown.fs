@@ -10,9 +10,79 @@ type ICodeProperties =
     abstract language : string
     abstract value : string
 
+type ITextProperties =
+    abstract children: string
+
+type IParagraphProperties =
+    abstract children: ReactElement []
+
+type ILinkProperties =
+    abstract href: string
+    abstract children: ReactElement []
+
+type IHeadingProperties =
+    abstract level: int
+    abstract children: ReactElement []
+
+type ITableProperties =
+    abstract children: ReactElement []
+
+type ITableHeadProperties =
+    abstract children: ReactElement []
+
+type ITableBodyProperties =
+    abstract children: ReactElement []
+
+type ITableRowProperties =
+    abstract children: ReactElement []
+
+type ITableCellProperties =
+    abstract isHeader: bool
+    abstract children: ReactElement []
+
+type IListProperties =
+    abstract children: ReactElement []
+
+type IListItemProperties =
+    abstract children: ReactElement []
+
+type IPluginsProperties =
+    abstract children: ReactElement []
+
+type IComponent = interface end
+
+[<Erase>]
+module markdown =
+    [<Erase; System.Obsolete "markdown.renderers is obsolete. Use markdown.components instead">]
+    type renderers =
+        static member inline code (render: ICodeProperties -> Fable.React.ReactElement) =
+            unbox<IMarkdownRenderer> (Interop.mkAttr "code" render)
+
+    [<Erase>]
+    type components =
+        static member inline p(render: IParagraphProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "p" render)
+        static member inline linkReference(render: ILinkProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "linkReference" render)
+        static member inline h1(render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h1" render)
+        static member inline h2(render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h2" render)
+        static member inline h3 (render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h3" render)
+        static member inline h4(render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h4" render)
+        static member inline h5 (render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h5" render)
+        static member inline h6(render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h6" render)
+        static member inline table(render: ITableProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "table" render)
+        static member inline thead(render: ITableHeadProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "thead" render)
+        static member inline tbody(render: ITableBodyProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "tbody" render)
+        static member inline trow(render: ITableRowProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "trow" render)
+        static member inline tcell(render: ITableCellProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "tcell" render)
+        static member inline ol(render: IListProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "ol" render)
+        static member inline ul(render: IListProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "ul" render)
+        static member inline li(render: IListProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "li" render)
+        static member inline code(render: ICodeProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "code" render)
+
+
 type INodeType = interface end
 
 /// Contains all possible node types
+[<Erase>]
 type nodeTypes =
     static member inline root = unbox<INodeType> "root"
     static member inline text = unbox<INodeType> "text"
@@ -48,6 +118,7 @@ type markdown =
     static member inline source (value: string) = Interop.mkAttr "children" value
     /// The Markdown source to parse
     static member inline children (value: string) = Interop.mkAttr "children" value
+    static member inline components(components: IComponent list) = Interop.mkAttr "components" (createObj !!components)
     /// Setting to `false` will cause HTML to be rendered (see notes below about proper HTML support). Be aware that setting this to false might cause security issues if the input is user-generated. Use at your own risk. (default: `true`).
     static member inline escapeHtml(value: bool) = Interop.mkAttr "escapeHtml" value
     /// Setting to `true` will skip inlined and blocks of HTML (default: `false`).
@@ -66,8 +137,10 @@ type markdown =
     static member inline disallowedTypes (types: INodeType list) = Interop.mkAttr "disallowedTypes" (Array.ofList types)
     /// Defines which types of nodes should be disallowed (not rendered). (default: none).
     static member inline disallowedTypes (types: INodeType array) = Interop.mkAttr "disallowedTypes" types
+    [<System.Obsolete "markdown.renderers is obsolete. Use markdown.components instead">]
     static member inline renderers (renderers: IMarkdownRenderer list) =
         Interop.mkAttr "renderers" (createObj !!renderers)
+    
 
 [<Erase>]
 type Markdown =
@@ -75,9 +148,3 @@ type Markdown =
         Interop.reactApi.createElement(importDefault "react-markdown", createObj !!properties)
     static member inline markdown (sourceMarkdown: string) =
         Interop.reactApi.createElement(importDefault "react-markdown", createObj [ "children" ==> sourceMarkdown ])
-
-module markdown =
-    [<Erase>]
-    type renderers =
-        static member inline code (render: ICodeProperties -> Fable.React.ReactElement) =
-            unbox<IMarkdownRenderer> (Interop.mkAttr "code" render)
