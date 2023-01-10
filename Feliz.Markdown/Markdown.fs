@@ -43,8 +43,11 @@ type nodeTypes =
 
 [<Erase>]
 type markdown =
-    /// The Markdown source to parse (**REQUIRED**).
-    static member inline source (value: string) = Interop.mkAttr "source" value
+    /// The Markdown source to parse 
+    [<System.Obsolete "markdown.source is deprecated. Use markdown.children insteadf">]
+    static member inline source (value: string) = Interop.mkAttr "children" value
+    /// The Markdown source to parse
+    static member inline children (value: string) = Interop.mkAttr "children" value
     /// Setting to `false` will cause HTML to be rendered (see notes below about proper HTML support). Be aware that setting this to false might cause security issues if the input is user-generated. Use at your own risk. (default: `true`).
     static member inline escapeHtml(value: bool) = Interop.mkAttr "escapeHtml" value
     /// Setting to `true` will skip inlined and blocks of HTML (default: `false`).
@@ -66,11 +69,15 @@ type markdown =
     static member inline renderers (renderers: IMarkdownRenderer list) =
         Interop.mkAttr "renderers" (createObj !!renderers)
 
+[<Erase>]
 type Markdown =
     static member inline markdown (properties: IReactProperty list) =
         Interop.reactApi.createElement(importDefault "react-markdown", createObj !!properties)
+    static member inline markdown (sourceMarkdown: string) =
+        Interop.reactApi.createElement(importDefault "react-markdown", createObj [ "children" ==> sourceMarkdown ])
 
 module markdown =
+    [<Erase>]
     type renderers =
         static member inline code (render: ICodeProperties -> Fable.React.ReactElement) =
             unbox<IMarkdownRenderer> (Interop.mkAttr "code" render)
