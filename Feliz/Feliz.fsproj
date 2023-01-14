@@ -4,9 +4,9 @@
     <Description>A fresh retake of the React API in Fable, optimized for happiness</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>2.3.0</Version>
+    <Version>2.4.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageReleaseNotes>Deprecate React.functionComponent in favor of the [ReactComponent] attribute.</PackageReleaseNotes>
+    <PackageReleaseNotes>Proper NpmPackage dependencies via Fable.ReactDom.Types</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
@@ -37,6 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.2" />
-    <PackageReference Include="Fable.React.Types" Version="18.1.0" />
+    <PackageReference Include="Fable.ReactDom.Types" Version="18.2.0" />
   </ItemGroup>
 </Project>
