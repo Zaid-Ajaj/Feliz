@@ -7,8 +7,9 @@ open Feliz
 type IMarkdownRenderer = interface end
 
 type ICodeProperties =
-    abstract language : string
-    abstract value : string
+    abstract isInline : bool
+    abstract className : string
+    abstract children: ReactElement []
 
 type ITextProperties =
     abstract children: string
@@ -49,6 +50,9 @@ type IListItemProperties =
 type IPluginsProperties =
     abstract children: ReactElement []
 
+type IPreProperties = 
+    abstract children: ReactElement []
+
 type IComponent = interface end
 
 [<Erase>]
@@ -76,7 +80,16 @@ module markdown =
         static member inline ol(render: IListProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "ol" render)
         static member inline ul(render: IListProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "ul" render)
         static member inline li(render: IListProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "li" render)
-        static member inline code(render: ICodeProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "code" render)
+        static member inline code(render: ICodeProperties -> ReactElement) = 
+            let renderInternal (props: obj) = 
+                let inputs = createObj [
+                    "className" ==> emitJsExpr<string> props "$0.className || \"\""
+                    "children" ==> emitJsExpr<ReactElement []> props "$0.children || []"
+                    "isInline" ==> emitJsExpr<bool> props "$0.inline || false"
+                ]
+                render (unbox<ICodeProperties> inputs)
+            unbox<IComponent> (Interop.mkAttr "code" renderInternal)
+        static member inline pre(render: ICodeProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "pre" render)
 
 
 type INodeType = interface end

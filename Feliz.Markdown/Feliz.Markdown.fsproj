@@ -4,7 +4,7 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>2.3.0</Version>
+        <Version>2.4.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <PropertyGroup>
@@ -20,6 +20,6 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Update="FSharp.Core" Version="4.7.2" />
-        <PackageReference Include="Feliz" Version="2.3.0" />
+        <PackageReference Include="Feliz" Version="2.4.0" />
     </ItemGroup>
 </Project>
