@@ -141,7 +141,7 @@ type Svg =
 type svg =
         /// Specifies a CSS class for this element.
     static member inline className (value: string) = Interop.svgAttribute "className" value
-    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
+    /// Takes a `seq<string>` and joins them using a space to combine the classes into a single class property.
     ///
     /// `svg.className [ "one"; "two" ]`
     ///
@@ -150,7 +150,7 @@ type svg =
     /// `svg.className "one two"`
     static member inline className (names: seq<string>) = Interop.svgAttribute "className" (String.concat " " names)
 
-    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
+    /// Takes a `seq<string>` and joins them using a space to combine the classes into a single class property.
     ///
     /// `svg.classes [ "one"; "two" ]` => `svg.className "one two"`
     static member inline classes (names: seq<string>) = Interop.svgAttribute "className" (String.concat " " names)
