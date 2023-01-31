@@ -439,7 +439,7 @@ type prop =
 
     /// Specifies a CSS class for this element.
     static member inline className (value: string) = Interop.mkAttr "className" value
-    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
+    /// Takes a `seq<string>` and joins them using a space to combine the classes into a single class property.
     ///
     /// `prop.className [ "one"; "two" ]`
     ///
@@ -448,7 +448,7 @@ type prop =
     /// `prop.className "one two"`
     static member inline className (names: seq<string>) = Interop.mkAttr "className" (String.concat " " names)
 
-    /// Takes a `seq<string>` and joins them using a space to combine the classses into a single class property.
+    /// Takes a `seq<string>` and joins them using a space to combine the classes into a single class property.
     ///
     /// `prop.classes [ "one"; "two" ]` => `prop.className "one two"`
     static member inline classes (names: seq<string>) = Interop.mkAttr "className" (String.concat " " names)
