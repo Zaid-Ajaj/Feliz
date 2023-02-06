@@ -16,7 +16,7 @@ module Impl =
     let isWindowListenerFunction () : bool = jsNative
 
     [<Emit("Object.defineProperty({}, 'passive', {get () { $0() }})")>]
-    let definePassive (updater: unit -> unit) : JS.PropertyDescriptor = jsNative
+    let definePassive (_updater: unit -> unit) : JS.PropertyDescriptor = jsNative
 
     let allowsPassiveEvents =
         let mutable passive = false

@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Feliz.Delay\Feliz.Delay.fsproj" />
+    <ProjectReference Include="..\Feliz.UseListener\Feliz.UseListener.fsproj" />
     <ProjectReference Include="..\Feliz.UseMediaQuery\Feliz.UseMediaQuery.fsproj" />
     <ProjectReference Include="..\Feliz.Recharts\Feliz.Recharts.fsproj" />
     <ProjectReference Include="..\Feliz.Markdown\Feliz.Markdown.fsproj" />
@@ -19,8 +20,6 @@
     <ProjectReference Include="..\Feliz\Feliz.fsproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Feliz.UseListener\PromiseRejectionEvent.fs" />
-    <Compile Include="Feliz.UseListener\Listener.fs" />
     <Compile Include="Feliz.Router\Router.fs" />
     <Compile Include="Urls.fs" />
     <Compile Include="Recharts\AreaCharts\AreaChartFillByValue.fs" />
