@@ -31,6 +31,7 @@ let template = project "Template"
 let useDeferred = project "UseDeferred"
 let useElmish = project "UseElmish"
 let useMediaQuery = project "UseMediaQuery"
+let listeners = project "Listeners"
 
 let publish projectDir =
     path [ projectDir; "bin" ] |> Shell.deleteDir
@@ -52,7 +53,7 @@ let publish projectDir =
             |> Seq.head
             |> Path.GetFullPath
 
-        if Shell.Exec(Tools.dotnet, sprintf "nuget push %s -s nuget.org -k %s" nugetPath nugetKey, projectDir) <> 0
+        if Shell.Exec(Tools.dotnet, sprintf "nuget push %s -s https://api.nuget.org/v3/index.json -k %s" nugetPath nugetKey, projectDir) <> 0
         then failwith "Publish failed"
 
 [<EntryPoint>]
@@ -76,8 +77,8 @@ let main (args: string[]) =
         | [| "publish-use-deferred" |] -> publish useDeferred
         | [| "publish-use-elmish" |] -> publish useElmish
         | [| "publish-use-media-query" |] -> publish useMediaQuery
+        | [| "publish-listeners" |] -> publish listeners
         | _ -> printfn "Unknown args: %A" args
-        
         // exit succesfully
         0
     with 

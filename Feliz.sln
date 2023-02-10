@@ -59,7 +59,7 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Feliz.SvelteComponent", "Fe
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Feliz.SelectSearch", "Feliz.SelectSearch\Feliz.SelectSearch.fsproj", "{7C96B9B5-606B-4FB2-9E69-46BE0ECB9164}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Feliz.UseListener", "Feliz.UseListener\Feliz.UseListener.fsproj", "{C47B3940-5B2E-4FEE-A8B2-C7BB1C776C03}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Feliz.Listeners", "Feliz.Listeners\Feliz.Listeners.fsproj", "{C47B3940-5B2E-4FEE-A8B2-C7BB1C776C03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace Feliz.UseListener
+﻿namespace Feliz.Listeners
 
 open Browser.Types
 open Browser.Dom
