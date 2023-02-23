@@ -2678,7 +2678,6 @@ module style =
         static member inline unset = Interop.mkStyle "width" "unset"
 
         /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline fitContent = Interop.mkStyle "width" "fit-content"
 
         /// The intrinsic preferred width.
@@ -2697,7 +2696,6 @@ module style =
         static member inline unset = Interop.mkStyle "minWidth" "unset"
 
         /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline fitContent = Interop.mkStyle "minWidth" "fit-content"
 
         /// The intrinsic preferred width.
@@ -2716,7 +2714,6 @@ module style =
         static member inline unset = Interop.mkStyle "maxWidth" "unset"
 
         /// The larger of either the intrinsic minimum width or the smaller of the intrinsic preferred width and the available width
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline fitContent = Interop.mkStyle "maxWidth" "fit-content"
 
         /// The intrinsic preferred width.
@@ -2735,7 +2732,6 @@ module style =
         static member inline unset = Interop.mkStyle "height" "unset"
 
         /// The larger of either the intrinsic minimum height or the smaller of the intrinsic preferred height and the available height
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline fitContent = Interop.mkStyle "height" "fit-content"
 
         /// The intrinsic preferred height.
@@ -2754,7 +2750,6 @@ module style =
         static member inline unset = Interop.mkStyle "minHeight" "unset"
 
         /// The larger of either the intrinsic minimum height or the smaller of the intrinsic preferred height and the available height
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline fitContent = Interop.mkStyle "minHeight" "fit-content"
 
         /// The intrinsic preferred height.
@@ -2773,7 +2768,6 @@ module style =
         static member inline unset = Interop.mkStyle "maxHeight" "unset"
 
         /// The larger of either the intrinsic minimum height or the smaller of the intrinsic preferred height and the available height
-        [<Experimental("This is an experimental API that should not be used in production code.")>]
         static member inline fitContent = Interop.mkStyle "maxHeight" "fit-content"
 
         /// The intrinsic preferred height.
