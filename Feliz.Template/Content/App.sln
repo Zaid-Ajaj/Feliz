@@ -4,20 +4,15 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "App", "src\App.fsproj", "{E5DEFC96-37CF-4844-9C9E-CFA0A9A8AED3}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Tests", "tests\Tests.fsproj", "{7821B727-268F-44AD-8136-B300B323F578}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BACD6DDA-A974-47EC-813A-4C76682A4536}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		.config\dotnet-tools.json = .config\dotnet-tools.json
-		NuGet.Config = NuGet.Config
 		package-lock.json = package-lock.json
 		package.json = package.json
 		README.md = README.md
-		webpack.common.js = webpack.common.js
-		webpack.config.js = webpack.config.js
-		webpack.tests.js = webpack.tests.js
+		vite.config.js = vite.config.js
 	EndProjectSection
 EndProject
 Global

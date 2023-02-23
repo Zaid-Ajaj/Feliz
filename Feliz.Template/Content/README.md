@@ -1,11 +1,11 @@
 # Feliz Template
 
-This template gets you up and running with a simple web app using [Fable](http://fable.io/), [Elmish](https://fable-elmish.github.io/) and [Feliz](https://github.com/Zaid-Ajaj/Feliz).
+This template gets you up and running with a simple web app using [Fable](http://fable.io/) and [Feliz](https://github.com/Zaid-Ajaj/Feliz).
 
 ## Requirements
 
-* [dotnet SDK](https://www.microsoft.com/net/download/core) 2.0.0 or higher
-* [node.js](https://nodejs.org) 10.0.0 or higher
+* [dotnet SDK](https://www.microsoft.com/net/download/core) v7.0 or higher
+* [node.js](https://nodejs.org) v18+ LTS
 
 
 ## Editor
