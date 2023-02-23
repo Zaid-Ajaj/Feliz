@@ -46,6 +46,15 @@ root.render(Counter())
  - **Compatible** with [Femto](https://github.com/Zaid-Ajaj/Femto).
  - Approximately **Zero** bundle size increase where everything function body is erased from the generated javascript unless you actually use said function.
 
+### Quick Start
+
+```
+dotnet new -i Feliz.Template
+dotnet new feliz -n MyProject
+cd MyProject
+npm install
+npm start
+```
 
 ### Documentation
 
