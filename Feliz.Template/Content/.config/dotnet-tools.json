@@ -9,7 +9,7 @@
       ]
     },
     "femto": {
-      "version": "0.13.0",
+      "version": "0.17.1",
       "commands": [
         "femto"
       ]
