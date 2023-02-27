@@ -5,13 +5,13 @@
     <PackageTags>fable;template;fsharp</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageType>Template</PackageType>
-    <Version>4.2.0</Version>
+    <Version>4.3.0</Version>
     <PackProjectInputFile>$(MSBuildProjectFullPath)</PackProjectInputFile>
     <NoBuild>true</NoBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <PackageReleaseNotes>Update dependencies to use Fable v4, Feliz v2 and Vite</PackageReleaseNotes>
+    <PackageReleaseNotes>Enforce Node.js version greater than 18</PackageReleaseNotes>
     <!-- https://github.com/dotnet/templating/issues/2350#issuecomment-610431461 -->
     <NoDefaultExcludes>true</NoDefaultExcludes>
   </PropertyGroup>
