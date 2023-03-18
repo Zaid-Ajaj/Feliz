@@ -41,6 +41,15 @@ module private Util =
         let subscribe = UseSyncExternalStoreSubscribe(fun callback ->
             // printfn "Subscribing %O..." guid
             let mutable dispose = false
+            // needsDispose is used to determine whether the model inside state needs to be disposed of when the subscription is terminated.
+            // If the model does implement System.IDisposable, we set needsDispose to true, which ensures that the Dispose() method is called when the subscription is terminated.
+            // If the model doesn't implement System.IDisposable or the subscription isn't being terminated, we use the provided terminate function to handle the model.
+            // Added because, in strict mode, subscribing and unsubscribing can happen more than once
+            let needsDispose =
+                let (model, _, _, _) = state
+                match box model with
+                | :? System.IDisposable -> true
+                | _ -> false
 
             let mapInit _init _arg =
                 let cmd' = cmd
@@ -50,7 +59,7 @@ module private Util =
                 model, cmd'
 
             let mapTermination (predicate, terminate) =
-                (fun msg -> predicate msg || dispose),
+                (fun msg -> predicate msg || (needsDispose && dispose)),
                 (fun model ->
                     // printfn "Terminating %O..." guid
                     match box model with
@@ -58,9 +67,16 @@ module private Util =
                     | :? System.IDisposable as disp -> disp.Dispose()
                     | _ -> terminate model)
 
+            // Because, in strict mode, subscribing and unsubscribing can happen more than once, Elmish's model that's
+            // passed in as a parameter could potentially be outdated. To ensure that the latest version of the model
+            // is always used, we retrieve it from state and pass it as latestModel to the update function
+            let mapUpdate update msg model =
+                let (latestModel, _, _, _) = state
+                update msg latestModel
+
             // Restart the program after each hot reload to get the proper dispatch reference
             program
-            |> Program.map mapInit id id id id mapTermination
+            |> Program.map mapInit mapUpdate id id id mapTermination
             |> Program.withSetState (fun model dispatch ->
                 let (oldModel, _, _, _) = state
                 let subscribed = true
@@ -88,9 +104,9 @@ type React =
             ElmishState(program, arg, dependencies) |> setState
         let finalState, dispatch, subscribed, queuedMessages = useSyncExternalStore(state.Subscribe, fun () -> state.State)
         // Run any queued messages that were dispatched before the Elmish program finished subscribing
-        useEffect((fun () -> 
-            if subscribed && queuedMessages.Count > 0 then 
-                for msg in queuedMessages do 
+        useEffect((fun () ->
+            if subscribed && queuedMessages.Count > 0 then
+                for msg in queuedMessages do
                     setTimeout(fun () -> dispatch msg)
                 queuedMessages.Clear()
         ), [| subscribed; queuedMessages |])

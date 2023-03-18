@@ -1178,6 +1178,33 @@ let felizTests = testList "Feliz Tests" [
                 Expect.equal (render.getByTestId("count").innerText) "0" "State should have been reset because dependency has changed"
             |> Async.AwaitPromise
     }
+
+    testReactAsync "useElmish works with React.strictMode" <| async {
+        let render = RTL.render(React.strictMode[ UseElmish.wrapper() ])
+
+        Expect.equal (render.getByTestId("count").innerText) "0" "Should be initial state"
+
+        render.getByTestId("increment").click()
+
+        do!
+            RTL.waitFor <| fun () ->
+                Expect.equal (render.getByTestId("count").innerText) "1" "Should have been incremented"
+            |> Async.AwaitPromise
+
+        render.getByTestId("increment-wrapper").click()
+
+        do!
+            RTL.waitFor <| fun () ->
+                Expect.equal (render.getByTestId("count").innerText) "1" "State should be same because dependency hasn't changed"
+            |> Async.AwaitPromise
+
+        render.getByTestId("increment-wrapper").click()
+
+        do!
+            RTL.waitFor <| fun () ->
+                Expect.equal (render.getByTestId("count").innerText) "0" "State should have been reset because dependency has changed"
+            |> Async.AwaitPromise
+    }
 #endif
 ]
 
