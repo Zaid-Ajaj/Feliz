@@ -104,9 +104,19 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     |> AstUtils.objExpr
 
                 let reactEl = AstUtils.createElement reactElType [reactComponent; propsObj]
-                match keyBinding with
-                | None -> reactEl
-                | Some(ident, value) -> Let(ident, value, reactEl)
+                let expr =
+                    match keyBinding with
+                    | None -> reactEl
+                    | Some(ident, value) -> Let(ident, value, reactEl)                
+                
+                match [|memo, callee|] with
+                // If the call is memo and the function has an identifier, we can set the displayName
+                | [|(Some true), (IdentExpr i)|] -> 
+                    Sequential [
+                        (AstUtils.makeSet (IdentExpr(i)) "displayName" (AstUtils.makeStrConst i.Name))
+                        expr
+                    ]
+                | _ -> expr
         | _ ->
             // return expression as is when it is not a call expression
             expr

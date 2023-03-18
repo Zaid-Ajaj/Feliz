@@ -121,6 +121,9 @@ let memberName = function
 let makeCall callee args =
     Fable.Call(callee, makeCallInfo args, Fable.Any, None)
 
+let makeSet target fieldName value =
+    Fable.Set(target, Fable.SetKind.FieldSet(fieldName), Fable.Type.String, value, None)
+
 let createElement reactElementType args =
     let callee = makeImport "createElement" "react"
     Fable.Call(callee, makeCallInfo args, reactElementType, None)
