@@ -77,7 +77,7 @@ type React =
     static member inline keyedFragment(key: System.Guid, xs) =
         Fable.React.ReactBindings.React.createElement(Fable.React.ReactBindings.React.Fragment, createObj ["key" ==> string key], xs)
 
-    /// Placeholder empty React element to be used when importing external React components with the [<ReactComponent>] attribute.
+    /// Placeholder empty React element to be used when importing external React components with the `[<ReactComponent>]` attribute.
     static member inline imported() = Html.none
 
     /// The `useState` hook that creates a state variable for React function components from an initialization function.
