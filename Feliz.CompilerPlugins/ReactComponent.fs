@@ -29,7 +29,9 @@ module internal ReactComponentHelpers =
         match import, from, memo with
         | Some _, Some _, _ ->
             let reactElType = decl.Body.Type
-            { decl with Body = AstUtils.emptyReactElement reactElType }
+            // imported component doesn't need to emit any JS
+            let tags = "remove-declaration" :: decl.Tags
+            { decl with Body = AstUtils.emptyReactElement reactElType; Tags = tags }
 
         | _, _, Some true ->
             let memoFn = AstUtils.makeImport "memo" "react"

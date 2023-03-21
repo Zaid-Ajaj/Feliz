@@ -4,9 +4,9 @@
     <Description>A fresh retake of the React API in Fable, optimized for happiness</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>2.5.0</Version>
+    <Version>2.6.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageReleaseNotes>Update Feliz.CompilerPlugins to set the displayName of the ReactMemoComponent</PackageReleaseNotes>
+    <PackageReleaseNotes>Update Feliz.CompilerPlugins to remove redundant declaration of imported React component</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
