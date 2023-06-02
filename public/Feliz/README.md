@@ -30,7 +30,8 @@ let Counter() =
 
 open Browser.Dom
 
-ReactDOM.render(Counter(), document.getElementById "root")
+let root = ReactDOM.createRoot (document.getElementById "root")
+root.render (Counter())
 ```
 
 ### Features
