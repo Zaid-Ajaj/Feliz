@@ -10,6 +10,7 @@
   <ItemGroup>
     <Compile Include="AstUtils.fs" />
     <Compile Include="ReactComponent.fs" />
+    <Compile Include="ReactListComponent.fs" />
     <Compile Include="Hook.fs" />
     <Compile Include="PrimitiveElement.fs" />
     <Compile Include="PrimitiveElementWithChildren.fs" />

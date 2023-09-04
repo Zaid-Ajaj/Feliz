@@ -164,3 +164,12 @@ let camelCase (input: string) =
     if String.IsNullOrWhiteSpace input
     then ""
     else input.First().ToString().ToLower() + String.Join("", input.Skip(1))
+
+// WIP
+let isCollection (fableType: Fable.Type) =
+        match fableType with
+        | Fable.Type.Array(genericArg, _kind) -> true
+        | Fable.Type.List(genericArg) -> true
+        | Fable.Type.DeclaredType(entity, genericArgs) ->
+            entity.FullName.Contains "IEnumerable" && genericArgs.Length = 1
+        | _ -> false
