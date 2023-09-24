@@ -616,6 +616,8 @@ let samples = [
     "recharts-pie-straightangle", Samples.Recharts.PieCharts.StraightAngle.chart()
     "recharts-pie-customizedlabelpiechart", Samples.Recharts.PieCharts.CustomizedLabelPieChart.chart()
     "recharts-radar-simpleradarchart", Samples.Recharts.RadarCharts.SimpleRadarChart.chart()
+    "recharts-scatter-simplescatterchart", Samples.Recharts.ScatterCharts.SimpleScatterChart.chart()
+    "recharts-scatter-scatterchartwithlabels", Samples.Recharts.ScatterCharts.ScatterChartWithLabels.chart()
     "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
     "pigeonmaps-map-popover-hover", Samples.PigeonMaps.MarkerOverlaysOnHover.citiesMap()
@@ -1015,6 +1017,10 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                     subNestedMenuList "Radar Charts" [ Urls.RadarCharts ] [
                         nestedMenuItem "Simple Radar Chart" [ Urls.SimpleRadarChart ]
                     ]
+                    subNestedMenuList "Scatter Charts" [ Urls.ScatterCharts ] [
+                        nestedMenuItem "Simple Scatter Chart" [ Urls.SimpleScatterChart ]
+                        nestedMenuItem "Scatter Chart With Labels" [ Urls.ScatterChartWithLabels ]
+                    ]
                 ]
             ]
         ]
@@ -1104,6 +1110,12 @@ let rechartsExamples (currentPath: string list) =
         | [ Urls.SimpleRadarChart ] -> [ "SimpleRadarChart.md" ]
         | _ -> []
         |> List.append [ Urls.RadarCharts ]
+    | Urls.ScatterCharts :: rest ->
+        match rest with
+        | [ Urls.SimpleScatterChart ] -> [ "SimpleScatterChart.md" ]
+        | [ Urls.ScatterChartWithLabels ] -> [ "ScatterChartWithLabels.md" ]
+        | _ -> []
+        |> List.append [ Urls.ScatterCharts ]
     | _ -> []
     |> fun path -> [ Urls.Recharts ] @ path
 
