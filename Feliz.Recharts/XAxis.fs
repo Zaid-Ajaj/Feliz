@@ -61,6 +61,23 @@ type xAxis =
     static member inline width (value: float) = Interop.mkXAxisAttr "width" value
     static member inline reversed (value: bool) = Interop.mkXAxisAttr "reversed" value
 
+    static member inline label(value: int) = Interop.mkXAxisAttr "label" value
+    static member inline label(?value: string, ?angle: int, ?position: Label.Position) =
+        let label = createObj [
+          "value" ==> value
+          "angle" ==> angle
+          "position" ==> position
+        ]
+        Interop.mkXAxisAttr "label" label
+    static member inline label(?value: string, ?angle: int, ?position: label.position) =
+        let label = createObj [
+          "value" ==> value
+          "angle" ==> angle
+          "position" ==> position
+        ]
+        Interop.mkXAxisAttr "label" label
+    static member inline children (elements: ReactElement list) = unbox<IXAxisProperty> (prop.children elements)
+        
 module xAxis =
     /// The orientation of axis. Default is `bottom`.
     [<Erase>]

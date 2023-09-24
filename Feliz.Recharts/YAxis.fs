@@ -1,6 +1,6 @@
 namespace Feliz.Recharts
 
-
+open Feliz
 open Fable.Core
 open Fable.Core.JsInterop
 
@@ -54,6 +54,23 @@ type yAxis =
     static member inline width (value: float) = Interop.mkYAxisAttr "width" value
     static member inline reversed (value: bool) = Interop.mkYAxisAttr "reversed" value
 
+    static member inline label(value: int) = Interop.mkYAxisAttr "label" value
+    static member inline label(?value: string, ?angle: int, ?position: Label.Position) =
+        let label = createObj [
+          "value" ==> value
+          "angle" ==> angle
+          "position" ==> position
+        ]
+        Interop.mkYAxisAttr "label" label
+    static member inline label(?value: string, ?angle: int, ?position: label.position) =
+        let label = createObj [
+          "value" ==> value
+          "angle" ==> angle
+          "position" ==> position
+        ]
+        Interop.mkYAxisAttr "label" label
+    static member inline children (elements: ReactElement list) = unbox<IYAxisProperty> (prop.children elements)
+        
 module yAxis =
     /// The orientation of axis. Default is `left`.
     [<Erase>]

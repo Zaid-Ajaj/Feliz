@@ -44,6 +44,8 @@
     <Compile Include="Recharts/PieCharts/TwoLevelPieChart.fs" />
     <Compile Include="Recharts/PieCharts/StraightAngle.fs" />
     <Compile Include="Recharts/RadarCharts/SimpleRadarChart.fs" />
+    <Compile Include="Recharts/ScatterCharts/SimpleScatterChart.fs" />
+    <Compile Include="Recharts/ScatterCharts/ScatterChartWithLabels.fs" />
     <Compile Include="PigeonMaps.fs" />
     <Compile Include="Popover.fs" />
     <Compile Include="CodeSplitting.fs" />
