@@ -3043,6 +3043,19 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "wordWrap" "inherit"
 
+    /// The overflow-anchor property makes it possible to turn off scroll anchoring.
+    /// Scroll anchoring is a feature in the browser that prevents a viewable area that is scrolled into focus to move when new content is loaded above. This is typically a problem on a slow connection if the user scrolls down and starts reading before the page is fully loaded.
+    [<Erase>]
+    type overflowAnchor =
+        /// Default value. Scroll anchoring is enabled
+        static member inline auto = Interop.mkStyle "overflowAnchor" "auto"
+        /// Scroll anchoring is disabled
+        static member inline none = Interop.mkStyle "overflowAnchor" "none"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "overflowAnchor" "initial"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "overflowAnchor" "inherit"
+
     /// The overflow-wrap property applies to inline elements, setting whether the browser should insert line breaks
     /// within an otherwise unbreakable string to prevent text from overflowing its line box.
     [<Erase>]
