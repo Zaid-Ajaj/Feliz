@@ -4,9 +4,9 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>4.1.0</Version>
+        <Version>4.2.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>Added ErrorBar, Funnel, Legend, and Text, along with some missing properties along the way</PackageReleaseNotes>
+        <PackageReleaseNotes>added some of the missing props for XAxis, YAxis and scatter from the Recharts API page</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
