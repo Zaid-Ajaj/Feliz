@@ -18,6 +18,7 @@ module Interop =
     let inline mkBarAttr (key: string) (value: obj) : IBarProperty = unbox (key, value)
     let inline mkRadarAttr (key: string) (value: obj) : IRadarProperty = unbox (key, value)
     let inline mkScatterAttr (key: string) (value: obj) : IScatterProperty = unbox (key, value)
+    let inline mkScatterChartAttr (key: string) (value: obj): IScatterChartProperty = unbox (key, value)
     let inline mkBarChartAttr (key: string) (value: obj) : IBarChartProperty = unbox (key, value)
     let inline mkAreaAttr (key: string) (value: obj) : IAreaProperty = unbox (key, value)
     let inline mkAreaChartAttr (key: string) (value: obj) : IAreaChartProperty = unbox (key, value)

@@ -20,13 +20,13 @@
         <Compile Include="ErrorBar.fs" />
         <Compile Include="Brush.fs" />
         <Compile Include="Cell.fs" />
-        <Compile Include="XAxis.fs" />
-        <Compile Include="YAxis.fs" />
         <Compile Include="Text.fs" />
         <Compile Include="Tooltip.fs" />
         <Compile Include="Legend.fs" />
         <Compile Include="Label.fs" />
         <Compile Include="LabelList.fs" />
+        <Compile Include="XAxis.fs" />
+        <Compile Include="YAxis.fs" />
         <Compile Include="PolarAngleAxis.fs" />
         <Compile Include="PolarRadiusAxis.fs" />
         <Compile Include="AreaChart.fs" />

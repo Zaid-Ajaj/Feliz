@@ -75,6 +75,13 @@ let [<Literal>] WorkingWithDates = "WorkingWithDates"
 
 // ____________________________________________________
 
+let [<Literal>] ScatterCharts = "ScatterCharts"
+
+let [<Literal>] SimpleScatterChart = "ScatterCharts"
+let [<Literal>] ScatterChartWithLabels = "ScatterChartWithLabels"
+
+// ____________________________________________________
+
 let [<Literal>] React = "React"
 
 let [<Literal>] CodeSplitting = "CodeSplitting"
