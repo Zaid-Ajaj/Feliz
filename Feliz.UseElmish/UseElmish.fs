@@ -30,11 +30,20 @@ module private Util =
         // Keep track of messages are that dispach from the initial No-Op dispatch
         // And dispatch them after the Elmish program has subscribed using the "real" dispatch
         let queuedMessages = ResizeArray<'Msg>()
+        
+        // To assure that dispatch function is stable (for example for memo).
+        // We need to store external reference to final dispatch function assuring that initial version
+        // will forward to it at some point.
+        let mutable finalDispatch = None
+        
         let mutable state, cmd =
             let mutable model, cmd = Program.init program arg
             // Initial dispatch is a No-Op before the Elmish program has subscribed
             // So here we store the messages and dispatch them after the Elmish program has subscribed
-            let initialDispatch (msg: 'Msg) = queuedMessages.Add msg
+            let initialDispatch (msg: 'Msg) =
+              match finalDispatch with
+              | Some dispatch -> dispatch msg
+              | None -> queuedMessages.Add msg
             let subscribed = false
             (model, initialDispatch, subscribed, queuedMessages), cmd
 
@@ -78,9 +87,10 @@ module private Util =
             program
             |> Program.map mapInit mapUpdate id id id mapTermination
             |> Program.withSetState (fun model dispatch ->
-                let (oldModel, _, _, _) = state
+                let (oldModel, initialDispatch, _, _) = state
                 let subscribed = true
-                state <- model, dispatch, subscribed, queuedMessages
+                finalDispatch <- Some dispatch
+                state <- model, initialDispatch, subscribed, queuedMessages
                 // Skip re-renders if model hasn't changed
                 if not(obj.ReferenceEquals(model, oldModel)) then
                     callback())
