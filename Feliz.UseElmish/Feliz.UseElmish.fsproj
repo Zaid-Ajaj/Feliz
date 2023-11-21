@@ -4,9 +4,9 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>2.4.0</Version>
+        <Version>2.5.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>Allow component to safely dispose with running in StrictMode</PackageReleaseNotes>
+        <PackageReleaseNotes>Making dispatch function stable</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
