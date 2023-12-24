@@ -22,9 +22,10 @@ type IReactApi =
     abstract Suspense: obj
     abstract useCallback: callbackFunction: ('a -> 'b) -> dependencies: obj array -> ('a -> 'b)
     abstract useContext: ctx: IContext<'a> -> 'a
-    abstract useEffect: obj * 't array -> unit
+    abstract useEffect: obj * dependencies: obj array -> unit
     abstract useEffect: obj -> unit
-    abstract useEffect: (unit -> unit) -> unit
+    abstract useEffect: effect: (unit -> unit) -> unit
+    abstract useEffect: effect: (unit -> unit) * dependencies: obj [] -> unit
     abstract useImperativeHandle<'t> : ref: Fable.React.IRefValue<'t> -> createHandle: (unit -> 't) -> dependencies: obj array -> unit
     [<Emit("$0.useImperativeHandle($1, $2)")>]
     abstract useImperativeHandleNoDeps<'t> : ref: Fable.React.IRefValue<'t> -> createHandle: (unit -> 't) -> unit
