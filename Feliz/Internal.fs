@@ -87,7 +87,7 @@ module Internal =
                 calledOnce.current <- true
                 destroyFunc.current <- effect() |> Some
 
-                if renderAfterCalled.current
+                if not renderAfterCalled.current
                 then destroyFunc.current
                 else None
         ) [||]
@@ -108,7 +108,7 @@ module Internal =
                 calledOnce.current <- true
                 destroyFunc.current <- effect()
 
-                if renderAfterCalled.current
+                if not renderAfterCalled.current
                 then destroyFunc.current
                 else None
         ) [||]
