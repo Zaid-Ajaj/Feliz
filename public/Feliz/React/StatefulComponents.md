@@ -1,6 +1,6 @@
 # Stateful Components
 
-Components can tremendously useful when they manage their internal state. This allows for some pieces of the UI to have stateful bevavior without polluting the global Elmish state. For example when you have an accordion component, whether it is collapsed or expanded is a piece of information that might not be relevant to your Elmish models so you keep that information internal to that specific component. Otherwise, if you are "going Elmish all the way", you would to keep track of which accordion is now in it's open state and have messages that are resposible for expanding and collapsing a specific accordion.
+Components can be tremendously useful when they manage their internal state. This allows for some pieces of the UI to have stateful bevavior without polluting the global Elmish state. For example when you have an accordion component, whether it is collapsed or expanded is a piece of information that might not be relevant to your Elmish models so you keep that information internal to that specific component. Otherwise, if you are "going Elmish all the way", you would need to keep track of which accordion is now in it's open state and have messages that are resposible for expanding and collapsing a specific accordion.
 
 State with React components is incorporated using [React Hooks](https://reactjs.org/docs/hooks-intro.html) which allow you to define state variables inside your functional components. A common hook to use with React is the `React.useState` hook.
 
