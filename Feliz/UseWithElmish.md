@@ -7,6 +7,8 @@ module App
 
 open Feliz
 open Elmish
+open Elmish.HMR
+open Elmish.React
 
 type State = { Count: int }
 
@@ -35,4 +37,8 @@ let render (state: State) (dispatch: Msg -> unit) =
 
         Html.h1 state.Count
     ]
+
+Program.mkProgram init update render
+|> Program.withReactSynchronous "feliz-app"
+|> Program.run    
 ```
