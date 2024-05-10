@@ -7,8 +7,8 @@ module App
 
 open Feliz
 open Elmish
-open Elmish.HMR
 open Elmish.React
+open Elmish.HMR // Elmish.HMR needs to be the last open instruction in order to be able to shadow any supported API
 
 type State = { Count: int }
 
