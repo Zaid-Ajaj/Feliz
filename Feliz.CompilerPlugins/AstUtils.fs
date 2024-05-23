@@ -74,6 +74,11 @@ let makeImport (selector: string) (path: string) =
                    Path = path.Trim()
                    Kind = Fable.UserImport(false) }, Fable.Any, None)
 
+let isDeclaredRecord (compiler: PluginHelper) (fableType: Fable.Type) =
+    match fableType with
+    | Fable.Type.DeclaredType (entity, genericArgs) -> compiler.GetEntity(entity).IsFSharpRecord
+    | _ -> false
+
 let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     match fableType with
     | Fable.Type.AnonymousRecordType _ -> true
