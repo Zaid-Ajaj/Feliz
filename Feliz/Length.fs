@@ -89,3 +89,57 @@ type length =
     /// Relative to width of the grid layout in correlation with the other fr's in the grid
     static member inline fr(value: double) : ICssUnit = unbox ((unbox<string>value) + "fr")
     
+    /// Chooses the smallest (most negative) value of the inputs
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/min
+    static member inline min (value1: ICssUnit, value2: ICssUnit) : ICssUnit =
+        unbox ("min(" + unbox<string>value1 + ", " + unbox<string> value2 + ")")
+    /// Chooses the smallest (most negative) value of the inputs
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/min
+    static member inline min (values: ICssUnit list) : ICssUnit =
+        let commaSeparatedValues =
+            values
+            |> List.map unbox<string>
+            |> String.concat ","
+        unbox ("min(" + commaSeparatedValues + ")")
+
+    /// Chooses the largest (most positive) value of the inputs
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/max
+    static member inline max (value1: ICssUnit, value2: ICssUnit) : ICssUnit =
+        unbox ("max(" + unbox<string>value1 + ", " + unbox<string> value2 + ")")
+    /// Chooses the largest (most positive) value of the inputs
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/max
+    static member inline max (values: ICssUnit list) : ICssUnit =
+        let commaSeparatedValues =
+            values
+            |> List.map unbox<string>
+            |> String.concat ","
+        unbox ("max(" + commaSeparatedValues + ")")
+    
+    /// Defines a size range greater than or equal to min and less than or equal to max
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/minmax
+    static member inline minmax (minValue: ICssUnit, maxValue: ICssUnit) : ICssUnit =
+        unbox ("minmax(" + unbox<string>minValue + ", " + unbox<string> maxValue + ")")
+    
+    /// Represents the intrinsic minimum width of the content.
+    /// For text content this means that the content will take all soft-wrapping
+    /// opportunities, becoming as small as the longest word.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/min-content
+    static member inline minContent : ICssUnit = unbox "min-content"
+    
+    /// Equivalent to length.fitContent(length.custom "stretch").
+    /// In practice, this means that the box will use the available
+    /// space, but never more than maxContent.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/fit-content
+    static member inline fitContent : ICssUnit = unbox "fit-content"
+    /// Clamps a given size to an available size according to the
+    /// formula `min(maximum size, max(minimum size, argument))`.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/fit-content_function
+    static member inline fitContent' (input: ICssUnit): ICssUnit = unbox ("fit-content(" + unbox<string>input + ")")
+    
+    /// Represents the intrinsic maximum width or height of the content.
+    /// For text content this means that the content will not wrap at
+    /// all even if it causes overflows.
+    static member inline maxContent : ICssUnit = unbox "max-content"
+    
+    /// Allows specifying custom ICssUnits
+    static member inline custom (cssUnit: string) = unbox cssUnit
