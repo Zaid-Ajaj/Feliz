@@ -2657,7 +2657,25 @@ type style =
             unbox<string> xOffset + " " +
             unbox<string> yOffset + " " +
             unbox<string> zOffset
-        ) 
+        )
+    
+    /// Sets the color of the scrollbar track and thumb.
+    /// The track refers to the background of the scrollbar, which
+    /// is generally fixed regardless of the scrolling position.
+    /// The thumb refers to the moving part of the scrollbar, which
+    /// usually floats on top of the track.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
+    static member inline scrollbarColor (color: string) =
+        Interop.mkStyle "scrollbarColor" color
+    
+    /// Sets the color of the scrollbar track and thumb.
+    /// The track refers to the background of the scrollbar, which
+    /// is generally fixed regardless of the scrolling position.
+    /// The thumb refers to the moving part of the scrollbar, which
+    /// usually floats on top of the track.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
+    static member inline scrollbarColor (thumbColor: string, trackColor: string) =
+        Interop.mkStyle "scrollbarColor" (thumbColor + " " + trackColor)
     
 [<Erase>]
 module style =
@@ -2834,6 +2852,141 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "scrollBehavior" "inherit"
 
+    /// Sets how strictly snap points are enforced on the scroll container in case there is one.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type
+    [<Erase>]
+    type scrollSnapType =
+        /// When the visual viewport of this scroll container is scrolled, it must ignore snap points.
+        static member inline none = Interop.mkStyle "scrollSnapType" "none"
+        /// The scroll container snaps to snap positions in its horizontal axis only.
+        static member inline x = Interop.mkStyle "scrollSnapType" "x"
+        /// The scroll container snaps to snap positions in its vertical axis only.
+        static member inline y = Interop.mkStyle "scrollSnapType" "y"
+        /// The scroll container snaps to snap positions in its block axis only.
+        static member inline block = Interop.mkStyle "scrollSnapType" "block"
+        /// The scroll container snaps to snap positions in its inline axis only.
+        static member inline inline' = Interop.mkStyle "scrollSnapType" "inline"
+        /// The scroll container snaps to snap positions in both of its axes independently
+        /// (potentially snapping to different elements in each axis).
+        static member inline both = Interop.mkStyle "scrollSnapType" "both"
+        /// The scroll container snaps to snap positions in its horizontal axis only.
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline xMandatory = Interop.mkStyle "scrollSnapType" "x mandatory"
+        /// The scroll container snaps to snap positions in its horizontal axis only.
+        /// 
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline xProximity = Interop.mkStyle "scrollSnapType" "x proximity"
+        /// The scroll container snaps to snap positions in its vertical axis only.
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline yMandatory = Interop.mkStyle "scrollSnapType" "y mandatory"
+        /// The scroll container snaps to snap positions in its vertical axis only.
+        ///
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline yProximity = Interop.mkStyle "scrollSnapType" "y proximity"
+        /// The scroll container snaps to snap positions in its block axis only.
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline blockMandatory = Interop.mkStyle "scrollSnapType" "block mandatory"
+        /// The scroll container snaps to snap positions in its block axis only.
+        ///
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline blockProximity = Interop.mkStyle "scrollSnapType" "block proximity"
+        /// The scroll container snaps to snap positions in its inline axis only.
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline inlineMandatory = Interop.mkStyle "scrollSnapType" "inline mandatory"
+        /// The scroll container snaps to snap positions in its inline axis only.
+        ///
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline inlineProximity = Interop.mkStyle "scrollSnapType" "inline proximity"
+        /// The scroll container snaps to snap positions in both of its axes independently
+        /// (potentially snapping to different elements in each axis).
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline bothMandatory = Interop.mkStyle "scrollSnapType" "both mandatory"
+        /// The scroll container snaps to snap positions in both of its axes independently
+        /// (potentially snapping to different elements in each axis).
+        ///
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline bothProximity = Interop.mkStyle "scrollSnapType" "both proximity"
+
+    /// Specifies the box's snap position as an alignment of its snap area (as the alignment subject)
+    /// within its snap container's snap port (as the alignment container).
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align
+    [<Erase>]
+    type scrollSnapAlign =
+        /// This box does not define a snap position in the specified axis. 
+        static member inline none = Interop.mkStyle "scrollSnapAlign" "none"
+        /// Start alignment of this box’s scroll snap area within the scroll
+        /// container’s snapport is a snap position in the specified axis. 
+        static member inline start = Interop.mkStyle "scrollSnapAlign" "start"
+        /// Center alignment of this box’s scroll snap area within the scroll
+        /// container’s snapport is a snap position in the specified axis. 
+        static member inline center = Interop.mkStyle "scrollSnapAlign" "center"
+        /// End alignment of this box’s scroll snap area within the scroll
+        /// container’s snapport is a snap position in the specified axis. 
+        static member inline end' = Interop.mkStyle "scrollSnapAlign" "end"
+        static member inline noneStart = Interop.mkStyle "scrollSnapAlign" "none start"
+        static member inline noneCenter = Interop.mkStyle "scrollSnapAlign" "none center"
+        static member inline noneEnd =  Interop.mkStyle "scrollSnapAlign" "none end"
+        static member inline startNone = Interop.mkStyle "scrollSnapAlign" "start none"
+        static member inline startCenter = Interop.mkStyle "scrollSnapAlign" "start center"
+        static member inline startEnd =  Interop.mkStyle "scrollSnapAlign" "start end"
+        static member inline centerNone = Interop.mkStyle "scrollSnapAlign" "center none"
+        static member inline centerStart = Interop.mkStyle "scrollSnapAlign" "center start"
+        static member inline centerEnd =  Interop.mkStyle "scrollSnapAlign" "center end"
+        static member inline endNone = Interop.mkStyle "scrollSnapAlign" "end none"
+        static member inline endStart = Interop.mkStyle "scrollSnapAlign" "end start"
+        static member inline endCenter =  Interop.mkStyle "scrollSnapAlign" "end center"
+    
+    
+    
+    /// Sets the maximum thickness of an element's scrollbars when they are shown.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width
+    [<Erase>]
+    type scrollbarWidth =
+        /// The default scrollbar width for the platform.
+        static member inline auto = Interop.mkStyle "scrollbarWidth" "auto"
+        /// A thin scrollbar width variant on platforms that provide that option,
+        /// or a thinner scrollbar than the default platform scrollbar width. 
+        static member inline thin = Interop.mkStyle "scrollbarWidth" "thin"
+        /// No scrollbar shown, however the element will still be scrollable.
+        static member inline none = Interop.mkStyle "scrollbarWidth" "none"
+    
+    /// Reserves space for the scrollbar, preventing unwanted layout changes as
+    /// the content grows while also avoiding unnecessary visuals when scrolling
+    /// isn't needed.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter
+    [<Erase>]
+    type scrollbarGutter =
+        /// The initial value. Classic scrollbars create a gutter when overflow
+        /// is scroll, or when overflow is auto and the box is overflowing.
+        /// Overlay scrollbars do not consume space.
+        static member inline auto = Interop.mkStyle "scrollbarGutter" "auto"
+        /// When using classic scrollbars, the gutter will be present if overflow
+        /// is auto, scroll, or hidden even if the box is not overflowing.
+        /// When using overlay scrollbars, the gutter will not be present.
+        static member inline stable = Interop.mkStyle "scrollbarGutter" "stable"
+        /// When using classic scrollbars, the gutter will be present if overflow
+        /// is auto, scroll, or hidden even if the box is not overflowing.
+        /// When using overlay scrollbars, the gutter will not be present.
+        /// 
+        /// If a gutter would be present on one of the inline start/end edges
+        /// of the box, another will be present on the opposite edge as well.
+        static member inline stableBothEdges = Interop.mkStyle "scrollbarGutter" "stable both-edges"
+    
     [<Erase>]
     type overflow =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
