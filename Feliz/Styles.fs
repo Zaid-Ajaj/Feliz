@@ -2657,7 +2657,15 @@ type style =
             unbox<string> xOffset + " " +
             unbox<string> yOffset + " " +
             unbox<string> zOffset
-        ) 
+        )
+    
+    /// Limits the contents of a block to the specified number of lines.
+    /// 
+    /// It only works in combination with the `display` property set to `webkitBox` or `webkitInlineBox`
+    /// and the `webkitBoxOrient` property set to vertical.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-line-clamp
+    [<Obsolete("This is non-standard API and may stop being supported at any moment")>]
+    static member inline webkitLineClamp (lines: int) = Interop.mkStyle "WebkitLineClamp" lines
     
 [<Erase>]
 module style =
@@ -4241,7 +4249,29 @@ module style =
         static member inline initial = Interop.mkStyle "display" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "display" "inherit"
+        [<Obsolete("This non-standard API may stop being supported at any moment")>]
+        static member inline webkitBox = Interop.mkStyle "display" "-webkit-box"
+        /// This is only used in combination with `webkitLineClamp` and `webkitBoxOrient`
+        [<Obsolete("This non-standard API may stop being supported at any moment")>]
+        static member inline webkitInlineBox = Interop.mkStyle "display" "-webkit-inline-box"
 
+    /// Sets whether an element lays out its contents horizontally or vertically.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/box-orient
+    [<Erase; Obsolete("This is non-standard API and may stop being supported at any moment")>]
+    type webkitBoxOrient =
+        /// The box lays out its contents horizontally.
+        [<Obsolete("This is non-standard API and may stop being supported at any moment")>]
+        static member inline horizontal = Interop.mkStyle "WebkitBoxOrient" "horizontal"
+        /// The box lays out its contents vertically.
+        [<Obsolete("This is non-standard API and may stop being supported at any moment")>]
+        static member inline vertical = Interop.mkStyle "WebkitBoxOrient" "vertical"
+        /// The box displays its children along the inline axis.
+        [<Obsolete("This is non-standard API and may stop being supported at any moment")>]
+        static member inline inlineAxis = Interop.mkStyle "WebkitBoxOrient" "inline-axis"
+        /// The box displays its children along the block axis.
+        [<Obsolete("This is non-standard API and may stop being supported at any moment")>]
+        static member inline blockAxis = Interop.mkStyle "WebkitBoxOrient" "block-axis"
+    
     /// The cursor CSS property sets the type of cursor, if any, to show when the mouse pointer is over an element.
     /// See documentation at https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
     [<Erase>]
