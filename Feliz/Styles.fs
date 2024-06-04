@@ -2157,24 +2157,42 @@ type style =
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     static member inline fontSize(size: ICssUnit) = Interop.mkStyle "fontSize" size
-    /// Specifies the height of a text lines.
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+    /// 
+    /// The used value is this unitless number multiplied by the element's own font size. The computed
+    /// value is the same as the specified number. In most cases, this is the preferred way to set
+    /// line-height and avoid unexpected results due to inheritance.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     ///
     /// Note: Negative values are not allowed.
-    static member inline lineHeight(size: int) = Interop.mkStyle "lineHeight" (unbox<string> size + "px")
-    /// Specifies the height of a text lines.
+    static member inline lineHeight(size: int) = Interop.mkStyle "lineHeight" size
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+    ///
+    /// The used value is this unitless number multiplied by the element's own font size. The computed
+    /// value is the same as the specified number. In most cases, this is the preferred way to set
+    /// line-height and avoid unexpected results due to inheritance.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     ///
     /// Note: Negative values are not allowed.
-    static member inline lineHeight(size: float) = Interop.mkStyle "lineHeight" (unbox<string> size + "px")
-    /// Specifies the height of a text lines.
+    static member inline lineHeight(size: float) = Interop.mkStyle "lineHeight" size
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     ///
     /// Note: Negative values are not allowed.
     static member inline lineHeight(size: ICssUnit) = Interop.mkStyle "lineHeight" size
+
     /// Sets the background color of an element.
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
     /// Sets the color of the insertion caret, the visible marker where the next character typed will be inserted.
@@ -5738,3 +5756,14 @@ module style =
         /// style.gridAutoRows.maxContent
         /// ```
         static member inline maxContent = Interop.mkStyle "gridAutoRows" "max-content"
+
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+    [<Erase>]
+    type lineHeight =
+        /// Depends on the user agent. Desktop browsers (including Firefox)
+        /// use a default value of roughly 1.2, depending on the element's font-family.
+        static member inline normal = Interop.mkStyle "lineHeight" "normal"
+    
