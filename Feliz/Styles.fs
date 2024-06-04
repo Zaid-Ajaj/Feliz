@@ -280,6 +280,153 @@ type style =
     /// Sets the margin area on the bottom of an element. A positive value places it farther from its
     /// neighbors, while a negative value places it closer.
     static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
+
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(value: int) = Interop.mkStyle "marginBlock" value
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(value: ICssUnit) = Interop.mkStyle "marginBlock" value
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(blockStart: int, blockEnd: int) =
+        Interop.mkStyle "marginBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(blockStart: ICssUnit, blockEnd: int) =
+        Interop.mkStyle "marginBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(blockStart: int, blockEnd: ICssUnit) =
+        Interop.mkStyle "marginBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(blockStart: ICssUnit, blockEnd: ICssUnit) =
+        Interop.mkStyle "marginBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlockStart(value: int) =
+        Interop.mkStyle "marginBlockStart" value
+    /// Defines the logical block start margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlockStart(value: ICssUnit) =
+        Interop.mkStyle "marginBlockStart" value
+    
+    /// Defines the logical block end margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlockEnd(value: int) =
+        Interop.mkStyle "marginBlockEnd" value
+    /// Defines the logical block end margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlockEnd(value: ICssUnit) =
+        Interop.mkStyle "marginBlockEnd" value
+
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(value: int) = Interop.mkStyle "marginInline" value
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(value: ICssUnit) = Interop.mkStyle "marginInline" value
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(inlineStart: int, inlineEnd: int) =
+        Interop.mkStyle "marginInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(inlineStart: ICssUnit, inlineEnd: int) =
+        Interop.mkStyle "marginInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(inlineStart: int, inlineEnd: ICssUnit) =
+        Interop.mkStyle "marginInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(inlineStart: ICssUnit, inlineEnd: ICssUnit) =
+        Interop.mkStyle "marginInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    
+    /// Defines the logical inline start margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-start
+    static member inline marginInlineStart(value: int) =
+        Interop.mkStyle "marginInlineStart" value
+    /// Defines the logical inline start margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-start
+    static member inline marginInlineStart(value: ICssUnit) =
+        Interop.mkStyle "marginInlineStart" value
+    
+    /// Defines the logical inline end margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-end
+    static member inline marginInlineEnd(value: int) =
+        Interop.mkStyle "marginInlineEnd" value
+    /// Defines the logical inline end margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-end
+    static member inline marginInlineEnd(value: ICssUnit) =
+        Interop.mkStyle "marginInlineEnd" value
+
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
     static member inline padding(value: int) = Interop.mkStyle "padding" value
@@ -538,6 +685,152 @@ type style =
     static member inline paddingTop(value: int) = Interop.mkStyle "paddingTop" value
     /// Sets the height of the padding area on the top of an element.
     static member inline paddingTop(value: ICssUnit) = Interop.mkStyle "paddingTop" value
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(value: int) = Interop.mkStyle "marginBlock" value
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(value: ICssUnit) = Interop.mkStyle "marginBlock" value
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(blockStart: int, blockEnd: int) =
+        Interop.mkStyle "paddingBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(blockStart: ICssUnit, blockEnd: int) =
+        Interop.mkStyle "paddingBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(blockStart: int, blockEnd: ICssUnit) =
+        Interop.mkStyle "paddingBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(blockStart: ICssUnit, blockEnd: ICssUnit) =
+        Interop.mkStyle "paddingBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlockStart(value: int) =
+        Interop.mkStyle "paddingBlockStart" value
+    /// Defines the logical block start padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlockStart(value: ICssUnit) =
+        Interop.mkStyle "paddingBlockStart" value
+    
+    /// Defines the logical block end padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlockEnd(value: int) =
+        Interop.mkStyle "paddingBlockEnd" value
+    /// Defines the logical block end padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlockEnd(value: ICssUnit) =
+        Interop.mkStyle "paddingBlockEnd" value
+
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(value: int) = Interop.mkStyle "marginInline" value
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(value: ICssUnit) = Interop.mkStyle "marginInline" value
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(inlineStart: int, inlineEnd: int) =
+        Interop.mkStyle "paddingInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(inlineStart: ICssUnit, inlineEnd: int) =
+        Interop.mkStyle "paddingInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(inlineStart: int, inlineEnd: ICssUnit) =
+        Interop.mkStyle "paddingInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(inlineStart: ICssUnit, inlineEnd: ICssUnit) =
+        Interop.mkStyle "paddingInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    
+    /// Defines the logical inline start padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-start
+    static member inline paddingInlineStart(value: int) =
+        Interop.mkStyle "paddingInlineStart" value
+    /// Defines the logical inline start padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-start
+    static member inline paddingInlineStart(value: ICssUnit) =
+        Interop.mkStyle "paddingInlineStart" value
+    
+    /// Defines the logical inline end padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-end
+    static member inline paddingInlineEnd(value: int) =
+        Interop.mkStyle "paddingInlineEnd" value
+    /// Defines the logical inline end padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-end
+    static member inline paddingInlineEnd(value: ICssUnit) =
+        Interop.mkStyle "paddingInlineEnd" value
+
     /// Sets the flex shrink factor of a flex item. If the size of all flex items is larger than
     /// the flex container, items shrink to fit according to flex-shrink.
     static member inline flexShrink(value: int) = Interop.mkStyle "flexShrink" value
