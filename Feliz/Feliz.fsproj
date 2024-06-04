@@ -26,6 +26,7 @@
     <Compile Include="TextDecorationStyle.fs" />
     <Compile Include="TextDecorationLine.fs" />
     <Compile Include="TransitionProperty.fs" />
+    <Compile Include="TransitionTimingFunction.fs" />
     <Compile Include="TransformOrigin.fs" />
     <Compile Include="GridTypes.fs" />
     <Compile Include="Styles.fs" />
