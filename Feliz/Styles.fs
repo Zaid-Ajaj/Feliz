@@ -5738,3 +5738,42 @@ module style =
         /// style.gridAutoRows.maxContent
         /// ```
         static member inline maxContent = Interop.mkStyle "gridAutoRows" "max-content"
+
+    /// Sets the size of the font. Changing the font size also updates the sizes of
+    /// the font size-relative <length> units, such as em, ex, and so forth.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/font-size
+    [<Erase>]
+    type fontSize =
+        /// Absolute-size keyword, based on the user's default font size (which is medium).
+        static member inline xxSmall = Interop.mkStyle "fontSize" "xx-small"
+        /// Absolute-size keyword, based on the user's default font size (which is medium).
+        static member inline xSmall = Interop.mkStyle "fontSize" "x-small"
+        /// Absolute-size keyword, based on the user's default font size (which is medium).
+        static member inline small = Interop.mkStyle "fontSize" "small"
+        /// Absolute-size keyword, based on the user's default font size (which is medium).
+        static member inline medium = Interop.mkStyle "fontSize" "medium"
+        /// Absolute-size keyword, based on the user's default font size (which is medium).
+        static member inline large = Interop.mkStyle "fontSize" "large"
+        /// Absolute-size keyword, based on the user's default font size (which is medium).
+        static member inline xLarge = Interop.mkStyle "fontSize" "x-large"
+        /// Absolute-size keyword, based on the user's default font size (which is medium).
+        static member inline xxLarge = Interop.mkStyle "fontSize" "xx-large"
+        /// Absolute-size keyword, based on the user's default font size (which is medium).
+        static member inline xxxLarge = Interop.mkStyle "fontSize" "xxx-large"
+        /// Relative-size keyword. The font will be smaller relative to the parent
+        /// element's font size, roughly by the ratio used to separate the
+        /// absolute-size keywords.
+        static member inline smaller = Interop.mkStyle "fontSize" "smaller"
+        /// Relative-size keyword. The font will be larger relative to the parent
+        /// element's font size, roughly by the ratio used to separate the
+        /// absolute-size keywords.
+        static member inline larger = Interop.mkStyle "fontSize" "larger"
+        /// Scaling rules are applied when determining the computed value of
+        /// the font-size property for math elements relative to the font-size
+        /// of the containing parent.
+        /// See the math-depth property for more information:
+        /// https://developer.mozilla.org/en-US/docs/Web/CSS/math-depth
+        static member inline math = Interop.mkStyle "fontSize" "math"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "fontSize" "inherit"
+    
