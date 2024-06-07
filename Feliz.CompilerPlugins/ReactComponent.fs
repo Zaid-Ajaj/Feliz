@@ -102,29 +102,30 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 // declared record
                 // https://github.com/Zaid-Ajaj/Feliz/issues/603
                 // F# Component { Value = 1 }
-                // JSX <Component props={ { Value={1} } } />
-                // JS createElement(Component, { props = { Value: 1 } })
+                // JSX <Component props={ Value={1} } />
+                // JS createElement(Component, props = { Value: 1 })
                 
                 // anonymous record
-                // F# Component { Value = 1 }
+                // F# Component {| Value = 1 |}
                 // JSX <Component Value={1} />
                 // JS createElement(Component, { Value: 1 })
                 
                 let isDeclaredRecord = AstUtils.isDeclaredRecord compiler info.Args[0].Type
                 
-                if AstUtils.recordHasField "Key" compiler info.Args[0].Type then
+                match AstUtils.tryGetRecordField "key" compiler info.Args[0].Type with
+                | Some keyField when isDeclaredRecord ->
                     // When the key property is upper-case (which is common in record fields)
                     // then we should rewrite it
                     let modifiedRecord =
-                      if isDeclaredRecord then
-                        AstUtils.objExpr [
-                          "key", AstUtils.emitJs "$0.Key" [info.Args[0]];
-                          membArgs[0].Name.Value, info.Args[0]
-                        ]
-                      else
-                        AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args[0]]
+                        AstUtils.emitJs
+                          (sprintf "(($value) => { $value.key = $value.%s.%s; return $value; })($0)" (membArgs[0].Name.Value) keyField)
+                          [ AstUtils.objExpr [ membArgs[0].Name.Value, info.Args[0]] ]
                     AstUtils.createElement reactElType [reactComponent; modifiedRecord]
-                else
+                | Some "Key" -> // anonymous record won't have wrapped object so 'key' (lowercase) prop is automatically recognized
+                    let modifiedRecord =
+                      AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args[0]]
+                    AstUtils.createElement reactElType [reactComponent; modifiedRecord]
+                | _ ->
                     let value =
                       if isDeclaredRecord then
                         AstUtils.objExpr [ membArgs[0].Name.Value, info.Args[0] ]
@@ -194,6 +195,11 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
 
             // do not rewrite components accepting anonymous records as input
             if decl.Args.Length = 1 && AstUtils.isAnonymousRecord decl.Args.[0].Type then
+                if AstUtils.tryGetRecordField "key" compiler decl.Args[0].Type = Some "key" then
+                  let errorMessage =
+                    sprintf "The function %s expects an anonymous record with a 'key' property, which is not allowed by React. The value will be erased and it will return undefined. More info: https://reactjs.org/link/special-props" decl.Name
+                  compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
+                
                 decl
                 |> applyImportOrMemo import from memo
             // put record into a single props object to stabilize prototype chain
