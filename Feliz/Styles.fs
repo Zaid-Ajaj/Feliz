@@ -2998,6 +2998,10 @@ module style =
         static member inline preline = Interop.mkStyle "whiteSpace" "pre-line"
         /// Whitespace is preserved by the browser. Text will wrap when necessary, and on line breaks
         static member inline prewrap = Interop.mkStyle "whiteSpace" "pre-wrap"
+        /// The behavior is identical to that of pre-wrap, except that:
+        /// *) Any sequence of preserved white space or other space separators always takes up space, including at the end of the line.
+        /// *) A soft wrap opportunity exists after every preserved white space character and after every other space separator (including between adjacent spaces).
+        static member inline breakSpaces = Interop.mkStyle "whiteSpace" "break-spaces"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "whiteSpace" "initial"
         /// Inherits this property from its parent element.
