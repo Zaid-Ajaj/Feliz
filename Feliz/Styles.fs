@@ -2281,10 +2281,30 @@ type style =
     /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
     ///
     /// The `outline-color` property specifies the color of an outline.
-
+    /// 
     /// **Note**: Always declare the outline-style property before the outline-color property. An element must have an outline before you change the color of it.
     static member inline outlineColor (color: string) =
         Interop.mkStyle "outlineColor" color
+    
+    /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
+    /// The outline shorthand property sets most of the outline properties in a single declaration.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/outline
+    static member inline outline (width: int, style: IBorderStyle, color: string) =
+        Interop.mkStyle "outline" (
+            (unbox<string> width) + "px " +
+            (unbox<string> style) + " " +
+            color
+        )
+    /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
+    /// The outline shorthand property sets most of the outline properties in a single declaration.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/outline
+    static member inline outline (width: ICssUnit, style: IBorderStyle, color: string) =
+        Interop.mkStyle "outline" (
+            (unbox<string> width) + " " +
+            (unbox<string> style) + " " +
+            color
+        )
+    
     /// Set an element's left border.
     static member inline borderLeft(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderLeft" (
