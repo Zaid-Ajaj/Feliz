@@ -2138,7 +2138,146 @@ type style =
     /// Sets the CSS properties to which a transition effect should be applied.
     static member inline transitionProperty (property: string) =
         Interop.mkStyle "transitionProperty" property
+    
+    /// Sets how intermediate values are calculated for CSS properties being affected by a transition effect.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
+    static member inline transitionTimingFunction (timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transitionTimingFunction" timingFunction
+    
+    /// Sets how intermediate values are calculated for CSS properties being affected by a transition effect.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
+    static member inline transitionTimingFunction (timingFunction: string) =
+        Interop.mkStyle "transitionTimingFunction" timingFunction
 
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: TimeSpan) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: TimeSpan) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: TimeSpan, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: TimeSpan, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, durationInMs: int, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, durationInMs: int, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: TimeSpan, delay: TimeSpan) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> delay.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: TimeSpan, delay: TimeSpan) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> delay.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, durationInMs: int, delayInMs: int) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> delayInMs + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, durationInMs: int, delayInMs: int) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> delayInMs + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: TimeSpan, timingFunction: ITransitionTimingFunction, delay: TimeSpan) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction,
+            unbox<string> delay.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: TimeSpan, timingFunction: ITransitionTimingFunction, delay: TimeSpan) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction,
+            unbox<string> delay.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, durationInMs: int, timingFunction: ITransitionTimingFunction, delayInMs: int) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> timingFunction,
+            unbox<string> delayInMs + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, durationInMs: int, timingFunction: ITransitionTimingFunction, delayInMs: int) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> timingFunction,
+            unbox<string> delayInMs + "ms "
+        )
+    
     static member inline transform(transformation: ITransformProperty) =
         Interop.mkStyle "transform" transformation
 
