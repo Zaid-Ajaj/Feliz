@@ -4,9 +4,9 @@
     <Description>A fresh retake of the React API in Fable, optimized for happiness</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
-    <Version>2.8.0-beta.0</Version>
+    <Version>2.8.0</Version>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageReleaseNotes>Optimize React hooks and APIs Feliz API.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add styles outline, scroll, scrollBar,lineHeight and transition properties .</PackageReleaseNotes>
   </PropertyGroup>
   
   <ItemGroup>

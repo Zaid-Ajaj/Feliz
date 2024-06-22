@@ -1403,6 +1403,11 @@ type prop =
     /// This attribute only applies when the value of the type attribute is text, search, tel, url or email.
     static member inline pattern (value: System.Text.RegularExpressions.Regex) = Interop.mkAttr "pattern" value
 
+    /// Sets the input field allowed input.
+    ///
+    /// This attribute only applies when the value of the type attribute is text, search, tel, url or email.
+    static member inline pattern (value: string) = Interop.mkAttr "pattern" value
+
     /// Defines a list of transform definitions that are applied to a pattern tile.
     static member inline patternTransform (transform: ITransformProperty) =
         Interop.mkAttr "patternTransform" (unbox<string> transform)
