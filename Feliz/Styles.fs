@@ -280,6 +280,153 @@ type style =
     /// Sets the margin area on the bottom of an element. A positive value places it farther from its
     /// neighbors, while a negative value places it closer.
     static member inline marginBottom(value: ICssUnit) = Interop.mkStyle "marginBottom" value
+
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(value: int) = Interop.mkStyle "marginBlock" value
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(value: ICssUnit) = Interop.mkStyle "marginBlock" value
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(blockStart: int, blockEnd: int) =
+        Interop.mkStyle "marginBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(blockStart: ICssUnit, blockEnd: int) =
+        Interop.mkStyle "marginBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(blockStart: int, blockEnd: ICssUnit) =
+        Interop.mkStyle "marginBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlock(blockStart: ICssUnit, blockEnd: ICssUnit) =
+        Interop.mkStyle "marginBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    
+    /// Defines the logical block start margin of an element, which
+    /// maps to a physical margin depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlockStart(value: int) =
+        Interop.mkStyle "marginBlockStart" value
+    /// Defines the logical block start margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlockStart(value: ICssUnit) =
+        Interop.mkStyle "marginBlockStart" value
+    
+    /// Defines the logical block end margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlockEnd(value: int) =
+        Interop.mkStyle "marginBlockEnd" value
+    /// Defines the logical block end margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
+    static member inline marginBlockEnd(value: ICssUnit) =
+        Interop.mkStyle "marginBlockEnd" value
+
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(value: int) = Interop.mkStyle "marginInline" value
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(value: ICssUnit) = Interop.mkStyle "marginInline" value
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(inlineStart: int, inlineEnd: int) =
+        Interop.mkStyle "marginInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(inlineStart: ICssUnit, inlineEnd: int) =
+        Interop.mkStyle "marginInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(inlineStart: int, inlineEnd: ICssUnit) =
+        Interop.mkStyle "marginInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end margins of an element,
+    /// which maps to a physical margin depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+    static member inline marginInline(inlineStart: ICssUnit, inlineEnd: ICssUnit) =
+        Interop.mkStyle "marginInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    
+    /// Defines the logical inline start margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-start
+    static member inline marginInlineStart(value: int) =
+        Interop.mkStyle "marginInlineStart" value
+    /// Defines the logical inline start margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-start
+    static member inline marginInlineStart(value: ICssUnit) =
+        Interop.mkStyle "marginInlineStart" value
+    
+    /// Defines the logical inline end margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-end
+    static member inline marginInlineEnd(value: int) =
+        Interop.mkStyle "marginInlineEnd" value
+    /// Defines the logical inline end margin of an element, which maps
+    /// to a physical margin depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-end
+    static member inline marginInlineEnd(value: ICssUnit) =
+        Interop.mkStyle "marginInlineEnd" value
+
     /// Sets the padding area on all four sides of an element. It is a shorthand for padding-top,
     /// padding-right, padding-bottom, and padding-left.
     static member inline padding(value: int) = Interop.mkStyle "padding" value
@@ -538,6 +685,152 @@ type style =
     static member inline paddingTop(value: int) = Interop.mkStyle "paddingTop" value
     /// Sets the height of the padding area on the top of an element.
     static member inline paddingTop(value: ICssUnit) = Interop.mkStyle "paddingTop" value
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(value: int) = Interop.mkStyle "marginBlock" value
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(value: ICssUnit) = Interop.mkStyle "marginBlock" value
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(blockStart: int, blockEnd: int) =
+        Interop.mkStyle "paddingBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(blockStart: ICssUnit, blockEnd: int) =
+        Interop.mkStyle "paddingBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(blockStart: int, blockEnd: ICssUnit) =
+        Interop.mkStyle "paddingBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlock(blockStart: ICssUnit, blockEnd: ICssUnit) =
+        Interop.mkStyle "paddingBlock" (
+            unbox<string> blockStart + " " +
+            unbox<string> blockEnd
+        )
+    
+    /// Defines the logical block start padding of an element, which
+    /// maps to a physical padding properties depending on the element's writing
+    /// mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlockStart(value: int) =
+        Interop.mkStyle "paddingBlockStart" value
+    /// Defines the logical block start padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlockStart(value: ICssUnit) =
+        Interop.mkStyle "paddingBlockStart" value
+    
+    /// Defines the logical block end padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlockEnd(value: int) =
+        Interop.mkStyle "paddingBlockEnd" value
+    /// Defines the logical block end padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
+    static member inline paddingBlockEnd(value: ICssUnit) =
+        Interop.mkStyle "paddingBlockEnd" value
+
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(value: int) = Interop.mkStyle "marginInline" value
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(value: ICssUnit) = Interop.mkStyle "marginInline" value
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(inlineStart: int, inlineEnd: int) =
+        Interop.mkStyle "paddingInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(inlineStart: ICssUnit, inlineEnd: int) =
+        Interop.mkStyle "paddingInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(inlineStart: int, inlineEnd: ICssUnit) =
+        Interop.mkStyle "paddingInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    /// Defines the logical inline start and end paddings of an element,
+    /// which maps to a physical padding properties depending on the element's
+    /// writing mode, directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline
+    static member inline paddingInline(inlineStart: ICssUnit, inlineEnd: ICssUnit) =
+        Interop.mkStyle "paddingInline" (
+            unbox<string> inlineStart + " " +
+            unbox<string> inlineEnd
+        )
+    
+    /// Defines the logical inline start padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-start
+    static member inline paddingInlineStart(value: int) =
+        Interop.mkStyle "paddingInlineStart" value
+    /// Defines the logical inline start padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-start
+    static member inline paddingInlineStart(value: ICssUnit) =
+        Interop.mkStyle "paddingInlineStart" value
+    
+    /// Defines the logical inline end padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-end
+    static member inline paddingInlineEnd(value: int) =
+        Interop.mkStyle "paddingInlineEnd" value
+    /// Defines the logical inline end padding of an element, which maps
+    /// to a physical padding properties depending on the element's writing mode,
+    /// directionality, and text orientation.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-end
+    static member inline paddingInlineEnd(value: ICssUnit) =
+        Interop.mkStyle "paddingInlineEnd" value
+
     /// Sets the flex shrink factor of a flex item. If the size of all flex items is larger than
     /// the flex container, items shrink to fit according to flex-shrink.
     static member inline flexShrink(value: int) = Interop.mkStyle "flexShrink" value
@@ -2138,7 +2431,146 @@ type style =
     /// Sets the CSS properties to which a transition effect should be applied.
     static member inline transitionProperty (property: string) =
         Interop.mkStyle "transitionProperty" property
+    
+    /// Sets how intermediate values are calculated for CSS properties being affected by a transition effect.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
+    static member inline transitionTimingFunction (timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transitionTimingFunction" timingFunction
+    
+    /// Sets how intermediate values are calculated for CSS properties being affected by a transition effect.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
+    static member inline transitionTimingFunction (timingFunction: string) =
+        Interop.mkStyle "transitionTimingFunction" timingFunction
 
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: TimeSpan) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: TimeSpan) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: TimeSpan, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: TimeSpan, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, durationInMs: int, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, durationInMs: int, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: TimeSpan, delay: TimeSpan) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> delay.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: TimeSpan, delay: TimeSpan) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> delay.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, durationInMs: int, delayInMs: int) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> delayInMs + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, durationInMs: int, delayInMs: int) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> delayInMs + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: TimeSpan, timingFunction: ITransitionTimingFunction, delay: TimeSpan) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction,
+            unbox<string> delay.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: TimeSpan, timingFunction: ITransitionTimingFunction, delay: TimeSpan) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction,
+            unbox<string> delay.TotalMilliseconds + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, durationInMs: int, timingFunction: ITransitionTimingFunction, delayInMs: int) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> timingFunction,
+            unbox<string> delayInMs + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, durationInMs: int, timingFunction: ITransitionTimingFunction, delayInMs: int) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            unbox<string> durationInMs + "ms " +
+            unbox<string> timingFunction,
+            unbox<string> delayInMs + "ms "
+        )
+    
     static member inline transform(transformation: ITransformProperty) =
         Interop.mkStyle "transform" transformation
 
@@ -2157,24 +2589,42 @@ type style =
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     static member inline fontSize(size: ICssUnit) = Interop.mkStyle "fontSize" size
-    /// Specifies the height of a text lines.
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+    /// 
+    /// The used value is this unitless number multiplied by the element's own font size. The computed
+    /// value is the same as the specified number. In most cases, this is the preferred way to set
+    /// line-height and avoid unexpected results due to inheritance.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     ///
     /// Note: Negative values are not allowed.
-    static member inline lineHeight(size: int) = Interop.mkStyle "lineHeight" (unbox<string> size + "px")
-    /// Specifies the height of a text lines.
+    static member inline lineHeight(size: int) = Interop.mkStyle "lineHeight" size
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+    ///
+    /// The used value is this unitless number multiplied by the element's own font size. The computed
+    /// value is the same as the specified number. In most cases, this is the preferred way to set
+    /// line-height and avoid unexpected results due to inheritance.
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     ///
     /// Note: Negative values are not allowed.
-    static member inline lineHeight(size: float) = Interop.mkStyle "lineHeight" (unbox<string> size + "px")
-    /// Specifies the height of a text lines.
+    static member inline lineHeight(size: float) = Interop.mkStyle "lineHeight" size
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     ///
     /// Note: Negative values are not allowed.
     static member inline lineHeight(size: ICssUnit) = Interop.mkStyle "lineHeight" size
+
     /// Sets the background color of an element.
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
     /// Sets the color of the insertion caret, the visible marker where the next character typed will be inserted.
@@ -2263,10 +2713,30 @@ type style =
     /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
     ///
     /// The `outline-color` property specifies the color of an outline.
-
+    /// 
     /// **Note**: Always declare the outline-style property before the outline-color property. An element must have an outline before you change the color of it.
     static member inline outlineColor (color: string) =
         Interop.mkStyle "outlineColor" color
+    
+    /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
+    /// The outline shorthand property sets most of the outline properties in a single declaration.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/outline
+    static member inline outline (width: int, style: IBorderStyle, color: string) =
+        Interop.mkStyle "outline" (
+            (unbox<string> width) + "px " +
+            (unbox<string> style) + " " +
+            color
+        )
+    /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
+    /// The outline shorthand property sets most of the outline properties in a single declaration.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/outline
+    static member inline outline (width: ICssUnit, style: IBorderStyle, color: string) =
+        Interop.mkStyle "outline" (
+            (unbox<string> width) + " " +
+            (unbox<string> style) + " " +
+            color
+        )
+    
     /// Set an element's left border.
     static member inline borderLeft(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderLeft" (
@@ -2657,7 +3127,25 @@ type style =
             unbox<string> xOffset + " " +
             unbox<string> yOffset + " " +
             unbox<string> zOffset
-        ) 
+        )
+    
+    /// Sets the color of the scrollbar track and thumb.
+    /// The track refers to the background of the scrollbar, which
+    /// is generally fixed regardless of the scrolling position.
+    /// The thumb refers to the moving part of the scrollbar, which
+    /// usually floats on top of the track.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
+    static member inline scrollbarColor (color: string) =
+        Interop.mkStyle "scrollbarColor" color
+    
+    /// Sets the color of the scrollbar track and thumb.
+    /// The track refers to the background of the scrollbar, which
+    /// is generally fixed regardless of the scrolling position.
+    /// The thumb refers to the moving part of the scrollbar, which
+    /// usually floats on top of the track.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
+    static member inline scrollbarColor (thumbColor: string, trackColor: string) =
+        Interop.mkStyle "scrollbarColor" (thumbColor + " " + trackColor)
     
 [<Erase>]
 module style =
@@ -2803,6 +3291,10 @@ module style =
         static member inline preline = Interop.mkStyle "whiteSpace" "pre-line"
         /// Whitespace is preserved by the browser. Text will wrap when necessary, and on line breaks
         static member inline prewrap = Interop.mkStyle "whiteSpace" "pre-wrap"
+        /// The behavior is identical to that of pre-wrap, except that:
+        /// *) Any sequence of preserved white space or other space separators always takes up space, including at the end of the line.
+        /// *) A soft wrap opportunity exists after every preserved white space character and after every other space separator (including between adjacent spaces).
+        static member inline breakSpaces = Interop.mkStyle "whiteSpace" "break-spaces"
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "whiteSpace" "initial"
         /// Inherits this property from its parent element.
@@ -2834,6 +3326,141 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "scrollBehavior" "inherit"
 
+    /// Sets how strictly snap points are enforced on the scroll container in case there is one.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type
+    [<Erase>]
+    type scrollSnapType =
+        /// When the visual viewport of this scroll container is scrolled, it must ignore snap points.
+        static member inline none = Interop.mkStyle "scrollSnapType" "none"
+        /// The scroll container snaps to snap positions in its horizontal axis only.
+        static member inline x = Interop.mkStyle "scrollSnapType" "x"
+        /// The scroll container snaps to snap positions in its vertical axis only.
+        static member inline y = Interop.mkStyle "scrollSnapType" "y"
+        /// The scroll container snaps to snap positions in its block axis only.
+        static member inline block = Interop.mkStyle "scrollSnapType" "block"
+        /// The scroll container snaps to snap positions in its inline axis only.
+        static member inline inline' = Interop.mkStyle "scrollSnapType" "inline"
+        /// The scroll container snaps to snap positions in both of its axes independently
+        /// (potentially snapping to different elements in each axis).
+        static member inline both = Interop.mkStyle "scrollSnapType" "both"
+        /// The scroll container snaps to snap positions in its horizontal axis only.
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline xMandatory = Interop.mkStyle "scrollSnapType" "x mandatory"
+        /// The scroll container snaps to snap positions in its horizontal axis only.
+        /// 
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline xProximity = Interop.mkStyle "scrollSnapType" "x proximity"
+        /// The scroll container snaps to snap positions in its vertical axis only.
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline yMandatory = Interop.mkStyle "scrollSnapType" "y mandatory"
+        /// The scroll container snaps to snap positions in its vertical axis only.
+        ///
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline yProximity = Interop.mkStyle "scrollSnapType" "y proximity"
+        /// The scroll container snaps to snap positions in its block axis only.
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline blockMandatory = Interop.mkStyle "scrollSnapType" "block mandatory"
+        /// The scroll container snaps to snap positions in its block axis only.
+        ///
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline blockProximity = Interop.mkStyle "scrollSnapType" "block proximity"
+        /// The scroll container snaps to snap positions in its inline axis only.
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline inlineMandatory = Interop.mkStyle "scrollSnapType" "inline mandatory"
+        /// The scroll container snaps to snap positions in its inline axis only.
+        ///
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline inlineProximity = Interop.mkStyle "scrollSnapType" "inline proximity"
+        /// The scroll container snaps to snap positions in both of its axes independently
+        /// (potentially snapping to different elements in each axis).
+        /// 
+        /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
+        static member inline bothMandatory = Interop.mkStyle "scrollSnapType" "both mandatory"
+        /// The scroll container snaps to snap positions in both of its axes independently
+        /// (potentially snapping to different elements in each axis).
+        ///
+        /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
+        /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
+        /// if any snap axis is specified.
+        static member inline bothProximity = Interop.mkStyle "scrollSnapType" "both proximity"
+
+    /// Specifies the box's snap position as an alignment of its snap area (as the alignment subject)
+    /// within its snap container's snap port (as the alignment container).
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align
+    [<Erase>]
+    type scrollSnapAlign =
+        /// This box does not define a snap position in the specified axis. 
+        static member inline none = Interop.mkStyle "scrollSnapAlign" "none"
+        /// Start alignment of this box’s scroll snap area within the scroll
+        /// container’s snapport is a snap position in the specified axis. 
+        static member inline start = Interop.mkStyle "scrollSnapAlign" "start"
+        /// Center alignment of this box’s scroll snap area within the scroll
+        /// container’s snapport is a snap position in the specified axis. 
+        static member inline center = Interop.mkStyle "scrollSnapAlign" "center"
+        /// End alignment of this box’s scroll snap area within the scroll
+        /// container’s snapport is a snap position in the specified axis. 
+        static member inline end' = Interop.mkStyle "scrollSnapAlign" "end"
+        static member inline noneStart = Interop.mkStyle "scrollSnapAlign" "none start"
+        static member inline noneCenter = Interop.mkStyle "scrollSnapAlign" "none center"
+        static member inline noneEnd =  Interop.mkStyle "scrollSnapAlign" "none end"
+        static member inline startNone = Interop.mkStyle "scrollSnapAlign" "start none"
+        static member inline startCenter = Interop.mkStyle "scrollSnapAlign" "start center"
+        static member inline startEnd =  Interop.mkStyle "scrollSnapAlign" "start end"
+        static member inline centerNone = Interop.mkStyle "scrollSnapAlign" "center none"
+        static member inline centerStart = Interop.mkStyle "scrollSnapAlign" "center start"
+        static member inline centerEnd =  Interop.mkStyle "scrollSnapAlign" "center end"
+        static member inline endNone = Interop.mkStyle "scrollSnapAlign" "end none"
+        static member inline endStart = Interop.mkStyle "scrollSnapAlign" "end start"
+        static member inline endCenter =  Interop.mkStyle "scrollSnapAlign" "end center"
+    
+    
+    
+    /// Sets the maximum thickness of an element's scrollbars when they are shown.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width
+    [<Erase>]
+    type scrollbarWidth =
+        /// The default scrollbar width for the platform.
+        static member inline auto = Interop.mkStyle "scrollbarWidth" "auto"
+        /// A thin scrollbar width variant on platforms that provide that option,
+        /// or a thinner scrollbar than the default platform scrollbar width. 
+        static member inline thin = Interop.mkStyle "scrollbarWidth" "thin"
+        /// No scrollbar shown, however the element will still be scrollable.
+        static member inline none = Interop.mkStyle "scrollbarWidth" "none"
+    
+    /// Reserves space for the scrollbar, preventing unwanted layout changes as
+    /// the content grows while also avoiding unnecessary visuals when scrolling
+    /// isn't needed.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter
+    [<Erase>]
+    type scrollbarGutter =
+        /// The initial value. Classic scrollbars create a gutter when overflow
+        /// is scroll, or when overflow is auto and the box is overflowing.
+        /// Overlay scrollbars do not consume space.
+        static member inline auto = Interop.mkStyle "scrollbarGutter" "auto"
+        /// When using classic scrollbars, the gutter will be present if overflow
+        /// is auto, scroll, or hidden even if the box is not overflowing.
+        /// When using overlay scrollbars, the gutter will not be present.
+        static member inline stable = Interop.mkStyle "scrollbarGutter" "stable"
+        /// When using classic scrollbars, the gutter will be present if overflow
+        /// is auto, scroll, or hidden even if the box is not overflowing.
+        /// When using overlay scrollbars, the gutter will not be present.
+        /// 
+        /// If a gutter would be present on one of the inline start/end edges
+        /// of the box, another will be present on the opposite edge as well.
+        static member inline stableBothEdges = Interop.mkStyle "scrollbarGutter" "stable both-edges"
+    
     [<Erase>]
     type overflow =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
@@ -5776,4 +6403,14 @@ module style =
         static member inline math = Interop.mkStyle "fontSize" "math"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "fontSize" "inherit"
+    
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+    [<Erase>]
+    type lineHeight =
+        /// Depends on the user agent. Desktop browsers (including Firefox)
+        /// use a default value of roughly 1.2, depending on the element's font-family.
+        static member inline normal = Interop.mkStyle "lineHeight" "normal"
     

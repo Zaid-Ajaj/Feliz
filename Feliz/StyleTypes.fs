@@ -42,6 +42,10 @@ type ICssUnit = interface end
 
 type ITransitionProperty = interface end
 
+type ITransitionJumpTerm = interface end
+
+type ITransitionTimingFunction = interface end
+
 type ITransformProperty = interface end
 
 type ITransformOrigin = interface end
