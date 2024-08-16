@@ -8,7 +8,12 @@ The implementation of this approach is made possible using a React hook called `
 
 ### Install into your project
 ```bash
+npm install use-sync-external-store
 dotnet add package Feliz.UseElmish
+
+or
+
+dotnet femto install Feliz.UseElmish
 ```
 
 Here is an example to demonstrate how to build such component:
