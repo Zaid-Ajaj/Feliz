@@ -49,6 +49,30 @@ module internal ReactComponentHelpers =
             { decl with MemberRef = info; Args = []; Body = body }
 
         | _ -> { decl with Body = injectReactImport decl.Body }
+        
+    let rewriteArgs (decl: MemberDecl) =
+      // rewrite all other arguments into getters of a single props object
+      // TODO: transform any callback into into useCallback(callback) to stabilize reference
+      let propsArg = AstUtils.makeIdent (sprintf "%sInputProps" (AstUtils.camelCase decl.Name))
+      let propBindings =
+          ([], decl.Args) ||> List.fold (fun bindings arg ->
+              let getterKey = if arg.DisplayName = "key" then "$key" else arg.DisplayName
+              let getterKind = ExprGet(AstUtils.makeStrConst getterKey)
+              let getter = Get(IdentExpr propsArg, getterKind, Any, None)
+              (arg, getter)::bindings)
+          |> List.rev
+
+      let body =
+          match decl.Body with
+          // If the body is surrounded by a memo call we put the bindings within the call
+          // because Fable will later move the surrounding function into memo
+          | Call(ReactMemo reactMemo, ({ Args = arg::restArgs } as callInfo), t, r) ->
+              let arg = propBindings |> List.fold (fun body (k,v) -> Let(k, v, body)) arg
+              Call(reactMemo, { callInfo with Args = arg::restArgs }, t, r)
+          | _ ->
+              propBindings |> List.fold (fun body (k,v) -> Let(k, v, body)) decl.Body
+
+      { decl with Args = [propsArg]; Body = body }
 
 open ReactComponentHelpers
 
@@ -74,16 +98,40 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     callee
 
             if List.length membArgs = info.Args.Length && info.Args.Length = 1 && AstUtils.isRecord compiler info.Args[0].Type then
+                
+                // declared record
+                // https://github.com/Zaid-Ajaj/Feliz/issues/603
                 // F# Component { Value = 1 }
+                // JSX <Component props={ Value={1} } />
+                // JS createElement(Component, props = { Value: 1 })
+                
+                // anonymous record
+                // F# Component {| Value = 1 |}
                 // JSX <Component Value={1} />
                 // JS createElement(Component, { Value: 1 })
-                if AstUtils.recordHasField "Key" compiler info.Args[0].Type then
+                
+                let isDeclaredRecord = AstUtils.isDeclaredRecord compiler info.Args[0].Type
+                
+                match AstUtils.tryGetRecordField "key" compiler info.Args[0].Type with
+                | Some keyField when isDeclaredRecord ->
                     // When the key property is upper-case (which is common in record fields)
                     // then we should rewrite it
-                    let modifiedRecord = AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args[0]]
+                    let modifiedRecord =
+                        AstUtils.emitJs
+                          (sprintf "(($value) => { $value.key = $value.%s.%s; return $value; })($0)" (membArgs[0].Name.Value) keyField)
+                          [ AstUtils.objExpr [ membArgs[0].Name.Value, info.Args[0]] ]
                     AstUtils.createElement reactElType [reactComponent; modifiedRecord]
-                else
-                    AstUtils.createElement reactElType [reactComponent; info.Args[0]]
+                | Some "Key" -> // anonymous record won't have wrapped object so 'key' (lowercase) prop is automatically recognized
+                    let modifiedRecord =
+                      AstUtils.emitJs "(($value) => { $value.key = $value.Key; return $value; })($0)" [info.Args[0]]
+                    AstUtils.createElement reactElType [reactComponent; modifiedRecord]
+                | _ ->
+                    let value =
+                      if isDeclaredRecord then
+                        AstUtils.objExpr [ membArgs[0].Name.Value, info.Args[0] ]
+                      else
+                        info.Args[0]
+                    AstUtils.createElement reactElType [reactComponent; value]
             elif info.Args.Length = 1 && info.Args[0].Type = Type.Unit then
                 // F# Component()
                 // JSX <Component />
@@ -93,7 +141,8 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 let mutable keyBinding = None
 
                 let propsObj =
-                    List.zip (List.take info.Args.Length membArgs) info.Args
+                    info.Args
+                    |> List.zip (List.take info.Args.Length membArgs) 
                     |> List.collect (fun (arg, expr) ->
                         match arg.Name, expr with
                         | Some "key", IdentExpr _ -> ["key", expr; "$key", expr]
@@ -144,8 +193,18 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                 | Some true -> { decl with Tags = "export-default"::decl.Tags }
                 | Some false | None -> decl
 
-            // do not rewrite components accepting records as input
-            if decl.Args.Length = 1 && AstUtils.isRecord compiler decl.Args[0].Type then
+            // do not rewrite components accepting anonymous records as input
+            if decl.Args.Length = 1 && AstUtils.isAnonymousRecord decl.Args.[0].Type then
+                if AstUtils.tryGetRecordField "key" compiler decl.Args[0].Type = Some "key" then
+                  let errorMessage =
+                    sprintf "The function %s expects an anonymous record with a 'key' property, which is not allowed by React. The value will be erased and it will return undefined. More info: https://reactjs.org/link/special-props" decl.Name
+                  compiler.LogWarning(errorMessage, ?range=decl.Body.Range)
+                
+                decl
+                |> applyImportOrMemo import from memo
+            // put record into a single props object to stabilize prototype chain
+            // https://github.com/Zaid-Ajaj/Feliz/issues/603
+            elif decl.Args.Length = 1 && AstUtils.isDeclaredRecord compiler decl.Args[0].Type then
                 // check whether the record type is defined in this file
                 // trigger warning if that is case
                 let definedInThisFile =
@@ -186,34 +245,15 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
                     ()
 
                 decl
+                |> rewriteArgs
                 |> applyImportOrMemo import from memo
             else if decl.Args.Length = 1 && decl.Args[0].Type = Type.Unit then
                 // remove arguments from functions requiring unit as input
                 { decl with Args = [ ] }
                 |> applyImportOrMemo import from memo
             else
-                // rewrite all other arguments into getters of a single props object
-                // TODO: transform any callback into into useCallback(callback) to stabilize reference
-                let propsArg = AstUtils.makeIdent (sprintf "%sInputProps" (AstUtils.camelCase decl.Name))
-                let propBindings =
-                    ([], decl.Args) ||> List.fold (fun bindings arg ->
-                        let getterKey = if arg.DisplayName = "key" then "$key" else arg.DisplayName
-                        let getterKind = ExprGet(AstUtils.makeStrConst getterKey)
-                        let getter = Get(IdentExpr propsArg, getterKind, Any, None)
-                        (arg, getter)::bindings)
-                    |> List.rev
-
-                let body =
-                    match decl.Body with
-                    // If the body is surrounded by a memo call we put the bindings within the call
-                    // because Fable will later move the surrounding function into memo
-                    | Call(ReactMemo reactMemo, ({ Args = arg::restArgs } as callInfo), t, r) ->
-                        let arg = propBindings |> List.fold (fun body (k,v) -> Let(k, v, body)) arg
-                        Call(reactMemo, { callInfo with Args = arg::restArgs }, t, r)
-                    | _ ->
-                        propBindings |> List.fold (fun body (k,v) -> Let(k, v, body)) decl.Body
-
-                { decl with Args = [propsArg]; Body = body }
+                decl
+                |> rewriteArgs
                 |> applyImportOrMemo import from memo
 
 type ReactMemoComponentAttribute(?exportDefault: bool) =
