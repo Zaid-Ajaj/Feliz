@@ -129,3 +129,9 @@ let Main() =
         ]
     ]
 ```
+
+When `renderChild` is set to `false`, the statement `if renderChild then UseToken(setFailed)` causes the `UseToken` component to be unmounted. During this process, the cancellation token created by `React.useCancellationToken()` inside `UseToken` is automatically disposed. 
+
+Since the async operation was started with `Async.StartImmediate(a,token.current)`, the disposal of the token cancels the ongoing asynchronous task. This prevents the async code from continuing to execute and potentially causing errors or unexpected behavior after the component is no longer displayed.
+
+This pattern ensures that asynchronous operations are properly cleaned up when components are unmounted, which is crucial for preventing memory leaks and maintaining the expected behavior of your React application.
