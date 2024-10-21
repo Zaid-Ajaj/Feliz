@@ -7,7 +7,6 @@
     <PackageReference Include="Feliz" Version="2.8.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LazyState.fs" />
     <Compile Include="MultipleStateVariables.fs" />
     <Compile Include="GreetingsStatic.fs" />
     <Compile Include="Greeting.fs" />
