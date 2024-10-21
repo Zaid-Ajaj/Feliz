@@ -18,7 +18,7 @@ import rawCounter from '/src/components/fsharp/Counter.fs?raw';
 import {Counter} from '/src/components/fsharp/Counter.jsx';
 
 <Code code={rawCounter} lang='fsharp' mark={"React.useState"} />
-<Counter client:only/>
+<Counter client:only="react"/>
 
 The hook `React.useState` is one of the most useful hooks which allows you to define a *state variable*. The syntax of `React.useState` follows:
 ```fs
@@ -42,7 +42,7 @@ import rawMultipleStateVariables from '/src/components/fsharp/MultipleStateVaria
 import {MultipleStateVariables} from '/src/components/fsharp/MultipleStateVariables.jsx';
 
 <Code code={rawMultipleStateVariables} lang='fsharp' mark={"React.useState"} />
-<MultipleStateVariables client:only/>
+<MultipleStateVariables client:only="react"/>
 
 ### Lazy State
 

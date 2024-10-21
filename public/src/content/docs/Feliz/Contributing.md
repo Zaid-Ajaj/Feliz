@@ -18,5 +18,5 @@ import rawCounter from '/src/components/fsharp/Counter.fs?raw';
 import {Counter} from '/src/components/fsharp/Counter.jsx';
 
 <Code code={rawCounter} lang='fsharp'/>
-<Counter client:only/>
+<Counter client:only="react"/>
 ```
