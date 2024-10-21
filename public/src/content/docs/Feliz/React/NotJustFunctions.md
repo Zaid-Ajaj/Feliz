@@ -1,3 +1,7 @@
+---
+title: Not Just Functions
+---
+
 # Not Just Functions
 
 In the previous section, we defined stateless components and used them like other UI elements. You might be wondering: "Well, isn't this `Greeting` component the same as a *function* that just takes a record of type `Greeting` as input and returns `ReactElement`"?

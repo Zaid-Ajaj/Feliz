@@ -1,3 +1,6 @@
+---
+title: Code Splitting
+---
 # Code Splitting
 
 There are two components involved when implementing code splitting: `React.lazy'` and `React.suspense`.

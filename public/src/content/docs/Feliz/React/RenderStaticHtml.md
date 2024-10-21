@@ -1,3 +1,7 @@
+---
+title: "Render Static Html"
+---
+
 # Render Static Html
 
 Using Feliz, you can render static HTML as a string from a `ReactElement` using the `ReactDOMServer` API.

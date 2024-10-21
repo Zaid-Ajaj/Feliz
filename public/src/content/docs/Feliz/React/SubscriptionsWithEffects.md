@@ -1,3 +1,7 @@
+---
+title: Subscriptions with Effects
+---
+
 # Subscriptions with Effects
 
 In the previous section, we saw how `React.useEffect` can be used to issue a side-effect and control when and how that effect is re-executed. However, there are cases where you want to have some **cleanup** code after the component unmounts or the props has changed. For example when we subscribe to some event as the component mounts, we want to unsubscribe to that event when the component unmounts.

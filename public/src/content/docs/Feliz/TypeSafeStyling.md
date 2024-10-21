@@ -1,4 +1,6 @@
-# Type-Safe Styling
+---
+title: Type-Safe Styling
+---
 
 Feliz aims to provide a fully type-safe API around CSS and React styling such that the only possible values you can use are those that are valid but also these values will be very easy to find under the `style` module:
 ```fs

@@ -1,4 +1,8 @@
-# Project Template [![Nuget](https://img.shields.io/nuget/v/Feliz.Template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.Template)
+---
+title: Project Template
+---
+
+[![Nuget](https://img.shields.io/nuget/v/Feliz.Template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz.Template)
 
 Feliz includes a template that scaffolds a full-fledged frontend application in one go. This is the easiest way to get started with Feliz and Elmish. The template also includes a test project that can run live in the browser or using node.js and mocha.
 

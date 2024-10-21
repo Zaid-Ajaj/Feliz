@@ -1,4 +1,6 @@
-# Syntax
+---
+title: Syntax
+---
 
 Elements can take simple values as their only input such a string, a number, a single child element or a list of child elements.
 
@@ -26,9 +28,13 @@ Html.h1 [
     ]
 ]
 ```
-Note that you can't mix attributes and child elements. If you use the component overload taking `IReactProperty list`, you must use `prop.children` to specify the child elements, as shown above.
 
-However, in the specific case of a single `Html.text` child, you can also use the `prop.text` alias. The code above is the same as this:
+:::note
+You can't mix attributes and child elements. If you use the component overload taking `IReactProperty list`, you must use `prop.children` to specify the child elements, as shown above.
+:::
+
+If you want to declare a single `Html.text` child, you can also use the `prop.text` alias. The code above is the same as this:
+
 ```fs
 Html.h1 [
     prop.className "title"

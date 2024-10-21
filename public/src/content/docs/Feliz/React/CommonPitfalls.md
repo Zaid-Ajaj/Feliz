@@ -1,3 +1,7 @@
+---
+title: Common Pitfalls
+---
+
 # Common Pitfalls (Applies only to Fable 2.x)
 
 When using React components, there are a couple of gotcha's to watch out for. Here are some examples to follow from.

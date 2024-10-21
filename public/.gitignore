@@ -19,3 +19,8 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+.fake
+
+src/components/fsharp/*.jsx
+fable_modules

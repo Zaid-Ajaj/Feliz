@@ -1,3 +1,7 @@
+---
+title: Strict Mode
+---
+
 # Strict Mode
 
 Strict mode is a tool for highlighting potential problems in an application. Like `React.fragment`,

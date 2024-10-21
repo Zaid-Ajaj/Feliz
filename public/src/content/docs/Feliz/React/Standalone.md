@@ -1,3 +1,7 @@
+---
+title: Standalone
+---
+
 # Standalone React Applications
 
 Feliz aims to fully support the React API so that it can be used to build React applications standalone with or without Elmish which is mostly responsible for the state and effect management. You get the best of the both worlds when you combine Elmish patterns with those from React using Feliz.

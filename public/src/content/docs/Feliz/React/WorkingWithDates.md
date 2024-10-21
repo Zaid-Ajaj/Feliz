@@ -1,3 +1,7 @@
+---
+title: Working with dates
+---
+
 # Working with dates
 
 The browsers' `Html.input` elements implement native date selectors when the `type` property is either

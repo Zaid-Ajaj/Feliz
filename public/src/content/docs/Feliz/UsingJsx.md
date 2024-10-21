@@ -1,3 +1,6 @@
+---
+title: Using JSX
+---
 # Using JSX
 
 The DSL provided by Feliz makes it possible to write HTML code in a way that fits nicely with F#: using lists. However, it takes a bit of time to get used to it and sometimes it can get verbose compared to its plain old HTML equivalent especially in parts of the application where there is a lot of rich-formatted text using `<span>`, `<a>`, `<strong>` etc.

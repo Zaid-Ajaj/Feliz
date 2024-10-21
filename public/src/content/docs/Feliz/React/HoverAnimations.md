@@ -1,3 +1,7 @@
+---
+title: "Hover Animations"
+---
+
 # Hover Animations
 
 You can use React components to implement hover animations for elements without writing any CSS. This is done by keeping track of a hover state flag and toggling it on or off when the mouse enters or leaves the elements. Here is an example:

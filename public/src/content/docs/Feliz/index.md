@@ -1,4 +1,12 @@
-# Feliz [![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz) [![Build status](https://ci.appveyor.com/api/projects/status/yqinhayy1pgfcubp/branch/master?svg=true)](https://ci.appveyor.com/project/Zaid-Ajaj/feliz/branch/master)
+---
+title: Overview
+---
+
+# Feliz 
+
+<span style="display: flex; gap: .5rem">[![Nuget](https://img.shields.io/nuget/v/Feliz.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/Feliz)
+[![Build status](https://ci.appveyor.com/api/projects/status/yqinhayy1pgfcubp/branch/master?svg=true)](https://ci.appveyor.com/project/Zaid-Ajaj/feliz/branch/master)
+</span>
 
 A fresh retake of the base React DSL to build React applications, optimized for happiness.
 

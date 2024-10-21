@@ -1,3 +1,7 @@
+---
+title: Portals
+---
+
 # Portals
 
 Portals provide a way to render components outside the DOM hierarchy of the parent component. Portals are often used to create dialog components in React applications.

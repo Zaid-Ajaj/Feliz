@@ -1,3 +1,7 @@
+---
+title: Using References
+---
+
 ### Using References
 
 Within function components, React allows us to use the so-called references. There references are just like state variables except that changes in their (mutable) values do not cause a re-render in the function component lifetime. These mutable values can be used to hold a reference to DOM elements and manipulate it on a low-level as opposed to using the declarative API. For example, you can use the focus of an input element by a click of a button:
