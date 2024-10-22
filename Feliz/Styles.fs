@@ -6055,6 +6055,14 @@ module style =
         static member inline darkSlateGray = Interop.mkStyle "color" "#2F4F4F"
         static member inline black = Interop.mkStyle "color" "#000000"
         static member inline transparent = Interop.mkStyle "color" "transparent"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "color" "inherit"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "color" "initial"
+        static member inline revert = Interop.mkStyle "color" "revert"
+        static member inline revertLayer = Interop.mkStyle "color" "revert-layer"
+        /// Resets to its inherited value if the property naturally inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "color" "unset"
 
     /// Sets the color of decorations added to text by text-decoration-line.
     [<Erase; RequireQualifiedAccess>]
@@ -6375,4 +6383,3 @@ module style =
         /// Depends on the user agent. Desktop browsers (including Firefox)
         /// use a default value of roughly 1.2, depending on the element's font-family.
         static member inline normal = Interop.mkStyle "lineHeight" "normal"
-    
