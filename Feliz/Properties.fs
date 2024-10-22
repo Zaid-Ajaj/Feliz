@@ -311,6 +311,11 @@ type prop =
     /// https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-required
     static member inline ariaRequired (value: bool) = Interop.mkAttr "aria-required" value
 
+    /// Defines a human-readable, author-localized description for the role of an element.
+    ///
+    /// https://www.w3.org/WAI/PF/wai-aria-1.1/states_and_properties#aria-roledescription
+    static member inline ariaRoleDescription (value: string) = Interop.mkAttr "aria-roledescription" value
+
     /// Indicates the current "selected" state of various widgets. See related
     /// `aria-checked` and `aria-pressed`.
     ///
