@@ -3135,15 +3135,6 @@ type style =
     /// The thumb refers to the moving part of the scrollbar, which
     /// usually floats on top of the track.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
-    static member inline scrollbarColor (color: string) =
-        Interop.mkStyle "scrollbarColor" color
-    
-    /// Sets the color of the scrollbar track and thumb.
-    /// The track refers to the background of the scrollbar, which
-    /// is generally fixed regardless of the scrolling position.
-    /// The thumb refers to the moving part of the scrollbar, which
-    /// usually floats on top of the track.
-    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
     static member inline scrollbarColor (thumbColor: string, trackColor: string) =
         Interop.mkStyle "scrollbarColor" (thumbColor + " " + trackColor)
     
@@ -3460,7 +3451,21 @@ module style =
         /// If a gutter would be present on one of the inline start/end edges
         /// of the box, another will be present on the opposite edge as well.
         static member inline stableBothEdges = Interop.mkStyle "scrollbarGutter" "stable both-edges"
-    
+
+    /// sets the color of the scrollbar track and thumb.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
+    [<Erase>]
+    type scrollbarColor =
+        static member inline auto = Interop.mkStyle "scrollbarColor" "auto"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "scrollbarColor" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "scrollbarColor" "initial"
+        /// Resets to its inherited value if the property naturally inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "scrollbarColor" "unset"
+        static member inline revert = Interop.mkStyle "scrollbarColor" "revert"
+        static member inline revertLayer = Interop.mkStyle "scrollbarColor" "revert-layer"
+
     [<Erase>]
     type overflow =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
