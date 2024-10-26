@@ -1,0 +1,43 @@
+---
+title: Installation
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+To install Feliz into your project, you need to install the nuget package into your F# project
+
+<Tabs syncKey="dep-manager">
+
+<TabItem label="Nuget">
+```bash
+dotnet add package Feliz
+```
+</TabItem>
+<TabItem label="Paket">
+```bash
+dotnet add package Feliz
+```
+</TabItem>
+<TabItem label="Femto">
+```bash
+cd ./project
+femto install Feliz
+```
+</TabItem>
+</Tabs>
+
+
+Then you need to install the corresponding npm dependencies. In case of Feliz, these are `react` and `react-dom`
+
+```bash
+npm install react@17.0.1 react-dom@17.0.1
+```
+
+### Use Femto
+
+If you happen to use [Femto](https://github.com/Zaid-Ajaj/Femto), then it can install everything for you in one go
+```bash
+cd ./project
+femto install Feliz
+```
+Here, the nuget package will be installed using the package manager that the project is using (detected by Femto) and then the required npm packages will be resolved

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Feliz" Version="2.8.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MultipleStateVariables.fs" />
+    <Compile Include="GreetingsStatic.fs" />
+    <Compile Include="Greeting.fs" />
+    <Compile Include="Greetings.fs" />
+    <Compile Include="Counter.fs" />
+  </ItemGroup>
+</Project>
