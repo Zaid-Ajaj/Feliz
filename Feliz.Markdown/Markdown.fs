@@ -65,7 +65,7 @@ module markdown =
     [<Erase>]
     type components =
         static member inline p(render: IParagraphProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "p" render)
-        static member inline linkReference(render: ILinkProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "linkReference" render)
+        static member inline a(render: ILinkProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "a" render)
         static member inline h1(render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h1" render)
         static member inline h2(render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h2" render)
         static member inline h3 (render: IHeadingProperties -> ReactElement) = unbox<IComponent> (Interop.mkAttr "h3" render)
