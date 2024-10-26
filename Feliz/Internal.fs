@@ -63,55 +63,15 @@ module Internal =
 
     [<Hook>]
     let useEffectOnce(effect: unit -> unit) =
-        let calledOnce = Interop.reactApi.useRefInternal false
-        
-        useEffectWithDeps (fun () ->
-            if not calledOnce.current then
-                calledOnce.current <- true
-                effect()
-        ) [||]
+        useEffectWithDeps effect [||]
 
     [<Hook>]
     let useEffectDisposableOnce (effect: unit -> #IDisposable) =
-        let destroyFunc = Interop.reactApi.useRefInternal None
-        let calledOnce = Interop.reactApi.useRefInternal false
-        let renderAfterCalled = Interop.reactApi.useRefInternal false
-
-        if calledOnce.current then
-            renderAfterCalled.current <- true
-
-        useEffectDisposableOptWithDeps (fun () -> 
-            if calledOnce.current 
-            then None
-            else
-                calledOnce.current <- true
-                destroyFunc.current <- effect() |> Some
-
-                if renderAfterCalled.current
-                then destroyFunc.current
-                else None
-        ) [||]
+        useEffectDisposableOptWithDeps (effect >> Some) [||]
 
     [<Hook>]
     let useEffectDisposableOptOnce (effect: unit -> #IDisposable option) =
-        let destroyFunc = Interop.reactApi.useRefInternal None
-        let calledOnce = Interop.reactApi.useRefInternal false
-        let renderAfterCalled = Interop.reactApi.useRefInternal false
-
-        if calledOnce.current then
-            renderAfterCalled.current <- true
-
-        useEffectDisposableOptWithDeps (fun () -> 
-            if calledOnce.current 
-            then None
-            else
-                calledOnce.current <- true
-                destroyFunc.current <- effect()
-
-                if renderAfterCalled.current
-                then destroyFunc.current
-                else None
-        ) [||]
+        useEffectDisposableOptWithDeps effect [||]
 
 
     let createContext<'a> (name: string option) (defaultValue: 'a option) =
