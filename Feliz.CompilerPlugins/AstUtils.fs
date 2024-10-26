@@ -74,6 +74,11 @@ let makeImport (selector: string) (path: string) =
                    Path = path.Trim()
                    Kind = Fable.UserImport(false) }, Fable.Any, None)
 
+let isDeclaredRecord (compiler: PluginHelper) (fableType: Fable.Type) =
+    match fableType with
+    | Fable.Type.DeclaredType (entity, genericArgs) -> compiler.GetEntity(entity).IsFSharpRecord
+    | _ -> false
+
 let isRecord (compiler: PluginHelper) (fableType: Fable.Type) =
     match fableType with
     | Fable.Type.AnonymousRecordType _ -> true
@@ -101,18 +106,20 @@ let isReactElement (fableType: Fable.Type) =
     | Fable.Type.DeclaredType (entity, genericArgs) -> entity.FullName.EndsWith "ReactElement"
     | _ -> false
 
-let recordHasField name (compiler: PluginHelper) (fableType: Fable.Type) =
+let tryGetRecordField (name: string) (compiler: PluginHelper) (fableType: Fable.Type) =
+    let name = name.ToLower()
     match fableType with
     | Fable.Type.AnonymousRecordType (fieldNames, genericArgs, _isStruct) ->
         fieldNames
-        |> Array.exists (fun field -> field = name)
+        |> Array.tryFind (fun field -> field.ToLower() = name)
 
     | Fable.Type.DeclaredType (entity, genericArgs) ->
         compiler.GetEntity(entity).FSharpFields
-        |> List.exists (fun field -> field.Name = name)
+        |> List.tryFind (fun field -> field.Name.ToLower() = name)
+        |> Option.map(fun field -> field.Name)
 
     | _ ->
-        false
+        None
 
 let memberName = function
     | Fable.MemberRef(_,m) -> m.CompiledName
