@@ -3135,17 +3135,14 @@ type style =
     /// The thumb refers to the moving part of the scrollbar, which
     /// usually floats on top of the track.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
-    static member inline scrollbarColor (color: string) =
-        Interop.mkStyle "scrollbarColor" color
-    
-    /// Sets the color of the scrollbar track and thumb.
-    /// The track refers to the background of the scrollbar, which
-    /// is generally fixed regardless of the scrolling position.
-    /// The thumb refers to the moving part of the scrollbar, which
-    /// usually floats on top of the track.
-    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
     static member inline scrollbarColor (thumbColor: string, trackColor: string) =
         Interop.mkStyle "scrollbarColor" (thumbColor + " " + trackColor)
+
+    /// Sets the order to lay out an item in a flex or grid container.
+    /// Items in a container are sorted by ascending order value and then by their source code order.
+    /// Items not given an explicit order value are assigned the default value of 0.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/order
+    static member inline order (value: int) = Interop.mkStyle "order" value
     
 [<Erase>]
 module style =
@@ -3460,7 +3457,21 @@ module style =
         /// If a gutter would be present on one of the inline start/end edges
         /// of the box, another will be present on the opposite edge as well.
         static member inline stableBothEdges = Interop.mkStyle "scrollbarGutter" "stable both-edges"
-    
+
+    /// sets the color of the scrollbar track and thumb.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
+    [<Erase>]
+    type scrollbarColor =
+        static member inline auto = Interop.mkStyle "scrollbarColor" "auto"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "scrollbarColor" "inherit"
+        /// Sets this property to its default value.
+        static member inline initial = Interop.mkStyle "scrollbarColor" "initial"
+        /// Resets to its inherited value if the property naturally inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "scrollbarColor" "unset"
+        static member inline revert = Interop.mkStyle "scrollbarColor" "revert"
+        static member inline revertLayer = Interop.mkStyle "scrollbarColor" "revert-layer"
+
     [<Erase>]
     type overflow =
         /// The content is not clipped, and it may be rendered outside the left and right edges. This is default.
@@ -5304,6 +5315,18 @@ module style =
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "position" "inherit"
 
+
+    [<Erase>]
+    type order =
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "order" "inherit"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "order" "initial"
+        /// Resets to its inherited value if the property naturally inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "order" "unset"
+        static member inline revert = Interop.mkStyle "order" "revert"
+        static member inline revertLayer = Interop.mkStyle "order" "revert-layer"
+
     /// Sets how the total width and height of an element is calculated.
     [<Erase>]
     type boxSizing =
@@ -6055,6 +6078,14 @@ module style =
         static member inline darkSlateGray = Interop.mkStyle "color" "#2F4F4F"
         static member inline black = Interop.mkStyle "color" "#000000"
         static member inline transparent = Interop.mkStyle "color" "transparent"
+        /// Inherits this property from its parent element.
+        static member inline inheritFromParent = Interop.mkStyle "color" "inherit"
+        /// Sets this property to its default value
+        static member inline initial = Interop.mkStyle "color" "initial"
+        static member inline revert = Interop.mkStyle "color" "revert"
+        static member inline revertLayer = Interop.mkStyle "color" "revert-layer"
+        /// Resets to its inherited value if the property naturally inherits from its parent, and to its initial value if not.
+        static member inline unset = Interop.mkStyle "color" "unset"
 
     /// Sets the color of decorations added to text by text-decoration-line.
     [<Erase; RequireQualifiedAccess>]
@@ -6413,4 +6444,3 @@ module style =
         /// Depends on the user agent. Desktop browsers (including Firefox)
         /// use a default value of roughly 1.2, depending on the element's font-family.
         static member inline normal = Interop.mkStyle "lineHeight" "normal"
-    

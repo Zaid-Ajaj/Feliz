@@ -34,6 +34,7 @@ type yAxis =
     static member inline allowDuplicatedCategory (value: bool) = Interop.mkYAxisAttr "allowDuplicatedCategory" value
     /// The count of axis ticks. Not used if 'type' is 'category'. Default is `5`.
     static member inline tickCount (value: int) = Interop.mkYAxisAttr "tickCount" value
+    static member inline tickFormatter (f: int -> string) = Interop.mkYAxisAttr "tickFormatter" f
     static member inline domain (min: IAxisDomain, max: IAxisDomain) = Interop.mkYAxisAttr "domain" [| min; max |]
     static member inline interval (value: int) = Interop.mkYAxisAttr "interval" value
     /// Specify the padding of y-axis. Default is `yAxis.padding(top=0, bottom=0)`.

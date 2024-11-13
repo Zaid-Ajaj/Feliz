@@ -4,9 +4,9 @@
         <PackageIconUrl></PackageIconUrl>
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
-        <Version>4.2.0</Version>
+        <Version>4.3.0</Version>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageReleaseNotes>added some of the missing props for XAxis, YAxis and scatter from the Recharts API page</PackageReleaseNotes>
+        <PackageReleaseNotes>Add yAxis tickFormatter</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
         <NpmDependencies>
