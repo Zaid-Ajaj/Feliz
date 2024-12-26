@@ -651,6 +651,9 @@ type prop =
     /// SVG attribute to define the size of the font from baseline to baseline when multiple
     /// lines of text are set solid in a multiline layout environment.
     static member inline fontSize (value: int) = Interop.mkAttr "fontSize" value
+    /// SVG attribute to define the size of the font from baseline to baseline when multiple
+    /// lines of text are set solid in a multiline layout environment.
+    static member inline fontSize (value: string) = Interop.mkAttr "fontSize" value
 
     /// A space-separated list of other elements’ ids, indicating that those elements contributed input
     /// values to (or otherwise affected) the calculation.
@@ -1738,6 +1741,8 @@ type prop =
     static member inline strokeWidth (value: ICssUnit) = Interop.mkAttr "strokeWidth" value
     /// SVG attribute to define the width of the stroke to be applied to the shape.
     static member inline strokeWidth (value: int) = Interop.mkAttr "strokeWidth" value
+    /// SVG attribute to define the width of the stroke to be applied to the shape.
+    static member inline strokeWidth (value: string) = Interop.mkAttr "strokeWidth" value
 
     static member inline style (properties: #IStyleAttribute list) = Interop.mkAttr "style" (createObj !!properties)
 

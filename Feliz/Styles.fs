@@ -14,6 +14,14 @@ type style =
     ///
     /// **Tip**: This property is useful if you want to create overlapping elements.
     static member inline zIndex(value: int) = Interop.mkStyle "zIndex" value
+    /// The zIndex property sets or returns the stack order of a positioned element.
+    ///
+    /// An element with greater stack order (1) is always in front of another element with lower stack order (0).
+    ///
+    /// **Tip**: A positioned element is an element with the position property set to: relative, absolute, or fixed.
+    ///
+    /// **Tip**: This property is useful if you want to create overlapping elements.
+    static member inline zIndex(value: string) = Interop.mkStyle "zIndex" value
     /// Sets the margin area on all four sides of an element. It is a shorthand for margin-top, margin-right,
     /// margin-bottom, and margin-left.
     static member inline margin(value: int) = Interop.mkStyle "margin" value
@@ -2390,6 +2398,9 @@ type style =
         Interop.mkStyle "transitionDuration" (unbox<string> timespan.TotalMilliseconds + "ms")
     /// Sets the length of time a transition animation should take to complete. By default, the
     /// value is 0s, meaning that no animation will occur.
+    static member inline transitionDuration(timespan: string) = Interop.mkStyle "transitionDuration" timespan
+    /// Sets the length of time a transition animation should take to complete. By default, the
+    /// value is 0s, meaning that no animation will occur.
     static member inline transitionDurationSeconds(n: float) =
         Interop.mkStyle "transitionDuration" ((unbox<string> n) + "s")
     /// Sets the length of time a transition animation should take to complete. By default, the
@@ -2404,9 +2415,14 @@ type style =
     /// value is 0s, meaning that no animation will occur.
     static member inline transitionDurationMilliseconds(n: int) =
         Interop.mkStyle "transitionDuration" ((unbox<string> n) + "ms")
+    /// Sets the length of time a transition animation should take to complete. By default, the
+    /// value is 0s, meaning that no animation will occur.
+    static member inline transitionDurationMilliseconds(value: string) = Interop.mkStyle "transitionDuration" value
     /// Specifies the duration to wait before starting a property's transition effect when its value changes.
     static member inline transitionDelay(timespan: TimeSpan) =
         Interop.mkStyle "transitionDelay" (unbox<string> timespan.TotalMilliseconds + "ms")
+    /// Specifies the duration to wait before starting a property's transition effect when its value changes.
+    static member inline transitionDelay(timespan: string) = Interop.mkStyle "transitionDelay" timespan
     /// Specifies the duration to wait before starting a property's transition effect when its value changes.
     static member inline transitionDelaySeconds(n: float) =
         Interop.mkStyle "transitionDelay" ((unbox<string> n) + "s")
@@ -2419,6 +2435,8 @@ type style =
     /// Specifies the duration to wait before starting a property's transition effect when its value changes.
     static member inline transitionDelayMilliseconds(n: int) =
         Interop.mkStyle "transitionDelay" ((unbox<string> n) + "ms")
+    /// Specifies the duration to wait before starting a property's transition effect when its value changes.
+    static member inline transitionDelayMilliseconds(value: string) = Interop.mkStyle "transitionDelay" value
     /// Sets the CSS properties to which a transition effect should be applied.
     static member inline transitionProperty ([<ParamArray>] properties: ITransitionProperty[]) =
         Interop.mkStyle "transitionProperty" (String.concat "," (unbox<string[]> properties))
@@ -2453,10 +2471,25 @@ type style =
     /// The transition property is a shorthand property for transition-property, transition-duration,
     /// transition-timing-function, transition-delay, and transition-behavior.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: string) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            duration
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
     static member inline transition (property: string, duration: TimeSpan) =
         Interop.mkStyle "transition" (
             property + " " +
             unbox<string> duration.TotalMilliseconds + "ms "
+        )
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: string) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            duration
         )
     /// The transition property is a shorthand property for transition-property, transition-duration,
     /// transition-timing-function, transition-delay, and transition-behavior.
@@ -2470,10 +2503,28 @@ type style =
     /// The transition property is a shorthand property for transition-property, transition-duration,
     /// transition-timing-function, transition-delay, and transition-behavior.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, duration: string, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            duration + " " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
     static member inline transition (property: string, duration: TimeSpan, timingFunction: ITransitionTimingFunction) =
         Interop.mkStyle "transition" (
             property + " " +
             unbox<string> duration.TotalMilliseconds + "ms " +
+            unbox<string> timingFunction
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, duration: string, timingFunction: ITransitionTimingFunction) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            duration + " " +
             unbox<string> timingFunction
         )
     /// The transition property is a shorthand property for transition-property, transition-duration,
@@ -2524,11 +2575,29 @@ type style =
     /// The transition property is a shorthand property for transition-property, transition-duration,
     /// transition-timing-function, transition-delay, and transition-behavior.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, durationInMs: string, delayInMs: string) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            durationInMs + " " +
+            delayInMs
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
     static member inline transition (property: string, durationInMs: int, delayInMs: int) =
         Interop.mkStyle "transition" (
             property + " " +
             unbox<string> durationInMs + "ms " +
             unbox<string> delayInMs + "ms "
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, durationInMs: string, delayInMs: string) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            durationInMs + " " +
+            delayInMs
         )
     /// The transition property is a shorthand property for transition-property, transition-duration,
     /// transition-timing-function, transition-delay, and transition-behavior.
@@ -2563,6 +2632,16 @@ type style =
     /// The transition property is a shorthand property for transition-property, transition-duration,
     /// transition-timing-function, transition-delay, and transition-behavior.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: ITransitionProperty, durationInMs: string, timingFunction: ITransitionTimingFunction, delayInMs: string) =
+        Interop.mkStyle "transition" (
+            unbox<string> property + " " +
+            durationInMs + " " +
+            unbox<string> timingFunction,
+            delayInMs
+        )
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
     static member inline transition (property: string, durationInMs: int, timingFunction: ITransitionTimingFunction, delayInMs: int) =
         Interop.mkStyle "transition" (
             property + " " +
@@ -2570,7 +2649,17 @@ type style =
             unbox<string> timingFunction,
             unbox<string> delayInMs + "ms "
         )
-    
+    /// The transition property is a shorthand property for transition-property, transition-duration,
+    /// transition-timing-function, transition-delay, and transition-behavior.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+    static member inline transition (property: string, durationInMs: string, timingFunction: ITransitionTimingFunction, delayInMs: string) =
+        Interop.mkStyle "transition" (
+            property + " " +
+            durationInMs + " " +
+            unbox<string> timingFunction,
+            delayInMs
+        )
+
     static member inline transform(transformation: ITransformProperty) =
         Interop.mkStyle "transform" transformation
 
@@ -2589,6 +2678,10 @@ type style =
     ///
     /// This property is also used to compute the size of em, ex, and other relative <length> units.
     static member inline fontSize(size: ICssUnit) = Interop.mkStyle "fontSize" size
+    /// Sets the size of the font.
+    ///
+    /// This property is also used to compute the size of em, ex, and other relative <length> units.
+    static member inline fontSize(size: string) = Interop.mkStyle "fontSize" size
     /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
     /// On block-level elements, it specifies the minimum height of line boxes within the element.
     /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
@@ -2624,6 +2717,15 @@ type style =
     ///
     /// Note: Negative values are not allowed.
     static member inline lineHeight(size: ICssUnit) = Interop.mkStyle "lineHeight" size
+    /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
+    /// On block-level elements, it specifies the minimum height of line boxes within the element.
+    /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+    ///
+    /// This property is also used to compute the size of em, ex, and other relative <length> units.
+    ///
+    /// Note: Negative values are not allowed.
+    static member inline lineHeight(size: string) = Interop.mkStyle "lineHeight" size
 
     /// Sets the background color of an element.
     static member inline backgroundColor (color: string) = Interop.mkStyle "backgroundColor" color
@@ -2865,6 +2967,9 @@ type style =
     /// Rounds the corners of an element's outer border edge. You can set a single radius to make
     /// circular corners, or two radii to make elliptical corners.
     static member inline borderRadius (radius: ICssUnit) = Interop.mkStyle "borderRadius" radius
+    /// Rounds the corners of an element's outer border edge. You can set a single radius to make
+    /// circular corners, or two radii to make elliptical corners.
+    static member inline borderRadius (radius: string) = Interop.mkStyle "borderRadius" radius
     /// top-left-and-bottom-right | top-right-and-bottom-left
     static member inline borderRadius (topLeftAndBottomRight: int, topRightAndBottomLeft: int) =
         Interop.mkStyle "borderRadius" (
@@ -2935,11 +3040,17 @@ type style =
     /// Sets the length of time that an animation takes to complete one cycle.
     static member inline animationDuration(timespan: TimeSpan) = Interop.mkStyle "animationDuration" ((unbox<string> timespan.TotalMilliseconds) + "ms")
     /// Sets the length of time that an animation takes to complete one cycle.
+    static member inline animationDuration(timespan: string) = Interop.mkStyle "animationDuration" timespan
+    /// Sets the length of time that an animation takes to complete one cycle.
     static member inline animationDuration(seconds: int) = Interop.mkStyle "animationDuration" ((unbox<string> seconds) + "s")
     /// Sets when an animation starts.
     ///
     /// The animation can start later, immediately from its beginning, or immediately and partway through the animation.
     static member inline animationDelay(timespan: TimeSpan) = Interop.mkStyle "animationDelay" ((unbox<string> timespan.TotalMilliseconds) + "ms")
+    /// Sets when an animation starts.
+    ///
+    /// The animation can start later, immediately from its beginning, or immediately and partway through the animation.
+    static member inline animationDelay(timespan: string) = Interop.mkStyle "animationDelay" timespan
     /// Sets when an animation starts.
     ///
     /// The animation can start later, immediately from its beginning, or immediately and partway through the animation.
@@ -2951,6 +3062,8 @@ type style =
     /// Defines from thin to thick characters. 400 is the same as normal, and 700 is the same as bold.
     /// Possible values are [100, 200, 300, 400, 500, 600, 700, 800, 900]
     static member inline fontWeight (weight: int) = Interop.mkStyle "fontWeight" weight
+    /// Defines from thin to thick characters. 400 is the same as normal, and 700 is the same as bold.
+    static member inline fontWeight (weight: string) = Interop.mkStyle "fontWeight" weight
     /// Sets the color of decorations added to text by text-decoration-line.
     static member inline textDecorationColor(color: string) = Interop.mkStyle "textDecorationColor" color
     /// Sets the kind of decoration that is used on text in an element, such as an underline or overline.
@@ -3100,6 +3213,10 @@ type style =
             (unbox<string> spread) + "px " +
             color
         )
+    /// Adds shadow effects around an element's frame.
+    ///
+    /// A box shadow is described by X and Y offsets relative to the element, blur and spread radii, and color.
+    static member inline boxShadow(value: string) = Interop.mkStyle "boxShadow" value
 
     /// Sets the color of an SVG shape.
     static member inline fill (color: string) = Interop.mkStyle "fill" color
@@ -3108,7 +3225,9 @@ type style =
     static member inline letterSpacing (value: int) = Interop.mkStyle "letterSpacing" value
     /// Specifies extra inter-character space in addition to the default space between characters.
     static member inline letterSpacing (value: ICssUnit) = Interop.mkStyle "letterSpacing" value
-    
+    /// Specifies extra inter-character space in addition to the default space between characters.
+    static member inline letterSpacing (value: string) = Interop.mkStyle "letterSpacing" value
+
     /// Sets the origin for an element's transformations.
     /// The transform origin is the point around which a transformation is applied.
     static member inline transformOrigin (xOffset: ITransformOrigin) =
