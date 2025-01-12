@@ -5,9 +5,7 @@ name: tests run
 
 on:
   push:
-    branches: [ "master" ]
   pull_request:
-    branches: [ "master" ]
 
 env:
   NODE_OPTIONS: --openssl-legacy-provider
