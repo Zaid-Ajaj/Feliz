@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  NODE_OPTIONS: --openssl-legacy-provider
+  
 jobs:
   build:
 
