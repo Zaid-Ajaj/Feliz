@@ -194,7 +194,13 @@ type ReactComponentAttribute(?exportDefault: bool, ?import: string, ?from:string
             else
                 // rewrite all other arguments into getters of a single props object
                 // TODO: transform any callback into into useCallback(callback) to stabilize reference
-                let propsArg = AstUtils.makeIdent (sprintf "%sInputProps" (AstUtils.camelCase decl.Name))
+                let propsArg =
+                    let type_ =
+                        let fieldNames, genericArgs = decl.Args |> List.map (fun arg -> arg.DisplayName, arg.Type) |> List.unzip
+                        Fable.Type.AnonymousRecordType(Array.ofList fieldNames, genericArgs, false)
+                    let name = sprintf "%sInputProps" (AstUtils.camelCase decl.Name)
+                    AstUtils.makeIdent type_ name 
+                    
                 let propBindings =
                     ([], decl.Args) ||> List.fold (fun bindings arg ->
                         let getterKey = if arg.DisplayName = "key" then "$key" else arg.DisplayName
