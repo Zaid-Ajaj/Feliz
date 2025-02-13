@@ -211,3 +211,6 @@ dist
 *.fs.js
 0.bundle.js
 .yarn
+
+# Nix
+.envrc
