@@ -61,6 +61,14 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Feliz.SelectSearch", "Feliz
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Feliz.Listeners", "Feliz.Listeners\Feliz.Listeners.fsproj", "{C47B3940-5B2E-4FEE-A8B2-C7BB1C776C03}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "public", "public", "{2FCE2FB9-6D16-4AF5-8FC8-7870D03F2C2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35E5BC5C-BE96-486C-8B90-BB7E78FC8009}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{13B324F6-343C-4A59-BF57-38695ED4ABBB}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Docs", "public\src\components\fsharp\Docs.fsproj", "{237E9872-F564-4D04-AD13-7ED0388AC19A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -299,11 +307,28 @@ Global
 		{C47B3940-5B2E-4FEE-A8B2-C7BB1C776C03}.Release|x64.Build.0 = Release|Any CPU
 		{C47B3940-5B2E-4FEE-A8B2-C7BB1C776C03}.Release|x86.ActiveCfg = Release|Any CPU
 		{C47B3940-5B2E-4FEE-A8B2-C7BB1C776C03}.Release|x86.Build.0 = Release|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Debug|x64.Build.0 = Debug|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Debug|x86.Build.0 = Debug|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Release|x64.ActiveCfg = Release|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Release|x64.Build.0 = Release|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Release|x86.ActiveCfg = Release|Any CPU
+		{237E9872-F564-4D04-AD13-7ED0388AC19A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC57B3AA-B014-44DE-A30A-F5DEF79F13CF}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35E5BC5C-BE96-486C-8B90-BB7E78FC8009} = {2FCE2FB9-6D16-4AF5-8FC8-7870D03F2C2B}
+		{13B324F6-343C-4A59-BF57-38695ED4ABBB} = {35E5BC5C-BE96-486C-8B90-BB7E78FC8009}
+		{237E9872-F564-4D04-AD13-7ED0388AC19A} = {13B324F6-343C-4A59-BF57-38695ED4ABBB}
 	EndGlobalSection
 EndGlobal

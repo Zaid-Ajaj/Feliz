@@ -1,0 +1,39 @@
+---
+title: Stateless Components
+---
+
+The simplest types of React components are those that are stateless: they don't internal have state and don't have any side-effects.
+
+### Defining React Components
+To define a component, use the `[<ReactComponent>]` attribute on top of a function that returns `ReactElement`. React components built with have to defined at a *module-level* (i.e. not inside another function).
+
+import { Code } from '@astrojs/starlight/components';
+import rawGreeting from '/src/components/fsharp/Greeting.fs?raw';
+import {Greeting} from '/src/components/fsharp/Greeting.jsx';
+
+<Code code={rawGreeting} lang='fsharp'/>
+
+<Greeting />
+
+
+### Using React components
+
+Once you have defined a component like we did with `greeting` above, you can use it as a function of type `'props -> ReactElement` and combine with other components like any other UI element:
+
+import rawGreetings from '/src/components/fsharp/Greetings.fs?raw';
+import {Greetings} from '/src/components/fsharp/Greetings.jsx';
+
+
+<Code code={rawGreetings} lang='fsharp'/>
+<Greetings />
+
+### Components As Static Functions
+
+React components can also be defined as static members of a static class. The benefit of this approach is that you use _named_ parameters at call-site or implicitly optional parameters in the definition:
+
+import rawGreetingsStatic from '/src/components/fsharp/GreetingsStatic.fs?raw';
+import {GreetingsStatic} from '/src/components/fsharp/GreetingsStatic.jsx';
+
+
+<Code code={rawGreetingsStatic} lang='fsharp'/>
+<GreetingsStatic />
