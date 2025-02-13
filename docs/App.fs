@@ -4,9 +4,7 @@ open Browser.Dom
 open Elmish
 open Elmish.React
 open Feliz
-open Feliz.Recharts
 open Feliz.Markdown
-open Feliz.PigeonMaps
 open Feliz.Router
 open Fable.Core.JsInterop
 open Fable.SimpleHttp
@@ -20,7 +18,15 @@ type FA = CssClasses<"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/
 
 type Highlight =
     static member inline highlight (properties: IReactProperty list) =
-        Interop.reactApi.createElement(importDefault "react-highlight", createObj !!properties)
+        Interop.reactApi.createElement(importDefault "react-syntax-highlighter", createObj !!properties)
+
+type highlight =
+    static member inline language (language: string) = Interop.mkAttr "language" language
+    static member inline hlsjStyle (style: string) =  Interop.mkAttr "style" (import style "react-syntax-highlighter/dist/esm/styles/hljs")
+    static member inline prismStyle (style: string) = Interop.mkAttr "style" (import style "react-syntax-highlighter/dist/esm/styles/prism")
+    static member inline children (children: string) =  Interop.mkAttr "children" children
+    static member inline preTag (tag: string) =  Interop.mkAttr "PreTag" tag
+    static member inline style (styles: #IStyleAttribute list) = Interop.mkAttr "customStyle" (createObj !!styles)
 
 type State =
     { CurrentPath : string list
@@ -214,13 +220,10 @@ type LowerKeyedCounterProps = { key: string; Name: string }
 
 [<ReactComponent>]
 let CounterWithLowercaseKeyedRecord (props: LowerKeyedCounterProps) =
-    let (count, setCount) = React.useState 0
+    let (count, _) = React.useState 0
     Html.div [
         Html.h1 count
     ]
-
-//[<ReactComponent(import="Hello", from="external-module")>]
-//let Hello (className: string) (children: ReactElement []) = Html.none
 
 [<ReactComponent(exportDefault=true)>]
 let HelloExported (className: string) (children: ReactElement []) = Html.none
@@ -236,10 +239,6 @@ let Counters(show: bool) =
         CounterWithLowercaseKeyedRecord { key = "keyB"; Name = "Counter" }
         MoreExamples.CounterWithRecord({ initial = 10; show = true })
         MoreExamples.CounterWithRecord({ initial = 10; show = true }, true)
-
-        //Hello "fsharp" [|
-        //    Html.text "content"
-        //|]
     ]
 
 [<ReactComponent>]
@@ -493,7 +492,6 @@ let customizedButtonsInDropdown = React.functionComponent(fun () ->
                 ]
 
                 selectSearch.renderOption (fun properties ->
-                    Browser.Dom.console.log(properties)
                     Html.button [
                         yield! properties.attributes
                         prop.className properties.className
@@ -617,7 +615,7 @@ let samples = [
     "recharts-pie-customizedlabelpiechart", Samples.Recharts.PieCharts.CustomizedLabelPieChart.chart()
     "recharts-radar-simpleradarchart", Samples.Recharts.RadarCharts.SimpleRadarChart.chart()
     "recharts-scatter-simplescatterchart", Samples.Recharts.ScatterCharts.SimpleScatterChart.chart()
-    "recharts-scatter-scatterchartwithlabels", Samples.Recharts.ScatterCharts.ScatterChartWithLabels.chart()
+    "recharts-scatter-scatterchartwithlabels", Samples.Recharts.ScatterCharts.ScatterChartWithLabels.Chart()
     "pigeonmaps-map-basic", Samples.PigeonMaps.Main.pigeonMap
     "pigeonmaps-map-cities", Samples.PigeonMaps.DynamicMarkers.citiesMap()
     "pigeonmaps-map-popover-hover", Samples.PigeonMaps.MarkerOverlaysOnHover.citiesMap()
@@ -680,32 +678,22 @@ let centeredSpinner =
 
 /// Renders a code block from markdown using react-highlight.
 /// Injects sample React components when the code block has language of the format <language>:<sample-name>
-let codeBlockRenderer' = React.functionComponent(fun (input: {| codeProps: Markdown.ICodeProperties |}) ->
-    if input.codeProps.language <> null && input.codeProps.language.Contains ":" then
-        let languageParts = input.codeProps.language.Split(':')
-        let sampleName = languageParts.[1]
-        let sampleApp =
-            samples
-            |> List.tryFind (fun (name, _) -> name = sampleName)
-            |> Option.map snd
-            |> Option.defaultValue (Html.h1 [
-                prop.style [ style.color.crimson ];
-                prop.text (sprintf "Could not find sample app '%s'" sampleName)
-            ])
-        Html.div [
-            sampleApp
-            Highlight.highlight [
-                prop.className "fsharp"
-                prop.text(input.codeProps.value)
-            ]
-        ]
-    else
+[<ReactComponent>]
+let CodeBlockRenderer (codeProps: ICodeProperties ) : ReactElement = 
+    if  codeProps.language = "" then 
+        Html.code [ prop.text codeProps.value ]
+    else 
         Highlight.highlight [
-            prop.className "fsharp"
-            prop.text(input.codeProps.value)
-        ])
-
-let codeBlockRenderer (codeProps: Markdown.ICodeProperties) = codeBlockRenderer' {| codeProps = codeProps |}
+            highlight.style [
+                style.padding (length.px 0)
+                // First line is indented, instead add a newline and remove it with margin
+                style.marginTop (length.px -20)
+            ]
+            highlight.preTag "div"
+            highlight.language "fsharp"
+            highlight.prismStyle "prism"
+            highlight.children ("\n" + codeProps.value)
+        ]
 
 let renderMarkdown = React.functionComponent(fun (input: {| path: string; content: string |}) ->
     Html.div [
@@ -726,10 +714,9 @@ let renderMarkdown = React.functionComponent(fun (input: {| path: string; conten
                 ]
 
             Markdown.markdown [
-                markdown.source input.content
-                markdown.escapeHtml false
-                markdown.renderers [
-                    markdown.renderers.code codeBlockRenderer
+                markdown.children input.content
+                markdown.components [
+                    markdown.components.code CodeBlockRenderer
                 ]
             ]
         ]
@@ -737,6 +724,7 @@ let renderMarkdown = React.functionComponent(fun (input: {| path: string; conten
 
 module MarkdownLoader =
 
+    [<RequireQualifiedAccess>]
     type State =
         | Initial
         | Loading
@@ -747,7 +735,7 @@ module MarkdownLoader =
         | StartLoading of path: string list
         | Loaded of Result<string, int * string>
 
-    let init (path: string list) = Initial, Cmd.ofMsg (StartLoading path)
+    let init (path: string list) = State.Initial, Cmd.ofMsg (StartLoading path)
 
     let resolvePath = function
     | [ one: string ] when one.StartsWith "http" -> one
@@ -763,7 +751,7 @@ module MarkdownLoader =
                 else return Loaded (Error (statusCode, responseText))
             }
 
-            Loading, Cmd.OfAsync.perform loadMarkdownAsync () id
+            State.Loading, Cmd.OfAsync.perform loadMarkdownAsync () id
 
         | Loaded (Ok content) ->
             State.LoadedMarkdown content, Cmd.none
@@ -771,20 +759,18 @@ module MarkdownLoader =
         | Loaded (Error (status, _)) ->
             State.LoadedMarkdown (sprintf "Status %d: could not load markdown" status), Cmd.none
 
-    let load' = React.functionComponent("LoadMarkdown", fun (props: {| path: string list |}) ->
-        let (state, dispatch) = React.useElmish(init props.path, update, [| box props.path |])
+    [<ReactComponent>]
+    let Load (path: string list) =
+        let (state, _) = React.useElmish(init path, update, [| box path |])
         match state with
-        | Initial -> Html.none
-        | Loading -> centeredSpinner
-        | LoadedMarkdown content -> renderMarkdown {| path = (resolvePath props.path); content = content |}
-        | Errored error ->
+        | State.Initial -> Html.none
+        | State.Loading -> centeredSpinner
+        | State.LoadedMarkdown content -> renderMarkdown {| path = (resolvePath path); content = content |}
+        | State.Errored error ->
             Html.h1 [
                 prop.style [ style.color.crimson ]
                 prop.text error
             ]
-    )
-
-    let load (path: string list) = load' {| path = path |}
 
 // A collapsable nested menu for the sidebar
 // keeps internal state on whether the items should be visible or not based on the collapsed state
@@ -940,7 +926,7 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
                 nestedMenuList "Hooks" [ Urls.Hooks ] [
                     nestedMenuItem "Feliz.UseDeferred" [ Urls.UseDeferred ]
                     nestedMenuItem "Feliz.UseElmish" [ Urls.UseElmish ]
-                    nestedMenuItem "Feliz.UseListener" [ Urls.UseListener ]
+                    nestedMenuItem "Feliz.Listeners" [ Urls.Listeners ]
                     nestedMenuItem "Feliz.UseMediaQuery" [ Urls.UseMediaQuery ]
                     nestedMenuItem "Feliz.UseWorker" [ Urls.UseWorker ]
                 ]
@@ -1129,13 +1115,13 @@ let (|PathPrefix|) (segments: string list) (path: string list) =
 let loadOrSegment (origPath: string list) (basePath: string list) (path: string list) =
     if path |> List.isEmpty then
         Html.div [ for segment in origPath -> Html.p segment ]
-    else basePath @ path |> lazyView MarkdownLoader.load
+    else basePath @ path |> lazyView MarkdownLoader.Load
 
 let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg -> unit |}) ->
     let loadOrSegment = loadOrSegment input.state.CurrentPath
 
     match input.state.CurrentPath with
-    | [ ] -> lazyView MarkdownLoader.load [ "Feliz"; "README.md" ]
+    | [ ] -> lazyView MarkdownLoader.Load [ "Feliz"; "README.md" ]
     | PathPrefix [ Urls.Feliz ] (Some res) ->
         match res with
         | [ Urls.Overview ] -> [ "README.md" ]
@@ -1154,53 +1140,53 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         |> loadOrSegment [ Urls.Feliz ]
     | PathPrefix [ Urls.UIFrameworks ] (Some res) ->
         match res with
-        | [ Urls.Bulma ] -> lazyView MarkdownLoader.load [ readme "Dzoukr" "Feliz.Bulma" ]
-        | [ Urls.Mui ] -> lazyView MarkdownLoader.load [ readme "cmeeren" "Feliz.MaterialUI" ]
-        | [ Urls.Daisy ] -> lazyView MarkdownLoader.load [ readme "Dzoukr" "Feliz.DaisyUI" ]
+        | [ Urls.Bulma ] -> lazyView MarkdownLoader.Load [ readme "Dzoukr" "Feliz.Bulma" ]
+        | [ Urls.Mui ] -> lazyView MarkdownLoader.Load [ readme "cmeeren" "Feliz.MaterialUI" ]
+        | [ Urls.Daisy ] -> lazyView MarkdownLoader.Load [ readme "Dzoukr" "Feliz.DaisyUI" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Hooks ] (Some res) ->
         match res with
-        | [ Urls.UseDeferred ] -> lazyView MarkdownLoader.load [ "Feliz.UseDeferred"; "Index.md" ]
-        | [ Urls.UseElmish ] -> lazyView MarkdownLoader.load [ "Feliz.UseElmish"; "Index.md" ]
-        | [ Urls.UseListener ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseListener" ]
-        | [ Urls.UseMediaQuery ] -> lazyView MarkdownLoader.load [ "Feliz.UseMediaQuery"; "Index.md" ]
-        | [ Urls.UseWorker ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.UseWorker" ]
+        | [ Urls.UseDeferred ] -> lazyView MarkdownLoader.Load [ "Feliz.UseDeferred"; "Index.md" ]
+        | [ Urls.UseElmish ] -> lazyView MarkdownLoader.Load [ "Feliz.UseElmish"; "Index.md" ]
+        | [ Urls.Listeners ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Feliz.Listeners" ]
+        | [ Urls.UseMediaQuery ] -> lazyView MarkdownLoader.Load [ "Feliz.UseMediaQuery"; "Index.md" ]
+        | [ Urls.UseWorker ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Feliz.UseWorker" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Components ] (Some res) ->
         match res with
-        | [ Urls.Delay ] -> lazyView MarkdownLoader.load [ "Feliz.Delay"; "Index.md" ]
-        | [ Urls.Popover ] -> lazyView MarkdownLoader.load [ "Popover"; "README.md" ]
-        | [ Urls.SelectSearch ] -> lazyView MarkdownLoader.load [ "SelectSearch";"README.md" ]
-        | [ Urls.Kawaii ] -> lazyView MarkdownLoader.load [ "Feliz.Kawaii"; "README.md" ]
-        | [ Urls.Router ] -> lazyView MarkdownLoader.load [ readme "Zaid-Ajaj" "Feliz.Router" ]
+        | [ Urls.Delay ] -> lazyView MarkdownLoader.Load [ "Feliz.Delay"; "Index.md" ]
+        | [ Urls.Popover ] -> lazyView MarkdownLoader.Load [ "Popover"; "README.md" ]
+        | [ Urls.SelectSearch ] -> lazyView MarkdownLoader.Load [ "SelectSearch";"README.md" ]
+        | [ Urls.Kawaii ] -> lazyView MarkdownLoader.Load [ "Feliz.Kawaii"; "README.md" ]
+        | [ Urls.Router ] -> lazyView MarkdownLoader.Load [ readme "Zaid-Ajaj" "Feliz.Router" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Visualizations ] (Some res) ->
         match res with
-        | [ Urls.PigeonMaps ] -> lazyView MarkdownLoader.load [ "PigeonMaps"; "README.md" ]
-        | [ Urls.Plotly ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.Plotly" ]
-        | [ Urls.Recharts ] -> lazyView MarkdownLoader.load [ "Recharts"; "README.md" ]
-        | [ Urls.RoughViz ] -> lazyView MarkdownLoader.load [ "RoughViz"; "Index.md" ]
+        | [ Urls.PigeonMaps ] -> lazyView MarkdownLoader.Load [ "PigeonMaps"; "README.md" ]
+        | [ Urls.Plotly ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Feliz.Plotly" ]
+        | [ Urls.Recharts ] -> lazyView MarkdownLoader.Load [ "Recharts"; "README.md" ]
+        | [ Urls.RoughViz ] -> lazyView MarkdownLoader.Load [ "RoughViz"; "Index.md" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Testing ] (Some res) ->
         match res with
         | PathPrefix [ Urls.Frameworks ] (Some res) ->
             match res with
-            | [ Urls.Jest ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Fable.Jester" ]
-            | [ Urls.Mocha ] -> lazyView MarkdownLoader.load [ readme "Zaid-Ajaj" "Fable.Mocha" ]
+            | [ Urls.Jest ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Fable.Jester" ]
+            | [ Urls.Mocha ] -> lazyView MarkdownLoader.Load [ readme "Zaid-Ajaj" "Fable.Mocha" ]
             | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
         | PathPrefix [ Urls.Utilities ] (Some res) ->
             match res with
-            | [ Urls.RTL ] -> lazyView MarkdownLoader.load [ "https://raw.githubusercontent.com/Shmew/Fable.Jester/master/src/Fable.ReactTestingLibrary/README.md" ]
-            | [ Urls.FastCheck ] -> lazyView MarkdownLoader.load [ "https://raw.githubusercontent.com/Shmew/Fable.Jester/master/src/Fable.FastCheck/README.md" ]
+            | [ Urls.RTL ] -> lazyView MarkdownLoader.Load [ "https://raw.githubusercontent.com/Shmew/Fable.Jester/master/src/Fable.ReactTestingLibrary/README.md" ]
+            | [ Urls.FastCheck ] -> lazyView MarkdownLoader.Load [ "https://raw.githubusercontent.com/Shmew/Fable.Jester/master/src/Fable.FastCheck/README.md" ]
             | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Misc ] (Some res) ->
         match res with
-        | [ Urls.Felizia ] -> lazyView  MarkdownLoader.load [ readme "dbrattli" "Felizia" ]
-        | [ Urls.Recoil ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.Recoil" ]
-        | [ Urls.SignalR ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Fable.SignalR" ]
-        | [ Urls.SweetAlert ] -> lazyView MarkdownLoader.load [ readme "Shmew" "Feliz.SweetAlert" ]
-        | [ Urls.ViewEngine ] -> lazyView  MarkdownLoader.load [ readme "dbrattli" "Feliz.ViewEngine" ]
+        | [ Urls.Felizia ] -> lazyView  MarkdownLoader.Load [ readme "dbrattli" "Felizia" ]
+        | [ Urls.Recoil ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Feliz.Recoil" ]
+        | [ Urls.SignalR ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Fable.SignalR" ]
+        | [ Urls.SweetAlert ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Feliz.SweetAlert" ]
+        | [ Urls.ViewEngine ] -> lazyView  MarkdownLoader.Load [ readme "dbrattli" "Feliz.ViewEngine" ]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Recharts ] (Some res) -> rechartsExamples res |> loadOrSegment []
     | PathPrefix [ Urls.PigeonMaps ] (Some res) ->
