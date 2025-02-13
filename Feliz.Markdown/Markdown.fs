@@ -7,9 +7,8 @@ open Feliz
 type IMarkdownRenderer = interface end
 
 type ICodeProperties =
-    abstract isInline : bool
-    abstract className : string
-    abstract children: ReactElement []
+    abstract language : string
+    abstract value: string
 
 type ITextProperties =
     abstract children: string
@@ -83,9 +82,8 @@ module markdown =
         static member inline code(render: ICodeProperties -> ReactElement) = 
             let renderInternal (props: obj) = 
                 let inputs = createObj [
-                    "className" ==> emitJsExpr<string> props "$0.className || \"\""
-                    "children" ==> emitJsExpr<ReactElement []> props "$0.children || []"
-                    "isInline" ==> emitJsExpr<bool> props "$0.inline || false"
+                    "value" ==> emitJsExpr<string> props "$0.children || \"\""
+                    "language" ==> emitJsExpr<string> props "$0.className || \"\""
                 ]
                 render (unbox<ICodeProperties> inputs)
             unbox<IComponent> (Interop.mkAttr "code" renderInternal)
