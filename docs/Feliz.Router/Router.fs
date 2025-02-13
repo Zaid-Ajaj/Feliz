@@ -6,7 +6,7 @@ open Elmish
 open Fable.Core
 open Fable.Core.JsInterop
 open Feliz
-open Feliz.UseListener
+open Feliz.Listeners
 open System
 
 type IUrlSearchParamters =
