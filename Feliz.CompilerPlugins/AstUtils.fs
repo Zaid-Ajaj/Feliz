@@ -9,9 +9,9 @@ open System.Text.RegularExpressions
 let cleanFullDisplayName str =
     Regex.Replace(str, @"`\d+", "").Replace(".", "_")
 
-let makeIdent name: Fable.Ident =
+let makeIdent _type name: Fable.Ident =
     { Name = name
-      Type = Fable.Any
+      Type = _type
       IsCompilerGenerated = true
       IsThisArgument = false
       IsMutable = false
@@ -22,7 +22,7 @@ let makeUniqueIdent (name: string) =
         if i < 0
         then "Z" + (abs i).ToString("X")
         else i.ToString("X")
-    "$" + name + (Guid.NewGuid().GetHashCode() |> hashToString) |> makeIdent
+    "$" + name + (Guid.NewGuid().GetHashCode() |> hashToString) |> makeIdent Fable.Any
 
 let makeValue r value =
     Fable.Value(value, r)
