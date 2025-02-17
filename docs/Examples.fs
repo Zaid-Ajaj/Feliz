@@ -1,4 +1,4 @@
-﻿module Examples
+module Examples
 
 open Elmish
 open Feliz
@@ -316,7 +316,7 @@ let animationSample =
     ]
 
 [<ReactComponent>]
-let SimpleDateInput() = 
+let SimpleDateInput() =
     let (selectedDate, updateDate) = React.useState(DateTime.Now)
     Html.input [
         prop.type'.date
@@ -325,7 +325,7 @@ let SimpleDateInput() =
     ]
 
 [<ReactComponent>]
-let SimpleDateAndTimeInput() = 
+let SimpleDateAndTimeInput() =
     let (selectedDate, updateDate) = React.useState(DateTime.Now)
     Html.input [
         prop.type'.dateTimeLocal
@@ -333,12 +333,12 @@ let SimpleDateAndTimeInput() =
         prop.onChange  (fun newValue -> updateDate newValue)
     ]
 
-let dateInputsExample = React.functionComponent(fun () -> 
+let dateInputsExample = React.functionComponent(fun () ->
     let (date, setDate) = React.useState<DateTime option>(None)
     let (dateAndTime, toggleDateAndTime) = React.useState(false)
 
-    let formattedDate = 
-        match date with 
+    let formattedDate =
+        match date with
         | None -> "No date selected yet"
         | Some date -> "Input: " + date.ToString "yyyy-MM-dd hh:mm"
 
@@ -348,7 +348,7 @@ let dateInputsExample = React.functionComponent(fun () ->
 
         Html.input [
             prop.value(date, includeTime=dateAndTime)
-            if dateAndTime then prop.type'.dateTimeLocal else prop.type'.date 
+            if dateAndTime then prop.type'.dateTimeLocal else prop.type'.date
             prop.onChange (fun newValue -> setDate(Some newValue))
         ]
 
@@ -802,3 +802,128 @@ module TokenCancellation =
                 prop.text "Reset"
             ]
         ])
+
+let exampleGradients () : ReactElement =
+    Html.div [
+        prop.style [
+            style.display.grid
+            style.gridTemplateColumns (3, length.fr 1)
+            style.gridTemplateRows (3, length.fr 1)
+        ]
+        prop.children [
+            Html.div [
+                prop.style [
+                    style.backgroundImage.gradient (
+                        gradient.linearGradient (
+                            linearGradientOptions.angle (gradientAngle.deg 5),
+                            linearColorStop.colorStop ("#FF0000"),
+                            linearColorStopAndHint.colorStop ("#00FF00"),
+                            linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+                            linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
+                        )
+                    )
+                ]
+                prop.children [
+                    Html.span [
+                        prop.text "This is a samples text for a gradient"
+                    ]
+                ]
+            ]
+            Html.div [
+                prop.style [
+                    style.backgroundImage.gradient (
+                        gradient.radialGradient (
+                            radialSizeAndOrShape.sizeAndShape (radialSize.length (length.px 10), radialShape.circle),
+                            gradientPosition.leftTop,
+                            linearColorStop.colorStop ("#FF0000"),
+                            linearColorStopAndHint.colorStop ("#00FF00"),
+                            linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+                            linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
+                        )
+                    )
+                ]
+                prop.children [
+                    Html.span [
+                        prop.text "This is a samples text for a gradient"
+                    ]
+                ]
+            ]
+            Html.div [
+                prop.style [
+                    style.backgroundImage.gradient (
+                        gradient.conicGradient (
+                            angleAndPosition.position gradientPosition.rightCenter,
+                            colorInterpolation.polar (polarColorSpaceVariant.hsl),
+                            angleColorStop.colorStop ("#FF0000"),
+                            angleColorHintAndStop.colorStop ("#00FF00"),
+                            angleColorHintAndStop.colorStop (conicColorHintVariant.percentage 10, "#0000FF"),
+                            angleColorHintAndStop.colorStop (
+                                conicColorHintVariant.angle (gradientAngle.deg 5),
+                                "#0000FF"
+                            )
+                        )
+                    )
+                ]
+                prop.children [
+                    Html.span [
+                        prop.text "This is a samples text for a gradient"
+                    ]
+                ]
+            ]
+            Html.div [
+                prop.style [
+                    style.backgroundImage.gradient (
+                        gradient.repeatingLinearGradient (
+                            linearGradientOptions.angle (gradientAngle.deg 5),
+                            linearColorStop.colorStop ("#FF0000"),
+                            linearColorStopAndHint.colorStop ("#00FF00"),
+                            linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+                            linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
+                        )
+                    )
+                ]
+                prop.children [
+                    Html.span [
+                        prop.text "This is a samples text for a gradient"
+                    ]
+                ]
+            ]
+            Html.div [
+                prop.style [
+                    style.backgroundImage.gradient (
+                        gradient.repeatingRadialGradient (
+                            radialSizeAndOrShape.sizeAndShape (radialSize.length (length.px 10), radialShape.circle),
+                            gradientPosition.leftTop,
+                            linearColorStop.colorStop ("#FF0000"),
+                            linearColorStopAndHint.colorStop ("#00FF00"),
+                            linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+                            linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
+                        )
+                    )
+                ]
+                prop.children [
+                    Html.span [
+                        prop.text "This is a samples text for a gradient"
+                    ]
+                ]
+            ]
+            Html.div [
+                prop.style [
+                    style.backgroundImage.gradient (
+                        gradient.repeatingConicGradient (
+                            angleAndPosition.position gradientPosition.rightCenter,
+                            colorInterpolation.polar (polarColorSpaceVariant.hsl),
+                            angleColorStop.colorStop ("#FF0000"),
+                            angleColorHintAndStop.colorStop ("#00FF00"),
+                            angleColorHintAndStop.colorStop ("#0000FF")
+                        )
+                    )
+                ]
+                prop.children [
+                    Html.span [
+                        prop.text "This is a samples text for a gradient"
+                    ]
+                ]
+            ]
+        ]
+    ]

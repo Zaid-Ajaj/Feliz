@@ -123,7 +123,7 @@ let [<Literal>] Hooks = "Hooks"
 
 let [<Literal>] UseDeferred = "UseDeferred"
 // UseElmish
-let [<Literal>] UseListener = "UseListener"
+let [<Literal>] Listeners = "Listeners"
 let [<Literal>] UseMediaQuery = "UseMediaQuery"
 let [<Literal>] UseWorker = "UseWorker"
 

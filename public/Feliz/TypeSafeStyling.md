@@ -77,3 +77,22 @@ Html.div [
     ]
 ]
 ```
+
+# Type-Safe Gradients
+
+Certain complex styles such as gradients have special functions in order to ensure generated gradients abide the syntax for gradients.
+
+```fs
+Html.div [
+    prop.style [
+        style.backgroundImage.linearGradient (
+            linearGradientOptions.angle (gradientAngle.deg 5),
+            linearColorStop.colorStop ("#FF0000"),
+            linearColorStopAndHint.colorStop ("#00FF00"),
+            linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+            linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
+        )
+    ]
+    prop.children [ Html.span [ prop.text "This is a sample text" ] ]
+]
+```

@@ -1,6 +1,8 @@
 [<RequireQualifiedAccess>]
 module Samples.Recharts.ScatterCharts.ScatterChartWithLabels
 
+open Fable.Core.JsInterop
+
 open Feliz
 open Feliz.Recharts
 
@@ -15,7 +17,8 @@ let data = [
     { x = 110; y = 280; z = 200 }
 ]
 
-let chart = React.functionComponent(fun () -> [
+[<ReactComponent>]
+let Chart () : ReactElement= 
     Recharts.scatterChart [
         scatterChart.margin(top=20, right=20, bottom=20, left=20)
         scatterChart.children [
@@ -41,10 +44,9 @@ let chart = React.functionComponent(fun () -> [
                 scatter.fill "#8884d8"
                 scatter.children [
                     Recharts.labelList [
-                        labelList.dataKey (fun point -> point.x)
+                        labelList.dataKey (fun point -> point?x)
                     ]
                 ]
             ]
         ]
     ]
-])

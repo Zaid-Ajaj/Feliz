@@ -28,6 +28,7 @@
     <Compile Include="TransitionProperty.fs" />
     <Compile Include="TransitionTimingFunction.fs" />
     <Compile Include="TransformOrigin.fs" />
+    <Compile Include="Gradient.fs" />
     <Compile Include="GridTypes.fs" />
     <Compile Include="Styles.fs" />
     <Compile Include="Svg.fs" />
