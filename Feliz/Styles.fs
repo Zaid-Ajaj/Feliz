@@ -327,7 +327,7 @@ type style =
             unbox<string> blockStart + " " +
             unbox<string> blockEnd
         )
-    
+
     /// Defines the logical block start margin of an element, which
     /// maps to a physical margin depending on the element's writing
     /// mode, directionality, and text orientation.
@@ -340,7 +340,7 @@ type style =
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-block
     static member inline marginBlockStart(value: ICssUnit) =
         Interop.mkStyle "marginBlockStart" value
-    
+
     /// Defines the logical block end margin of an element, which maps
     /// to a physical margin depending on the element's writing mode,
     /// directionality, and text orientation.
@@ -400,7 +400,7 @@ type style =
             unbox<string> inlineStart + " " +
             unbox<string> inlineEnd
         )
-    
+
     /// Defines the logical inline start margin of an element, which maps
     /// to a physical margin depending on the element's writing mode,
     /// directionality, and text orientation.
@@ -413,7 +413,7 @@ type style =
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline-start
     static member inline marginInlineStart(value: ICssUnit) =
         Interop.mkStyle "marginInlineStart" value
-    
+
     /// Defines the logical inline end margin of an element, which maps
     /// to a physical margin depending on the element's writing mode,
     /// directionality, and text orientation.
@@ -731,7 +731,7 @@ type style =
             unbox<string> blockStart + " " +
             unbox<string> blockEnd
         )
-    
+
     /// Defines the logical block start padding of an element, which
     /// maps to a physical padding properties depending on the element's writing
     /// mode, directionality, and text orientation.
@@ -744,7 +744,7 @@ type style =
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-block
     static member inline paddingBlockStart(value: ICssUnit) =
         Interop.mkStyle "paddingBlockStart" value
-    
+
     /// Defines the logical block end padding of an element, which maps
     /// to a physical padding properties depending on the element's writing mode,
     /// directionality, and text orientation.
@@ -804,7 +804,7 @@ type style =
             unbox<string> inlineStart + " " +
             unbox<string> inlineEnd
         )
-    
+
     /// Defines the logical inline start padding of an element, which maps
     /// to a physical padding properties depending on the element's writing mode,
     /// directionality, and text orientation.
@@ -817,7 +817,7 @@ type style =
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-start
     static member inline paddingInlineStart(value: ICssUnit) =
         Interop.mkStyle "paddingInlineStart" value
-    
+
     /// Defines the logical inline end padding of an element, which maps
     /// to a physical padding properties depending on the element's writing mode,
     /// directionality, and text orientation.
@@ -2431,12 +2431,12 @@ type style =
     /// Sets the CSS properties to which a transition effect should be applied.
     static member inline transitionProperty (property: string) =
         Interop.mkStyle "transitionProperty" property
-    
+
     /// Sets how intermediate values are calculated for CSS properties being affected by a transition effect.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
     static member inline transitionTimingFunction (timingFunction: ITransitionTimingFunction) =
         Interop.mkStyle "transitionTimingFunction" timingFunction
-    
+
     /// Sets how intermediate values are calculated for CSS properties being affected by a transition effect.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
     static member inline transitionTimingFunction (timingFunction: string) =
@@ -2570,7 +2570,7 @@ type style =
             unbox<string> timingFunction,
             unbox<string> delayInMs + "ms "
         )
-    
+
     static member inline transform(transformation: ITransformProperty) =
         Interop.mkStyle "transform" transformation
 
@@ -2593,7 +2593,7 @@ type style =
     /// On block-level elements, it specifies the minimum height of line boxes within the element.
     /// On non-replaced inline elements, it specifies the height that is used to calculate line box height.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
-    /// 
+    ///
     /// The used value is this unitless number multiplied by the element's own font size. The computed
     /// value is the same as the specified number. In most cases, this is the preferred way to set
     /// line-height and avoid unexpected results due to inheritance.
@@ -2713,11 +2713,11 @@ type style =
     /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
     ///
     /// The `outline-color` property specifies the color of an outline.
-    /// 
+    ///
     /// **Note**: Always declare the outline-style property before the outline-color property. An element must have an outline before you change the color of it.
     static member inline outlineColor (color: string) =
         Interop.mkStyle "outlineColor" color
-    
+
     /// An outline is a line that is drawn around elements (outside the borders) to make the element "stand out".
     /// The outline shorthand property sets most of the outline properties in a single declaration.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/outline
@@ -2736,7 +2736,7 @@ type style =
             (unbox<string> style) + " " +
             color
         )
-    
+
     /// Set an element's left border.
     static member inline borderLeft(width: int, style: IBorderStyle, color: string) =
         Interop.mkStyle "borderLeft" (
@@ -3108,7 +3108,7 @@ type style =
     static member inline letterSpacing (value: int) = Interop.mkStyle "letterSpacing" value
     /// Specifies extra inter-character space in addition to the default space between characters.
     static member inline letterSpacing (value: ICssUnit) = Interop.mkStyle "letterSpacing" value
-    
+
     /// Sets the origin for an element's transformations.
     /// The transform origin is the point around which a transformation is applied.
     static member inline transformOrigin (xOffset: ITransformOrigin) =
@@ -3119,7 +3119,7 @@ type style =
         Interop.mkStyle "transformOrigin" (
             unbox<string> xOffset + " " +
             unbox<string> yOffset
-        ) 
+        )
     /// Sets the origin for an element's transformations.
     /// The transform origin is the point around which a transformation is applied.
     static member inline transformOrigin (xOffset: ITransformOrigin, yOffset: ITransformOrigin, zOffset: ITransformOrigin) =
@@ -3128,7 +3128,7 @@ type style =
             unbox<string> yOffset + " " +
             unbox<string> zOffset
         )
-    
+
     /// Sets the color of the scrollbar track and thumb.
     /// The track refers to the background of the scrollbar, which
     /// is generally fixed regardless of the scrolling position.
@@ -3143,9 +3143,21 @@ type style =
     /// Items not given an explicit order value are assigned the default value of 0.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/order
     static member inline order (value: int) = Interop.mkStyle "order" value
-    
+
 [<Erase>]
 module style =
+    [<Erase>]
+    type backgroundImage =
+        /// Creates a background image with a singular gradient
+        /// Possible gradients: linear, radial, conic
+        /// https://developer.mozilla.org/en-US/docs/Web/CSS/gradient
+        static member inline gradient (gradient: IGradient) = Interop.mkStyle "backgroundImage" (unbox<string> gradient)
+        /// Creates a background image with multiple gradients
+        /// Possible gradients: linear, radial, conic
+        /// https://developer.mozilla.org/en-US/docs/Web/CSS/gradient
+        static member inline gradient ([<ParamArray>] gradients: IGradient array) =
+            Interop.mkStyle "backgroundImage" (gradients |> Array.map unbox<string> |> String.concat ", ")
+
 
     [<Erase>]
     type boxShadow =
@@ -3341,17 +3353,17 @@ module style =
         /// (potentially snapping to different elements in each axis).
         static member inline both = Interop.mkStyle "scrollSnapType" "both"
         /// The scroll container snaps to snap positions in its horizontal axis only.
-        /// 
+        ///
         /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
         static member inline xMandatory = Interop.mkStyle "scrollSnapType" "x mandatory"
         /// The scroll container snaps to snap positions in its horizontal axis only.
-        /// 
+        ///
         /// The visual viewport of this scroll container may snap to a snap position if it isn't currently scrolled.
         /// The user agent decides if it snaps or not based on scroll parameters. This is the default snap strictness
         /// if any snap axis is specified.
         static member inline xProximity = Interop.mkStyle "scrollSnapType" "x proximity"
         /// The scroll container snaps to snap positions in its vertical axis only.
-        /// 
+        ///
         /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
         static member inline yMandatory = Interop.mkStyle "scrollSnapType" "y mandatory"
         /// The scroll container snaps to snap positions in its vertical axis only.
@@ -3361,7 +3373,7 @@ module style =
         /// if any snap axis is specified.
         static member inline yProximity = Interop.mkStyle "scrollSnapType" "y proximity"
         /// The scroll container snaps to snap positions in its block axis only.
-        /// 
+        ///
         /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
         static member inline blockMandatory = Interop.mkStyle "scrollSnapType" "block mandatory"
         /// The scroll container snaps to snap positions in its block axis only.
@@ -3371,7 +3383,7 @@ module style =
         /// if any snap axis is specified.
         static member inline blockProximity = Interop.mkStyle "scrollSnapType" "block proximity"
         /// The scroll container snaps to snap positions in its inline axis only.
-        /// 
+        ///
         /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
         static member inline inlineMandatory = Interop.mkStyle "scrollSnapType" "inline mandatory"
         /// The scroll container snaps to snap positions in its inline axis only.
@@ -3382,7 +3394,7 @@ module style =
         static member inline inlineProximity = Interop.mkStyle "scrollSnapType" "inline proximity"
         /// The scroll container snaps to snap positions in both of its axes independently
         /// (potentially snapping to different elements in each axis).
-        /// 
+        ///
         /// The visual viewport of this scroll container must snap to a snap position if it isn't currently scrolled.
         static member inline bothMandatory = Interop.mkStyle "scrollSnapType" "both mandatory"
         /// The scroll container snaps to snap positions in both of its axes independently
@@ -3398,16 +3410,16 @@ module style =
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align
     [<Erase>]
     type scrollSnapAlign =
-        /// This box does not define a snap position in the specified axis. 
+        /// This box does not define a snap position in the specified axis.
         static member inline none = Interop.mkStyle "scrollSnapAlign" "none"
         /// Start alignment of this box’s scroll snap area within the scroll
-        /// container’s snapport is a snap position in the specified axis. 
+        /// container’s snapport is a snap position in the specified axis.
         static member inline start = Interop.mkStyle "scrollSnapAlign" "start"
         /// Center alignment of this box’s scroll snap area within the scroll
-        /// container’s snapport is a snap position in the specified axis. 
+        /// container’s snapport is a snap position in the specified axis.
         static member inline center = Interop.mkStyle "scrollSnapAlign" "center"
         /// End alignment of this box’s scroll snap area within the scroll
-        /// container’s snapport is a snap position in the specified axis. 
+        /// container’s snapport is a snap position in the specified axis.
         static member inline end' = Interop.mkStyle "scrollSnapAlign" "end"
         static member inline noneStart = Interop.mkStyle "scrollSnapAlign" "none start"
         static member inline noneCenter = Interop.mkStyle "scrollSnapAlign" "none center"
@@ -3421,9 +3433,9 @@ module style =
         static member inline endNone = Interop.mkStyle "scrollSnapAlign" "end none"
         static member inline endStart = Interop.mkStyle "scrollSnapAlign" "end start"
         static member inline endCenter =  Interop.mkStyle "scrollSnapAlign" "end center"
-    
-    
-    
+
+
+
     /// Sets the maximum thickness of an element's scrollbars when they are shown.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width
     [<Erase>]
@@ -3431,11 +3443,11 @@ module style =
         /// The default scrollbar width for the platform.
         static member inline auto = Interop.mkStyle "scrollbarWidth" "auto"
         /// A thin scrollbar width variant on platforms that provide that option,
-        /// or a thinner scrollbar than the default platform scrollbar width. 
+        /// or a thinner scrollbar than the default platform scrollbar width.
         static member inline thin = Interop.mkStyle "scrollbarWidth" "thin"
         /// No scrollbar shown, however the element will still be scrollable.
         static member inline none = Interop.mkStyle "scrollbarWidth" "none"
-    
+
     /// Reserves space for the scrollbar, preventing unwanted layout changes as
     /// the content grows while also avoiding unnecessary visuals when scrolling
     /// isn't needed.
@@ -3453,7 +3465,7 @@ module style =
         /// When using classic scrollbars, the gutter will be present if overflow
         /// is auto, scroll, or hidden even if the box is not overflowing.
         /// When using overlay scrollbars, the gutter will not be present.
-        /// 
+        ///
         /// If a gutter would be present on one of the inline start/end edges
         /// of the box, another will be present on the opposite edge as well.
         static member inline stableBothEdges = Interop.mkStyle "scrollbarGutter" "stable both-edges"
@@ -3507,7 +3519,7 @@ module style =
         /// The characters are rotated 90° clockwise. This is the default value of this property.
         static member inline mixed = Interop.mkStyle "textOrientation" "mixed"
         /// The characters of horizontal scripts are laid out naturally (upright), as
-        /// well as the glyphs for vertical scripts. This property makes all the 
+        /// well as the glyphs for vertical scripts. This property makes all the
         /// characters to be considered as left-to-right: the used value of direction is forced to be ltr.
         static member inline upright = Interop.mkStyle "textOrientation" "upright"
         /// The characters are laid out as they would be horizontally, but with the whole
@@ -3721,7 +3733,7 @@ module style =
         static member inline initial = Interop.mkStyle "letterSpacing" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "letterSpacing" "inherit"
-    
+
     /// Sets the distance between the borders of adjacent table cells.
     [<Erase>]
     type borderSpacing =
@@ -3746,14 +3758,14 @@ module style =
         /// - For grid items, this keyword leads to a behavior similar to the one of stretch, except for boxes with an aspect ratio or an intrinsic sizes where it behaves like start.
         /// - The property doesn't apply to block-level boxes, and to table cells.
         static member inline normal = Interop.mkStyle "alignSelf" "normal"
-        
+
         /// The flex item's margin box is centered within the line on the cross-axis.
         /// If the cross-size of the item is larger than the flex container, it will overflow equally in both directions.
         static member inline center = Interop.mkStyle "alignSelf" "center"
         /// Put the item at the start
         static member inline start = Interop.mkStyle "alignSelf" "start"
         /// Put the item at the end
-        static member inline end' = Interop.mkStyle "alignSelf" "end"        
+        static member inline end' = Interop.mkStyle "alignSelf" "end"
         /// Aligns the items to be flush with the edge of the alignment container corresponding to the item's start side in the cross axis.
         static member inline selfStart = Interop.mkStyle "alignSelf" "self-start"
         /// Aligns the items to be flush with the edge of the alignment container corresponding to the item's end side in the cross axis.
@@ -3762,7 +3774,7 @@ module style =
         static member inline flexStart = Interop.mkStyle "alignSelf" "flex-start"
         /// The cross-end margin edge of the flex item is flushed with the cross-end edge of the line.
         static member inline flexEnd = Interop.mkStyle "alignSelf" "flex-end"
-        
+
         /// Specifies participation in first- or last-baseline alignment:
         /// aligns the alignment baseline of the box's first or last baseline set with the corresponding baseline
         /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
@@ -3770,13 +3782,13 @@ module style =
         /// Specifies participation in first- or last-baseline alignment:
         /// aligns the alignment baseline of the box's first or last baseline set with the corresponding baseline
         /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
-        /// 
+        ///
         /// The fallback alignment for first baseline is start
         static member inline firstBaseline = Interop.mkStyle "alignSelf" "first baseline"
         /// Specifies participation in first- or last-baseline alignment:
         /// aligns the alignment baseline of the box's first or last baseline set with the corresponding baseline
         /// in the shared first or last baseline set of all the boxes in its baseline-sharing group.
-        /// 
+        ///
         /// The fallback alignment for last baseline is end
         static member inline lastBaseline = Interop.mkStyle "alignSelf" "last baseline"
         /// If the combined size of the items along the cross axis is less than the size of the alignment container
@@ -3784,7 +3796,7 @@ module style =
         /// while still respecting the constraints imposed by `max-height`/`max-width` (or equivalent functionality),
         /// so that the combined size of all auto-sized items exactly fills the alignment container along the cross axis.
         static member inline stretch = Interop.mkStyle "alignSelf" "stretch"
-        
+
         /// Sets this property to its default value
         static member inline initial = Interop.mkStyle "alignSelf" "initial"
         /// Inherits this property from its parent element
@@ -3850,7 +3862,7 @@ module style =
     type alignContent =
         /// Default value. The items are packed in their default position as if no `align-content` value was set.
         static member inline normal = Interop.mkStyle "alignContent" "normal"
-        
+
         /// The items are packed flush to each other in the center of the alignment container along the cross axis.
         static member inline center = Interop.mkStyle "alignContent" "center"
         /// The items are packed flush to each other against the start edge of the alignment container in the cross axis.
@@ -3913,9 +3925,9 @@ module style =
     /// - In table cell layouts, this property is ignored
     /// - In grid layouts, it aligns an item inside its grid area on the inline axis
     /// - In flexbox layouts, this property is ignored
-    /// 
+    ///
     /// **Reference**: https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self
-    /// 
+    ///
     /// **Tip**: Use the align-items property to align the items vertically.
     [<Erase>]
     type justifySelf =
@@ -4303,7 +4315,7 @@ module style =
     /// Defines visual effects like blur and saturation to an element.
     [<Erase>]
     type filters =
-        static member inline private mkFilter value : IFilter = unbox value 
+        static member inline private mkFilter value : IFilter = unbox value
         /// Default value. Specifies no effects.
         static member inline none = filters.mkFilter "none"
         /// Applies a blur effect to the element. A larger value will create more blur.
@@ -5009,7 +5021,7 @@ module style =
         static member inline none = Interop.mkStyle "objectFit" "none"
         /// The content is sized as if none or contain were specified, whichever would result in a smaller concrete object size.
         static member inline scaleDown = Interop.mkStyle "objectFit" "scale-down"
-    
+
     [<Erase>]
     type backgroundPosition =
         /// The background image will scroll with the page. This is default.
@@ -5449,7 +5461,7 @@ module style =
         /// Resets to its inherited value if the property naturally inherits from its parent,
         /// and to its initial value if not.
         static member inline unset = Interop.mkStyle "breakAfter" "unset"
-    
+
     /// Sets the break-inside property of an element.
     ///
     /// The break-inside CSS property sets how page, column, or region breaks should behave inside a generated box. If there is no generated box, the property is ignored.
@@ -5472,11 +5484,11 @@ module style =
         /// Resets to its inherited value if the property naturally inherits from its parent,
         /// and to its initial value if not.
         static member inline unset = Interop.mkStyle "breakInside" "unset"
-    
+
     /// Sets the origin for an element's transformations.
     /// The transform origin is the point around which a transformation is applied.
     [<Erase>]
-    type transformOrigin =        
+    type transformOrigin =
         static member inline initial = Interop.mkStyle "transformOrigin" "initial"
         static member inline inheritFromParent = Interop.mkStyle "transformOrigin" "inherit"
         static member inline revert = Interop.mkStyle "transformOrigin" "revert"
@@ -6351,7 +6363,7 @@ module style =
         /// style.gridAutoColumns.maxContent
         /// ```
         static member inline maxContent = Interop.mkStyle "gridAutoColumns" "max-content"
-    
+
     /// Specifies the size of an implicitly-created grid row track
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows

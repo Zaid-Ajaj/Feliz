@@ -168,7 +168,7 @@ let CounterWithRecord (props: Examples.CounterRecordProps) =
         if props.show then Html.h1 count
     ]
 
-type MoreExamples() = 
+type MoreExamples() =
     [<ReactComponent>]
     static member CounterWithRecord (props: Examples.CounterRecordProps, ?showAge: bool) =
         let showAge = defaultArg showAge false
@@ -582,6 +582,7 @@ let samples = [
     "effectful-user-id", DelayedComponent.render {| load = Examples.effectfulUserId |}
     "effectful-timer", DelayedComponent.render {| load = Examples.timer |}
     "effectful-usecancellationtoken", DelayedComponent.render {| load = Examples.TokenCancellation.render |}
+    "gradients", Examples.exampleGradients ()
     "static-html", Examples.staticHtml()
     "static-markup", Examples.staticMarkup()
     "basic-select-search", basicDropdown()
@@ -679,10 +680,10 @@ let centeredSpinner =
 /// Renders a code block from markdown using react-highlight.
 /// Injects sample React components when the code block has language of the format <language>:<sample-name>
 [<ReactComponent>]
-let codeBlockRenderer (codeProps: ICodeProperties ) : ReactElement = 
-    if  codeProps.language = "" then 
+let codeBlockRenderer (codeProps: ICodeProperties ) : ReactElement =
+    if  codeProps.language = "" then
         Html.code [ prop.text codeProps.value ]
-    else 
+    else
         Highlight.highlight [
             highlight.style [
                 style.padding (length.px 0)
