@@ -14,7 +14,9 @@ module.exports = function (evn, argv) {
             path: path.join(__dirname, './public'),
         },
         devServer: {
-            contentBase: './public',
+            static: {
+                directory: './public',
+            },
             port: 8080
         },
         module: {
