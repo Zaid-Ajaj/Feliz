@@ -1059,6 +1059,30 @@ type style =
             (unbox<string>size) + " [" +
             areaName + "])"
         )
+    /// Sets the gridTemplateColumns using the full css syntax tree
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns#formal_syntax
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template: repeat(auto-fill, minmax(2%, 1fr) [test]) / none;
+    /// grid-auto-rows: auto;
+    /// grid-auto-columns: auto;
+    /// grid-auto-flow: column;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateColumns (
+    ///     gridTemplateRowsOrColumns.autoTrackList (
+    ///         gridAutoTrackList.autoRepeat (
+    ///             gridAutoRepeat.repeatAutoFill (
+    ///                 gridFixedSize.minmax (2, length.fr 1),
+    ///                 gridLineNames.names ("Test")
+    ///             )
+    ///         )
+    ///     )
+    /// )
+    /// ```
+    static member inline gridTemplateColumns(gridTemplate: IGridTemplateRowsOrColumns) = Interop.mkStyle "gridTemplateColumns" (unbox gridTemplate)
     /// Sets the width of a number of grid rows to the defined width in pixels
     ///
     /// **CSS**
@@ -1270,6 +1294,30 @@ type style =
             (unbox<string>size) + " [" +
             areaName + "])"
         )
+    /// Sets the gridTemplateRows using the full css syntax tree
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows#formal_syntax
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-template: repeat(auto-fill, minmax(2%, 1fr) [test]) / none;
+    /// grid-auto-rows: auto;
+    /// grid-auto-columns: auto;
+    /// grid-auto-flow: row;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridTemplateRows (
+    ///     gridTemplateRowsOrColumns.autoTrackList (
+    ///         gridAutoTrackList.autoRepeat (
+    ///             gridAutoRepeat.repeatAutoFill (
+    ///                 gridFixedSize.minmax (2, length.fr 1),
+    ///                 gridLineNames.names ("Test")
+    ///             )
+    ///         )
+    ///     )
+    /// )
+    /// ```
+    static member inline gridTemplateRows(gridTemplate: IGridTemplateRowsOrColumns) = Interop.mkStyle "gridTemplateRows" (unbox gridTemplate)
     /// 2D representation of grid layout as blocks with names
     ///
     /// **CSS**
@@ -1680,7 +1728,7 @@ type style =
     /// ```f#
     /// style.gridColumnStart (gridColumn.span "odd-col")
     /// ```
-    static member inline gridColumnStart(value: IGridSpan) = Interop.mkStyle "gridColumnStart" value
+    static member inline gridColumnStart(value: IGridLine) = Interop.mkStyle "gridColumnStart" value
     /// Sets where an item in the grid ends
     /// The value can be one of the following options:
     /// - a named line
@@ -1751,7 +1799,7 @@ type style =
     /// ```f#
     /// style.gridColumnEnd (gridColumn.span 2)
     /// ```
-    static member inline gridColumnEnd(value: IGridSpan) = Interop.mkStyle "gridColumnEnd" value
+    static member inline gridColumnEnd(value: IGridLine) = Interop.mkStyle "gridColumnEnd" value
     /// Sets where an item in the grid starts
     /// The value can be one of the following options:
     /// - a named line
@@ -1818,9 +1866,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRowStart (gridRow.span "odd-col")
+    /// style.gridRowStart (gridLine.span "odd-col")
     /// ```
-    static member inline gridRowStart(value: IGridSpan) = Interop.mkStyle "gridRowStart" value
+    static member inline gridRowStart(value: IGridLine) = Interop.mkStyle "gridRowStart" value
     /// Sets where an item in the grid ends
     /// The value can be one of the following options:
     /// - a named line
@@ -1889,9 +1937,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRowEnd (gridRow.span 2)
+    /// style.gridRowEnd (gridLine.span 2)
     /// ```
-    static member inline gridRowEnd(value: IGridSpan) = Interop.mkStyle "gridRowEnd" value
+    static member inline gridRowEnd(value: IGridLine) = Interop.mkStyle "gridRowEnd" value
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
     /// They can be one of the following options:
@@ -1951,9 +1999,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn ("col-2", gridColumn.span 2)
+    /// style.gridColumn ("col-2", gridLine.span 2)
     /// ```
-    static member inline gridColumn(start: string, end': IGridSpan) =
+    static member inline gridColumn(start: string, end': gridLine) =
         Interop.mkStyle "gridColumn" (start + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2014,9 +2062,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn (1, gridColumn.span 2)
+    /// style.gridColumn (1, gridLine.span 2)
     /// ```
-    static member inline gridColumn(start: int, end': IGridSpan) =
+    static member inline gridColumn(start: int, end': IGridLine) =
         Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2035,9 +2083,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn (gridColumn.span 2, "col-3")
+    /// style.gridColumn (gridLine.span 2, "col-3")
     /// ```
-    static member inline gridColumn(start: IGridSpan, end': string) =
+    static member inline gridColumn(start: IGridLine, end': string) =
         Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + end')
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2056,9 +2104,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn (gridColumn.span 2, 4)
+    /// style.gridColumn (gridLine.span 2, 4)
     /// ```
-    static member inline gridColumn(start: IGridSpan, end': int) =
+    static member inline gridColumn(start: IGridLine, end': int) =
         Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2073,13 +2121,13 @@ type style =
     ///
     /// **CSS**
     /// ```css
-    /// grid-column: span 2 / span 3;
+    /// grid-column: span 2 / span body;
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridColumn (gridColumn.span 2, gridColumn.span 3)
+    /// style.gridColumn (gridLine.span 2, gridLine.span "body")
     /// ```
-    static member inline gridColumn(start: IGridSpan, end': IGridSpan) =
+    static member inline gridColumn(start: IGridLine, end': IGridLine) =
         Interop.mkStyle "gridColumn" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2140,9 +2188,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow ("row-2", gridRow.span 2)
+    /// style.gridRow ("row-2", gridLine.span 2)
     /// ```
-    static member inline gridRow(start: string, end': IGridSpan) =
+    static member inline gridRow(start: string, end': IGridLine) =
         Interop.mkStyle "gridRow" (start + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2203,9 +2251,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow (2, gridRow.span 3)
+    /// style.gridRow (2, gridLine.span 3)
     /// ```
-    static member inline gridRow(start: int, end': IGridSpan) =
+    static member inline gridRow(start: int, end': IGridLine) =
         Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2224,9 +2272,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow (gridRow.span 2, "row-4")
+    /// style.gridRow (gridLine.span 2, "row-4")
     /// ```
-    static member inline gridRow(start: IGridSpan, end': string) =
+    static member inline gridRow(start: IGridLine, end': string) =
         Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + end')
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2245,9 +2293,9 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow (gridRow.span 2, 3)
+    /// style.gridRow (gridLine.span 2, 3)
     /// ```
-    static member inline gridRow(start: IGridSpan, end': int) =
+    static member inline gridRow(start: IGridLine, end': int) =
         Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
     /// Determines a grid item’s location within the grid by referring to specific grid lines.
     /// start is the line where the item begins, end' is the line where it ends.
@@ -2266,11 +2314,11 @@ type style =
     /// ```
     /// **F#**
     /// ```f#
-    /// style.gridRow (gridRow.span 2, gridRow.span 3)
+    /// style.gridRow (gridLine.span 2, gridLine.span 3)
     /// ```
-    static member inline gridRow(start: IGridSpan, end': IGridSpan) =
+    static member inline gridRow(start: IGridLine, end': IGridLine) =
         Interop.mkStyle "gridRow" ((unbox<string>start) + " / " + (unbox<string>end'))
-    /// Specifies the size of an implicitly-created grid row track
+    /// Specifies the sizes of implicitly-created grid row tracks
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
     ///
@@ -2284,6 +2332,20 @@ type style =
     /// ```
     static member inline gridAutoRows(value: ICssUnit) =
         Interop.mkStyle "gridAutoRows" (unbox<string> value)
+    /// Specifies the sizes of implicitly-created grid row tracks
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-rows: 50px 60px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoRows (length.px 50, length.px 60)
+    /// ```
+    static member inline gridAutoRows([<ParamArray>]values: ICssUnit array) =
+        Interop.mkStyle "gridAutoRows" (String.concat "," (unbox<string array> values))
     /// Specifies the size of an implicitly-created grid row track
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
@@ -2298,6 +2360,20 @@ type style =
     /// ```
     static member inline gridAutoRows(value: int) =
         Interop.mkStyle "gridAutoRows" (unbox<string> value)
+    /// Specifies the sizes of implicitly-created grid row tracks
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-rows: 10px 20px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoRows (10, 20)
+    /// ```
+    static member inline gridAutoRows([<ParamArray>]values: int array) =
+        Interop.mkStyle "gridAutoRows" (String.concat "," (unbox<string array> values)) 
     /// Specifies the size of an implicitly-created grid row track
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
@@ -2312,6 +2388,20 @@ type style =
     /// ```
     static member inline gridAutoRows(value: float) =
         Interop.mkStyle "gridAutoRows" (unbox<string> value)
+    /// Specifies the sizes of implicitly-created grid row tracks
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-rows: 50.5px 60.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoRows (50.5, 60.5)
+    /// ```
+    static member inline gridAutoRows([<ParamArray>]values: float array) =
+        Interop.mkStyle "gridAutoRows" (String.concat "," (unbox<string array> values)) 
     /// Specifies the size of an implicitly-created grid column track
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
@@ -2326,6 +2416,20 @@ type style =
     /// ```
     static member inline gridAutoColumns(value: ICssUnit) =
         Interop.mkStyle "gridAutoColumns" (unbox<string> value)
+    /// Specifies the sizes of implicitly-created grid column tracks
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-columns: 50px 60px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoColumns (length.px 50, length.px 60)
+    /// ```
+    static member inline gridAutoColumns([<ParamArray>]values: ICssUnit array) =
+        Interop.mkStyle "gridAutoColumns" (String.concat "," (unbox<string array> values))
     /// Specifies the size of an implicitly-created grid column track
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
@@ -2340,6 +2444,20 @@ type style =
     /// ```
     static member inline gridAutoColumns(value: int) =
         Interop.mkStyle "gridAutoColumns" (unbox<string> value)
+    /// Specifies the sizes of implicitly-created grid column tracks
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-columns: 10px 20px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoColumns (10, 20)
+    /// ```
+    static member inline gridAutoColumns([<ParamArray>]values: int array) =
+        Interop.mkStyle "gridAutoColumns" (String.concat "," (unbox<string array> values))
     /// Specifies the size of an implicitly-created grid column track
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
@@ -2354,6 +2472,20 @@ type style =
     /// ```
     static member inline gridAutoColumns(value: float) =
         Interop.mkStyle "gridAutoColumns" (unbox<string> value)
+    /// Specifies the sizes of implicitly-created grid column tracks
+    ///
+    /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-auto-columns: 50.5px 60.5px;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridAutoColumns (50.5, 60.5)
+    /// ```
+    static member inline gridAutoColumns([<ParamArray>]values: float array) =
+        Interop.mkStyle "gridAutoColumns" (String.concat "," (unbox<string array> values))
     /// Sets the named grid area the item is placed in
     ///
     /// **CSS**
@@ -2366,6 +2498,54 @@ type style =
     /// ```
     static member inline gridArea(value: string) =
         Interop.mkStyle "gridArea" value
+    /// Sets the named grid area the item is placed in
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-area: header;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridArea (gridLine.line "header")
+    /// ```
+    static member inline gridArea(line: IGridLine) =
+        Interop.mkStyle "gridArea" (unbox<string> line)
+    /// Sets the named grid area the item is placed in
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-area: header / body;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridArea (gridLine.line "header", gridLine.line "body")
+    /// ```
+    static member inline gridArea(line: IGridLine, line2: IGridLine) =
+        Interop.mkStyle "gridArea" (unbox<string> line + " / " + unbox<string> line2)
+    /// Sets the named grid area the item is placed in
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-area: header / body / footer;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridArea (gridLine.line "header", gridLine.line "body", gridLine.line "footer")
+    /// ```
+    static member inline gridArea(line: IGridLine, line2: IGridLine, line3: IGridLine) =
+        Interop.mkStyle "gridArea" (unbox<string> line + " / " + unbox<string> line2 + " / " + unbox<string> line3)
+    /// Sets the named grid area the item is placed in
+    ///
+    /// **CSS**
+    /// ```css
+    /// grid-area: header / body / footer / 10 special;
+    /// ```
+    /// **F#**
+    /// ```f#
+    /// style.gridArea (gridLine.line "header", gridLine.line "body", gridLine.line "footer", gridLine.line (10 "special"))
+    /// ```
+    static member inline gridArea(line: IGridLine, line2: IGridLine, line3: IGridLine, line4: IGridLine) =
+        Interop.mkStyle "gridArea" (unbox<string> line + " / " + unbox<string> line2 + " / " + unbox<string> line3 + " / " +  unbox<string> line4)
     /// Shorthand for `grid-template-areas`, `grid-template-columns` and `grid-template-rows`.
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template
@@ -3146,6 +3326,32 @@ type style =
     
 [<Erase>]
 module style =
+    [<Erase>]
+    type grid = 
+        static member inline template(template: IGridTemplate) = Interop.mkStyle "grid" (unbox<string> template)
+        static member inline autoFlow(rows: IGridTemplateRowsOrColumns) = 
+            let gg = (unbox<string> rows + " / auto-flow")
+            Fable.Core.JS.console.log gg
+            Interop.mkStyle "grid" gg
+        static member inline autoFlow(rows: IGridTemplateRowsOrColumns, columns: IGridTemplateRowsOrColumns) = 
+            let gg = (unbox<string> rows + " / auto-flow" + unbox<string> columns)
+            Fable.Core.JS.console.log gg
+            Interop.mkStyle "grid" gg
+        static member inline autoFlowDense(rows: IGridTemplateRowsOrColumns) = 
+            let gg = (unbox<string> rows + " / auto-flow dense")
+            Fable.Core.JS.console.log gg
+            Interop.mkStyle "grid" gg
+        static member inline autoFlowDense(rows: IGridTemplateRowsOrColumns, columns: IGridTemplateRowsOrColumns) = 
+            let gg = (unbox<string> rows + " / auto-flow dense " + unbox<string> columns)
+            Fable.Core.JS.console.log gg
+            Interop.mkStyle "grid" gg
+
+        static member inline none = Interop.mkStyle "grid" "none"
+        static member inline inheritFromParent = Interop.mkStyle "grid" "inherit"
+        static member inline initial = Interop.mkStyle "grid" "initial"
+        static member inline revert = Interop.mkStyle "grid" "revert"
+        static member inline revertLayer = Interop.mkStyle "grid" "revertLayer"
+        static member inline unset = Interop.mkStyle "grid" "unset"
 
     [<Erase>]
     type boxShadow =
@@ -6307,6 +6513,12 @@ module style =
         /// ```
         static member inline columnDense = Interop.mkStyle "gridAutoFlow" "column dense"
 
+        static member inline inheritFromParent = Interop.mkStyle "gridAutoFlow" "inherit"
+        static member inline initial = Interop.mkStyle "gridAutoFlow" "initial"
+        static member inline revert = Interop.mkStyle "gridAutoFlow" "revert"
+        static member inline revertLayer = Interop.mkStyle "gridAutoFlow" "revert-layer"
+        static member inline unset = Interop.mkStyle "gridAutoFlow" "unset"
+
     /// Specifies the size of an implicitly-created grid column track
     ///
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
@@ -6351,6 +6563,39 @@ module style =
         /// style.gridAutoColumns.maxContent
         /// ```
         static member inline maxContent = Interop.mkStyle "gridAutoColumns" "max-content"
+        /// Represents the largest maximal content contribution of the grid items occupying the grid track
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-columns: 20px;
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoColumns.length (length.px 20)
+        /// ```
+        static member inline minMax (minLength: ICssUnit, maxLength: ICssUnit)  = Interop.mkStyle "gridAutoColumns" ("minmax(" + unbox minLength + ", " + unbox maxLength + "%)")
+        /// Represents the formula min(max-content, max(auto, argument)), which is calculated similar to auto (i.e. minmax(auto, max-content)),
+        /// except that the track size is clamped at argument if it is greater than the auto minimum.
+        ///
+        /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns#values
+        ///
+        /// **CSS**
+        /// ```css
+        /// grid-auto-columns: fit-content(20%);
+        /// ```
+        /// **F#**
+        /// ```f#
+        /// style.gridAutoColumns.fitContent 20
+        /// ```
+        static member inline fitContent (percentage: int) = Interop.mkStyle "gridAutoColumns" ("fit-content(" + unbox percentage + "%)")
+
+        static member inline inheritFromParent = Interop.mkStyle "gridAutoColumns" "inherit"
+        static member inline initial = Interop.mkStyle "gridAutoColumns" "initial"
+        static member inline revert = Interop.mkStyle "gridAutoColumns" "revert"
+        static member inline revertLayer = Interop.mkStyle "gridAutoColumns" "revert-layer"
+        static member inline unset = Interop.mkStyle "gridAutoColumns" "unset"
     
     /// Specifies the size of an implicitly-created grid row track
     ///
@@ -6396,6 +6641,12 @@ module style =
         /// style.gridAutoRows.maxContent
         /// ```
         static member inline maxContent = Interop.mkStyle "gridAutoRows" "max-content"
+
+        static member inline inheritFromParent = Interop.mkStyle "gridAutoRows" "inherit"
+        static member inline initial = Interop.mkStyle "gridAutoRows" "initial"
+        static member inline revert = Interop.mkStyle "gridAutoRows" "revert"
+        static member inline revertLayer = Interop.mkStyle "gridAutoRows" "revert-layer"
+        static member inline unset = Interop.mkStyle "gridAutoRows" "unset"
 
     /// Sets the height of a line box. It's commonly used to set the distance between lines of text.
     /// On block-level elements, it specifies the minimum height of line boxes within the element.
